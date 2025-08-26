@@ -7,7 +7,7 @@
 - [x] Install and configure Tailwind CSS.
 
 ## Page Creation
-- [ ] Create a registration page at `/register`.
+- [x] Create a registration page at `/register`.
 
 ## Component Creation
 - [ ] Create a `RegistrationForm` component.
