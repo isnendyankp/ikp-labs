@@ -2,9 +2,9 @@
 # Registration Form Initialization Checklist (Next.js)
 
 ## Project Setup
-- [ ] Initialize Next.js project (`npx create-next-app@latest registrationFormTemplate`)
-- [ ] Setup project structure (folders for components, services, etc.)
-- [ ] Install and configure Tailwind CSS.
+- [x] Initialize Next.js project (`npx create-next-app@latest registrationFormTemplate`)
+- [x] Setup project structure (folders for components, services, etc.)
+- [x] Install and configure Tailwind CSS.
 
 ## Page Creation
 - [ ] Create a registration page at `/register`.
