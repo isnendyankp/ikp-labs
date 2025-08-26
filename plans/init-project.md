@@ -10,13 +10,13 @@
 - [x] Create a registration page at `/register`.
 
 ## Component Creation
-- [ ] Create a `RegistrationForm` component.
+- [x] Create a `RegistrationForm` component.
 - [x] Add input fields for:
-    - [ ] Full Name
-    - [ ] Email
-    - [ ] Password
+    - [x] Full Name
+    - [x] Email
+    - [x] Password
     - [ ] Confirm Password
-- [ ] Add a submit button.
+- [x] Add a submit button.
 
 ## Form Logic
 - [ ] Implement state management for form inputs (e.g., using `useState`).
