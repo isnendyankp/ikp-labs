@@ -15,18 +15,18 @@
     - [x] Full Name
     - [x] Email
     - [x] Password
-    - [ ] Confirm Password
+    - [x] Confirm Password
 - [x] Add a submit button.
 
 ## Form Logic
-- [ ] Implement state management for form inputs (e.g., using `useState`).
-- [ ] Implement form validation using Zod:
-    - [ ] Define a schema for the registration form.
-    - [ ] Validate form data against the schema.
-- [ ] Handle form submission:
-    - [ ] Create a function to handle form submission.
-    - [ ] Prevent default form submission behavior.
-    - [ ] Log form data to the console (for now).
+- [x] Implement state management for form inputs (e.g., using `useState`).
+- [x] Implement form validation using Zod:
+    - [x] Define a schema for the registration form.
+    - [x] Validate form data against the schema.
+- [x] Handle form submission:
+    - [x] Create a function to handle form submission.
+    - [x] Prevent default form submission behavior.
+    - [x] Log form data to the console (for now).
 
 ## API Integration (Future)
 - [ ] Create an API endpoint for user registration at `api/register`.
