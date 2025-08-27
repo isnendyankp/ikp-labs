@@ -1,10 +1,36 @@
 # Registration Form Template
 
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app) for building a registration form template.
+A modern, responsive registration form template built with Next.js and Tailwind CSS. This project provides a clean, professional-looking registration page with a hero section and form layout that's perfect for any web application.
+
+![Registration Form Template](public/images/registerFormTemplate1.png)
+
+## Features
+
+- **Modern Design**: Clean and professional UI with a two-panel layout
+- **Responsive**: Fully responsive design that works on all devices
+- **Hero Section**: Beautiful left panel with customizable hero content
+- **Form Components**: Complete registration form with validation ready fields
+- **Google Integration**: Ready-to-use Google sign-up button
+- **TypeScript**: Fully typed for better development experience
+
+## Tech Stack
+
+- **[Next.js 15.5.0](https://nextjs.org)** - React framework for production
+- **[React 19.1.0](https://reactjs.org)** - JavaScript library for building user interfaces
+- **[TypeScript](https://www.typescriptlang.org)** - Typed JavaScript for better development experience
+- **[Tailwind CSS 4](https://tailwindcss.com)** - Utility-first CSS framework
+- **[ESLint](https://eslint.org)** - Code linting and formatting
 
 ## Getting Started
 
-First, run the development server:
+1. Clone the repository
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+3. Run the development server:
 
 ```bash
 npm run dev
@@ -16,11 +42,14 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. Open [http://localhost:3000/register](http://localhost:3000/register) with your browser to see the registration form.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Project Structure
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `/src/app/register/page.tsx` - Registration page route
+- `/src/components/RegistrationForm.tsx` - Main registration form component
+- `/public/images/` - Static images including hero image
+- `/src/app/globals.css` - Global styles and Tailwind CSS imports
 
 ## Learn More
 
