@@ -32,7 +32,7 @@ export default function RegistrationForm() {
         <div 
           className="w-full bg-cover bg-center relative"
           style={{
-            backgroundImage: `linear-gradient(rgba(30, 58, 138, 0.4), rgba(30, 58, 138, 0.4)), url('/images/hero-image.jpg')`
+            backgroundImage: `url('/images/hero-image.jpg')`
           }}
         >
           <div className="absolute inset-0 flex flex-col justify-between p-12">
