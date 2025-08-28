@@ -33,8 +33,8 @@
 - [ ] Connect the form to the `api/register` endpoint.
 
 ## Styling
-- [ ] Style the form using Tailwind CSS.
-- [ ] Ensure the form is responsive.
+- [x] Style the form using Tailwind CSS.
+- [x] Ensure the form is responsive.
 
 ## Testing
 - [ ] Write unit tests for the `RegistrationForm` component.
