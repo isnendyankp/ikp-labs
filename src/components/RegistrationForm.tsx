@@ -56,11 +56,11 @@ export default function RegistrationForm() {
       alert('Registration successful!');
       
     } catch (error) {
-      if (error instanceof z.ZodError) {
+      if (error instanceof z.ZodError && error.errors) {
         // Handle validation errors
         const newErrors: Record<string, string> = {};
         error.errors.forEach((err) => {
-          if (err.path) {
+          if (err.path && err.path.length > 0) {
             newErrors[err.path[0] as string] = err.message;
           }
         });
@@ -116,7 +116,7 @@ export default function RegistrationForm() {
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-6">
+          <form onSubmit={handleSubmit} className="space-y-6" data-testid="registration-form">
             {/* Name Field */}
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
