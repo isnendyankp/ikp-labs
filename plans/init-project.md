@@ -37,8 +37,8 @@
 - [x] Ensure the form is responsive.
 
 ## Testing
-- [ ] Write unit tests for the `RegistrationForm` component.
-- [ ] Set up Playwright for e2e testing.
-- [ ] Set up Cucumber.js to work with Playwright.
-- [ ] Write a Gherkin feature file (`registration.feature`) for the registration flow.
-- [ ] Implement the step definitions for the Gherkin feature file using Playwright.
+- [x] Write unit tests for the `RegistrationForm` component.
+- [x] Set up Playwright for e2e testing.
+- [x] Set up Cucumber.js to work with Playwright.
+- [x] Write a Gherkin feature file (`registration.feature`) for the registration flow.
+- [x] Implement the step definitions for the Gherkin feature file using Playwright.
