@@ -4,31 +4,25 @@ import { useState } from 'react';
 import { z } from 'zod';
 import Link from 'next/link';
 
-const registrationSchema = z.object({
-  name: z.string().min(2, 'Name must be at least 2 characters long'),
+const loginSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
-  password: z.string().min(8, 'Password must be at least 8 characters long'),
-  confirmPassword: z.string()
-}).refine((data) => data.password === data.confirmPassword, {
-  message: "Passwords don't match",
-  path: ["confirmPassword"]
+  password: z.string().min(8, 'Password must be at least 8 characters long')
 });
 
-export default function RegistrationForm() {
+export default function LoginForm() {
   const [formData, setFormData] = useState({
-    name: '',
     email: '',
     password: '',
-    confirmPassword: ''
+    rememberMe: false
   });
   
   const [errors, setErrors] = useState<Record<string, string>>({});
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
+    const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
-      [name]: value
+      [name]: type === 'checkbox' ? checked : value
     });
     
     // Clear error for this field when user starts typing
@@ -44,17 +38,18 @@ export default function RegistrationForm() {
     e.preventDefault();
     
     try {
-      // Validate form data using Zod schema
-      registrationSchema.parse(formData);
+      // Validate form data using Zod schema (excluding rememberMe from validation)
+      const { rememberMe, ...dataToValidate } = formData;
+      loginSchema.parse(dataToValidate);
       
       // Clear any existing errors
       setErrors({});
       
       // Form is valid, proceed with submission
-      console.log('Form data is valid:', formData);
+      console.log('Login data is valid:', formData);
       
       // Here you would typically send data to your API
-      alert('Registration successful!');
+      alert('Login successful!');
       
     } catch (error) {
       if (error instanceof z.ZodError && error.errors) {
@@ -70,8 +65,8 @@ export default function RegistrationForm() {
     }
   };
 
-  const handleGoogleSignup = () => {
-    console.log('Sign up with Google clicked');
+  const handleGoogleSignin = () => {
+    console.log('Sign in with Google clicked');
   };
 
   return (
@@ -93,8 +88,7 @@ export default function RegistrationForm() {
             {/* Main Content */}
             <div className="flex-1 flex flex-col justify-center">
               <h2 className="text-white text-2xl lg:text-3xl font-bold leading-tight mb-8 drop-shadow-lg">
-                abc.com is the best place to find remote talent. We've been super 
-                impressed by the quality of applicants.
+                Welcome back! Ready to continue your journey with the best remote talent platform?
               </h2>
             </div>
             
@@ -107,36 +101,17 @@ export default function RegistrationForm() {
         </div>
       </div>
 
-      {/* Right Panel - Registration Form */}
+      {/* Right Panel - Login Form */}
       <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-white">
         <div className="w-full max-w-md">
           {/* Header */}
           <div className="mb-8">
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">Create an account</h2>
-            <p className="text-gray-600">Let's get started with your 30 days free trial</p>
+            <h2 className="text-3xl font-bold text-gray-900 mb-2">Welcome back</h2>
+            <p className="text-gray-600">Please sign in to your account</p>
           </div>
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-6" data-testid="registration-form">
-            {/* Name Field */}
-            <div>
-              <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                Name
-              </label>
-              <input
-                type="text"
-                id="name"
-                name="name"
-                value={formData.name}
-                onChange={handleChange}
-                className={`w-full border-0 border-b-2 ${errors.name ? 'border-red-500' : 'border-gray-300 focus:border-black'} focus:ring-0 pb-2 bg-transparent text-gray-900 placeholder-gray-500 focus:outline-none transition-colors`}
-                required
-              />
-              {errors.name && (
-                <p className="mt-1 text-sm text-red-600">{errors.name}</p>
-              )}
-            </div>
-
+          <form onSubmit={handleSubmit} className="space-y-6" data-testid="login-form">
             {/* Email Field */}
             <div>
               <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
@@ -175,37 +150,41 @@ export default function RegistrationForm() {
               )}
             </div>
 
-            {/* Confirm Password Field */}
-            <div>
-              <label htmlFor="confirmPassword" className="block text-sm font-medium text-gray-700 mb-2">
-                Confirm Password
-              </label>
-              <input
-                type="password"
-                id="confirmPassword"
-                name="confirmPassword"
-                value={formData.confirmPassword}
-                onChange={handleChange}
-                className={`w-full border-0 border-b-2 ${errors.confirmPassword ? 'border-red-500' : 'border-gray-300 focus:border-black'} focus:ring-0 pb-2 bg-transparent text-gray-900 placeholder-gray-500 focus:outline-none transition-colors`}
-                required
-              />
-              {errors.confirmPassword && (
-                <p className="mt-1 text-sm text-red-600">{errors.confirmPassword}</p>
-              )}
+            {/* Remember Me and Forgot Password */}
+            <div className="flex items-center justify-between">
+              <div className="flex items-center">
+                <input
+                  id="rememberMe"
+                  name="rememberMe"
+                  type="checkbox"
+                  checked={formData.rememberMe}
+                  onChange={handleChange}
+                  className="h-4 w-4 text-black focus:ring-black border-gray-300 rounded"
+                />
+                <label htmlFor="rememberMe" className="ml-2 block text-sm text-gray-700">
+                  Remember me
+                </label>
+              </div>
+
+              <div className="text-sm">
+                <a href="#" className="text-blue-600 hover:text-blue-500 font-medium">
+                  Forgot your password?
+                </a>
+              </div>
             </div>
 
-            {/* Create Account Button */}
+            {/* Sign In Button */}
             <button
               type="submit"
               className="w-full bg-black text-white py-3 px-4 rounded-lg font-medium hover:bg-gray-800 transition-colors mt-8"
             >
-              Create Account
+              Sign In
             </button>
 
-            {/* Google Sign Up Button */}
+            {/* Google Sign In Button */}
             <button
               type="button"
-              onClick={handleGoogleSignup}
+              onClick={handleGoogleSignin}
               className="w-full bg-white border-2 border-gray-300 text-gray-700 py-3 px-4 rounded-lg font-medium hover:bg-gray-50 transition-colors flex items-center justify-center gap-3"
             >
               <svg className="w-5 h-5" viewBox="0 0 24 24">
@@ -226,15 +205,15 @@ export default function RegistrationForm() {
                   d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"
                 />
               </svg>
-              Sign up with Google
+              Sign in with Google
             </button>
           </form>
 
-          {/* Sign In Link */}
+          {/* Sign Up Link */}
           <p className="mt-6 text-center text-gray-600">
-            Already have an account?{' '}
-            <Link href="/login" className="text-blue-600 hover:text-blue-500 font-medium">
-              Sign in
+            Don't have an account?{' '}
+            <Link href="/register" className="text-blue-600 hover:text-blue-500 font-medium">
+              Sign up
             </Link>
           </p>
         </div>
