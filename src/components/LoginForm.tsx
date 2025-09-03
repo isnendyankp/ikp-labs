@@ -152,6 +152,7 @@ export default function LoginForm() {
                   type="button"
                   className="absolute inset-y-0 right-0 flex items-center px-2 text-gray-400 hover:text-gray-600"
                   onClick={() => setShowPassword(!showPassword)}
+                  title={showPassword ? "Hide password" : "Show password"}
                 >
                   {showPassword ? (
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
