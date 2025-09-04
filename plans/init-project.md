@@ -67,10 +67,10 @@
 
 ## Testing
 - [x] Write unit tests for the `RegistrationForm` component.
-- [ ] Write unit tests for the `LoginForm` component.
+- [x] Write unit tests for the `LoginForm` component.
 - [x] Set up Playwright for e2e testing.
 - [x] Set up Cucumber.js to work with Playwright.
 - [x] Write a Gherkin feature file (`registration.feature`) for the registration flow.
-- [ ] Write a Gherkin feature file (`login.feature`) for the login flow.
+- [x] Write a Gherkin feature file (`login.feature`) for the login flow.
 - [x] Implement the step definitions for the Gherkin feature file using Playwright.
-- [ ] Implement the step definitions for the login feature file using Playwright.
+- [x] Implement the step definitions for the login feature file using Playwright.
