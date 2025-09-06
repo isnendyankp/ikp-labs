@@ -4,6 +4,8 @@ A modern, responsive registration form template built with Next.js and Tailwind 
 
 ![Registration Form Template](public/images/registerFormTemplate1.png)
 
+![Login Form Template](public/images/loginFormTemplate1.png)
+
 ## Features
 
 - **Modern Design**: Clean and professional UI with a two-panel layout
