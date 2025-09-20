@@ -1,45 +1,24 @@
 {
-  "name": "registration-form-template",
-  "version": "0.1.0",
+  "name": "registration-form-monorepo",
+  "version": "1.0.0",
+  "description": "Registration Form Template - Frontend and Backend",
   "private": true,
+  "workspaces": [
+    "frontend",
+    "backend"
+  ],
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "eslint",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
-    "test:e2e": "npx playwright test",
-    "test:e2e:ui": "npx playwright test --ui",
-    "test:cucumber": "cucumber-js tests/e2e/features --require-module ts-node/register --require tests/e2e/steps/**/*.ts",
-    "test:all": "npm run test && npm run test:e2e"
+    "dev:frontend": "npm run dev --workspace=registration-form-frontend",
+    "build:frontend": "npm run build --workspace=registration-form-frontend",
+    "start:frontend": "npm run start --workspace=registration-form-frontend",
+    "test:frontend": "npm run test --workspace=registration-form-frontend",
+    "lint:frontend": "npm run lint --workspace=registration-form-frontend",
+    "dev": "npm run dev:frontend",
+    "build": "npm run build:frontend",
+    "install:all": "npm install && npm install --workspace=registration-form-frontend"
   },
-  "dependencies": {
-    "next": "15.5.0",
-    "react": "19.1.0",
-    "react-dom": "19.1.0",
-    "zod": "^4.1.3"
-  },
-  "devDependencies": {
-    "@cucumber/cucumber": "^12.2.0",
-    "@cucumber/pretty-formatter": "^2.1.0",
-    "@eslint/eslintrc": "^3",
-    "@playwright/test": "^1.55.0",
-    "@tailwindcss/postcss": "^4",
-    "@testing-library/jest-dom": "^6.8.0",
-    "@testing-library/react": "^16.3.0",
-    "@testing-library/user-event": "^14.6.1",
-    "@types/jest": "^30.0.0",
-    "@types/node": "^20",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "eslint": "^9",
-    "eslint-config-next": "15.5.0",
-    "jest": "^30.1.1",
-    "jest-environment-jsdom": "^30.1.1",
-    "tailwindcss": "^4",
-    "ts-node": "^10.9.2",
-    "typescript": "^5"
+  "devDependencies": {},
+  "engines": {
+    "node": ">=18.0.0"
   }
 }
