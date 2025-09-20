@@ -1,10 +1,10 @@
 # Registration Form Template
 
-A modern, responsive registration form template built with Next.js and Tailwind CSS. This project provides a clean, professional-looking registration page with a hero section and form layout that's perfect for any web application.
+A modern, responsive registration form template built with Next.js and Tailwind CSS. This monorepo contains a complete frontend implementation with placeholder for backend development. The frontend provides a clean, professional-looking registration page with a hero section and form layout that's perfect for any web application.
 
-![Registration Form Template](public/images/registerFormTemplate1.png)
+![Registration Form Template](frontend/public/images/registerFormTemplate1.png)
 
-![Login Form Template](public/images/loginFormTemplate1.png)
+![Login Form Template](frontend/public/images/loginFormTemplate1.png)
 
 ## Features
 
@@ -14,6 +14,8 @@ A modern, responsive registration form template built with Next.js and Tailwind 
 - **Form Components**: Complete registration form with validation ready fields
 - **Google Integration**: Ready-to-use Google sign-up button
 - **TypeScript**: Fully typed for better development experience
+- **Monorepo Structure**: Organized with separate frontend and backend directories
+- **Workspace Management**: NPM workspaces for easy development
 
 ## Tech Stack
 
@@ -35,23 +37,40 @@ npm install
 3. Run the development server:
 
 ```bash
+# From root directory (recommended)
 npm run dev
 # or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev:frontend
+
+# Or from frontend directory
+cd frontend
+npm run dev
 ```
 
-4. Open [http://localhost:3000/register](http://localhost:3000/register) with your browser to see the registration form.
+4. Open [http://localhost:3001/register](http://localhost:3001/register) with your browser to see the registration form.
+5. Open [http://localhost:3001/login](http://localhost:3001/login) for the login form.
 
 ## Project Structure
 
-- `/src/app/register/page.tsx` - Registration page route
-- `/src/components/RegistrationForm.tsx` - Main registration form component
-- `/public/images/` - Static images including hero image
-- `/src/app/globals.css` - Global styles and Tailwind CSS imports
+```
+project-root/
+├── frontend/                    # Frontend React/Next.js application
+│   ├── src/app/register/       # Registration page route
+│   ├── src/app/login/          # Login page route
+│   ├── src/components/         # React components
+│   ├── public/images/          # Static images
+│   └── package.json            # Frontend dependencies
+├── backend/                     # Backend placeholder (ready for implementation)
+└── package.json                 # Workspace management
+```
+
+### Key Files
+- `frontend/src/app/register/page.tsx` - Registration page route
+- `frontend/src/app/login/page.tsx` - Login page route
+- `frontend/src/components/RegistrationForm.tsx` - Main registration form component
+- `frontend/src/components/LoginForm.tsx` - Main login form component
+- `frontend/public/images/` - Static images including hero images
+- `frontend/src/app/globals.css` - Global styles and Tailwind CSS imports
 
 ## Learn More
 
