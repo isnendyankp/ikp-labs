@@ -15,10 +15,15 @@
 /test-results/
 /playwright-report/
 /tests/e2e/reports/
+frontend/test-results/
+frontend/playwright-report/
+frontend/tests/e2e/reports/
 
 # next.js
 /.next/
 /out/
+frontend/.next/
+frontend/out/
 
 # production
 /build
