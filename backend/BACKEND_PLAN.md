@@ -57,16 +57,16 @@ PUT  /api/user/profile     # Update user profile (protected)
 
 ---
 
-### 🗄️ Phase 2: Database Connection & Setup
+### 🗄️ Phase 2: Database Connection & Setup ✅ COMPLETED
 **Goal:** Connect ke PostgreSQL dan setup basic database operations
-- [ ] **Step 2.1:** Create PostgreSQL database "registrationform_db"
-- [ ] **Step 2.2:** Configure application.properties untuk database connection
-- [ ] **Step 2.3:** Test database connection startup
-- [ ] **Step 2.4:** Create User entity dengan JPA annotations
-- [ ] **Step 2.5:** Create UserRepository interface
-- [ ] **Step 2.6:** Test database dengan simple CRUD operations
+- [x] **Step 2.1:** Create PostgreSQL database "registrationform_db"
+- [x] **Step 2.2:** Configure application.properties untuk database connection
+- [x] **Step 2.3:** Test database connection startup
+- [x] **Step 2.4:** Create User entity dengan JPA annotations
+- [x] **Step 2.5:** Create UserRepository interface
+- [x] **Step 2.6:** Test database dengan simple CRUD operations
 
-**Expected Output:** Database terhubung, table users ter-create otomatis
+**Expected Output:** Database terhubung, table users ter-create otomatis ✅
 
 ---
 
@@ -168,9 +168,9 @@ backend/
 - [x] Understand Spring Boot structure
 
 ### Phase 2 Success:
-- [ ] Database connection berhasil
-- [ ] User table ter-create
-- [ ] Basic repository operations working
+- [x] Database connection berhasil
+- [x] User table ter-create
+- [x] Basic repository operations working
 
 ### Phase 3 Success:
 - [ ] POST /api/users creates new user
