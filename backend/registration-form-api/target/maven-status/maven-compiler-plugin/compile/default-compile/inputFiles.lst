@@ -1,2 +1,5 @@
 /Users/isnendyankp/Desktop/Programmer/Belajar/Project/Template/RegistrationForm/backend/registration-form-api/src/main/java/com/registrationform/api/RegistrationFormApiApplication.java
 /Users/isnendyankp/Desktop/Programmer/Belajar/Project/Template/RegistrationForm/backend/registration-form-api/src/main/java/com/registrationform/api/controller/HelloController.java
+/Users/isnendyankp/Desktop/Programmer/Belajar/Project/Template/RegistrationForm/backend/registration-form-api/src/main/java/com/registrationform/api/entity/User.java
+/Users/isnendyankp/Desktop/Programmer/Belajar/Project/Template/RegistrationForm/backend/registration-form-api/src/main/java/com/registrationform/api/repository/UserRepository.java
+/Users/isnendyankp/Desktop/Programmer/Belajar/Project/Template/RegistrationForm/backend/registration-form-api/src/main/java/com/registrationform/api/service/UserService.java
