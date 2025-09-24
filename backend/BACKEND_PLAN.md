@@ -74,7 +74,7 @@ PUT  /api/user/profile     # Update user profile (protected)
 **Goal:** Buat basic user operations (CRUD) tanpa authentication dulu
 - [x] **Step 3.1:** Create UserService untuk business logic ✅
 - [x] **Step 3.2:** Create UserController dengan endpoints ✅
-- [ ] **Step 3.3:** Create DTOs (UserRequest, UserResponse)
+- [x] **Step 3.3:** Create DTOs (UserRequest, UserResponse) ✅
 - [x] **Step 3.4:** Implement user registration (tanpa password hashing) ✅
 - [x] **Step 3.5:** Implement get user by ID ✅
 - [ ] **Step 3.6:** Add input validation

@@ -1,7 +1,11 @@
 package com.registrationform.api.controller;
 
+import com.registrationform.api.dto.UserRegistrationRequest;
+import com.registrationform.api.dto.UserResponse;
+import com.registrationform.api.dto.UserUpdateRequest;
 import com.registrationform.api.entity.User;
 import com.registrationform.api.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * UserController - REST API Controller untuk User operations
@@ -37,17 +42,24 @@ public class UserController {
      * Endpoint: POST /api/users
      * Purpose: Register user baru
      *
-     * @RequestBody = Data user dari request body (JSON)
-     * @return ResponseEntity<User> dengan status HTTP
+     * @RequestBody UserRegistrationRequest = Data dari DTO, bukan Entity langsung
+     * @Valid = Trigger validation annotations (@NotBlank, @Email, dll)
+     * @return ResponseEntity<UserResponse> = Return DTO, bukan Entity
      */
     @PostMapping
-    public ResponseEntity<User> createUser(@RequestBody User user) {
+    public ResponseEntity<UserResponse> createUser(@Valid @RequestBody UserRegistrationRequest request) {
         try {
+            // Convert DTO request ke Entity
+            User user = new User(request.getFullName(), request.getEmail(), request.getPassword());
+
             // Delegate ke Service untuk business logic
             User savedUser = userService.registerUser(user);
 
-            // Return HTTP 201 Created dengan data user
-            return ResponseEntity.status(HttpStatus.CREATED).body(savedUser);
+            // Convert Entity ke Response DTO
+            UserResponse response = UserResponse.fromEntity(savedUser);
+
+            // Return HTTP 201 Created dengan UserResponse DTO
+            return ResponseEntity.status(HttpStatus.CREATED).body(response);
 
         } catch (RuntimeException e) {
             // Return HTTP 400 Bad Request jika ada error validation
@@ -60,15 +72,17 @@ public class UserController {
      * Purpose: Get user berdasarkan ID
      *
      * @PathVariable = Ambil {id} dari URL path
-     * @return ResponseEntity<User> atau 404 jika tidak ditemukan
+     * @return ResponseEntity<UserResponse> = Return DTO, bukan Entity
      */
     @GetMapping("/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
+    public ResponseEntity<UserResponse> getUserById(@PathVariable Long id) {
         Optional<User> user = userService.getUserById(id);
 
         if (user.isPresent()) {
-            // Return HTTP 200 OK dengan data user
-            return ResponseEntity.ok(user.get());
+            // Convert Entity ke Response DTO
+            UserResponse response = UserResponse.fromEntity(user.get());
+            // Return HTTP 200 OK dengan UserResponse DTO
+            return ResponseEntity.ok(response);
         } else {
             // Return HTTP 404 Not Found
             return ResponseEntity.notFound().build();
@@ -79,14 +93,19 @@ public class UserController {
      * Endpoint: GET /api/users
      * Purpose: Get semua users
      *
-     * @return ResponseEntity<List<User>> semua users
+     * @return ResponseEntity<List<UserResponse>> = List DTO, bukan Entity
      */
     @GetMapping
-    public ResponseEntity<List<User>> getAllUsers() {
+    public ResponseEntity<List<UserResponse>> getAllUsers() {
         List<User> users = userService.getAllUsers();
 
-        // Return HTTP 200 OK dengan list users
-        return ResponseEntity.ok(users);
+        // Convert List<User> ke List<UserResponse> menggunakan Stream API
+        List<UserResponse> responses = users.stream()
+                .map(UserResponse::fromEntity)  // Convert setiap User ke UserResponse
+                .collect(Collectors.toList());
+
+        // Return HTTP 200 OK dengan list UserResponse DTOs
+        return ResponseEntity.ok(responses);
     }
 
     /**
@@ -94,17 +113,32 @@ public class UserController {
      * Purpose: Update user data
      *
      * @PathVariable id = ID user yang akan diupdate
-     * @RequestBody updatedUser = Data baru dari request body
-     * @return ResponseEntity<User> dengan data updated
+     * @RequestBody UserUpdateRequest = DTO untuk update request
+     * @return ResponseEntity<UserResponse> = Return DTO response
      */
     @PutMapping("/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable Long id, @RequestBody User updatedUser) {
+    public ResponseEntity<UserResponse> updateUser(@PathVariable Long id, @Valid @RequestBody UserUpdateRequest request) {
         try {
+            // Convert DTO ke Entity untuk update
+            User updatedUser = new User();
+            if (request.hasFullName()) {
+                updatedUser.setFullName(request.getFullName());
+            }
+            if (request.hasEmail()) {
+                updatedUser.setEmail(request.getEmail());
+            }
+            if (request.hasPassword()) {
+                updatedUser.setPassword(request.getPassword());
+            }
+
             // Delegate ke Service untuk business logic
             User user = userService.updateUser(id, updatedUser);
 
-            // Return HTTP 200 OK dengan data updated
-            return ResponseEntity.ok(user);
+            // Convert Entity ke Response DTO
+            UserResponse response = UserResponse.fromEntity(user);
+
+            // Return HTTP 200 OK dengan UserResponse DTO
+            return ResponseEntity.ok(response);
 
         } catch (RuntimeException e) {
             // Return HTTP 404 Not Found atau 400 Bad Request
@@ -139,15 +173,17 @@ public class UserController {
      * Purpose: Get user berdasarkan email
      *
      * @PathVariable email = Email user yang dicari
-     * @return ResponseEntity<User> atau 404 jika tidak ditemukan
+     * @return ResponseEntity<UserResponse> = Return DTO response
      */
     @GetMapping("/email/{email}")
-    public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
+    public ResponseEntity<UserResponse> getUserByEmail(@PathVariable String email) {
         Optional<User> user = userService.getUserByEmail(email);
 
         if (user.isPresent()) {
-            // Return HTTP 200 OK dengan data user
-            return ResponseEntity.ok(user.get());
+            // Convert Entity ke Response DTO
+            UserResponse response = UserResponse.fromEntity(user.get());
+            // Return HTTP 200 OK dengan UserResponse DTO
+            return ResponseEntity.ok(response);
         } else {
             // Return HTTP 404 Not Found
             return ResponseEntity.notFound().build();
