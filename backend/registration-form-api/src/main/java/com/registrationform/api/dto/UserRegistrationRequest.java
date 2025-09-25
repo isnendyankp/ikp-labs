@@ -1,7 +1,9 @@
 package com.registrationform.api.dto;
 
+import com.registrationform.api.validation.ValidPassword;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 /**
@@ -21,31 +23,48 @@ public class UserRegistrationRequest {
     /**
      * Full Name - nama lengkap user
      *
+     * Enhanced Validation:
      * @NotBlank = tidak boleh null, empty, atau hanya whitespace
      * @Size = minimal 2 karakter, maksimal 100 karakter
+     * @Pattern = hanya boleh huruf, spasi, dan beberapa karakter khusus
      */
     @NotBlank(message = "Full name is required")
     @Size(min = 2, max = 100, message = "Full name must be between 2 and 100 characters")
+    @Pattern(
+        regexp = "^[a-zA-Z\\s'-\\.]+$",
+        message = "Full name can only contain letters, spaces, apostrophes, hyphens, and dots"
+    )
     private String fullName;
 
     /**
      * Email - alamat email user
      *
+     * Enhanced Validation:
      * @NotBlank = wajib diisi
      * @Email = harus format email yang valid
+     * @Size = maksimal 255 karakter (sesuai database schema)
+     * @Pattern = additional email format validation
      */
     @NotBlank(message = "Email is required")
     @Email(message = "Please provide a valid email address")
+    @Size(max = 255, message = "Email must not exceed 255 characters")
+    @Pattern(
+        regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+        message = "Email format is invalid"
+    )
     private String email;
 
     /**
      * Password - password user (plain text dari frontend)
      *
+     * Enhanced Validation:
      * @NotBlank = wajib diisi
-     * @Size = minimal 8 karakter untuk security
+     * @Size = minimal 8 karakter, maksimal 255 untuk security
+     * @ValidPassword = custom validation untuk complexity (huruf besar/kecil, angka, special char)
      */
     @NotBlank(message = "Password is required")
-    @Size(min = 8, message = "Password must be at least 8 characters long")
+    @Size(min = 8, max = 255, message = "Password must be between 8 and 255 characters")
+    @ValidPassword  // Custom validation annotation yang kita buat
     private String password;
 
     /**

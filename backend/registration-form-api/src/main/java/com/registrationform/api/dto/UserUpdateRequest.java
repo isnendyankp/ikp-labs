@@ -1,6 +1,8 @@
 package com.registrationform.api.dto;
 
+import com.registrationform.api.validation.ValidPassword;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 /**
@@ -15,22 +17,45 @@ public class UserUpdateRequest {
     /**
      * Full Name - optional untuk update
      * Kalau null, berarti tidak diupdate
+     *
+     * Enhanced Validation (hanya jika diisi):
+     * @Size = minimal 2 karakter, maksimal 100 karakter
+     * @Pattern = hanya boleh huruf, spasi, dan karakter khusus tertentu
      */
     @Size(min = 2, max = 100, message = "Full name must be between 2 and 100 characters")
+    @Pattern(
+        regexp = "^[a-zA-Z\\s'-\\.]+$",
+        message = "Full name can only contain letters, spaces, apostrophes, hyphens, and dots"
+    )
     private String fullName;
 
     /**
      * Email - optional untuk update
      * Kalau null, berarti tidak diupdate
+     *
+     * Enhanced Validation (hanya jika diisi):
+     * @Email = harus format email yang valid
+     * @Size = maksimal 255 karakter
+     * @Pattern = additional email format validation
      */
     @Email(message = "Please provide a valid email address")
+    @Size(max = 255, message = "Email must not exceed 255 characters")
+    @Pattern(
+        regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$",
+        message = "Email format is invalid"
+    )
     private String email;
 
     /**
      * Password - optional untuk update
      * Kalau null, berarti tidak diupdate
+     *
+     * Enhanced Validation (hanya jika diisi):
+     * @Size = minimal 8 karakter, maksimal 255
+     * @ValidPassword = custom validation untuk complexity
      */
-    @Size(min = 8, message = "Password must be at least 8 characters long")
+    @Size(min = 8, max = 255, message = "Password must be between 8 and 255 characters")
+    @ValidPassword  // Custom validation annotation
     private String password;
 
     /**
