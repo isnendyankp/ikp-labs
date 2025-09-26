@@ -19,11 +19,20 @@ A modern, responsive registration form template built with Next.js and Tailwind 
 
 ## Tech Stack
 
+### Frontend
 - **[Next.js 15.5.0](https://nextjs.org)** - React framework for production
 - **[React 19.1.0](https://reactjs.org)** - JavaScript library for building user interfaces
 - **[TypeScript](https://www.typescriptlang.org)** - Typed JavaScript for better development experience
 - **[Tailwind CSS 4](https://tailwindcss.com)** - Utility-first CSS framework
 - **[ESLint](https://eslint.org)** - Code linting and formatting
+
+### Backend (In Development)
+- **[Java 17+](https://openjdk.java.net/)** - Programming language
+- **[Spring Boot 3.2+](https://spring.io/projects/spring-boot)** - Java framework for enterprise applications
+- **[PostgreSQL](https://www.postgresql.org/)** - Relational database
+- **[Spring Data JPA](https://spring.io/projects/spring-data-jpa)** - Data persistence layer
+- **[Maven](https://maven.apache.org/)** - Build and dependency management
+- **[Bean Singleton Pattern](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-factory-scopes-singleton)** - Default Spring scope for component management
 
 ## Getting Started
 
@@ -60,17 +69,42 @@ project-root/
 │   ├── src/components/         # React components
 │   ├── public/images/          # Static images
 │   └── package.json            # Frontend dependencies
-├── backend/                     # Backend placeholder (ready for implementation)
-└── package.json                 # Workspace management
+├── backend/                     # Backend Java Spring Boot API
+│   └── registration-form-api/  # Spring Boot application
+│       ├── src/main/java/      # Java source code
+│       │   └── com/registrationform/api/
+│       │       ├── controller/ # REST API endpoints (@RestController)
+│       │       ├── service/    # Business logic (@Service - Singleton)
+│       │       ├── repository/ # Data access layer (@Repository - Singleton)
+│       │       ├── entity/     # JPA database entities
+│       │       ├── dto/        # Data Transfer Objects
+│       │       ├── validation/ # Custom validation components
+│       │       └── exception/  # Error handling
+│       ├── src/main/resources/ # Configuration files
+│       │   └── application.properties
+│       └── pom.xml            # Maven dependencies
+└── package.json                # Workspace management
 ```
 
 ### Key Files
+
+#### Frontend
 - `frontend/src/app/register/page.tsx` - Registration page route
 - `frontend/src/app/login/page.tsx` - Login page route
 - `frontend/src/components/RegistrationForm.tsx` - Main registration form component
 - `frontend/src/components/LoginForm.tsx` - Main login form component
 - `frontend/public/images/` - Static images including hero images
 - `frontend/src/app/globals.css` - Global styles and Tailwind CSS imports
+
+#### Backend (Current Progress: Phase 3 - User Management)
+- `backend/registration-form-api/src/main/java/com/registrationform/api/RegistrationFormApiApplication.java` - Main Spring Boot application
+- `backend/registration-form-api/src/main/java/com/registrationform/api/controller/UserController.java` - REST API endpoints for user operations
+- `backend/registration-form-api/src/main/java/com/registrationform/api/service/UserService.java` - Business logic service (Singleton)
+- `backend/registration-form-api/src/main/java/com/registrationform/api/repository/UserRepository.java` - Data access repository (Singleton)
+- `backend/registration-form-api/src/main/java/com/registrationform/api/entity/User.java` - JPA entity for database mapping
+- `backend/registration-form-api/src/main/java/com/registrationform/api/validation/ValidPassword.java` - Custom password validation annotation
+- `backend/registration-form-api/src/main/resources/application.properties` - Database and server configuration
+- `backend/BACKEND_PLAN.md` - Detailed backend development plan and progress tracking
 
 ## Learn More
 
