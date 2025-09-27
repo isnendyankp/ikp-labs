@@ -115,7 +115,7 @@ The backend API has been thoroughly tested using Postman on local development en
 
 #### Demo Video
 
-**GET Endpoints Testing (14 seconds):**
+**GET Endpoints Testing:**
 
 ![Postman API Testing Demo](frontend/public/videos/getUserByEmailOrId.gif)
 
