@@ -113,15 +113,11 @@ project-root/
 
 The backend API has been thoroughly tested using Postman on local development environment. All endpoints are working correctly:
 
-#### Demo Videos
+#### Demo Video
 
-**Get User by ID Endpoint Testing:**
+**GET Endpoints Testing (14 seconds):**
 
-![Get User by ID Demo](frontend/public/videos/getUserById.mov)
-
-**Get User by Email Endpoint Testing:**
-
-![Get User by Email Demo](frontend/public/videos/getUserByEmail.mov)
+![Postman API Testing Demo](frontend/public/videos/getUserByEmailOrId.mov)
 
 **Tested Endpoints:**
 - ✅ **POST** `/api/users` - Register new user
