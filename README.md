@@ -117,7 +117,7 @@ The backend API has been thoroughly tested using Postman on local development en
 
 **GET Endpoints Testing (14 seconds):**
 
-![Postman API Testing Demo](frontend/public/videos/getUserByEmailOrId.mov)
+![Postman API Testing Demo](frontend/public/videos/getUserByEmailOrId.gif)
 
 **Tested Endpoints:**
 - ✅ **POST** `/api/users` - Register new user
