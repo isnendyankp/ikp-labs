@@ -77,11 +77,12 @@ public class UserService {
     }
 
     /**
-     * Update user data
+     * Update user data - Partial Update Support
      * Business logic: Check apakah user dengan ID ada
+     * Hanya update field yang tidak null
      *
      * @param id ID user yang akan diupdate
-     * @param updatedUser Data user baru
+     * @param updatedUser Data user baru (field bisa null untuk tidak diupdate)
      * @return User yang sudah diupdate
      * @throws RuntimeException jika user tidak ditemukan
      */
@@ -95,15 +96,22 @@ public class UserService {
         User existingUser = existingUserOpt.get();
 
         // Business logic: Check email conflict (jika email diubah)
-        if (!existingUser.getEmail().equals(updatedUser.getEmail())
+        if (updatedUser.getEmail() != null
+            && !existingUser.getEmail().equals(updatedUser.getEmail())
             && userRepository.existsByEmail(updatedUser.getEmail())) {
             throw new RuntimeException("Email sudah digunakan user lain: " + updatedUser.getEmail());
         }
 
-        // Update fields
-        existingUser.setFullName(updatedUser.getFullName());
-        existingUser.setEmail(updatedUser.getEmail());
-        existingUser.setPassword(updatedUser.getPassword());
+        // Update fields only if they are not null (partial update)
+        if (updatedUser.getFullName() != null) {
+            existingUser.setFullName(updatedUser.getFullName());
+        }
+        if (updatedUser.getEmail() != null) {
+            existingUser.setEmail(updatedUser.getEmail());
+        }
+        if (updatedUser.getPassword() != null) {
+            existingUser.setPassword(updatedUser.getPassword());
+        }
 
         // Save updated user
         return userRepository.save(existingUser);

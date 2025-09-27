@@ -78,7 +78,7 @@ PUT  /api/user/profile     # Update user profile (protected)
 - [x] **Step 3.4:** Implement user registration (tanpa password hashing) ✅
 - [x] **Step 3.5:** Implement get user by ID ✅
 - [x] **Step 3.6:** Add input validation ✅
-- [ ] **Step 3.7:** Test dengan Postman
+- [x] **Step 3.7:** Test dengan Postman ✅
 
 **Expected Output:** CRUD operations working, data tersimpan di database
 

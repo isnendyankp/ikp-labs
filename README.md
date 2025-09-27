@@ -68,6 +68,7 @@ project-root/
 │   ├── src/app/login/          # Login page route
 │   ├── src/components/         # React components
 │   ├── public/images/          # Static images
+│   ├── public/videos/          # Demo videos (Postman testing)
 │   └── package.json            # Frontend dependencies
 ├── backend/                     # Backend Java Spring Boot API
 │   └── registration-form-api/  # Spring Boot application
@@ -105,6 +106,45 @@ project-root/
 - `backend/registration-form-api/src/main/java/com/registrationform/api/validation/ValidPassword.java` - Custom password validation annotation
 - `backend/registration-form-api/src/main/resources/application.properties` - Database and server configuration
 - `backend/BACKEND_PLAN.md` - Detailed backend development plan and progress tracking
+
+## Backend API Testing
+
+### Local Testing with Postman ✅
+
+The backend API has been thoroughly tested using Postman on local development environment. All endpoints are working correctly:
+
+#### Demo Videos
+
+**Get User by ID Endpoint Testing:**
+
+![Get User by ID Demo](frontend/public/videos/getUserById.mov)
+
+**Get User by Email Endpoint Testing:**
+
+![Get User by Email Demo](frontend/public/videos/getUserByEmail.mov)
+
+**Tested Endpoints:**
+- ✅ **POST** `/api/users` - Register new user
+- ✅ **GET** `/api/users` - Get all users
+- ✅ **GET** `/api/users/{id}` - Get user by ID
+- ✅ **PUT** `/api/users/{id}` - Update user (supports partial update)
+- ✅ **DELETE** `/api/users/{id}` - Delete user
+- ✅ **GET** `/api/users/email/{email}` - Get user by email
+- ✅ **GET** `/api/users/check-email/{email}` - Check if email exists
+- ✅ **GET** `/api/users/count` - Get total user count
+
+**Key Features Verified:**
+- ✅ Input validation (email format, required fields)
+- ✅ Partial update support (update without password)
+- ✅ Duplicate email prevention
+- ✅ Proper HTTP status codes
+- ✅ JSON response format
+- ✅ Database persistence with PostgreSQL
+
+**Test Environment:**
+- Backend: `http://localhost:8081`
+- Database: PostgreSQL
+- Testing Tool: Postman
 
 ## Learn More
 
