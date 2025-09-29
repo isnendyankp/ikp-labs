@@ -86,7 +86,7 @@ PUT  /api/user/profile     # Update user profile (protected)
 
 ### 🔐 Phase 4: Authentication & Security
 **Goal:** Add JWT authentication dan password security
-- [ ] **Step 4.1:** Add Spring Security dependencies
+- [x] **Step 4.1:** Add Spring Security dependencies ✅
 - [ ] **Step 4.2:** Configure password encoder (BCrypt)
 - [ ] **Step 4.3:** Update registration untuk hash password
 - [ ] **Step 4.4:** Create JWT utility class
