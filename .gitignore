@@ -47,3 +47,16 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Java/Maven
+backend/*/target/
+*.class
+*.jar
+*.war
+*.ear
+*.logs
+*.iml
+.idea/
+.settings/
+.project
+.classpath
