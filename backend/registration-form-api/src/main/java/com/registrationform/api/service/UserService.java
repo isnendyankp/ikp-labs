@@ -3,6 +3,7 @@ package com.registrationform.api.service;
 import com.registrationform.api.entity.User;
 import com.registrationform.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -30,8 +31,15 @@ public class UserService {
     private UserRepository userRepository;
 
     /**
+     * Dependency injection PasswordEncoder untuk hash password
+     * PasswordEncoder bean sudah dikonfigurasi di SecurityConfig
+     */
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    /**
      * Register user baru
-     * Business logic: Check email sudah ada atau belum
+     * Business logic: Check email sudah ada atau belum + Hash password
      *
      * @param user User object yang akan disimpan
      * @return User yang sudah disimpan
@@ -42,6 +50,10 @@ public class UserService {
         if (userRepository.existsByEmail(user.getEmail())) {
             throw new RuntimeException("Email sudah terdaftar: " + user.getEmail());
         }
+
+        // Hash password sebelum disimpan ke database
+        String hashedPassword = passwordEncoder.encode(user.getPassword());
+        user.setPassword(hashedPassword);
 
         // Simpan user ke database via Repository
         return userRepository.save(user);
@@ -110,7 +122,9 @@ public class UserService {
             existingUser.setEmail(updatedUser.getEmail());
         }
         if (updatedUser.getPassword() != null) {
-            existingUser.setPassword(updatedUser.getPassword());
+            // Hash password baru sebelum disimpan
+            String hashedPassword = passwordEncoder.encode(updatedUser.getPassword());
+            existingUser.setPassword(hashedPassword);
         }
 
         // Save updated user
@@ -151,5 +165,17 @@ public class UserService {
      */
     public long getUserCount() {
         return userRepository.count();
+    }
+
+    /**
+     * Verify password untuk authentication
+     * Method ini akan digunakan untuk login
+     *
+     * @param rawPassword Password plain text dari user
+     * @param hashedPassword Password yang sudah di-hash dari database
+     * @return true jika password cocok, false jika tidak
+     */
+    public boolean verifyPassword(String rawPassword, String hashedPassword) {
+        return passwordEncoder.matches(rawPassword, hashedPassword);
     }
 }

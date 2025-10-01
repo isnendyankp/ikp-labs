@@ -2,8 +2,11 @@ package com.registrationform.api.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
 
 /**
  * SecurityConfig - Spring Security Configuration
@@ -17,6 +20,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
  * Spring akan scan dan load configuration ini saat startup
  */
 @Configuration
+@EnableWebSecurity
 public class SecurityConfig {
 
     /**
@@ -44,6 +48,24 @@ public class SecurityConfig {
     }
 
     /**
+     * Security Filter Chain - Temporarily disable security for testing
+     * TODO: Akan dikonfigurasi proper di Step 4.7
+     *
+     * @param http HttpSecurity object untuk konfigurasi
+     * @return SecurityFilterChain yang sudah dikonfigurasi
+     * @throws Exception jika ada error dalam konfigurasi
+     */
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+            .csrf(csrf -> csrf.disable()) // Disable CSRF untuk testing
+            .authorizeHttpRequests(auth -> auth
+                .anyRequest().permitAll() // Allow semua request tanpa authentication
+            );
+        return http.build();
+    }
+
+    /**
      * NOTES untuk Development:
      *
      * 1. BCrypt Strength Levels:
@@ -59,5 +81,9 @@ public class SecurityConfig {
      *    @Autowired PasswordEncoder passwordEncoder;
      *    String hashedPassword = passwordEncoder.encode(rawPassword);
      *    boolean isValid = passwordEncoder.matches(rawPassword, hashedPassword);
+     *
+     * 4. Security Configuration:
+     *    - Saat ini semua endpoint open untuk testing
+     *    - Akan dikonfigurasi proper dengan JWT di step selanjutnya
      */
 }
