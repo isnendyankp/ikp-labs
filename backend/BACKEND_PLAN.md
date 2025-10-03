@@ -90,7 +90,7 @@ PUT  /api/user/profile     # Update user profile (protected)
 - [x] **Step 4.2:** Configure password encoder (BCrypt) ✅
 - [x] **Step 4.3:** Update registration untuk hash password ✅
 - [x] **Step 4.4:** Create JWT utility class ✅
-- [ ] **Step 4.5:** Create login endpoint dengan JWT generation
+- [x] **Step 4.5:** Create login endpoint dengan JWT generation ✅
 - [ ] **Step 4.6:** Create JWT authentication filter
 - [ ] **Step 4.7:** Configure Spring Security filter chain
 - [ ] **Step 4.8:** Protect user profile endpoints
