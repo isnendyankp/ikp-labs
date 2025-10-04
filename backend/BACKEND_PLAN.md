@@ -91,9 +91,9 @@ PUT  /api/user/profile     # Update user profile (protected)
 - [x] **Step 4.3:** Update registration untuk hash password ✅
 - [x] **Step 4.4:** Create JWT utility class ✅
 - [x] **Step 4.5:** Create login endpoint dengan JWT generation ✅
-- [ ] **Step 4.6:** Create JWT authentication filter
-- [ ] **Step 4.7:** Configure Spring Security filter chain
-- [ ] **Step 4.8:** Protect user profile endpoints
+- [x] **Step 4.6:** Create JWT authentication filter ✅
+- [x] **Step 4.7:** Configure Spring Security filter chain ✅
+- [x] **Step 4.8:** Protect user profile endpoints ✅
 
 **Expected Output:** Login menghasilkan JWT token, protected endpoints butuh token
 
@@ -182,9 +182,9 @@ backend/
 - [ ] Input validation working (basic validation sudah ada)
 
 ### Phase 4 Success:
-- [ ] POST /api/auth/register returns JWT token
-- [ ] POST /api/auth/login validates credentials & returns JWT
-- [ ] Protected endpoints require valid JWT
+- [x] POST /api/auth/register returns JWT token ✅
+- [x] POST /api/auth/login validates credentials & returns JWT ✅
+- [x] Protected endpoints require valid JWT ✅
 
 ### Phase 5 Success:
 - [ ] Frontend registration calls backend successfully

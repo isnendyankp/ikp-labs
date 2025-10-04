@@ -186,7 +186,6 @@ public class AuthService {
     public LoginResponse refreshToken(String oldToken) {
         try {
             // Validasi token lama masih valid
-            String email = jwtUtil.extractEmail(oldToken);
             User user = getUserFromToken(oldToken);
 
             if (user == null) {

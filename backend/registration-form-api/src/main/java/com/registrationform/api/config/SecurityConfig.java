@@ -1,12 +1,16 @@
 package com.registrationform.api.config;
 
+import com.registrationform.api.security.JwtAuthenticationFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 /**
  * SecurityConfig - Spring Security Configuration
@@ -22,6 +26,13 @@ import org.springframework.security.web.SecurityFilterChain;
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
+
+    /**
+     * JWT Authentication Filter - Security guard untuk cek token
+     * Analogi: Security guard yang cek key card di lift hotel
+     */
+    @Autowired
+    private JwtAuthenticationFilter jwtAuthenticationFilter;
 
     /**
      * Password Encoder Bean - BCrypt
@@ -48,8 +59,16 @@ public class SecurityConfig {
     }
 
     /**
-     * Security Filter Chain - Temporarily disable security for testing
-     * TODO: Akan dikonfigurasi proper di Step 4.7
+     * Security Filter Chain - Configure JWT-based authentication
+     * =========================================================
+     *
+     * ANALOGI: "Aturan Keamanan Hotel dengan Key Card System"
+     *
+     * Setup security seperti hotel dengan key card:
+     * 1. Public areas (lobby, restaurant) → semua boleh masuk
+     * 2. Private areas (kamar, VIP lounge) → perlu key card
+     * 3. Security guard cek key card di setiap lift
+     * 4. No session cookie (stateless) → semua info di key card
      *
      * @param http HttpSecurity object untuk konfigurasi
      * @return SecurityFilterChain yang sudah dikonfigurasi
@@ -58,10 +77,38 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable()) // Disable CSRF untuk testing
+            // === DISABLE CSRF ===
+            // CSRF protection tidak perlu untuk API dengan JWT
+            .csrf(csrf -> csrf.disable())
+
+            // === SESSION MANAGEMENT ===
+            // STATELESS: Tidak pakai session cookie, semua info di JWT token
+            .sessionManagement(session -> session
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+            )
+
+            // === AUTHORIZATION RULES ===
+            // Tentukan endpoint mana yang public vs protected
             .authorizeHttpRequests(auth -> auth
-                .anyRequest().permitAll() // Allow semua request tanpa authentication
-            );
+                // PUBLIC ENDPOINTS - Lobby hotel (semua boleh masuk)
+                .requestMatchers("/api/auth/login").permitAll()
+                .requestMatchers("/api/auth/register").permitAll()
+                .requestMatchers("/api/auth/health").permitAll()
+                .requestMatchers("/api/users").permitAll()          // User registration
+                .requestMatchers("/api/jwt-test/**").permitAll()    // JWT test endpoints
+
+                // PROTECTED ENDPOINTS - Area hotel (perlu key card)
+                .requestMatchers("/api/user/**").authenticated()    // User profile endpoints
+                .requestMatchers("/api/admin/**").hasRole("ADMIN")  // Admin only areas
+
+                // ALL OTHER REQUESTS - Default protected
+                .anyRequest().authenticated()
+            )
+
+            // === ADD JWT FILTER ===
+            // Pasang security guard (JWT filter) sebelum standard auth filter
+            .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+
         return http.build();
     }
 
