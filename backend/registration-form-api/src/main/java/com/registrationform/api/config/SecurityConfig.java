@@ -11,6 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfigurationSource;
 
 /**
  * SecurityConfig - Spring Security Configuration
@@ -33,6 +34,13 @@ public class SecurityConfig {
      */
     @Autowired
     private JwtAuthenticationFilter jwtAuthenticationFilter;
+
+    /**
+     * CORS Configuration Source - Aturan komunikasi antar domain
+     * Injected dari CorsConfig.java untuk frontend integration
+     */
+    @Autowired
+    private CorsConfigurationSource corsConfigurationSource;
 
     /**
      * Password Encoder Bean - BCrypt
@@ -80,6 +88,11 @@ public class SecurityConfig {
             // === DISABLE CSRF ===
             // CSRF protection tidak perlu untuk API dengan JWT
             .csrf(csrf -> csrf.disable())
+
+            // === ENABLE CORS ===
+            // Enable CORS dengan configuration dari CorsConfig.java
+            // Allows frontend (port 3001) to communicate with backend (port 8081)
+            .cors(cors -> cors.configurationSource(corsConfigurationSource))
 
             // === SESSION MANAGEMENT ===
             // STATELESS: Tidak pakai session cookie, semua info di JWT token
