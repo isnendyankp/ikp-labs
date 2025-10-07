@@ -55,11 +55,12 @@ public class CorsConfig {
 
         // === ALLOWED ORIGINS ===
         // Frontend yang diizinkan akses ke backend
-        // Step 5.1: Configure untuk frontend port 3001
+        // Step 5.1: Configure untuk frontend port 3001, 3000, dan 3004
         configuration.setAllowedOrigins(Arrays.asList(
-            "http://localhost:3001",     // Frontend development server
+            "http://localhost:3001",     // Frontend development server (target)
             "http://127.0.0.1:3001",     // Alternative localhost format
-            "http://localhost:3000"      // Alternative React port (jika berubah)
+            "http://localhost:3000",     // Standard React port
+            "http://localhost:3004"      // Auto-assigned port by Next.js
         ));
 
         // === ALLOWED METHODS ===
