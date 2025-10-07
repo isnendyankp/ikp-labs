@@ -3,7 +3,10 @@
 import { useState } from 'react';
 import { z } from 'zod';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import Tooltip from './Tooltip';
+import { registerUser } from '../services/api';
+import { UserRegistrationRequest, RegistrationFormData } from '../types/api';
 
 const registrationSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters long'),
@@ -16,16 +19,20 @@ const registrationSchema = z.object({
 });
 
 export default function RegistrationForm() {
-  const [formData, setFormData] = useState({
+  const router = useRouter();
+
+  const [formData, setFormData] = useState<RegistrationFormData>({
     name: '',
     email: '',
     password: '',
     confirmPassword: ''
   });
-  
+
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [apiError, setApiError] = useState<string>('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -43,22 +50,57 @@ export default function RegistrationForm() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
+    // Clear previous errors
+    setErrors({});
+    setApiError('');
+
     try {
       // Validate form data using Zod schema
       registrationSchema.parse(formData);
-      
-      // Clear any existing errors
-      setErrors({});
-      
-      // Form is valid, proceed with submission
-      console.log('Form data is valid:', formData);
-      
-      // Here you would typically send data to your API
-      alert('Registration successful!');
-      
+
+      setIsLoading(true);
+
+      // Convert form data to backend format
+      const registrationData: UserRegistrationRequest = {
+        fullName: formData.name, // Frontend 'name' → Backend 'fullName'
+        email: formData.email,
+        password: formData.password
+      };
+
+      console.log('🚀 Submitting registration:', { email: registrationData.email, fullName: registrationData.fullName });
+
+      // Call backend API
+      const response = await registerUser(registrationData);
+
+      if (response.data) {
+        console.log('✅ Registration successful:', response.data);
+        alert(`Registration successful! Welcome, ${response.data.fullName}!`);
+
+        // Redirect to login page
+        router.push('/login');
+      } else if (response.error) {
+        console.error('❌ Registration failed:', response.error);
+
+        // Handle field-specific errors from backend
+        if (response.error.fieldErrors) {
+          const backendErrors: Record<string, string> = {};
+          Object.entries(response.error.fieldErrors).forEach(([field, message]) => {
+            // Map backend field names to frontend field names
+            if (field === 'fullName') {
+              backendErrors['name'] = message;
+            } else {
+              backendErrors[field] = message;
+            }
+          });
+          setErrors(backendErrors);
+        } else {
+          // General API error
+          setApiError(response.error.message || 'Registration failed. Please try again.');
+        }
+      }
     } catch (error) {
       if (error instanceof z.ZodError && error.errors) {
         // Handle validation errors
@@ -69,7 +111,12 @@ export default function RegistrationForm() {
           }
         });
         setErrors(newErrors);
+      } else {
+        console.error('❌ Unexpected error:', error);
+        setApiError('An unexpected error occurred. Please try again.');
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -118,6 +165,13 @@ export default function RegistrationForm() {
             <h2 className="text-3xl font-bold text-gray-900 mb-2">Create an account</h2>
             <p className="text-gray-600">Let's get started with your 30 days free trial</p>
           </div>
+
+          {/* API Error Display */}
+          {apiError && (
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md mb-4">
+              <p className="text-sm">{apiError}</p>
+            </div>
+          )}
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-6" data-testid="registration-form">
@@ -240,9 +294,24 @@ export default function RegistrationForm() {
             {/* Create Account Button */}
             <button
               type="submit"
-              className="w-full bg-black text-white py-3 px-4 rounded-lg font-medium hover:bg-gray-800 transition-colors mt-8"
+              disabled={isLoading}
+              className={`w-full py-3 px-4 rounded-lg font-medium transition-colors mt-8 ${
+                isLoading
+                  ? 'bg-gray-400 text-gray-600 cursor-not-allowed'
+                  : 'bg-black text-white hover:bg-gray-800'
+              }`}
             >
-              Create Account
+              {isLoading ? (
+                <div className="flex items-center justify-center">
+                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Creating Account...
+                </div>
+              ) : (
+                'Create Account'
+              )}
             </button>
 
             {/* Google Sign Up Button */}
