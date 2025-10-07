@@ -101,7 +101,7 @@ PUT  /api/user/profile     # Update user profile (protected)
 
 ### 🌐 Phase 5: Frontend Integration
 **Goal:** Connect backend dengan frontend React registration form
-- [ ] **Step 5.1:** Configure CORS untuk frontend (port 3001)
+- [x] **Step 5.1:** Configure CORS untuk frontend (port 3001) ✅
 - [ ] **Step 5.2:** Update frontend untuk call backend APIs
 - [ ] **Step 5.3:** Test registration flow end-to-end
 - [ ] **Step 5.4:** Test login flow end-to-end
@@ -187,6 +187,7 @@ backend/
 - [x] Protected endpoints require valid JWT ✅
 
 ### Phase 5 Success:
+- [x] CORS configuration allows frontend communication ✅
 - [ ] Frontend registration calls backend successfully
 - [ ] Frontend login calls backend successfully
 - [ ] Error handling works properly
