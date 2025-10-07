@@ -3,7 +3,10 @@
 import { useState } from 'react';
 import { z } from 'zod';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import Tooltip from './Tooltip';
+import { loginUser } from '../services/api';
+import { LoginRequest, LoginFormData } from '../types/api';
 
 const loginSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
@@ -11,15 +14,18 @@ const loginSchema = z.object({
 });
 
 export default function LoginForm() {
-  const [formData, setFormData] = useState({
+  const router = useRouter();
+
+  const [formData, setFormData] = useState<LoginFormData>({
     email: '',
     password: '',
     rememberMe: false
   });
-  
+
   const [showPassword, setShowPassword] = useState(false);
-  
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isLoading, setIsLoading] = useState(false);
+  const [apiError, setApiError] = useState<string>('');
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -37,23 +43,67 @@ export default function LoginForm() {
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
+    // Clear previous errors
+    setErrors({});
+    setApiError('');
+
     try {
       // Validate form data using Zod schema (excluding rememberMe from validation)
       const { rememberMe, ...dataToValidate } = formData;
       loginSchema.parse(dataToValidate);
-      
-      // Clear any existing errors
-      setErrors({});
-      
-      // Form is valid, proceed with submission
-      console.log('Login data is valid:', formData);
-      
-      // Here you would typically send data to your API
-      alert('Login successful!');
-      
+
+      setIsLoading(true);
+
+      // Prepare login data for backend
+      const loginData: LoginRequest = {
+        email: formData.email,
+        password: formData.password
+      };
+
+      console.log('🚀 Submitting login:', { email: loginData.email });
+
+      // Call backend API
+      const response = await loginUser(loginData);
+
+      if (response.data?.success && response.data.token) {
+        console.log('✅ Login successful:', {
+          userId: response.data.userId,
+          email: response.data.email,
+          fullName: response.data.fullName
+        });
+
+        // Show success message
+        alert(`Welcome back, ${response.data.fullName}!`);
+
+        // Handle "Remember Me" functionality
+        if (formData.rememberMe) {
+          // Token is already saved by the API service
+          console.log('💾 Remember me enabled - token saved to localStorage');
+        }
+
+        // Redirect to dashboard or home page
+        // For now, redirect to registration page (you can change this later)
+        router.push('/register'); // Change to dashboard when available
+      } else if (response.error) {
+        console.error('❌ Login failed:', response.error);
+
+        // Handle specific error cases
+        if (response.status === 401) {
+          setApiError('Invalid email or password. Please try again.');
+        } else if (response.error.fieldErrors) {
+          // Handle field-specific errors from backend
+          setErrors(response.error.fieldErrors);
+        } else {
+          // General API error
+          setApiError(response.error.message || 'Login failed. Please try again.');
+        }
+      } else if (response.data && !response.data.success) {
+        // Backend returned success: false
+        setApiError(response.data.message || 'Login failed. Please check your credentials.');
+      }
     } catch (error) {
       if (error instanceof z.ZodError && error.errors) {
         // Handle validation errors
@@ -64,7 +114,12 @@ export default function LoginForm() {
           }
         });
         setErrors(newErrors);
+      } else {
+        console.error('❌ Unexpected error:', error);
+        setApiError('An unexpected error occurred. Please try again.');
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -112,6 +167,13 @@ export default function LoginForm() {
             <h2 className="text-3xl font-bold text-gray-900 mb-2">Welcome back</h2>
             <p className="text-gray-600">Please sign in to your account</p>
           </div>
+
+          {/* API Error Display */}
+          {apiError && (
+            <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-md mb-4">
+              <p className="text-sm">{apiError}</p>
+            </div>
+          )}
 
           {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-6" data-testid="login-form">
@@ -199,9 +261,24 @@ export default function LoginForm() {
             {/* Sign In Button */}
             <button
               type="submit"
-              className="w-full bg-black text-white py-3 px-4 rounded-lg font-medium hover:bg-gray-800 transition-colors mt-8"
+              disabled={isLoading}
+              className={`w-full py-3 px-4 rounded-lg font-medium transition-colors mt-8 ${
+                isLoading
+                  ? 'bg-gray-400 text-gray-600 cursor-not-allowed'
+                  : 'bg-black text-white hover:bg-gray-800'
+              }`}
             >
-              Sign In
+              {isLoading ? (
+                <div className="flex items-center justify-center">
+                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Signing In...
+                </div>
+              ) : (
+                'Sign In'
+              )}
             </button>
 
             {/* Google Sign In Button */}
