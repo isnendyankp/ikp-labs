@@ -2,6 +2,7 @@ package com.registrationform.api.service;
 
 import com.registrationform.api.dto.LoginRequest;
 import com.registrationform.api.dto.LoginResponse;
+import com.registrationform.api.dto.UserRegistrationRequest;
 import com.registrationform.api.entity.User;
 import com.registrationform.api.repository.UserRepository;
 import com.registrationform.api.security.JwtUtil;
@@ -208,6 +209,64 @@ public class AuthService {
     }
 
     /**
+     * REGISTER - Method untuk user registration
+     * ==========================================
+     *
+     * PROSES REGISTRASI:
+     * 1. Validasi email belum terdaftar
+     * 2. Hash password dengan BCrypt
+     * 3. Save user ke database
+     * 4. Generate JWT token
+     * 5. Return response dengan token
+     *
+     * @param registrationRequest Data registrasi dari user
+     * @return LoginResponse dengan JWT token atau error message
+     */
+    public LoginResponse register(UserRegistrationRequest registrationRequest) {
+        try {
+            // === STEP 1: VALIDASI EMAIL ===
+            // Check apakah email sudah terdaftar
+            Optional<User> existingUser = userRepository.findByEmail(registrationRequest.getEmail());
+
+            if (existingUser.isPresent()) {
+                // Email sudah terdaftar
+                return LoginResponse.error("Email already exists");
+            }
+
+            // === STEP 2: HASH PASSWORD ===
+            // Hash password dengan BCrypt sebelum save ke database
+            String hashedPassword = passwordEncoder.encode(registrationRequest.getPassword());
+
+            // === STEP 3: CREATE USER ENTITY ===
+            User newUser = new User();
+            newUser.setFullName(registrationRequest.getFullName());
+            newUser.setEmail(registrationRequest.getEmail());
+            newUser.setPassword(hashedPassword);  // Save hashed password
+
+            // === STEP 4: SAVE TO DATABASE ===
+            User savedUser = userRepository.save(newUser);
+
+            // === STEP 5: GENERATE JWT TOKEN ===
+            String jwtToken = jwtUtil.generateToken(savedUser.getEmail(), savedUser.getFullName());
+
+            // === STEP 6: RETURN SUCCESS RESPONSE ===
+            return LoginResponse.success(
+                    jwtToken,
+                    savedUser.getId(),
+                    savedUser.getEmail(),
+                    savedUser.getFullName()
+            );
+
+        } catch (Exception e) {
+            // Handle unexpected errors
+            System.err.println("Registration error: " + e.getMessage());
+            e.printStackTrace();
+
+            return LoginResponse.error("Registration failed. Please try again.");
+        }
+    }
+
+    /**
      * NOTES UNTUK PEMAHAMAN:
      * ======================
      *
@@ -234,5 +293,11 @@ public class AuthService {
      *    - Validate: setiap protected request
      *    - Refresh: perpanjang session
      *    - Extract: ambil user info dari token
+     *
+     * 6. Registration Flow:
+     *    - Check duplicate email first
+     *    - Hash password before saving
+     *    - Generate token immediately after registration
+     *    - User can login right away without separate login step
      */
 }
