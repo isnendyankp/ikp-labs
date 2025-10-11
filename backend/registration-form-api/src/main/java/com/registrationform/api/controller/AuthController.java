@@ -2,6 +2,7 @@ package com.registrationform.api.controller;
 
 import com.registrationform.api.dto.LoginRequest;
 import com.registrationform.api.dto.LoginResponse;
+import com.registrationform.api.dto.UserRegistrationRequest;
 import com.registrationform.api.service.AuthService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,6 +53,54 @@ public class AuthController {
      */
     @Autowired
     private AuthService authService;
+
+    /**
+     * REGISTER ENDPOINT - User registration dengan JWT token
+     * =======================================================
+     *
+     * ENDPOINT: POST /api/auth/register
+     * PURPOSE: Register user baru dan generate JWT token
+     *
+     * FLOW PROSES:
+     * 1. User kirim POST request dengan JSON body berisi fullName, email, password
+     * 2. Spring Boot convert JSON ke UserRegistrationRequest object
+     * 3. @Valid trigger validation (email format, password strength, required fields)
+     * 4. Controller pass request ke AuthService
+     * 5. AuthService:
+     *    - Check email duplicate
+     *    - Hash password dengan BCrypt
+     *    - Save user ke database
+     *    - Generate JWT token
+     * 6. Return LoginResponse dengan token (user langsung bisa login)
+     *
+     * @param registrationRequest DTO berisi fullName, email, dan password
+     * @return ResponseEntity dengan LoginResponse (token) dan HTTP status
+     */
+    @PostMapping("/register")
+    public ResponseEntity<LoginResponse> register(@Valid @RequestBody UserRegistrationRequest registrationRequest) {
+        try {
+            // Delegate ke AuthService untuk business logic
+            LoginResponse response = authService.register(registrationRequest);
+
+            // Cek hasil dari AuthService
+            if (response.isSuccess()) {
+                // Registration berhasil: return 201 Created dengan token
+                return ResponseEntity.status(201).body(response);
+            } else {
+                // Registration gagal: return 400 Bad Request dengan error message
+                return ResponseEntity.status(400).body(response);
+            }
+
+        } catch (Exception e) {
+            // Handle unexpected errors
+            System.err.println("Register endpoint error: " + e.getMessage());
+            e.printStackTrace();
+
+            // Return 500 Internal Server Error
+            LoginResponse errorResponse = LoginResponse.error("Internal server error");
+            return ResponseEntity.status(500).body(errorResponse);
+        }
+    }
 
     /**
      * LOGIN ENDPOINT - Main endpoint untuk user authentication
