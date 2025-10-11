@@ -125,20 +125,23 @@ async function apiRequest<T>(
 
 /**
  * Register new user
- * POST /api/users
+ * POST /api/auth/register
+ *
+ * Returns LoginResponse with JWT token so user can login immediately
  */
 export async function registerUser(
   userData: UserRegistrationRequest
-): Promise<ApiResponse<UserRegistrationResponse>> {
+): Promise<ApiResponse<LoginResponse>> {
   console.log('🚀 Registering user:', { email: userData.email, fullName: userData.fullName });
 
-  const response = await apiRequest<UserRegistrationResponse>('/api/users', {
+  const response = await apiRequest<LoginResponse>('/api/auth/register', {
     method: 'POST',
     body: JSON.stringify(userData),
   });
 
-  if (response.data) {
-    console.log('✅ Registration successful:', response.data);
+  if (response.data?.success && response.data.token) {
+    console.log('✅ Registration successful, saving token');
+    saveToken(response.data.token);
   } else if (response.error) {
     console.error('❌ Registration failed:', response.error);
   }
