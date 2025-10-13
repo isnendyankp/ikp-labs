@@ -107,6 +107,75 @@ project-root/
 - `backend/registration-form-api/src/main/resources/application.properties` - Database and server configuration
 - `backend/BACKEND_PLAN.md` - Detailed backend development plan and progress tracking
 
+## Testing
+
+### E2E Testing with Playwright 🎭
+
+The application includes comprehensive automated end-to-end tests using Playwright for both registration and login flows.
+
+#### Running E2E Tests
+
+**Prerequisites:**
+- Backend server running on `http://localhost:8081`
+- Frontend server running on `http://localhost:3001`
+
+**Run all tests:**
+```bash
+npx playwright test
+```
+
+**Run specific test suite:**
+```bash
+# Registration tests
+npx playwright test tests/e2e/registration.spec.ts
+
+# Login tests
+npx playwright test tests/e2e/login.spec.ts
+```
+
+**Run with UI mode (interactive):**
+```bash
+npx playwright test --ui
+```
+
+**Run in headed mode (see browser):**
+```bash
+npx playwright test --headed
+```
+
+**Debug mode:**
+```bash
+npx playwright test --debug
+```
+
+**View test report:**
+```bash
+npx playwright show-report
+```
+
+#### Test Coverage
+
+**Registration Flow Tests:**
+- ✅ Valid registration
+- ✅ Duplicate email handling
+- ✅ Empty fields validation
+- ✅ Email format validation
+- ✅ Loading state verification
+- ✅ CORS configuration
+
+**Login Flow Tests:**
+- ✅ Valid login credentials
+- ✅ Invalid password handling
+- ✅ Non-existent email handling
+- ✅ CORS configuration
+
+**Test Documentation:**
+- Complete guide: `tests/README.md`
+- Manual testing plans: `backend/docs/TESTING_STEP_5.3.md` & `backend/docs/TESTING_STEP_5.4.md`
+- Frontend testing plan: `frontend/docs/FRONTEND_PLAN.md`
+
+---
+
 ## Backend API Testing
 
 ### Local Testing with Postman ✅
