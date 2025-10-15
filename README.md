@@ -16,6 +16,9 @@ A modern, responsive registration form template built with Next.js and Tailwind 
 - **TypeScript**: Fully typed for better development experience
 - **Monorepo Structure**: Organized with separate frontend and backend directories
 - **Workspace Management**: NPM workspaces for easy development
+- **AI-Assisted Development**: Claude agents for documentation, testing specs, and planning
+- **Behavior Documentation**: Gherkin specifications for clear feature behavior
+- **Structured Documentation**: Diátaxis framework for organized docs
 
 ## Tech Stack
 
@@ -63,27 +66,46 @@ npm run dev
 
 ```
 project-root/
-├── frontend/                    # Frontend React/Next.js application
-│   ├── src/app/register/       # Registration page route
-│   ├── src/app/login/          # Login page route
-│   ├── src/components/         # React components
-│   ├── public/images/          # Static images
-│   ├── public/videos/          # Demo videos (Postman testing)
-│   └── package.json            # Frontend dependencies
-├── backend/                     # Backend Java Spring Boot API
-│   └── registration-form-api/  # Spring Boot application
-│       ├── src/main/java/      # Java source code
+├── .claude/                    # Claude AI agents configuration
+│   ├── agents/                # Specialized agents
+│   │   ├── gherkin-spec-writer.md      # BDD test scenario writer
+│   │   ├── documentation-writer.md     # Documentation specialist
+│   │   └── plan-writer.md              # Implementation planner
+│   └── settings.json          # Agent hooks and configuration
+├── frontend/                   # Frontend React/Next.js application
+│   ├── src/app/register/      # Registration page route
+│   ├── src/app/login/         # Login page route
+│   ├── src/components/        # React components
+│   ├── public/images/         # Static images
+│   ├── public/videos/         # Demo videos (Postman testing)
+│   └── package.json           # Frontend dependencies
+├── backend/                    # Backend Java Spring Boot API
+│   └── registration-form-api/ # Spring Boot application
+│       ├── src/main/java/     # Java source code
 │       │   └── com/registrationform/api/
-│       │       ├── controller/ # REST API endpoints (@RestController)
-│       │       ├── service/    # Business logic (@Service - Singleton)
-│       │       ├── repository/ # Data access layer (@Repository - Singleton)
-│       │       ├── entity/     # JPA database entities
-│       │       ├── dto/        # Data Transfer Objects
-│       │       ├── validation/ # Custom validation components
-│       │       └── exception/  # Error handling
-│       ├── src/main/resources/ # Configuration files
+│       │       ├── controller/   # REST API endpoints (@RestController)
+│       │       ├── service/      # Business logic (@Service - Singleton)
+│       │       ├── repository/   # Data access layer (@Repository - Singleton)
+│       │       ├── entity/       # JPA database entities
+│       │       ├── dto/          # Data Transfer Objects
+│       │       ├── validation/   # Custom validation components
+│       │       └── exception/    # Error handling
+│       ├── src/main/resources/   # Configuration files
 │       │   └── application.properties
-│       └── pom.xml            # Maven dependencies
+│       └── pom.xml               # Maven dependencies
+├── tests/                      # Playwright E2E tests
+│   ├── e2e/                   # Test specs
+│   └── fixtures/              # Test data
+├── specs/                      # Gherkin specifications (BDD)
+│   └── authentication/        # Auth feature specs
+├── docs/                       # Documentation (Diátaxis framework)
+│   ├── tutorials/             # Learning-oriented guides
+│   ├── how-to/                # Problem-solving guides
+│   ├── reference/             # Technical specifications
+│   └── explanation/           # Conceptual explanations
+├── plans/                      # Implementation plans
+│   ├── in-progress/           # Active development plans
+│   └── completed/             # Archived completed plans
 └── package.json                # Workspace management
 ```
 
@@ -210,6 +232,61 @@ The backend API has been thoroughly tested using Postman on local development en
 - Backend: `http://localhost:8081`
 - Database: PostgreSQL
 - Testing Tool: Postman
+
+---
+
+## Claude AI Agents 🤖
+
+This project includes specialized Claude agents to assist with development:
+
+### 📝 gherkin-spec-writer
+**Purpose**: Write BDD test scenarios in Gherkin format
+
+Creates behavior specifications that are:
+- Readable by non-technical stakeholders
+- Aligned with Playwright E2E tests
+- Following 1-1-1 rule (1 Given, 1 When, 1 Then)
+
+**Usage**: "Create Gherkin specs for password reset feature"
+
+**Location**: [specs/](./specs/)
+
+### 📚 documentation-writer
+**Purpose**: Create and maintain structured documentation
+
+Organizes docs using Diátaxis framework:
+- **Tutorials**: Step-by-step learning guides
+- **How-To Guides**: Problem-solving instructions
+- **Reference**: Technical specifications
+- **Explanation**: Conceptual understanding
+
+**Usage**: "Document the JWT authentication flow"
+
+**Location**: [docs/](./docs/)
+
+### 📋 plan-writer
+**Purpose**: Create implementation plans for features
+
+Generates 4-document plans:
+- README: Overview and status
+- requirements.md: Scope and user stories
+- technical-design.md: Architecture
+- checklist.md: Tasks and validation
+
+**Usage**: "Create implementation plan for user profile editing"
+
+**Location**: [plans/](./plans/)
+
+### Why Use Agents?
+
+✅ **Consistency**: Always follow project conventions
+✅ **Completeness**: Never forget important details
+✅ **Quality**: Maintain high documentation standards
+✅ **Efficiency**: Faster than writing manually
+
+See [.claude/agents/](./.claude/agents/) for agent definitions.
+
+---
 
 ## Learn More
 
