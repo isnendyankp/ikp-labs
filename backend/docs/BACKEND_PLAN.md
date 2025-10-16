@@ -104,7 +104,7 @@ PUT  /api/user/profile     # Update user profile (protected)
 - [x] **Step 5.1:** Configure CORS untuk frontend (port 3001) ✅
 - [x] **Step 5.2:** Update frontend untuk call backend APIs ✅
 - [x] **Step 5.3:** Test registration flow end-to-end ✅
-- [ ] **Step 5.4:** Test login flow end-to-end
+- [x] **Step 5.4:** Test login flow end-to-end ✅
 - [x] **Step 5.5:** Handle API errors di frontend ✅
 - [x] **Step 5.6:** Add loading states ✅
 
@@ -191,6 +191,9 @@ backend/
 - [x] Frontend registration calls backend successfully ✅
 - [x] Frontend login calls backend successfully ✅
 - [x] Error handling works properly ✅
+- [x] Automated E2E tests created (Playwright) ✅
+- [x] Registration E2E tests passing ✅
+- [x] Login E2E tests passing ✅
 
 ### Phase 6 Success:
 - [ ] All tests passing
