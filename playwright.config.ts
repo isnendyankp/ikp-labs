@@ -1,17 +1,20 @@
 import { defineConfig, devices } from '@playwright/test';
 
 /**
- * Playwright Configuration for Registration Form E2E Testing
+ * Playwright Configuration for Registration Form Testing
  *
- * This config file defines test settings for automated browser testing.
- * Tests will run against the local development servers:
+ * This config file defines test settings for:
+ * 1. E2E Tests (browser-based) - Frontend testing
+ * 2. API Tests (request-based) - Backend API testing
+ *
+ * Test servers:
  * - Frontend: http://localhost:3001
- * - Backend: http://localhost:8081
+ * - Backend API: http://localhost:8081
  */
 
 export default defineConfig({
-  // Test directory
-  testDir: './tests/e2e',
+  // Test directory (default for E2E tests)
+  testDir: './tests',
 
   // Maximum time one test can run
   timeout: 30 * 1000,
@@ -60,18 +63,34 @@ export default defineConfig({
 
   // Configure projects for major browsers
   projects: [
+    // API Tests - No browser needed, using request context
+    {
+      name: 'api-tests',
+      testDir: './tests/api',
+      use: {
+        baseURL: 'http://localhost:8081',
+        extraHTTPHeaders: {
+          'Accept': 'application/json',
+        },
+      },
+    },
+
+    // E2E Browser Tests
     {
       name: 'chromium',
+      testDir: './tests/e2e',
       use: { ...devices['Desktop Chrome'] },
     },
 
     {
       name: 'firefox',
+      testDir: './tests/e2e',
       use: { ...devices['Desktop Firefox'] },
     },
 
     {
       name: 'webkit',
+      testDir: './tests/e2e',
       use: { ...devices['Desktop Safari'] },
     },
 

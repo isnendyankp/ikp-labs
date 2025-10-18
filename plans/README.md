@@ -65,7 +65,48 @@ Each plan contains exactly **four documents**:
 
 ### 🚧 In Progress
 
-None currently.
+#### Backend Testing Automation
+**Path:** `in-progress/backend-testing-automation/`
+**Status:** IN PROGRESS
+**Created:** 2025-10-18
+
+Comprehensive automated testing for Spring Boot backend including unit tests (JUnit 5 + Mockito), integration tests (MockMvc + Testcontainers), API tests (REST Assured), and code coverage reporting (JaCoCo 80%+ target).
+
+**Scope:**
+- Unit tests for service layer and repositories
+- Integration tests with real PostgreSQL via Testcontainers
+- API tests with REST Assured
+- Security component tests (JWT, validation)
+- Code coverage with JaCoCo (80%+ target)
+- CI/CD test automation ready
+
+**Documents:**
+- [README](./in-progress/backend-testing-automation/README.md)
+- [Requirements](./in-progress/backend-testing-automation/requirements.md)
+- [Technical Design](./in-progress/backend-testing-automation/technical-design.md)
+- [Checklist](./in-progress/backend-testing-automation/checklist.md)
+
+#### Backend API Testing with Playwright
+**Path:** `in-progress/backend-api-testing-playwright/`
+**Status:** IN PROGRESS
+**Created:** 2025-10-18
+
+Automate backend API testing using Playwright's request API with MCP integration. API-only testing (no browser) for all Spring Boot endpoints, replacing manual Postman testing with automated test suites. 5-day daily commit plan.
+
+**Scope:**
+- Authentication API tests (register, login, refresh, validate)
+- User management CRUD API tests
+- Protected endpoint authorization tests with JWT
+- Error handling tests (400, 401, 404, 500)
+- MCP Playwright integration
+- API test helpers and utilities
+- Daily commits for GitHub activity
+
+**Documents:**
+- [README](./in-progress/backend-api-testing-playwright/README.md)
+- [Requirements](./in-progress/backend-api-testing-playwright/requirements.md)
+- [Technical Design](./in-progress/backend-api-testing-playwright/technical-design.md)
+- [Checklist](./in-progress/backend-api-testing-playwright/checklist.md)
 
 ### ✅ Recently Completed
 
