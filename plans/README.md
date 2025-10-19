@@ -108,6 +108,29 @@ Automate backend API testing using Playwright's request API with MCP integration
 - [Technical Design](./in-progress/backend-api-testing-playwright/technical-design.md)
 - [Checklist](./in-progress/backend-api-testing-playwright/checklist.md)
 
+#### Frontend Authentication Flow with Home Page
+**Path:** `in-progress/frontend-authentication-flow/`
+**Status:** IN PROGRESS
+**Created:** 2025-10-19
+
+Complete frontend authentication flow with protected home page route. Implements token-based session management with localStorage, route guards, and user profile display. 9-commit structure over 3 implementation days.
+
+**Scope:**
+- Protected home page route at /home (NOT /dashboard)
+- Authentication context with React Context API
+- Route protection and redirects for all pages
+- User profile display with fullName, email, login time
+- Logout functionality with token cleanup
+- Token persistence across browser refreshes
+- Complete E2E and API testing with Playwright
+- Gherkin specifications for authentication flows
+
+**Documents:**
+- [README](./in-progress/frontend-authentication-flow/README.md)
+- [Requirements](./in-progress/frontend-authentication-flow/requirements.md)
+- [Technical Design](./in-progress/frontend-authentication-flow/technical-design.md)
+- [Checklist](./in-progress/frontend-authentication-flow/checklist.md)
+
 ### ✅ Recently Completed
 
 None yet. Plans will appear here when completed.
