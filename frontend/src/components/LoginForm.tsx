@@ -75,18 +75,9 @@ export default function LoginForm() {
           fullName: response.data.fullName
         });
 
-        // Show success message
-        alert(`Welcome back, ${response.data.fullName}!`);
-
-        // Handle "Remember Me" functionality
-        if (formData.rememberMe) {
-          // Token is already saved by the API service
-          console.log('💾 Remember me enabled - token saved to localStorage');
-        }
-
-        // Redirect to dashboard or home page
-        // For now, redirect to registration page (you can change this later)
-        router.push('/register'); // Change to dashboard when available
+        // Token already saved by loginUser() in api.ts
+        // Redirect to home page
+        router.push('/home');
       } else if (response.error) {
         console.error('❌ Login failed:', response.error);
 
