@@ -1,12 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { z } from 'zod';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Tooltip from './Tooltip';
 import { registerUser } from '../services/api';
 import { UserRegistrationRequest, RegistrationFormData } from '../types/api';
+import { isAuthenticated } from '../lib/auth';
 
 const registrationSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters long'),
@@ -33,6 +34,13 @@ export default function RegistrationForm() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [apiError, setApiError] = useState<string>('');
+
+  // Redirect to home if already authenticated
+  useEffect(() => {
+    if (isAuthenticated()) {
+      router.push('/home');
+    }
+  }, [router]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;

@@ -1,12 +1,13 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { z } from 'zod';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Tooltip from './Tooltip';
 import { loginUser } from '../services/api';
 import { LoginRequest, LoginFormData } from '../types/api';
+import { isAuthenticated } from '../lib/auth';
 
 const loginSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
@@ -26,6 +27,13 @@ export default function LoginForm() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState(false);
   const [apiError, setApiError] = useState<string>('');
+
+  // Redirect to home if already authenticated
+  useEffect(() => {
+    if (isAuthenticated()) {
+      router.push('/home');
+    }
+  }, [router]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
