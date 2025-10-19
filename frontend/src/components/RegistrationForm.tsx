@@ -77,10 +77,11 @@ export default function RegistrationForm() {
 
       if (response.data) {
         console.log('✅ Registration successful:', response.data);
-        alert(`Registration successful! Welcome, ${response.data.fullName}!`);
 
-        // Redirect to login page
-        router.push('/login');
+        // Token already saved by registerUser() in api.ts
+        // User is automatically logged in after registration
+        // Redirect to home page
+        router.push('/home');
       } else if (response.error) {
         console.error('❌ Registration failed:', response.error);
 
