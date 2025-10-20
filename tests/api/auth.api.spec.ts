@@ -148,4 +148,114 @@ test.describe('Authentication API Tests', () => {
 
   });
 
+  /**
+   * POST /api/auth/login - User Login Endpoint
+   */
+  test.describe('POST /api/auth/login', () => {
+
+    test('Should login successfully with valid credentials', async ({ request }) => {
+      const client = new ApiClient(request);
+
+      // Use existing test user
+      const loginData = {
+        email: 'testuser123@example.com',
+        password: 'SecurePass123!'
+      };
+
+      const response = await client.post('/api/auth/login', loginData);
+
+      // Verify response status
+      expect(response.status).toBe(200);
+
+      // Verify response structure
+      expect(response.body.success).toBe(true);
+      expect(response.body.message).toBeTruthy();
+      expect(response.body.token).toBeTruthy();
+
+      // Verify user data
+      expect(response.body.email).toBe(loginData.email);
+      expect(response.body.fullName).toBeTruthy();
+      expect(response.body.userId).toBeTruthy();
+
+      // Verify JWT token format
+      const tokenParts = response.body.token.split('.');
+      expect(tokenParts.length).toBe(3);
+
+      console.log('✅ Test: Login with valid credentials - PASSED');
+    });
+
+    test('Should reject invalid password', async ({ request }) => {
+      const client = new ApiClient(request);
+
+      const invalidPasswordData = {
+        email: 'testuser123@example.com',
+        password: 'WrongPassword123!' // Incorrect password
+      };
+
+      const response = await client.post('/api/auth/login', invalidPasswordData);
+
+      // Verify response status
+      expect(response.status).toBe(401);
+
+      // Verify error response
+      expect(response.body.success).toBe(false);
+      expect(response.body.message).toContain('Invalid');
+
+      console.log('✅ Test: Reject invalid password - PASSED');
+    });
+
+    test('Should reject non-existent email', async ({ request }) => {
+      const client = new ApiClient(request);
+
+      const nonExistentData = {
+        email: 'nonexistent@example.com',
+        password: 'AnyPassword123!'
+      };
+
+      const response = await client.post('/api/auth/login', nonExistentData);
+
+      // Verify response status
+      expect(response.status).toBe(401);
+
+      // Verify error response
+      expect(response.body.success).toBe(false);
+
+      console.log('✅ Test: Reject non-existent email - PASSED');
+    });
+
+    test('Should validate required fields', async ({ request }) => {
+      const client = new ApiClient(request);
+
+      // Send request with empty fields
+      const invalidData = {
+        email: '',
+        password: ''
+      };
+
+      const response = await client.post('/api/auth/login', invalidData);
+
+      // Verify response status
+      expect(response.status).toBe(400);
+
+      console.log('✅ Test: Validate required fields - PASSED');
+    });
+
+    test('Should validate email format on login', async ({ request }) => {
+      const client = new ApiClient(request);
+
+      const invalidEmailData = {
+        email: 'not-an-email',
+        password: 'TestPass123!'
+      };
+
+      const response = await client.post('/api/auth/login', invalidEmailData);
+
+      // Verify response status
+      expect(response.status).toBe(400);
+
+      console.log('✅ Test: Validate email format - PASSED');
+    });
+
+  });
+
 });
