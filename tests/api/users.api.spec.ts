@@ -203,4 +203,244 @@ test.describe('User Management API Tests', () => {
 
   });
 
+  /**
+   * GET /api/users/{id} - Get User By ID Endpoint
+   */
+  test.describe('GET /api/users/{id}', () => {
+
+    test('Should retrieve user by ID with valid JWT token', async ({ request }) => {
+      const client = new ApiClient(request);
+
+      // First, create a user to get a valid ID
+      const newUserData = {
+        fullName: generateRandomFullName(),
+        email: generateUniqueEmail(),
+        password: generateValidPassword()
+      };
+
+      const createResponse = await client.post('/api/users', newUserData, validToken);
+      const userId = createResponse.body.user.id;
+
+      // Now retrieve the user by ID
+      const response = await client.get(`/api/users/${userId}`, validToken);
+
+      // Verify response status
+      expect(response.status).toBe(200);
+
+      // Verify response structure
+      expect(response.body.success).toBe(true);
+      expect(response.body.user).toBeTruthy();
+
+      // Verify user data matches
+      expect(response.body.user.id).toBe(userId);
+      expect(response.body.user.email).toBe(newUserData.email);
+      expect(response.body.user.fullName).toBe(newUserData.fullName);
+
+      console.log('✅ Test: Retrieve user by ID with valid token - PASSED');
+    });
+
+    test('Should reject get user by ID without JWT token', async ({ request }) => {
+      const client = new ApiClient(request);
+
+      // Try to get user without token
+      const response = await client.get('/api/users/1');
+
+      // Verify response status (401 Unauthorized)
+      expect(response.status).toBe(401);
+
+      console.log('✅ Test: Reject get user by ID without token - PASSED');
+    });
+
+    test('Should return 404 for non-existent user ID', async ({ request }) => {
+      const client = new ApiClient(request);
+
+      const nonExistentId = 999999;
+      const response = await client.get(`/api/users/${nonExistentId}`, validToken);
+
+      // Verify response status (404 Not Found)
+      expect(response.status).toBe(404);
+
+      console.log('✅ Test: Return 404 for non-existent user ID - PASSED');
+    });
+
+  });
+
+  /**
+   * PUT /api/users/{id} - Update User Endpoint
+   */
+  test.describe('PUT /api/users/{id}', () => {
+
+    test('Should update user successfully with valid data', async ({ request }) => {
+      const client = new ApiClient(request);
+
+      // First, create a user to update
+      const newUserData = {
+        fullName: generateRandomFullName(),
+        email: generateUniqueEmail(),
+        password: generateValidPassword()
+      };
+
+      const createResponse = await client.post('/api/users', newUserData, validToken);
+      const userId = createResponse.body.user.id;
+
+      // Update the user
+      const updateData = {
+        fullName: 'Updated Full Name',
+        email: generateUniqueEmail(), // New unique email
+        password: 'NewPassword123!'
+      };
+
+      const response = await client.put(`/api/users/${userId}`, updateData, validToken);
+
+      // Verify response status
+      expect(response.status).toBe(200);
+
+      // Verify response structure
+      expect(response.body.success).toBe(true);
+      expect(response.body.message).toContain('updated');
+      expect(response.body.user).toBeTruthy();
+
+      // Verify updated data
+      expect(response.body.user.id).toBe(userId);
+      expect(response.body.user.fullName).toBe(updateData.fullName);
+      expect(response.body.user.email).toBe(updateData.email);
+
+      console.log('✅ Test: Update user with valid data - PASSED');
+    });
+
+    test('Should reject update without JWT token', async ({ request }) => {
+      const client = new ApiClient(request);
+
+      const updateData = {
+        fullName: 'Unauthorized Update',
+        email: generateUniqueEmail(),
+        password: 'NewPassword123!'
+      };
+
+      // Try to update without token
+      const response = await client.put('/api/users/1', updateData);
+
+      // Verify response status (401 Unauthorized)
+      expect(response.status).toBe(401);
+
+      console.log('✅ Test: Reject update without token - PASSED');
+    });
+
+    test('Should return 404 when updating non-existent user', async ({ request }) => {
+      const client = new ApiClient(request);
+
+      const nonExistentId = 999999;
+      const updateData = {
+        fullName: 'Non-existent User',
+        email: generateUniqueEmail(),
+        password: 'NewPassword123!'
+      };
+
+      const response = await client.put(`/api/users/${nonExistentId}`, updateData, validToken);
+
+      // Verify response status (404 Not Found)
+      expect(response.status).toBe(404);
+
+      console.log('✅ Test: Return 404 when updating non-existent user - PASSED');
+    });
+
+    test('Should reject update with duplicate email', async ({ request }) => {
+      const client = new ApiClient(request);
+
+      // Create first user
+      const user1Data = {
+        fullName: 'User One',
+        email: generateUniqueEmail(),
+        password: generateValidPassword()
+      };
+      const user1Response = await client.post('/api/users', user1Data, validToken);
+      const user1Id = user1Response.body.user.id;
+
+      // Create second user
+      const user2Data = {
+        fullName: 'User Two',
+        email: generateUniqueEmail(),
+        password: generateValidPassword()
+      };
+      const user2Response = await client.post('/api/users', user2Data, validToken);
+
+      // Try to update user1 with user2's email (duplicate)
+      const updateData = {
+        fullName: 'User One Updated',
+        email: user2Data.email, // Duplicate email
+        password: 'NewPassword123!'
+      };
+
+      const response = await client.put(`/api/users/${user1Id}`, updateData, validToken);
+
+      // Verify response status (400 Bad Request)
+      expect(response.status).toBe(400);
+      expect(response.body.message).toContain('already exists');
+
+      console.log('✅ Test: Reject update with duplicate email - PASSED');
+    });
+
+  });
+
+  /**
+   * DELETE /api/users/{id} - Delete User Endpoint
+   */
+  test.describe('DELETE /api/users/{id}', () => {
+
+    test('Should delete user successfully with valid JWT token', async ({ request }) => {
+      const client = new ApiClient(request);
+
+      // First, create a user to delete
+      const newUserData = {
+        fullName: generateRandomFullName(),
+        email: generateUniqueEmail(),
+        password: generateValidPassword()
+      };
+
+      const createResponse = await client.post('/api/users', newUserData, validToken);
+      const userId = createResponse.body.user.id;
+
+      // Delete the user
+      const response = await client.delete(`/api/users/${userId}`, validToken);
+
+      // Verify response status
+      expect(response.status).toBe(200);
+
+      // Verify response structure
+      expect(response.body.success).toBe(true);
+      expect(response.body.message).toContain('deleted');
+
+      // Verify user is actually deleted by trying to get it
+      const getResponse = await client.get(`/api/users/${userId}`, validToken);
+      expect(getResponse.status).toBe(404);
+
+      console.log('✅ Test: Delete user successfully - PASSED');
+    });
+
+    test('Should reject delete without JWT token', async ({ request }) => {
+      const client = new ApiClient(request);
+
+      // Try to delete without token
+      const response = await client.delete('/api/users/1');
+
+      // Verify response status (401 Unauthorized)
+      expect(response.status).toBe(401);
+
+      console.log('✅ Test: Reject delete without token - PASSED');
+    });
+
+    test('Should return 404 when deleting non-existent user', async ({ request }) => {
+      const client = new ApiClient(request);
+
+      const nonExistentId = 999999;
+      const response = await client.delete(`/api/users/${nonExistentId}`, validToken);
+
+      // Verify response status (404 Not Found)
+      expect(response.status).toBe(404);
+
+      console.log('✅ Test: Return 404 when deleting non-existent user - PASSED');
+    });
+
+  });
+
 });
