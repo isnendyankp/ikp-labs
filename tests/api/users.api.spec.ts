@@ -443,4 +443,160 @@ test.describe('User Management API Tests', () => {
 
   });
 
+  /**
+   * GET /api/users/email/{email} - Get User By Email Endpoint
+   */
+  test.describe('GET /api/users/email/{email}', () => {
+
+    test('Should retrieve user by email with valid JWT token', async ({ request }) => {
+      const client = new ApiClient(request);
+
+      // First, create a user with known email
+      const newUserData = {
+        fullName: generateRandomFullName(),
+        email: generateUniqueEmail(),
+        password: generateValidPassword()
+      };
+
+      await client.post('/api/users', newUserData, validToken);
+
+      // Now retrieve the user by email
+      const response = await client.get(`/api/users/email/${newUserData.email}`, validToken);
+
+      // Verify response status
+      expect(response.status).toBe(200);
+
+      // Verify response structure
+      expect(response.body.success).toBe(true);
+      expect(response.body.user).toBeTruthy();
+
+      // Verify user data matches
+      expect(response.body.user.email).toBe(newUserData.email);
+      expect(response.body.user.fullName).toBe(newUserData.fullName);
+
+      console.log('✅ Test: Retrieve user by email with valid token - PASSED');
+    });
+
+    test('Should reject get user by email without JWT token', async ({ request }) => {
+      const client = new ApiClient(request);
+
+      // Try to get user by email without token
+      const response = await client.get('/api/users/email/test@example.com');
+
+      // Verify response status (401 Unauthorized)
+      expect(response.status).toBe(401);
+
+      console.log('✅ Test: Reject get user by email without token - PASSED');
+    });
+
+    test('Should return 404 for non-existent email', async ({ request }) => {
+      const client = new ApiClient(request);
+
+      const nonExistentEmail = `nonexistent${Date.now()}@example.com`;
+      const response = await client.get(`/api/users/email/${nonExistentEmail}`, validToken);
+
+      // Verify response status (404 Not Found)
+      expect(response.status).toBe(404);
+
+      console.log('✅ Test: Return 404 for non-existent email - PASSED');
+    });
+
+  });
+
+  /**
+   * GET /api/users/check-email/{email} - Check Email Exists Endpoint
+   */
+  test.describe('GET /api/users/check-email/{email}', () => {
+
+    test('Should return true for existing email', async ({ request }) => {
+      const client = new ApiClient(request);
+
+      // First, create a user with known email
+      const newUserData = {
+        fullName: generateRandomFullName(),
+        email: generateUniqueEmail(),
+        password: generateValidPassword()
+      };
+
+      await client.post('/api/users', newUserData, validToken);
+
+      // Check if email exists
+      const response = await client.get(`/api/users/check-email/${newUserData.email}`, validToken);
+
+      // Verify response status
+      expect(response.status).toBe(200);
+
+      // Verify response structure
+      expect(response.body.success).toBe(true);
+      expect(response.body.exists).toBe(true);
+
+      console.log('✅ Test: Return true for existing email - PASSED');
+    });
+
+    test('Should return false for non-existent email', async ({ request }) => {
+      const client = new ApiClient(request);
+
+      const nonExistentEmail = `nonexistent${Date.now()}@example.com`;
+      const response = await client.get(`/api/users/check-email/${nonExistentEmail}`, validToken);
+
+      // Verify response status
+      expect(response.status).toBe(200);
+
+      // Verify response structure
+      expect(response.body.success).toBe(true);
+      expect(response.body.exists).toBe(false);
+
+      console.log('✅ Test: Return false for non-existent email - PASSED');
+    });
+
+    test('Should reject check-email without JWT token', async ({ request }) => {
+      const client = new ApiClient(request);
+
+      // Try to check email without token
+      const response = await client.get('/api/users/check-email/test@example.com');
+
+      // Verify response status (401 Unauthorized)
+      expect(response.status).toBe(401);
+
+      console.log('✅ Test: Reject check-email without token - PASSED');
+    });
+
+  });
+
+  /**
+   * GET /api/users/count - Get Total User Count Endpoint
+   */
+  test.describe('GET /api/users/count', () => {
+
+    test('Should return total user count with valid JWT token', async ({ request }) => {
+      const client = new ApiClient(request);
+
+      const response = await client.get('/api/users/count', validToken);
+
+      // Verify response status
+      expect(response.status).toBe(200);
+
+      // Verify response structure
+      expect(response.body.success).toBe(true);
+      expect(response.body.count).toBeDefined();
+      expect(typeof response.body.count).toBe('number');
+      expect(response.body.count).toBeGreaterThan(0);
+
+      console.log('✅ Test: Return total user count with valid token - PASSED');
+    });
+
+    test('Should reject get user count without JWT token', async ({ request }) => {
+      const client = new ApiClient(request);
+
+      // Try to get count without token
+      const response = await client.get('/api/users/count');
+
+      // Verify response status (401 Unauthorized)
+      expect(response.status).toBe(401);
+
+      console.log('✅ Test: Reject get user count without token - PASSED');
+    });
+
+  });
+
 });
