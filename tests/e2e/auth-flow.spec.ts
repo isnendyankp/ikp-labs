@@ -21,6 +21,29 @@ test.describe('Authentication Flow - Complete User Journey', () => {
     return `auth.flow.${timestamp}.${random}@example.com`;
   };
 
+  // Helper function to create a test user via registration
+  const createTestUser = async (page: any) => {
+    const testUser = {
+      fullName: 'Auth Test User',
+      email: generateUniqueEmail(),
+      password: 'SecurePass123!',
+      confirmPassword: 'SecurePass123!'
+    };
+
+    await page.goto('/register');
+    await page.fill('input[name="name"]', testUser.fullName);
+    await page.fill('input[name="email"]', testUser.email);
+    await page.fill('input[name="password"]', testUser.password);
+    await page.fill('input[name="confirmPassword"]', testUser.confirmPassword);
+    await page.click('button[type="submit"]');
+    await page.waitForURL('/home', { timeout: 5000 });
+
+    // Clear localStorage to prepare for login test
+    await page.evaluate(() => localStorage.clear());
+
+    return testUser;
+  };
+
   test.beforeEach(async ({ page }) => {
     // Clear localStorage before each test
     await page.goto('/');
@@ -76,18 +99,15 @@ test.describe('Authentication Flow - Complete User Journey', () => {
    * Test 2: Login → Redirect to Home
    */
   test('Should login and redirect to home page', async ({ page }) => {
-    // Use existing test user (created in registration tests)
-    const credentials = {
-      email: 'testuser123@example.com',
-      password: 'SecurePass123!'
-    };
+    // Create a test user first
+    const testUser = await createTestUser(page);
 
     // Go to login page
     await page.goto('/login');
 
-    // Fill login form
-    await page.fill('input[name="email"]', credentials.email);
-    await page.fill('input[name="password"]', credentials.password);
+    // Fill login form with the newly created user credentials
+    await page.fill('input[name="email"]', testUser.email);
+    await page.fill('input[name="password"]', testUser.password);
 
     // Submit form
     await page.click('button[type="submit"]');
@@ -112,17 +132,20 @@ test.describe('Authentication Flow - Complete User Journey', () => {
    * Test 3: Home Page Displays User Info Correctly
    */
   test('Should display user information from JWT token', async ({ page }) => {
-    // First, login to get token
+    // Create a test user first
+    const testUser = await createTestUser(page);
+
+    // Login to get token
     await page.goto('/login');
-    await page.fill('input[name="email"]', 'testuser123@example.com');
-    await page.fill('input[name="password"]', 'SecurePass123!');
+    await page.fill('input[name="email"]', testUser.email);
+    await page.fill('input[name="password"]', testUser.password);
     await page.click('button[type="submit"]');
     await page.waitForURL('/home');
 
     // Verify user information displayed
     await expect(page.locator('text=Full Name')).toBeVisible();
     await expect(page.locator('text=Email Address')).toBeVisible();
-    await expect(page.locator('text=testuser123@example.com')).toBeVisible();
+    await expect(page.locator(`text=${testUser.email}`)).toBeVisible();
 
     // Verify JWT authentication info message
     await expect(page.locator('text=JWT authentication')).toBeVisible();
@@ -134,10 +157,13 @@ test.describe('Authentication Flow - Complete User Journey', () => {
    * Test 4: Logout Clears Token and Redirects
    */
   test('Should logout, clear token, and redirect to login', async ({ page }) => {
-    // First, login
+    // Create a test user first
+    const testUser = await createTestUser(page);
+
+    // Login
     await page.goto('/login');
-    await page.fill('input[name="email"]', 'testuser123@example.com');
-    await page.fill('input[name="password"]', 'SecurePass123!');
+    await page.fill('input[name="email"]', testUser.email);
+    await page.fill('input[name="password"]', testUser.password);
     await page.click('button[type="submit"]');
     await page.waitForURL('/home');
 
@@ -186,10 +212,13 @@ test.describe('Authentication Flow - Complete User Journey', () => {
    * Test 6: Authenticated User Accessing Login → Redirect to Home
    */
   test('Should redirect authenticated user from login to home', async ({ page }) => {
-    // First, login
+    // Create a test user first
+    const testUser = await createTestUser(page);
+
+    // Login
     await page.goto('/login');
-    await page.fill('input[name="email"]', 'testuser123@example.com');
-    await page.fill('input[name="password"]', 'SecurePass123!');
+    await page.fill('input[name="email"]', testUser.email);
+    await page.fill('input[name="password"]', testUser.password);
     await page.click('button[type="submit"]');
     await page.waitForURL('/home');
 
@@ -210,10 +239,13 @@ test.describe('Authentication Flow - Complete User Journey', () => {
    * Test 7: Authenticated User Accessing Register → Redirect to Home
    */
   test('Should redirect authenticated user from register to home', async ({ page }) => {
-    // First, login
+    // Create a test user first
+    const testUser = await createTestUser(page);
+
+    // Login
     await page.goto('/login');
-    await page.fill('input[name="email"]', 'testuser123@example.com');
-    await page.fill('input[name="password"]', 'SecurePass123!');
+    await page.fill('input[name="email"]', testUser.email);
+    await page.fill('input[name="password"]', testUser.password);
     await page.click('button[type="submit"]');
     await page.waitForURL('/home');
 
@@ -234,10 +266,13 @@ test.describe('Authentication Flow - Complete User Journey', () => {
    * Test 8: Token Persists Across Page Refresh
    */
   test('Should maintain authentication after page refresh', async ({ page }) => {
+    // Create a test user first
+    const testUser = await createTestUser(page);
+
     // Login
     await page.goto('/login');
-    await page.fill('input[name="email"]', 'testuser123@example.com');
-    await page.fill('input[name="password"]', 'SecurePass123!');
+    await page.fill('input[name="email"]', testUser.email);
+    await page.fill('input[name="password"]', testUser.password);
     await page.click('button[type="submit"]');
     await page.waitForURL('/home');
 
