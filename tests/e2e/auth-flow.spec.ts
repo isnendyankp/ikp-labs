@@ -177,7 +177,7 @@ test.describe('Authentication Flow - Complete User Journey', () => {
     expect(page.url()).toContain('/login');
 
     // Verify login page is shown
-    await expect(page.locator('h2:has-text("Welcome back")')).toBeVisible();
+    await expect(page.locator('h2').filter({ hasText: 'Welcome back' }).first()).toBeVisible();
 
     console.log('✅ Test 5: Unauthenticated redirect working');
   });
