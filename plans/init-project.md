@@ -52,11 +52,15 @@
     - [x] Prevent default login form submission behavior.
     - [x] Log login data to the console (for now).
 
-## API Integration (Future)
-- [ ] Create an API endpoint for user registration at `api/register`.
-- [ ] Connect the form to the `api/register` endpoint.
-- [ ] Create an API endpoint for user login at `api/login`.
-- [ ] Connect the login form to the `api/login` endpoint.
+## API Integration
+- [x] Create an API endpoint for user registration at `/api/auth/register` (Spring Boot backend).
+- [x] Connect the registration form to the `/api/auth/register` endpoint via `registerUser()` service.
+- [x] Create an API endpoint for user login at `/api/auth/login` (Spring Boot backend).
+- [x] Connect the login form to the `/api/auth/login` endpoint via `loginUser()` service.
+- [x] Implement JWT token management (save, retrieve, remove from localStorage).
+- [x] Create protected home page at `/home` with authentication guard.
+- [x] Implement auto-redirect after successful registration/login to `/home`.
+- [x] Add logout functionality with token cleanup and redirect to `/login`.
 
 ## Styling
 - [x] Style the form using Tailwind CSS.
