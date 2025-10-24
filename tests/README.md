@@ -1,16 +1,28 @@
-# 🧪 E2E Tests with Playwright
+# 🧪 Tests with Playwright
 
-Automated end-to-end tests for the Registration Form application using Playwright.
+Automated testing suite for the Registration Form application using Playwright, including both end-to-end (E2E) tests and API tests.
 
 ## 📁 Structure
 
 ```
 tests/
-├── e2e/                    # E2E test specs
-│   └── login.spec.ts       # Login flow tests
+├── e2e/                    # E2E test specs (browser tests)
+│   ├── login.spec.ts       # Login flow tests
+│   ├── registration.spec.ts # Registration flow tests
+│   └── auth-flow.spec.ts   # Complete authentication flow tests
+├── api/                    # API test specs (backend tests)
+│   ├── helpers/            # API test utilities
+│   │   ├── api-client.ts   # HTTP request wrapper
+│   │   ├── auth-helper.ts  # Authentication utilities
+│   │   ├── test-data.ts    # Test data generators
+│   │   └── cleanup.ts      # Database cleanup utilities
+│   ├── auth.api.spec.ts    # Authentication endpoint tests
+│   ├── users.api.spec.ts   # User management tests
+│   ├── protected.api.spec.ts # Protected endpoint tests
+│   ├── error-handling.api.spec.ts # Error scenario tests
+│   └── health.api.spec.ts  # Health check tests
 ├── fixtures/               # Test data
 │   └── test-users.ts       # Test user credentials
-├── helpers/                # Test helper functions
 └── README.md              # This file
 ```
 
@@ -18,7 +30,7 @@ tests/
 
 ### Prerequisites
 
-Make sure both servers are running:
+**For E2E Tests:** Both servers must be running
 ```bash
 # Terminal 1: Backend (port 8081)
 cd backend/registration-form-api
@@ -29,37 +41,53 @@ cd frontend
 npm run dev
 ```
 
+**For API Tests:** Only backend is required
+```bash
+# Backend (port 8081)
+cd backend/registration-form-api
+mvn spring-boot:run
+```
+
 ### Run All Tests
 
 ```bash
-# Run all tests in headless mode
+# Run all tests (E2E + API)
 npx playwright test
 
-# Run tests in headed mode (see browser)
-npx playwright test --headed
+# Run only E2E tests
+npx playwright test tests/e2e/
+
+# Run only API tests
+npx playwright test tests/api/
+
+# Run tests in headed mode (E2E only - see browser)
+npx playwright test tests/e2e/ --headed
 
 # Run specific test file
 npx playwright test tests/e2e/login.spec.ts
+npx playwright test tests/api/auth.api.spec.ts
 
 # Run tests in debug mode
 npx playwright test --debug
 ```
 
-### Run Tests by Browser
+### Run Tests by Browser (E2E only)
 
 ```bash
 # Chromium only
-npx playwright test --project=chromium
+npx playwright test tests/e2e/ --project=chromium
 
 # Firefox only
-npx playwright test --project=firefox
+npx playwright test tests/e2e/ --project=firefox
 
 # WebKit (Safari) only
-npx playwright test --project=webkit
+npx playwright test tests/e2e/ --project=webkit
 
 # All browsers
-npx playwright test --project=chromium --project=firefox --project=webkit
+npx playwright test tests/e2e/ --project=chromium --project=firefox --project=webkit
 ```
+
+**Note:** API tests don't use browsers - they run directly against the backend.
 
 ### View Test Results
 
@@ -71,7 +99,64 @@ npx playwright show-report
 npx playwright show-trace
 ```
 
-## 📊 Test Coverage
+## 🧪 API Testing
+
+For detailed information about API testing, see the [API Testing Guide](../docs/how-to/api-testing.md).
+
+### Quick Start - API Tests
+
+```bash
+# Run all API tests
+npx playwright test tests/api/
+
+# Run specific API test file
+npx playwright test tests/api/auth.api.spec.ts
+
+# Run with output visible
+npx playwright test tests/api/ --reporter=list
+```
+
+### API Test Coverage
+
+- ✅ **Authentication Endpoints:** Login, register, token refresh, validation
+- ✅ **User Management:** CRUD operations, email lookup, user count
+- ✅ **Protected Endpoints:** Profile, dashboard, settings (with JWT)
+- ✅ **Error Handling:** 400, 401, 404 scenarios
+- ✅ **Health Checks:** API status monitoring
+
+### API Test Helpers
+
+Located in `tests/api/helpers/`:
+
+- **api-client.ts** - HTTP request wrapper for GET, POST, PUT, DELETE
+- **auth-helper.ts** - Authentication utilities (register, login, token validation)
+- **test-data.ts** - Test data generators (unique emails, random names)
+- **cleanup.ts** - Database cleanup utilities (delete test users)
+
+**Example usage:**
+```typescript
+import { ApiClient } from './helpers/api-client';
+import { generateUniqueEmail } from './helpers/test-data';
+
+test('should create user', async ({ request }) => {
+  const client = new ApiClient(request);
+  const email = generateUniqueEmail();
+
+  const response = await client.post('/api/users', {
+    fullName: 'Test User',
+    email,
+    password: 'SecurePass123!'
+  });
+
+  expect(response.status).toBe(201);
+});
+```
+
+For complete guide, see [API Testing Documentation](../docs/how-to/api-testing.md).
+
+---
+
+## 📊 E2E Test Coverage
 
 ### Login Flow Tests (`login.spec.ts`)
 
@@ -189,10 +274,16 @@ Tests can be integrated into GitHub Actions:
 
 ## 📚 Resources
 
+### Documentation
+- [API Testing Guide](../docs/how-to/api-testing.md) - Complete API testing documentation
+- [E2E Testing Guide](../docs/how-to/run-e2e-tests.md) - Browser-based testing guide
+- [Protected Routes Implementation](../docs/how-to/implement-protected-routes.md) - Authentication flows
+
+### External Resources
 - [Playwright Documentation](https://playwright.dev)
+- [Playwright API Testing](https://playwright.dev/docs/api-testing)
 - [Playwright MCP](https://executeautomation.github.io/mcp-playwright/)
 - [Best Practices](https://playwright.dev/docs/best-practices)
-- [Project Testing Plan](../frontend/docs/FRONTEND_PLAN.md)
 
 ---
 
