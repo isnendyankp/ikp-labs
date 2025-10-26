@@ -1,6 +1,6 @@
 # Registration Form Template
 
-A modern, responsive registration form template built with Next.js and Tailwind CSS. This monorepo contains a complete frontend implementation with placeholder for backend development. The frontend provides a clean, professional-looking registration page with a hero section and form layout that's perfect for any web application.
+A production-ready, full-stack registration and authentication system with modern UI and comprehensive testing. Features complete JWT authentication, protected routes, and extensive test coverage with both E2E and API tests.
 
 ![Registration Form Template](frontend/public/images/registerFormTemplate1.png)
 
@@ -8,17 +8,33 @@ A modern, responsive registration form template built with Next.js and Tailwind 
 
 ## Features
 
-- **Modern Design**: Clean and professional UI with a two-panel layout
+### Authentication & Security
+- **JWT Authentication**: Complete token-based authentication system
+- **Protected Routes**: Auto-redirect based on authentication status
+- **Token Management**: Secure localStorage-based token handling
+- **Password Security**: BCrypt password hashing
+- **CORS Configuration**: Secure cross-origin request handling
+
+### User Interface
+- **Modern Design**: Clean and professional UI with two-panel layout
 - **Responsive**: Fully responsive design that works on all devices
 - **Hero Section**: Beautiful left panel with customizable hero content
-- **Form Components**: Complete registration form with validation ready fields
-- **Google Integration**: Ready-to-use Google sign-up button
-- **TypeScript**: Fully typed for better development experience
-- **Monorepo Structure**: Organized with separate frontend and backend directories
-- **Workspace Management**: NPM workspaces for easy development
-- **AI-Assisted Development**: Claude agents for documentation, testing specs, and planning
-- **Behavior Documentation**: Gherkin specifications for clear feature behavior
-- **Structured Documentation**: Diátaxis framework for organized docs
+- **Form Validation**: Client-side and server-side validation
+- **Loading States**: Professional loading indicators
+- **Error Handling**: User-friendly error messages
+
+### Testing & Quality
+- **E2E Testing**: 8+ Playwright E2E scenarios (authentication flows)
+- **API Testing**: 20+ API test scenarios with Playwright
+- **Test Coverage**: 100% critical path coverage
+- **Gherkin Specs**: 18+ BDD scenarios in plain language
+- **Comprehensive Documentation**: Diátaxis framework with 6+ guides
+
+### Development
+- **TypeScript**: Fully typed for better DX
+- **Monorepo Structure**: Organized with workspaces
+- **AI-Assisted**: Claude agents for docs, specs, and planning
+- **Hot Reload**: Fast development with Next.js and Spring Boot DevTools
 
 ## Tech Stack
 
@@ -29,13 +45,20 @@ A modern, responsive registration form template built with Next.js and Tailwind 
 - **[Tailwind CSS 4](https://tailwindcss.com)** - Utility-first CSS framework
 - **[ESLint](https://eslint.org)** - Code linting and formatting
 
-### Backend (In Development)
+### Backend
 - **[Java 17+](https://openjdk.java.net/)** - Programming language
-- **[Spring Boot 3.2+](https://spring.io/projects/spring-boot)** - Java framework for enterprise applications
+- **[Spring Boot 3.3.6](https://spring.io/projects/spring-boot)** - Java framework
+- **[Spring Security](https://spring.io/projects/spring-security)** - Authentication & authorization
 - **[PostgreSQL](https://www.postgresql.org/)** - Relational database
 - **[Spring Data JPA](https://spring.io/projects/spring-data-jpa)** - Data persistence layer
+- **[JWT (jjwt 0.12.3)](https://github.com/jwtk/jjwt)** - JSON Web Token implementation
+- **[BCrypt](https://docs.spring.io/spring-security/site/docs/current/api/org/springframework/security/crypto/bcrypt/BCryptPasswordEncoder.html)** - Password encryption
 - **[Maven](https://maven.apache.org/)** - Build and dependency management
-- **[Bean Singleton Pattern](https://docs.spring.io/spring-framework/docs/current/reference/html/core.html#beans-factory-scopes-singleton)** - Default Spring scope for component management
+
+### Testing
+- **[Playwright](https://playwright.dev/)** - E2E and API testing framework
+- **[Gherkin](https://cucumber.io/docs/gherkin/)** - BDD specification language
+- **Test Utilities**: Custom helpers for API client, auth, test data, cleanup
 
 ## Getting Started
 
