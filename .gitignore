@@ -73,9 +73,19 @@ test-results/
 
 # Uploaded Files - JANGAN commit file upload user!
 # File foto hanya ada di server local, tidak masuk Git repository
-backend/registration-form-api/uploads/
-backend/uploads/
-uploads/
+# Note: .gitkeep files are allowed (negation must come after ignore)
+backend/registration-form-api/uploads/*
+!backend/registration-form-api/uploads/.gitkeep
+!backend/registration-form-api/uploads/profiles/
+backend/registration-form-api/uploads/profiles/*
+!backend/registration-form-api/uploads/profiles/.gitkeep
+
+backend/uploads/*
+!backend/uploads/.gitkeep
+uploads/*
+!uploads/.gitkeep
+
+# Ignore all image files
 *.jpg
 *.jpeg
 *.png
@@ -83,9 +93,3 @@ uploads/
 *.webp
 *.bmp
 *.svg
-
-# Kecuali .gitkeep untuk track folder structure
-!uploads/.gitkeep
-!uploads/profiles/.gitkeep
-!backend/registration-form-api/uploads/.gitkeep
-!backend/registration-form-api/uploads/profiles/.gitkeep
