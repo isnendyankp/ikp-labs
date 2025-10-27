@@ -70,3 +70,22 @@ playwright/.cache/
 # Test artifacts
 playwright-report/
 test-results/
+
+# Uploaded Files - JANGAN commit file upload user!
+# File foto hanya ada di server local, tidak masuk Git repository
+backend/registration-form-api/uploads/
+backend/uploads/
+uploads/
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.webp
+*.bmp
+*.svg
+
+# Kecuali .gitkeep untuk track folder structure
+!uploads/.gitkeep
+!uploads/profiles/.gitkeep
+!backend/registration-form-api/uploads/.gitkeep
+!backend/registration-form-api/uploads/profiles/.gitkeep
