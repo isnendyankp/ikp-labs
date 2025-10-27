@@ -60,6 +60,23 @@ public class User {
     private LocalDateTime updatedAt;
 
     /**
+     * Profile Picture - path to user's profile picture file
+     *
+     * Stores the relative path to uploaded profile picture, not the binary file itself.
+     * Example: "/uploads/profiles/user-83.jpg"
+     *
+     * Why store path instead of binary:
+     * - Database optimized for text/numbers, not large binary files
+     * - Faster queries (no need to transfer large blobs)
+     * - Easier to serve files via HTTP (static file handler)
+     * - Can use CDN or cloud storage in future (just change path to URL)
+     *
+     * nullable = true because profile picture is optional
+     */
+    @Column(name = "profile_picture", length = 255)
+    private String profilePicture;
+
+    /**
      * Default Constructor - wajib ada untuk JPA
      */
     public User() {
@@ -145,6 +162,14 @@ public class User {
         this.updatedAt = updatedAt;
     }
 
+    public String getProfilePicture() {
+        return profilePicture;
+    }
+
+    public void setProfilePicture(String profilePicture) {
+        this.profilePicture = profilePicture;
+    }
+
     /**
      * toString method - untuk debugging dan logging
      */
@@ -154,6 +179,7 @@ public class User {
                 "id=" + id +
                 ", fullName='" + fullName + '\'' +
                 ", email='" + email + '\'' +
+                ", profilePicture='" + profilePicture + '\'' +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
                 '}';
