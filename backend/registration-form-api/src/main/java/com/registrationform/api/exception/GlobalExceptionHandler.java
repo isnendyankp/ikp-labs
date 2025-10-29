@@ -62,6 +62,30 @@ public class GlobalExceptionHandler {
     }
 
     /**
+     * Handle File Upload Errors
+     *
+     * Ketika terjadi error saat upload file (contoh: file terlalu besar,
+     * format tidak valid), FileStorageService throw FileUploadException.
+     * Method ini akan handle dan convert jadi response yang user-friendly.
+     *
+     * @param ex FileUploadException dari file operations
+     * @return ResponseEntity dengan error message
+     */
+    @ExceptionHandler(FileUploadException.class)
+    public ResponseEntity<ErrorResponse> handleFileUploadException(FileUploadException ex) {
+
+        // Buat response object untuk file upload error
+        ErrorResponse errorResponse = new ErrorResponse(
+            ex.getMessage(),                       // Error message (e.g., "File size exceeds 5 MB")
+            "FILE_UPLOAD_ERROR",                  // Error code untuk frontend
+            LocalDateTime.now()                   // Timestamp
+        );
+
+        // Return HTTP 400 Bad Request
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    }
+
+    /**
      * Handle Business Logic Errors (RuntimeException)
      *
      * Ketika terjadi error di Service layer (contoh: email sudah terdaftar),
