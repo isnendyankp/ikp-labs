@@ -86,3 +86,15 @@ export interface AuthState {
   loading: boolean;
   error: string | null;
 }
+
+// === PROFILE PICTURE TYPES ===
+
+export interface ProfilePictureResponse {
+  userId: number;
+  email: string;
+  fullName: string;
+  profilePicturePath: string | null;
+  profilePictureUrl: string | null;
+  uploadedAt: string | null;
+  message: string;
+}
