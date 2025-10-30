@@ -110,6 +110,13 @@ public class SecurityConfig {
                 .requestMatchers("/api/users").permitAll()          // User registration
                 .requestMatchers("/api/jwt-test/**").permitAll()    // JWT test endpoints
 
+                // UPLOADED FILES - Public access untuk profile pictures
+                // Semua orang bisa lihat foto profile (untuk display di UI)
+                .requestMatchers("/uploads/**").permitAll()         // Static files (profile pictures)
+
+                // PROFILE ENDPOINTS - Protected (perlu login)
+                .requestMatchers("/api/profile/**").authenticated() // Upload/delete own picture
+
                 // PROTECTED ENDPOINTS - Area hotel (perlu key card)
                 .requestMatchers("/api/user/**").authenticated()    // User profile endpoints
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")  // Admin only areas
