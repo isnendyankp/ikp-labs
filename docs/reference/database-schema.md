@@ -27,6 +27,7 @@ Stores registered user information with authentication credentials.
 | `full_name` | VARCHAR(100) | NOT NULL | User's full name |
 | `email` | VARCHAR(255) | NOT NULL, UNIQUE | User's email address (used for login) |
 | `password` | VARCHAR(255) | NOT NULL | BCrypt hashed password |
+| `profile_picture` | VARCHAR(255) | NULL | Path to profile picture file (e.g., "profiles/user-83.jpg") |
 | `created_at` | TIMESTAMP | NOT NULL | User creation timestamp |
 | `updated_at` | TIMESTAMP | NULL | Last update timestamp |
 
@@ -43,6 +44,7 @@ CREATE TABLE users (
     full_name VARCHAR(100) NOT NULL,
     email VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255) NOT NULL,
+    profile_picture VARCHAR(255),
     created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
@@ -93,6 +95,7 @@ userRepository.save(user);  // updated_at auto-updated
 | `full_name` | 100 chars | Min 2 chars (application-level) |
 | `email` | 255 chars | Valid email format (application-level) |
 | `password` | 255 chars | BCrypt hash (60 chars), min 8 chars plain (application-level) |
+| `profile_picture` | 255 chars | Optional, relative file path (e.g., "profiles/user-83.jpg") |
 
 ### Timestamp Fields
 
@@ -143,6 +146,126 @@ spring.jpa.properties.hibernate.format_sql=true
 
 ---
 
+## Profile Picture Storage
+
+### Overview
+
+Profile pictures are stored in the filesystem and referenced in the database via the `profile_picture` column.
+
+**Storage Pattern:**
+- **Database:** Stores relative file path (e.g., `"profiles/user-83.jpg"`)
+- **Filesystem:** Actual image files stored in `uploads/profiles/` directory
+- **Access URL:** Served via `/uploads/profiles/user-83.jpg` endpoint
+
+### File Naming Convention
+
+```
+Pattern: user-{userId}.{extension}
+Examples:
+  - user-1.jpg
+  - user-83.png
+  - user-150.gif
+```
+
+**Why this pattern?**
+- Unique per user (one picture per user)
+- Easy to identify file owner
+- Automatic replacement when uploading new picture
+- No orphaned files (old file replaced automatically)
+
+### Database Operations
+
+**Update profile picture on upload:**
+```java
+User user = userRepository.findById(userId).orElseThrow();
+user.setProfilePicture("profiles/user-83.jpg");
+userRepository.save(user);
+```
+
+**SQL equivalent:**
+```sql
+UPDATE users
+SET profile_picture = 'profiles/user-83.jpg', updated_at = NOW()
+WHERE id = 83;
+```
+
+**Delete profile picture:**
+```java
+User user = userRepository.findById(userId).orElseThrow();
+user.setProfilePicture(null);
+userRepository.save(user);
+```
+
+**SQL equivalent:**
+```sql
+UPDATE users
+SET profile_picture = NULL, updated_at = NOW()
+WHERE id = 83;
+```
+
+**Get users with profile pictures:**
+```sql
+SELECT id, full_name, email, profile_picture
+FROM users
+WHERE profile_picture IS NOT NULL;
+```
+
+**Get users without profile pictures:**
+```sql
+SELECT id, full_name, email
+FROM users
+WHERE profile_picture IS NULL;
+```
+
+### Migration Script
+
+If adding this feature to existing database:
+
+```sql
+-- Add profile_picture column to existing users table
+ALTER TABLE users ADD COLUMN profile_picture VARCHAR(255);
+
+-- Optional: Add comment for documentation
+COMMENT ON COLUMN users.profile_picture IS 'Relative path to user profile picture file';
+
+-- Verify column added
+\d users
+```
+
+### File Cleanup Strategy
+
+**Manual cleanup (development):**
+```sql
+-- Find orphaned files (files exist but not in database)
+-- Run this query to get current file paths
+SELECT profile_picture FROM users WHERE profile_picture IS NOT NULL;
+
+-- Compare with files in uploads/profiles/ directory
+-- Delete files not in database
+```
+
+**Automatic cleanup (recommended):**
+- Before uploading new file, delete old file if exists
+- On user deletion, delete associated profile picture file
+- Periodic cleanup job to remove orphaned files
+
+### Storage Size Estimation
+
+**Per user:**
+- Average image size: 100-500 KB
+- Maximum image size: 5 MB (enforced by application)
+
+**For 1000 users:**
+- Estimated: 100-500 MB storage
+- Maximum: 5 GB (if all users upload max size)
+
+**Database impact:**
+- Column storage: ~30 bytes per row (VARCHAR path + NULL overhead)
+- 1000 users: ~30 KB in database
+- Minimal database size impact
+
+---
+
 ## Queries & Operations
 
 ### Common Queries
@@ -170,6 +293,14 @@ long count = userRepository.count();
 **Get all users:**
 ```java
 List<User> users = userRepository.findAll();
+```
+
+**Get user with profile picture:**
+```java
+Optional<User> user = userRepository.findById(1L);
+String pictureUrl = user.map(User::getProfilePicture)
+    .map(path -> "http://localhost:8081/uploads/" + path)
+    .orElse(null);
 ```
 
 **Delete user:**
@@ -280,9 +411,9 @@ CREATE TABLE users (
 
 ```sql
 -- Insert test users (passwords are BCrypt hashed "password123")
-INSERT INTO users (full_name, email, password, created_at, updated_at) VALUES
-('Test User', 'test@example.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', NOW(), NOW()),
-('John Doe', 'john@example.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', NOW(), NOW());
+INSERT INTO users (full_name, email, password, profile_picture, created_at, updated_at) VALUES
+('Test User', 'test@example.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', NULL, NOW(), NOW()),
+('John Doe', 'john@example.com', '$2a$10$N9qo8uLOickgx2ZMRZoMyeIjZAgcfl7p92ldGxad68LJZdL17lhWy', 'profiles/user-2.jpg', NOW(), NOW());
 ```
 
 ### Cleanup Test Data
@@ -323,6 +454,9 @@ SELECT COUNT(*) FROM users;
 
 -- View recent users
 SELECT id, full_name, email, created_at FROM users ORDER BY created_at DESC LIMIT 10;
+
+-- View users with profile pictures
+SELECT id, full_name, email, profile_picture FROM users WHERE profile_picture IS NOT NULL;
 ```
 
 ---
@@ -348,16 +482,31 @@ ALTER TABLE users ADD COLUMN is_active BOOLEAN DEFAULT TRUE;
 ALTER TABLE users ADD COLUMN last_login TIMESTAMP;
 ```
 
-**User Profile:**
+**Extended User Profile:**
 ```sql
 CREATE TABLE user_profiles (
     id BIGSERIAL PRIMARY KEY,
     user_id BIGINT REFERENCES users(id),
     bio TEXT,
-    avatar_url VARCHAR(255),
-    phone_number VARCHAR(20)
+    phone_number VARCHAR(20),
+    location VARCHAR(100),
+    website_url VARCHAR(255)
 );
 ```
+
+**Profile Picture Metadata (if needed):**
+```sql
+CREATE TABLE profile_pictures (
+    id BIGSERIAL PRIMARY KEY,
+    user_id BIGINT REFERENCES users(id) UNIQUE,
+    file_path VARCHAR(255) NOT NULL,
+    file_size INTEGER,
+    mime_type VARCHAR(50),
+    uploaded_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
+);
+```
+
+Note: Current implementation stores profile picture path directly in `users` table, which is simpler and sufficient for most use cases.
 
 ---
 
@@ -365,6 +514,7 @@ CREATE TABLE user_profiles (
 
 - [API Endpoints](./api-endpoints.md) - REST API reference
 - [Authentication Architecture](../explanation/authentication-architecture.md) - JWT authentication flow
+- [Profile Picture Upload How-to](../how-to/upload-profile-picture.md) - Implementation guide
 - [Getting Started Tutorial](../tutorials/getting-started.md) - Setup guide
 
 ---
@@ -397,4 +547,5 @@ GRANT ALL PRIVILEGES ON DATABASE registration_form_db TO postgres;
 
 ---
 
-**Last Updated:** 2025-10-26
+**Last Updated:** 2025-10-31
+**Schema Version:** 1.1 (Added profile_picture column)
