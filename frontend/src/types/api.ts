@@ -91,10 +91,10 @@ export interface AuthState {
 
 export interface ProfilePictureResponse {
   userId: number;
-  email: string;
-  fullName: string;
-  profilePicturePath: string | null;
-  profilePictureUrl: string | null;
-  uploadedAt: string | null;
+  userEmail: string;
+  userName: string;
+  pictureUrl: string | null;
+  success: boolean;
   message: string;
+  timestamp: string;
 }

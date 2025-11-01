@@ -59,8 +59,8 @@ export default function HomePage() {
   const fetchProfilePicture = async () => {
     try {
       const response = await getCurrentProfilePicture();
-      if (response.data && response.data.profilePictureUrl) {
-        setProfilePictureUrl(response.data.profilePictureUrl);
+      if (response.data && response.data.pictureUrl) {
+        setProfilePictureUrl(response.data.pictureUrl);
       }
     } catch (error) {
       console.error('Failed to fetch profile picture:', error);
@@ -89,7 +89,7 @@ export default function HomePage() {
    */
   const handleUploadSuccess = (response: ProfilePictureResponse) => {
     console.log('✅ Upload successful:', response);
-    setProfilePictureUrl(response.profilePictureUrl);
+    setProfilePictureUrl(response.pictureUrl);
     setShowUploadSection(false);
   };
 
