@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { getUserFromToken, isAuthenticated } from '../../lib/auth';
+import { getCurrentProfilePicture } from '../../services/profileService';
 import LogoutButton from '../../components/LogoutButton';
 import ProfilePicture from '../../components/ProfilePicture';
 import ProfilePictureUpload from '../../components/ProfilePictureUpload';
@@ -41,6 +42,9 @@ export default function HomePage() {
     const userInfo = getUserFromToken();
     if (userInfo) {
       setUser(userInfo);
+
+      // Fetch user profile picture from backend
+      fetchProfilePicture();
     } else {
       // Token exists but can't decode - redirect to login
       router.push('/login');
@@ -48,6 +52,20 @@ export default function HomePage() {
 
     setLoading(false);
   }, [router]);
+
+  /**
+   * Fetch profile picture from backend
+   */
+  const fetchProfilePicture = async () => {
+    try {
+      const response = await getCurrentProfilePicture();
+      if (response.data && response.data.profilePictureUrl) {
+        setProfilePictureUrl(response.data.profilePictureUrl);
+      }
+    } catch (error) {
+      console.error('Failed to fetch profile picture:', error);
+    }
+  };
 
   // Show loading state while checking authentication
   if (loading) {

@@ -185,6 +185,48 @@ export async function deleteProfilePicture(): Promise<ApiResponse<ProfilePicture
 }
 
 /**
+ * Get current user's profile picture (protected)
+ * GET /api/profile/picture
+ *
+ * @returns ProfilePictureResponse with current user's picture info
+ */
+export async function getCurrentProfilePicture(): Promise<ApiResponse<ProfilePictureResponse>> {
+  const token = getToken();
+  if (!token) {
+    return {
+      error: {
+        message: 'Not authenticated',
+        errorCode: 'UNAUTHORIZED'
+      },
+      status: 401,
+    };
+  }
+
+  try {
+    const response = await fetch(`${API_BASE_URL}/api/profile/picture`, {
+      method: 'GET',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+      credentials: 'include',
+    });
+
+    const data = await response.json();
+    return { data, status: response.status };
+  } catch (error) {
+    console.error('❌ Get picture request failed:', error);
+    return {
+      error: {
+        message: error instanceof Error ? error.message : 'Network error occurred',
+        errorCode: 'NETWORK_ERROR'
+      },
+      status: 0,
+    };
+  }
+}
+
+/**
  * Get profile picture URL for display
  *
  * @param picturePath - Path from backend (e.g., "profiles/user-83.jpg")
@@ -224,6 +266,7 @@ export function validateImageFile(file: File): string | null {
 const profileService = {
   uploadProfilePicture,
   deleteProfilePicture,
+  getCurrentProfilePicture,
   getProfilePictureUrl,
   validateImageFile,
 };
