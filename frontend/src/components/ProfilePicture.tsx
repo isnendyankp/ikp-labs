@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { deleteProfilePicture, getProfilePictureUrl } from '../services/profileService';
 import { ProfilePictureResponse } from '../types/api';
 
@@ -52,6 +52,13 @@ export default function ProfilePicture({
   const [isDeleting, setIsDeleting] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [currentPictureUrl, setCurrentPictureUrl] = useState(pictureUrl);
+
+  /**
+   * Update currentPictureUrl when pictureUrl prop changes
+   */
+  useEffect(() => {
+    setCurrentPictureUrl(pictureUrl);
+  }, [pictureUrl]);
 
   /**
    * Get size classes for the picture
