@@ -93,3 +93,9 @@ uploads/*
 *.webp
 *.bmp
 *.svg
+
+# Exception: Allow test fixture images (for E2E testing)
+!tests/fixtures/*.jpg
+!tests/fixtures/*.jpeg
+!tests/fixtures/*.png
+!tests/fixtures/*.gif
