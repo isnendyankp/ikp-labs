@@ -122,7 +122,7 @@ export async function uploadProfilePicture(
 
 /**
  * Delete profile picture (protected)
- * DELETE /api/profile/delete-picture
+ * DELETE /api/profile/picture
  *
  * @returns ProfilePictureResponse with null picture URL
  */
@@ -141,7 +141,7 @@ export async function deleteProfilePicture(): Promise<ApiResponse<ProfilePicture
   }
 
   try {
-    const response = await fetch(`${API_BASE_URL}/api/profile/delete-picture`, {
+    const response = await fetch(`${API_BASE_URL}/api/profile/picture`, {
       method: 'DELETE',
       headers: {
         ...createAuthHeaders(),
