@@ -83,7 +83,8 @@ async function uploadProfilePicture(page: Page, fixtureName: string) {
   console.log('  ✓ File selected:', fixtureName);
 
   // STEP 3: Click upload button (wait for it to be enabled)
-  const uploadButton = page.locator('button:has-text("Upload")');
+  // Use more specific text to avoid matching "Hide Upload" button
+  const uploadButton = page.locator('button:has-text("Upload Picture")');
   await uploadButton.waitFor({ state: 'visible', timeout: 5000 });
   await uploadButton.click();
   console.log('  ✓ Upload button clicked');
