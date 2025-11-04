@@ -64,32 +64,51 @@ async function createAuthenticatedUser(page: Page) {
 async function uploadProfilePicture(page: Page, fixtureName: string) {
   const fixturePath = path.join(__dirname, '../fixtures', fixtureName);
 
-  // Find file input and upload file
+  // STEP 1: Click "Change Picture" button to show upload form
+  const changePictureButton = page.locator('button:has-text("Change Picture")');
+
+  // Check if button exists and click it
+  const isVisible = await changePictureButton.isVisible().catch(() => false);
+  if (isVisible) {
+    await changePictureButton.click();
+    console.log('  ✓ Clicked "Change Picture" button');
+    await page.waitForTimeout(500); // Wait for form to appear
+  }
+
+  // STEP 2: Find file input and upload file
   const fileInput = page.locator('input[type="file"]');
+  await fileInput.waitFor({ state: 'visible', timeout: 10000 });
   await fileInput.setInputFiles(fixturePath);
+  console.log('  ✓ File selected:', fixtureName);
 
-  // Click upload button (wait for it to be enabled)
+  // STEP 3: Click upload button (wait for it to be enabled)
   const uploadButton = page.locator('button:has-text("Upload")');
-  await uploadButton.waitFor({ state: 'visible' });
+  await uploadButton.waitFor({ state: 'visible', timeout: 5000 });
   await uploadButton.click();
+  console.log('  ✓ Upload button clicked');
 
-  // Wait a moment for upload to process
-  await page.waitForTimeout(1000);
+  // STEP 4: Wait for upload to process
+  await page.waitForTimeout(2000);
 }
 
 /**
  * Delete profile picture
  */
 async function deleteProfilePicture(page: Page) {
+  // Setup dialog handler BEFORE clicking button
+  page.once('dialog', async dialog => {
+    console.log('  ✓ Confirmation dialog appeared:', dialog.message());
+    await dialog.accept();
+  });
+
   // Click delete button
   const deleteButton = page.locator('button:has-text("Delete Picture")');
+  await deleteButton.waitFor({ state: 'visible', timeout: 5000 });
   await deleteButton.click();
-
-  // Handle confirmation dialog
-  page.on('dialog', dialog => dialog.accept());
+  console.log('  ✓ Delete button clicked');
 
   // Wait for deletion to complete
-  await page.waitForTimeout(1000);
+  await page.waitForTimeout(2000);
 }
 
 /**
