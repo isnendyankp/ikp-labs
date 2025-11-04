@@ -76,8 +76,9 @@ async function uploadProfilePicture(page: Page, fixtureName: string) {
   }
 
   // STEP 2: Find file input and upload file
+  // Note: File input has class="hidden" but Playwright can still interact with it
   const fileInput = page.locator('input[type="file"]');
-  await fileInput.waitFor({ state: 'visible', timeout: 10000 });
+  await fileInput.waitFor({ state: 'attached', timeout: 10000 });
   await fileInput.setInputFiles(fixturePath);
   console.log('  ✓ File selected:', fixtureName);
 
