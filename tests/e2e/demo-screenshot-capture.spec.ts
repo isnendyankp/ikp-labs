@@ -96,8 +96,9 @@ test.describe('Demo: Screenshot Capture Examples', {
     console.log('✅ Screenshot: Submit button only');
 
     // Fill email to trigger validation
-    await page.fill('input[name="email"]', 'invalid-email');
-    await page.blur('input[name="email"]');
+    const emailInput = page.locator('input[name="email"]');
+    await emailInput.fill('invalid-email');
+    await emailInput.blur(); // Trigger validation by removing focus
     await page.waitForTimeout(500);
 
     // Screenshot error message (if exists)
