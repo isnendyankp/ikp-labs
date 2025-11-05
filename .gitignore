@@ -63,13 +63,19 @@ backend/*/target/
 
 # Playwright
 test-results/
+!test-results/artifacts/
+test-results/artifacts/*
+!test-results/artifacts/videos/
+!test-results/artifacts/screenshots/
+test-results/artifacts/videos/*
+test-results/artifacts/screenshots/*
+!test-results/artifacts/**/.gitkeep
 playwright-report/
 playwright/.cache/
 *.spec.ts.bak
 
 # Test artifacts
 playwright-report/
-test-results/
 
 # Uploaded Files - JANGAN commit file upload user!
 # File foto hanya ada di server local, tidak masuk Git repository

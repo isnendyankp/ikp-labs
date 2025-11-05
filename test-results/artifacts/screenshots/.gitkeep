@@ -1,0 +1,2 @@
+# Screenshots from Playwright tests will be stored here
+# Screenshots are automatically captured when tests fail (only-on-failure mode)

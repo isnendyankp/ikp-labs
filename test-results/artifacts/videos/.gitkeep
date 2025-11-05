@@ -1,0 +1,2 @@
+# Video recordings from Playwright tests will be stored here
+# Videos are automatically generated when tests fail (retain-on-failure mode)
