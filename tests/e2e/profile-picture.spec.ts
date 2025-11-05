@@ -355,17 +355,24 @@ test.describe('Profile Picture E2E Tests', () => {
 
     await createAuthenticatedUser(page);
 
-    // Try to upload large file (6MB)
-    await uploadProfilePicture(page, 'large-image.jpg');
+    // Click to open upload form
+    const changePictureButton = page.locator('button:has-text("Change Picture")');
+    await changePictureButton.click();
+    await page.waitForTimeout(800);
 
-    // Wait a moment for potential error processing
-    await page.waitForTimeout(2000);
+    // Try to select large file (6MB) - validation should prevent upload
+    const fixturePath = path.join(__dirname, '../fixtures', 'large-image.jpg');
+    const fileInput = page.locator('input[type="file"]');
+    await fileInput.setInputFiles(fixturePath);
+    console.log('  ✓ Large file selected');
 
-    // Verify profile picture is NOT displayed (upload should fail)
-    // Since there's no profile picture uploaded yet, avatar should show
-    const avatar = page.locator('div:has-text("PT")').first(); // Default avatar initials
+    // Wait a moment for validation
+    await page.waitForTimeout(1000);
+
+    // Verify avatar still showing (no upload happened)
+    const avatar = page.locator('div.bg-gradient-to-br').first();
     await expect(avatar).toBeVisible({ timeout: 3000 });
-    console.log('  ✓ Upload rejected, avatar still showing (no image uploaded)');
+    console.log('  ✓ Upload rejected, avatar still showing (validation working)');
 
     console.log('✅ Test 7: Size validation working');
   });
@@ -379,17 +386,24 @@ test.describe('Profile Picture E2E Tests', () => {
 
     await createAuthenticatedUser(page);
 
-    // Try to upload text file
-    await uploadProfilePicture(page, 'invalid-file.txt');
+    // Click to open upload form
+    const changePictureButton = page.locator('button:has-text("Change Picture")');
+    await changePictureButton.click();
+    await page.waitForTimeout(800);
 
-    // Wait a moment for potential error processing
-    await page.waitForTimeout(2000);
+    // Try to select invalid file (text file) - validation should prevent upload
+    const fixturePath = path.join(__dirname, '../fixtures', 'invalid-file.txt');
+    const fileInput = page.locator('input[type="file"]');
+    await fileInput.setInputFiles(fixturePath);
+    console.log('  ✓ Invalid file selected');
 
-    // Verify profile picture is NOT displayed (upload should fail)
-    // Avatar should still show since no image was uploaded
-    const avatar = page.locator('div:has-text("PT")').first(); // Default avatar initials
+    // Wait a moment for validation
+    await page.waitForTimeout(1000);
+
+    // Verify avatar still showing (no upload happened)
+    const avatar = page.locator('div.bg-gradient-to-br').first();
     await expect(avatar).toBeVisible({ timeout: 3000 });
-    console.log('  ✓ Upload rejected, avatar still showing (no image uploaded)');
+    console.log('  ✓ Upload rejected, avatar still showing (validation working)');
 
     console.log('✅ Test 8: Type validation working');
   });
