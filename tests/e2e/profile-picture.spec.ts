@@ -168,11 +168,12 @@ test.describe('Profile Picture E2E Tests', () => {
     // Upload valid JPEG
     await uploadProfilePicture(page, 'valid-profile.jpg');
 
-    // Verify success message appears
-    await expect(page.locator('text=/uploaded successfully/i')).toBeVisible({ timeout: 5000 });
-
-    // Verify profile picture is displayed
+    // Verify profile picture is displayed (upload form auto-hides on success)
     await verifyProfilePictureDisplayed(page);
+
+    // Verify upload section is hidden (success behavior)
+    const changePictureButton = page.locator('button:has-text("Change Picture")');
+    await expect(changePictureButton).toBeVisible({ timeout: 3000 });
 
     console.log('✅ Test 1: JPEG upload successful');
   });
@@ -190,11 +191,12 @@ test.describe('Profile Picture E2E Tests', () => {
     // Upload valid PNG
     await uploadProfilePicture(page, 'valid-profile.png');
 
-    // Verify success message
-    await expect(page.locator('text=/uploaded successfully/i')).toBeVisible({ timeout: 5000 });
-
-    // Verify profile picture displayed
+    // Verify profile picture is displayed (upload form auto-hides on success)
     await verifyProfilePictureDisplayed(page);
+
+    // Verify upload section is hidden (success behavior)
+    const changePictureButton = page.locator('button:has-text("Change Picture")');
+    await expect(changePictureButton).toBeVisible({ timeout: 3000 });
 
     console.log('✅ Test 2: PNG upload successful');
   });
