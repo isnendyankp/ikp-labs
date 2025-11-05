@@ -285,29 +285,29 @@ test.describe('Profile Picture E2E Tests', () => {
   test('Should handle multiple upload and delete operations', async ({ page }) => {
     console.log('🧪 Test 5: Multiple upload/delete cycles');
 
-    await createAuthenticatedUser(page);
+    const { user } = await createAuthenticatedUser(page);
+    const initials = user.fullName.split(' ').map(n => n[0]).join('').toUpperCase();
 
     // Cycle 1: Upload JPEG → Delete
     await uploadProfilePicture(page, 'valid-profile.jpg');
-    await expect(page.locator('text=/uploaded successfully/i')).toBeVisible({ timeout: 5000 });
+    await verifyProfilePictureDisplayed(page);
     console.log('  ✓ Upload #1 successful');
 
     await deleteProfilePicture(page);
-    await expect(page.locator('text=/deleted successfully/i')).toBeVisible({ timeout: 5000 });
+    await verifyAvatarFallback(page, initials.substring(0, 2));
     console.log('  ✓ Delete #1 successful');
 
     // Cycle 2: Upload PNG → Delete
     await uploadProfilePicture(page, 'valid-profile.png');
-    await expect(page.locator('text=/uploaded successfully/i')).toBeVisible({ timeout: 5000 });
+    await verifyProfilePictureDisplayed(page);
     console.log('  ✓ Upload #2 successful');
 
     await deleteProfilePicture(page);
-    await expect(page.locator('text=/deleted successfully/i')).toBeVisible({ timeout: 5000 });
+    await verifyAvatarFallback(page, initials.substring(0, 2));
     console.log('  ✓ Delete #2 successful');
 
     // Cycle 3: Upload alternative JPEG (verify replacement)
     await uploadProfilePicture(page, 'valid-profile-2.jpg');
-    await expect(page.locator('text=/uploaded successfully/i')).toBeVisible({ timeout: 5000 });
     await verifyProfilePictureDisplayed(page);
     console.log('  ✓ Upload #3 successful (replacement)');
 
