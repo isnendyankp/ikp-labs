@@ -43,6 +43,9 @@ export default defineConfig({
     ['json', { outputFile: 'test-results/results.json' }]
   ],
 
+  // Output folders for test artifacts
+  outputDir: 'test-results/artifacts', // Videos, screenshots, traces
+
   // Shared settings for all the projects below
   use: {
     // Base URL to use in actions like `await page.goto('/')`
@@ -51,13 +54,22 @@ export default defineConfig({
     // Collect trace when retrying the failed test
     trace: 'on-first-retry',
 
-    // Screenshot on failure
-    screenshot: 'only-on-failure',
+    // Screenshot settings
+    // 'on' = always capture, 'only-on-failure' = only when test fails
+    screenshot: {
+      mode: 'only-on-failure',
+      fullPage: true // Capture entire page, not just viewport
+    },
 
-    // Video on failure
-    video: 'retain-on-failure',
+    // Video recording settings
+    // 'on' = always record, 'retain-on-failure' = keep only failed tests
+    // 'off' = disable video recording
+    video: {
+      mode: 'retain-on-failure',
+      size: { width: 1280, height: 720 } // Video resolution (HD)
+    },
 
-    // Browser viewport
+    // Browser viewport (matches video size)
     viewport: { width: 1280, height: 720 },
   },
 
