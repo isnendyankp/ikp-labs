@@ -325,7 +325,7 @@ test.describe('Profile Picture E2E Tests', () => {
 
     // Upload picture
     await uploadProfilePicture(page, 'valid-profile.jpg');
-    await expect(page.locator('text=/uploaded successfully/i')).toBeVisible({ timeout: 5000 });
+    await verifyProfilePictureDisplayed(page);
     console.log('  ✓ Upload successful');
 
     // Refresh page
