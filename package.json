@@ -17,8 +17,10 @@
     "build": "npm run build:frontend",
     "install:all": "npm install && npm install --workspace=registration-form-frontend"
   },
-  "devDependencies": {},
   "engines": {
     "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "@playwright/mcp": "^0.0.45"
   }
 }
