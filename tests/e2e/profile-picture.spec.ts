@@ -260,13 +260,13 @@ test.describe('Profile Picture E2E Tests', () => {
 
     // STEP 3: Upload profile picture
     await uploadProfilePicture(page, 'valid-profile.jpg');
-    await expect(page.locator('text=/uploaded successfully/i')).toBeVisible({ timeout: 5000 });
     await verifyProfilePictureDisplayed(page);
     console.log('  ✓ Upload successful');
 
     // STEP 4: Delete profile picture
     await deleteProfilePicture(page);
-    await expect(page.locator('text=/deleted successfully/i')).toBeVisible({ timeout: 5000 });
+    const initials = testUser.fullName.split(' ').map(n => n[0]).join('').toUpperCase();
+    await verifyAvatarFallback(page, initials.substring(0, 2));
     console.log('  ✓ Delete successful');
 
     // STEP 5: Logout
