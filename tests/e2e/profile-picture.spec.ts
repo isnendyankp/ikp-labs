@@ -212,18 +212,20 @@ test.describe('Profile Picture E2E Tests', () => {
     const { user } = await createAuthenticatedUser(page);
     await uploadProfilePicture(page, 'valid-profile.jpg');
 
-    // Wait for upload to complete
-    await expect(page.locator('text=/uploaded successfully/i')).toBeVisible({ timeout: 5000 });
+    // Wait for upload to complete - verify image displayed
+    await verifyProfilePictureDisplayed(page);
+    console.log('  ✓ Upload completed, picture displayed');
 
     // Now delete the picture
     await deleteProfilePicture(page);
 
-    // Verify success message
-    await expect(page.locator('text=/deleted successfully/i')).toBeVisible({ timeout: 5000 });
-
-    // Verify fallback avatar is shown with initials
+    // Verify fallback avatar is shown with initials (delete success indicator)
     const initials = user.fullName.split(' ').map(n => n[0]).join('').toUpperCase();
     await verifyAvatarFallback(page, initials.substring(0, 2));
+
+    // Verify Delete Picture button is no longer visible (no picture to delete)
+    const deleteButton = page.locator('button:has-text("Delete Picture")');
+    await expect(deleteButton).not.toBeVisible({ timeout: 3000 });
 
     console.log('✅ Test 3: Delete successful');
   });
