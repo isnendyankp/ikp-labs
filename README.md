@@ -121,9 +121,7 @@ npm run dev
 
 **Demo Video - Profile Picture Upload:**
 
-<p align="center">
-  <img src="frontend/public/videos/uploadProfilePicture.gif" alt="Profile Picture Upload Demo" width="800">
-</p>
+![Profile Picture Upload Demo](frontend/public/videos/uploadProfilePicture.gif)
 
 *Watch the complete flow of uploading a profile picture successfully*
 
@@ -536,9 +534,7 @@ The application now supports the complete user journey from registration to prof
 
 **Demo Video:**
 
-<p align="center">
-  <img src="frontend/public/videos/uploadProfilePicture.gif" alt="Profile Picture Upload Demo" width="800">
-</p>
+![Profile Picture Upload Demo](frontend/public/videos/uploadProfilePicture.gif)
 
 *Live demonstration of profile picture upload functionality*
 
