@@ -1,6 +1,8 @@
-# Registration Form Template
+# Full-Stack Authentication System | IKP Labs
 
-A production-ready, full-stack registration and authentication system with modern UI, profile management, and comprehensive testing. Features complete JWT authentication, protected routes, profile picture upload/delete functionality, and extensive test coverage with E2E, API, and unit tests.
+A complete user authentication and profile management system built as part of my full-stack development journey. Features Next.js, Spring Boot, JWT authentication, profile management, and comprehensive testing.
+
+> Part of [IKP Labs](https://github.com/isnendyankp/ikp-labs) - My personal learning laboratory for full-stack development
 
 ![Registration Form Template](frontend/public/images/registerFormTemplate1.png)
 
@@ -57,6 +59,62 @@ A production-ready, full-stack registration and authentication system with moder
 - **Monorepo Structure**: Organized with workspaces
 - **AI-Assisted**: Claude agents for docs, specs, and planning
 - **Hot Reload**: Fast development with Next.js and Spring Boot DevTools
+
+---
+
+## 📚 Learning Outcomes
+
+This project helped me master:
+
+- ✅ **Full-Stack Architecture** - Building scalable applications with Next.js frontend and Spring Boot backend
+- ✅ **JWT Authentication** - Implementing secure token-based authentication from scratch
+- ✅ **File Upload & Storage** - Managing multipart file uploads and server-side storage
+- ✅ **E2E Testing** - Writing comprehensive Playwright tests (30+ scenarios)
+- ✅ **Unit Testing** - Java unit tests with JUnit and Mockito
+- ✅ **Database Design** - PostgreSQL schema design and JPA entity mapping
+- ✅ **RESTful API Design** - Creating consistent and well-documented APIs
+- ✅ **Security Best Practices** - BCrypt password hashing, CORS configuration, JWT validation
+- ✅ **Protected Routes** - Client-side and server-side authorization
+- ✅ **State Management** - React hooks and localStorage for auth state
+- ✅ **Modern UI/UX** - Responsive design with Tailwind CSS
+- ✅ **Documentation** - Comprehensive docs following Diátaxis framework
+
+## 🎯 What I Built
+
+This started as a simple registration form but evolved into a complete authentication system as I learned and added more features:
+
+**Phase 1 - Foundation (Week 1-2)**
+- Basic registration form with validation
+- PostgreSQL database setup
+- Spring Boot REST API
+
+**Phase 2 - Authentication (Week 3)**
+- Login functionality
+- JWT token generation and validation
+- Secure password hashing with BCrypt
+
+**Phase 3 - Protected Features (Week 4)**
+- Protected homepage dashboard
+- Route guards and redirects
+- User information display from JWT
+
+**Phase 4 - Profile Management (Week 5)**
+- Profile picture upload/delete
+- File validation and storage
+- Avatar fallback system
+
+**Phase 5 - Testing & Quality (Week 6)**
+- 30+ E2E tests with Playwright
+- Java unit tests (UserService, JwtUtil)
+- Test automation and CI/CD preparation
+
+**Phase 6 - Documentation (Ongoing)**
+- Comprehensive README
+- API documentation
+- 15+ guides (tutorials, how-tos, references)
+- BDD specifications with Gherkin
+
+---
 
 ## Tech Stack
 
