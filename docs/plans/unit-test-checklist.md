@@ -3,21 +3,21 @@
 ## 📋 Overview
 
 **Purpose:** Track semua unit test yang perlu dibuat untuk Backend Java
-**Total Test Files:** 7 files
-**Total Test Cases:** ~60 test cases
+**Total Test Files:** 6 files (5 completed + 1 paused)
+**Total Test Cases:** 91 test cases
 **Target Coverage:** 80%+
-**Status:** 1/7 Complete (14%)
+**Status:** 5/6 Complete (83%) ✅
 
 ---
 
 ## 🎯 Quick Status Summary
 
 ```
-Progress: ████░░░░░░░░░░░░░░░░ 14% (1 of 7 files)
+Progress: ████████████████░░░░ 83% (5 of 6 files)
 
-✅ Completed:  1 file  (AuthServiceTest)
-🔲 Pending:    6 files
-⏱️  Estimated: 4-5 hours remaining
+✅ Completed:  5 files  (91 tests passing!)
+⏸️  Paused:     1 file   (AuthServiceTest - needs update)
+⏱️  Time Spent: 3 days
 ```
 
 ---
