@@ -153,9 +153,9 @@ public class AuthServiceTest {
         when(passwordEncoder.matches("password123", "$2a$10$hashedPassword"))
             .thenReturn(true);
 
-        // When jwtUtil.generateToken(email) dipanggil
+        // When jwtUtil.generateToken(email, fullName) dipanggil
         // Then return fake token
-        when(jwtUtil.generateToken("test@example.com"))
+        when(jwtUtil.generateToken("test@example.com", "Test User"))
             .thenReturn("fake-jwt-token-12345");
 
         // ============================================
@@ -193,7 +193,7 @@ public class AuthServiceTest {
             .matches("password123", "$2a$10$hashedPassword");
 
         // Verify jwtUtil.generateToken() dipanggil 1 kali
-        verify(jwtUtil, times(1)).generateToken("test@example.com");
+        verify(jwtUtil, times(1)).generateToken("test@example.com", "Test User");
 
         System.out.println("✅ Test 1 PASSED: Login dengan valid credentials berhasil!");
     }
@@ -272,7 +272,7 @@ public class AuthServiceTest {
         }, "Should throw RuntimeException when password is wrong");
 
         // Verify: jwtUtil TIDAK dipanggil (karena password salah)
-        verify(jwtUtil, never()).generateToken(anyString());
+        verify(jwtUtil, never()).generateToken(anyString(), anyString());
 
         System.out.println("✅ Test 3 PASSED: Login dengan password salah throw exception!");
     }

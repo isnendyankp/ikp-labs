@@ -91,7 +91,6 @@ public class UserControllerTest {
         registrationRequest.setFullName("John Doe");
         registrationRequest.setEmail("john@example.com");
         registrationRequest.setPassword("password123");
-        registrationRequest.setConfirmPassword("password123");
 
         // Setup update request DTO
         updateRequest = new UserUpdateRequest();
@@ -120,7 +119,7 @@ public class UserControllerTest {
         assertNotNull(response.getBody());
         assertEquals("John Doe", response.getBody().getFullName());
         assertEquals("john@example.com", response.getBody().getEmail());
-        assertNull(response.getBody().getPassword()); // Password tidak boleh di-return
+        // Password tidak ada di UserResponse (security!)
 
         // Verify service dipanggil 1 kali
         verify(userService, times(1)).registerUser(any(User.class));

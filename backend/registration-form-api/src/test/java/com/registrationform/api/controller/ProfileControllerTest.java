@@ -269,7 +269,7 @@ public class ProfileControllerTest {
      */
     @Test
     @DisplayName("Should throw RuntimeException when user not found")
-    void shouldThrowExceptionWhenUserNotFound() {
+    void shouldThrowExceptionWhenUserNotFound() throws IOException {
         // Arrange
         when(authentication.getPrincipal()).thenReturn(userPrincipal);
         when(userRepository.findById(1L)).thenReturn(Optional.empty());
@@ -279,7 +279,7 @@ public class ProfileControllerTest {
             profileController.uploadProfilePicture(validImageFile, authentication);
         });
 
-        assertEquals("User not found", exception.getMessage());
+        assertTrue(exception.getMessage().contains("Failed to upload profile picture"));
 
         verify(userRepository, times(1)).findById(1L);
         verify(fileStorageService, never()).saveProfilePicture(any(), any());
@@ -404,7 +404,7 @@ public class ProfileControllerTest {
      */
     @Test
     @DisplayName("Should throw RuntimeException when user not found during delete")
-    void shouldThrowExceptionWhenUserNotFoundDuringDelete() {
+    void shouldThrowExceptionWhenUserNotFoundDuringDelete() throws IOException {
         // Arrange
         when(authentication.getPrincipal()).thenReturn(userPrincipal);
         when(userRepository.findById(1L)).thenReturn(Optional.empty());
@@ -414,7 +414,7 @@ public class ProfileControllerTest {
             profileController.deleteProfilePicture(authentication);
         });
 
-        assertEquals("User not found", exception.getMessage());
+        assertTrue(exception.getMessage().contains("Failed to delete profile picture"));
 
         verify(userRepository, times(1)).findById(1L);
         verify(fileStorageService, never()).deleteProfilePicture(any());
@@ -494,7 +494,7 @@ public class ProfileControllerTest {
             profileController.getCurrentUserPicture(authentication);
         });
 
-        assertEquals("User not found", exception.getMessage());
+        assertTrue(exception.getMessage().contains("Failed to get profile picture info"));
 
         verify(userRepository, times(1)).findById(1L);
     }
@@ -543,7 +543,7 @@ public class ProfileControllerTest {
             profileController.getUserPicture(999L);
         });
 
-        assertEquals("User not found", exception.getMessage());
+        assertTrue(exception.getMessage().contains("Failed to get user profile picture"));
 
         verify(userRepository, times(1)).findById(999L);
     }

@@ -1,0 +1,103 @@
+
+Running 10 tests using 1 worker
+
+🧪 Test 1: Upload JPEG profile picture
+  ✓ Clicked "Change Picture" button
+  ✓ File selected: valid-profile.jpg
+  ✓ Upload button clicked
+✅ Test 1: JPEG upload successful
+  ✓   1 [chromium] › tests/e2e/profile-picture.spec.ts:165:7 › Profile Picture E2E Tests › Should upload JPEG profile picture successfully (4.2s)
+🧪 Test 2: Upload PNG profile picture
+  ✓ Clicked "Change Picture" button
+  ✓ File selected: valid-profile.png
+  ✓ Upload button clicked
+✅ Test 2: PNG upload successful
+  ✓   2 [chromium] › tests/e2e/profile-picture.spec.ts:191:7 › Profile Picture E2E Tests › Should upload PNG profile picture successfully (4.0s)
+🧪 Test 3: Delete profile picture
+  ✓ Clicked "Change Picture" button
+  ✓ File selected: valid-profile.jpg
+  ✓ Upload button clicked
+  ✓ Upload completed, picture displayed
+  ✓ Confirmation dialog appeared: Are you sure you want to delete your profile picture?
+  ✓ Delete button clicked
+  ✓ Avatar fallback visible
+  ✓ Profile image hidden (deleted)
+✅ Test 3: Delete successful
+  ✓   3 [chromium] › tests/e2e/profile-picture.spec.ts:214:7 › Profile Picture E2E Tests › Should delete profile picture successfully (6.0s)
+🧪 Test 4: Complete end-to-end flow
+  ✓ Registration successful
+  ✓ Home page loaded
+  ✓ Clicked "Change Picture" button
+  ✓ File selected: valid-profile.jpg
+  ✓ Upload button clicked
+  ✓ Upload successful
+  ✓ Confirmation dialog appeared: Are you sure you want to delete your profile picture?
+  ✓ Delete button clicked
+  ✓ Avatar fallback visible
+  ✓ Profile image hidden (deleted)
+  ✓ Delete successful
+  ✓ Logout successful
+✅ Test 4: Complete flow successful
+  ✓   4 [chromium] › tests/e2e/profile-picture.spec.ts:243:7 › Profile Picture E2E Tests › Complete flow: Register → Login → Upload → Delete → Logout (6.1s)
+🧪 Test 5: Multiple upload/delete cycles
+  ✓ Clicked "Change Picture" button
+  ✓ File selected: valid-profile.jpg
+  ✓ Upload button clicked
+  ✓ Upload #1 successful
+  ✓ Confirmation dialog appeared: Are you sure you want to delete your profile picture?
+  ✓ Delete button clicked
+  ✓ Avatar fallback visible
+  ✓ Profile image hidden (deleted)
+  ✓ Delete #1 successful
+  ✓ Clicked "Change Picture" button
+  ✓ File selected: valid-profile.png
+  ✓ Upload button clicked
+  ✓ Upload #2 successful
+  ✓ Confirmation dialog appeared: Are you sure you want to delete your profile picture?
+  ✓ Delete button clicked
+  ✓ Avatar fallback visible
+  ✓ Profile image hidden (deleted)
+  ✓ Delete #2 successful
+  ✓ Clicked "Change Picture" button
+  ✓ File selected: valid-profile-2.jpg
+  ✓ Upload button clicked
+  ✓ Upload #3 successful (replacement)
+✅ Test 5: Multiple cycles successful
+  ✓   5 [chromium] › tests/e2e/profile-picture.spec.ts:291:7 › Profile Picture E2E Tests › Should handle multiple upload and delete operations (13.8s)
+🧪 Test 6: Profile picture persistence
+  ✓ Clicked "Change Picture" button
+  ✓ File selected: valid-profile.jpg
+  ✓ Upload button clicked
+  ✓ Upload successful
+  ✓ Page refreshed
+  ✓ Picture persisted after refresh
+✅ Test 6: Persistence verified
+  ✓   6 [chromium] › tests/e2e/profile-picture.spec.ts:327:7 › Profile Picture E2E Tests › Should persist profile picture after page refresh (4.7s)
+🧪 Test 7: File size validation
+  ✓ Large file selected
+  ✓ Upload rejected, avatar still showing (validation working)
+✅ Test 7: Size validation working
+  ✓   7 [chromium] › tests/e2e/profile-picture.spec.ts:353:7 › Profile Picture E2E Tests › Should reject file larger than 5MB (2.9s)
+🧪 Test 8: File type validation
+  ✓ Invalid file selected
+  ✓ Upload rejected, avatar still showing (validation working)
+✅ Test 8: Type validation working
+  ✓   8 [chromium] › tests/e2e/profile-picture.spec.ts:384:7 › Profile Picture E2E Tests › Should reject non-image file (2.9s)
+🧪 Test 9: Picture replacement
+  ✓ Clicked "Change Picture" button
+  ✓ File selected: valid-profile.jpg
+  ✓ Upload button clicked
+  ✓ First upload successful
+  ✓ Initial image src: http://localhost:8081/uploads/profiles/user-130.jpg
+  ✓ Clicked "Change Picture" button
+  ✓ File selected: valid-profile-2.jpg
+  ✓ Upload button clicked
+  ✓ Second upload successful
+✅ Test 9: Replacement successful
+  ✓   9 [chromium] › tests/e2e/profile-picture.spec.ts:415:7 › Profile Picture E2E Tests › Should replace existing profile picture with new one (6.8s)
+🧪 Test 10: Authentication requirement
+  ✓ Unauthenticated user redirected to login
+✅ Test 10: Authentication enforced
+  ✓  10 [chromium] › tests/e2e/profile-picture.spec.ts:448:7 › Profile Picture E2E Tests › Should prevent unauthenticated user from uploading (701ms)
+
+  10 passed (52.8s)

@@ -1,0 +1,233 @@
+
+Running 10 tests using 1 worker
+
+🧪 Test 1: Upload JPEG profile picture
+  ✓ Clicked "Change Picture" button
+  ✓ File selected: valid-profile.jpg
+  ✓ Upload button clicked
+✅ Test 1: JPEG upload successful
+  ✓   1 [chromium] › tests/e2e/profile-picture.spec.ts:159:7 › Profile Picture E2E Tests › Should upload JPEG profile picture successfully (4.0s)
+🧪 Test 2: Upload PNG profile picture
+  ✘   2 [chromium] › tests/e2e/profile-picture.spec.ts:185:7 › Profile Picture E2E Tests › Should upload PNG profile picture successfully (11.2s)
+🧪 Test 3: Delete profile picture
+  ✘   3 [chromium] › tests/e2e/profile-picture.spec.ts:208:7 › Profile Picture E2E Tests › Should delete profile picture successfully (11.2s)
+🧪 Test 4: Complete end-to-end flow
+  ✓ Registration successful
+  ✓ Home page loaded
+  ✓ Clicked "Change Picture" button
+  ✓ File selected: valid-profile.jpg
+  ✓ Upload button clicked
+  ✓ Upload successful
+  ✓ Confirmation dialog appeared: Are you sure you want to delete your profile picture?
+  ✓ Delete button clicked
+  ✘   4 [chromium] › tests/e2e/profile-picture.spec.ts:237:7 › Profile Picture E2E Tests › Complete flow: Register → Login → Upload → Delete → Logout (10.8s)
+🧪 Test 5: Multiple upload/delete cycles
+  ✘   5 [chromium] › tests/e2e/profile-picture.spec.ts:285:7 › Profile Picture E2E Tests › Should handle multiple upload and delete operations (11.3s)
+🧪 Test 6: Profile picture persistence
+  ✓ Clicked "Change Picture" button
+  ✓ File selected: valid-profile.jpg
+  ✓ Upload button clicked
+  ✓ Upload successful
+  ✓ Page refreshed
+  ✓ Picture persisted after refresh
+✅ Test 6: Persistence verified
+  ✓   6 [chromium] › tests/e2e/profile-picture.spec.ts:321:7 › Profile Picture E2E Tests › Should persist profile picture after page refresh (4.4s)
+🧪 Test 7: File size validation
+  ✘   7 [chromium] › tests/e2e/profile-picture.spec.ts:347:7 › Profile Picture E2E Tests › Should reject file larger than 5MB (11.2s)
+🧪 Test 8: File type validation
+  ✘   8 [chromium] › tests/e2e/profile-picture.spec.ts:371:7 › Profile Picture E2E Tests › Should reject non-image file (11.2s)
+🧪 Test 9: Picture replacement
+  ✓ Clicked "Change Picture" button
+  ✓ File selected: valid-profile.jpg
+  ✓ Upload button clicked
+  ✓ First upload successful
+  ✓ Initial image src: http://localhost:8081/uploads/profiles/user-112.jpg
+  ✓ Clicked "Change Picture" button
+  ✓ File selected: valid-profile-2.jpg
+  ✓ Upload button clicked
+  ✓ Second upload successful
+✅ Test 9: Replacement successful
+  ✓   9 [chromium] › tests/e2e/profile-picture.spec.ts:395:7 › Profile Picture E2E Tests › Should replace existing profile picture with new one (6.2s)
+🧪 Test 10: Authentication requirement
+  ✓ Unauthenticated user redirected to login
+✅ Test 10: Authentication enforced
+  ✓  10 [chromium] › tests/e2e/profile-picture.spec.ts:428:7 › Profile Picture E2E Tests › Should prevent unauthenticated user from uploading (828ms)
+
+
+  1) [chromium] › tests/e2e/profile-picture.spec.ts:185:7 › Profile Picture E2E Tests › Should upload PNG profile picture successfully 
+
+    TimeoutError: locator.waitFor: Timeout 10000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('input[type="file"]')[22m
+
+
+      79 |   // Note: File input has class="hidden" but Playwright can still interact with it
+      80 |   const fileInput = page.locator('input[type="file"]');
+    > 81 |   await fileInput.waitFor({ state: 'attached', timeout: 10000 });
+         |                   ^
+      82 |   await fileInput.setInputFiles(fixturePath);
+      83 |   console.log('  ✓ File selected:', fixtureName);
+      84 |
+        at uploadProfilePicture (/Users/isnendyankp/Desktop/Programmer/Belajar/Project/Template/RegistrationForm/tests/e2e/profile-picture.spec.ts:81:19)
+        at /Users/isnendyankp/Desktop/Programmer/Belajar/Project/Template/RegistrationForm/tests/e2e/profile-picture.spec.ts:192:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/profile-picture-Profile-Pi-26eec-rofile-picture-successfully-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/profile-picture-Profile-Pi-26eec-rofile-picture-successfully-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/profile-picture-Profile-Pi-26eec-rofile-picture-successfully-chromium/error-context.md
+
+  2) [chromium] › tests/e2e/profile-picture.spec.ts:208:7 › Profile Picture E2E Tests › Should delete profile picture successfully 
+
+    TimeoutError: locator.waitFor: Timeout 10000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('input[type="file"]')[22m
+
+
+      79 |   // Note: File input has class="hidden" but Playwright can still interact with it
+      80 |   const fileInput = page.locator('input[type="file"]');
+    > 81 |   await fileInput.waitFor({ state: 'attached', timeout: 10000 });
+         |                   ^
+      82 |   await fileInput.setInputFiles(fixturePath);
+      83 |   console.log('  ✓ File selected:', fixtureName);
+      84 |
+        at uploadProfilePicture (/Users/isnendyankp/Desktop/Programmer/Belajar/Project/Template/RegistrationForm/tests/e2e/profile-picture.spec.ts:81:19)
+        at /Users/isnendyankp/Desktop/Programmer/Belajar/Project/Template/RegistrationForm/tests/e2e/profile-picture.spec.ts:213:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/profile-picture-Profile-Pi-ec087-rofile-picture-successfully-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/profile-picture-Profile-Pi-ec087-rofile-picture-successfully-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/profile-picture-Profile-Pi-ec087-rofile-picture-successfully-chromium/error-context.md
+
+  3) [chromium] › tests/e2e/profile-picture.spec.ts:237:7 › Profile Picture E2E Tests › Complete flow: Register → Login → Upload → Delete → Logout 
+
+    Error: [2mexpect([22m[31mlocator[39m[2m).[22mtoBeVisible[2m([22m[2m)[22m failed
+
+    Locator: locator('div:has-text("CF")')
+    Expected: visible
+    Timeout: 5000ms
+    Error: element(s) not found
+
+    Call log:
+    [2m  - Expect "toBeVisible" with timeout 5000ms[22m
+    [2m  - waiting for locator('div:has-text("CF")')[22m
+
+
+      134 |   // Check that avatar div with initials is shown
+      135 |   const avatar = page.locator(`div:has-text("${initials}")`);
+    > 136 |   await expect(avatar).toBeVisible();
+          |                        ^
+      137 |
+      138 |   // Ensure actual profile image is NOT visible
+      139 |   const profileImage = page.locator('img[alt*="profile picture"]');
+        at verifyAvatarFallback (/Users/isnendyankp/Desktop/Programmer/Belajar/Project/Template/RegistrationForm/tests/e2e/profile-picture.spec.ts:136:24)
+        at /Users/isnendyankp/Desktop/Programmer/Belajar/Project/Template/RegistrationForm/tests/e2e/profile-picture.spec.ts:269:11
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/profile-picture-Profile-Pi-dfd97--→-Upload-→-Delete-→-Logout-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/profile-picture-Profile-Pi-dfd97--→-Upload-→-Delete-→-Logout-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/profile-picture-Profile-Pi-dfd97--→-Upload-→-Delete-→-Logout-chromium/error-context.md
+
+  4) [chromium] › tests/e2e/profile-picture.spec.ts:285:7 › Profile Picture E2E Tests › Should handle multiple upload and delete operations 
+
+    TimeoutError: locator.waitFor: Timeout 10000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('input[type="file"]')[22m
+
+
+      79 |   // Note: File input has class="hidden" but Playwright can still interact with it
+      80 |   const fileInput = page.locator('input[type="file"]');
+    > 81 |   await fileInput.waitFor({ state: 'attached', timeout: 10000 });
+         |                   ^
+      82 |   await fileInput.setInputFiles(fixturePath);
+      83 |   console.log('  ✓ File selected:', fixtureName);
+      84 |
+        at uploadProfilePicture (/Users/isnendyankp/Desktop/Programmer/Belajar/Project/Template/RegistrationForm/tests/e2e/profile-picture.spec.ts:81:19)
+        at /Users/isnendyankp/Desktop/Programmer/Belajar/Project/Template/RegistrationForm/tests/e2e/profile-picture.spec.ts:292:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/profile-picture-Profile-Pi-0bcec-pload-and-delete-operations-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/profile-picture-Profile-Pi-0bcec-pload-and-delete-operations-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/profile-picture-Profile-Pi-0bcec-pload-and-delete-operations-chromium/error-context.md
+
+  5) [chromium] › tests/e2e/profile-picture.spec.ts:347:7 › Profile Picture E2E Tests › Should reject file larger than 5MB 
+
+    TimeoutError: locator.waitFor: Timeout 10000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('input[type="file"]')[22m
+
+
+      79 |   // Note: File input has class="hidden" but Playwright can still interact with it
+      80 |   const fileInput = page.locator('input[type="file"]');
+    > 81 |   await fileInput.waitFor({ state: 'attached', timeout: 10000 });
+         |                   ^
+      82 |   await fileInput.setInputFiles(fixturePath);
+      83 |   console.log('  ✓ File selected:', fixtureName);
+      84 |
+        at uploadProfilePicture (/Users/isnendyankp/Desktop/Programmer/Belajar/Project/Template/RegistrationForm/tests/e2e/profile-picture.spec.ts:81:19)
+        at /Users/isnendyankp/Desktop/Programmer/Belajar/Project/Template/RegistrationForm/tests/e2e/profile-picture.spec.ts:353:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/profile-picture-Profile-Pi-6abf6-reject-file-larger-than-5MB-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/profile-picture-Profile-Pi-6abf6-reject-file-larger-than-5MB-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/profile-picture-Profile-Pi-6abf6-reject-file-larger-than-5MB-chromium/error-context.md
+
+  6) [chromium] › tests/e2e/profile-picture.spec.ts:371:7 › Profile Picture E2E Tests › Should reject non-image file 
+
+    TimeoutError: locator.waitFor: Timeout 10000ms exceeded.
+    Call log:
+    [2m  - waiting for locator('input[type="file"]')[22m
+
+
+      79 |   // Note: File input has class="hidden" but Playwright can still interact with it
+      80 |   const fileInput = page.locator('input[type="file"]');
+    > 81 |   await fileInput.waitFor({ state: 'attached', timeout: 10000 });
+         |                   ^
+      82 |   await fileInput.setInputFiles(fixturePath);
+      83 |   console.log('  ✓ File selected:', fixtureName);
+      84 |
+        at uploadProfilePicture (/Users/isnendyankp/Desktop/Programmer/Belajar/Project/Template/RegistrationForm/tests/e2e/profile-picture.spec.ts:81:19)
+        at /Users/isnendyankp/Desktop/Programmer/Belajar/Project/Template/RegistrationForm/tests/e2e/profile-picture.spec.ts:377:5
+
+    attachment #1: screenshot (image/png) ──────────────────────────────────────────────────────────
+    test-results/profile-picture-Profile-Pi-e64d6-hould-reject-non-image-file-chromium/test-failed-1.png
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    attachment #2: video (video/webm) ──────────────────────────────────────────────────────────────
+    test-results/profile-picture-Profile-Pi-e64d6-hould-reject-non-image-file-chromium/video.webm
+    ────────────────────────────────────────────────────────────────────────────────────────────────
+
+    Error Context: test-results/profile-picture-Profile-Pi-e64d6-hould-reject-non-image-file-chromium/error-context.md
+
+  6 failed
+    [chromium] › tests/e2e/profile-picture.spec.ts:185:7 › Profile Picture E2E Tests › Should upload PNG profile picture successfully 
+    [chromium] › tests/e2e/profile-picture.spec.ts:208:7 › Profile Picture E2E Tests › Should delete profile picture successfully 
+    [chromium] › tests/e2e/profile-picture.spec.ts:237:7 › Profile Picture E2E Tests › Complete flow: Register → Login → Upload → Delete → Logout 
+    [chromium] › tests/e2e/profile-picture.spec.ts:285:7 › Profile Picture E2E Tests › Should handle multiple upload and delete operations 
+    [chromium] › tests/e2e/profile-picture.spec.ts:347:7 › Profile Picture E2E Tests › Should reject file larger than 5MB 
+    [chromium] › tests/e2e/profile-picture.spec.ts:371:7 › Profile Picture E2E Tests › Should reject non-image file 
+  4 passed (1.4m)
