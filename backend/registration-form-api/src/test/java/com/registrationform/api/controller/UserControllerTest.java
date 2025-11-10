@@ -50,6 +50,7 @@ import static org.mockito.Mockito.*;
  */
 @ExtendWith(MockitoExtension.class)
 @DisplayName("UserController REST API Unit Tests")
+@SuppressWarnings("null") // Suppress null pointer warnings - tests already validate non-null
 public class UserControllerTest {
 
     /**
