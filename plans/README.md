@@ -18,15 +18,64 @@ Implementation plans serve as **development roadmaps** that:
 plans/
 ├── README.md           # This file - plans index
 ├── in-progress/        # Currently active plans
-│   └── feature-name/
-│       ├── README.md              # Plan overview
-│       ├── requirements.md        # Scope and user stories
-│       ├── technical-design.md    # Architecture and implementation
-│       └── checklist.md           # Tasks and validation
-└── completed/          # Finished plans (archived with date)
-    └── YYYY-MM-DD--feature-name/
-        └── (same structure)
+│   ├── backend/        # Backend-related plans
+│   │   └── feature-name/
+│   │       ├── README.md              # Plan overview
+│   │       ├── requirements.md        # Scope and user stories
+│   │       ├── technical-design.md    # Architecture and implementation
+│   │       └── checklist.md           # Tasks and validation
+│   ├── frontend/       # Frontend-related plans
+│   │   └── feature-name/
+│   │       └── (same structure)
+│   └── testing/        # Testing-related plans
+│       └── test-type/
+│           └── (same structure)
+└── completed/          # Finished plans
+    ├── backend/        # Completed backend plans
+    │   └── feature-name/
+    │       └── (same structure)
+    ├── frontend/       # Completed frontend plans
+    │   └── feature-name/
+    │       └── (same structure)
+    └── testing/        # Completed testing plans
+        └── test-type/
+            └── (same structure)
 ```
+
+## Organization by Domain
+
+Plans are organized into three main categories:
+
+### 🔧 Backend Plans
+Backend-focused implementation plans including:
+- API development
+- Database changes
+- Business logic
+- Backend testing
+- Server-side features
+
+### 🎨 Frontend Plans
+Frontend-focused implementation plans including:
+- UI components
+- User interactions
+- Client-side logic
+- Frontend testing
+- User experience features
+
+### 🧪 Testing Plans
+Testing-focused implementation plans including:
+- Unit tests
+- Integration tests
+- API tests
+- E2E tests
+- Test automation
+
+**Benefits of categorization:**
+- ✅ Easy navigation by domain expertise
+- ✅ Clear separation of concerns
+- ✅ Better progress tracking per area
+- ✅ Professional portfolio organization
+- ✅ Scalable structure for future work
 
 ## Plan Structure (4-Document System)
 
@@ -65,33 +114,57 @@ Each plan contains exactly **four documents**:
 
 ### 🚧 In Progress
 
-#### Backend Testing Automation
-**Path:** `in-progress/backend-testing-automation/`
-**Status:** IN PROGRESS
+#### Backend: Testing Automation
+**Path:** `in-progress/backend/testing-automation/`
+**Status:** IN PROGRESS (30% complete - Unit tests done, Integration & API tests pending)
 **Created:** 2025-10-18
 
 Comprehensive automated testing for Spring Boot backend including unit tests (JUnit 5 + Mockito), integration tests (MockMvc + Testcontainers), API tests (REST Assured), and code coverage reporting (JaCoCo 80%+ target).
 
-**Scope:**
-- Unit tests for service layer and repositories
-- Integration tests with real PostgreSQL via Testcontainers
-- API tests with REST Assured
-- Security component tests (JWT, validation)
-- Code coverage with JaCoCo (80%+ target)
-- CI/CD test automation ready
+**Completed:**
+- ✅ Unit tests for all service layers (91 tests, 100% pass rate)
+- ✅ Test utilities and helpers (check-warnings.sh)
+- ✅ Code quality automation
+
+**Pending:**
+- ⏳ Integration tests with Testcontainers + PostgreSQL
+- ⏳ API tests with REST Assured
+- ⏳ JaCoCo coverage reporting configuration
 
 **Documents:**
-- [README](./in-progress/backend-testing-automation/README.md)
-- [Requirements](./in-progress/backend-testing-automation/requirements.md)
-- [Technical Design](./in-progress/backend-testing-automation/technical-design.md)
-- [Checklist](./in-progress/backend-testing-automation/checklist.md)
+- [README](./in-progress/backend/testing-automation/README.md)
+- [Requirements](./in-progress/backend/testing-automation/requirements.md)
+- [Technical Design](./in-progress/backend/testing-automation/technical-design.md)
+- [Checklist](./in-progress/backend/testing-automation/checklist.md)
 
-#### Backend API Testing with Playwright
-**Path:** `in-progress/backend-api-testing-playwright/`
+#### Frontend: Authentication Flow
+**Path:** `in-progress/frontend/authentication-flow/`
+**Status:** IN PROGRESS
+**Created:** 2025-10-19
+
+Complete frontend authentication flow with protected home page route. Implements token-based session management with localStorage, route guards, and user profile display.
+
+**Scope:**
+- Protected home page route at /home
+- Authentication context with React Context API
+- Route protection and redirects
+- User profile display with fullName, email, login time
+- Logout functionality with token cleanup
+- Token persistence across browser refreshes
+- E2E and API testing with Playwright
+
+**Documents:**
+- [README](./in-progress/frontend/authentication-flow/README.md)
+- [Requirements](./in-progress/frontend/authentication-flow/requirements.md)
+- [Technical Design](./in-progress/frontend/authentication-flow/technical-design.md)
+- [Checklist](./in-progress/frontend/authentication-flow/checklist.md)
+
+#### Testing: API Testing with Playwright
+**Path:** `in-progress/testing/api-testing-playwright/`
 **Status:** IN PROGRESS
 **Created:** 2025-10-18
 
-Automate backend API testing using Playwright's request API with MCP integration. API-only testing (no browser) for all Spring Boot endpoints, replacing manual Postman testing with automated test suites. 5-day daily commit plan.
+Automate backend API testing using Playwright's request API with MCP integration. API-only testing (no browser) for all Spring Boot endpoints, replacing manual Postman testing.
 
 **Scope:**
 - Authentication API tests (register, login, refresh, validate)
@@ -100,40 +173,33 @@ Automate backend API testing using Playwright's request API with MCP integration
 - Error handling tests (400, 401, 404, 500)
 - MCP Playwright integration
 - API test helpers and utilities
-- Daily commits for GitHub activity
 
 **Documents:**
-- [README](./in-progress/backend-api-testing-playwright/README.md)
-- [Requirements](./in-progress/backend-api-testing-playwright/requirements.md)
-- [Technical Design](./in-progress/backend-api-testing-playwright/technical-design.md)
-- [Checklist](./in-progress/backend-api-testing-playwright/checklist.md)
+- [README](./in-progress/testing/api-testing-playwright/README.md)
+- [Requirements](./in-progress/testing/api-testing-playwright/requirements.md)
+- [Technical Design](./in-progress/testing/api-testing-playwright/technical-design.md)
+- [Checklist](./in-progress/testing/api-testing-playwright/checklist.md)
 
-#### Frontend Authentication Flow with Home Page
-**Path:** `in-progress/frontend-authentication-flow/`
-**Status:** IN PROGRESS
-**Created:** 2025-10-19
+### ✅ Completed
 
-Complete frontend authentication flow with protected home page route. Implements token-based session management with localStorage, route guards, and user profile display. 9-commit structure over 3 implementation days.
+#### Testing: Unit Tests Implementation
+**Path:** `completed/testing/unit-tests/`
+**Status:** ✅ COMPLETED
+**Completed:** 2025-11-10
+**Duration:** 4 days
 
-**Scope:**
-- Protected home page route at /home (NOT /dashboard)
-- Authentication context with React Context API
-- Route protection and redirects for all pages
-- User profile display with fullName, email, login time
-- Logout functionality with token cleanup
-- Token persistence across browser refreshes
-- Complete E2E and API testing with Playwright
-- Gherkin specifications for authentication flows
+Comprehensive unit testing implementation for Spring Boot backend with 91 unit tests achieving 100% pass rate.
+
+**Achievements:**
+- ✅ 91 unit tests (JUnit 5 + Mockito)
+- ✅ 100% pass rate
+- ✅ 3.3s total execution time
+- ✅ ~91% code coverage
+- ✅ 5 test files: JwtUtil, UserService, FileStorageService, UserController, ProfileController
+- ✅ Code quality automation (check-warnings.sh)
 
 **Documents:**
-- [README](./in-progress/frontend-authentication-flow/README.md)
-- [Requirements](./in-progress/frontend-authentication-flow/requirements.md)
-- [Technical Design](./in-progress/frontend-authentication-flow/technical-design.md)
-- [Checklist](./in-progress/frontend-authentication-flow/checklist.md)
-
-### ✅ Recently Completed
-
-None yet. Plans will appear here when completed.
+- [README](./completed/testing/unit-tests/README.md)
 
 ## Legacy Plans
 
