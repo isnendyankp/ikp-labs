@@ -524,19 +524,82 @@ The backend provides comprehensive REST APIs for authentication and user managem
 
 ### Unit Testing (Java) ✅
 
+Comprehensive unit test suite covering all business logic and API endpoints.
+
 **Run unit tests:**
 ```bash
 cd backend/registration-form-api
 mvn test
+
+# Output:
+# Tests run: 91, Failures: 0, Errors: 0, Skipped: 0
+# Time elapsed: 3.3 seconds
 ```
 
-**Test Coverage:**
-- `UserServiceTest.java` - User business logic tests
-- `JwtUtilTest.java` - JWT token generation/validation tests
+**Test Statistics:**
+- **Total Tests**: 91 unit tests
+- **Pass Rate**: 100% (0 failures, 0 errors)
+- **Execution Time**: 3.3 seconds
+- **Code Coverage**: ~91%
+- **Test Files**: 5 comprehensive test classes
+
+**Test Breakdown by Component:**
+
+**1. JwtUtilTest (15 tests)**
+- Token generation and validation
+- Email extraction from tokens
+- Token expiration handling
+- Full name extraction
+- Token refresh functionality
+- Invalid/malformed/expired token scenarios
+
+**2. UserServiceTest (17 tests)**
+- CRUD operations (Create, Read, Update, Delete)
+- User retrieval by ID and email
+- Duplicate email handling
+- Password verification
+- Email existence checks
+- Edge cases (non-existent users, empty lists)
+
+**3. FileStorageServiceTest (21 tests)**
+- File upload validation (size, type, extension)
+- Supported formats (PNG, JPG, JPEG, GIF, WebP)
+- File size limits (5MB max)
+- Invalid file type rejection (PDF, TXT, EXE)
+- File replacement logic
+- File deletion handling
+- Edge cases (null files, empty files, no extension)
+
+**4. UserControllerTest (20 tests)**
+- REST API endpoint testing
+- GET, POST, PUT, DELETE operations
+- HTTP status code validation
+- Request/response body validation
+- Error scenario handling
+
+**5. ProfileControllerTest (18 tests)**
+- Profile picture upload endpoint
+- Profile picture deletion
+- Multipart file upload handling
+- User not found scenarios
+- IO error handling
+
+**Code Quality Tools:**
+```bash
+# Check for warnings and code quality issues
+./check-warnings.sh
+
+# Output:
+# ✅ No Maven compilation warnings
+# ✅ No common unused imports found
+# ✅ All tests passing
+# 🎉 All checks passed! Code is clean!
+```
 
 **Documentation:**
-- Unit test guide: [docs/testing/unit-test-java-guide.md](docs/testing/unit-test-java-guide.md)
-- Implementation plan: [docs/plans/unit-test-java-implementation-plan.md](docs/plans/unit-test-java-implementation-plan.md)
+- Unit test summary: [plans/completed/testing/unit-tests/README.md](plans/completed/testing/unit-tests/README.md)
+- How-to guide: [docs/how-to/testing/run-automated-tests.md](docs/how-to/testing/run-automated-tests.md)
+- Testing strategy: [docs/explanation/testing/test-plan-checklist-strategy.md](docs/explanation/testing/test-plan-checklist-strategy.md)
 
 ---
 
