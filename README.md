@@ -86,14 +86,18 @@ This project helped me master:
 - ✅ **JWT Authentication** - Implementing secure token-based authentication from scratch
 - ✅ **File Upload & Storage** - Managing multipart file uploads and server-side storage
 - ✅ **E2E Testing** - Writing comprehensive Playwright tests (30+ scenarios)
-- ✅ **Unit Testing** - Java unit tests with JUnit and Mockito
+- ✅ **Unit Testing** - 91 Java unit tests with JUnit 5 and Mockito achieving 100% pass rate
+- ✅ **Test Automation Strategy** - Test Plan Checklist system with smart conditional cleanup
+- ✅ **Code Quality Automation** - Automated warning detection and pre-commit checks
+- ✅ **Test Data Management** - Pattern-based user identification and cleanup strategies
 - ✅ **Database Design** - PostgreSQL schema design and JPA entity mapping
 - ✅ **RESTful API Design** - Creating consistent and well-documented APIs
 - ✅ **Security Best Practices** - BCrypt password hashing, CORS configuration, JWT validation
 - ✅ **Protected Routes** - Client-side and server-side authorization
 - ✅ **State Management** - React hooks and localStorage for auth state
 - ✅ **Modern UI/UX** - Responsive design with Tailwind CSS
-- ✅ **Documentation** - Comprehensive docs following Diátaxis framework
+- ✅ **Documentation** - Comprehensive docs following Diátaxis framework (20+ guides)
+- ✅ **Project Organization** - Structured plans categorized by domain (Backend/Frontend/Testing)
 
 ## 🎯 What I Built
 
