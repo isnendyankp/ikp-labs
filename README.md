@@ -277,19 +277,33 @@ project-root/
 ├── docs/                       # Documentation (Diátaxis framework)
 │   ├── tutorials/             # Learning-oriented guides
 │   ├── how-to/                # Problem-solving guides
-│   │   ├── upload-profile-picture.md      # 🆕
+│   │   ├── testing/
+│   │   │   └── run-automated-tests.md          # 🆕 Test execution guide
+│   │   ├── upload-profile-picture.md
 │   │   ├── run-e2e-tests.md
 │   │   └── implement-protected-routes.md
 │   ├── reference/             # Technical specifications
 │   ├── explanation/           # Conceptual explanations
+│   │   ├── testing/
+│   │   │   └── test-plan-checklist-strategy.md # 🆕 Testing strategy
 │   │   ├── authentication-architecture.md
 │   │   └── protected-routes-architecture.md
 │   └── testing/               # 🆕 Testing documentation
 │       ├── unit-test-java-guide.md
 │       └── video-screenshot-guide.md
-├── plans/                      # Implementation plans
+├── plans/                      # Implementation plans (organized by domain)
 │   ├── in-progress/           # Active development plans
-│   └── completed/             # Archived completed plans
+│   │   ├── backend/           # Backend-related plans
+│   │   │   └── testing-automation/  # 30% complete (unit tests done)
+│   │   ├── frontend/          # Frontend-related plans
+│   │   │   └── authentication-flow/
+│   │   └── testing/           # Testing-related plans
+│   │       └── api-testing-playwright/
+│   └── completed/             # Completed plans by category
+│       ├── backend/           # Completed backend plans
+│       ├── frontend/          # Completed frontend plans
+│       └── testing/           # 🆕 Completed testing plans
+│           └── unit-tests/    # 🆕 91 tests, 100% pass rate!
 └── package.json                # Workspace management
 
 🆕 = New features/files added in latest version
