@@ -9,6 +9,7 @@ tests/
 ├── e2e/                    # E2E test specs (browser tests)
 │   ├── login.spec.ts       # Login flow tests
 │   ├── registration.spec.ts # Registration flow tests
+│   ├── registration-with-tracker.spec.ts # 🆕 Registration with Test Plan Tracker
 │   └── auth-flow.spec.ts   # Complete authentication flow tests
 ├── api/                    # API test specs (backend tests)
 │   ├── helpers/            # API test utilities
@@ -21,8 +22,13 @@ tests/
 │   ├── protected.api.spec.ts # Protected endpoint tests
 │   ├── error-handling.api.spec.ts # Error scenario tests
 │   └── health.api.spec.ts  # Health check tests
-├── fixtures/               # Test data
-│   └── test-users.ts       # Test user credentials
+├── fixtures/               # Test data and utilities
+│   ├── test-users.ts       # Test user credentials
+│   └── test-plan-tracker.js # 🆕 Test Plan Tracker core class
+├── plans/                  # 🆕 Test plan JSON files
+│   └── registration.plan.json # Registration test plan
+├── results/                # 🆕 Failed test data (auto-generated)
+│   └── REG-XXX-*.json      # Preserved test data for debugging
 └── README.md              # This file
 ```
 
@@ -98,6 +104,90 @@ npx playwright show-report
 # Show last test run traces
 npx playwright show-trace
 ```
+
+## 📋 Test Plan Checklist System
+
+**NEW!** Smart test execution tracking with automated cleanup.
+
+### Features
+
+- ✅ **Progress Tracking** - JSON-based test plan with real-time status updates
+- ✅ **Smart Cleanup** - Auto-delete test users on PASS, preserve on FAIL for debugging
+- ✅ **Historical Record** - Track test execution history, duration, and statistics
+- ✅ **Pattern-Based User Management** - Auto-identify test users by email pattern
+- ✅ **Failed Test Data Preservation** - Save failed test data to `tests/results/` for analysis
+
+### Quick Start
+
+```bash
+# Run tests with Test Plan Tracker
+npx playwright test registration-with-tracker
+
+# View test plan progress
+cat tests/plans/registration.plan.json
+
+# Check failed test data (if any)
+ls tests/results/
+```
+
+### Email Patterns for Auto-Cleanup
+
+**Auto-cleanup patterns** (deleted on test PASS):
+- `autotest-*` - Automated test users
+- `qa-*` - QA automation users
+- `testuser-*` - Integration test users
+
+**Manual testing patterns** (preserved):
+- `manual-*` - Manual testing users
+- `demo-*` - Demo users
+- Regular emails without prefix
+
+### Example Usage
+
+```typescript
+import { TestPlanTracker } from '../fixtures/test-plan-tracker.js';
+
+let tracker: TestPlanTracker;
+
+test.beforeAll(async () => {
+  tracker = new TestPlanTracker('registration');
+});
+
+test('REG-001: Successful registration', async ({ page, request }) => {
+  const testId = 'REG-001';
+  tracker.startTest(testId);
+
+  try {
+    const testEmail = `autotest-reg-001-${Date.now()}@example.com`;
+    tracker.trackUser(testEmail, testId);
+
+    // ... test logic ...
+
+    tracker.markCompleted(testId);
+    await tracker.cleanup(request, testId, true); // Auto-delete on PASS
+  } catch (error) {
+    tracker.markFailed(testId, error.message);
+    await tracker.cleanup(request, testId, false); // Preserve on FAIL
+    throw error;
+  }
+});
+```
+
+### Backend Integration
+
+Test Admin Endpoints (`TestAdminController.java`):
+- `DELETE /api/test-admin/users/{email}` - Delete specific test user
+- `DELETE /api/test-admin/cleanup/automated` - Bulk cleanup all automated test users
+- `GET /api/test-admin/users?automated=true` - List test users
+
+**⚠️ Important:** TestAdminController should be disabled in production environment.
+
+### Documentation
+
+- **How-to Guide:** [Run Automated Tests with Test Plan Tracker](../docs/how-to/testing/run-automated-tests.md)
+- **Explanation:** [Test Plan Checklist Strategy](../docs/explanation/testing/test-plan-checklist-strategy.md)
+
+---
 
 ## 🧪 API Testing
 
