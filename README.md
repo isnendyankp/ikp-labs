@@ -156,9 +156,14 @@ This started as a simple registration form but evolved into a complete authentic
 - **[Maven](https://maven.apache.org/)** - Build and dependency management
 
 ### Testing
-- **[Playwright](https://playwright.dev/)** - E2E and API testing framework
+- **[Playwright](https://playwright.dev/)** - E2E and API testing framework (30+ scenarios)
+- **[JUnit 5](https://junit.org/junit5/)** - Unit testing framework for Java
+- **[Mockito](https://site.mockito.org/)** - Mocking framework for unit tests
+- **[Spring Boot Test](https://spring.io/guides/gs/testing-web/)** - Testing support for Spring applications
 - **[Gherkin](https://cucumber.io/docs/gherkin/)** - BDD specification language
 - **Test Utilities**: Custom helpers for API client, auth, test data, cleanup
+- **Test Plan Checklist**: JSON-based progress tracking with smart cleanup strategies
+- **Code Quality Tools**: check-warnings.sh for automated quality checks
 
 ## Getting Started
 
