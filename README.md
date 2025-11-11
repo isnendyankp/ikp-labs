@@ -48,11 +48,27 @@ A complete user authentication and profile management system built as part of my
   - Profile picture upload/delete (10 tests)
   - Video recording and screenshot capture
 - **API Testing**: 20+ API test scenarios with Playwright
-- **Unit Testing**: Comprehensive Java unit tests (UserService, JwtUtil)
+- **Unit Testing**: 91 comprehensive unit tests with 100% pass rate
+  - JwtUtil: 15 tests (token generation, validation, expiration)
+  - UserService: 17 tests (CRUD operations, business logic)
+  - FileStorageService: 21 tests (file upload, validation, security)
+  - UserController: 20 tests (REST endpoints)
+  - ProfileController: 18 tests (profile management)
+  - Execution time: 3.3 seconds total
+  - Code coverage: ~91%
+- **Test Plan Checklist**: Smart test execution tracking with automated progress monitoring
+  - Plan-driven testing with JSON-based checklists
+  - Conditional cleanup: auto-delete on pass, preserve on fail for debugging
+  - Progress tracking and historical record of test execution
+  - Test data management with pattern-based user identification
+- **Code Quality**: Automated quality checks with check-warnings.sh
+  - Pre-commit warning detection
+  - Unused import scanning
+  - Maven compilation validation
 - **Test Coverage**: 100% critical path coverage
 - **Gherkin Specs**: 18+ BDD scenarios in plain language
 - **Test Automation**: Automated video/screenshot recording for demos
-- **Comprehensive Documentation**: Diátaxis framework with 15+ guides
+- **Comprehensive Documentation**: Diátaxis framework with 20+ guides including testing strategy docs
 
 ### Development
 - **TypeScript**: Fully typed for better DX
