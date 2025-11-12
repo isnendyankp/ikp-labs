@@ -117,6 +117,9 @@ public class SecurityConfig {
                 // PROFILE ENDPOINTS - Protected (perlu login)
                 .requestMatchers("/api/profile/**").authenticated() // Upload/delete own picture
 
+                // GALLERY ENDPOINTS - Protected (perlu login)
+                .requestMatchers("/api/gallery/**").authenticated() // Photo gallery endpoints
+
                 // PROTECTED ENDPOINTS - Area hotel (perlu key card)
                 .requestMatchers("/api/user/**").authenticated()    // User profile endpoints
                 .requestMatchers("/api/admin/**").hasRole("ADMIN")  // Admin only areas
