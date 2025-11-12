@@ -2,6 +2,9 @@ package com.registrationform.api.service;
 
 import com.registrationform.api.entity.GalleryPhoto;
 import com.registrationform.api.entity.User;
+import com.registrationform.api.exception.GalleryException;
+import com.registrationform.api.exception.GalleryNotFoundException;
+import com.registrationform.api.exception.UnauthorizedGalleryAccessException;
 import com.registrationform.api.repository.GalleryPhotoRepository;
 import com.registrationform.api.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,7 +86,7 @@ public class GalleryService {
 
         // STEP 2: Get user from database
         User user = userRepository.findById(userId)
-                .orElseThrow(() -> new RuntimeException("User not found with id: " + userId));
+                .orElseThrow(() -> new GalleryException("User not found with id: " + userId));
 
         // STEP 3: Create photo entity (file path empty for now)
         GalleryPhoto photo = new GalleryPhoto(user, "");
@@ -193,19 +196,19 @@ public class GalleryService {
      * @param photoId ID of photo to retrieve
      * @param requestingUserId ID of user requesting (null if anonymous)
      * @return GalleryPhoto entity
-     * @throws RuntimeException if photo not found
-     * @throws RuntimeException if unauthorized (private photo, not owner)
+     * @throws GalleryNotFoundException if photo not found
+     * @throws UnauthorizedGalleryAccessException if unauthorized (private photo, not owner)
      */
     public GalleryPhoto getPhotoById(Long photoId, Long requestingUserId) {
         // Find photo or throw exception
         GalleryPhoto photo = galleryPhotoRepository.findById(photoId)
-                .orElseThrow(() -> new RuntimeException("Photo not found with id: " + photoId));
+                .orElseThrow(() -> new GalleryNotFoundException("Photo not found with id: " + photoId));
 
         // Privacy check
         if (!photo.getIsPublic()) {
             // Photo is private - only owner can view
             if (requestingUserId == null || !photo.getUser().getId().equals(requestingUserId)) {
-                throw new RuntimeException("You are not authorized to view this photo");
+                throw new UnauthorizedGalleryAccessException("You are not authorized to view this private photo. Only the owner can access private photos.");
             }
         }
 
@@ -224,8 +227,8 @@ public class GalleryService {
      * @param description New description (optional)
      * @param isPublic New privacy setting (optional)
      * @return Updated GalleryPhoto entity
-     * @throws RuntimeException if photo not found
-     * @throws RuntimeException if unauthorized (not owner)
+     * @throws GalleryNotFoundException if photo not found
+     * @throws UnauthorizedGalleryAccessException if unauthorized (not owner)
      */
     public GalleryPhoto updatePhoto(
             Long photoId,
@@ -236,11 +239,11 @@ public class GalleryService {
 
         // Find photo or throw
         GalleryPhoto photo = galleryPhotoRepository.findById(photoId)
-                .orElseThrow(() -> new RuntimeException("Photo not found with id: " + photoId));
+                .orElseThrow(() -> new GalleryNotFoundException("Photo not found with id: " + photoId));
 
         // Authorization check - must be owner
         if (!photo.getUser().getId().equals(userId)) {
-            throw new RuntimeException("You are not authorized to update this photo");
+            throw new UnauthorizedGalleryAccessException("You are not authorized to update this photo. Only the owner can edit their photos.");
         }
 
         // Update fields (only if provided)
@@ -271,17 +274,17 @@ public class GalleryService {
      * @param photoId ID of photo to toggle
      * @param userId ID of requesting user (must be owner)
      * @return Updated GalleryPhoto entity
-     * @throws RuntimeException if photo not found
-     * @throws RuntimeException if unauthorized (not owner)
+     * @throws GalleryNotFoundException if photo not found
+     * @throws UnauthorizedGalleryAccessException if unauthorized (not owner)
      */
     public GalleryPhoto togglePrivacy(Long photoId, Long userId) {
         // Find photo or throw
         GalleryPhoto photo = galleryPhotoRepository.findById(photoId)
-                .orElseThrow(() -> new RuntimeException("Photo not found with id: " + photoId));
+                .orElseThrow(() -> new GalleryNotFoundException("Photo not found with id: " + photoId));
 
         // Authorization check
         if (!photo.getUser().getId().equals(userId)) {
-            throw new RuntimeException("You are not authorized to modify this photo");
+            throw new UnauthorizedGalleryAccessException("You are not authorized to modify this photo. Only the owner can change privacy settings.");
         }
 
         // Toggle privacy
@@ -308,18 +311,18 @@ public class GalleryService {
      *
      * @param photoId ID of photo to delete
      * @param userId ID of requesting user (must be owner)
-     * @throws RuntimeException if photo not found
-     * @throws RuntimeException if unauthorized (not owner)
+     * @throws GalleryNotFoundException if photo not found
+     * @throws UnauthorizedGalleryAccessException if unauthorized (not owner)
      * @throws IOException if file deletion fails
      */
     public void deletePhoto(Long photoId, Long userId) throws IOException {
         // STEP 1: Find photo or throw
         GalleryPhoto photo = galleryPhotoRepository.findById(photoId)
-                .orElseThrow(() -> new RuntimeException("Photo not found with id: " + photoId));
+                .orElseThrow(() -> new GalleryNotFoundException("Photo not found with id: " + photoId));
 
         // STEP 2: Authorization check
         if (!photo.getUser().getId().equals(userId)) {
-            throw new RuntimeException("You are not authorized to delete this photo");
+            throw new UnauthorizedGalleryAccessException("You are not authorized to delete this photo. Only the owner can delete their photos.");
         }
 
         // STEP 3: Delete file from disk
