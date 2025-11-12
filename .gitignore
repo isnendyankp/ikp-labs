@@ -85,6 +85,9 @@ backend/registration-form-api/uploads/*
 !backend/registration-form-api/uploads/profiles/
 backend/registration-form-api/uploads/profiles/*
 !backend/registration-form-api/uploads/profiles/.gitkeep
+!backend/registration-form-api/uploads/gallery/
+backend/registration-form-api/uploads/gallery/*
+!backend/registration-form-api/uploads/gallery/.gitkeep
 
 backend/uploads/*
 !backend/uploads/.gitkeep
