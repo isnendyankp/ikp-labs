@@ -260,39 +260,175 @@ public class FileStorageService {
         return uploadPath.resolve(filename);
     }
 
+    // ============================================================
+    // GALLERY PHOTO METHODS (NEW - for multi-photo gallery)
+    // ============================================================
+
+    /**
+     * Save gallery photo untuk user
+     *
+     * PERBEDAAN dengan saveProfilePicture:
+     * - Profile picture: 1 foto per user (user-{userId}.jpg)
+     * - Gallery photo: banyak foto per user (photo-{photoId}-{timestamp}.jpg)
+     * - Directory: uploads/gallery/user-{userId}/ (user subdirectory)
+     * - Filename: includes photoId and timestamp for uniqueness
+     *
+     * FLOW PROSES:
+     * 1. Validasi file (same as profile picture)
+     * 2. Create user subdirectory if not exists
+     * 3. Generate unique filename: photo-{photoId}-{timestamp}.{extension}
+     * 4. Save file to: uploads/gallery/user-{userId}/
+     * 5. Return relative path for database
+     *
+     * @param file File yang diupload dari frontend
+     * @param userId ID user (untuk subdirectory)
+     * @param photoId ID photo dari database (untuk filename)
+     * @return Relative path untuk disimpan di database (e.g., "gallery/user-83/photo-156-1731238845123.jpg")
+     * @throws IOException jika gagal save file
+     * @throws IllegalArgumentException jika validasi gagal
+     */
+    public String saveGalleryPhoto(MultipartFile file, Long userId, Long photoId) throws IOException {
+        // STEP 1: VALIDASI FILE (reuse existing validation)
+        validateFile(file);
+
+        // STEP 2: CREATE USER SUBDIRECTORY
+        Path galleryBasePath = Paths.get("uploads/gallery");
+        Path userGalleryPath = galleryBasePath.resolve("user-" + userId);
+
+        // Create directories if not exist
+        if (!Files.exists(userGalleryPath)) {
+            Files.createDirectories(userGalleryPath);
+            System.out.println("✅ Created user gallery directory: " + userGalleryPath.toAbsolutePath());
+        }
+
+        // STEP 3: GENERATE UNIQUE FILENAME
+        String fileExtension = getFileExtension(file.getOriginalFilename());
+        long timestamp = System.currentTimeMillis();
+        String safeFilename = String.format("photo-%d-%d.%s", photoId, timestamp, fileExtension);
+
+        // STEP 4: SAVE FILE
+        Path destinationPath = userGalleryPath.resolve(safeFilename);
+        Files.copy(file.getInputStream(), destinationPath, StandardCopyOption.REPLACE_EXISTING);
+
+        System.out.println("✅ Gallery photo saved: " + safeFilename + " for user " + userId);
+
+        // STEP 5: RETURN RELATIVE PATH (for database storage)
+        // Format: gallery/user-{userId}/photo-{photoId}-{timestamp}.{ext}
+        return String.format("gallery/user-%d/%s", userId, safeFilename);
+    }
+
+    /**
+     * Delete gallery photo untuk user
+     *
+     * Delete file dari disk berdasarkan userId, photoId, dan extension.
+     *
+     * Use case:
+     * - User deletes photo dari gallery
+     * - Photo cascade deleted when user deleted
+     *
+     * @param userId ID user (untuk locate subdirectory)
+     * @param photoId ID photo (untuk locate specific file)
+     * @param extension File extension (jpg, png, etc.)
+     * @throws IOException jika gagal delete file
+     */
+    public void deleteGalleryPhoto(Long userId, Long photoId, String extension) throws IOException {
+        // Build path to user's gallery directory
+        Path userGalleryPath = Paths.get("uploads/gallery/user-" + userId);
+
+        // Pattern: photo-{photoId}-*.{extension}
+        // Example: photo-156-1731238845123.jpg
+        // We need to find file that starts with photo-{photoId}- and ends with .{extension}
+
+        if (Files.exists(userGalleryPath)) {
+            // List all files in user's gallery directory
+            Files.list(userGalleryPath)
+                .filter(path -> {
+                    String filename = path.getFileName().toString();
+                    // Match: photo-{photoId}-{anything}.{extension}
+                    String pattern = String.format("photo-%d-.*\\.%s", photoId, extension);
+                    return filename.matches(pattern);
+                })
+                .forEach(path -> {
+                    try {
+                        Files.delete(path);
+                        System.out.println("🗑️  Deleted gallery photo: " + path.getFileName());
+                    } catch (IOException e) {
+                        System.err.println("❌ Failed to delete file: " + path.getFileName());
+                    }
+                });
+        }
+    }
+
+    /**
+     * Validate gallery photo
+     *
+     * Same validation as profile picture.
+     * Extracted as public method untuk bisa dipanggil dari GalleryService.
+     *
+     * Validation checks:
+     * 1. File not null/empty
+     * 2. File size ≤ 5MB
+     * 3. Content type is image/*
+     * 4. Extension is allowed (jpg, jpeg, png, gif, webp)
+     *
+     * @param file File to validate
+     * @throws IllegalArgumentException if validation fails
+     */
+    public void validateGalleryPhoto(MultipartFile file) {
+        // Reuse existing validation method
+        validateFile(file);
+    }
+
     /**
      * NOTES UNTUK PEMAHAMAN:
      * ======================
      *
-     * 1. Kenapa pakai MultipartFile?
-     *    - Spring Boot type untuk handle file upload
-     *    - Sudah include metadata (size, type, name)
-     *    - Easy to use dengan built-in validation
+     * PROFILE PICTURE vs GALLERY PHOTO:
+     * ===================================
      *
-     * 2. Kenapa filename: user-{userId}.{extension}?
-     *    - Unique per user (tidak akan collision)
-     *    - Predictable (mudah find/delete)
-     *    - Security: tidak pakai user input filename (prevent path traversal)
-     *    - Simple: satu user = satu foto
+     * Profile Picture (existing):
+     * - Directory: uploads/profiles/
+     * - Filename: user-{userId}.jpg
+     * - One per user (replace old when upload new)
+     * - Simple, predictable
      *
-     * 3. Kenapa delete old file?
-     *    - User upload baru, foto lama tidak perlu
-     *    - Save disk space
-     *    - Avoid confusion (cuma ada satu foto per user)
+     * Gallery Photo (new):
+     * - Directory: uploads/gallery/user-{userId}/
+     * - Filename: photo-{photoId}-{timestamp}.jpg
+     * - Multiple per user (no replacement)
+     * - User subdirectories for organization
      *
-     * 4. Kenapa validasi ketat?
-     *    - Security: prevent malicious files
-     *    - Performance: prevent huge files
-     *    - User experience: catch errors early
+     * WHY USER SUBDIRECTORIES?
+     * ========================
+     * 1. Organization: Easy to find all photos for a user
+     * 2. Cleanup: Delete entire directory when user deleted
+     * 3. Scalability: Avoid one huge directory with thousands of files
+     * 4. Security: Isolate users' files
      *
-     * 5. Path Traversal Prevention:
-     *    - TIDAK pakai user input filename
-     *    - Generate sendiri: user-{userId}.{extension}
-     *    - Tidak mungkin user upload ke parent directory
+     * WHY PHOTO ID + TIMESTAMP IN FILENAME?
+     * ======================================
+     * 1. Uniqueness: photoId might repeat across users, timestamp ensures uniqueness
+     * 2. Traceability: Can trace back to database record via photoId
+     * 3. Sortable: Timestamp allows chronological sorting
+     * 4. Debugging: Easy to identify which photo in filesystem
      *
-     * 6. Error Handling Strategy:
-     *    - Validation errors: IllegalArgumentException
-     *    - IO errors: IOException
-     *    - Controller akan catch dan return proper HTTP response
+     * FILE DELETION STRATEGY:
+     * =======================
+     * - Profile picture: Delete all possible extensions (jpg, png, gif, etc.)
+     * - Gallery photo: Delete specific file matching photoId + extension
+     * - Why different? Profile has predictable name, gallery has timestamp
+     *
+     * ERROR HANDLING:
+     * ===============
+     * - Validation errors: IllegalArgumentException (client error)
+     * - IO errors: IOException (server error)
+     * - Controller catches and returns appropriate HTTP status
+     *
+     * SECURITY CONSIDERATIONS:
+     * ========================
+     * 1. No user input in filename (prevent path traversal)
+     * 2. Subdirectories by userId (can't access other users' photos)
+     * 3. File validation (prevent malicious uploads)
+     * 4. Extension whitelist (only safe image formats)
      */
 }
