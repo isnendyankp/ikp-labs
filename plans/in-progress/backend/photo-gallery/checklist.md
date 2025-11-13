@@ -1,8 +1,8 @@
 # Photo Gallery Feature - Implementation Checklist
 
 **Status:** 🚧 IN PROGRESS
-**Last Updated:** 2025-11-13
-**Completion:** 2/74 tasks (2.7%)
+**Last Updated:** 2025-11-13 (End of Day 2)
+**Completion:** 35/74 tasks (47.3%)
 
 ---
 
@@ -10,265 +10,303 @@
 
 | Phase | Tasks | Completed | In Progress | Pending | Progress |
 |-------|-------|-----------|-------------|---------|----------|
-| Phase 1: Backend Dev | 35 | 2 | 1 | 32 | 5.7% |
+| Phase 1: Backend Dev | 35 | 35 | 0 | 0 | 100% ✅ |
 | Phase 2: Backend Tests | 25 | 0 | 0 | 25 | 0% |
 | Phase 3: Frontend Dev | 14 | 0 | 0 | 14 | 0% |
-| **TOTAL** | **74** | **2** | **1** | **71** | **2.7%** |
+| **TOTAL** | **74** | **35** | **0** | **39** | **47.3%** |
 
 ---
 
-## Phase 1: Backend Development (5.7%)
+## Phase 1: Backend Development (100% ✅)
 
-### 1.1 Database Layer (50% complete)
+### 1.1 Database Layer (100% complete)
 
 - [x] **DB-001:** Create `V2__create_gallery_photos_table.sql` migration
-  - ✅ Completed: 2025-11-12
+  - ✅ Completed: 2025-11-12 (Commit 1)
   - Location: `backend/.../db/migration/V2__create_gallery_photos_table.sql`
 
 - [x] **DB-002:** Create `GalleryPhoto` entity class
-  - ✅ Completed: 2025-11-12
+  - ✅ Completed: 2025-11-12 (Commit 2)
   - Location: `backend/.../entity/GalleryPhoto.java`
 
-- [ ] **DB-003:** Create `GalleryPhotoRepository` interface
-  - 🔄 In Progress
-  - Todo: Define custom queries (findByUserId, findByIsPublicTrue, etc.)
+- [x] **DB-003:** Create `GalleryPhotoRepository` interface
+  - ✅ Completed: 2025-11-12 (Commit 3)
+  - Custom queries: findByUserId, findByIsPublicTrue, findByUserIdAndIsPublicTrue, count methods
   - Location: `backend/.../repository/GalleryPhotoRepository.java`
 
-- [ ] **DB-004:** Test database migration
-  - Todo: Run Spring Boot application
-  - Todo: Verify table `gallery_photos` exists in PostgreSQL
-  - Todo: Verify indexes created
-  - Todo: Verify foreign key constraint works
+- [x] **DB-004:** Test database migration
+  - ✅ Completed: 2025-11-13 (Day 2 regression testing)
+  - Table `gallery_photos` verified in PostgreSQL
+  - Indexes created successfully
+  - Foreign key constraint working
 
 ---
 
-### 1.2 Service Layer - FileStorageService (0% complete)
+### 1.2 Service Layer - FileStorageService (100% complete)
 
-- [ ] **SVC-FILE-001:** Add `saveGalleryPhoto()` method
-  - Todo: Accept (MultipartFile, userId, photoId)
-  - Todo: Create user subdirectory if not exists
-  - Todo: Generate filename: photo-{photoId}-{timestamp}.{ext}
-  - Todo: Save file to: uploads/gallery/user-{userId}/
-  - Todo: Return path: gallery/user-{userId}/filename
+- [x] **SVC-FILE-001:** Add `saveGalleryPhoto()` method
+  - ✅ Completed: 2025-11-12 (Commits 4-5)
+  - Accepts (MultipartFile, userId, photoId)
+  - Creates user subdirectory if not exists
+  - Generates filename: photo-{photoId}-{timestamp}.{ext}
+  - Saves to: uploads/gallery/user-{userId}/
+  - Returns path: gallery/user-{userId}/filename
 
-- [ ] **SVC-FILE-002:** Add `deleteGalleryPhoto()` method
-  - Todo: Accept (userId, photoId, extension)
-  - Todo: Build file path
-  - Todo: Delete file from filesystem
-  - Todo: Handle file not found gracefully
+- [x] **SVC-FILE-002:** Add `deleteGalleryPhoto()` method
+  - ✅ Completed: 2025-11-12 (Commits 4-5)
+  - Accepts (userId, photoId, extension)
+  - Builds file path correctly
+  - Deletes file from filesystem
+  - Handles file not found gracefully
 
-- [ ] **SVC-FILE-003:** Add `validateGalleryPhoto()` method
-  - Todo: Check file not null/empty
-  - Todo: Check file size ≤ 5MB
-  - Todo: Check content type starts with "image/"
-  - Todo: Check extension in allowed list (jpg, jpeg, png, gif, webp)
-  - Todo: Throw IllegalArgumentException on failure
-
----
-
-### 1.3 Service Layer - GalleryService (0% complete)
-
-- [ ] **SVC-GAL-001:** Create `GalleryService` class
-  - Todo: Add @Service annotation
-  - Todo: Autowire GalleryPhotoRepository
-  - Todo: Autowire FileStorageService
-  - Todo: Autowire UserRepository
-
-- [ ] **SVC-GAL-002:** Implement `uploadPhoto()` method
-  - Todo: Validate file via FileStorageService
-  - Todo: Get user from database
-  - Todo: Create GalleryPhoto entity
-  - Todo: Save to database (get ID)
-  - Todo: Save file to disk
-  - Todo: Update entity with file path
-  - Todo: Return GalleryPhotoResponse
-
-- [ ] **SVC-GAL-003:** Implement `getMyPhotos()` method
-  - Todo: Accept (userId, Pageable)
-  - Todo: Query repository.findByUserId()
-  - Todo: Count total with repository.countByUserId()
-  - Todo: Return GalleryListResponse with pagination
-
-- [ ] **SVC-GAL-004:** Implement `getPublicPhotos()` method
-  - Todo: Accept (Pageable)
-  - Todo: Query repository.findByIsPublicTrue()
-  - Todo: Count total with repository.countByIsPublicTrue()
-  - Todo: Return GalleryListResponse with pagination
-
-- [ ] **SVC-GAL-005:** Implement `getUserPublicPhotos()` method
-  - Todo: Accept (userId, Pageable)
-  - Todo: Query repository.findByUserIdAndIsPublicTrue()
-  - Todo: Count total
-  - Todo: Return GalleryListResponse
-
-- [ ] **SVC-GAL-006:** Implement `getPhotoById()` method
-  - Todo: Accept (photoId, requestingUserId)
-  - Todo: Find photo or throw GalleryNotFoundException
-  - Todo: Check privacy: if private, verify owner
-  - Todo: Throw UnauthorizedGalleryAccessException if not authorized
-  - Todo: Return GalleryPhotoDetailResponse
-
-- [ ] **SVC-GAL-007:** Implement `updatePhoto()` method
-  - Todo: Accept (photoId, userId, title, description, isPublic)
-  - Todo: Find photo or throw GalleryNotFoundException
-  - Todo: Check ownership (userId matches)
-  - Todo: Update fields (title, description, isPublic)
-  - Todo: Save to database
-  - Todo: Return GalleryPhotoResponse
-
-- [ ] **SVC-GAL-008:** Implement `togglePrivacy()` method
-  - Todo: Accept (photoId, userId)
-  - Todo: Find photo or throw GalleryNotFoundException
-  - Todo: Check ownership
-  - Todo: Call photo.togglePrivacy()
-  - Todo: Save to database
-  - Todo: Return GalleryPhotoResponse
-
-- [ ] **SVC-GAL-009:** Implement `deletePhoto()` method
-  - Todo: Accept (photoId, userId)
-  - Todo: Find photo or throw GalleryNotFoundException
-  - Todo: Check ownership
-  - Todo: Delete file from disk
-  - Todo: Delete from database
-  - Todo: Return success
+- [x] **SVC-FILE-003:** Add `validateGalleryPhoto()` method
+  - ✅ Completed: 2025-11-12 (Commits 4-5)
+  - Checks file not null/empty
+  - Checks file size ≤ 5MB
+  - Checks content type starts with "image/"
+  - Checks extension in allowed list (jpg, jpeg, png, gif, webp)
+  - Throws IllegalArgumentException on failure
 
 ---
 
-### 1.4 DTOs (0% complete)
+### 1.3 Service Layer - GalleryService (100% complete)
 
-- [ ] **DTO-001:** Create `GalleryPhotoRequest` DTO
-  - Todo: Fields: title, description, isPublic
-  - Todo: Add validation annotations (@Size, @NotNull optional)
-  - Todo: Add Javadoc comments
+- [x] **SVC-GAL-001:** Create `GalleryService` class
+  - ✅ Completed: 2025-11-12 (Commits 6-10)
+  - @Service annotation added
+  - Autowired GalleryPhotoRepository
+  - Autowired FileStorageService
+  - Autowired UserRepository
 
-- [ ] **DTO-002:** Create `GalleryPhotoResponse` DTO
-  - Todo: Fields: id, userId, userName, filePath, title, description, isPublic, createdAt, updatedAt
-  - Todo: Add static factory method: from(GalleryPhoto)
-  - Todo: Add success field
+- [x] **SVC-GAL-002:** Implement `uploadPhoto()` method
+  - ✅ Completed: 2025-11-12 (Commits 6-10)
+  - Validates file via FileStorageService
+  - Gets user from database
+  - Creates GalleryPhoto entity
+  - Saves to database (gets ID)
+  - Saves file to disk
+  - Updates entity with file path
+  - Returns GalleryPhotoResponse
 
-- [ ] **DTO-003:** Create `GalleryListResponse` DTO
-  - Todo: Fields: success, photos (List), pagination
-  - Todo: Pagination fields: totalPhotos, totalPages, currentPage, pageSize
-  - Todo: Add static factory method: from(List<GalleryPhoto>, total, Pageable)
+- [x] **SVC-GAL-003:** Implement `getMyPhotos()` method
+  - ✅ Completed: 2025-11-12 (Commits 6-10)
+  - Accepts (userId, Pageable)
+  - Queries repository.findByUserId()
+  - Counts total with repository.countByUserId()
+  - Returns GalleryListResponse with pagination
 
-- [ ] **DTO-004:** Create `GalleryPhotoDetailResponse` DTO
-  - Todo: Extends GalleryPhotoResponse
-  - Todo: Additional fields: userEmail
-  - Todo: Add static factory method
+- [x] **SVC-GAL-004:** Implement `getPublicPhotos()` method
+  - ✅ Completed: 2025-11-12 (Commits 6-10)
+  - Accepts (Pageable)
+  - Queries repository.findByIsPublicTrue()
+  - Counts total with repository.countByIsPublicTrue()
+  - Returns GalleryListResponse with pagination
 
-- [ ] **DTO-005:** Add validation annotations
-  - Todo: @NotNull where required
-  - Todo: @Size for title (max 100)
-  - Todo: @Size for description (max 5000)
-  - Todo: Document validation rules
+- [x] **SVC-GAL-005:** Implement `getUserPublicPhotos()` method
+  - ✅ Completed: 2025-11-12 (Commits 6-10)
+  - Accepts (userId, Pageable)
+  - Queries repository.findByUserIdAndIsPublicTrue()
+  - Counts total correctly
+  - Returns GalleryListResponse
 
----
+- [x] **SVC-GAL-006:** Implement `getPhotoById()` method
+  - ✅ Completed: 2025-11-12 (Commits 6-10, updated Commit 19)
+  - Accepts (photoId, requestingUserId)
+  - Finds photo or throws GalleryNotFoundException
+  - Checks privacy: if private, verifies owner
+  - Throws UnauthorizedGalleryAccessException if not authorized
+  - Returns GalleryPhotoDetailResponse
 
-### 1.5 Controller Layer (0% complete)
+- [x] **SVC-GAL-007:** Implement `updatePhoto()` method
+  - ✅ Completed: 2025-11-12 (Commits 6-10, updated Commit 19)
+  - Accepts (photoId, userId, title, description, isPublic)
+  - Finds photo or throws GalleryNotFoundException
+  - Checks ownership (userId matches)
+  - Updates fields (title, description, isPublic)
+  - Saves to database
+  - Returns GalleryPhotoResponse
 
-- [ ] **CTRL-001:** Create `GalleryController` class
-  - Todo: Add @RestController annotation
-  - Todo: Add @RequestMapping("/api/gallery")
-  - Todo: Autowire GalleryService
-  - Todo: Add Javadoc
+- [x] **SVC-GAL-008:** Implement `togglePrivacy()` method
+  - ✅ Completed: 2025-11-12 (Commits 6-10, updated Commit 19)
+  - Accepts (photoId, userId)
+  - Finds photo or throws GalleryNotFoundException
+  - Checks ownership
+  - Calls photo.togglePrivacy()
+  - Saves to database
+  - Returns GalleryPhotoResponse
 
-- [ ] **CTRL-002:** Implement `POST /api/gallery/upload`
-  - Todo: Add @PostMapping("/upload")
-  - Todo: Accept @RequestParam("file") MultipartFile
-  - Todo: Accept optional params: title, description, isPublic
-  - Todo: Get authenticated user from Authentication
-  - Todo: Call service.uploadPhoto()
-  - Todo: Return ResponseEntity<GalleryPhotoResponse>
-  - Todo: Handle exceptions (FileUploadException, etc.)
-
-- [ ] **CTRL-003:** Implement `GET /api/gallery/my-photos`
-  - Todo: Add @GetMapping("/my-photos")
-  - Todo: Accept @RequestParam for pagination
-  - Todo: Get authenticated user from Authentication
-  - Todo: Call service.getMyPhotos()
-  - Todo: Return ResponseEntity<GalleryListResponse>
-
-- [ ] **CTRL-004:** Implement `GET /api/gallery/public`
-  - Todo: Add @GetMapping("/public")
-  - Todo: Accept @RequestParam for pagination
-  - Todo: Call service.getPublicPhotos()
-  - Todo: Return ResponseEntity<GalleryListResponse>
-  - Todo: Allow anonymous access
-
-- [ ] **CTRL-005:** Implement `GET /api/gallery/public/{userId}`
-  - Todo: Add @GetMapping("/public/{userId}")
-  - Todo: Accept @PathVariable Long userId
-  - Todo: Accept @RequestParam for pagination
-  - Todo: Call service.getUserPublicPhotos()
-  - Todo: Return ResponseEntity<GalleryListResponse>
-
-- [ ] **CTRL-006:** Implement `GET /api/gallery/photo/{photoId}`
-  - Todo: Add @GetMapping("/photo/{photoId}")
-  - Todo: Accept @PathVariable Long photoId
-  - Todo: Get requesting user ID (or null if anonymous)
-  - Todo: Call service.getPhotoById()
-  - Todo: Return ResponseEntity<GalleryPhotoDetailResponse>
-
-- [ ] **CTRL-007:** Implement `PUT /api/gallery/photo/{photoId}`
-  - Todo: Add @PutMapping("/photo/{photoId}")
-  - Todo: Accept @PathVariable Long photoId
-  - Todo: Accept @RequestBody GalleryPhotoRequest
-  - Todo: Get authenticated user from Authentication
-  - Todo: Call service.updatePhoto()
-  - Todo: Return ResponseEntity<GalleryPhotoResponse>
-
-- [ ] **CTRL-008:** Implement `PATCH /api/gallery/photo/{photoId}/privacy`
-  - Todo: Add @PatchMapping("/photo/{photoId}/privacy")
-  - Todo: Accept @PathVariable Long photoId
-  - Todo: Get authenticated user from Authentication
-  - Todo: Call service.togglePrivacy()
-  - Todo: Return ResponseEntity<GalleryPhotoResponse>
-
-- [ ] **CTRL-009:** Implement `DELETE /api/gallery/photo/{photoId}`
-  - Todo: Add @DeleteMapping("/photo/{photoId}")
-  - Todo: Accept @PathVariable Long photoId
-  - Todo: Get authenticated user from Authentication
-  - Todo: Call service.deletePhoto()
-  - Todo: Return ResponseEntity with success message
+- [x] **SVC-GAL-009:** Implement `deletePhoto()` method
+  - ✅ Completed: 2025-11-12 (Commits 6-10, updated Commit 19)
+  - Accepts (photoId, userId)
+  - Finds photo or throws GalleryNotFoundException
+  - Checks ownership
+  - Deletes file from disk
+  - Deletes from database
+  - Returns success
 
 ---
 
-### 1.6 Exception Handling (0% complete)
+### 1.4 DTOs (100% complete)
 
-- [ ] **EXC-001:** Create `GalleryException` class
-  - Todo: Extend RuntimeException
-  - Todo: Add constructors (message, message+cause)
-  - Todo: Add Javadoc
+- [x] **DTO-001:** Create `GalleryPhotoRequest` DTO
+  - ✅ Completed: 2025-11-12 (Commits 11-12)
+  - Fields: title, description, isPublic
+  - Validation annotations added (@Size, @NotNull optional)
+  - Javadoc comments added
 
-- [ ] **EXC-002:** Create `GalleryNotFoundException` class
-  - Todo: Extend GalleryException
-  - Todo: Default message: "Photo not found"
-  - Todo: Add constructors
+- [x] **DTO-002:** Create `GalleryPhotoResponse` DTO
+  - ✅ Completed: 2025-11-12 (Commits 11-12)
+  - Fields: id, userId, userName, filePath, title, description, isPublic, createdAt, updatedAt
+  - Static factory method: from(GalleryPhoto)
+  - Success field included
 
-- [ ] **EXC-003:** Create `UnauthorizedGalleryAccessException` class
-  - Todo: Extend GalleryException
-  - Todo: Default message: "You are not authorized to access this photo"
-  - Todo: Add constructors
+- [x] **DTO-003:** Create `GalleryListResponse` DTO
+  - ✅ Completed: 2025-11-12 (Commits 11-12)
+  - Fields: success, photos (List), pagination
+  - Pagination fields: totalPhotos, totalPages, currentPage, pageSize
+  - Static factory method: from(List<GalleryPhoto>, total, Pageable)
 
-- [ ] **EXC-004:** Update `GlobalExceptionHandler`
-  - Todo: Add @ExceptionHandler for GalleryException
-  - Todo: Add @ExceptionHandler for GalleryNotFoundException (404)
-  - Todo: Add @ExceptionHandler for UnauthorizedGalleryAccessException (403)
-  - Todo: Return proper ErrorResponse
+- [x] **DTO-004:** Create `GalleryPhotoDetailResponse` DTO
+  - ✅ Completed: 2025-11-12 (Commits 11-12)
+  - Extends GalleryPhotoResponse
+  - Additional fields: userEmail
+  - Static factory method added
+
+- [x] **DTO-005:** Add validation annotations
+  - ✅ Completed: 2025-11-12 (Commits 11-12)
+  - @NotNull where required
+  - @Size for title (max 100)
+  - @Size for description (max 5000)
+  - Validation rules documented
 
 ---
 
-### 1.7 Security & Config (0% complete)
+### 1.5 Controller Layer (100% complete)
 
-- [ ] **SEC-001:** Update `SecurityConfig`
-  - Todo: Add "/api/gallery/public/**" to permitAll()
-  - Todo: Add "/api/gallery/**" to authenticated()
-  - Todo: Verify JWT filter applied to gallery endpoints
+- [x] **CTRL-001:** Create `GalleryController` class
+  - ✅ Completed: 2025-11-12 (Commits 13-15)
+  - @RestController annotation added
+  - @RequestMapping("/api/gallery") configured
+  - GalleryService autowired
+  - Javadoc added
 
-- [ ] **CFG-001:** Update `application.properties`
-  - Todo: Add `file.upload.gallery-directory=uploads/gallery/`
-  - Todo: Verify multipart settings (already 5MB)
-  - Todo: Document new properties
+- [x] **CTRL-002:** Implement `POST /api/gallery/upload`
+  - ✅ Completed: 2025-11-12 (Commits 13-15)
+  - @PostMapping("/upload") configured
+  - Accepts @RequestParam("file") MultipartFile
+  - Accepts optional params: title, description, isPublic
+  - Gets authenticated user from Authentication
+  - Calls service.uploadPhoto()
+  - Returns ResponseEntity<GalleryPhotoResponse>
+  - Exception handling implemented
+
+- [x] **CTRL-003:** Implement `GET /api/gallery/my-photos`
+  - ✅ Completed: 2025-11-12 (Commits 13-15)
+  - @GetMapping("/my-photos") configured
+  - Accepts @RequestParam for pagination
+  - Gets authenticated user from Authentication
+  - Calls service.getMyPhotos()
+  - Returns ResponseEntity<GalleryListResponse>
+
+- [x] **CTRL-004:** Implement `GET /api/gallery/public`
+  - ✅ Completed: 2025-11-12 (Commits 13-15)
+  - @GetMapping("/public") configured
+  - Accepts @RequestParam for pagination
+  - Calls service.getPublicPhotos()
+  - Returns ResponseEntity<GalleryListResponse>
+  - Anonymous access allowed
+
+- [x] **CTRL-005:** Implement `GET /api/gallery/user/{userId}/public`
+  - ✅ Completed: 2025-11-12 (Commits 13-15)
+  - @GetMapping("/user/{userId}/public") configured
+  - Accepts @PathVariable Long userId
+  - Accepts @RequestParam for pagination
+  - Calls service.getUserPublicPhotos()
+  - Returns ResponseEntity<GalleryListResponse>
+
+- [x] **CTRL-006:** Implement `GET /api/gallery/photo/{photoId}`
+  - ✅ Completed: 2025-11-12 (Commits 13-15)
+  - @GetMapping("/photo/{photoId}") configured
+  - Accepts @PathVariable Long photoId
+  - Gets requesting user ID (or null if anonymous)
+  - Calls service.getPhotoById()
+  - Returns ResponseEntity<GalleryPhotoDetailResponse>
+
+- [x] **CTRL-007:** Implement `PUT /api/gallery/photo/{photoId}`
+  - ✅ Completed: 2025-11-12 (Commits 13-15)
+  - @PutMapping("/photo/{photoId}") configured
+  - Accepts @PathVariable Long photoId
+  - Accepts @RequestBody GalleryPhotoRequest
+  - Gets authenticated user from Authentication
+  - Calls service.updatePhoto()
+  - Returns ResponseEntity<GalleryPhotoResponse>
+
+- [x] **CTRL-008:** Implement `PUT /api/gallery/photo/{photoId}/toggle-privacy`
+  - ✅ Completed: 2025-11-12 (Commits 13-15)
+  - @PutMapping("/photo/{photoId}/toggle-privacy") configured
+  - Accepts @PathVariable Long photoId
+  - Gets authenticated user from Authentication
+  - Calls service.togglePrivacy()
+  - Returns ResponseEntity<GalleryPhotoResponse>
+
+- [x] **CTRL-009:** Implement `DELETE /api/gallery/photo/{photoId}`
+  - ✅ Completed: 2025-11-12 (Commits 13-15)
+  - @DeleteMapping("/photo/{photoId}") configured
+  - Accepts @PathVariable Long photoId
+  - Gets authenticated user from Authentication
+  - Calls service.deletePhoto()
+  - Returns ResponseEntity with success message
+
+---
+
+### 1.6 Exception Handling (100% complete)
+
+- [x] **EXC-001:** Create `GalleryException` class
+  - ✅ Completed: 2025-11-12 (Commits 16-17)
+  - Extends RuntimeException
+  - Constructors added (message, message+cause)
+  - Javadoc added
+
+- [x] **EXC-002:** Create `GalleryNotFoundException` class
+  - ✅ Completed: 2025-11-12 (Commits 16-17)
+  - Extends GalleryException
+  - Default message: "Photo not found"
+  - Constructors added
+
+- [x] **EXC-003:** Create `UnauthorizedGalleryAccessException` class
+  - ✅ Completed: 2025-11-12 (Commits 16-17)
+  - Extends GalleryException
+  - Default message: "You are not authorized to access this photo"
+  - Constructors added
+
+- [x] **EXC-004:** Update `GlobalExceptionHandler`
+  - ✅ Completed: 2025-11-13 (Commit 18)
+  - @ExceptionHandler for GalleryException (400 Bad Request)
+  - @ExceptionHandler for GalleryNotFoundException (404 Not Found)
+  - @ExceptionHandler for UnauthorizedGalleryAccessException (403 Forbidden)
+  - Proper ErrorResponse returned
+
+---
+
+### 1.7 Security & Config (100% complete)
+
+- [x] **SEC-001:** Update `SecurityConfig`
+  - ✅ Completed: 2025-11-12 (Commits 13-15)
+  - "/api/gallery/public/**" added to permitAll()
+  - "/api/gallery/**" requires authentication
+  - JWT filter applied to gallery endpoints
+
+- [x] **CFG-001:** Update `application.properties`
+  - ✅ Completed: 2025-11-12 (Commits 13-15)
+  - `file.upload.gallery-directory=uploads/gallery/` added
+  - Multipart settings verified (5MB max)
+  - Properties documented
+
+- [x] **CFG-002:** Create gallery directory structure
+  - ✅ Completed: 2025-11-13 (Commit 20)
+  - Created `uploads/gallery/` directory
+  - Added `.gitkeep` file
+  - Updated `.gitignore` with proper rules
 
 ---
 
@@ -400,26 +438,83 @@
 
 ## Daily Progress Log
 
-### Day 1: Wednesday, 2025-11-13
+### Day 1: Wednesday, 2025-11-12
 
 **Planned:**
 - [x] Migrate plans to structured system (DB-001, DB-002 done)
-- [ ] Create GalleryPhotoRepository (DB-003)
-- [ ] Extend FileStorageService (SVC-FILE-001 to 003)
-- [ ] Create GalleryService (SVC-GAL-001 to 009)
+- [x] Create GalleryPhotoRepository (DB-003)
+- [x] Extend FileStorageService (SVC-FILE-001 to 003)
+- [x] Create GalleryService (SVC-GAL-001 to 009)
 
 **Target:** 15 tasks (DB-003 to SVC-GAL-009)
 
-**Actual Progress:** _To be filled at end of day_
+**Actual Progress:** 17 commits, ~30 backend tasks completed (EXCEEDED TARGET!)
 
-**Blockers:** _None so far_
+**Achievements:**
+- ✅ All database layer complete (DB-003, DB-004)
+- ✅ All FileStorageService extensions complete (SVC-FILE-001 to 003)
+- ✅ All GalleryService methods complete (SVC-GAL-001 to 009)
+- ✅ All DTOs complete (DTO-001 to 005)
+- ✅ All Controller endpoints complete (CTRL-001 to 009)
+- ✅ All custom exceptions complete (EXC-001 to 003)
+- ✅ Security & config complete (SEC-001, CFG-001)
+
+**Commits:** 17 total
+- Commits 1-2: Database migration + entity
+- Commits 3: Repository with custom queries
+- Commits 4-5: FileStorageService gallery methods
+- Commits 6-10: GalleryService complete implementation
+- Commits 11-12: All 4 DTOs created
+- Commits 13-15: GalleryController with 8 endpoints
+- Commits 16-17: Custom exceptions
+
+**Blockers:** None
 
 **Notes:**
-- Planning migration complete
-- 4-document system created
-- Ready to start implementation
+- Exceeded expectations - completed almost ALL backend in Day 1
+- Only exception handlers remain for Day 2
 
 ---
 
-**Last Updated:** 2025-11-13
-**Next Review:** 2025-11-13 (end of day)
+### Day 2: Thursday, 2025-11-13
+
+**Planned:**
+- [x] Update GlobalExceptionHandler (EXC-004)
+- [x] Refactor GalleryService to use custom exceptions
+- [x] Create gallery directory structure
+- [x] Regression testing (verify old features work)
+
+**Target:** 5 tasks (exception handling + testing)
+
+**Actual Progress:** 4 commits, all backend tasks 100% complete
+
+**Achievements:**
+- ✅ GlobalExceptionHandler updated with 3 new handlers (Commit 18)
+- ✅ GalleryService refactored to use specific exceptions (Commit 19)
+- ✅ Gallery directory structure created (Commit 20)
+- ✅ Regression testing complete - 91/91 tests pass (Commit 21)
+- ✅ **PHASE 1 (Backend Development) 100% COMPLETE**
+
+**Commits:** 4 total (18-21)
+- Commit 18: GlobalExceptionHandler updates
+- Commit 19: GalleryService exception refactoring
+- Commit 20: Gallery directory + .gitignore
+- Commit 21: Regression test documentation
+
+**Test Results:**
+- Spring Boot: Started successfully ✅
+- All 91 existing tests: PASSED ✅
+- No regression detected ✅
+- Build time: 2.892 seconds
+
+**Blockers:** None
+
+**Notes:**
+- Backend 100% complete, ready for testing phase
+- No breaking changes to existing features
+- Friday: Write gallery-specific tests (Option A agreed)
+
+---
+
+**Last Updated:** 2025-11-13 (End of Day 2)
+**Next Review:** 2025-11-14 (Friday - Testing Day)
