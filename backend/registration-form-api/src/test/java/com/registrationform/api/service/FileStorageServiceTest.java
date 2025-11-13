@@ -71,7 +71,7 @@ public class FileStorageServiceTest {
      * Initialize FileStorageService with temp directory
      */
     @BeforeEach
-    void setUp() {
+    void setUp() throws IOException {
         fileStorageService = new FileStorageService();
 
         // Set private fields using ReflectionTestUtils
@@ -80,6 +80,21 @@ public class FileStorageServiceTest {
 
         // Initialize (create directory)
         fileStorageService.init();
+
+        // Clean up gallery directory if it exists from previous tests
+        Path galleryDir = tempDir.getParent().resolve("gallery");
+        if (Files.exists(galleryDir)) {
+            // Delete all files in gallery subdirectories
+            Files.walk(galleryDir)
+                .sorted(java.util.Comparator.reverseOrder())
+                .forEach(path -> {
+                    try {
+                        Files.deleteIfExists(path);
+                    } catch (IOException e) {
+                        // Ignore cleanup errors
+                    }
+                });
+        }
     }
 
     // ============================================
@@ -615,6 +630,245 @@ public class FileStorageServiceTest {
         assertTrue(Files.exists(tempDir.resolve("user-1.png")));
 
         System.out.println("✅ Test 21 PASSED: File at exact size limit saved successfully");
+    }
+
+    // ============================================================================
+    // GALLERY PHOTO TESTS (FST-001 to FST-008)
+    // ============================================================================
+
+    /**
+     * FST-001: saveGalleryPhoto() - Happy path
+     * Scenario: User uploads valid gallery photo
+     * Expected: File saved successfully with correct naming pattern
+     */
+    @Test
+    @DisplayName("FST-001: saveGalleryPhoto - valid photo - Should save successfully")
+    void testSaveGalleryPhoto_ValidPhoto_ShouldSaveSuccessfully() throws IOException {
+        // ARRANGE
+        Long photoId = 123L;
+        MockMultipartFile file = new MockMultipartFile(
+            "file",
+            "vacation.jpg",
+            "image/jpeg",
+            "photo content".getBytes()
+        );
+
+        // ACT
+        String savedPath = fileStorageService.saveGalleryPhoto(file, TEST_USER_ID, photoId);
+
+        // ASSERT
+        assertTrue(savedPath.contains("user-1"), "Path should contain user directory");
+        assertTrue(savedPath.contains("photo-123-"), "Path should contain photo ID");
+        assertTrue(savedPath.endsWith(".jpg"), "Path should have correct extension");
+
+        // Verify file actually created in user subdirectory
+        Path galleryDir = tempDir.getParent().resolve("gallery");
+        Path userDir = galleryDir.resolve("user-1");
+        assertTrue(Files.exists(userDir), "User subdirectory should be created");
+        assertTrue(Files.list(userDir).findFirst().isPresent(), "File should exist in user directory");
+
+        System.out.println("✅ FST-001 PASSED: Gallery photo saved successfully");
+    }
+
+    /**
+     * FST-002: saveGalleryPhoto() - Creates user subdirectory if not exists
+     * Scenario: First photo upload for user (subdirectory doesn't exist yet)
+     * Expected: Subdirectory created automatically
+     */
+    @Test
+    @DisplayName("FST-002: saveGalleryPhoto - new user - Should create subdirectory")
+    void testSaveGalleryPhoto_NewUser_ShouldCreateSubdirectory() throws IOException {
+        // ARRANGE
+        Long photoId = 1L;
+        MockMultipartFile file = new MockMultipartFile(
+            "file",
+            "first-photo.png",
+            "image/png",
+            "content".getBytes()
+        );
+        Path galleryDir = tempDir.getParent().resolve("gallery");
+        Path userDir = galleryDir.resolve("user-1");
+
+        // Verify directory doesn't exist yet
+        assertFalse(Files.exists(userDir), "User directory should not exist initially");
+
+        // ACT
+        String savedPath = fileStorageService.saveGalleryPhoto(file, TEST_USER_ID, photoId);
+
+        // ASSERT
+        assertTrue(Files.exists(userDir), "User subdirectory should be created");
+        assertTrue(Files.isDirectory(userDir), "Should be a directory");
+        assertNotNull(savedPath, "Should return saved path");
+
+        System.out.println("✅ FST-002 PASSED: User subdirectory created automatically");
+    }
+
+    /**
+     * FST-003: saveGalleryPhoto() - Unique filenames with timestamp
+     * Scenario: Multiple photos from same user
+     * Expected: Each photo has unique filename (photo-{id}-{timestamp})
+     */
+    @Test
+    @DisplayName("FST-003: saveGalleryPhoto - multiple photos - Should generate unique filenames")
+    void testSaveGalleryPhoto_MultiplePhotos_ShouldHaveUniqueFilenames() throws IOException, InterruptedException {
+        // ARRANGE
+        MockMultipartFile file1 = new MockMultipartFile("file", "photo1.jpg", "image/jpeg", "content1".getBytes());
+        MockMultipartFile file2 = new MockMultipartFile("file", "photo2.jpg", "image/jpeg", "content2".getBytes());
+
+        // ACT
+        String path1 = fileStorageService.saveGalleryPhoto(file1, TEST_USER_ID, 1L);
+        Thread.sleep(10); // Small delay to ensure different timestamps
+        String path2 = fileStorageService.saveGalleryPhoto(file2, TEST_USER_ID, 2L);
+
+        // ASSERT
+        assertNotEquals(path1, path2, "Paths should be unique");
+        assertTrue(path1.contains("photo-1-"), "First photo should have ID 1");
+        assertTrue(path2.contains("photo-2-"), "Second photo should have ID 2");
+
+        // Both files should exist
+        Path galleryDir = tempDir.getParent().resolve("gallery");
+        Path userDir = galleryDir.resolve("user-1");
+        assertEquals(2, Files.list(userDir).count(), "Should have 2 files in user directory");
+
+        System.out.println("✅ FST-003 PASSED: Unique filenames generated for multiple photos");
+    }
+
+    /**
+     * FST-004: deleteGalleryPhoto() - File removed successfully
+     * Scenario: Delete existing gallery photo
+     * Expected: File deleted from filesystem
+     */
+    @Test
+    @DisplayName("FST-004: deleteGalleryPhoto - existing file - Should delete successfully")
+    void testDeleteGalleryPhoto_ExistingFile_ShouldDeleteSuccessfully() throws IOException {
+        // ARRANGE - First save a photo
+        Long photoId = 99L;
+        MockMultipartFile file = new MockMultipartFile("file", "delete-me.jpg", "image/jpeg", "content".getBytes());
+        fileStorageService.saveGalleryPhoto(file, TEST_USER_ID, photoId);
+
+        Path galleryDir = tempDir.getParent().resolve("gallery");
+        Path userDir = galleryDir.resolve("user-1");
+        long fileCountBefore = Files.list(userDir).count();
+        assertTrue(fileCountBefore > 0, "File should exist before deletion");
+
+        // ACT
+        fileStorageService.deleteGalleryPhoto(TEST_USER_ID, photoId, "jpg");
+
+        // ASSERT
+        long fileCountAfter = Files.list(userDir).count();
+        assertEquals(fileCountBefore - 1, fileCountAfter, "One file should be deleted");
+
+        System.out.println("✅ FST-004 PASSED: Gallery photo deleted successfully");
+    }
+
+    /**
+     * FST-005: validateGalleryPhoto() - File too large
+     * Scenario: User uploads photo > 5MB
+     * Expected: IllegalArgumentException thrown
+     */
+    @Test
+    @DisplayName("FST-005: validateGalleryPhoto - file too large - Should throw exception")
+    void testValidateGalleryPhoto_FileTooLarge_ShouldThrowException() {
+        // ARRANGE - Create file > 5MB
+        byte[] largeContent = new byte[(int) (MAX_FILE_SIZE + 1)];
+        MockMultipartFile largeFile = new MockMultipartFile(
+            "file",
+            "huge-photo.jpg",
+            "image/jpeg",
+            largeContent
+        );
+
+        // ACT & ASSERT
+        IllegalArgumentException exception = assertThrows(
+            IllegalArgumentException.class,
+            () -> fileStorageService.validateGalleryPhoto(largeFile),
+            "Should throw exception for large file"
+        );
+
+        assertTrue(exception.getMessage().contains("File size exceeds maximum limit"),
+                   "Exception message should mention file size");
+
+        System.out.println("✅ FST-005 PASSED: Large file validation works");
+    }
+
+    /**
+     * FST-006: validateGalleryPhoto() - Invalid format (PDF)
+     * Scenario: User tries to upload PDF as gallery photo
+     * Expected: IllegalArgumentException thrown
+     */
+    @Test
+    @DisplayName("FST-006: validateGalleryPhoto - invalid format PDF - Should throw exception")
+    void testValidateGalleryPhoto_InvalidFormatPDF_ShouldThrowException() {
+        // ARRANGE
+        MockMultipartFile pdfFile = new MockMultipartFile(
+            "file",
+            "document.pdf",
+            "application/pdf",
+            "PDF content".getBytes()
+        );
+
+        // ACT & ASSERT
+        IllegalArgumentException exception = assertThrows(
+            IllegalArgumentException.class,
+            () -> fileStorageService.validateGalleryPhoto(pdfFile),
+            "Should throw exception for PDF file"
+        );
+
+        assertTrue(exception.getMessage().contains("Only image files are allowed"),
+                   "Exception message should mention image files");
+
+        System.out.println("✅ FST-006 PASSED: Invalid format (PDF) rejected");
+    }
+
+    /**
+     * FST-007: validateGalleryPhoto() - Null file
+     * Scenario: Null file passed to validation
+     * Expected: IllegalArgumentException thrown
+     */
+    @Test
+    @DisplayName("FST-007: validateGalleryPhoto - null file - Should throw exception")
+    void testValidateGalleryPhoto_NullFile_ShouldThrowException() {
+        // ACT & ASSERT
+        IllegalArgumentException exception = assertThrows(
+            IllegalArgumentException.class,
+            () -> fileStorageService.validateGalleryPhoto(null),
+            "Should throw exception for null file"
+        );
+
+        assertTrue(exception.getMessage().contains("File cannot be empty"),
+                   "Exception message should mention file cannot be empty");
+
+        System.out.println("✅ FST-007 PASSED: Null file validation works");
+    }
+
+    /**
+     * FST-008: validateGalleryPhoto() - Valid file (all formats)
+     * Scenario: Validate all supported image formats
+     * Expected: No exception thrown
+     */
+    @Test
+    @DisplayName("FST-008: validateGalleryPhoto - valid formats - Should pass validation")
+    void testValidateGalleryPhoto_ValidFormats_ShouldPassValidation() {
+        // ARRANGE - Test all valid formats
+        String[] validFormats = {"jpg", "jpeg", "png", "gif", "webp"};
+        String[] mimeTypes = {"image/jpeg", "image/jpeg", "image/png", "image/gif", "image/webp"};
+
+        for (int i = 0; i < validFormats.length; i++) {
+            MockMultipartFile file = new MockMultipartFile(
+                "file",
+                "photo." + validFormats[i],
+                mimeTypes[i],
+                "valid content".getBytes()
+            );
+
+            // ACT & ASSERT
+            assertDoesNotThrow(
+                () -> fileStorageService.validateGalleryPhoto(file),
+                "Should not throw exception for " + validFormats[i]
+            );
+        }
+
+        System.out.println("✅ FST-008 PASSED: All valid formats accepted (jpg, jpeg, png, gif, webp)");
     }
 }
 
