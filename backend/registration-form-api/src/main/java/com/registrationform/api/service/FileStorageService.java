@@ -292,7 +292,8 @@ public class FileStorageService {
         validateFile(file);
 
         // STEP 2: CREATE USER SUBDIRECTORY
-        Path galleryBasePath = Paths.get("uploads/gallery");
+        // Use uploadPath from @PostConstruct, then navigate to gallery subdirectory
+        Path galleryBasePath = uploadPath.getParent().resolve("gallery");
         Path userGalleryPath = galleryBasePath.resolve("user-" + userId);
 
         // Create directories if not exist
@@ -332,8 +333,9 @@ public class FileStorageService {
      * @throws IOException jika gagal delete file
      */
     public void deleteGalleryPhoto(Long userId, Long photoId, String extension) throws IOException {
-        // Build path to user's gallery directory
-        Path userGalleryPath = Paths.get("uploads/gallery/user-" + userId);
+        // Build path to user's gallery directory (use uploadPath from @PostConstruct)
+        Path galleryBasePath = uploadPath.getParent().resolve("gallery");
+        Path userGalleryPath = galleryBasePath.resolve("user-" + userId);
 
         // Pattern: photo-{photoId}-*.{extension}
         // Example: photo-156-1731238845123.jpg
