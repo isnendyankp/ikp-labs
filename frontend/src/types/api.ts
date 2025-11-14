@@ -98,3 +98,76 @@ export interface ProfilePictureResponse {
   message: string;
   timestamp: string;
 }
+
+// === GALLERY TYPES ===
+
+/**
+ * Gallery Photo dari Backend
+ * Sesuai dengan GalleryPhoto entity di backend
+ */
+export interface GalleryPhoto {
+  id: number;
+  userId: number;
+  filePath: string;
+  title: string | null;
+  description: string | null;
+  isPublic: boolean;
+  uploadOrder: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+/**
+ * Request untuk upload photo baru
+ * POST /api/gallery
+ */
+export interface GalleryUploadRequest {
+  file: File;
+  title?: string;
+  description?: string;
+  isPublic: boolean;
+}
+
+/**
+ * Request untuk update photo
+ * PUT /api/gallery/{id}
+ */
+export interface GalleryUpdateRequest {
+  title?: string;
+  description?: string;
+  isPublic?: boolean;
+}
+
+/**
+ * Response dari backend untuk gallery operations
+ */
+export interface GalleryPhotoResponse {
+  success: boolean;
+  message: string;
+  photo: GalleryPhoto;
+  timestamp: string;
+}
+
+/**
+ * Response untuk list photos dengan pagination
+ * GET /api/gallery/user/{userId}?page=0&size=12
+ */
+export interface GalleryListResponse {
+  photos: GalleryPhoto[];
+  currentPage: number;
+  totalPages: number;
+  totalItems: number;
+  hasNext: boolean;
+  hasPrevious: boolean;
+}
+
+/**
+ * Form data untuk upload (frontend only)
+ */
+export interface GalleryUploadFormData {
+  file: File | null;
+  title: string;
+  description: string;
+  isPublic: boolean;
+  preview: string | null;
+}
