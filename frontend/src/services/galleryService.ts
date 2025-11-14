@@ -1,0 +1,365 @@
+/**
+ * Gallery Service - API Communication untuk Gallery Feature
+ *
+ * Service ini handle:
+ * - Upload photo (POST /api/gallery)
+ * - Get user photos (GET /api/gallery/user/{userId})
+ * - Get public photos (GET /api/gallery/public)
+ * - Get photo by ID (GET /api/gallery/{id})
+ * - Update photo (PUT /api/gallery/{id})
+ * - Delete photo (DELETE /api/gallery/{id})
+ * - JWT authentication untuk protected endpoints
+ */
+
+import {
+  GalleryPhoto,
+  GalleryPhotoResponse,
+  GalleryListResponse,
+  GalleryUpdateRequest,
+  ApiResponse,
+  ApiError
+} from '../types/api';
+
+// === CONFIGURATION ===
+
+const API_BASE_URL = 'http://localhost:8081';
+
+// === UTILITY FUNCTIONS ===
+
+/**
+ * Get JWT token from localStorage
+ */
+const getToken = (): string | null => {
+  if (typeof window !== 'undefined') {
+    return localStorage.getItem('authToken');
+  }
+  return null;
+};
+
+/**
+ * Create headers with JWT token
+ */
+const createAuthHeaders = (): HeadersInit => {
+  const token = getToken();
+  const headers: HeadersInit = {
+    'Accept': 'application/json',
+  };
+
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+
+  return headers;
+};
+
+/**
+ * Create headers for JSON requests
+ */
+const createJsonHeaders = (): HeadersInit => {
+  const token = getToken();
+  const headers: HeadersInit = {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json',
+  };
+
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+
+  return headers;
+};
+
+// === API FUNCTIONS ===
+
+/**
+ * Upload photo to gallery
+ * POST /api/gallery
+ *
+ * @param file - Image file to upload
+ * @param title - Optional title
+ * @param description - Optional description
+ * @param isPublic - Privacy setting
+ */
+export async function uploadPhoto(
+  file: File,
+  title?: string,
+  description?: string,
+  isPublic: boolean = false
+): Promise<ApiResponse<GalleryPhotoResponse>> {
+  console.log('🚀 Uploading photo:', { fileName: file.name, title, isPublic });
+
+  try {
+    const formData = new FormData();
+    formData.append('file', file);
+    if (title) formData.append('title', title);
+    if (description) formData.append('description', description);
+    formData.append('isPublic', String(isPublic));
+
+    const response = await fetch(`${API_BASE_URL}/api/gallery`, {
+      method: 'POST',
+      headers: createAuthHeaders(),
+      body: formData,
+      credentials: 'include',
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+      console.log('✅ Photo uploaded successfully:', data);
+      return { data, status: response.status };
+    } else {
+      console.error('❌ Upload failed:', data);
+      return { error: data as ApiError, status: response.status };
+    }
+  } catch (error) {
+    console.error('❌ Upload error:', error);
+    return {
+      error: {
+        message: error instanceof Error ? error.message : 'Upload failed',
+        errorCode: 'UPLOAD_ERROR'
+      },
+      status: 0,
+    };
+  }
+}
+
+/**
+ * Get user's photos with pagination
+ * GET /api/gallery/user/{userId}?page=0&size=12
+ *
+ * @param userId - User ID
+ * @param page - Page number (0-indexed)
+ * @param size - Items per page (default: 12)
+ */
+export async function getUserPhotos(
+  userId: number,
+  page: number = 0,
+  size: number = 12
+): Promise<ApiResponse<GalleryPhoto[]>> {
+  console.log('🚀 Fetching user photos:', { userId, page, size });
+
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/api/gallery/user/${userId}?page=${page}&size=${size}`,
+      {
+        method: 'GET',
+        headers: createAuthHeaders(),
+        credentials: 'include',
+      }
+    );
+
+    const data = await response.json();
+
+    if (response.ok) {
+      console.log('✅ Photos fetched:', data.length);
+      return { data, status: response.status };
+    } else {
+      console.error('❌ Fetch failed:', data);
+      return { error: data as ApiError, status: response.status };
+    }
+  } catch (error) {
+    console.error('❌ Fetch error:', error);
+    return {
+      error: {
+        message: error instanceof Error ? error.message : 'Failed to fetch photos',
+        errorCode: 'FETCH_ERROR'
+      },
+      status: 0,
+    };
+  }
+}
+
+/**
+ * Get public photos with pagination
+ * GET /api/gallery/public?page=0&size=12
+ *
+ * @param page - Page number (0-indexed)
+ * @param size - Items per page (default: 12)
+ */
+export async function getPublicPhotos(
+  page: number = 0,
+  size: number = 12
+): Promise<ApiResponse<GalleryPhoto[]>> {
+  console.log('🚀 Fetching public photos:', { page, size });
+
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/api/gallery/public?page=${page}&size=${size}`,
+      {
+        method: 'GET',
+        headers: createAuthHeaders(),
+        credentials: 'include',
+      }
+    );
+
+    const data = await response.json();
+
+    if (response.ok) {
+      console.log('✅ Public photos fetched:', data.length);
+      return { data, status: response.status };
+    } else {
+      console.error('❌ Fetch failed:', data);
+      return { error: data as ApiError, status: response.status };
+    }
+  } catch (error) {
+    console.error('❌ Fetch error:', error);
+    return {
+      error: {
+        message: error instanceof Error ? error.message : 'Failed to fetch photos',
+        errorCode: 'FETCH_ERROR'
+      },
+      status: 0,
+    };
+  }
+}
+
+/**
+ * Get photo by ID
+ * GET /api/gallery/{id}
+ *
+ * @param photoId - Photo ID
+ */
+export async function getPhotoById(
+  photoId: number
+): Promise<ApiResponse<GalleryPhotoResponse>> {
+  console.log('🚀 Fetching photo:', photoId);
+
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/api/gallery/${photoId}`,
+      {
+        method: 'GET',
+        headers: createAuthHeaders(),
+        credentials: 'include',
+      }
+    );
+
+    const data = await response.json();
+
+    if (response.ok) {
+      console.log('✅ Photo fetched:', data);
+      return { data, status: response.status };
+    } else {
+      console.error('❌ Fetch failed:', data);
+      return { error: data as ApiError, status: response.status };
+    }
+  } catch (error) {
+    console.error('❌ Fetch error:', error);
+    return {
+      error: {
+        message: error instanceof Error ? error.message : 'Failed to fetch photo',
+        errorCode: 'FETCH_ERROR'
+      },
+      status: 0,
+    };
+  }
+}
+
+/**
+ * Update photo metadata
+ * PUT /api/gallery/{id}
+ *
+ * @param photoId - Photo ID
+ * @param updates - Fields to update
+ */
+export async function updatePhoto(
+  photoId: number,
+  updates: GalleryUpdateRequest
+): Promise<ApiResponse<GalleryPhotoResponse>> {
+  console.log('🚀 Updating photo:', { photoId, updates });
+
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/api/gallery/${photoId}`,
+      {
+        method: 'PUT',
+        headers: createJsonHeaders(),
+        body: JSON.stringify(updates),
+        credentials: 'include',
+      }
+    );
+
+    const data = await response.json();
+
+    if (response.ok) {
+      console.log('✅ Photo updated:', data);
+      return { data, status: response.status };
+    } else {
+      console.error('❌ Update failed:', data);
+      return { error: data as ApiError, status: response.status };
+    }
+  } catch (error) {
+    console.error('❌ Update error:', error);
+    return {
+      error: {
+        message: error instanceof Error ? error.message : 'Failed to update photo',
+        errorCode: 'UPDATE_ERROR'
+      },
+      status: 0,
+    };
+  }
+}
+
+/**
+ * Delete photo
+ * DELETE /api/gallery/{id}
+ *
+ * @param photoId - Photo ID
+ */
+export async function deletePhoto(
+  photoId: number
+): Promise<ApiResponse<GalleryPhotoResponse>> {
+  console.log('🚀 Deleting photo:', photoId);
+
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/api/gallery/${photoId}`,
+      {
+        method: 'DELETE',
+        headers: createAuthHeaders(),
+        credentials: 'include',
+      }
+    );
+
+    const data = await response.json();
+
+    if (response.ok) {
+      console.log('✅ Photo deleted:', data);
+      return { data, status: response.status };
+    } else {
+      console.error('❌ Delete failed:', data);
+      return { error: data as ApiError, status: response.status };
+    }
+  } catch (error) {
+    console.error('❌ Delete error:', error);
+    return {
+      error: {
+        message: error instanceof Error ? error.message : 'Failed to delete photo',
+        errorCode: 'DELETE_ERROR'
+      },
+      status: 0,
+    };
+  }
+}
+
+/**
+ * Get photo URL for display
+ * @param filePath - Path from GalleryPhoto.filePath
+ */
+export function getPhotoUrl(filePath: string): string {
+  return `${API_BASE_URL}/${filePath}`;
+}
+
+// === EXPORT DEFAULT ===
+
+const galleryService = {
+  uploadPhoto,
+  getUserPhotos,
+  getPublicPhotos,
+  getPhotoById,
+  updatePhoto,
+  deletePhoto,
+  getPhotoUrl,
+};
+
+export default galleryService;
