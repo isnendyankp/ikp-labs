@@ -11,10 +11,11 @@ A complete user authentication and profile management system built as part of my
 ## Features
 
 ### Complete User Journey
-- **Register → Login → Homepage → Profile Picture Upload**
+- **Register → Login → Homepage → Profile & Gallery Management**
 - Full authentication flow with seamless transitions
 - Protected homepage with user information display
 - Profile picture management (upload/delete) with JWT authentication
+- **Photo Gallery**: Upload, view, edit, and delete photos with privacy controls
 
 ### Authentication & Security
 - **JWT Authentication**: Complete token-based authentication system
@@ -30,6 +31,18 @@ A complete user authentication and profile management system built as part of my
 - **Picture Persistence**: Profile pictures stored in backend and persisted
 - **File Validation**: Client-side and server-side validation
 - **Protected Endpoints**: JWT-secured profile APIs
+
+### Photo Gallery Management
+- **Upload Photos**: Drag & drop or click to upload photos (max 5MB)
+- **View Modes**: Switch between "My Photos" and "Public Photos"
+- **Photo Details**: Full-size view with metadata (title, description, date)
+- **Edit Photos**: Update title, description, and privacy settings (owner only)
+- **Delete Photos**: Remove photos with confirmation dialog (owner only)
+- **Privacy Control**: Toggle photos between public and private
+- **Pagination**: Navigate through photo collections (12 per page)
+- **Responsive Grid**: 1-4 columns based on screen size
+- **Access Control**: Owner-only edit/delete operations
+- **File Validation**: JPG, PNG, GIF, WebP up to 5MB
 
 ### User Interface
 - **Modern Design**: Clean and professional UI with two-panel layout
