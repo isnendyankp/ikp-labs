@@ -190,6 +190,17 @@ export default function HomePage() {
                   You are successfully logged in. Your session is secured with JWT authentication.
                 </p>
               </div>
+
+              {/* Gallery Link */}
+              <div className="mt-6">
+                <button
+                  onClick={() => router.push('/gallery')}
+                  className="w-full py-3 px-6 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition-colors shadow-md flex items-center justify-center gap-2"
+                >
+                  <span>📸</span>
+                  <span>Go to My Gallery</span>
+                </button>
+              </div>
             </div>
           </div>
         </div>
