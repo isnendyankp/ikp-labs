@@ -17,7 +17,7 @@
 import { useEffect, useState } from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { isAuthenticated, getUserFromToken } from '../../../lib/auth';
-import { GalleryPhoto, AuthUser } from '../../../types/api';
+import { GalleryPhotoDetailResponse, AuthUser } from '../../../types/api';
 import { getPhotoById, updatePhoto, deletePhoto, getPhotoUrl } from '../../../services/galleryService';
 
 export default function PhotoDetailPage() {
@@ -26,7 +26,7 @@ export default function PhotoDetailPage() {
   const photoId = params.id as string;
 
   const [user, setUser] = useState<AuthUser | null>(null);
-  const [photo, setPhoto] = useState<GalleryPhoto | null>(null);
+  const [photo, setPhoto] = useState<GalleryPhotoDetailResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -96,8 +96,13 @@ export default function PhotoDetailPage() {
       });
 
       if (response.data) {
-        // Backend returns GalleryPhotoResponse directly (flat object)
-        setPhoto(response.data);
+        // Update photo dengan data baru (merge dengan existing owner info)
+        if (photo) {
+          setPhoto({
+            ...photo,
+            ...response.data.photo,
+          });
+        }
         setEditing(false);
         alert('Photo updated successfully!');
       } else if (response.error) {
