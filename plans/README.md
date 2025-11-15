@@ -159,6 +159,35 @@ Complete frontend authentication flow with protected home page route. Implements
 - [Technical Design](./in-progress/frontend/authentication-flow/technical-design.md)
 - [Checklist](./in-progress/frontend/authentication-flow/checklist.md)
 
+#### Backend: Photo Gallery Feature
+**Path:** `in-progress/backend/photo-gallery/`
+**Status:** 🎯 CORE COMPLETE - E2E & Docs Pending (63.3% overall)
+**Created:** 2025-11-12
+**Core Completed:** 2025-11-15 (4 days)
+
+Multi-photo gallery feature with granular privacy control. Users can upload multiple photos and set each as public or private. Includes 8 REST API endpoints, frontend UI with responsive design, and comprehensive unit testing.
+
+**Completed (Week 1):**
+- ✅ Backend Development: 8 REST endpoints, privacy filtering, authorization (35 tasks)
+- ✅ Backend Testing: 47 unit tests PASS, ~91% coverage (25 tasks)
+- ✅ Frontend Development: 4 components, 3 pages, API service (14 tasks)
+- ✅ Feature functional and manually verified
+
+**Pending (Week 2: Nov 18-21):**
+- ⏳ E2E Testing: 20 Playwright tests with TestPlanTracker (Mon-Wed)
+- ⏳ Documentation: API reference, user guides, technical docs (Thu)
+
+**Documents:**
+- [README](./in-progress/backend/photo-gallery/README.md)
+- [Requirements](./in-progress/backend/photo-gallery/requirements.md)
+- [Technical Design](./in-progress/backend/photo-gallery/technical-design.md)
+- [Checklist](./in-progress/backend/photo-gallery/checklist.md)
+
+**Legacy Plans (Historical Reference):**
+- [Feature Plan](../docs/plans/photo-gallery-feature-plan.md)
+- [Test Plan](../docs/plans/photo-gallery-test-plan.md)
+- [Progress Checklist](../docs/plans/photo-gallery-progress-checklist.md)
+
 #### Testing: API Testing with Playwright
 **Path:** `in-progress/testing/api-testing-playwright/`
 **Status:** IN PROGRESS
