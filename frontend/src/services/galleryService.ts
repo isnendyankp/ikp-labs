@@ -312,6 +312,8 @@ export async function updatePhoto(
  * Delete photo
  * DELETE /api/gallery/photo/{id}
  *
+ * Backend returns 204 No Content (empty response body)
+ *
  * @param photoId - Photo ID
  */
 export async function deletePhoto(
@@ -329,12 +331,13 @@ export async function deletePhoto(
       }
     );
 
-    const data = await response.json();
-
     if (response.ok) {
-      console.log('✅ Photo deleted:', data);
-      return { data, status: response.status };
+      // Backend returns 204 No Content - no JSON body to parse
+      console.log('✅ Photo deleted successfully');
+      return { data: {} as GalleryPhotoResponse, status: response.status };
     } else {
+      // Error responses should have JSON body
+      const data = await response.json();
       console.error('❌ Delete failed:', data);
       return { error: data as ApiError, status: response.status };
     }
