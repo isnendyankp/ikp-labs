@@ -14,6 +14,7 @@
 import {
   GalleryPhoto,
   GalleryPhotoResponse,
+  GalleryPhotoDetailResponse,
   GalleryListResponse,
   GalleryUpdateRequest,
   ApiResponse,
@@ -227,7 +228,7 @@ export async function getPublicPhotos(
  */
 export async function getPhotoById(
   photoId: number
-): Promise<ApiResponse<GalleryPhotoResponse>> {
+): Promise<ApiResponse<GalleryPhotoDetailResponse>> {
   console.log('🚀 Fetching photo:', photoId);
 
   try {
