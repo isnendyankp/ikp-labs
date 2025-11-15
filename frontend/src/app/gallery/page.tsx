@@ -69,17 +69,23 @@ export default function GalleryPage() {
       }
 
       if (response.data) {
-        setPhotos(response.data);
-        // Calculate total pages based on photos length
-        // Note: Backend returns array, so we estimate pages
-        setTotalPages(Math.max(1, Math.ceil(response.data.length / PHOTOS_PER_PAGE)));
+        // Backend returns GalleryListResponse with photos array AND pagination metadata
+        setPhotos(response.data.photos || []);
+        setTotalPages(response.data.totalPages || 1);
+        console.log('📄 Pagination:', {
+          currentPage: response.data.currentPage,
+          totalPages: response.data.totalPages,
+          photosCount: response.data.photos?.length || 0
+        });
       } else if (response.error) {
         console.error('Failed to fetch photos:', response.error);
         setPhotos([]);
+        setTotalPages(1);
       }
     } catch (error) {
       console.error('Error fetching photos:', error);
       setPhotos([]);
+      setTotalPages(1);
     } finally {
       setLoading(false);
     }

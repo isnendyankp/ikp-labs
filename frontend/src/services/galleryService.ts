@@ -127,7 +127,7 @@ export async function uploadPhoto(
  * Get user's photos with pagination
  * GET /api/gallery/my-photos?page=0&size=12
  *
- * Returns GalleryListResponse with photos array inside
+ * Returns GalleryListResponse with photos array and pagination metadata
  *
  * @param userId - User ID (not used, kept for compatibility)
  * @param page - Page number (0-indexed)
@@ -137,7 +137,7 @@ export async function getUserPhotos(
   userId: number,
   page: number = 0,
   size: number = 12
-): Promise<ApiResponse<GalleryPhoto[]>> {
+): Promise<ApiResponse<GalleryListResponse>> {
   console.log('🚀 Fetching user photos:', { userId, page, size });
 
   try {
@@ -153,10 +153,9 @@ export async function getUserPhotos(
     const listResponse = await response.json();
 
     if (response.ok) {
-      // Backend returns GalleryListResponse object with photos array
-      const photos = listResponse.photos || [];
-      console.log('✅ Photos fetched:', photos.length);
-      return { data: photos, status: response.status };
+      // Backend returns GalleryListResponse object with photos array AND pagination metadata
+      console.log('✅ Photos fetched:', listResponse.photos?.length || 0, 'Page:', listResponse.currentPage, 'Total pages:', listResponse.totalPages);
+      return { data: listResponse, status: response.status };
     } else {
       console.error('❌ Fetch failed:', listResponse);
       return { error: listResponse as ApiError, status: response.status };
@@ -177,7 +176,7 @@ export async function getUserPhotos(
  * Get public photos with pagination
  * GET /api/gallery/public?page=0&size=12
  *
- * Returns GalleryListResponse with photos array inside
+ * Returns GalleryListResponse with photos array and pagination metadata
  *
  * @param page - Page number (0-indexed)
  * @param size - Items per page (default: 12)
@@ -185,7 +184,7 @@ export async function getUserPhotos(
 export async function getPublicPhotos(
   page: number = 0,
   size: number = 12
-): Promise<ApiResponse<GalleryPhoto[]>> {
+): Promise<ApiResponse<GalleryListResponse>> {
   console.log('🚀 Fetching public photos:', { page, size });
 
   try {
@@ -201,10 +200,9 @@ export async function getPublicPhotos(
     const listResponse = await response.json();
 
     if (response.ok) {
-      // Backend returns GalleryListResponse object with photos array
-      const photos = listResponse.photos || [];
-      console.log('✅ Public photos fetched:', photos.length);
-      return { data: photos, status: response.status };
+      // Backend returns GalleryListResponse object with photos array AND pagination metadata
+      console.log('✅ Public photos fetched:', listResponse.photos?.length || 0, 'Page:', listResponse.currentPage, 'Total pages:', listResponse.totalPages);
+      return { data: listResponse, status: response.status };
     } else {
       console.error('❌ Fetch failed:', listResponse);
       return { error: listResponse as ApiError, status: response.status };
