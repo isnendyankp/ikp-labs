@@ -162,6 +162,24 @@ export interface GalleryListResponse {
 }
 
 /**
+ * Response detail untuk single photo (includes owner info)
+ * GET /api/gallery/photo/{id}
+ */
+export interface GalleryPhotoDetailResponse {
+  id: number;
+  userId: number;
+  ownerName: string;
+  ownerEmail: string;
+  filePath: string;
+  title: string | null;
+  description: string | null;
+  isPublic: boolean;
+  uploadOrder: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+/**
  * Form data untuk upload (frontend only)
  */
 export interface GalleryUploadFormData {
