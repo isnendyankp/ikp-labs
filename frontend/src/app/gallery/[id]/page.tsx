@@ -202,7 +202,8 @@ export default function PhotoDetailPage() {
                       value={editTitle}
                       onChange={(e) => setEditTitle(e.target.value)}
                       maxLength={100}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500"
+                      placeholder="Enter photo title..."
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
                     />
                   </div>
 
@@ -215,7 +216,8 @@ export default function PhotoDetailPage() {
                       onChange={(e) => setEditDescription(e.target.value)}
                       maxLength={500}
                       rows={4}
-                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 resize-none"
+                      placeholder="Enter photo description..."
+                      className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400 resize-none"
                     />
                   </div>
 
