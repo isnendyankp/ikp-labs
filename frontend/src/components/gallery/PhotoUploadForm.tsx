@@ -180,7 +180,7 @@ export default function PhotoUploadForm() {
           onChange={(e) => setTitle(e.target.value)}
           maxLength={100}
           placeholder="Enter photo title"
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400"
         />
         <p className="mt-1 text-sm text-gray-400">
           {title.length}/100 characters
@@ -198,7 +198,7 @@ export default function PhotoUploadForm() {
           maxLength={500}
           rows={4}
           placeholder="Enter photo description"
-          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none"
+          className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-400 resize-none"
         />
         <p className="mt-1 text-sm text-gray-400">
           {description.length}/500 characters
