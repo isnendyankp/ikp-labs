@@ -1,6 +1,17 @@
 # Photo Gallery Feature - Implementation Plan
 
-**Status:** 📋 Planning
+> **⚠️ LEGACY DOCUMENT NOTICE**
+>
+> This document is kept for **historical reference** and contains the original detailed technical design.
+>
+> **For current progress and task tracking**, see the structured plan:
+> - **Main Plan**: [plans/in-progress/backend/photo-gallery/](../../plans/in-progress/backend/photo-gallery/)
+> - **Progress Checklist**: [photo-gallery-progress-checklist.md](./photo-gallery-progress-checklist.md)
+> - **Test Plan**: [photo-gallery-test-plan.md](./photo-gallery-test-plan.md)
+>
+> **Status Update (2025-11-17):** ✅ Backend & Frontend COMPLETE, E2E & Docs pending Week 2
+
+**Original Status:** 📋 Planning
 **Created:** 2025-11-11
 **Feature Type:** New Feature
 **Priority:** Medium
