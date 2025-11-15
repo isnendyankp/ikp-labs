@@ -82,8 +82,12 @@ class GalleryPhotoRepositoryTest {
      * 3. Stop & remove container after tests
      *
      * withReuse(true) = Container reused across test runs (faster)
+     *
+     * @SuppressWarnings("resource") = Suppress "resource leak" warning.
+     * Container is auto-closed by Testcontainers framework via @Container annotation.
      */
     @Container
+    @SuppressWarnings("resource")
     static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16-alpine")
             .withDatabaseName("testdb")
             .withUsername("test")
