@@ -64,11 +64,12 @@ export default function PhotoDetailPage() {
     try {
       const response = await getPhotoById(Number(photoId));
 
-      if (response.data && response.data.photo) {
-        setPhoto(response.data.photo);
-        setEditTitle(response.data.photo.title || '');
-        setEditDescription(response.data.photo.description || '');
-        setEditIsPublic(response.data.photo.isPublic);
+      if (response.data) {
+        // Backend returns GalleryPhotoDetailResponse directly (flat object, not nested under .photo)
+        setPhoto(response.data);
+        setEditTitle(response.data.title || '');
+        setEditDescription(response.data.description || '');
+        setEditIsPublic(response.data.isPublic);
       } else if (response.error) {
         alert('Photo not found or access denied');
         router.push('/gallery');
@@ -95,7 +96,8 @@ export default function PhotoDetailPage() {
       });
 
       if (response.data) {
-        setPhoto(response.data.photo);
+        // Backend returns GalleryPhotoResponse directly (flat object)
+        setPhoto(response.data);
         setEditing(false);
         alert('Photo updated successfully!');
       } else if (response.error) {
