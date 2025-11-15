@@ -73,7 +73,7 @@ const createJsonHeaders = (): HeadersInit => {
 
 /**
  * Upload photo to gallery
- * POST /api/gallery
+ * POST /api/gallery/upload
  *
  * @param file - Image file to upload
  * @param title - Optional title
@@ -95,7 +95,7 @@ export async function uploadPhoto(
     if (description) formData.append('description', description);
     formData.append('isPublic', String(isPublic));
 
-    const response = await fetch(`${API_BASE_URL}/api/gallery`, {
+    const response = await fetch(`${API_BASE_URL}/api/gallery/upload`, {
       method: 'POST',
       headers: createAuthHeaders(),
       body: formData,
@@ -125,9 +125,9 @@ export async function uploadPhoto(
 
 /**
  * Get user's photos with pagination
- * GET /api/gallery/user/{userId}?page=0&size=12
+ * GET /api/gallery/my-photos?page=0&size=12
  *
- * @param userId - User ID
+ * @param userId - User ID (not used, kept for compatibility)
  * @param page - Page number (0-indexed)
  * @param size - Items per page (default: 12)
  */
@@ -140,7 +140,7 @@ export async function getUserPhotos(
 
   try {
     const response = await fetch(
-      `${API_BASE_URL}/api/gallery/user/${userId}?page=${page}&size=${size}`,
+      `${API_BASE_URL}/api/gallery/my-photos?page=${page}&size=${size}`,
       {
         method: 'GET',
         headers: createAuthHeaders(),
@@ -215,7 +215,7 @@ export async function getPublicPhotos(
 
 /**
  * Get photo by ID
- * GET /api/gallery/{id}
+ * GET /api/gallery/photo/{id}
  *
  * @param photoId - Photo ID
  */
@@ -226,7 +226,7 @@ export async function getPhotoById(
 
   try {
     const response = await fetch(
-      `${API_BASE_URL}/api/gallery/${photoId}`,
+      `${API_BASE_URL}/api/gallery/photo/${photoId}`,
       {
         method: 'GET',
         headers: createAuthHeaders(),
@@ -257,7 +257,7 @@ export async function getPhotoById(
 
 /**
  * Update photo metadata
- * PUT /api/gallery/{id}
+ * PUT /api/gallery/photo/{id}
  *
  * @param photoId - Photo ID
  * @param updates - Fields to update
@@ -270,7 +270,7 @@ export async function updatePhoto(
 
   try {
     const response = await fetch(
-      `${API_BASE_URL}/api/gallery/${photoId}`,
+      `${API_BASE_URL}/api/gallery/photo/${photoId}`,
       {
         method: 'PUT',
         headers: createJsonHeaders(),
@@ -302,7 +302,7 @@ export async function updatePhoto(
 
 /**
  * Delete photo
- * DELETE /api/gallery/{id}
+ * DELETE /api/gallery/photo/{id}
  *
  * @param photoId - Photo ID
  */
@@ -313,7 +313,7 @@ export async function deletePhoto(
 
   try {
     const response = await fetch(
-      `${API_BASE_URL}/api/gallery/${photoId}`,
+      `${API_BASE_URL}/api/gallery/photo/${photoId}`,
       {
         method: 'DELETE',
         headers: createAuthHeaders(),
