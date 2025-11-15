@@ -51,6 +51,7 @@ public class JwtUtilTest {
     private JwtUtil jwtUtil;
 
     // Test data
+    private final Long testUserId = 1L;
     private final String testEmail = "test@example.com";
     private final String testFullName = "Test User";
     private final String testSecret = "testSecretKeyThatIsVeryLongAndSecureForJwtTesting123456789";
@@ -81,7 +82,7 @@ public class JwtUtilTest {
     @DisplayName("Test 1: generateToken - valid inputs - Should return JWT string")
     void testGenerateToken_ValidInputs_ShouldReturnJwtString() {
         // ACT
-        String token = jwtUtil.generateToken(testEmail, testFullName);
+        String token = jwtUtil.generateToken(testUserId, testEmail, testFullName);
 
         // ASSERT
         assertNotNull(token, "Token should not be null");
@@ -101,7 +102,7 @@ public class JwtUtilTest {
     @DisplayName("Test 2: generateToken - Should embed email in token")
     void testGenerateToken_ShouldEmbedEmail() {
         // ACT
-        String token = jwtUtil.generateToken(testEmail, testFullName);
+        String token = jwtUtil.generateToken(testUserId, testEmail, testFullName);
         String extractedEmail = jwtUtil.extractEmail(token);
 
         // ASSERT
@@ -117,7 +118,7 @@ public class JwtUtilTest {
     @DisplayName("Test 3: generateToken - Should embed fullName in token")
     void testGenerateToken_ShouldEmbedFullName() {
         // ACT
-        String token = jwtUtil.generateToken(testEmail, testFullName);
+        String token = jwtUtil.generateToken(testUserId, testEmail, testFullName);
         String extractedName = jwtUtil.getFullNameFromToken(token);
 
         // ASSERT
@@ -137,7 +138,7 @@ public class JwtUtilTest {
     @DisplayName("Test 4: extractEmail - valid token - Should return email")
     void testExtractEmail_ValidToken_ShouldReturnEmail() {
         // ARRANGE
-        String token = jwtUtil.generateToken(testEmail, testFullName);
+        String token = jwtUtil.generateToken(testUserId, testEmail, testFullName);
 
         // ACT
         String email = jwtUtil.extractEmail(token);
@@ -173,7 +174,7 @@ public class JwtUtilTest {
     @DisplayName("Test 6: extractExpiration - Should return future expiration date")
     void testExtractExpiration_ShouldReturnFutureDate() {
         // ARRANGE
-        String token = jwtUtil.generateToken(testEmail, testFullName);
+        String token = jwtUtil.generateToken(testUserId, testEmail, testFullName);
         Date now = new Date();
 
         // ACT
@@ -202,7 +203,7 @@ public class JwtUtilTest {
     @DisplayName("Test 7: validateToken - valid token, correct email - Should return true")
     void testValidateToken_ValidTokenCorrectEmail_ShouldReturnTrue() {
         // ARRANGE
-        String token = jwtUtil.generateToken(testEmail, testFullName);
+        String token = jwtUtil.generateToken(testUserId, testEmail, testFullName);
 
         // ACT
         Boolean isValid = jwtUtil.validateToken(token, testEmail);
@@ -220,7 +221,7 @@ public class JwtUtilTest {
     @DisplayName("Test 8: validateToken - valid token, wrong email - Should return false")
     void testValidateToken_ValidTokenWrongEmail_ShouldReturnFalse() {
         // ARRANGE
-        String token = jwtUtil.generateToken(testEmail, testFullName);
+        String token = jwtUtil.generateToken(testUserId, testEmail, testFullName);
         String wrongEmail = "wrong@example.com";
 
         // ACT
@@ -276,7 +277,7 @@ public class JwtUtilTest {
     @DisplayName("Test 11: isTokenExpired - fresh token - Should return false")
     void testIsTokenExpired_FreshToken_ShouldReturnFalse() {
         // ARRANGE
-        String token = jwtUtil.generateToken(testEmail, testFullName);
+        String token = jwtUtil.generateToken(testUserId, testEmail, testFullName);
 
         // ACT
         Boolean isExpired = jwtUtil.isTokenExpired(token);
@@ -295,7 +296,7 @@ public class JwtUtilTest {
     void testIsTokenExpired_ExpiredToken_ShouldReturnTrue() {
         // ARRANGE - Create token with negative expiration (already expired)
         ReflectionTestUtils.setField(jwtUtil, "jwtExpirationMs", -5000L); // Expired 5 sec ago
-        String expiredToken = jwtUtil.generateToken(testEmail, testFullName);
+        String expiredToken = jwtUtil.generateToken(testUserId, testEmail, testFullName);
 
         // Reset to normal expiration for other tests
         ReflectionTestUtils.setField(jwtUtil, "jwtExpirationMs", testExpiration);
@@ -328,7 +329,7 @@ public class JwtUtilTest {
     void testValidateToken_ExpiredToken_ShouldReturnFalse() {
         // ARRANGE - Create expired token
         ReflectionTestUtils.setField(jwtUtil, "jwtExpirationMs", -1000L);
-        String expiredToken = jwtUtil.generateToken(testEmail, testFullName);
+        String expiredToken = jwtUtil.generateToken(testUserId, testEmail, testFullName);
         ReflectionTestUtils.setField(jwtUtil, "jwtExpirationMs", testExpiration);
 
         // ACT
@@ -351,7 +352,7 @@ public class JwtUtilTest {
     @DisplayName("Test 14: refreshToken - Should create new token with same data")
     void testRefreshToken_ShouldCreateNewTokenWithSameData() {
         // ARRANGE
-        String originalToken = jwtUtil.generateToken(testEmail, testFullName);
+        String originalToken = jwtUtil.generateToken(testUserId, testEmail, testFullName);
 
         // Wait 1000ms (1 second) to ensure new token has different issuedAt time
         try {
