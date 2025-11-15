@@ -352,10 +352,16 @@ export async function deletePhoto(
 
 /**
  * Get photo URL for display
- * @param filePath - Path from GalleryPhoto.filePath
+ * Backend stores: "gallery/user-X/photo-Y.jpg"
+ * Spring serves from: "/uploads/**"
+ * So we need: http://localhost:8081/uploads/gallery/user-X/photo-Y.jpg
+ *
+ * @param filePath - Path from GalleryPhoto.filePath (e.g., "gallery/user-132/photo-1.jpg")
  */
 export function getPhotoUrl(filePath: string): string {
-  return `${API_BASE_URL}/${filePath}`;
+  // Add "uploads/" prefix if not already present
+  const path = filePath.startsWith('uploads/') ? filePath : `uploads/${filePath}`;
+  return `${API_BASE_URL}/${path}`;
 }
 
 // === EXPORT DEFAULT ===
