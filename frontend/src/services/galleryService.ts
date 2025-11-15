@@ -127,6 +127,8 @@ export async function uploadPhoto(
  * Get user's photos with pagination
  * GET /api/gallery/my-photos?page=0&size=12
  *
+ * Returns GalleryListResponse with photos array inside
+ *
  * @param userId - User ID (not used, kept for compatibility)
  * @param page - Page number (0-indexed)
  * @param size - Items per page (default: 12)
@@ -148,14 +150,16 @@ export async function getUserPhotos(
       }
     );
 
-    const data = await response.json();
+    const listResponse = await response.json();
 
     if (response.ok) {
-      console.log('✅ Photos fetched:', data.length);
-      return { data, status: response.status };
+      // Backend returns GalleryListResponse object with photos array
+      const photos = listResponse.photos || [];
+      console.log('✅ Photos fetched:', photos.length);
+      return { data: photos, status: response.status };
     } else {
-      console.error('❌ Fetch failed:', data);
-      return { error: data as ApiError, status: response.status };
+      console.error('❌ Fetch failed:', listResponse);
+      return { error: listResponse as ApiError, status: response.status };
     }
   } catch (error) {
     console.error('❌ Fetch error:', error);
@@ -172,6 +176,8 @@ export async function getUserPhotos(
 /**
  * Get public photos with pagination
  * GET /api/gallery/public?page=0&size=12
+ *
+ * Returns GalleryListResponse with photos array inside
  *
  * @param page - Page number (0-indexed)
  * @param size - Items per page (default: 12)
@@ -192,14 +198,16 @@ export async function getPublicPhotos(
       }
     );
 
-    const data = await response.json();
+    const listResponse = await response.json();
 
     if (response.ok) {
-      console.log('✅ Public photos fetched:', data.length);
-      return { data, status: response.status };
+      // Backend returns GalleryListResponse object with photos array
+      const photos = listResponse.photos || [];
+      console.log('✅ Public photos fetched:', photos.length);
+      return { data: photos, status: response.status };
     } else {
-      console.error('❌ Fetch failed:', data);
-      return { error: data as ApiError, status: response.status };
+      console.error('❌ Fetch failed:', listResponse);
+      return { error: listResponse as ApiError, status: response.status };
     }
   } catch (error) {
     console.error('❌ Fetch error:', error);
