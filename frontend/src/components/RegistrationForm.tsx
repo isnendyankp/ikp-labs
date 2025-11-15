@@ -111,10 +111,10 @@ export default function RegistrationForm() {
         }
       }
     } catch (error) {
-      if (error instanceof z.ZodError && error.errors) {
+      if (error instanceof z.ZodError) {
         // Handle validation errors
         const newErrors: Record<string, string> = {};
-        error.errors.forEach((err) => {
+        error.issues.forEach((err) => {
           if (err.path && err.path.length > 0) {
             newErrors[err.path[0] as string] = err.message;
           }
@@ -152,7 +152,7 @@ export default function RegistrationForm() {
             {/* Main Content */}
             <div className="flex-1 flex flex-col justify-center">
               <h2 className="text-white text-2xl lg:text-3xl font-bold leading-tight mb-8 drop-shadow-lg">
-                abc.com is the best place to find remote talent. We've been super 
+                abc.com is the best place to find remote talent. We&apos;ve been super
                 impressed by the quality of applicants.
               </h2>
             </div>
@@ -172,7 +172,7 @@ export default function RegistrationForm() {
           {/* Header */}
           <div className="mb-8">
             <h2 className="text-3xl font-bold text-gray-900 mb-2">Create an account</h2>
-            <p className="text-gray-600">Let's get started with your 30 days free trial</p>
+            <p className="text-gray-600">Let&apos;s get started with your 30 days free trial</p>
           </div>
 
           {/* API Error Display */}

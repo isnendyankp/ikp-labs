@@ -104,10 +104,10 @@ export default function LoginForm() {
         setApiError(response.data.message || 'Login failed. Please check your credentials.');
       }
     } catch (error) {
-      if (error instanceof z.ZodError && error.errors) {
+      if (error instanceof z.ZodError) {
         // Handle validation errors
         const newErrors: Record<string, string> = {};
-        error.errors.forEach((err) => {
+        error.issues.forEach((err) => {
           if (err.path && err.path.length > 0) {
             newErrors[err.path[0] as string] = err.message;
           }
@@ -310,7 +310,7 @@ export default function LoginForm() {
 
           {/* Sign Up Link */}
           <p className="mt-6 text-center text-gray-600">
-            Don't have an account?{' '}
+            Don&apos;t have an account?{' '}
             <Link href="/register" className="text-blue-600 hover:text-blue-500 font-medium">
               Sign up
             </Link>
