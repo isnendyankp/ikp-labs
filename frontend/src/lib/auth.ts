@@ -92,7 +92,7 @@ export function getUserFromToken(): AuthUser | null {
     const payload = decodeToken(token);
 
     return {
-      id: 0, // Not in token, will be fetched from API if needed
+      id: payload.userId || 0, // Read userId from JWT token payload
       email: payload.email,
       fullName: payload.fullName,
       token: token
@@ -113,6 +113,7 @@ export function getUserFromToken(): AuthUser | null {
  * @returns Decoded payload object
  */
 function decodeToken(token: string): {
+  userId: number;
   email: string;
   fullName: string;
   exp: number;

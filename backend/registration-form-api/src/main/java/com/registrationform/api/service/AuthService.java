@@ -108,7 +108,7 @@ public class AuthService {
 
             // === STEP 3: GENERATE JWT TOKEN ===
             // Kalau sampai sini, berarti credentials valid
-            String jwtToken = jwtUtil.generateToken(user.getEmail(), user.getFullName());
+            String jwtToken = jwtUtil.generateToken(user.getId(), user.getEmail(), user.getFullName());
 
             // === STEP 4: BUAT RESPONSE SUKSES ===
             return LoginResponse.success(
@@ -194,7 +194,7 @@ public class AuthService {
             }
 
             // Generate token baru
-            String newToken = jwtUtil.generateToken(user.getEmail(), user.getFullName());
+            String newToken = jwtUtil.generateToken(user.getId(), user.getEmail(), user.getFullName());
 
             return LoginResponse.success(
                     newToken,
@@ -247,7 +247,7 @@ public class AuthService {
             User savedUser = userRepository.save(newUser);
 
             // === STEP 5: GENERATE JWT TOKEN ===
-            String jwtToken = jwtUtil.generateToken(savedUser.getEmail(), savedUser.getFullName());
+            String jwtToken = jwtUtil.generateToken(savedUser.getId(), savedUser.getEmail(), savedUser.getFullName());
 
             // === STEP 6: RETURN SUCCESS RESPONSE ===
             return LoginResponse.success(

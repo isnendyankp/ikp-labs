@@ -33,12 +33,13 @@ public class JwtTestController {
      */
     @PostMapping("/generate")
     public ResponseEntity<Map<String, Object>> generateTestToken(
+            @RequestParam Long userId,
             @RequestParam String email,
             @RequestParam String fullName) {
 
         try {
             // Generate JWT token
-            String token = jwtUtil.generateToken(email, fullName);
+            String token = jwtUtil.generateToken(userId, email, fullName);
 
             Map<String, Object> response = new HashMap<>();
             response.put("success", true);

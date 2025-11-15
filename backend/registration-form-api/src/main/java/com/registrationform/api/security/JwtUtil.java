@@ -80,18 +80,20 @@ public class JwtUtil {
      * Seperti manager bioskop buat tiket untuk customer
      *
      * Proses:
-     * 1. Manager (JwtUtil) terima info customer (email, name)
+     * 1. Manager (JwtUtil) terima info customer (email, name, userId)
      * 2. Buat tiket dengan info tersebut + waktu kadaluarsa
      * 3. Tandatangani dengan cap rahasia
      * 4. Kasih tiket ke customer
      *
+     * @param userId - User ID (for authorization checks)
      * @param email - Email customer (identifier utama)
      * @param fullName - Nama lengkap customer
      * @return String JWT token yang bisa dipakai customer
      */
-    public String generateToken(String email, String fullName) {
+    public String generateToken(Long userId, String email, String fullName) {
         // Info yang akan dimasukkan ke tiket
         Map<String, Object> claims = new HashMap<>();
+        claims.put("userId", userId);      // User ID untuk authorization
         claims.put("fullName", fullName);  // Nama customer
         claims.put("email", email);        // Email customer
 
@@ -235,11 +237,12 @@ public class JwtUtil {
      */
     public String refreshToken(String token) {
         final Claims claims = extractAllClaims(token);
+        final Long userId = claims.get("userId", Long.class);
         final String email = claims.getSubject();
         final String fullName = claims.get("fullName", String.class);
 
         // Buat tiket baru dengan info sama tapi waktu berlaku baru
-        return generateToken(email, fullName);
+        return generateToken(userId, email, fullName);
     }
 
     /**
