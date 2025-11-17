@@ -1,6 +1,8 @@
 package com.registrationform.api.integration;
 
+import com.registrationform.api.security.JwtUtil;
 import org.junit.jupiter.api.BeforeAll;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
@@ -40,32 +42,47 @@ import org.testcontainers.junit.jupiter.Testcontainers;
 public abstract class BaseIntegrationTest {
 
     /**
-     * PostgreSQL container instance.
+     * PostgreSQL container instance - SINGLETON PATTERN.
      *
      * Menggunakan @Container annotation dari Testcontainers JUnit 5:
      * - Lifecycle management otomatis (start/stop)
      * - static = container dibuat sekali, shared untuk semua tests
-     * - Non-static = container baru setiap test class (slower)
+     * - withReuse(true) = container persists across test runs
      *
      * PostgreSQL 15 dipilih karena:
      * - Production environment menggunakan PostgreSQL 15
      * - Stability & performance yang baik
      * - Kompatibilitas dengan Spring Boot 3.x
      *
-     * Container akan:
-     * 1. Download postgres:15 image (jika belum ada)
-     * 2. Start container di random port (avoid conflicts)
-     * 3. Wait sampai database ready
-     * 4. Provide connection details via getDatabaseName(), getJdbcUrl(), etc.
+     * SINGLETON PATTERN:
+     * Container dibuat sekali dan di-reuse untuk SEMUA test classes.
+     * Spring Boot Test akan CACHE context karena @SpringBootTest config SAMA.
+     * Ini mencegah connection pool issues.
+     *
+     * Note: "Resource leak" warning adalah FALSE POSITIVE.
+     * Container lifecycle di-manage otomatis oleh Testcontainers framework (@Container annotation),
+     * jadi kita tidak perlu manual close(). Testcontainers akan cleanup otomatis.
      */
     @Container
-    @SuppressWarnings("resource") // Container lifecycle managed by Testcontainers
-    protected static final PostgreSQLContainer<?> postgresContainer =
-        new PostgreSQLContainer<>("postgres:15")
+    @SuppressWarnings({"resource", "unused"}) // Container lifecycle managed by Testcontainers
+    protected static final PostgreSQLContainer<?> postgresContainer;
+
+    // Static initializer untuk ensure single container instance
+    static {
+        @SuppressWarnings("resource")
+        PostgreSQLContainer<?> container = new PostgreSQLContainer<>("postgres:15")
             .withDatabaseName("testdb")
             .withUsername("testuser")
             .withPassword("testpass")
-            .withReuse(true); // Reuse container untuk speed (optional)
+            .withReuse(true);
+
+        // Start container ONCE here
+        if (!container.isRunning()) {
+            container.start();
+        }
+
+        postgresContainer = container;
+    }
 
     /**
      * Setup yang dijalankan SEKALI sebelum semua tests di class ini.
@@ -113,5 +130,41 @@ public abstract class BaseIntegrationTest {
         registry.add("spring.datasource.url", postgresContainer::getJdbcUrl);
         registry.add("spring.datasource.username", postgresContainer::getUsername);
         registry.add("spring.datasource.password", postgresContainer::getPassword);
+    }
+
+    /**
+     * JwtUtil - untuk generate JWT tokens dalam integration tests
+     * Autowired dari Spring context
+     */
+    @Autowired
+    protected JwtUtil jwtUtil;
+
+    /**
+     * Helper method untuk generate JWT token untuk testing.
+     *
+     * Digunakan untuk test endpoints yang di-protect oleh Spring Security.
+     * Token ini akan dimasukkan ke Authorization header dalam MockMvc requests.
+     *
+     * @param userId User ID untuk embed dalam token
+     * @param email User email untuk embed dalam token
+     * @param fullName User full name untuk embed dalam token
+     * @return JWT token string yang bisa digunakan dalam Authorization header
+     */
+    protected String generateTestToken(Long userId, String email, String fullName) {
+        return jwtUtil.generateToken(userId, email, fullName);
+    }
+
+    /**
+     * Helper method untuk generate Bearer token header value.
+     *
+     * Shortcut untuk format "Bearer {token}" yang dibutuhkan Spring Security.
+     *
+     * @param userId User ID
+     * @param email User email
+     * @param fullName User full name
+     * @return String dalam format "Bearer {jwt-token}"
+     */
+    protected String generateBearerToken(Long userId, String email, String fullName) {
+        return "Bearer " + generateTestToken(userId, email, fullName);
     }
 }
