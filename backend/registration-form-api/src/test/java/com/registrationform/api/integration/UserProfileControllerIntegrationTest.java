@@ -36,9 +36,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Registration Form Team
  */
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc  // Enable security filters to test JWT authentication
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class UserProfileControllerIntegrationTest extends BaseIntegrationTest {
+public class UserProfileControllerIntegrationTest extends AbstractIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -317,7 +317,7 @@ public class UserProfileControllerIntegrationTest extends BaseIntegrationTest {
     void testJwtAuthenticationFlow_EndToEnd() throws Exception {
         // STEP 1: Register user
         UserRegistrationRequest regRequest = new UserRegistrationRequest();
-        regRequest.setFullName("E2E Test User");
+        regRequest.setFullName("EndToEnd Test User");  // Changed from "E2E" to avoid digits in name validation
         regRequest.setEmail("e2e@test.com");
         regRequest.setPassword("Test@1234");
 
@@ -342,7 +342,7 @@ public class UserProfileControllerIntegrationTest extends BaseIntegrationTest {
         mockMvc.perform(get("/api/user/dashboard")
                 .header("Authorization", "Bearer " + token))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.dashboard.welcomeMessage", containsString("E2E Test User")));
+                .andExpect(jsonPath("$.dashboard.welcomeMessage", containsString("EndToEnd Test User")));
 
         // STEP 4: Use same token untuk access settings
         mockMvc.perform(get("/api/user/settings")

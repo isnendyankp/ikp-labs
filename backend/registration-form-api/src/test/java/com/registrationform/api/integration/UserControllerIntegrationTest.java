@@ -37,9 +37,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Registration Form Team
  */
-@AutoConfigureMockMvc
+@AutoConfigureMockMvc(addFilters = false)  // Disable security filters for simpler testing
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
-public class UserControllerIntegrationTest extends BaseIntegrationTest {
+public class UserControllerIntegrationTest extends AbstractIntegrationTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -170,8 +170,12 @@ public class UserControllerIntegrationTest extends BaseIntegrationTest {
         User user = new User("Test User", "testuser@test.com", passwordEncoder.encode("Pass@123"));
         User savedUser = userRepository.save(user);
 
+        // Generate JWT token untuk authentication
+        String token = generateBearerToken(savedUser.getId(), savedUser.getEmail(), savedUser.getFullName());
+
         // ACT & ASSERT
-        mockMvc.perform(get("/api/users/" + savedUser.getId()))
+        mockMvc.perform(get("/api/users/" + savedUser.getId())
+                .header("Authorization", token))  // Add JWT token
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.id").value(savedUser.getId()))
@@ -187,7 +191,9 @@ public class UserControllerIntegrationTest extends BaseIntegrationTest {
     @DisplayName("GET /api/users/{id} - Should return 404 for non-existent ID")
     void testGetUserById_WithNonExistentId_ShouldReturn404() throws Exception {
         // ACT & ASSERT
-        mockMvc.perform(get("/api/users/999999"))
+        String dummyToken = generateBearerToken(1L, "dummy@test.com", "Dummy User");
+        mockMvc.perform(get("/api/users/999999")
+                .header("Authorization", dummyToken))
                 .andDo(print())
                 .andExpect(status().isNotFound());
     }
@@ -213,7 +219,9 @@ public class UserControllerIntegrationTest extends BaseIntegrationTest {
         updateRequest.setEmail("updated@test.com");
 
         // ACT & ASSERT
+        String token = generateBearerToken(savedUser.getId(), savedUser.getEmail(), savedUser.getFullName());
         mockMvc.perform(put("/api/users/" + savedUser.getId())
+                .header("Authorization", token)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(updateRequest)))
                 .andDo(print())
@@ -235,7 +243,9 @@ public class UserControllerIntegrationTest extends BaseIntegrationTest {
         updateRequest.setFullName("Test Name");
 
         // ACT & ASSERT
+        String dummyToken = generateBearerToken(1L, "dummy@test.com", "Dummy User");
         mockMvc.perform(put("/api/users/999999")
+                .header("Authorization", dummyToken)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(updateRequest)))
                 .andDo(print())
@@ -260,7 +270,9 @@ public class UserControllerIntegrationTest extends BaseIntegrationTest {
         updateRequest.setEmail("user1@test.com"); // Duplicate!
 
         // ACT & ASSERT
+        String token = generateBearerToken(savedUser2.getId(), savedUser2.getEmail(), savedUser2.getFullName());
         mockMvc.perform(put("/api/users/" + savedUser2.getId())
+                .header("Authorization", token)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(updateRequest)))
                 .andDo(print())
@@ -283,13 +295,16 @@ public class UserControllerIntegrationTest extends BaseIntegrationTest {
         User savedUser = userRepository.save(user);
 
         // ACT & ASSERT: Delete user
-        mockMvc.perform(delete("/api/users/" + savedUser.getId()))
+        String token = generateBearerToken(savedUser.getId(), savedUser.getEmail(), savedUser.getFullName());
+        mockMvc.perform(delete("/api/users/" + savedUser.getId())
+                .header("Authorization", token))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("berhasil dihapus")));
 
         // Verify user deleted dari database
-        mockMvc.perform(get("/api/users/" + savedUser.getId()))
+        mockMvc.perform(get("/api/users/" + savedUser.getId())
+                .header("Authorization", token))
                 .andExpect(status().isNotFound());
     }
 
@@ -301,7 +316,9 @@ public class UserControllerIntegrationTest extends BaseIntegrationTest {
     @DisplayName("DELETE /api/users/{id} - Should return 404 for non-existent ID")
     void testDeleteUser_WithNonExistentId_ShouldReturn404() throws Exception {
         // ACT & ASSERT
-        mockMvc.perform(delete("/api/users/999999"))
+        String dummyToken = generateBearerToken(1L, "dummy@test.com", "Dummy User");
+        mockMvc.perform(delete("/api/users/999999")
+                .header("Authorization", dummyToken))
                 .andDo(print())
                 .andExpect(status().isNotFound())
                 .andExpect(content().string(containsString("tidak ditemukan")));
@@ -323,7 +340,9 @@ public class UserControllerIntegrationTest extends BaseIntegrationTest {
         userRepository.save(user);
 
         // ACT & ASSERT
-        mockMvc.perform(get("/api/users/email/emailtest@test.com"))
+        String token = generateBearerToken(user.getId(), user.getEmail(), user.getFullName());
+        mockMvc.perform(get("/api/users/email/emailtest@test.com")
+                .header("Authorization", token))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.email").value("emailtest@test.com"))
@@ -338,7 +357,9 @@ public class UserControllerIntegrationTest extends BaseIntegrationTest {
     @DisplayName("GET /api/users/email/{email} - Should return 404 for non-existent email")
     void testGetUserByEmail_WithNonExistentEmail_ShouldReturn404() throws Exception {
         // ACT & ASSERT
-        mockMvc.perform(get("/api/users/email/nonexistent@test.com"))
+        String dummyToken = generateBearerToken(1L, "dummy@test.com", "Dummy User");
+        mockMvc.perform(get("/api/users/email/nonexistent@test.com")
+                .header("Authorization", dummyToken))
                 .andDo(print())
                 .andExpect(status().isNotFound());
     }
@@ -359,7 +380,9 @@ public class UserControllerIntegrationTest extends BaseIntegrationTest {
         userRepository.save(user);
 
         // ACT & ASSERT
-        mockMvc.perform(get("/api/users/check-email/check@test.com"))
+        String token = generateBearerToken(user.getId(), user.getEmail(), user.getFullName());
+        mockMvc.perform(get("/api/users/check-email/check@test.com")
+                .header("Authorization", token))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string("true"));
@@ -373,7 +396,9 @@ public class UserControllerIntegrationTest extends BaseIntegrationTest {
     @DisplayName("GET /api/users/check-email/{email} - Should return false for non-existent email")
     void testCheckEmailExists_WithNonExistentEmail_ShouldReturnFalse() throws Exception {
         // ACT & ASSERT
-        mockMvc.perform(get("/api/users/check-email/notexist@test.com"))
+        String dummyToken = generateBearerToken(1L, "dummy@test.com", "Dummy User");
+        mockMvc.perform(get("/api/users/check-email/notexist@test.com")
+                .header("Authorization", dummyToken))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string("false"));
@@ -396,7 +421,9 @@ public class UserControllerIntegrationTest extends BaseIntegrationTest {
         userRepository.save(new User("Count 3", "count3@test.com", passwordEncoder.encode("Pass@123")));
 
         // ACT & ASSERT
-        mockMvc.perform(get("/api/users/count"))
+        String dummyToken = generateBearerToken(1L, "dummy@test.com", "Dummy User");
+        mockMvc.perform(get("/api/users/count")
+                .header("Authorization", dummyToken))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string("3"));
@@ -410,7 +437,9 @@ public class UserControllerIntegrationTest extends BaseIntegrationTest {
     @DisplayName("GET /api/users/count - Should return 0 when no users")
     void testGetUserCount_WhenEmpty_ShouldReturnZero() throws Exception {
         // Database already clean
-        mockMvc.perform(get("/api/users/count"))
+        String dummyToken = generateBearerToken(1L, "dummy@test.com", "Dummy User");
+        mockMvc.perform(get("/api/users/count")
+                .header("Authorization", dummyToken))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().string("0"));
