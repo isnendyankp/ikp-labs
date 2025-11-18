@@ -16,10 +16,17 @@ These specifications serve as **living documentation** that:
 ```
 specs/
 ├── authentication/
-│   ├── registration.feature  # User registration scenarios
-│   └── login.feature          # User login scenarios
+│   ├── registration.feature   # User registration scenarios (6 scenarios)
+│   ├── login.feature           # User login scenarios (4 scenarios)
+│   └── home-page.feature      # Protected page scenarios (9 scenarios)
+├── gallery/
+│   ├── photo-upload.feature    # Photo upload scenarios (11 scenarios)
+│   ├── photo-management.feature # Photo CRUD scenarios (19 scenarios)
+│   └── photo-privacy.feature  # Privacy control scenarios (17 scenarios)
 └── README.md                  # This file
 ```
+
+**Total Coverage:** 66 scenarios across 6 feature files
 
 ## Gherkin Format
 
@@ -48,10 +55,16 @@ Feature: User Registration
 
 Each Gherkin scenario aligns with existing Playwright E2E tests:
 
-| Feature File               | Playwright Test File           | Description              |
-| -------------------------- | ------------------------------ | ------------------------ |
-| `authentication/registration.feature` | `tests/e2e/registration.spec.ts` | Registration flow tests |
-| `authentication/login.feature`        | `tests/e2e/login.spec.ts`        | Login flow tests        |
+| Feature File               | Playwright Test File           | Description              | Scenarios |
+| -------------------------- | ------------------------------ | ------------------------ | --------- |
+| `authentication/registration.feature` | `tests/e2e/registration.spec.ts` | Registration flow tests | 6 |
+| `authentication/login.feature`        | `tests/e2e/login.spec.ts`        | Login flow tests        | 4 |
+| `authentication/home-page.feature`    | `tests/e2e/auth-flow.spec.ts`    | Protected pages         | 9 |
+| `gallery/photo-upload.feature`        | `tests/e2e/gallery.spec.ts` (planned) | Photo upload tests | 11 |
+| `gallery/photo-management.feature`    | `tests/e2e/gallery.spec.ts` (planned) | Photo CRUD tests   | 19 |
+| `gallery/photo-privacy.feature`       | `tests/e2e/gallery.spec.ts` (planned) | Privacy tests      | 17 |
+
+**Total:** 66 scenarios ready for E2E test implementation
 
 ## Writing Guidelines
 
