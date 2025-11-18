@@ -353,33 +353,60 @@ This checklist is organized into daily commits for systematic, incremental imple
 
 ---
 
-## Day 9: Validation and DTO Tests
+## Day 9: Validation and DTO Tests ✅ COMPLETED (2025-11-19)
 
-**Commit Message:** "test: add validation tests for all DTOs"
+**Commit Message:** "test: add comprehensive DTO validation tests with 30 test cases"
 
 ### DTO Validation Tests
-- [ ] Create `src/test/java/com/registrationform/api/unit/validation/DtoValidationTest.java`
-- [ ] Set up Validator for testing Bean Validation annotations
-- [ ] Test LoginRequest with valid data - should have no violations
-- [ ] Test LoginRequest with invalid email format - should have violation
-- [ ] Test LoginRequest with null email - should have violation
-- [ ] Test LoginRequest with null password - should have violation
-- [ ] Test UserRegistrationRequest with valid data - should pass
-- [ ] Test UserRegistrationRequest with invalid email - should fail
-- [ ] Test UserRegistrationRequest with weak password - should fail
-- [ ] Test UserRegistrationRequest with null fullName - should fail
-- [ ] Test UserUpdateRequest validation
-- [ ] Test custom @ValidPassword annotation
+- [x] Create `src/test/java/com/registrationform/api/validation/DtoValidationTest.java`
+- [x] Set up Validator for testing Bean Validation annotations
+- [x] Test LoginRequest with valid data - should have no violations
+- [x] Test LoginRequest with invalid email format - should have violation
+- [x] Test LoginRequest with null email - should have violation
+- [x] Test LoginRequest with empty email - should have violation
+- [x] Test LoginRequest with null password - should have violation
+- [x] Test LoginRequest with empty password - should have violation
+- [x] Test UserRegistrationRequest with valid data - should pass
+- [x] Test UserRegistrationRequest with null fullName - should fail
+- [x] Test UserRegistrationRequest with short fullName - should fail
+- [x] Test UserRegistrationRequest with invalid fullName characters - should fail
+- [x] Test UserRegistrationRequest with null email - should fail
+- [x] Test UserRegistrationRequest with invalid email - should fail
+- [x] Test UserRegistrationRequest with null password - should fail
+- [x] Test UserRegistrationRequest with password too short - should fail
+- [x] Test UserRegistrationRequest with password no uppercase - should fail
+- [x] Test UserRegistrationRequest with password no lowercase - should fail
+- [x] Test UserRegistrationRequest with password no digit - should fail
+- [x] Test UserRegistrationRequest with password no special char - should fail
+- [x] Test UserUpdateRequest with valid data - should pass
+- [x] Test UserUpdateRequest with all fields null (partial update) - should pass
+- [x] Test UserUpdateRequest with short fullName - should fail
+- [x] Test UserUpdateRequest with invalid fullName - should fail
+- [x] Test UserUpdateRequest with invalid email - should fail
+- [x] Test UserUpdateRequest with password too short - should fail
+- [x] Test UserUpdateRequest with password no uppercase - should fail
+- [x] Test UserUpdateRequest with password no lowercase - should fail
+- [x] Test UserUpdateRequest with password no digit - should fail
+- [x] Test UserUpdateRequest with password no special char - should fail
+- [x] Test UserUpdateRequest partial update (fullName only) - should pass
+- [x] Test UserUpdateRequest partial update (email only) - should pass
+- [x] Test custom @ValidPassword annotation (via all password tests)
+
+**Total: 30 DTO validation tests PASS**
 
 ### Custom Validator Tests
-- [ ] Test PasswordValidator with various password combinations
-- [ ] Test edge cases (empty, null, special characters only)
-- [ ] Verify error messages are clear and helpful
+- [x] Test PasswordValidator with various password combinations (via PasswordValidatorTest - 28 tests)
+- [x] Test edge cases (empty, null, special characters) (via PasswordValidatorTest)
+- [x] Verify error messages are clear and helpful
+
+**Note:** PasswordValidator already tested comprehensively in Day 5 (PasswordValidatorTest.java - 28 tests)
 
 ### Verification
-- [ ] Run validation tests: `mvn test -Dtest=DtoValidationTest`
-- [ ] All validation tests should pass
-- [ ] Check that validation messages are correct
+- [x] Run validation tests: `mvn test -Dtest=DtoValidationTest`
+- [x] All validation tests should pass (Tests run: 30, Failures: 0, Errors: 0)
+- [x] Check that validation messages are correct
+
+**Status:** Day 9 COMPLETED with 30 comprehensive DTO validation tests
 
 ---
 
