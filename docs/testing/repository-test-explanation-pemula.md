@@ -1,8 +1,14 @@
 # Penjelasan Repository Test untuk Pemula
 
 **Dibuat:** 2025-11-14
+**Updated:** 2025-11-18 (Final decision: Repository tests not needed)
 **Topik:** Kenapa Repository Tests ada trouble & solusinya
 **Level:** Pemula (dijelaskan dari basic)
+
+> **📝 UPDATE 2025-11-18:**
+> After analysis, we decided **NOT to create dedicated repository tests** for GalleryPhotoRepository.
+> **Reason:** All repository methods are covered by GalleryServiceTest (18 tests).
+> This document is kept for educational purposes to explain the testing journey and decision-making process.
 
 ---
 

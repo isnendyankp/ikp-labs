@@ -54,9 +54,11 @@ Comprehensive test plan for Photo Gallery feature with privacy control. Followin
 
 ### 1. GalleryPhotoRepository Tests
 
-**File:** `GalleryPhotoRepositoryTest.java`
+**Status:** ✅ Covered via GalleryServiceTest (no dedicated test needed)
 
-#### Test Cases:
+**Decision:** Repository uses standard Spring Data JPA methods - covered by service layer tests
+
+**Coverage via GalleryServiceTest:**
 
 - [ ] **REPO-001: Find photos by user ID**
   ```

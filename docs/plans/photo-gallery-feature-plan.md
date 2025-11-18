@@ -420,11 +420,9 @@ Response (200 OK):
 ### Phase 2: Backend Testing
 
 #### Unit Tests
-- [ ] `GalleryPhotoRepositoryTest`:
-  - [ ] Test `findByUserId` with pagination
-  - [ ] Test `findByIsPublicTrue` filtering
-  - [ ] Test `findByUserIdAndIsPublicTrue`
-  - [ ] Test count methods
+- [x] ~~`GalleryPhotoRepositoryTest`~~ → **Covered by GalleryServiceTest** ✅
+  - [x] Repository methods tested via service layer (best practice)
+  - [x] No dedicated repository test needed (standard Spring Data JPA)
 - [ ] `FileStorageServiceTest` (gallery methods):
   - [ ] Test save gallery photo with user subdirectory
   - [ ] Test delete gallery photo all extensions

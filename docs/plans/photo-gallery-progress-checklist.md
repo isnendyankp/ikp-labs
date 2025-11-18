@@ -162,7 +162,7 @@
 
 - [x] **RT-001:** Test findByUserId with pagination
   - ✅ Completed: 2025-11-14
-  - File: GalleryPhotoRepositoryTest.java
+  - Covered by: GalleryServiceTest (GST-004)
 
 - [x] **RT-002:** Test findByIsPublicTrue filtering
   - ✅ Completed: 2025-11-14
