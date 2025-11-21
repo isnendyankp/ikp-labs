@@ -121,6 +121,14 @@
             <scope>runtime</scope>
         </dependency>
 
+        <!-- REST Assured - untuk API testing dengan BDD style -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>5.3.2</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
 
     <!-- Build Configuration -->
