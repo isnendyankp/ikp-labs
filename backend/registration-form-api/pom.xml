@@ -203,7 +203,7 @@
                         <!-- Exclude DTOs (data classes, no logic) -->
                         <exclude>**/dto/**</exclude>
                         <!-- Exclude Models/Entities (data classes) -->
-                        <exclude>**/model/**</exclude>
+                        <exclude>**/model/*.class</exclude>
                         <!-- Exclude exception classes -->
                         <exclude>**/exception/**</exclude>
                     </excludes>
