@@ -77,6 +77,9 @@ This is a full-stack registration form application:
 
 - [Gherkin Specifications](../specs/README.md) - Behavior documentation in plain language
 - [Implementation Plans](../plans/README.md) - Feature development roadmaps
+  - [Backend Testing Week (Nov 24-30)](../plans/in-progress/testing/) - Unit, Integration, API test plans
+- [Implementation Summaries](./implementation-summaries/) - Project milestones and LinkedIn posts
+  - [Backend Testing Week Summary](./implementation-summaries/backend-testing-week-nov24-30.md) - Week summary template
 - [Project README](../README.md) - Project overview and quick start
 
 ---
