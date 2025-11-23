@@ -188,6 +188,68 @@ Multi-photo gallery feature with granular privacy control. Users can upload mult
 - [Test Plan](../docs/plans/photo-gallery-test-plan.md)
 - [Progress Checklist](../docs/plans/photo-gallery-progress-checklist.md)
 
+#### Testing: Unit Tests Completion
+**Path:** `in-progress/testing/unit-tests-completion/`
+**Status:** 🚧 IN PROGRESS → ✅ TO BE COMPLETED
+**Created:** 2025-11-23
+**Timeline:** Day 1 (Monday, November 24, 2025)
+
+Complete unit test coverage for Gallery Photo feature by adding missing controller and repository unit tests (GalleryControllerTest and GalleryPhotoRepositoryTest).
+
+**Scope:**
+- GalleryControllerTest: 10-15 tests (controller unit test with mocked service)
+- GalleryPhotoRepositoryTest: 10-12 tests (repository test with Testcontainers PostgreSQL)
+- Total new tests: 20-27 tests
+- Coverage target: >85% controller, >90% repository
+
+**Documents:**
+- [README](./in-progress/testing/unit-tests-completion/README.md)
+- [Requirements](./in-progress/testing/unit-tests-completion/requirements.md)
+- [Technical Design](./in-progress/testing/unit-tests-completion/technical-design.md)
+- [Checklist](./in-progress/testing/unit-tests-completion/checklist.md)
+
+#### Testing: Integration Tests
+**Path:** `in-progress/testing/integration-tests/`
+**Status:** 🚧 IN PROGRESS → ✅ TO BE COMPLETED
+**Created:** 2025-11-23
+**Timeline:** Day 2 (Tuesday, November 25, 2025)
+
+Integration tests for Gallery Photo feature verifying component interaction within Spring context (Controller → Service → Repository) with @MockBean pattern.
+
+**Scope:**
+- GalleryControllerIntegrationTest: 18-20 tests with @SpringBootTest
+- Test Spring Security configuration
+- Test all 8 Gallery endpoints
+- Use @MockBean for repositories (no real database)
+- Verify component wiring and interactions
+
+**Documents:**
+- [README](./in-progress/testing/integration-tests/README.md)
+- [Requirements](./in-progress/testing/integration-tests/requirements.md)
+- [Technical Design](./in-progress/testing/integration-tests/technical-design.md)
+- [Checklist](./in-progress/testing/integration-tests/checklist.md)
+
+#### Testing: API Tests
+**Path:** `in-progress/testing/api-tests/`
+**Status:** 🚧 IN PROGRESS → ✅ TO BE COMPLETED
+**Created:** 2025-11-23
+**Timeline:** Days 3-6 (Wednesday-Saturday, November 26-29, 2025)
+
+Comprehensive API tests for Gallery Photo feature using REST Assured with REAL local PostgreSQL database. Full backend testing with actual HTTP requests and database persistence.
+
+**Scope:**
+- GalleryAPITest: 35-40 tests with real database
+- Upload, retrieve, update, delete operations
+- Privacy control and authorization testing
+- Real file uploads and database transactions
+- Test pattern: `apitest*@test.com` for cleanup
+
+**Documents:**
+- [README](./in-progress/testing/api-tests/README.md)
+- [Requirements](./in-progress/testing/api-tests/requirements.md)
+- [Technical Design](./in-progress/testing/api-tests/technical-design.md)
+- [Checklist](./in-progress/testing/api-tests/checklist.md)
+
 #### Testing: API Testing with Playwright
 **Path:** `in-progress/testing/api-testing-playwright/`
 **Status:** IN PROGRESS
