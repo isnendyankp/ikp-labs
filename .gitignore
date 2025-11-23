@@ -32,6 +32,9 @@ frontend/out/
 .DS_Store
 *.pem
 
+# Claude Code local configuration (personal settings)
+.clauderc
+
 # debug
 npm-debug.log*
 yarn-debug.log*

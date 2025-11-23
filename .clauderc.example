@@ -3,13 +3,13 @@
   "permissions": {
     "allow": [
       "Bash",
-      "Edit(//Users/isnendyankp/Desktop/Programmer/Belajar/Project/Template/IKP-Labs/**)",
-      "Read(//Users/isnendyankp/**)",
+      "Edit(//path/to/your/IKP-Labs/**)",
+      "Read(//path/to/your/home/**)",
       "Read(//tmp/**)",
       "Read(//Applications/**)",
       "WebFetch",
       "WebSearch",
-      "Write(//Users/isnendyankp/Desktop/Programmer/Belajar/Project/Template/IKP-Labs/**)",
+      "Write(//path/to/your/IKP-Labs/**)",
       "Bash(git rev-list:*)",
       "Bash(find:*)",
       "Bash(chmod:*)",
