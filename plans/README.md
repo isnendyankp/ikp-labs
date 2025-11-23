@@ -190,7 +190,7 @@ Multi-photo gallery feature with granular privacy control. Users can upload mult
 
 #### Testing: Unit Tests Completion
 **Path:** `in-progress/testing/unit-tests-completion/`
-**Status:** 🚧 IN PROGRESS → ✅ TO BE COMPLETED
+**Status:** 🚧 IN PROGRESS
 **Created:** 2025-11-23
 **Timeline:** Day 1 (Monday, November 24, 2025)
 
@@ -202,6 +202,11 @@ Complete unit test coverage for Gallery Photo feature by adding missing controll
 - Total new tests: 20-27 tests
 - Coverage target: >85% controller, >90% repository
 
+**Week Context:**
+- Part of Backend Testing Week (Nov 24-30, 2025)
+- Follows senior's definition where Unit Tests = isolated components with mocked dependencies
+- Implementation starts Monday Nov 24 (plan created Nov 23)
+
 **Documents:**
 - [README](./in-progress/testing/unit-tests-completion/README.md)
 - [Requirements](./in-progress/testing/unit-tests-completion/requirements.md)
@@ -210,7 +215,7 @@ Complete unit test coverage for Gallery Photo feature by adding missing controll
 
 #### Testing: Integration Tests
 **Path:** `in-progress/testing/integration-tests/`
-**Status:** 🚧 IN PROGRESS → ✅ TO BE COMPLETED
+**Status:** 🚧 IN PROGRESS
 **Created:** 2025-11-23
 **Timeline:** Day 2 (Tuesday, November 25, 2025)
 
@@ -220,8 +225,13 @@ Integration tests for Gallery Photo feature verifying component interaction with
 - GalleryControllerIntegrationTest: 18-20 tests with @SpringBootTest
 - Test Spring Security configuration
 - Test all 8 Gallery endpoints
-- Use @MockBean for repositories (no real database)
+- Use @MockBean for repositories (NO real database)
 - Verify component wiring and interactions
+
+**Week Context:**
+- Part of Backend Testing Week (Nov 24-30, 2025)
+- Follows senior's definition where Integration Tests = Spring context testing WITHOUT real database
+- Uses @MockBean pattern (not Testcontainers)
 
 **Documents:**
 - [README](./in-progress/testing/integration-tests/README.md)
@@ -231,7 +241,7 @@ Integration tests for Gallery Photo feature verifying component interaction with
 
 #### Testing: API Tests
 **Path:** `in-progress/testing/api-tests/`
-**Status:** 🚧 IN PROGRESS → ✅ TO BE COMPLETED
+**Status:** 🚧 IN PROGRESS
 **Created:** 2025-11-23
 **Timeline:** Days 3-6 (Wednesday-Saturday, November 26-29, 2025)
 
@@ -243,6 +253,12 @@ Comprehensive API tests for Gallery Photo feature using REST Assured with REAL l
 - Privacy control and authorization testing
 - Real file uploads and database transactions
 - Test pattern: `apitest*@test.com` for cleanup
+
+**Week Context:**
+- Part of Backend Testing Week (Nov 24-30, 2025)
+- Follows senior's definition where API Tests = REAL PostgreSQL database
+- Requires: mvn spring-boot:run + local database
+- Different from Integration Tests (which use @MockBean)
 
 **Documents:**
 - [README](./in-progress/testing/api-tests/README.md)
