@@ -122,10 +122,8 @@ public class GalleryControllerTest {
         // Setup UserPrincipal (authenticated user)
         currentUser = new UserPrincipal(
                 testUser.getId(),
-                testUser.getFullName(),
                 testUser.getEmail(),
-                testUser.getPassword(),
-                null
+                testUser.getFullName()
         );
 
         // Setup test photos
@@ -135,7 +133,7 @@ public class GalleryControllerTest {
         testPhoto1.setTitle("Test Photo 1");
         testPhoto1.setDescription("Test description 1");
         testPhoto1.setFilePath("gallery/user-1/photo-1.jpg");
-        testPhoto1.setPublic(false);
+        testPhoto1.setIsPublic(false);
         testPhoto1.setUploadOrder(0);
         testPhoto1.setCreatedAt(LocalDateTime.now());
         testPhoto1.setUpdatedAt(LocalDateTime.now());
@@ -146,7 +144,7 @@ public class GalleryControllerTest {
         testPhoto2.setTitle("Test Photo 2");
         testPhoto2.setDescription("Test description 2");
         testPhoto2.setFilePath("gallery/user-1/photo-2.jpg");
-        testPhoto2.setPublic(true);
+        testPhoto2.setIsPublic(true);
         testPhoto2.setUploadOrder(1);
         testPhoto2.setCreatedAt(LocalDateTime.now());
         testPhoto2.setUpdatedAt(LocalDateTime.now());
@@ -364,7 +362,7 @@ public class GalleryControllerTest {
         updatedPhoto.setTitle("Updated Title");
         updatedPhoto.setDescription("Updated Description");
         updatedPhoto.setFilePath("gallery/user-1/photo-1.jpg");
-        updatedPhoto.setPublic(true);
+        updatedPhoto.setIsPublic(true);
 
         when(galleryService.updatePhoto(photoId, 1L, "Updated Title", "Updated Description", true))
                 .thenReturn(updatedPhoto);
@@ -378,7 +376,7 @@ public class GalleryControllerTest {
         assertNotNull(response.getBody());
         assertEquals("Updated Title", response.getBody().getTitle());
         assertEquals("Updated Description", response.getBody().getDescription());
-        assertTrue(response.getBody().isPublic());
+        assertTrue(response.getBody().getIsPublic());
 
         verify(galleryService, times(1)).updatePhoto(photoId, 1L, "Updated Title", "Updated Description", true);
     }
@@ -419,7 +417,7 @@ public class GalleryControllerTest {
         toggledPhoto.setUser(testUser);
         toggledPhoto.setTitle("Test Photo 1");
         toggledPhoto.setFilePath("gallery/user-1/photo-1.jpg");
-        toggledPhoto.setPublic(true); // Toggled from false to true
+        toggledPhoto.setIsPublic(true); // Toggled from false to true
 
         when(galleryService.togglePrivacy(photoId, 1L)).thenReturn(toggledPhoto);
 
@@ -430,7 +428,7 @@ public class GalleryControllerTest {
         assertNotNull(response);
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertNotNull(response.getBody());
-        assertTrue(response.getBody().isPublic()); // Verify privacy toggled
+        assertTrue(response.getBody().getIsPublic()); // Verify privacy toggled
 
         verify(galleryService, times(1)).togglePrivacy(photoId, 1L);
     }

@@ -125,7 +125,7 @@ public class GalleryPhotoRepositoryTest extends com.registrationform.api.integra
         publicPhoto1.setTitle("Public Photo 1");
         publicPhoto1.setDescription("This is public");
         publicPhoto1.setFilePath("gallery/user-1/photo-1.jpg");
-        publicPhoto1.setPublic(true);
+        publicPhoto1.setIsPublic(true);
         publicPhoto1.setUploadOrder(0);
         publicPhoto1.setCreatedAt(LocalDateTime.now().minusDays(2));
         publicPhoto1.setUpdatedAt(LocalDateTime.now().minusDays(2));
@@ -135,7 +135,7 @@ public class GalleryPhotoRepositoryTest extends com.registrationform.api.integra
         privatePhoto1.setTitle("Private Photo 1");
         privatePhoto1.setDescription("This is private");
         privatePhoto1.setFilePath("gallery/user-1/photo-2.jpg");
-        privatePhoto1.setPublic(false);
+        privatePhoto1.setIsPublic(false);
         privatePhoto1.setUploadOrder(1);
         privatePhoto1.setCreatedAt(LocalDateTime.now().minusDays(1));
         privatePhoto1.setUpdatedAt(LocalDateTime.now().minusDays(1));
@@ -146,7 +146,7 @@ public class GalleryPhotoRepositoryTest extends com.registrationform.api.integra
         publicPhoto2.setTitle("Public Photo 2");
         publicPhoto2.setDescription("Another public photo");
         publicPhoto2.setFilePath("gallery/user-2/photo-1.jpg");
-        publicPhoto2.setPublic(true);
+        publicPhoto2.setIsPublic(true);
         publicPhoto2.setUploadOrder(0);
         publicPhoto2.setCreatedAt(LocalDateTime.now());
         publicPhoto2.setUpdatedAt(LocalDateTime.now());
@@ -179,8 +179,8 @@ public class GalleryPhotoRepositoryTest extends com.registrationform.api.integra
         assertTrue(photos.stream().allMatch(p -> p.getUser().getId().equals(testUser1.getId())));
 
         // Verify contains both public and private
-        assertTrue(photos.stream().anyMatch(GalleryPhoto::isPublic), "Should contain public photo");
-        assertTrue(photos.stream().anyMatch(p -> !p.isPublic()), "Should contain private photo");
+        assertTrue(photos.stream().anyMatch(GalleryPhoto::getIsPublic), "Should contain public photo");
+        assertTrue(photos.stream().anyMatch(p -> !p.getIsPublic()), "Should contain private photo");
     }
 
     @Test
@@ -242,7 +242,7 @@ public class GalleryPhotoRepositoryTest extends com.registrationform.api.integra
         assertEquals(2, photos.size(), "Should return only 2 public photos");
 
         // Verify all photos are public
-        assertTrue(photos.stream().allMatch(GalleryPhoto::isPublic), "All photos should be public");
+        assertTrue(photos.stream().allMatch(GalleryPhoto::getIsPublic), "All photos should be public");
 
         // Verify contains photos from both users
         assertTrue(photos.stream().anyMatch(p -> p.getUser().getId().equals(testUser1.getId())));
@@ -290,7 +290,7 @@ public class GalleryPhotoRepositoryTest extends com.registrationform.api.integra
         assertNotNull(photos);
         assertEquals(1, photos.size(), "User 1 should have 1 public photo");
         assertEquals("Public Photo 1", photos.get(0).getTitle());
-        assertTrue(photos.get(0).isPublic());
+        assertTrue(photos.get(0).getIsPublic());
         assertEquals(testUser1.getId(), photos.get(0).getUser().getId());
     }
 
@@ -399,7 +399,7 @@ public class GalleryPhotoRepositoryTest extends com.registrationform.api.integra
 
         // Modify photo
         publicPhoto1.setTitle("Updated Title");
-        publicPhoto1.setPublic(false);
+        publicPhoto1.setIsPublic(false);
 
         // ACT: Update via save
         GalleryPhoto updatedPhoto = galleryPhotoRepository.save(publicPhoto1);
@@ -409,12 +409,12 @@ public class GalleryPhotoRepositoryTest extends com.registrationform.api.integra
         // ASSERT
         assertEquals(photoId, updatedPhoto.getId(), "ID should remain same");
         assertEquals("Updated Title", updatedPhoto.getTitle());
-        assertFalse(updatedPhoto.isPublic());
+        assertFalse(updatedPhoto.getIsPublic());
 
         // Verify in database
         GalleryPhoto foundPhoto = entityManager.find(GalleryPhoto.class, photoId);
         assertEquals("Updated Title", foundPhoto.getTitle());
-        assertFalse(foundPhoto.isPublic());
+        assertFalse(foundPhoto.getIsPublic());
     }
 
     @Test
