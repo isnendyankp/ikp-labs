@@ -106,8 +106,12 @@ uploads/*
 *.bmp
 *.svg
 
-# Exception: Allow test fixture images (for E2E testing)
+# Exception: Allow test fixture images (for E2E and API testing)
 !tests/fixtures/*.jpg
 !tests/fixtures/*.jpeg
 !tests/fixtures/*.png
 !tests/fixtures/*.gif
+!tests/fixtures/**/*.jpg
+!tests/fixtures/**/*.jpeg
+!tests/fixtures/**/*.png
+!tests/fixtures/**/*.gif

@@ -45,12 +45,138 @@ test.describe('Gallery Photo API', () => {
 
   // Upload Photo Tests - Day 3
   test.describe('POST /api/gallery/upload', () => {
-    // Tests will be implemented here
+    test('should upload photo with full metadata (title, description, isPublic)', async () => {
+      const response = await client.postMultipart(
+        '/api/gallery/upload',
+        {
+          file: './tests/fixtures/images/test-photo.jpg',
+          title: 'Sunset Beach',
+          description: 'Beautiful sunset at the beach',
+          isPublic: 'false'
+        },
+        authToken
+      );
+
+      expect(response.status).toBe(201);
+      expect(response.body.id).toBeTruthy();
+      expect(response.body.title).toBe('Sunset Beach');
+      expect(response.body.description).toBe('Beautiful sunset at the beach');
+      expect(response.body.isPublic).toBe(false);
+      expect(response.body.filePath).toBeTruthy();
+      expect(response.body.filePath).toContain('gallery/user-');
+      expect(response.body.userId).toBe(userId);
+    });
+
+    test('should upload photo with minimal metadata (title only)', async () => {
+      const response = await client.postMultipart(
+        '/api/gallery/upload',
+        {
+          file: './tests/fixtures/images/test-photo.png',
+          title: 'Minimal Photo'
+        },
+        authToken
+      );
+
+      expect(response.status).toBe(201);
+      expect(response.body.id).toBeTruthy();
+      expect(response.body.title).toBe('Minimal Photo');
+      expect(response.body.description).toBeFalsy(); // null or empty
+      expect(response.body.isPublic).toBe(false); // default to private
+      expect(response.body.filePath).toBeTruthy();
+    });
+
+    test('should upload photo as public when isPublic=true', async () => {
+      const response = await client.postMultipart(
+        '/api/gallery/upload',
+        {
+          file: './tests/fixtures/images/test-photo.jpg',
+          title: 'Public Photo',
+          isPublic: 'true'
+        },
+        authToken
+      );
+
+      expect(response.status).toBe(201);
+      expect(response.body.id).toBeTruthy();
+      expect(response.body.title).toBe('Public Photo');
+      expect(response.body.isPublic).toBe(true);
+    });
+
+    test('should fail upload without authentication (403 Forbidden)', async () => {
+      const response = await client.postMultipart(
+        '/api/gallery/upload',
+        {
+          file: './tests/fixtures/images/test-photo.jpg',
+          title: 'Unauthorized Upload'
+        }
+        // No token provided
+      );
+
+      expect(response.status).toBe(403);
+    });
   });
 
   // Get My Photos Tests - Day 3
   test.describe('GET /api/gallery/my-photos', () => {
-    // Tests will be implemented here
+    test('should get my photos with pagination', async () => {
+      // Upload 2 photos first
+      await client.postMultipart(
+        '/api/gallery/upload',
+        { file: './tests/fixtures/images/test-photo.jpg', title: 'Photo 1' },
+        authToken
+      );
+      await client.postMultipart(
+        '/api/gallery/upload',
+        { file: './tests/fixtures/images/test-photo.png', title: 'Photo 2' },
+        authToken
+      );
+
+      // Get my photos with pagination
+      const response = await client.get('/api/gallery/my-photos?page=0&size=12', authToken);
+
+      expect(response.status).toBe(200);
+      expect(response.body.photos).toBeTruthy();
+      expect(Array.isArray(response.body.photos)).toBe(true);
+      expect(response.body.photos.length).toBeGreaterThanOrEqual(2);
+      expect(response.body.currentPage).toBe(0);
+      expect(response.body.totalPhotos).toBeGreaterThanOrEqual(2);
+      expect(response.body.totalPages).toBeGreaterThanOrEqual(1);
+
+      // Verify photos belong to authenticated user
+      response.body.photos.forEach((photo: any) => {
+        expect(photo.userId).toBe(userId);
+      });
+    });
+
+    test('should get empty list when user has no photos', async ({ request }) => {
+      // Create new user with no photos
+      const newAuthHelper = new AuthHelper(request);
+      const newClient = new ApiClient(request);
+
+      const newUser = await newAuthHelper.registerAndLogin(
+        'apitest-nophotos@test.com',
+        'No Photos User',
+        'Test@1234'
+      );
+
+      const response = await newClient.get('/api/gallery/my-photos?page=0&size=12', newUser.token);
+
+      expect(response.status).toBe(200);
+      expect(response.body.photos).toBeTruthy();
+      expect(Array.isArray(response.body.photos)).toBe(true);
+      expect(response.body.photos.length).toBe(0);
+      expect(response.body.currentPage).toBe(0);
+      expect(response.body.totalPhotos).toBe(0);
+      expect(response.body.totalPages).toBe(0);
+
+      // Cleanup new user
+      await newAuthHelper.deleteUser(newUser.userId, newUser.token);
+    });
+
+    test('should fail to get photos without authentication (403 Forbidden)', async () => {
+      const response = await client.get('/api/gallery/my-photos?page=0&size=12');
+      expect(response.status).toBe(403);
+    });
   });
 
   // Get Public Photos Tests - Day 4
