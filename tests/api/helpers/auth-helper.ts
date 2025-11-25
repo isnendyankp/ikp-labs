@@ -62,6 +62,53 @@ export class AuthHelper {
   }
 
   /**
+   * Register a user and login (combined operation)
+   *
+   * @param email - User email
+   * @param fullName - User full name
+   * @param password - User password
+   * @returns Object with token, userId, email, fullName
+   */
+  async registerAndLogin(email: string, fullName: string, password: string) {
+    const userData: RegistrationData = {
+      email,
+      fullName,
+      password,
+    };
+
+    const response = await this.client.post('/api/auth/register', userData);
+
+    if (response.status !== 201 || !response.body.token) {
+      throw new Error(
+        `Registration failed: ${response.status} - ${JSON.stringify(response.body)}`
+      );
+    }
+
+    return {
+      token: response.body.token,
+      userId: response.body.userId,
+      email: response.body.email,
+      fullName: response.body.fullName,
+    };
+  }
+
+  /**
+   * Delete a user (for test cleanup)
+   *
+   * @param userId - User ID to delete
+   * @param token - JWT token for authorization
+   */
+  async deleteUser(userId: number, token: string) {
+    const response = await this.client.delete(`/api/users/${userId}`, token);
+
+    if (response.status !== 204 && response.status !== 200) {
+      throw new Error(
+        `User deletion failed: ${response.status} - ${JSON.stringify(response.body)}`
+      );
+    }
+  }
+
+  /**
    * Validate JWT token format (basic check)
    *
    * @param token - JWT token to validate
