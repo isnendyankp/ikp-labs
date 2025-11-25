@@ -112,4 +112,75 @@ export class ApiClient {
       headers: response.headers(),
     };
   }
+
+  /**
+   * Send POST request with multipart/form-data (for file uploads)
+   *
+   * Usage:
+   * ```typescript
+   * const response = await client.postMultipart('/api/gallery/upload', {
+   *   file: './tests/fixtures/images/test-photo.jpg',
+   *   title: 'My Photo',
+   *   description: 'Description here',
+   *   isPublic: 'false'
+   * }, token);
+   * ```
+   */
+  async postMultipart(endpoint: string, formData: Record<string, string>, token?: string) {
+    const fs = require('fs');
+    const path = require('path');
+
+    const headers: Record<string, string> = {};
+
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
+    // Build multipart form data
+    const multipart: any = {};
+
+    for (const [key, value] of Object.entries(formData)) {
+      if (key === 'file') {
+        // Handle file upload
+        const filePath = path.resolve(value);
+        if (fs.existsSync(filePath)) {
+          multipart[key] = {
+            name: path.basename(filePath),
+            mimeType: this.getMimeType(filePath),
+            buffer: fs.readFileSync(filePath)
+          };
+        }
+      } else {
+        // Handle regular form fields
+        multipart[key] = value;
+      }
+    }
+
+    const response = await this.request.post(`${this.baseURL}${endpoint}`, {
+      headers,
+      multipart,
+    });
+
+    return {
+      status: response.status(),
+      body: await response.json().catch(() => ({})),
+      headers: response.headers(),
+    };
+  }
+
+  /**
+   * Get MIME type based on file extension
+   */
+  private getMimeType(filePath: string): string {
+    const ext = filePath.toLowerCase().split('.').pop();
+    const mimeTypes: Record<string, string> = {
+      'jpg': 'image/jpeg',
+      'jpeg': 'image/jpeg',
+      'png': 'image/png',
+      'gif': 'image/gif',
+      'pdf': 'application/pdf',
+      'txt': 'text/plain'
+    };
+    return mimeTypes[ext || ''] || 'application/octet-stream';
+  }
 }
