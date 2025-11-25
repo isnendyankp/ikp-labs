@@ -18,34 +18,41 @@ import { AuthHelper } from './helpers/auth-helper';
  * - JWT authentication required for all endpoints
  */
 test.describe('Gallery Photo API', () => {
-  let client: ApiClient;
-  let authHelper: AuthHelper;
-  let authToken: string;
-  let userId: number;
+  // Shared test user (lazy initialization)
+  const TEST_USER_EMAIL = `apitest-gallery-${Date.now()}@test.com`;
+  const TEST_USER_NAME = 'Gallery Test User';
+  const TEST_USER_PASSWORD = 'Test@1234';
 
-  test.beforeAll(async ({ request }) => {
-    client = new ApiClient(request);
-    authHelper = new AuthHelper(request);
+  let sharedAuthToken: string;
+  let sharedUserId: number;
 
-    // Register and login test user for Gallery API tests
+  // Helper to get or create authenticated user
+  async function getAuthenticatedUser(request: any) {
+    if (sharedAuthToken && sharedUserId) {
+      return { token: sharedAuthToken, userId: sharedUserId };
+    }
+
+    const client = new ApiClient(request);
+    const authHelper = new AuthHelper(client);
+
     const testUser = await authHelper.registerAndLogin(
-      'apitest-gallery@test.com',
-      'Gallery Test User',
-      'Test@1234'
+      TEST_USER_EMAIL,
+      TEST_USER_NAME,
+      TEST_USER_PASSWORD
     );
 
-    authToken = testUser.token;
-    userId = testUser.userId;
-  });
+    sharedAuthToken = testUser.token;
+    sharedUserId = testUser.userId;
 
-  test.afterAll(async () => {
-    // Cleanup: delete test user (cascade deletes all their photos)
-    await authHelper.deleteUser(userId, authToken);
-  });
+    return { token: sharedAuthToken, userId: sharedUserId };
+  }
 
   // Upload Photo Tests - Day 3
   test.describe('POST /api/gallery/upload', () => {
-    test('should upload photo with full metadata (title, description, isPublic)', async () => {
+    test('should upload photo with full metadata (title, description, isPublic)', async ({ request }) => {
+      const { token, userId } = await getAuthenticatedUser(request);
+      const client = new ApiClient(request);
+
       const response = await client.postMultipart(
         '/api/gallery/upload',
         {
@@ -54,7 +61,7 @@ test.describe('Gallery Photo API', () => {
           description: 'Beautiful sunset at the beach',
           isPublic: 'false'
         },
-        authToken
+        token
       );
 
       expect(response.status).toBe(201);
@@ -67,14 +74,17 @@ test.describe('Gallery Photo API', () => {
       expect(response.body.userId).toBe(userId);
     });
 
-    test('should upload photo with minimal metadata (title only)', async () => {
+    test('should upload photo with minimal metadata (title only)', async ({ request }) => {
+      const { token } = await getAuthenticatedUser(request);
+      const client = new ApiClient(request);
+
       const response = await client.postMultipart(
         '/api/gallery/upload',
         {
           file: './tests/fixtures/images/test-photo.png',
           title: 'Minimal Photo'
         },
-        authToken
+        token
       );
 
       expect(response.status).toBe(201);
@@ -85,7 +95,10 @@ test.describe('Gallery Photo API', () => {
       expect(response.body.filePath).toBeTruthy();
     });
 
-    test('should upload photo as public when isPublic=true', async () => {
+    test('should upload photo as public when isPublic=true', async ({ request }) => {
+      const { token } = await getAuthenticatedUser(request);
+      const client = new ApiClient(request);
+
       const response = await client.postMultipart(
         '/api/gallery/upload',
         {
@@ -93,7 +106,7 @@ test.describe('Gallery Photo API', () => {
           title: 'Public Photo',
           isPublic: 'true'
         },
-        authToken
+        token
       );
 
       expect(response.status).toBe(201);
@@ -102,7 +115,9 @@ test.describe('Gallery Photo API', () => {
       expect(response.body.isPublic).toBe(true);
     });
 
-    test('should fail upload without authentication (403 Forbidden)', async () => {
+    test('should fail upload without authentication (403 Forbidden)', async ({ request }) => {
+      const client = new ApiClient(request);
+
       const response = await client.postMultipart(
         '/api/gallery/upload',
         {
@@ -118,21 +133,24 @@ test.describe('Gallery Photo API', () => {
 
   // Get My Photos Tests - Day 3
   test.describe('GET /api/gallery/my-photos', () => {
-    test('should get my photos with pagination', async () => {
+    test('should get my photos with pagination', async ({ request }) => {
+      const { token, userId } = await getAuthenticatedUser(request);
+      const client = new ApiClient(request);
+
       // Upload 2 photos first
       await client.postMultipart(
         '/api/gallery/upload',
         { file: './tests/fixtures/images/test-photo.jpg', title: 'Photo 1' },
-        authToken
+        token
       );
       await client.postMultipart(
         '/api/gallery/upload',
         { file: './tests/fixtures/images/test-photo.png', title: 'Photo 2' },
-        authToken
+        token
       );
 
       // Get my photos with pagination
-      const response = await client.get('/api/gallery/my-photos?page=0&size=12', authToken);
+      const response = await client.get('/api/gallery/my-photos?page=0&size=12', token);
 
       expect(response.status).toBe(200);
       expect(response.body.photos).toBeTruthy();
@@ -150,16 +168,16 @@ test.describe('Gallery Photo API', () => {
 
     test('should get empty list when user has no photos', async ({ request }) => {
       // Create new user with no photos
-      const newAuthHelper = new AuthHelper(request);
-      const newClient = new ApiClient(request);
+      const client = new ApiClient(request);
+      const authHelper = new AuthHelper(client);
 
-      const newUser = await newAuthHelper.registerAndLogin(
-        'apitest-nophotos@test.com',
+      const newUser = await authHelper.registerAndLogin(
+        `apitest-nophotos-${Date.now()}@test.com`,
         'No Photos User',
         'Test@1234'
       );
 
-      const response = await newClient.get('/api/gallery/my-photos?page=0&size=12', newUser.token);
+      const response = await client.get('/api/gallery/my-photos?page=0&size=12', newUser.token);
 
       expect(response.status).toBe(200);
       expect(response.body.photos).toBeTruthy();
@@ -169,11 +187,13 @@ test.describe('Gallery Photo API', () => {
       expect(response.body.totalPhotos).toBe(0);
       expect(response.body.totalPages).toBe(0);
 
-      // Cleanup new user
-      await newAuthHelper.deleteUser(newUser.userId, newUser.token);
+      // Note: Cleanup skipped - users can't self-delete (403 Forbidden)
+      // Test user will remain in database
     });
 
-    test('should fail to get photos without authentication (403 Forbidden)', async () => {
+    test('should fail to get photos without authentication (403 Forbidden)', async ({ request }) => {
+      const client = new ApiClient(request);
+
       const response = await client.get('/api/gallery/my-photos?page=0&size=12');
       expect(response.status).toBe(403);
     });
