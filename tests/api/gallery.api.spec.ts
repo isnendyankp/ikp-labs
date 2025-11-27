@@ -206,7 +206,153 @@ test.describe('Gallery Photo API', () => {
 
   // Get Photo By ID Tests - Day 4
   test.describe('GET /api/gallery/photo/:id', () => {
-    // Tests will be implemented here
+    test('should get public photo by anyone (non-owner can access)', async ({ request }) => {
+      // User A uploads public photo
+      const userA = await getAuthenticatedUser(request);
+      const clientA = new ApiClient(request);
+
+      const uploadResponse = await clientA.postMultipart(
+        '/api/gallery/upload',
+        {
+          file: './tests/fixtures/images/test-photo.jpg',
+          title: 'Public Beach Photo',
+          description: 'Beautiful public beach',
+          isPublic: 'true'
+        },
+        userA.token
+      );
+      const photoId = uploadResponse.body.id;
+
+      // User B tries to access User A's public photo
+      const clientB = new ApiClient(request);
+      const authHelperB = new AuthHelper(clientB);
+      const userB = await authHelperB.registerAndLogin(
+        `apitest-userB-${Date.now()}@test.com`,
+        'User B',
+        'Test@1234'
+      );
+
+      const response = await clientB.get(`/api/gallery/photo/${photoId}`, userB.token);
+
+      expect(response.status).toBe(200);
+      expect(response.body.id).toBe(photoId);
+      expect(response.body.title).toBe('Public Beach Photo');
+      expect(response.body.description).toBe('Beautiful public beach');
+      expect(response.body.isPublic).toBe(true);
+      expect(response.body.userId).toBe(userA.userId);
+      expect(response.body.ownerName).toBeTruthy();
+      expect(response.body.ownerEmail).toBeTruthy();
+      expect(response.body.filePath).toBeTruthy();
+    });
+
+    test('should get private photo by owner (owner can access)', async ({ request }) => {
+      const { token, userId } = await getAuthenticatedUser(request);
+      const client = new ApiClient(request);
+
+      // Upload private photo
+      const uploadResponse = await client.postMultipart(
+        '/api/gallery/upload',
+        {
+          file: './tests/fixtures/images/test-photo.jpg',
+          title: 'Private Family Photo',
+          description: 'My private family photo',
+          isPublic: 'false'
+        },
+        token
+      );
+      const photoId = uploadResponse.body.id;
+
+      // Owner retrieves own private photo
+      const response = await client.get(`/api/gallery/photo/${photoId}`, token);
+
+      expect(response.status).toBe(200);
+      expect(response.body.id).toBe(photoId);
+      expect(response.body.title).toBe('Private Family Photo');
+      expect(response.body.isPublic).toBe(false);
+      expect(response.body.userId).toBe(userId);
+    });
+
+    test('should fail to get private photo by non-owner (403 Forbidden)', async ({ request }) => {
+      // User A uploads private photo
+      const userA = await getAuthenticatedUser(request);
+      const clientA = new ApiClient(request);
+
+      const uploadResponse = await clientA.postMultipart(
+        '/api/gallery/upload',
+        {
+          file: './tests/fixtures/images/test-photo.jpg',
+          title: 'Private Secret Photo',
+          isPublic: 'false'
+        },
+        userA.token
+      );
+      const photoId = uploadResponse.body.id;
+
+      // User B tries to access User A's private photo
+      const clientB = new ApiClient(request);
+      const authHelperB = new AuthHelper(clientB);
+      const userB = await authHelperB.registerAndLogin(
+        `apitest-userB-private-${Date.now()}@test.com`,
+        'User B',
+        'Test@1234'
+      );
+
+      const response = await clientB.get(`/api/gallery/photo/${photoId}`, userB.token);
+
+      expect(response.status).toBe(403);
+    });
+
+    test('should return 404 for non-existent photo', async ({ request }) => {
+      const { token } = await getAuthenticatedUser(request);
+      const client = new ApiClient(request);
+
+      const response = await client.get('/api/gallery/photo/999999', token);
+
+      expect(response.status).toBe(404);
+    });
+
+    test('should return complete photo detail structure', async ({ request }) => {
+      const { token, userId } = await getAuthenticatedUser(request);
+      const client = new ApiClient(request);
+
+      // Upload photo with full metadata
+      const uploadResponse = await client.postMultipart(
+        '/api/gallery/upload',
+        {
+          file: './tests/fixtures/images/test-photo.jpg',
+          title: 'Complete Metadata Test',
+          description: 'Testing all fields',
+          isPublic: 'true'
+        },
+        token
+      );
+      const photoId = uploadResponse.body.id;
+
+      // Get photo detail
+      const response = await client.get(`/api/gallery/photo/${photoId}`, token);
+
+      expect(response.status).toBe(200);
+
+      // Verify all required fields exist
+      expect(response.body.id).toBeTruthy();
+      expect(response.body.userId).toBe(userId);
+      expect(response.body.ownerName).toBeTruthy();
+      expect(response.body.ownerEmail).toBeTruthy();
+      expect(response.body.title).toBe('Complete Metadata Test');
+      expect(response.body.description).toBe('Testing all fields');
+      expect(response.body.filePath).toBeTruthy();
+      expect(response.body.isPublic).toBe(true);
+      expect(response.body.createdAt).toBeTruthy();
+      expect(response.body.updatedAt).toBeTruthy();
+
+      // Verify field types
+      expect(typeof response.body.id).toBe('number');
+      expect(typeof response.body.userId).toBe('number');
+      expect(typeof response.body.ownerName).toBe('string');
+      expect(typeof response.body.ownerEmail).toBe('string');
+      expect(typeof response.body.title).toBe('string');
+      expect(typeof response.body.isPublic).toBe('boolean');
+    });
   });
 
   // Update Photo Tests - Day 5
