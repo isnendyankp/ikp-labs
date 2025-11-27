@@ -201,7 +201,169 @@ test.describe('Gallery Photo API', () => {
 
   // Get Public Photos Tests - Day 4
   test.describe('GET /api/gallery/public', () => {
-    // Tests will be implemented here
+    test('should get public photos with pagination', async ({ request }) => {
+      const { token } = await getAuthenticatedUser(request);
+      const client = new ApiClient(request);
+
+      // Upload 5 public photos
+      for (let i = 1; i <= 5; i++) {
+        await client.postMultipart(
+          '/api/gallery/upload',
+          {
+            file: './tests/fixtures/images/test-photo.jpg',
+            title: `Public Photo ${i}`,
+            isPublic: 'true'
+          },
+          token
+        );
+      }
+
+      // Get public photos
+      const response = await client.get('/api/gallery/public?page=0&size=12', token);
+
+      expect(response.status).toBe(200);
+      expect(response.body.photos).toBeTruthy();
+      expect(Array.isArray(response.body.photos)).toBe(true);
+      expect(response.body.photos.length).toBeGreaterThanOrEqual(5);
+
+      // Verify pagination metadata exists
+      expect(response.body.currentPage).toBe(0);
+      expect(response.body.totalPhotos).toBeGreaterThanOrEqual(5);
+      expect(response.body.pageSize).toBe(12);
+      expect(typeof response.body.hasNext).toBe('boolean');
+      expect(typeof response.body.hasPrevious).toBe('boolean');
+
+      // Verify all returned photos are public
+      response.body.photos.forEach((photo: any) => {
+        expect(photo.isPublic).toBe(true);
+      });
+    });
+
+    test('should return only public photos (excludes private)', async ({ request }) => {
+      const { token, userId } = await getAuthenticatedUser(request);
+      const client = new ApiClient(request);
+
+      // Upload 3 public photos
+      for (let i = 1; i <= 3; i++) {
+        await client.postMultipart(
+          '/api/gallery/upload',
+          {
+            file: './tests/fixtures/images/test-photo.jpg',
+            title: `Public Test ${i}`,
+            isPublic: 'true'
+          },
+          token
+        );
+      }
+
+      // Upload 2 private photos
+      for (let i = 1; i <= 2; i++) {
+        await client.postMultipart(
+          '/api/gallery/upload',
+          {
+            file: './tests/fixtures/images/test-photo.jpg',
+            title: `Private Test ${i}`,
+            isPublic: 'false'
+          },
+          token
+        );
+      }
+
+      // Get public photos
+      const response = await client.get('/api/gallery/public?page=0&size=50', token);
+
+      expect(response.status).toBe(200);
+
+      // Find photos from current user
+      const userPhotos = response.body.photos.filter((photo: any) => photo.userId === userId);
+
+      // All returned photos from this user should be public
+      userPhotos.forEach((photo: any) => {
+        expect(photo.isPublic).toBe(true);
+        expect(photo.title).toContain('Public Test');
+      });
+
+      // Should NOT contain private photos
+      const privatePhotos = userPhotos.filter((photo: any) => photo.title.includes('Private Test'));
+      expect(privatePhotos.length).toBe(0);
+    });
+
+    test('should get public photos from multiple users', async ({ request }) => {
+      // User A uploads 2 public photos
+      const userA = await getAuthenticatedUser(request);
+      const clientA = new ApiClient(request);
+
+      await clientA.postMultipart(
+        '/api/gallery/upload',
+        {
+          file: './tests/fixtures/images/test-photo.jpg',
+          title: 'User A Public Photo 1',
+          isPublic: 'true'
+        },
+        userA.token
+      );
+
+      await clientA.postMultipart(
+        '/api/gallery/upload',
+        {
+          file: './tests/fixtures/images/test-photo.jpg',
+          title: 'User A Public Photo 2',
+          isPublic: 'true'
+        },
+        userA.token
+      );
+
+      // User B uploads 3 public photos
+      const clientB = new ApiClient(request);
+      const authHelperB = new AuthHelper(clientB);
+      const userB = await authHelperB.registerAndLogin(
+        `apitest-multi-${Date.now()}@test.com`,
+        'User B',
+        'Test@1234'
+      );
+
+      await clientB.postMultipart(
+        '/api/gallery/upload',
+        {
+          file: './tests/fixtures/images/test-photo.jpg',
+          title: 'User B Public Photo 1',
+          isPublic: 'true'
+        },
+        userB.token
+      );
+
+      await clientB.postMultipart(
+        '/api/gallery/upload',
+        {
+          file: './tests/fixtures/images/test-photo.jpg',
+          title: 'User B Public Photo 2',
+          isPublic: 'true'
+        },
+        userB.token
+      );
+
+      await clientB.postMultipart(
+        '/api/gallery/upload',
+        {
+          file: './tests/fixtures/images/test-photo.jpg',
+          title: 'User B Public Photo 3',
+          isPublic: 'true'
+        },
+        userB.token
+      );
+
+      // Get all public photos
+      const response = await clientA.get('/api/gallery/public?page=0&size=50', userA.token);
+
+      expect(response.status).toBe(200);
+
+      // Should contain photos from both users
+      const userAPhotos = response.body.photos.filter((photo: any) => photo.userId === userA.userId);
+      const userBPhotos = response.body.photos.filter((photo: any) => photo.userId === userB.userId);
+
+      expect(userAPhotos.length).toBeGreaterThanOrEqual(2);
+      expect(userBPhotos.length).toBeGreaterThanOrEqual(3);
+    });
   });
 
   // Get Photo By ID Tests - Day 4
