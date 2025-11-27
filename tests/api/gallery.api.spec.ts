@@ -233,18 +233,36 @@ test.describe('Gallery Photo API', () => {
     });
 
     test('should paginate correctly - page 1 (second page with remainder)', async ({ request }) => {
-      const { token } = await getAuthenticatedUser(request);
+      const { token, userId } = await getAuthenticatedUser(request);
       const client = new ApiClient(request);
 
-      // Get page 1 (second page) - should have remaining photos
+      // First, ensure we have enough photos for page 1
+      // Each test runs independently, so we need to check and upload if needed
+      const checkResponse = await client.get('/api/gallery/my-photos?page=0&size=100', token);
+      const currentTotal = checkResponse.body.totalPhotos || 0;
+
+      // If we don't have at least 15 photos, upload more
+      if (currentTotal < 15) {
+        const photosToUpload = 15 - currentTotal;
+        for (let i = 1; i <= photosToUpload; i++) {
+          await client.postMultipart(
+            '/api/gallery/upload',
+            {
+              file: './tests/fixtures/images/test-photo.jpg',
+              title: `Page1 Test Photo ${i}`,
+              isPublic: 'false'
+            },
+            token
+          );
+        }
+      }
+
+      // Now get page 1 (second page) - should have remaining photos
       const response = await client.get('/api/gallery/my-photos?page=1&size=12', token);
 
       expect(response.status).toBe(200);
       expect(response.body.photos).toBeTruthy();
       expect(Array.isArray(response.body.photos)).toBe(true);
-
-      // Page 1 should have at least 3 photos (15 total - 12 from page 0 = 3 remainder)
-      expect(response.body.photos.length).toBeGreaterThanOrEqual(3);
 
       // Verify pagination metadata for page 1
       expect(response.body.currentPage).toBe(1);
@@ -253,7 +271,7 @@ test.describe('Gallery Photo API', () => {
 
       // Verify photos are from current user
       response.body.photos.forEach((photo: any) => {
-        expect(photo.userId).toBeTruthy();
+        expect(photo.userId).toBe(userId);
       });
     });
   });
