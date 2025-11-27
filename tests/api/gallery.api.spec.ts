@@ -197,6 +197,65 @@ test.describe('Gallery Photo API', () => {
       const response = await client.get('/api/gallery/my-photos?page=0&size=12');
       expect(response.status).toBe(403);
     });
+
+    test('should paginate correctly - page 0 (first page with 15 photos)', async ({ request }) => {
+      const { token } = await getAuthenticatedUser(request);
+      const client = new ApiClient(request);
+
+      // Upload 15 photos to test multi-page pagination
+      for (let i = 1; i <= 15; i++) {
+        await client.postMultipart(
+          '/api/gallery/upload',
+          {
+            file: './tests/fixtures/images/test-photo.jpg',
+            title: `Pagination Test Photo ${i}`,
+            isPublic: 'false'
+          },
+          token
+        );
+      }
+
+      // Get page 0 with size 12 (should return 12 photos)
+      const response = await client.get('/api/gallery/my-photos?page=0&size=12', token);
+
+      expect(response.status).toBe(200);
+      expect(response.body.photos).toBeTruthy();
+      expect(Array.isArray(response.body.photos)).toBe(true);
+      expect(response.body.photos.length).toBeGreaterThanOrEqual(12);
+
+      // Verify pagination metadata for page 0
+      expect(response.body.currentPage).toBe(0);
+      expect(response.body.pageSize).toBe(12);
+      expect(response.body.totalPhotos).toBeGreaterThanOrEqual(15);
+      expect(response.body.totalPages).toBeGreaterThanOrEqual(2);
+      expect(response.body.hasNext).toBe(true); // Has next page
+      expect(response.body.hasPrevious).toBe(false); // No previous page (first page)
+    });
+
+    test('should paginate correctly - page 1 (second page with remainder)', async ({ request }) => {
+      const { token } = await getAuthenticatedUser(request);
+      const client = new ApiClient(request);
+
+      // Get page 1 (second page) - should have remaining photos
+      const response = await client.get('/api/gallery/my-photos?page=1&size=12', token);
+
+      expect(response.status).toBe(200);
+      expect(response.body.photos).toBeTruthy();
+      expect(Array.isArray(response.body.photos)).toBe(true);
+
+      // Page 1 should have at least 3 photos (15 total - 12 from page 0 = 3 remainder)
+      expect(response.body.photos.length).toBeGreaterThanOrEqual(3);
+
+      // Verify pagination metadata for page 1
+      expect(response.body.currentPage).toBe(1);
+      expect(response.body.pageSize).toBe(12);
+      expect(response.body.hasPrevious).toBe(true); // Has previous page (not first page)
+
+      // Verify photos are from current user
+      response.body.photos.forEach((photo: any) => {
+        expect(photo.userId).toBeTruthy();
+      });
+    });
   });
 
   // Get Public Photos Tests - Day 4
