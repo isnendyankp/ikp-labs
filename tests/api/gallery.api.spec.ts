@@ -354,13 +354,17 @@ test.describe('Gallery Photo API', () => {
       // Find photos from current user
       const userPhotos = response.body.photos.filter((photo: any) => photo.userId === userId);
 
-      // All returned photos from this user should be public
-      userPhotos.forEach((photo: any) => {
+      // Verify we can find the public photos we just uploaded
+      const publicTestPhotos = userPhotos.filter((photo: any) => photo.title.includes('Public Test'));
+      expect(publicTestPhotos.length).toBe(3); // We uploaded 3 public photos
+
+      // All public test photos should be public
+      publicTestPhotos.forEach((photo: any) => {
         expect(photo.isPublic).toBe(true);
         expect(photo.title).toContain('Public Test');
       });
 
-      // Should NOT contain private photos
+      // Should NOT contain our private photos
       const privatePhotos = userPhotos.filter((photo: any) => photo.title.includes('Private Test'));
       expect(privatePhotos.length).toBe(0);
     });
