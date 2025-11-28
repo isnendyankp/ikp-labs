@@ -596,7 +596,144 @@ test.describe('Gallery Photo API', () => {
 
   // Update Photo Tests - Day 5
   test.describe('PUT /api/gallery/photo/:id', () => {
-    // Tests will be implemented here
+    test('should update photo title only (partial update)', async ({ request }) => {
+      const { token, userId } = await getAuthenticatedUser(request);
+      const client = new ApiClient(request);
+
+      // Upload photo first
+      const uploadResponse = await client.postMultipart(
+        '/api/gallery/upload',
+        {
+          file: './tests/fixtures/images/test-photo.jpg',
+          title: 'Original Title',
+          description: 'Original Description',
+          isPublic: 'false'
+        },
+        token
+      );
+      const photoId = uploadResponse.body.id;
+
+      // Update only title
+      const updateResponse = await client.put(
+        `/api/gallery/photo/${photoId}`,
+        {
+          title: 'Updated Title Only'
+        },
+        token
+      );
+
+      expect(updateResponse.status).toBe(200);
+      expect(updateResponse.body.id).toBe(photoId);
+      expect(updateResponse.body.title).toBe('Updated Title Only');
+      expect(updateResponse.body.description).toBe('Original Description'); // Unchanged
+      expect(updateResponse.body.isPublic).toBe(false); // Unchanged
+      expect(updateResponse.body.userId).toBe(userId);
+      expect(updateResponse.body.updatedAt).toBeTruthy();
+    });
+
+    test('should update photo description only (partial update)', async ({ request }) => {
+      const { token } = await getAuthenticatedUser(request);
+      const client = new ApiClient(request);
+
+      // Upload photo first
+      const uploadResponse = await client.postMultipart(
+        '/api/gallery/upload',
+        {
+          file: './tests/fixtures/images/test-photo.jpg',
+          title: 'Original Title',
+          description: 'Original Description',
+          isPublic: 'true'
+        },
+        token
+      );
+      const photoId = uploadResponse.body.id;
+
+      // Update only description
+      const updateResponse = await client.put(
+        `/api/gallery/photo/${photoId}`,
+        {
+          description: 'Updated Description Only'
+        },
+        token
+      );
+
+      expect(updateResponse.status).toBe(200);
+      expect(updateResponse.body.id).toBe(photoId);
+      expect(updateResponse.body.title).toBe('Original Title'); // Unchanged
+      expect(updateResponse.body.description).toBe('Updated Description Only');
+      expect(updateResponse.body.isPublic).toBe(true); // Unchanged
+    });
+
+    test('should update isPublic only (privacy toggle)', async ({ request }) => {
+      const { token } = await getAuthenticatedUser(request);
+      const client = new ApiClient(request);
+
+      // Upload private photo first
+      const uploadResponse = await client.postMultipart(
+        '/api/gallery/upload',
+        {
+          file: './tests/fixtures/images/test-photo.jpg',
+          title: 'Test Photo',
+          description: 'Test Description',
+          isPublic: 'false'
+        },
+        token
+      );
+      const photoId = uploadResponse.body.id;
+
+      // Toggle privacy to public
+      const updateResponse = await client.put(
+        `/api/gallery/photo/${photoId}`,
+        {
+          isPublic: true
+        },
+        token
+      );
+
+      expect(updateResponse.status).toBe(200);
+      expect(updateResponse.body.id).toBe(photoId);
+      expect(updateResponse.body.title).toBe('Test Photo'); // Unchanged
+      expect(updateResponse.body.description).toBe('Test Description'); // Unchanged
+      expect(updateResponse.body.isPublic).toBe(true); // Changed from false to true
+    });
+
+    test('should update all fields (full update)', async ({ request }) => {
+      const { token, userId } = await getAuthenticatedUser(request);
+      const client = new ApiClient(request);
+
+      // Upload photo first
+      const uploadResponse = await client.postMultipart(
+        '/api/gallery/upload',
+        {
+          file: './tests/fixtures/images/test-photo.jpg',
+          title: 'Original Title',
+          description: 'Original Description',
+          isPublic: 'false'
+        },
+        token
+      );
+      const photoId = uploadResponse.body.id;
+
+      // Update all fields
+      const updateResponse = await client.put(
+        `/api/gallery/photo/${photoId}`,
+        {
+          title: 'Completely New Title',
+          description: 'Completely New Description',
+          isPublic: true
+        },
+        token
+      );
+
+      expect(updateResponse.status).toBe(200);
+      expect(updateResponse.body.id).toBe(photoId);
+      expect(updateResponse.body.title).toBe('Completely New Title');
+      expect(updateResponse.body.description).toBe('Completely New Description');
+      expect(updateResponse.body.isPublic).toBe(true);
+      expect(updateResponse.body.userId).toBe(userId);
+      expect(updateResponse.body.filePath).toBeTruthy(); // File path unchanged
+      expect(updateResponse.body.updatedAt).toBeTruthy();
+    });
   });
 
   // Delete Photo Tests - Day 6
