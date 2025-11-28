@@ -817,6 +817,101 @@ test.describe('Gallery Photo API', () => {
 
       expect(updateResponse.status).toBe(404);
     });
+
+    test('should fail update with title too long (400 Bad Request)', async ({ request }) => {
+      const { token } = await getAuthenticatedUser(request);
+      const client = new ApiClient(request);
+
+      // Upload photo first
+      const uploadResponse = await client.postMultipart(
+        '/api/gallery/upload',
+        {
+          file: './tests/fixtures/images/test-photo.jpg',
+          title: 'Valid Title',
+          isPublic: 'false'
+        },
+        token
+      );
+      const photoId = uploadResponse.body.id;
+
+      // Try to update with title exceeding 100 characters
+      const longTitle = 'A'.repeat(101); // 101 characters (max is 100)
+      const updateResponse = await client.put(
+        `/api/gallery/photo/${photoId}`,
+        {
+          title: longTitle
+        },
+        token
+      );
+
+      expect(updateResponse.status).toBe(400);
+      // Verify error message mentions validation
+      expect(updateResponse.body.message || updateResponse.body.error).toBeTruthy();
+    });
+
+    test('should fail update with description too long (400 Bad Request)', async ({ request }) => {
+      const { token } = await getAuthenticatedUser(request);
+      const client = new ApiClient(request);
+
+      // Upload photo first
+      const uploadResponse = await client.postMultipart(
+        '/api/gallery/upload',
+        {
+          file: './tests/fixtures/images/test-photo.jpg',
+          title: 'Test Photo',
+          description: 'Valid description',
+          isPublic: 'false'
+        },
+        token
+      );
+      const photoId = uploadResponse.body.id;
+
+      // Try to update with description exceeding 5000 characters
+      const longDescription = 'B'.repeat(5001); // 5001 characters (max is 5000)
+      const updateResponse = await client.put(
+        `/api/gallery/photo/${photoId}`,
+        {
+          description: longDescription
+        },
+        token
+      );
+
+      expect(updateResponse.status).toBe(400);
+      // Verify error message mentions validation
+      expect(updateResponse.body.message || updateResponse.body.error).toBeTruthy();
+    });
+
+    test('should update successfully with empty request body (no-op)', async ({ request }) => {
+      const { token } = await getAuthenticatedUser(request);
+      const client = new ApiClient(request);
+
+      // Upload photo first
+      const uploadResponse = await client.postMultipart(
+        '/api/gallery/upload',
+        {
+          file: './tests/fixtures/images/test-photo.jpg',
+          title: 'Original Title',
+          description: 'Original Description',
+          isPublic: 'false'
+        },
+        token
+      );
+      const photoId = uploadResponse.body.id;
+
+      // Send PUT with empty body (no fields to update)
+      const updateResponse = await client.put(
+        `/api/gallery/photo/${photoId}`,
+        {},
+        token
+      );
+
+      expect(updateResponse.status).toBe(200);
+      // Verify all fields remain unchanged
+      expect(updateResponse.body.id).toBe(photoId);
+      expect(updateResponse.body.title).toBe('Original Title');
+      expect(updateResponse.body.description).toBe('Original Description');
+      expect(updateResponse.body.isPublic).toBe(false);
+    });
   });
 
   // Delete Photo Tests - Day 6
