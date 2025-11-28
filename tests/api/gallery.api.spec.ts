@@ -734,6 +734,89 @@ test.describe('Gallery Photo API', () => {
       expect(updateResponse.body.filePath).toBeTruthy(); // File path unchanged
       expect(updateResponse.body.updatedAt).toBeTruthy();
     });
+
+    test('should fail update by non-owner (403 Forbidden)', async ({ request }) => {
+      // User A uploads photo
+      const userA = await getAuthenticatedUser(request);
+      const clientA = new ApiClient(request);
+
+      const uploadResponse = await clientA.postMultipart(
+        '/api/gallery/upload',
+        {
+          file: './tests/fixtures/images/test-photo.jpg',
+          title: 'User A Photo',
+          isPublic: 'false'
+        },
+        userA.token
+      );
+      const photoId = uploadResponse.body.id;
+
+      // User B tries to update User A's photo
+      const clientB = new ApiClient(request);
+      const authHelperB = new AuthHelper(clientB);
+      const userB = await authHelperB.registerAndLogin(
+        `apitest-update-${Date.now()}@test.com`,
+        'User B',
+        'Test@1234'
+      );
+
+      const updateResponse = await clientB.put(
+        `/api/gallery/photo/${photoId}`,
+        {
+          title: 'Trying to hack User A photo'
+        },
+        userB.token
+      );
+
+      expect(updateResponse.status).toBe(403);
+      // Verify photo was NOT updated (still has original title)
+      const checkResponse = await clientA.get(`/api/gallery/photo/${photoId}`, userA.token);
+      expect(checkResponse.body.title).toBe('User A Photo'); // Original title unchanged
+    });
+
+    test('should fail update without authentication (403 Forbidden)', async ({ request }) => {
+      const { token } = await getAuthenticatedUser(request);
+      const client = new ApiClient(request);
+
+      // Upload photo first
+      const uploadResponse = await client.postMultipart(
+        '/api/gallery/upload',
+        {
+          file: './tests/fixtures/images/test-photo.jpg',
+          title: 'Test Photo',
+          isPublic: 'false'
+        },
+        token
+      );
+      const photoId = uploadResponse.body.id;
+
+      // Try to update without token
+      const updateResponse = await client.put(
+        `/api/gallery/photo/${photoId}`,
+        {
+          title: 'Unauthorized Update'
+        }
+        // No token provided
+      );
+
+      expect(updateResponse.status).toBe(403);
+    });
+
+    test('should fail update non-existent photo (404 Not Found)', async ({ request }) => {
+      const { token } = await getAuthenticatedUser(request);
+      const client = new ApiClient(request);
+
+      // Try to update non-existent photo
+      const updateResponse = await client.put(
+        '/api/gallery/photo/999999',
+        {
+          title: 'Update Non-Existent Photo'
+        },
+        token
+      );
+
+      expect(updateResponse.status).toBe(404);
+    });
   });
 
   // Delete Photo Tests - Day 6
