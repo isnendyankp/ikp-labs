@@ -920,7 +920,124 @@ test.describe('Gallery Photo API', () => {
 
   // Delete Photo Tests - Day 6
   test.describe('DELETE /api/gallery/photo/:id', () => {
-    // Tests will be implemented here
+    test('should delete photo by owner (204 No Content)', async ({ request }) => {
+      const { token, userId } = await getAuthenticatedUser(request);
+      const client = new ApiClient(request);
+
+      // Upload photo first
+      const uploadResponse = await client.postMultipart(
+        '/api/gallery/upload',
+        {
+          file: './tests/fixtures/images/test-photo.jpg',
+          title: 'Photo to Delete',
+          description: 'This will be deleted',
+          isPublic: 'false'
+        },
+        token
+      );
+      const photoId = uploadResponse.body.id;
+
+      // Delete the photo
+      const deleteResponse = await client.delete(`/api/gallery/photo/${photoId}`, token);
+
+      expect(deleteResponse.status).toBe(204);
+
+      // Verify photo is gone - check my-photos
+      const myPhotosResponse = await client.get('/api/gallery/my-photos?page=0&size=100', token);
+      const deletedPhoto = myPhotosResponse.body.photos.find((photo: any) => photo.id === photoId);
+      expect(deletedPhoto).toBeUndefined(); // Photo should not exist anymore
+
+      // Also verify GET by ID returns 404
+      const getResponse = await client.get(`/api/gallery/photo/${photoId}`, token);
+      expect(getResponse.status).toBe(404);
+    });
+
+    test('should fail delete by non-owner (403 Forbidden)', async ({ request }) => {
+      // User A uploads photo
+      const userA = await getAuthenticatedUser(request);
+      const clientA = new ApiClient(request);
+
+      const uploadResponse = await clientA.postMultipart(
+        '/api/gallery/upload',
+        {
+          file: './tests/fixtures/images/test-photo.jpg',
+          title: 'User A Photo - Cannot Delete',
+          isPublic: 'false'
+        },
+        userA.token
+      );
+      const photoId = uploadResponse.body.id;
+
+      // User B tries to delete User A's photo
+      const clientB = new ApiClient(request);
+      const authHelperB = new AuthHelper(clientB);
+      const userB = await authHelperB.registerAndLogin(
+        `apitest-delete-${Date.now()}@test.com`,
+        'User B',
+        'Test@1234'
+      );
+
+      const deleteResponse = await clientB.delete(`/api/gallery/photo/${photoId}`, userB.token);
+
+      expect(deleteResponse.status).toBe(403);
+
+      // Verify photo still exists (not deleted)
+      const checkResponse = await clientA.get(`/api/gallery/photo/${photoId}`, userA.token);
+      expect(checkResponse.status).toBe(200);
+      expect(checkResponse.body.id).toBe(photoId);
+      expect(checkResponse.body.title).toBe('User A Photo - Cannot Delete');
+    });
+
+    test('should fail delete non-existent photo (404 Not Found)', async ({ request }) => {
+      const { token } = await getAuthenticatedUser(request);
+      const client = new ApiClient(request);
+
+      // Try to delete non-existent photo
+      const deleteResponse = await client.delete('/api/gallery/photo/999999', token);
+
+      expect(deleteResponse.status).toBe(404);
+    });
+
+    test('should delete multiple photos and verify my-photos updates', async ({ request }) => {
+      const { token } = await getAuthenticatedUser(request);
+      const client = new ApiClient(request);
+
+      // Upload 3 photos
+      const photoIds: number[] = [];
+      for (let i = 1; i <= 3; i++) {
+        const uploadResponse = await client.postMultipart(
+          '/api/gallery/upload',
+          {
+            file: './tests/fixtures/images/test-photo.jpg',
+            title: `Delete Test Photo ${i}`,
+            isPublic: 'false'
+          },
+          token
+        );
+        photoIds.push(uploadResponse.body.id);
+      }
+
+      // Get initial count
+      const beforeResponse = await client.get('/api/gallery/my-photos?page=0&size=100', token);
+      const initialCount = beforeResponse.body.totalPhotos;
+
+      // Delete all 3 photos
+      for (const photoId of photoIds) {
+        const deleteResponse = await client.delete(`/api/gallery/photo/${photoId}`, token);
+        expect(deleteResponse.status).toBe(204);
+      }
+
+      // Verify count decreased by 3
+      const afterResponse = await client.get('/api/gallery/my-photos?page=0&size=100', token);
+      const finalCount = afterResponse.body.totalPhotos;
+      expect(finalCount).toBe(initialCount - 3);
+
+      // Verify none of the deleted photos exist
+      for (const photoId of photoIds) {
+        const photo = afterResponse.body.photos.find((p: any) => p.id === photoId);
+        expect(photo).toBeUndefined();
+      }
+    });
   });
 
   // Toggle Privacy Tests - Day 6
