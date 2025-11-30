@@ -52,3 +52,100 @@ export async function createAuthenticatedGalleryUser(page: Page) {
 
   return { page, user: testUser };
 }
+
+/**
+ * Upload photo via Gallery upload form
+ *
+ * @param page - Playwright Page object
+ * @param fixtureName - Name of image file in tests/fixtures/images/
+ * @param options - Optional metadata (title, description, isPublic)
+ */
+export async function uploadGalleryPhoto(
+  page: Page,
+  fixtureName: string,
+  options?: {
+    title?: string;
+    description?: string;
+    isPublic?: boolean;
+  }
+) {
+  const fixturePath = path.join(__dirname, '../../fixtures/images', fixtureName);
+
+  // Navigate to upload page
+  await page.goto('/gallery/upload');
+
+  // Upload file via file input
+  const fileInput = page.locator('input[type="file"]');
+  await fileInput.setInputFiles(fixturePath);
+
+  // Wait for image preview to appear
+  await page.waitForTimeout(500);
+
+  // Fill metadata if provided
+  if (options?.title) {
+    await page.fill('input[type="text"]', options.title);
+  }
+  if (options?.description) {
+    await page.fill('textarea', options.description);
+  }
+  if (options?.isPublic) {
+    await page.check('input#isPublic');
+  }
+
+  // Submit upload
+  await page.click('button[type="submit"]:has-text("Upload Photo")');
+
+  // Wait for redirect to gallery page
+  await page.waitForURL('/gallery', { timeout: 5000 });
+  await page.waitForTimeout(1000); // Wait for photo to appear in grid
+
+  console.log(`✅ Uploaded photo: ${fixtureName}${options?.title ? ` (${options.title})` : ''}`);
+}
+
+/**
+ * Navigate to My Photos tab in gallery
+ */
+export async function viewMyPhotos(page: Page) {
+  await page.goto('/gallery');
+  await page.click('button:has-text("My Photos")');
+  await page.waitForTimeout(500);
+}
+
+/**
+ * Navigate to Public Photos tab in gallery
+ */
+export async function viewPublicPhotos(page: Page) {
+  await page.goto('/gallery');
+  await page.click('button:has-text("Public Photos")');
+  await page.waitForTimeout(500);
+}
+
+/**
+ * Verify photo appears in gallery grid
+ *
+ * @param page - Playwright Page object
+ * @param title - Title of photo to verify
+ */
+export async function verifyPhotoInGrid(page: Page, title: string) {
+  const photoCard = page.locator(`h3:has-text("${title}")`).first();
+  await expect(photoCard).toBeVisible({ timeout: 5000 });
+  console.log(`✅ Photo verified in grid: ${title}`);
+}
+
+/**
+ * Verify photo privacy badge
+ *
+ * @param page - Playwright Page object
+ * @param title - Title of photo
+ * @param isPublic - Expected privacy state (true = Public, false = Private)
+ */
+export async function verifyPhotoPrivacy(page: Page, title: string, isPublic: boolean) {
+  const expectedBadge = isPublic ? 'Public' : 'Private';
+
+  // Find the photo card by title, then check its privacy badge
+  const photoCard = page.locator(`h3:has-text("${title}")`).first().locator('..');
+  const badge = photoCard.locator(`span:has-text("${expectedBadge}")`);
+  await expect(badge).toBeVisible();
+
+  console.log(`✅ Privacy verified: ${title} is ${expectedBadge}`);
+}
