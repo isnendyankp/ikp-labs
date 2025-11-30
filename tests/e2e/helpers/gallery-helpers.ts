@@ -149,3 +149,26 @@ export async function verifyPhotoPrivacy(page: Page, title: string, isPublic: bo
 
   console.log(`✅ Privacy verified: ${title} is ${expectedBadge}`);
 }
+
+/**
+ * Cleanup test user from database (AUTO DELETE)
+ * Uses backend test admin endpoint to delete user and all associated data
+ *
+ * @param request - Playwright APIRequestContext
+ * @param email - Email of user to delete
+ */
+export async function cleanupTestUser(request: any, email: string) {
+  try {
+    const response = await request.delete(
+      `http://localhost:8081/api/test-admin/users/${email}`
+    );
+
+    if (response.ok()) {
+      console.log(`🧹 Cleaned up test user: ${email}`);
+    } else {
+      console.warn(`⚠️  Failed to cleanup user: ${email} (${response.status()})`);
+    }
+  } catch (error) {
+    console.error(`❌ Error cleaning up user ${email}:`, error);
+  }
+}
