@@ -42,6 +42,28 @@ test.describe('Gallery Photo Management', () => {
   });
 
   test.describe('Upload Photo', () => {
-    // Tests will be added here
+
+    test('E2E-001: should upload single photo successfully', async ({ page }) => {
+      // GIVEN: User is registered and logged in
+      const { user } = await createAuthenticatedGalleryUser(page);
+      createdUsers.push(user.email); // Track for cleanup
+
+      // WHEN: User uploads photo with complete metadata
+      await uploadGalleryPhoto(page, 'test-photo.jpg', {
+        title: 'Sunset Beach',
+        description: 'Beautiful sunset view from the beach',
+        isPublic: false // Private photo
+      });
+
+      // THEN: Photo appears in My Photos tab
+      await viewMyPhotos(page);
+      await verifyPhotoInGrid(page, 'Sunset Beach');
+
+      // AND: Photo shows correct privacy badge
+      await verifyPhotoPrivacy(page, 'Sunset Beach', false);
+
+      console.log('✅ E2E-001: Upload single photo test PASSED');
+    });
+
   });
 });
