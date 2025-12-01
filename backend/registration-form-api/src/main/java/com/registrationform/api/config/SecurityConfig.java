@@ -109,6 +109,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/auth/health").permitAll()
                 .requestMatchers("/api/users").permitAll()          // User registration
                 .requestMatchers("/api/jwt-test/**").permitAll()    // JWT test endpoints
+                .requestMatchers("/api/test-admin/**").permitAll()  // Test cleanup endpoints (for E2E tests)
 
                 // UPLOADED FILES - Public access untuk profile pictures
                 // Semua orang bisa lihat foto profile (untuk display di UI)
