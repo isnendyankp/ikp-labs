@@ -1,461 +1,266 @@
-# Implementation Plans
-
-This directory contains structured implementation plans for features in the Registration Form application.
-
-## Purpose
-
-Implementation plans serve as **development roadmaps** that:
-
-- Define clear scope and boundaries for features
-- Break down work into actionable phases and tasks
-- Provide technical guidance and architecture
-- Track progress with checklists
-- Ensure quality with testing and validation requirements
-
-## Directory Structure
-
-```
-plans/
-├── README.md           # This file - plans index
-├── in-progress/        # Currently active plans
-│   ├── backend/        # Backend-related plans
-│   │   └── feature-name/
-│   │       ├── README.md              # Plan overview
-│   │       ├── requirements.md        # Scope and user stories
-│   │       ├── technical-design.md    # Architecture and implementation
-│   │       └── checklist.md           # Tasks and validation
-│   ├── frontend/       # Frontend-related plans
-│   │   └── feature-name/
-│   │       └── (same structure)
-│   └── testing/        # Testing-related plans
-│       └── test-type/
-│           └── (same structure)
-└── completed/          # Finished plans
-    ├── backend/        # Completed backend plans
-    │   └── feature-name/
-    │       └── (same structure)
-    ├── frontend/       # Completed frontend plans
-    │   └── feature-name/
-    │       └── (same structure)
-    └── testing/        # Completed testing plans
-        └── test-type/
-            └── (same structure)
-```
-
-## Organization by Domain
-
-Plans are organized into three main categories:
-
-### 🔧 Backend Plans
-Backend-focused implementation plans including:
-- API development
-- Database changes
-- Business logic
-- Backend testing
-- Server-side features
-
-### 🎨 Frontend Plans
-Frontend-focused implementation plans including:
-- UI components
-- User interactions
-- Client-side logic
-- Frontend testing
-- User experience features
-
-### 🧪 Testing Plans
-Testing-focused implementation plans including:
-- Unit tests
-- Integration tests
-- API tests
-- E2E tests
-- Test automation
-
-**Benefits of categorization:**
-- ✅ Easy navigation by domain expertise
-- ✅ Clear separation of concerns
-- ✅ Better progress tracking per area
-- ✅ Professional portfolio organization
-- ✅ Scalable structure for future work
-
-## Plan Structure (4-Document System)
-
-Each plan contains exactly **four documents**:
-
-### 1. README.md - Plan Overview
-- High-level summary
-- Current status (🚧 IN PROGRESS or ✅ COMPLETED)
-- Quick scope overview
-- Links to other plan documents
-- Completion date (if completed)
-
-### 2. requirements.md - Scope & User Stories
-- **Scope Definition**: What IS included (detailed)
-- **Non-Scope Definition**: What is NOT included (detailed)
-- **User Stories**: With Given/When/Then acceptance criteria
-- **Success Criteria**: How to verify completion
-
-### 3. technical-design.md - Architecture & Implementation
-- Architecture overview with ASCII diagrams
-- Implementation approach
-- Code structure (files to create/modify)
-- Technology choices and patterns
-- Database changes (if applicable)
-- API design (if applicable)
-- Integration points
-
-### 4. checklist.md - Tasks & Validation
-- Implementation checklist with `- [ ]` checkboxes
-- Testing requirements
-- Documentation tasks
-- Validation steps
-- Quality gates
-
-## Current Plans
-
-### 🚧 In Progress
-
-#### Backend: Testing Automation
-**Path:** `in-progress/backend/testing-automation/`
-**Status:** IN PROGRESS (30% complete - Unit tests done, Integration & API tests pending)
-**Created:** 2025-10-18
-
-Comprehensive automated testing for Spring Boot backend including unit tests (JUnit 5 + Mockito), integration tests (MockMvc + Testcontainers), API tests (REST Assured), and code coverage reporting (JaCoCo 80%+ target).
-
-**Completed:**
-- ✅ Unit tests for all service layers (91 tests, 100% pass rate)
-- ✅ Test utilities and helpers (check-warnings.sh)
-- ✅ Code quality automation
-
-**Pending:**
-- ⏳ Integration tests with Testcontainers + PostgreSQL
-- ⏳ API tests with REST Assured
-- ⏳ JaCoCo coverage reporting configuration
-
-**Documents:**
-- [README](./in-progress/backend/testing-automation/README.md)
-- [Requirements](./in-progress/backend/testing-automation/requirements.md)
-- [Technical Design](./in-progress/backend/testing-automation/technical-design.md)
-- [Checklist](./in-progress/backend/testing-automation/checklist.md)
-
-#### Frontend: Authentication Flow
-**Path:** `in-progress/frontend/authentication-flow/`
-**Status:** IN PROGRESS
-**Created:** 2025-10-19
-
-Complete frontend authentication flow with protected home page route. Implements token-based session management with localStorage, route guards, and user profile display.
-
-**Scope:**
-- Protected home page route at /home
-- Authentication context with React Context API
-- Route protection and redirects
-- User profile display with fullName, email, login time
-- Logout functionality with token cleanup
-- Token persistence across browser refreshes
-- E2E and API testing with Playwright
-
-**Documents:**
-- [README](./in-progress/frontend/authentication-flow/README.md)
-- [Requirements](./in-progress/frontend/authentication-flow/requirements.md)
-- [Technical Design](./in-progress/frontend/authentication-flow/technical-design.md)
-- [Checklist](./in-progress/frontend/authentication-flow/checklist.md)
-
-#### Backend: Photo Gallery Feature
-**Path:** `in-progress/backend/photo-gallery/`
-**Status:** 🎯 CORE COMPLETE - E2E & Docs Pending (63.3% overall)
-**Created:** 2025-11-12
-**Core Completed:** 2025-11-15 (4 days)
-
-Multi-photo gallery feature with granular privacy control. Users can upload multiple photos and set each as public or private. Includes 8 REST API endpoints, frontend UI with responsive design, and comprehensive unit testing.
-
-**Completed (Week 1):**
-- ✅ Backend Development: 8 REST endpoints, privacy filtering, authorization (35 tasks)
-- ✅ Backend Testing: 47 unit tests PASS, ~91% coverage (25 tasks)
-- ✅ Frontend Development: 4 components, 3 pages, API service (14 tasks)
-- ✅ Feature functional and manually verified
-
-**Pending (Week 2: Nov 18-21):**
-- ⏳ E2E Testing: 20 Playwright tests with TestPlanTracker (Mon-Wed)
-- ⏳ Documentation: API reference, user guides, technical docs (Thu)
-
-**Documents:**
-- [README](./in-progress/backend/photo-gallery/README.md)
-- [Requirements](./in-progress/backend/photo-gallery/requirements.md)
-- [Technical Design](./in-progress/backend/photo-gallery/technical-design.md)
-- [Checklist](./in-progress/backend/photo-gallery/checklist.md)
-
-**Legacy Plans (Historical Reference):**
-- [Feature Plan](../docs/plans/photo-gallery-feature-plan.md)
-- [Test Plan](../docs/plans/photo-gallery-test-plan.md)
-- [Progress Checklist](../docs/plans/photo-gallery-progress-checklist.md)
-
-#### Testing: Unit Tests Completion
-**Path:** `in-progress/testing/unit-tests-completion/`
-**Status:** 🚧 IN PROGRESS
-**Created:** 2025-11-23
-**Timeline:** Day 1 (Monday, November 24, 2025)
-
-Complete unit test coverage for Gallery Photo feature by adding missing controller and repository unit tests (GalleryControllerTest and GalleryPhotoRepositoryTest).
-
-**Scope:**
-- GalleryControllerTest: 10-15 tests (controller unit test with mocked service)
-- GalleryPhotoRepositoryTest: 10-12 tests (repository test with Testcontainers PostgreSQL)
-- Total new tests: 20-27 tests
-- Coverage target: >85% controller, >90% repository
-
-**Week Context:**
-- Part of Backend Testing Week (Nov 24-30, 2025)
-- Follows senior's definition where Unit Tests = isolated components with mocked dependencies
-- Implementation starts Monday Nov 24 (plan created Nov 23)
-
-**Documents:**
-- [README](./in-progress/testing/unit-tests-completion/README.md)
-- [Requirements](./in-progress/testing/unit-tests-completion/requirements.md)
-- [Technical Design](./in-progress/testing/unit-tests-completion/technical-design.md)
-- [Checklist](./in-progress/testing/unit-tests-completion/checklist.md)
-
-#### Testing: Integration Tests
-**Path:** `in-progress/testing/integration-tests/`
-**Status:** 🚧 IN PROGRESS
-**Created:** 2025-11-23
-**Timeline:** Day 2 (Tuesday, November 25, 2025)
-
-Integration tests for Gallery Photo feature verifying component interaction within Spring context (Controller → Service → Repository) with @MockBean pattern.
-
-**Scope:**
-- GalleryControllerIntegrationTest: 18-20 tests with @SpringBootTest
-- Test Spring Security configuration
-- Test all 8 Gallery endpoints
-- Use @MockBean for repositories (NO real database)
-- Verify component wiring and interactions
-
-**Week Context:**
-- Part of Backend Testing Week (Nov 24-30, 2025)
-- Follows senior's definition where Integration Tests = Spring context testing WITHOUT real database
-- Uses @MockBean pattern (not Testcontainers)
-
-**Documents:**
-- [README](./in-progress/testing/integration-tests/README.md)
-- [Requirements](./in-progress/testing/integration-tests/requirements.md)
-- [Technical Design](./in-progress/testing/integration-tests/technical-design.md)
-- [Checklist](./in-progress/testing/integration-tests/checklist.md)
-
-#### Testing: API Tests
-**Path:** `in-progress/testing/api-tests/`
-**Status:** 🚧 IN PROGRESS
-**Created:** 2025-11-23
-**Timeline:** Days 3-6 (Wednesday-Saturday, November 26-29, 2025)
-
-Comprehensive API tests for Gallery Photo feature using REST Assured with REAL local PostgreSQL database. Full backend testing with actual HTTP requests and database persistence.
-
-**Scope:**
-- GalleryAPITest: 35-40 tests with real database
-- Upload, retrieve, update, delete operations
-- Privacy control and authorization testing
-- Real file uploads and database transactions
-- Test pattern: `apitest*@test.com` for cleanup
-
-**Week Context:**
-- Part of Backend Testing Week (Nov 24-30, 2025)
-- Follows senior's definition where API Tests = REAL PostgreSQL database
-- Requires: mvn spring-boot:run + local database
-- Different from Integration Tests (which use @MockBean)
-
-**Documents:**
-- [README](./in-progress/testing/api-tests/README.md)
-- [Requirements](./in-progress/testing/api-tests/requirements.md)
-- [Technical Design](./in-progress/testing/api-tests/technical-design.md)
-- [Checklist](./in-progress/testing/api-tests/checklist.md)
-
-#### Testing: API Testing with Playwright
-**Path:** `in-progress/testing/api-testing-playwright/`
-**Status:** IN PROGRESS
-**Created:** 2025-10-18
-
-Automate backend API testing using Playwright's request API with MCP integration. API-only testing (no browser) for all Spring Boot endpoints, replacing manual Postman testing.
-
-**Scope:**
-- Authentication API tests (register, login, refresh, validate)
-- User management CRUD API tests
-- Protected endpoint authorization tests with JWT
-- Error handling tests (400, 401, 404, 500)
-- MCP Playwright integration
-- API test helpers and utilities
-
-**Documents:**
-- [README](./in-progress/testing/api-testing-playwright/README.md)
-- [Requirements](./in-progress/testing/api-testing-playwright/requirements.md)
-- [Technical Design](./in-progress/testing/api-testing-playwright/technical-design.md)
-- [Checklist](./in-progress/testing/api-testing-playwright/checklist.md)
-
-### ✅ Completed
-
-#### Testing: Unit Tests Implementation
-**Path:** `completed/testing/unit-tests/`
-**Status:** ✅ COMPLETED
-**Completed:** 2025-11-10
-**Duration:** 4 days
-
-Comprehensive unit testing implementation for Spring Boot backend with 91 unit tests achieving 100% pass rate.
-
-**Achievements:**
-- ✅ 91 unit tests (JUnit 5 + Mockito)
-- ✅ 100% pass rate
-- ✅ 3.3s total execution time
-- ✅ ~91% code coverage
-- ✅ 5 test files: JwtUtil, UserService, FileStorageService, UserController, ProfileController
-- ✅ Code quality automation (check-warnings.sh)
-
-**Documents:**
-- [README](./completed/testing/unit-tests/README.md)
-
-## Legacy Plans
-
-The following plans exist in legacy format and may be migrated to new structure:
-
-- `backend/docs/BACKEND_PLAN.md` - Backend development phases (Phase 1-5 completed)
-- `frontend/docs/FRONTEND_PLAN.md` - Frontend development plan
-
-These legacy plans document completed work and serve as historical reference.
-
-## Creating a New Plan
-
-Use the `plan-writer` agent to create structured implementation plans:
-
-```bash
-# In Claude Code
-"Create an implementation plan for password reset feature"
-```
-
-The agent will:
-1. Ask clarifying questions about scope
-2. Define explicit scope and non-scope
-3. Create all 4 plan documents
-4. Place plan in `plans/in-progress/`
-5. Update this index
-
-## Plan Workflow
-
-### 1. Create Plan
-- Agent creates plan in `plans/in-progress/feature-name/`
-- Plan includes all 4 documents
-- Status set to "🚧 IN PROGRESS"
-- Added to this index
-
-### 2. Work on Plan
-- Developer follows plan documents
-- Check off items in `checklist.md` as completed
-- Update documents if requirements change
-- Keep plan in sync with actual implementation
-
-### 3. Complete Plan
-- Verify all checklist items are checked
-- Move plan to `plans/completed/YYYY-MM-DD--feature-name/`
-- Update README with "✅ COMPLETED" status and date
-- Update this index
-
-## Plan Quality Standards
-
-Every plan must:
-
-- ✅ Have explicit, comprehensive scope and non-scope
-- ✅ Include user stories with Given/When/Then format
-- ✅ Provide technical design with ASCII diagrams
-- ✅ Reference actual file paths from codebase
-- ✅ Include actionable tasks with checkboxes
-- ✅ Define clear validation steps
-- ❌ NOT include time estimates or scheduling
-- ❌ NOT include placeholder content or TODOs
-- ❌ NOT include fictional or unverified information
-
-## Using Plans
-
-### For Developers
-
-**Starting new work:**
-1. Read plan README for overview
-2. Review requirements.md for scope
-3. Study technical-design.md for architecture
-4. Follow checklist.md for tasks
-
-**During development:**
-- Check off completed tasks
-- Update plan if requirements change
-- Verify implementation matches design
-
-**Completing work:**
-- Ensure all checklist items complete
-- Verify all validation steps pass
-- Request plan be marked complete
-
-### For Reviewers
-
-**Reviewing PRs:**
-1. Check which plan the PR addresses
-2. Verify implementation matches plan
-3. Ensure checklist items covered
-4. Confirm validation steps performed
-
-### For Project Managers
-
-**Tracking progress:**
-1. Check plans/in-progress/ for active work
-2. Review checklist.md for completion status
-3. Monitor plans/completed/ for finished work
-
-## Example: Authentication Plan
-
-Here's how a completed authentication plan would look:
-
-```
-plans/completed/2024-01-15--jwt-authentication/
-├── README.md                # ✅ COMPLETED 2024-01-15
-├── requirements.md          # Scope: JWT login, registration, token validation
-├── technical-design.md      # JwtUtil, AuthController, AuthService design
-└── checklist.md             # All items checked: backend, frontend, tests, docs
-```
-
-The plan would include:
-- User stories for registration and login
-- JWT architecture diagram
-- Implementation of controllers, services, repositories
-- E2E tests with Playwright
-- API documentation
-- Validation that tokens work correctly
+# Photo Gallery Feature - Planning Documents
+
+**Last Updated:** 2025-11-11
+**Status:** 📋 Planning Complete, Ready for Review
+
+---
+
+## Quick Navigation
+
+**Start Here:**
+1. 📄 **[Executive Summary](photo-gallery-feature-summary.md)** ← **READ THIS FIRST**
+   - Quick overview for approval
+   - What, Why, How, When
+   - Risk assessment
+   - Approval checklist
+
+**Detailed Plans:**
+2. 📋 **[Implementation Plan](photo-gallery-feature-plan.md)**
+   - Complete technical design
+   - API endpoints with examples
+   - File storage architecture
+   - 35-task checklist for backend
+   - 28-task checklist for frontend
+
+3. 🧪 **[Test Plan](photo-gallery-test-plan.md)**
+   - All 87 test cases
+   - Unit tests (33 tests)
+   - Component tests (15 tests)
+   - E2E tests (20 tests)
+   - TestPlanTracker integration
+
+4. ✅ **[Progress Checklist](photo-gallery-progress-checklist.md)**
+   - Daily tracking tool
+   - 120 tasks with checkboxes
+   - Quick stats dashboard
+   - Daily progress log template
+
+---
+
+## Document Purpose
+
+### 1. Executive Summary (Start Here!)
+
+**Who:** Anyone reviewing the feature (team lead, developer, self)
+**Purpose:** Quick approval decision
+**Length:** ~10 min read
+
+**Contains:**
+- Feature overview (what & why)
+- Scope (in/out)
+- Technical highlights
+- Timeline (11 days)
+- Risk assessment
+- Success criteria
+- Approval checklist
+
+**Use When:**
+- Need quick overview
+- Making approval decision
+- Explaining to others
+
+---
+
+### 2. Implementation Plan (For Developers)
+
+**Who:** Developer implementing the feature
+**Purpose:** Technical blueprint for coding
+**Length:** ~30 min read
+
+**Contains:**
+- Database schema (SQL)
+- API endpoint specs (8 endpoints)
+- File storage structure
+- Security rules
+- Backend checklist (35 tasks)
+- Frontend checklist (28 tasks)
+- Documentation checklist (10 tasks)
+
+**Use When:**
+- Starting implementation
+- Need technical details
+- Designing architecture
+- Writing code
+
+---
+
+### 3. Test Plan (For QA & Developers)
+
+**Who:** QA engineers, developers writing tests
+**Purpose:** Complete test coverage plan
+**Length:** ~25 min read
+
+**Contains:**
+- Backend unit tests (33 tests)
+- Frontend component tests (15 tests)
+- E2E test scenarios (20 tests)
+- Test fixtures specification
+- TestPlanTracker integration
+- Acceptance criteria
+
+**Use When:**
+- Writing tests
+- Reviewing test coverage
+- Creating test data
+- Debugging test failures
+
+---
+
+### 4. Progress Checklist (Daily Tool)
+
+**Who:** Everyone on the team
+**Purpose:** Track daily progress
+**Length:** Living document (update daily)
+
+**Contains:**
+- 120 tasks with checkboxes
+- Phase completion stats
+- Daily progress log
+- Blocker tracking
+- Quick reference
+
+**Use When:**
+- Daily standup
+- Checking progress
+- Planning tomorrow
+- End-of-day review
+
+---
+
+## How to Use These Plans
+
+### For Approval (Today)
+
+**Step 1:** Read [Executive Summary](photo-gallery-feature-summary.md)
+- Understand scope and timeline
+- Review risk assessment
+- Check approval checklist
+
+**Step 2:** Decide to approve or request changes
+
+**Step 3:** If approved, proceed to implementation tomorrow
+
+---
+
+### For Implementation (Day 2+)
+
+**Each Morning:**
+1. Open [Progress Checklist](photo-gallery-progress-checklist.md)
+2. Review today's planned tasks
+3. Check yesterday's completed tasks
+
+**While Coding:**
+1. Reference [Implementation Plan](photo-gallery-feature-plan.md) for technical details
+2. Follow API specifications exactly
+3. Check off tasks in Progress Checklist as you complete
+
+**While Testing:**
+1. Reference [Test Plan](photo-gallery-test-plan.md)
+2. Implement tests in order (unit → integration → E2E)
+3. Check off test cases in Progress Checklist
+
+**End of Day:**
+1. Update [Progress Checklist](photo-gallery-progress-checklist.md)
+2. Fill in Daily Progress Log
+3. Note any blockers
+4. Plan tomorrow's tasks
+
+---
+
+## Document Status
+
+| Document | Status | Last Updated | Pages |
+|----------|--------|--------------|-------|
+| [Executive Summary](photo-gallery-feature-summary.md) | ✅ Complete | 2025-11-11 | 12 |
+| [Implementation Plan](photo-gallery-feature-plan.md) | ✅ Complete | 2025-11-11 | 28 |
+| [Test Plan](photo-gallery-test-plan.md) | ✅ Complete | 2025-11-11 | 24 |
+| [Progress Checklist](photo-gallery-progress-checklist.md) | 🔄 Living Doc | 2025-11-11 | 16 |
+
+**Total Planning Pages:** 80 pages of comprehensive documentation
+
+---
+
+## Quick Stats
+
+**Project Scope:**
+- **Total Tasks:** 120
+- **Test Cases:** 87
+- **API Endpoints:** 8
+- **Database Tables:** 1 (new)
+- **Frontend Pages:** 2 (new)
+- **Components:** 6 (new)
+- **Estimated Duration:** 11 days
+
+**Current Progress:**
+- **Planning:** ✅ 100% Complete (4/4 tasks)
+- **Backend:** 🔄 5.7% Complete (2/35 tasks)
+- **Testing:** ⏳ Not Started (0/25 tasks)
+- **Frontend:** ⏳ Not Started (0/28 tasks)
+- **E2E:** ⏳ Not Started (0/20 tasks)
+- **Docs:** ⏳ Not Started (0/10 tasks)
+
+**Overall:** 4/120 tasks complete (3.3%)
+
+---
 
 ## Related Documentation
 
-- [Project Documentation](../docs/README.md) - Diátaxis documentation
-- [Gherkin Specifications](../specs/README.md) - Behavior documentation
-- [API Endpoints Reference](../docs/reference/api-endpoints.md) - Backend API
-- [Architecture Explanation](../docs/explanation/architecture.md) - System design
+**Existing Docs (for reference):**
+- [Test Plan Checklist Strategy](../explanation/testing/test-plan-checklist-strategy.md) - Testing methodology
+- [Profile Picture E2E Test Plan](profile-picture-e2e-test-plan.md) - Similar feature reference
+- [Database Schema](../reference/database-schema.md) - Current schema
+- [API Endpoints](../reference/api-endpoints.md) - Existing endpoints
 
-## Benefits of Structured Plans
+**Will Create During Implementation:**
+- `docs/reference/gallery-api.md` - Gallery API reference
+- `docs/how-to/use-gallery.md` - User guide
+- `docs/explanation/gallery-architecture.md` - Technical architecture
+- `docs/tutorials/gallery-tutorial.md` - Step-by-step tutorial
 
-### Before (No Plans)
-- Unclear scope and requirements
-- Missing implementation details
-- No progress tracking
-- Inconsistent quality
-- Forgotten tasks
+---
 
-### After (With Structured Plans)
-- ✅ Crystal clear scope boundaries
-- ✅ Detailed technical guidance
-- ✅ Trackable progress with checklists
-- ✅ Consistent quality standards
-- ✅ Nothing gets forgotten
+## Approval Process
 
-Plans ensure features are built correctly, completely, and consistently.
+**Before Implementation Starts:**
 
-## Contributing
+1. ✅ Planning documents created (DONE)
+2. ⏳ Review executive summary
+3. ⏳ Approve or request changes
+4. ⏳ Schedule kick-off (Day 2)
 
-When implementing a new feature:
+**Approval Checklist:**
+- [ ] Scope is clear and agreed upon
+- [ ] Technical design reviewed and approved
+- [ ] Timeline is realistic (11 days)
+- [ ] Test plan is comprehensive (87 tests)
+- [ ] Risk mitigation strategies acceptable
+- [ ] Ready to start implementation
 
-1. Create plan first (or use existing plan)
-2. Follow plan documents during implementation
-3. Check off tasks as you complete them
-4. Update plan if requirements change
-5. Verify all validation steps before completion
-6. Archive plan when fully complete
+**Approved By:** ___________________ **Date:** __________
 
-For help creating plans, use the `plan-writer` agent in Claude Code.
+---
+
+## Contact & Questions
+
+**Questions About:**
+- **Scope/Requirements:** Review Executive Summary
+- **Technical Implementation:** Review Implementation Plan
+- **Testing Strategy:** Review Test Plan
+- **Daily Progress:** Check Progress Checklist
+
+**Need Help?**
+- Ask questions before implementation starts
+- Clarify scope early to avoid rework
+- Request changes to plan if needed
+
+---
+
+## Version History
+
+| Version | Date | Changes |
+|---------|------|---------|
+| 1.0 | 2025-11-11 | Initial planning documents created |
+
+---
+
+**Next Action:** Review [Executive Summary](photo-gallery-feature-summary.md) and approve! 🚀
