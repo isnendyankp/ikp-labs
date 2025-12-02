@@ -88,5 +88,30 @@ test.describe('Gallery Photo Management', () => {
       console.log('✅ E2E-002: Upload photo as public test PASSED');
     });
 
+    test('E2E-003: should upload multiple photos sequentially', async ({ page }) => {
+      // GIVEN: User is registered and logged in
+      const { user } = await createAuthenticatedGalleryUser(page);
+      createdUsers.push(user.email); // Track for cleanup
+
+      // WHEN: User uploads 3 photos sequentially
+      const photos = [
+        { title: 'Photo One', description: 'First photo', isPublic: false },
+        { title: 'Photo Two', description: 'Second photo', isPublic: true },
+        { title: 'Photo Three', description: 'Third photo', isPublic: false }
+      ];
+
+      for (const photo of photos) {
+        await uploadGalleryPhoto(page, 'test-photo.jpg', photo);
+      }
+
+      // THEN: All 3 photos appear in My Photos tab
+      await viewMyPhotos(page);
+      await verifyPhotoInGrid(page, 'Photo One');
+      await verifyPhotoInGrid(page, 'Photo Two');
+      await verifyPhotoInGrid(page, 'Photo Three');
+
+      console.log('✅ E2E-003: Upload multiple photos sequentially test PASSED');
+    });
+
   });
 });
