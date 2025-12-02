@@ -66,7 +66,7 @@ export default function PhotoUploadForm() {
 
     // Check file size
     if (selectedFile.size > MAX_FILE_SIZE) {
-      setError('File too large. Maximum size is 5MB.');
+      setError('File size must be less than 5MB');
       return;
     }
 
