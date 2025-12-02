@@ -151,6 +151,38 @@ export async function verifyPhotoPrivacy(page: Page, title: string, isPublic: bo
 }
 
 /**
+ * Attempt to upload photo and expect validation error
+ * Used for testing file size validation, file type validation, etc.
+ *
+ * @param page - Playwright Page object
+ * @param fixtureName - Name of image file in tests/fixtures/images/
+ * @param expectedError - Expected error message text
+ */
+export async function uploadGalleryPhotoExpectError(
+  page: Page,
+  fixtureName: string,
+  expectedError: string
+) {
+  const fixturePath = path.join(__dirname, '../../fixtures/images', fixtureName);
+
+  // Navigate to upload page
+  await page.goto('/gallery/upload');
+
+  // Upload file via file input
+  const fileInput = page.locator('input[type="file"]');
+  await fileInput.setInputFiles(fixturePath);
+
+  // Wait for error message to appear
+  await page.waitForTimeout(1000);
+
+  // Verify error message is displayed
+  const errorMessage = page.getByText(expectedError, { exact: false });
+  await expect(errorMessage).toBeVisible({ timeout: 5000 });
+
+  console.log(`✅ Error message verified: "${expectedError}"`);
+}
+
+/**
  * Cleanup test user from database (AUTO DELETE)
  * Uses backend test admin endpoint to delete user and all associated data
  *
