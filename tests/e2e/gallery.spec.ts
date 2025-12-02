@@ -15,6 +15,7 @@ import {
   createAuthenticatedGalleryUser,
   uploadGalleryPhoto,
   viewMyPhotos,
+  viewPublicPhotos,
   verifyPhotoInGrid,
   verifyPhotoPrivacy,
   cleanupTestUser
@@ -63,6 +64,28 @@ test.describe('Gallery Photo Management', () => {
       await verifyPhotoPrivacy(page, 'Sunset Beach', false);
 
       console.log('✅ E2E-001: Upload single photo test PASSED');
+    });
+
+    test('E2E-002: should upload photo as public', async ({ page }) => {
+      // GIVEN: User is registered and logged in
+      const { user } = await createAuthenticatedGalleryUser(page);
+      createdUsers.push(user.email); // Track for cleanup
+
+      // WHEN: User uploads photo marked as public
+      await uploadGalleryPhoto(page, 'test-photo.jpg', {
+        title: 'Mountain Sunrise',
+        description: 'Stunning sunrise over the mountains',
+        isPublic: true // Public photo
+      });
+
+      // THEN: Photo appears in Public Photos tab
+      await viewPublicPhotos(page);
+      await verifyPhotoInGrid(page, 'Mountain Sunrise');
+
+      // AND: Photo shows "Public" badge
+      await verifyPhotoPrivacy(page, 'Mountain Sunrise', true);
+
+      console.log('✅ E2E-002: Upload photo as public test PASSED');
     });
 
   });
