@@ -14,6 +14,7 @@ import { test, expect } from '@playwright/test';
 import {
   createAuthenticatedGalleryUser,
   uploadGalleryPhoto,
+  uploadGalleryPhotoExpectError,
   viewMyPhotos,
   viewPublicPhotos,
   verifyPhotoInGrid,
@@ -111,6 +112,26 @@ test.describe('Gallery Photo Management', () => {
       await verifyPhotoInGrid(page, 'Photo Three');
 
       console.log('✅ E2E-003: Upload multiple photos sequentially test PASSED');
+    });
+
+  });
+
+  test.describe('Upload Validation', () => {
+
+    test('E2E-011: should reject file larger than 5MB', async ({ page }) => {
+      // GIVEN: User is registered and logged in
+      const { user } = await createAuthenticatedGalleryUser(page);
+      createdUsers.push(user.email); // Track for cleanup
+
+      // WHEN: User attempts to upload file > 5MB
+      // THEN: Error message is displayed
+      await uploadGalleryPhotoExpectError(
+        page,
+        'large-file.jpg',
+        'File size must be less than 5MB'
+      );
+
+      console.log('✅ E2E-011: File size validation test PASSED');
     });
 
   });
