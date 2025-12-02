@@ -89,43 +89,51 @@ Day 1/6: 1 test passing ✅
 
 ---
 
-### Day 2 (Tuesday): Upload Variations & Validation
+### ✅ Day 2 (Tuesday): Upload Variations & Validation - COMPLETED
 **Time Estimate:** 2-3 hours
+**Actual Time:** ~2.5 hours
 **Focus:** Form validation, public/private toggle
 
 #### Tasks
-1. **Implement Upload Variations**
-   - ✅ **E2E-002:** Upload photo as public [P0]
-   - ✅ **E2E-003:** Upload multiple photos sequentially [P1]
+1. **✅ Implement Upload Variations**
+   - ✅ **E2E-002:** Upload photo as public [P0] - PASSING (3/3 browsers)
+   - ✅ **E2E-003:** Upload multiple photos sequentially [P1] - PASSING (3/3 browsers)
 
-2. **Implement File Validation**
-   - ✅ **E2E-011:** Reject file larger than 5MB [P1]
+2. **✅ Implement File Validation**
+   - ✅ **E2E-011:** Reject file larger than 5MB [P1] - PASSING (3/3 browsers)
 
-3. **Enhance Helpers**
-   - Add `uploadMultiplePhotos()` helper
-   - Add file validation assertion helpers
+3. **✅ Enhance Helpers**
+   - ✅ Added `uploadGalleryPhotoExpectError()` helper for validation testing
+   - ✅ Created 6MB test fixture (`large-file.jpg`)
+   - ✅ Fixed error message alignment in PhotoUploadForm.tsx
 
 #### Learning Focus
-- Public/private checkbox toggling
-- Multiple sequential uploads
-- File size validation testing
-- Error message assertions
+- ✅ Public/private checkbox toggling
+- ✅ Multiple sequential uploads
+- ✅ File size validation testing
+- ✅ Error message assertions
 
 #### Deliverables
-- 3 new tests implemented
-- Enhanced helper functions
-- **4 tests passing** (cumulative) ✅
+- ✅ 3 new tests implemented
+- ✅ Enhanced helper functions
+- ✅ **4 tests passing** (cumulative: E2E-001 + E2E-002 + E2E-003 + E2E-011)
+- ✅ All tests passing on 3 browsers (chromium, firefox, webkit)
 
-#### Commit Template
+#### Commits Made
+1. `test(e2e): add E2E-002 upload photo as public` - 00e61b0
+2. `test(e2e): add E2E-003 upload multiple photos sequentially` - f9657f7
+3. `test(e2e): add helper for upload error validation` - beeffef
+4. `test(e2e): add E2E-011 file size validation` - 64784c6
+5. `fix(frontend): update file size error message for E2E test` - a93157a
+
+#### Test Results
 ```
-test(e2e): add upload variations & validation tests
-
-- E2E-002: Upload as public photo
-- E2E-003: Upload multiple photos sequentially
-- E2E-011: File size validation (reject >5MB)
-
-Day 2/6: 4 tests passing (cumulative) ✅
+✅ E2E-002: Upload photo as public (3/3 browsers passing)
+✅ E2E-003: Upload multiple photos sequentially (3/3 browsers passing)
+✅ E2E-011: File size validation (3/3 browsers passing)
 ```
+
+**Day 2/6: 4 tests passing (cumulative) ✅**
 
 ---
 
