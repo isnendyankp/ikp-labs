@@ -19,6 +19,8 @@ import {
   viewPublicPhotos,
   verifyPhotoInGrid,
   verifyPhotoPrivacy,
+  openPhotoDetail,
+  verifyPhotoDetail,
   cleanupTestUser
 } from './helpers/gallery-helpers';
 
@@ -132,6 +134,38 @@ test.describe('Gallery Photo Management', () => {
       );
 
       console.log('✅ E2E-011: File size validation test PASSED');
+    });
+
+  });
+
+  test.describe('View Photos', () => {
+
+    test('E2E-004: should display all owned photos in My Photos tab', async ({ page }) => {
+      // GIVEN: User is registered and logged in
+      const { user } = await createAuthenticatedGalleryUser(page);
+      createdUsers.push(user.email); // Track for cleanup
+
+      // AND: User has uploaded 2 photos (1 private, 1 public)
+      await uploadGalleryPhoto(page, 'test-photo.jpg', {
+        title: 'My Private Photo',
+        description: 'This is my private photo',
+        isPublic: false
+      });
+
+      await uploadGalleryPhoto(page, 'test-photo.jpg', {
+        title: 'My Public Photo',
+        description: 'This is my public photo',
+        isPublic: true
+      });
+
+      // WHEN: User navigates to My Photos tab
+      await viewMyPhotos(page);
+
+      // THEN: Both photos are visible (regardless of privacy)
+      await verifyPhotoInGrid(page, 'My Private Photo');
+      await verifyPhotoInGrid(page, 'My Public Photo');
+
+      console.log('✅ E2E-004: View My Photos test PASSED');
     });
 
   });
