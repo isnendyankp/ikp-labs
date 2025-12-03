@@ -358,5 +358,38 @@ test.describe('Gallery Photo Management', () => {
       console.log('✅ E2E-009: Delete photo test PASSED');
     });
 
+    test('E2E-010: should cancel delete and keep photo', async ({ page }) => {
+      // GIVEN: User is registered and logged in
+      const { user } = await createAuthenticatedGalleryUser(page);
+      createdUsers.push(user.email); // Track for cleanup
+
+      // AND: User has uploaded a photo
+      const photoData = {
+        title: 'Photo Not to Delete',
+        description: 'This photo should remain after cancel',
+        isPublic: true
+      };
+
+      await uploadGalleryPhoto(page, 'test-photo.jpg', photoData);
+
+      // WHEN: User opens photo detail page
+      await openPhotoDetail(page, photoData.title);
+
+      // AND: User clicks Delete but cancels the confirmation
+      await cancelDelete(page);
+
+      // THEN: Photo detail page is still visible (no redirect)
+      await page.waitForTimeout(500);
+      const titleElement = page.locator('h2:has-text("Photo Not to Delete")');
+      await expect(titleElement).toBeVisible();
+
+      // AND: Photo still appears in gallery
+      await page.goto('/gallery');
+      await viewMyPhotos(page);
+      await verifyPhotoInGrid(page, photoData.title);
+
+      console.log('✅ E2E-010: Cancel delete test PASSED');
+    });
+
   });
 });
