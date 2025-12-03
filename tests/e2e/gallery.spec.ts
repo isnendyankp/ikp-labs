@@ -168,5 +168,53 @@ test.describe('Gallery Photo Management', () => {
       console.log('✅ E2E-004: View My Photos test PASSED');
     });
 
+    test('E2E-005: should display only public photos in Public Photos tab', async ({ page }) => {
+      // GIVEN: User A is registered and logged in
+      const { user: userA } = await createAuthenticatedGalleryUser(page);
+      createdUsers.push(userA.email); // Track for cleanup
+
+      // AND: User A has uploaded 1 public photo
+      await uploadGalleryPhoto(page, 'test-photo.jpg', {
+        title: 'User A Public Photo',
+        description: 'This is a public photo from User A',
+        isPublic: true
+      });
+
+      // AND: User A has uploaded 1 private photo
+      await uploadGalleryPhoto(page, 'test-photo.jpg', {
+        title: 'User A Private Photo',
+        description: 'This is a private photo from User A',
+        isPublic: false
+      });
+
+      // AND: User A logs out
+      await page.goto('/login');
+      await page.evaluate(() => localStorage.clear());
+
+      // AND: User B is registered and logged in
+      const { user: userB } = await createAuthenticatedGalleryUser(page);
+      createdUsers.push(userB.email); // Track for cleanup
+
+      // AND: User B has uploaded 1 public photo
+      await uploadGalleryPhoto(page, 'test-photo.jpg', {
+        title: 'User B Public Photo',
+        description: 'This is a public photo from User B',
+        isPublic: true
+      });
+
+      // WHEN: User B navigates to Public Photos tab
+      await viewPublicPhotos(page);
+
+      // THEN: Both public photos are visible
+      await verifyPhotoInGrid(page, 'User A Public Photo');
+      await verifyPhotoInGrid(page, 'User B Public Photo');
+
+      // AND: Private photos are NOT visible
+      const privatePhotoLocator = page.locator('h3:has-text("User A Private Photo")');
+      await expect(privatePhotoLocator).not.toBeVisible();
+
+      console.log('✅ E2E-005: View Public Photos test PASSED');
+    });
+
   });
 });
