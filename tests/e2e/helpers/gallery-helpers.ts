@@ -183,6 +183,56 @@ export async function uploadGalleryPhotoExpectError(
 }
 
 /**
+ * Open photo detail page by clicking on photo title
+ *
+ * @param page - Playwright Page object
+ * @param title - Title of photo to open
+ */
+export async function openPhotoDetail(page: Page, title: string) {
+  // Click on photo title to open detail page
+  const photoTitle = page.locator(`h3:has-text("${title}")`).first();
+  await photoTitle.click();
+
+  // Wait for detail page to load
+  await page.waitForURL(/\/gallery\/\d+/, { timeout: 5000 });
+  await page.waitForTimeout(500);
+
+  console.log(`✅ Opened photo detail: ${title}`);
+}
+
+/**
+ * Verify photo detail page shows complete information
+ *
+ * @param page - Playwright Page object
+ * @param expectedData - Expected photo data (title, description, privacy)
+ */
+export async function verifyPhotoDetail(
+  page: Page,
+  expectedData: {
+    title: string;
+    description?: string;
+    isPublic: boolean;
+  }
+) {
+  // Verify title
+  const titleElement = page.locator('h1, h2').filter({ hasText: expectedData.title });
+  await expect(titleElement).toBeVisible();
+
+  // Verify description if provided
+  if (expectedData.description) {
+    const descElement = page.getByText(expectedData.description);
+    await expect(descElement).toBeVisible();
+  }
+
+  // Verify privacy badge
+  const expectedBadge = expectedData.isPublic ? 'Public' : 'Private';
+  const badge = page.getByText(expectedBadge, { exact: true });
+  await expect(badge).toBeVisible();
+
+  console.log(`✅ Photo detail verified: ${expectedData.title} (${expectedBadge})`);
+}
+
+/**
  * Cleanup test user from database (AUTO DELETE)
  * Uses backend test admin endpoint to delete user and all associated data
  *
