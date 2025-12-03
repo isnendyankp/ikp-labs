@@ -279,7 +279,10 @@ export async function editPhotoMetadata(
 
   // Click Save Changes button
   await page.click('button:has-text("Save Changes")');
-  await page.waitForTimeout(1500); // Wait for UI to update
+
+  // Wait for UI to exit edit mode (Edit button appears again = view mode)
+  await page.waitForSelector('button:has-text("Edit")', { timeout: 5000 });
+  await page.waitForTimeout(500); // Extra buffer for UI to fully render
 
   console.log(`✅ Photo metadata updated`);
 }
