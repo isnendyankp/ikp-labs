@@ -21,6 +21,9 @@ import {
   verifyPhotoPrivacy,
   openPhotoDetail,
   verifyPhotoDetail,
+  editPhotoMetadata,
+  deleteGalleryPhoto,
+  cancelDelete,
   cleanupTestUser
 } from './helpers/gallery-helpers';
 
@@ -241,6 +244,50 @@ test.describe('Gallery Photo Management', () => {
       await expect(imageElement.first()).toBeVisible();
 
       console.log('✅ E2E-006: View photo detail page test PASSED');
+    });
+
+  });
+
+  test.describe('Edit & Delete Operations', () => {
+
+    test('E2E-007: should edit photo title and description', async ({ page }) => {
+      // GIVEN: User is registered and logged in
+      const { user } = await createAuthenticatedGalleryUser(page);
+      createdUsers.push(user.email); // Track for cleanup
+
+      // AND: User has uploaded a photo
+      const originalData = {
+        title: 'Original Title',
+        description: 'Original description of the photo',
+        isPublic: false
+      };
+
+      await uploadGalleryPhoto(page, 'test-photo.jpg', originalData);
+
+      // WHEN: User opens photo detail page
+      await openPhotoDetail(page, originalData.title);
+
+      // AND: User edits the title and description
+      const updatedData = {
+        title: 'Updated Title',
+        description: 'This is the new updated description'
+      };
+
+      await editPhotoMetadata(page, updatedData);
+
+      // THEN: Updated title is visible on detail page
+      const titleElement = page.locator('h2:has-text("Updated Title")');
+      await expect(titleElement).toBeVisible();
+
+      // AND: Updated description is visible
+      const descElement = page.getByText('This is the new updated description');
+      await expect(descElement).toBeVisible();
+
+      // AND: Privacy remains unchanged (Private)
+      const privacyBadge = page.getByText('Private', { exact: true });
+      await expect(privacyBadge).toBeVisible();
+
+      console.log('✅ E2E-007: Edit photo metadata test PASSED');
     });
 
   });
