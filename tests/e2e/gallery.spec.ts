@@ -290,5 +290,42 @@ test.describe('Gallery Photo Management', () => {
       console.log('✅ E2E-007: Edit photo metadata test PASSED');
     });
 
+    test('E2E-008: should toggle privacy from private to public', async ({ page }) => {
+      // GIVEN: User is registered and logged in
+      const { user } = await createAuthenticatedGalleryUser(page);
+      createdUsers.push(user.email); // Track for cleanup
+
+      // AND: User has uploaded a PRIVATE photo
+      const photoData = {
+        title: 'Privacy Test Photo',
+        description: 'Testing privacy toggle functionality',
+        isPublic: false // Start as Private
+      };
+
+      await uploadGalleryPhoto(page, 'test-photo.jpg', photoData);
+
+      // WHEN: User opens photo detail page
+      await openPhotoDetail(page, photoData.title);
+
+      // AND: User toggles privacy to Public
+      await editPhotoMetadata(page, {
+        isPublic: true
+      });
+
+      // THEN: Privacy badge shows "Public"
+      const publicBadge = page.getByText('Public', { exact: true });
+      await expect(publicBadge).toBeVisible();
+
+      // AND: Privacy badge "Private" is NOT visible
+      const privateBadge = page.locator('span:has-text("Private")');
+      await expect(privateBadge).not.toBeVisible();
+
+      // AND: Photo appears in Public Photos tab
+      await viewPublicPhotos(page);
+      await verifyPhotoInGrid(page, photoData.title);
+
+      console.log('✅ E2E-008: Toggle privacy test PASSED');
+    });
+
   });
 });
