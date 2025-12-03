@@ -96,13 +96,10 @@ export default function PhotoDetailPage() {
       });
 
       if (response.data) {
-        // Update photo dengan data baru (merge dengan existing owner info)
-        if (photo) {
-          setPhoto({
-            ...photo,
-            ...response.data.photo,
-          });
-        }
+        // Update photo dengan data baru (backend returns GalleryPhotoResponse directly, not wrapped)
+        setPhoto({
+          ...response.data,
+        });
         setEditing(false);
         alert('Photo updated successfully!');
       } else if (response.error) {
