@@ -216,5 +216,32 @@ test.describe('Gallery Photo Management', () => {
       console.log('✅ E2E-005: View Public Photos test PASSED');
     });
 
+    test('E2E-006: should view photo detail page with complete information', async ({ page }) => {
+      // GIVEN: User is registered and logged in
+      const { user } = await createAuthenticatedGalleryUser(page);
+      createdUsers.push(user.email); // Track for cleanup
+
+      // AND: User has uploaded a photo with complete metadata
+      const photoData = {
+        title: 'Scenic Mountain View',
+        description: 'A breathtaking view from the mountain top during golden hour',
+        isPublic: true
+      };
+
+      await uploadGalleryPhoto(page, 'test-photo.jpg', photoData);
+
+      // WHEN: User clicks on photo to open detail page
+      await openPhotoDetail(page, photoData.title);
+
+      // THEN: Detail page displays complete photo information
+      await verifyPhotoDetail(page, photoData);
+
+      // AND: Image is displayed
+      const imageElement = page.locator('img[alt*="Scenic Mountain View"], img[src*="/api/gallery/photos/"]');
+      await expect(imageElement.first()).toBeVisible();
+
+      console.log('✅ E2E-006: View photo detail page test PASSED');
+    });
+
   });
 });
