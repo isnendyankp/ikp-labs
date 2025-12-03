@@ -233,6 +233,95 @@ export async function verifyPhotoDetail(
 }
 
 /**
+ * Edit photo metadata (title, description, privacy)
+ * Clicks Edit button, modifies fields, and saves changes
+ *
+ * @param page - Playwright Page object
+ * @param newData - New photo data to update
+ */
+export async function editPhotoMetadata(
+  page: Page,
+  newData: {
+    title?: string;
+    description?: string;
+    isPublic?: boolean;
+  }
+) {
+  // Click Edit button to enter edit mode
+  await page.click('button:has-text("Edit")');
+  await page.waitForTimeout(500);
+
+  // Update title if provided
+  if (newData.title !== undefined) {
+    await page.fill('input[type="text"]', newData.title);
+  }
+
+  // Update description if provided
+  if (newData.description !== undefined) {
+    await page.fill('textarea', newData.description);
+  }
+
+  // Update privacy if provided
+  if (newData.isPublic !== undefined) {
+    const checkbox = page.locator('input#editIsPublic');
+    const isChecked = await checkbox.isChecked();
+
+    if (isChecked !== newData.isPublic) {
+      await checkbox.check();
+    }
+  }
+
+  // Click Save Changes button
+  await page.click('button:has-text("Save Changes")');
+  await page.waitForTimeout(1000);
+
+  console.log(`✅ Photo metadata updated`);
+}
+
+/**
+ * Delete photo with confirmation
+ * Clicks Delete button and accepts confirmation dialog
+ *
+ * @param page - Playwright Page object
+ */
+export async function deleteGalleryPhoto(page: Page) {
+  // Setup dialog handler BEFORE clicking delete
+  page.once('dialog', async dialog => {
+    console.log(`📢 Dialog message: "${dialog.message()}"`);
+    await dialog.accept();
+  });
+
+  // Click Delete button
+  await page.click('button:has-text("Delete")');
+
+  // Wait for redirect to gallery page
+  await page.waitForURL('/gallery', { timeout: 5000 });
+  await page.waitForTimeout(1000);
+
+  console.log(`✅ Photo deleted successfully`);
+}
+
+/**
+ * Cancel delete operation
+ * Clicks Delete button and dismisses confirmation dialog
+ *
+ * @param page - Playwright Page object
+ */
+export async function cancelDelete(page: Page) {
+  // Setup dialog handler to DISMISS (cancel)
+  page.once('dialog', async dialog => {
+    console.log(`📢 Dialog message: "${dialog.message()}"`);
+    await dialog.dismiss();
+  });
+
+  // Click Delete button
+  await page.click('button:has-text("Delete")');
+  await page.waitForTimeout(1000);
+
+  console.log(`✅ Delete cancelled`);
+}
+
+/**
  * Cleanup test user from database (AUTO DELETE)
  * Uses backend test admin endpoint to delete user and all associated data
  *
