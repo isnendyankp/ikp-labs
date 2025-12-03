@@ -327,5 +327,36 @@ test.describe('Gallery Photo Management', () => {
       console.log('✅ E2E-008: Toggle privacy test PASSED');
     });
 
+    test('E2E-009: should delete photo with confirmation', async ({ page }) => {
+      // GIVEN: User is registered and logged in
+      const { user } = await createAuthenticatedGalleryUser(page);
+      createdUsers.push(user.email); // Track for cleanup
+
+      // AND: User has uploaded a photo
+      const photoData = {
+        title: 'Photo to Delete',
+        description: 'This photo will be deleted',
+        isPublic: false
+      };
+
+      await uploadGalleryPhoto(page, 'test-photo.jpg', photoData);
+
+      // WHEN: User opens photo detail page
+      await openPhotoDetail(page, photoData.title);
+
+      // AND: User clicks Delete and confirms
+      await deleteGalleryPhoto(page);
+
+      // THEN: User is redirected to gallery page
+      await expect(page).toHaveURL('/gallery');
+
+      // AND: Photo no longer appears in My Photos
+      await viewMyPhotos(page);
+      const photoLocator = page.locator(`h3:has-text("${photoData.title}")`);
+      await expect(photoLocator).not.toBeVisible();
+
+      console.log('✅ E2E-009: Delete photo test PASSED');
+    });
+
   });
 });
