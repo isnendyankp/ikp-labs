@@ -271,9 +271,15 @@ export async function editPhotoMetadata(
     }
   }
 
+  // Setup dialog handler for success alert BEFORE clicking Save
+  page.once('dialog', async dialog => {
+    console.log(`📢 Alert message: "${dialog.message()}"`);
+    await dialog.accept();
+  });
+
   // Click Save Changes button
   await page.click('button:has-text("Save Changes")');
-  await page.waitForTimeout(1000);
+  await page.waitForTimeout(1500); // Wait for UI to update
 
   console.log(`✅ Photo metadata updated`);
 }
