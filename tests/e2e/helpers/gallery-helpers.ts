@@ -266,8 +266,9 @@ export async function editPhotoMetadata(
     const checkbox = page.locator('input#editIsPublic');
     const isChecked = await checkbox.isChecked();
 
+    // Toggle checkbox if current state doesn't match desired state
     if (isChecked !== newData.isPublic) {
-      await checkbox.check();
+      await checkbox.click(); // Click to toggle (not check())
     }
   }
 
