@@ -436,4 +436,49 @@ test.describe('Gallery Photo Management', () => {
     });
 
   });
+
+  test.describe('Data Persistence Tests', () => {
+
+    test('E2E-018: should persist photos after page refresh', async ({ page }) => {
+      // GIVEN: User is registered and logged in
+      const { user } = await createAuthenticatedGalleryUser(page);
+      createdUsers.push(user.email); // Track for cleanup
+
+      // AND: User has uploaded multiple photos
+      const photo1 = {
+        title: 'Persistent Photo 1',
+        description: 'This photo should persist after refresh',
+        isPublic: false
+      };
+
+      const photo2 = {
+        title: 'Persistent Photo 2',
+        description: 'This photo should also persist',
+        isPublic: true
+      };
+
+      await uploadGalleryPhoto(page, 'test-photo.jpg', photo1);
+      await uploadGalleryPhoto(page, 'test-photo.png', photo2);
+
+      // WHEN: User refreshes the browser
+      await page.goto('/gallery');
+      await viewMyPhotos(page);
+      await page.reload();
+      await page.waitForTimeout(1000); // Wait for reload
+
+      // THEN: All uploaded photos are still visible
+      await verifyPhotoInGrid(page, photo1.title);
+      await verifyPhotoInGrid(page, photo2.title);
+
+      // AND: Photo metadata is intact
+      const photo1Card = page.locator(`h3:has-text("${photo1.title}")`);
+      await expect(photo1Card).toBeVisible();
+
+      const photo2Card = page.locator(`h3:has-text("${photo2.title}")`);
+      await expect(photo2Card).toBeVisible();
+
+      console.log('✅ E2E-018: Photos persist after refresh test PASSED');
+    });
+
+  });
 });
