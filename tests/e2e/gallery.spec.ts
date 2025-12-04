@@ -480,5 +480,59 @@ test.describe('Gallery Photo Management', () => {
       console.log('✅ E2E-018: Photos persist after refresh test PASSED');
     });
 
+    test('E2E-019: should persist privacy setting after refresh', async ({ page }) => {
+      // GIVEN: User is registered and logged in
+      const { user } = await createAuthenticatedGalleryUser(page);
+      createdUsers.push(user.email); // Track for cleanup
+
+      // AND: User has uploaded photos with different privacy settings
+      const privatePhoto = {
+        title: 'Private Photo Persist',
+        description: 'This should stay private',
+        isPublic: false
+      };
+
+      const publicPhoto = {
+        title: 'Public Photo Persist',
+        description: 'This should stay public',
+        isPublic: true
+      };
+
+      await uploadGalleryPhoto(page, 'test-photo.jpg', privatePhoto);
+      await uploadGalleryPhoto(page, 'test-photo.png', publicPhoto);
+
+      // WHEN: User refreshes the browser
+      await page.goto('/gallery');
+      await viewMyPhotos(page);
+      await page.reload();
+      await page.waitForTimeout(1000); // Wait for reload
+
+      // THEN: Private photo is visible in My Photos
+      await verifyPhotoInGrid(page, privatePhoto.title);
+
+      // AND: Private badge is displayed
+      const privatePhotoCard = page.locator(`h3:has-text("${privatePhoto.title}")`).locator('..');
+      const privateBadge = privatePhotoCard.locator('span:has-text("Private")');
+      await expect(privateBadge).toBeVisible();
+
+      // AND: Public photo is visible in My Photos
+      await verifyPhotoInGrid(page, publicPhoto.title);
+
+      // AND: Public badge is displayed
+      const publicPhotoCard = page.locator(`h3:has-text("${publicPhoto.title}")`).locator('..');
+      const publicBadge = publicPhotoCard.locator('span:has-text("Public")');
+      await expect(publicBadge).toBeVisible();
+
+      // AND: Public photo appears in Public Photos tab
+      await viewPublicPhotos(page);
+      await verifyPhotoInGrid(page, publicPhoto.title);
+
+      // AND: Private photo does NOT appear in Public Photos tab
+      const privatePhotoInPublic = page.locator(`h3:has-text("${privatePhoto.title}")`);
+      await expect(privatePhotoInPublic).not.toBeVisible();
+
+      console.log('✅ E2E-019: Privacy setting persistence test PASSED');
+    });
+
   });
 });
