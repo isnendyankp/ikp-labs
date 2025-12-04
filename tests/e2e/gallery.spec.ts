@@ -415,5 +415,25 @@ test.describe('Gallery Photo Management', () => {
       console.log('✅ E2E-012: Reject non-image file test PASSED');
     });
 
+    test('E2E-013: should reject PDF file', async ({ page }) => {
+      // GIVEN: User is registered and logged in
+      const { user } = await createAuthenticatedGalleryUser(page);
+      createdUsers.push(user.email); // Track for cleanup
+
+      // WHEN: User attempts to upload a PDF file
+      const expectedError = 'Only image files (JPEG, PNG, GIF, WebP) are allowed. Maximum file size is 5MB.';
+
+      await uploadGalleryPhotoExpectError(
+        page,
+        'invalid-file.pdf',
+        expectedError
+      );
+
+      // THEN: Error message is displayed (validated by helper)
+      // AND: User remains on upload page (validated by helper)
+
+      console.log('✅ E2E-013: Reject PDF file test PASSED');
+    });
+
   });
 });
