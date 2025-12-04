@@ -392,4 +392,28 @@ test.describe('Gallery Photo Management', () => {
     });
 
   });
+
+  test.describe('File Validation Tests', () => {
+
+    test('E2E-012: should reject non-image file (text file)', async ({ page }) => {
+      // GIVEN: User is registered and logged in
+      const { user } = await createAuthenticatedGalleryUser(page);
+      createdUsers.push(user.email); // Track for cleanup
+
+      // WHEN: User attempts to upload a text file
+      const expectedError = 'Only image files (JPEG, PNG, GIF, WebP) are allowed. Maximum file size is 5MB.';
+
+      await uploadGalleryPhotoExpectError(
+        page,
+        'invalid-file.txt',
+        expectedError
+      );
+
+      // THEN: Error message is displayed (validated by helper)
+      // AND: User remains on upload page (validated by helper)
+
+      console.log('✅ E2E-012: Reject non-image file test PASSED');
+    });
+
+  });
 });
