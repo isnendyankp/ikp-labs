@@ -722,4 +722,75 @@ test.describe('Gallery Photo Management', () => {
     });
 
   });
+
+  test.describe('End-to-End Flow Tests', () => {
+
+    test('E2E-020: should complete full Gallery workflow from upload to delete', async ({ page }) => {
+      // GIVEN: User is registered and logged in
+      const { user } = await createAuthenticatedGalleryUser(page);
+      createdUsers.push(user.email); // Track for cleanup
+
+      // WHEN: User uploads a private photo
+      await uploadGalleryPhoto(page, 'test-photo.jpg', {
+        title: 'Complete Flow Photo',
+        description: 'Testing full lifecycle',
+        isPublic: false
+      });
+
+      // THEN: Photo appears in My Photos tab
+      await viewMyPhotos(page);
+      await verifyPhotoInGrid(page, 'Complete Flow Photo');
+      await verifyPhotoPrivacy(page, 'Complete Flow Photo', false);
+
+      // WHEN: User opens photo detail page
+      await openPhotoDetail(page, 'Complete Flow Photo');
+
+      // THEN: Photo detail shows complete information
+      await verifyPhotoDetail(page, {
+        title: 'Complete Flow Photo',
+        description: 'Testing full lifecycle',
+        isPublic: false
+      });
+
+      // WHEN: User edits photo metadata and changes to public
+      await editPhotoMetadata(page, {
+        title: 'Updated Flow Photo',
+        description: 'Updated description after edit',
+        isPublic: true
+      });
+
+      // THEN: Updated metadata is displayed
+      await verifyPhotoDetail(page, {
+        title: 'Updated Flow Photo',
+        description: 'Updated description after edit',
+        isPublic: true
+      });
+
+      // AND: Photo appears in Public Photos tab (because it's now public)
+      await viewPublicPhotos(page);
+      await verifyPhotoInGrid(page, 'Updated Flow Photo');
+      await verifyPhotoPrivacy(page, 'Updated Flow Photo', true);
+
+      // WHEN: User opens photo detail and deletes it
+      await openPhotoDetail(page, 'Updated Flow Photo');
+      await deleteGalleryPhoto(page);
+
+      // THEN: User is redirected to gallery page
+      await expect(page).toHaveURL('/gallery');
+
+      // AND: Deleted photo no longer appears in My Photos
+      await viewMyPhotos(page);
+      const deletedPhoto = page.locator('h3:has-text("Updated Flow Photo")');
+      await expect(deletedPhoto).not.toBeVisible();
+
+      // AND: Deleted photo no longer appears in Public Photos
+      await viewPublicPhotos(page);
+      const deletedPhotoInPublic = page.locator('h3:has-text("Updated Flow Photo")');
+      await expect(deletedPhotoInPublic).not.toBeVisible();
+
+      console.log('✅ E2E-020: Complete Gallery workflow test PASSED');
+      console.log('🎉 FULL LIFECYCLE VERIFIED: Upload → View → Edit → Change Privacy → Delete');
+    });
+
+  });
 });
