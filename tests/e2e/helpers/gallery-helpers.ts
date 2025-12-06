@@ -7,6 +7,7 @@
 
 import { Page, expect } from '@playwright/test';
 import path from 'path';
+import fs from 'fs';
 
 /**
  * Generate unique email for gallery tests
@@ -352,4 +353,54 @@ export async function cleanupTestUser(request: any, email: string) {
   } catch (error) {
     console.error(`❌ Error cleaning up user ${email}:`, error);
   }
+}
+
+/**
+ * Bulk upload photos via API (faster than UI for pagination testing)
+ * Uses backend API directly to create multiple photos quickly
+ *
+ * @param page - Playwright Page object (for auth token)
+ * @param count - Number of photos to upload
+ * @param isPublic - Privacy setting for photos (default: false)
+ */
+export async function bulkUploadPhotosViaAPI(
+  page: Page,
+  count: number,
+  isPublic: boolean = false
+): Promise<void> {
+  // Get auth token from localStorage
+  const token = await page.evaluate(() => localStorage.getItem('authToken'));
+
+  if (!token) {
+    throw new Error('No auth token found - user must be logged in');
+  }
+
+  const fixturePath = path.join(__dirname, '../../fixtures/images/test-photo.jpg');
+  const fileBuffer = await fs.promises.readFile(fixturePath);
+  const blob = new Blob([fileBuffer], { type: 'image/jpeg' });
+
+  console.log(`📤 Bulk uploading ${count} photos via API...`);
+
+  for (let i = 1; i <= count; i++) {
+    const formData = new FormData();
+    formData.append('file', blob, 'test-photo.jpg');
+    formData.append('title', `Bulk Photo ${i}`);
+    formData.append('description', `Auto-generated photo ${i} for pagination testing`);
+    formData.append('isPublic', String(isPublic));
+
+    const response = await fetch('http://localhost:8081/api/gallery/upload', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${token}`,
+      },
+      body: formData,
+    });
+
+    if (!response.ok) {
+      console.error(`❌ Failed to upload photo ${i}: ${response.status}`);
+    }
+  }
+
+  console.log(`✅ Bulk uploaded ${count} photos`);
+  await page.waitForTimeout(500); // Brief pause to ensure backend processed all uploads
 }
