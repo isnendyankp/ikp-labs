@@ -526,6 +526,57 @@ test.describe('Gallery Photo Management', () => {
 
   });
 
+  test.describe('Authorization Tests', () => {
+
+    test('E2E-016: should not allow editing another user\'s photo', async ({ page, browser }) => {
+      // GIVEN: User A is registered and uploads a public photo
+      const { user: userA } = await createAuthenticatedGalleryUser(page);
+      createdUsers.push(userA.email); // Track for cleanup
+
+      await uploadGalleryPhoto(page, 'test-photo.jpg', {
+        title: 'User A Photo',
+        description: 'This photo belongs to User A',
+        isPublic: true // Make it public so User B can see it
+      });
+
+      // Get the photo ID from URL after navigating to detail page
+      await viewPublicPhotos(page);
+      await openPhotoDetail(page, 'User A Photo');
+      const photoUrl = page.url();
+      const photoId = photoUrl.match(/\/gallery\/(\d+)/)?.[1];
+
+      // Log out User A
+      await page.evaluate(() => localStorage.clear());
+      await page.goto('/');
+
+      // AND: User B is registered and logged in (different user)
+      const { user: userB } = await createAuthenticatedGalleryUser(page);
+      createdUsers.push(userB.email); // Track for cleanup
+
+      // WHEN: User B navigates to User A's photo detail page
+      await page.goto(`/gallery/${photoId}`);
+      await page.waitForTimeout(1000);
+
+      // THEN: User B can view the photo
+      await verifyPhotoDetail(page, {
+        title: 'User A Photo',
+        description: 'This photo belongs to User A',
+        isPublic: true
+      });
+
+      // AND: Edit button should NOT be visible (authorization boundary)
+      const editButton = page.locator('button:has-text("Edit")');
+      await expect(editButton).not.toBeVisible();
+
+      // AND: Delete button should NOT be visible (authorization boundary)
+      const deleteButton = page.locator('button:has-text("Delete")');
+      await expect(deleteButton).not.toBeVisible();
+
+      console.log('✅ E2E-016: Cannot edit other user\'s photo test PASSED');
+    });
+
+  });
+
   test.describe('Data Persistence Tests', () => {
 
     test('E2E-018: should persist photos after page refresh', async ({ page }) => {
