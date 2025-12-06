@@ -24,6 +24,7 @@ import {
   editPhotoMetadata,
   deleteGalleryPhoto,
   cancelDelete,
+  bulkUploadPhotosViaAPI,
   cleanupTestUser
 } from './helpers/gallery-helpers';
 
@@ -433,6 +434,52 @@ test.describe('Gallery Photo Management', () => {
       // AND: User remains on upload page (validated by helper)
 
       console.log('✅ E2E-013: Reject PDF file test PASSED');
+    });
+
+  });
+
+  test.describe('Pagination Tests', () => {
+
+    test('E2E-014: should paginate photos in My Photos tab', async ({ page }) => {
+      // GIVEN: User is registered and logged in
+      const { user } = await createAuthenticatedGalleryUser(page);
+      createdUsers.push(user.email); // Track for cleanup
+
+      // AND: User has uploaded 15 photos (more than default page size of 12)
+      await bulkUploadPhotosViaAPI(page, 15, false);
+
+      // WHEN: User navigates to My Photos
+      await page.goto('/gallery');
+      await viewMyPhotos(page);
+      await page.waitForTimeout(1000); // Wait for photos to load
+
+      // THEN: Page 1 shows 12 photos (default page size)
+      const photosOnPage1 = page.locator('.group.cursor-pointer.bg-white.rounded-lg');
+      const countPage1 = await photosOnPage1.count();
+      expect(countPage1).toBeLessThanOrEqual(12);
+
+      // AND: Pagination controls are visible
+      const nextButton = page.locator('button:has-text("Next")');
+      await expect(nextButton).toBeVisible();
+
+      // AND: Page indicator shows current page
+      const pageIndicator = page.locator('text=/Page \\d+ of \\d+/');
+      await expect(pageIndicator).toBeVisible();
+
+      // WHEN: User clicks Next to go to page 2
+      await nextButton.click();
+      await page.waitForTimeout(1000); // Wait for page load
+
+      // THEN: Page 2 shows remaining photos (3 photos)
+      const photosOnPage2 = page.locator('.group.cursor-pointer.bg-white.rounded-lg');
+      const countPage2 = await photosOnPage2.count();
+      expect(countPage2).toBeGreaterThan(0);
+
+      // AND: Previous button is now visible
+      const previousButton = page.locator('button:has-text("Previous")');
+      await expect(previousButton).toBeVisible();
+
+      console.log('✅ E2E-014: Pagination in My Photos test PASSED');
     });
 
   });
