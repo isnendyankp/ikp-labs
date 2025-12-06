@@ -482,6 +482,48 @@ test.describe('Gallery Photo Management', () => {
       console.log('✅ E2E-014: Pagination in My Photos test PASSED');
     });
 
+    test('E2E-015: should paginate photos in Public Photos tab', async ({ page }) => {
+      // GIVEN: User is registered and logged in
+      const { user } = await createAuthenticatedGalleryUser(page);
+      createdUsers.push(user.email); // Track for cleanup
+
+      // AND: User has uploaded 15 PUBLIC photos (more than default page size)
+      await bulkUploadPhotosViaAPI(page, 15, true); // isPublic = true
+
+      // WHEN: User navigates to Public Photos tab
+      await page.goto('/gallery');
+      await viewPublicPhotos(page);
+      await page.waitForTimeout(1000); // Wait for photos to load
+
+      // THEN: Page 1 shows 12 photos (default page size)
+      const photosOnPage1 = page.locator('.group.cursor-pointer.bg-white.rounded-lg');
+      const countPage1 = await photosOnPage1.count();
+      expect(countPage1).toBeLessThanOrEqual(12);
+
+      // AND: Pagination controls are visible
+      const nextButton = page.locator('button:has-text("Next")');
+      await expect(nextButton).toBeVisible();
+
+      // AND: Page indicator shows current page
+      const pageIndicator = page.locator('text=/Page \\d+ of \\d+/');
+      await expect(pageIndicator).toBeVisible();
+
+      // WHEN: User clicks Next to go to page 2
+      await nextButton.click();
+      await page.waitForTimeout(1000); // Wait for page load
+
+      // THEN: Page 2 shows remaining photos (3 photos)
+      const photosOnPage2 = page.locator('.group.cursor-pointer.bg-white.rounded-lg');
+      const countPage2 = await photosOnPage2.count();
+      expect(countPage2).toBeGreaterThan(0);
+
+      // AND: Previous button is now visible
+      const previousButton = page.locator('button:has-text("Previous")');
+      await expect(previousButton).toBeVisible();
+
+      console.log('✅ E2E-015: Pagination in Public Photos test PASSED');
+    });
+
   });
 
   test.describe('Data Persistence Tests', () => {
