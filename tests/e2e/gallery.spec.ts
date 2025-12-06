@@ -575,6 +575,53 @@ test.describe('Gallery Photo Management', () => {
       console.log('✅ E2E-016: Cannot edit other user\'s photo test PASSED');
     });
 
+    test('E2E-017: should not allow deleting another user\'s photo', async ({ page, browser }) => {
+      // GIVEN: User A is registered and uploads a public photo
+      const { user: userA } = await createAuthenticatedGalleryUser(page);
+      createdUsers.push(userA.email); // Track for cleanup
+
+      await uploadGalleryPhoto(page, 'test-photo.jpg', {
+        title: 'User A Protected Photo',
+        description: 'This photo should not be deletable by User B',
+        isPublic: true // Make it public so User B can see it
+      });
+
+      // Get the photo ID from URL after navigating to detail page
+      await viewPublicPhotos(page);
+      await openPhotoDetail(page, 'User A Protected Photo');
+      const photoUrl = page.url();
+      const photoId = photoUrl.match(/\/gallery\/(\d+)/)?.[1];
+
+      // Log out User A
+      await page.evaluate(() => localStorage.clear());
+      await page.goto('/');
+
+      // AND: User B is registered and logged in (different user)
+      const { user: userB } = await createAuthenticatedGalleryUser(page);
+      createdUsers.push(userB.email); // Track for cleanup
+
+      // WHEN: User B navigates to User A's photo detail page
+      await page.goto(`/gallery/${photoId}`);
+      await page.waitForTimeout(1000);
+
+      // THEN: User B can view the photo
+      await verifyPhotoDetail(page, {
+        title: 'User A Protected Photo',
+        description: 'This photo should not be deletable by User B',
+        isPublic: true
+      });
+
+      // AND: Delete button should NOT be visible (authorization boundary)
+      const deleteButton = page.locator('button:has-text("Delete")');
+      await expect(deleteButton).not.toBeVisible();
+
+      // AND: Edit button should also NOT be visible (ownership validation)
+      const editButton = page.locator('button:has-text("Edit")');
+      await expect(editButton).not.toBeVisible();
+
+      console.log('✅ E2E-017: Cannot delete other user\'s photo test PASSED');
+    });
+
   });
 
   test.describe('Data Persistence Tests', () => {
