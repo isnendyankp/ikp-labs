@@ -698,7 +698,7 @@ test.describe('Gallery Photo Management', () => {
       await verifyPhotoInGrid(page, privatePhoto.title);
 
       // AND: Private badge is displayed
-      const privatePhotoCard = page.locator(`h3:has-text("${privatePhoto.title}")`).locator('..');
+      const privatePhotoCard = page.locator(`h3:has-text("${privatePhoto.title}")`).locator('../..');
       const privateBadge = privatePhotoCard.locator('span:has-text("Private")');
       await expect(privateBadge).toBeVisible();
 
@@ -706,7 +706,7 @@ test.describe('Gallery Photo Management', () => {
       await verifyPhotoInGrid(page, publicPhoto.title);
 
       // AND: Public badge is displayed
-      const publicPhotoCard = page.locator(`h3:has-text("${publicPhoto.title}")`).locator('..');
+      const publicPhotoCard = page.locator(`h3:has-text("${publicPhoto.title}")`).locator('../..');
       const publicBadge = publicPhotoCard.locator('span:has-text("Public")');
       await expect(publicBadge).toBeVisible();
 
