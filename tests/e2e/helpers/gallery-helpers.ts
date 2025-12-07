@@ -109,7 +109,7 @@ export async function uploadGalleryPhoto(
 export async function viewMyPhotos(page: Page) {
   await page.goto('/gallery');
   await page.click('button:has-text("My Photos")');
-  await page.waitForTimeout(500);
+  await page.waitForTimeout(1500); // Increased wait for API response
 }
 
 /**
@@ -118,7 +118,7 @@ export async function viewMyPhotos(page: Page) {
 export async function viewPublicPhotos(page: Page) {
   await page.goto('/gallery');
   await page.click('button:has-text("Public Photos")');
-  await page.waitForTimeout(500);
+  await page.waitForTimeout(1500); // Increased wait for API response
 }
 
 /**
