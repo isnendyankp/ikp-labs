@@ -8,21 +8,7 @@ A complete full-stack application featuring photo gallery, authentication, and p
 
 ![Login Form Template](frontend/public/images/loginFormTemplate1.png)
 
-### 🆕 Photo Gallery Feature
-
-![Gallery Upload Page](frontend/public/images/galleryUploadPage.png)
-*Upload photos with drag & drop interface*
-
-![Gallery My Photos](frontend/public/images/galleryMyPhotos.png)
-*Manage your personal photo collection*
-
-![Gallery Public Photos](frontend/public/images/galleryPublicPhotos.png)
-*Browse public photos from all users*
-
-![Gallery Photo Detail](frontend/public/images/galleryPhotoDetail.png)
-*View photo details with edit/delete options (owner only)*
-
-**Testing Achievement:** 🏆 **40 E2E Tests - 100% Pass Rate** (Chromium + Firefox)
+**🏆 Latest Achievement:** Photo Gallery feature with **40 E2E Tests - 100% Pass Rate** (Chromium + Firefox)
 
 ## Features
 
