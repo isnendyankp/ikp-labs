@@ -21,7 +21,7 @@ Complete chronological archive of all LinkedIn posts documenting the full-stack 
 - [Week 9 - Photo Gallery Privacy Feature](#week-9---photo-gallery-privacy-feature)
 - [Week 10 - Integration Testing](#week-10---integration-testing)
 - [Week 11 - API Testing with Playwright](#week-11---api-testing-with-playwright)
-- [Week 12 - E2E Gallery Testing Complete](#week-12---e2e-gallery-testing-complete)
+- [Week 12 - E2E Gallery Testing Complete (40/40 Pass Rate)](#week-12---e2e-gallery-testing-complete)
 - [Week 13+ - Backend Testing Week (Draft)](#week-13---backend-testing-week-draft)
 
 ---
@@ -787,28 +787,34 @@ What's your preferred API testing tool? REST Assured, Playwright, or Postman/New
 
 ## Week 12 - E2E Gallery Testing Complete
 
-**Status:** 📝 Ready to Post (Sunday, December 7, 2025, 9-10 AM)
-**Topic:** 6-day E2E testing journey with Playwright
-**Key Achievement:** 20 E2E tests, 100% Gallery coverage, 4 bugs fixed
+**Status:** ✅ Published (Sunday, December 7, 2025)
+**Topic:** 6-day E2E testing journey with Playwright - 40/40 Pass Rate
+**Key Achievement:** 20 E2E scenarios, 40 test executions (100% pass rate), 4 bugs fixed, Strategic browser selection
 **Date Range:** November 30 - December 6, 2025
 
-### Post Content (Option A - Full Version)
+### Post Content
 
 ```
-6 Days, 20 E2E Tests: How I Achieved 100% Gallery Coverage 🧪
+6 Days, 20 E2E Tests, 40/40 Pass Rate: How I Achieved 100% Gallery Coverage 🧪
 
 Last week's goal: Build comprehensive E2E tests for Photo Gallery.
-Reality: 6 consecutive days, 59 commits, 20 tests, and 4 unexpected bugs.
+
+Reality: 6 consecutive days, 64 commits, 20 test scenarios, 4 bugs fixed, and 1 strategic testing decision.
+
 
 The Challenge:
+
 Gallery feature was complete (backend + frontend working).
+
 But no E2E tests = no proof the user journey actually works end-to-end.
+
 
 The 6-Day Journey:
 
 Day 1: Setup + first upload test ✅
 Day 2: Upload variations + file validation ✅
 Day 3: View tests (My Photos, Public Photos, Detail Page) ✅
+
 Day 4: Edit/Delete operations + bug hunt 🐛
 → Found critical React state bug during E2E testing!
 → Frontend wasn't showing updated photo data (silent failure)
@@ -816,33 +822,57 @@ Day 4: Edit/Delete operations + bug hunt 🐛
 
 Day 5: Validation + persistence tests ✅
 Day 6: Pagination + authorization + complete workflow ✅
+Day 7 (Bonus): Test optimization & 100% stability ✅
+
 
 What Shipped:
-✅ 20 E2E tests (E2E-001 through E2E-020)
+
+✅ 20 E2E test scenarios (E2E-001 through E2E-020)
+✅ 40 test executions (2 browsers × 20 tests) - 100% pass rate!
 ✅ 796 lines of test code
 ✅ 406 lines of reusable helper functions
-✅ 4 bugs fixed (frontend state, checkbox toggle, alert handling)
+✅ 4 bugs fixed (state management, checkbox, alerts, timing)
 ✅ 100% Gallery user journey coverage
-✅ 3 browsers tested (Chromium, Firefox, WebKit)
+
 
 Technical Highlights:
-🚀 Pagination testing (15+ photos per test)
+
+🚀 Pagination testing (15+ photos per scenario)
 🔒 Multi-user authorization scenarios
 💾 Data persistence testing (browser refresh)
 ⚡ Performance: bulkUploadViaAPI() - 10x faster test setup (60s → 8s)
+🎯 Strategic testing: Chromium + Firefox (covers 75% of users)
+
+
+Browser Coverage Decision:
+
+Initially tested 3 browsers (Chromium, Firefox, WebKit).
+
+Final decision: Focus on Chromium + Firefox for 100% stability.
+
+Rationale: Primary browsers for production, faster CI/CD, proven reliability.
+
 
 Tech Stack:
+
 • Playwright + TypeScript
 • React + Spring Boot + PostgreSQL
 • JWT authentication in tests
 
+
 The Takeaway:
+
 E2E tests find bugs that unit/integration tests miss!
+
 That Day 4 state bug? It only appeared when testing the FULL user flow.
 
-From 0 to 20 E2E tests in 6 days 🚀
+Plus: Strategic test optimization > blind coverage.
 
-Repository: https://github.com/isnendyankp/ikp-labs
+
+From 0 to 20 E2E tests + 100% pass rate in 7 days 🚀
+
+
+Repository: https://lnkd.in/gDE8vmWA
 
 #Playwright #E2ETesting #TypeScript #TestAutomation #QualityAssurance #React #SpringBoot #FullStackDevelopment #SoftwareTesting #BuildInPublic
 ```
@@ -858,14 +888,15 @@ Repository: https://github.com/isnendyankp/ikp-labs
 `#Playwright #E2ETesting #TypeScript #TestAutomation #QualityAssurance #React #SpringBoot #FullStackDevelopment #SoftwareTesting #BuildInPublic`
 
 ### Key Milestones
-- **6 consecutive days** of commits (Nov 30 - Dec 6)
-- **59 total commits** (structured: test/feat/fix/docs)
-- **20 E2E tests** implemented (E2E-001 through E2E-020)
+- **7 days** of development (Nov 30 - Dec 6, plus Day 7 optimization)
+- **64 total commits** (structured: test/feat/fix/docs)
+- **20 E2E test scenarios** implemented (E2E-001 through E2E-020)
+- **40 test executions** (2 browsers × 20 scenarios) - **100% pass rate!**
 - **796 lines** of test code written
 - **406 lines** of reusable helper functions
 - **4 bugs** discovered and fixed during testing
 - **100% Gallery coverage** (all user journeys tested)
-- **3 browsers** tested (Chromium, Firefox, WebKit)
+- **Strategic browser selection:** Chromium + Firefox (75% user coverage, 100% stability)
 - **10x performance** improvement (test data setup optimization)
 
 ### Test Coverage Breakdown
