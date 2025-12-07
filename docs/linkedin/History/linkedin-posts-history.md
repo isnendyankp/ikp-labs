@@ -21,7 +21,8 @@ Complete chronological archive of all LinkedIn posts documenting the full-stack 
 - [Week 9 - Photo Gallery Privacy Feature](#week-9---photo-gallery-privacy-feature)
 - [Week 10 - Integration Testing](#week-10---integration-testing)
 - [Week 11 - API Testing with Playwright](#week-11---api-testing-with-playwright)
-- [Week 12+ - Backend Testing Week (Draft)](#week-12---backend-testing-week-draft)
+- [Week 12 - E2E Gallery Testing Complete](#week-12---e2e-gallery-testing-complete)
+- [Week 13+ - Backend Testing Week (Draft)](#week-13---backend-testing-week-draft)
 
 ---
 
@@ -784,7 +785,256 @@ What's your preferred API testing tool? REST Assured, Playwright, or Postman/New
 
 ---
 
-## Week 12+ - Backend Testing Week (Draft)
+## Week 12 - E2E Gallery Testing Complete
+
+**Status:** 📝 Ready to Post (Sunday, December 7, 2025, 9-10 AM)
+**Topic:** 6-day E2E testing journey with Playwright
+**Key Achievement:** 20 E2E tests, 100% Gallery coverage, 4 bugs fixed
+**Date Range:** November 30 - December 6, 2025
+
+### Post Content (Option A - Full Version)
+
+```
+6 Days, 20 E2E Tests: How I Achieved 100% Gallery Coverage 🧪
+
+Last week's goal: Build comprehensive E2E tests for Photo Gallery.
+Reality: 6 consecutive days, 59 commits, 20 tests, and 4 unexpected bugs.
+
+The Challenge:
+Gallery feature was complete (backend + frontend working).
+But no E2E tests = no proof the user journey actually works end-to-end.
+
+The 6-Day Journey:
+
+Day 1: Setup + first upload test ✅
+Day 2: Upload variations + file validation ✅
+Day 3: View tests (My Photos, Public Photos, Detail Page) ✅
+Day 4: Edit/Delete operations + bug hunt 🐛
+→ Found critical React state bug during E2E testing!
+→ Frontend wasn't showing updated photo data (silent failure)
+→ Fixed: Corrected state update in PhotoDetailPage.tsx
+
+Day 5: Validation + persistence tests ✅
+Day 6: Pagination + authorization + complete workflow ✅
+
+What Shipped:
+✅ 20 E2E tests (E2E-001 through E2E-020)
+✅ 796 lines of test code
+✅ 406 lines of reusable helper functions
+✅ 4 bugs fixed (frontend state, checkbox toggle, alert handling)
+✅ 100% Gallery user journey coverage
+✅ 3 browsers tested (Chromium, Firefox, WebKit)
+
+Technical Highlights:
+🚀 Pagination testing (15+ photos per test)
+🔒 Multi-user authorization scenarios
+💾 Data persistence testing (browser refresh)
+⚡ Performance: bulkUploadViaAPI() - 10x faster test setup (60s → 8s)
+
+Tech Stack:
+• Playwright + TypeScript
+• React + Spring Boot + PostgreSQL
+• JWT authentication in tests
+
+The Takeaway:
+E2E tests find bugs that unit/integration tests miss!
+That Day 4 state bug? It only appeared when testing the FULL user flow.
+
+From 0 to 20 E2E tests in 6 days 🚀
+
+Repository: https://github.com/isnendyankp/ikp-labs
+
+#Playwright #E2ETesting #TypeScript #TestAutomation #QualityAssurance #React #SpringBoot #FullStackDevelopment #SoftwareTesting #BuildInPublic
+```
+
+### Tech Stack
+- Playwright (E2E testing framework)
+- TypeScript (type-safe tests)
+- React + Next.js 14 (frontend)
+- Spring Boot + PostgreSQL (backend)
+- JWT authentication
+
+### Hashtags Used
+`#Playwright #E2ETesting #TypeScript #TestAutomation #QualityAssurance #React #SpringBoot #FullStackDevelopment #SoftwareTesting #BuildInPublic`
+
+### Key Milestones
+- **6 consecutive days** of commits (Nov 30 - Dec 6)
+- **59 total commits** (structured: test/feat/fix/docs)
+- **20 E2E tests** implemented (E2E-001 through E2E-020)
+- **796 lines** of test code written
+- **406 lines** of reusable helper functions
+- **4 bugs** discovered and fixed during testing
+- **100% Gallery coverage** (all user journeys tested)
+- **3 browsers** tested (Chromium, Firefox, WebKit)
+- **10x performance** improvement (test data setup optimization)
+
+### Test Coverage Breakdown
+
+**Upload Tests (E2E-001 to E2E-003, E2E-011 to E2E-013):**
+- Single photo upload
+- Public photo upload
+- Multiple photos sequentially
+- File size validation (reject >5MB)
+- File type validation (reject PDF, TXT)
+
+**View Tests (E2E-004 to E2E-006):**
+- My Photos tab
+- Public Photos tab
+- Photo detail page
+
+**Edit/Delete Tests (E2E-007 to E2E-010):**
+- Edit photo metadata
+- Toggle privacy setting
+- Delete with confirmation
+- Cancel delete operation
+
+**Pagination Tests (E2E-014 to E2E-015):**
+- My Photos pagination (15+ photos)
+- Public Photos pagination
+
+**Authorization Tests (E2E-016 to E2E-017):**
+- Cannot edit other user's photo
+- Cannot delete other user's photo
+
+**Persistence Tests (E2E-018 to E2E-019):**
+- Photo data persists after refresh
+- Privacy setting persists after refresh
+
+**Complete Workflow (E2E-020):**
+- End-to-end: Upload → Edit → Delete
+
+### Bugs Fixed During E2E Testing
+
+**Bug #1: React State Update (Day 4) - CRITICAL**
+- **Issue:** Frontend didn't show updated photo data after edit
+- **Root Cause:** PhotoDetailPage.tsx wasn't updating state when props changed
+- **Fix:** Added useEffect to sync state with updated photo data
+- **Impact:** Silent failure caught only by E2E testing (unit tests passed!)
+- **Commit:** `ded79b2 - fix(frontend): correct state update after photo edit`
+
+**Bug #2: Checkbox Toggle**
+- **Issue:** Privacy toggle checkbox didn't update UI immediately
+- **Fix:** Corrected state management in edit form
+
+**Bug #3: Alert Handling**
+- **Issue:** Delete confirmation alert not properly captured in tests
+- **Fix:** Updated Playwright dialog handler
+
+**Bug #4: Frontend Data Flow**
+- **Issue:** Backend returned updated data but frontend didn't reflect it
+- **Fix:** Traced full data flow, found missing state update
+
+### Screenshot Guidance for LinkedIn Post
+
+**Primary Screenshot: Playwright HTML Test Report**
+
+**Steps to Generate:**
+1. Open terminal and navigate to project:
+   ```bash
+   cd /Users/isnendyankp/Desktop/Programmer/Belajar/Project/Template/IKP-Labs
+   ```
+
+2. Run Playwright tests with HTML reporter:
+   ```bash
+   npx playwright test gallery.spec.ts --reporter=html
+   ```
+
+3. Open HTML report in browser:
+   ```bash
+   npx playwright show-report
+   ```
+   - Browser will automatically open at `http://localhost:9323`
+
+4. **Screenshot the test summary page showing:**
+   - ✅ **20 tests passed**
+   - ❌ **0 failed**
+   - ⏱️ **Execution time** (total duration)
+   - 🌐 **Browser coverage:** Chromium, Firefox, WebKit
+   - 📊 **Test breakdown** (all E2E-001 through E2E-020)
+
+5. **Full screen mode for clean screenshot:**
+   - Press F11 (Windows/Linux) or Cmd + Shift + F (Mac)
+   - Hide browser toolbars for professional look
+
+6. **Take screenshot:**
+   - Windows: Win + Shift + S
+   - Mac: Cmd + Shift + 4
+   - Crop to show only the report content (no browser chrome)
+
+7. **Highlight key metrics:**
+   - 20 passed (green checkmark)
+   - 0 failed
+   - Execution time
+   - Multi-browser coverage
+
+**Why this screenshot is powerful:**
+- Shows professional test report (like production teams use)
+- Visual proof of 100% pass rate
+- Demonstrates multi-browser testing
+- Clean, professional presentation
+
+### First Comment Template (Post 10 minutes after publishing)
+
+```
+What's your experience with E2E testing?
+
+I'm curious: Do you test complete user flows or focus more on unit/integration tests?
+
+The Day 4 bug I found made me realize E2E tests catch issues that other test levels miss. But they're also slower to run.
+
+What's the balance in production teams? 🤔
+```
+
+### Posting Strategy
+
+**Target Audience:**
+- Bootcamp friends (weekend active, will like & comment)
+- Ex-seniors (support network, engaged on Sundays)
+- Recruiters (will see trending post on Monday due to weekend engagement)
+
+**Posting Time:**
+- **Sunday, December 7, 2025, 9:00-10:00 AM**
+- Optimal for weekend scrollers
+- Community engagement kickstarts algorithm
+- Monday visibility for recruiters
+
+**Engagement Tips:**
+1. Post on Sunday morning (your community is active)
+2. First comment within 10 minutes (engagement prompt)
+3. Respond to all comments within 2 hours
+4. Thank bootcamp friends & seniors for support
+5. Answer technical questions with specific examples
+6. Link to specific test files in GitHub for deep discussions
+
+**Why Sunday Works for You:**
+- ✅ Bootcamp friends free and supportive
+- ✅ Ex-seniors available (not in work meetings)
+- ✅ Early engagement → Algorithm boost
+- ✅ Monday reach to recruiters (post already trending)
+
+### Related Files
+- **Tests:** `tests/e2e/gallery.spec.ts` (796 lines)
+- **Helpers:** `tests/e2e/helpers/gallery-helpers.ts` (406 lines)
+- **Plan:** `plans/in-progress/week3-e2e-gallery-tests.md` (Week 3 completion)
+- **Commit Range:** Nov 30 - Dec 6 (59 commits)
+
+### Recruiter Value Demonstrated
+
+**10 Hiring Signals:**
+1. **Consistency:** 6-day commit streak
+2. **Quality Focus:** E2E testing shows care for user experience
+3. **Problem Solving:** Found & fixed 4 bugs
+4. **Modern Stack:** Playwright, TypeScript, React
+5. **Performance Mindset:** 10x optimization
+6. **Full-Stack:** Tests span frontend + backend + database
+7. **Professional Practices:** Atomic commits, helper functions
+8. **Communication:** Clear technical explanation
+9. **Portfolio:** 796 lines of production-ready test code
+10. **Growth:** From 0 to 20 E2E tests in systematic approach
+
+---
+
+## Week 13+ - Backend Testing Week (Draft)
 
 **Status:** 📝 Draft (Unpublished)
 **Topic:** Comprehensive week-long testing journey (Nov 24-30, 2025)
@@ -814,8 +1064,8 @@ This unpublished draft documents a 7-day intensive testing journey covering:
 ## Summary Statistics
 
 ### Overall Progress
-- **Total Posts:** 13 (11 published + 2 archive/draft)
-- **Weeks Active:** 12+
+- **Total Posts:** 14 (12 published/ready + 2 archive/draft)
+- **Weeks Active:** 13+
 - **Consistent Posting:** Weekly cadence maintained
 - **Repository Updates:** Continuous (atomic commits strategy)
 
@@ -889,10 +1139,12 @@ This unpublished draft documents a 7-day intensive testing journey covering:
 - Integration testing (40 tests)
 - API testing (31 tests with Playwright)
 
-**Phase 4: Consolidation (Week 12+)**
+**Phase 4: E2E Testing & Documentation (Week 12+)**
+- E2E Gallery testing (20 tests, Playwright)
+- 6-day testing sprint (59 commits)
+- Bug hunting during E2E (4 bugs fixed)
 - Comprehensive testing documentation
 - Portfolio refinement
-- Advanced features
 
 ---
 
@@ -907,6 +1159,6 @@ This unpublished draft documents a 7-day intensive testing journey covering:
 ---
 
 **Last Updated:** December 7, 2025
-**Total Posts Archived:** 13
-**Active Posting Period:** Week 1 - Present
+**Total Posts Archived:** 14 (Week 12 ready to post Sunday Dec 7)
+**Active Posting Period:** Week 1 - Week 12 (+ 1 draft)
 **Repository:** https://github.com/isnendyankp/ikp-labs
