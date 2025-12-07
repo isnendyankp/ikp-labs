@@ -455,6 +455,7 @@ test.describe('Gallery Photo Management', () => {
 
       // THEN: Page 1 shows 12 photos (default page size)
       const photosOnPage1 = page.locator('.group.cursor-pointer.bg-white.rounded-lg');
+      await expect(photosOnPage1.first()).toBeVisible({ timeout: 10000 }); // Wait for first photo
       const countPage1 = await photosOnPage1.count();
       expect(countPage1).toBeLessThanOrEqual(12);
 
@@ -785,6 +786,7 @@ test.describe('Gallery Photo Management', () => {
 
       // AND: Deleted photo no longer appears in Public Photos
       await viewPublicPhotos(page);
+      await page.waitForTimeout(1000); // Extra wait for data refresh after delete
       const deletedPhotoInPublic = page.locator('h3:has-text("Updated Flow Photo")');
       await expect(deletedPhotoInPublic).not.toBeVisible();
 
