@@ -47,9 +47,10 @@ export async function createAuthenticatedGalleryUser(page: Page) {
   await page.click('button[type="submit"]');
 
   // Wait for redirect to home page (registration successful)
-  // Increased timeout to 15s for slower browsers like WebKit (Safari)
+  // Increased timeout to 30s for slower browsers like WebKit (Safari)
   // WebKit can be significantly slower on Mac, especially under load
-  await page.waitForURL('/home', { timeout: 15000 });
+  // This generous timeout accommodates tests that create multiple users
+  await page.waitForURL('/home', { timeout: 30000 });
 
   console.log(`✅ Created and authenticated user: ${testUser.email}`);
 
