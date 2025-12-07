@@ -1,6 +1,6 @@
-# Full-Stack Authentication System | IKP Labs
+# Full-Stack Web Application | IKP Labs
 
-A complete user authentication and profile management system built as part of my full-stack development journey. Features Next.js, Spring Boot, JWT authentication, profile management, and comprehensive testing.
+A complete full-stack application featuring photo gallery, authentication, and profile management built as part of my full-stack development journey. Features Next.js, Spring Boot, JWT authentication, PostgreSQL, and comprehensive testing with **40 Gallery E2E tests (100% pass rate)**.
 
 > Part of [IKP Labs](https://github.com/isnendyankp/ikp-labs) - My personal learning laboratory for full-stack development
 
@@ -8,31 +8,25 @@ A complete user authentication and profile management system built as part of my
 
 ![Login Form Template](frontend/public/images/loginFormTemplate1.png)
 
+### 🆕 Photo Gallery Feature
+
+![Gallery Upload Page](frontend/public/images/galleryUploadPage.png)
+*Upload photos with drag & drop interface*
+
+![Gallery My Photos](frontend/public/images/galleryMyPhotos.png)
+*Manage your personal photo collection*
+
+![Gallery Public Photos](frontend/public/images/galleryPublicPhotos.png)
+*Browse public photos from all users*
+
+![Gallery Photo Detail](frontend/public/images/galleryPhotoDetail.png)
+*View photo details with edit/delete options (owner only)*
+
+**Testing Achievement:** 🏆 **40 E2E Tests - 100% Pass Rate** (Chromium + Firefox)
+
 ## Features
 
-### Complete User Journey
-- **Register → Login → Homepage → Profile & Gallery Management**
-- Full authentication flow with seamless transitions
-- Protected homepage with user information display
-- Profile picture management (upload/delete) with JWT authentication
-- **Photo Gallery**: Upload, view, edit, and delete photos with privacy controls
-
-### Authentication & Security
-- **JWT Authentication**: Complete token-based authentication system
-- **Protected Routes**: Auto-redirect based on authentication status
-- **Token Management**: Secure localStorage-based token handling
-- **Password Security**: BCrypt password hashing
-- **CORS Configuration**: Secure cross-origin request handling
-
-### User Profile Management
-- **Profile Picture Upload**: Upload JPEG/PNG images (max 5MB)
-- **Profile Picture Delete**: Remove profile pictures with confirmation
-- **Avatar Fallback**: Automatic initials-based avatar when no picture
-- **Picture Persistence**: Profile pictures stored in backend and persisted
-- **File Validation**: Client-side and server-side validation
-- **Protected Endpoints**: JWT-secured profile APIs
-
-### Photo Gallery Management
+### 🖼️ Photo Gallery (Latest Feature - Week 7-8)
 - **Upload Photos**: Drag & drop or click to upload photos (max 5MB)
 - **View Modes**: Switch between "My Photos" and "Public Photos"
 - **Photo Details**: Full-size view with metadata (title, description, date)
@@ -43,8 +37,24 @@ A complete user authentication and profile management system built as part of my
 - **Responsive Grid**: 1-4 columns based on screen size
 - **Access Control**: Owner-only edit/delete operations
 - **File Validation**: JPG, PNG, GIF, WebP up to 5MB
+- **🎯 40 E2E Tests with 100% Pass Rate!** (Chromium + Firefox)
 
-### User Interface
+### 🔐 Authentication & Security
+- **JWT Authentication**: Complete token-based authentication system
+- **Protected Routes**: Auto-redirect based on authentication status
+- **Token Management**: Secure localStorage-based token handling
+- **Password Security**: BCrypt password hashing
+- **CORS Configuration**: Secure cross-origin request handling
+
+### 👤 User Profile Management
+- **Profile Picture Upload**: Upload JPEG/PNG images (max 5MB)
+- **Profile Picture Delete**: Remove profile pictures with confirmation
+- **Avatar Fallback**: Automatic initials-based avatar when no picture
+- **Picture Persistence**: Profile pictures stored in backend and persisted
+- **File Validation**: Client-side and server-side validation
+- **Protected Endpoints**: JWT-secured profile APIs
+
+### 🎨 User Interface
 - **Modern Design**: Clean and professional UI with two-panel layout
 - **Responsive**: Fully responsive design that works on all devices
 - **Hero Section**: Beautiful left panel with customizable hero content
@@ -53,8 +63,15 @@ A complete user authentication and profile management system built as part of my
 - **Error Handling**: User-friendly error messages
 - **Homepage Dashboard**: Welcome page with user info and profile management
 
-### Testing & Quality
-- **E2E Testing**: 30+ Playwright E2E test scenarios covering:
+### ✅ Testing & Quality Excellence
+- **Gallery E2E Testing**: 🏆 **40 tests with 100% pass rate** (Chromium + Firefox)
+  - Upload photos with drag & drop
+  - Privacy controls (Public/Private)
+  - Edit/Delete operations
+  - Pagination navigation
+  - Authorization (owner-only operations)
+  - Complete workflow scenarios
+- **Authentication E2E Testing**: 30+ Playwright E2E test scenarios
   - Registration flows (6 tests)
   - Login flows (4 tests)
   - Complete authentication journey (8 tests)
@@ -83,11 +100,18 @@ A complete user authentication and profile management system built as part of my
 - **Test Automation**: Automated video/screenshot recording for demos
 - **Comprehensive Documentation**: Diátaxis framework with 20+ guides including testing strategy docs
 
-### Development
+### 🛠️ Development
 - **TypeScript**: Fully typed for better DX
 - **Monorepo Structure**: Organized with workspaces
 - **AI-Assisted**: Claude agents for docs, specs, and planning
 - **Hot Reload**: Fast development with Next.js and Spring Boot DevTools
+
+### 🚀 Complete User Journey
+- **Register → Login → Homepage → Profile & Gallery Management**
+- Full authentication flow with seamless transitions
+- Protected homepage with user information display
+- Profile picture management (upload/delete) with JWT authentication
+- Photo Gallery with full CRUD operations and privacy controls
 
 ---
 
@@ -95,14 +119,29 @@ A complete user authentication and profile management system built as part of my
 
 This project helped me master:
 
-- ✅ **Full-Stack Architecture** - Building scalable applications with Next.js frontend and Spring Boot backend
-- ✅ **JWT Authentication** - Implementing secure token-based authentication from scratch
-- ✅ **File Upload & Storage** - Managing multipart file uploads and server-side storage
-- ✅ **E2E Testing** - Writing comprehensive Playwright tests (30+ scenarios)
+### Photo Gallery Feature Development
+- ✅ **CRUD Operations** - Complete Create, Read, Update, Delete for photos
+- ✅ **Privacy Controls** - Public/Private photo visibility management
+- ✅ **Image Upload & Validation** - File size limits (5MB), format validation (JPG, PNG, GIF, WebP)
+- ✅ **Pagination Implementation** - 12 photos per page with navigation controls
+- ✅ **Owner-based Authorization** - Only photo owners can edit/delete their photos
+- ✅ **Responsive UI Design** - Adaptive grid layout (1-4 columns based on screen size)
+- ✅ **Drag & Drop Interface** - Modern file upload UX with preview
+
+### Testing Excellence
+- ✅ **🏆 Gallery E2E Testing** - 40 comprehensive tests with 100% pass rate (Chromium + Firefox)
+- ✅ **Strategic Browser Selection** - Chromium + Firefox coverage (75% of users), WebKit disabled for stability
+- ✅ **E2E Testing** - Writing comprehensive Playwright tests (70+ total scenarios)
 - ✅ **Unit Testing** - 91 Java unit tests with JUnit 5 and Mockito achieving 100% pass rate
 - ✅ **Test Automation Strategy** - Test Plan Checklist system with smart conditional cleanup
 - ✅ **Code Quality Automation** - Automated warning detection and pre-commit checks
 - ✅ **Test Data Management** - Pattern-based user identification and cleanup strategies
+- ✅ **Test Optimization** - Worker reduction (5→3) and timeout tuning for stability
+
+### Full-Stack Development
+- ✅ **Full-Stack Architecture** - Building scalable applications with Next.js frontend and Spring Boot backend
+- ✅ **JWT Authentication** - Implementing secure token-based authentication from scratch
+- ✅ **File Upload & Storage** - Managing multipart file uploads and server-side storage
 - ✅ **Database Design** - PostgreSQL schema design and JPA entity mapping
 - ✅ **RESTful API Design** - Creating consistent and well-documented APIs
 - ✅ **Security Best Practices** - BCrypt password hashing, CORS configuration, JWT validation
@@ -114,7 +153,7 @@ This project helped me master:
 
 ## 🎯 What I Built
 
-This started as a simple registration form but evolved into a complete authentication system as I learned and added more features:
+This started as a simple registration form but evolved into a complete full-stack web application as I learned and added more features:
 
 **Phase 1 - Foundation (Week 1-2)**
 - Basic registration form with validation
@@ -141,10 +180,22 @@ This started as a simple registration form but evolved into a complete authentic
 - Java unit tests (UserService, JwtUtil)
 - Test automation and CI/CD preparation
 
-**Phase 6 - Documentation (Ongoing)**
+**Phase 6 - Photo Gallery (Week 7-8)** 🆕
+- Complete Gallery feature with CRUD operations
+- Upload with drag & drop interface
+- Privacy controls (Public/Private photos)
+- Edit/Delete operations with authorization
+- Pagination (12 photos per page)
+- Responsive grid design (1-4 columns)
+- **🏆 40 E2E tests with 100% pass rate!**
+- Owner-based authorization (only owners can edit/delete)
+- File validation (JPG, PNG, GIF, WebP up to 5MB)
+- Strategic browser testing (Chromium + Firefox)
+
+**Phase 7 - Documentation (Ongoing)**
 - Comprehensive README
 - API documentation
-- 15+ guides (tutorials, how-tos, references)
+- 20+ guides (tutorials, how-tos, references)
 - BDD specifications with Gherkin
 
 ---
