@@ -60,7 +60,7 @@ export default function PhotoUploadForm() {
 
     // Check file type
     if (!ALLOWED_TYPES.includes(selectedFile.type)) {
-      setError('File type not allowed. Please use JPG, PNG, GIF, or WebP.');
+      setError('Only image files (JPEG, PNG, GIF, WebP) are allowed. Maximum file size is 5MB.');
       return;
     }
 
