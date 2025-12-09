@@ -26,6 +26,36 @@ Detailed test scenarios in Given/When/Then format.
 **Available Scenarios:**
 - **`e2e-gallery-scenarios.md`** - 20 E2E Gallery test scenarios with complete specifications
 
+### `/explanation/`
+Conceptual documentation following Diataxis framework (understanding-oriented).
+
+**Available Documentation:**
+- **[`feature-roadmap-recommendations.md`](explanation/feature-roadmap-recommendations.md)** - Strategic feature roadmap with 10+ recommendations for next development phases
+
+---
+
+## 🎯 Feature Development Roadmap
+
+### Next Phase Planning
+
+Looking beyond current testing initiatives, we've documented comprehensive feature recommendations to guide the project's evolution from a photo gallery into a full-featured social platform or production-ready application.
+
+**📋 [View Feature Roadmap & Recommendations](explanation/feature-roadmap-recommendations.md)**
+
+**Highlights:**
+- **10 Strategic Features** organized into 4 tiers (Social, Organization, Performance, Production)
+- **3 Implementation Paths**: Social Platform / High-Performance / Real-Time
+- **Detailed Technical Specs**: Backend, Frontend, Testing breakdowns
+- **Learning Outcomes**: What full-stack concepts each feature teaches
+- **Effort Estimates**: Timeline and complexity ratings
+- **Priority Matrix**: Impact vs Effort analysis
+
+**Quick Preview:**
+- **Tier 1 (Social):** Photo Likes, Comments, Search, Tags
+- **Tier 2 (Organization):** Photo Albums, Advanced Search
+- **Tier 3 (Performance):** Image Thumbnails, Redis Caching, WebSockets
+- **Tier 4 (Production):** Email Notifications, Cloud Deployment, Monitoring
+
 ---
 
 ## 🗓️ Current Initiative: E2E Gallery Testing
