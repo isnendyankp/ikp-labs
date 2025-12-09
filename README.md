@@ -798,6 +798,84 @@ If you have an existing version, the new features include:
 
 ---
 
+## What's Next? Future Roadmap 🚀
+
+### Strategic Feature Recommendations
+
+IKP Labs has reached a solid foundation with authentication, profile management, and photo gallery features. Ready to level up your full-stack engineering skills?
+
+**📋 [View Complete Feature Roadmap & Recommendations](docs/explanation/feature-roadmap-recommendations.md)**
+
+This comprehensive roadmap document includes:
+- ✅ **10 Strategic Features** across 4 tiers (Social, Organization, Performance, Production)
+- ✅ **3 Implementation Paths** to choose from based on your learning goals
+- ✅ **Detailed Technical Breakdowns** for each feature (Backend, Frontend, Testing)
+- ✅ **Learning Outcomes** - What new full-stack concepts you'll master
+- ✅ **Effort Estimates** - Realistic timelines based on current progress
+- ✅ **Priority Matrix** - Impact vs Effort analysis
+
+### Quick Preview: Next Recommended Features
+
+**Tier 1: Social Engagement (Immediate Next Steps)**
+- 💬 **Photo Comments System** - Threaded comments with nested replies
+- ❤️ **Photo Likes & Favorites** - Social interactions and bookmarks
+- 🔍 **Photo Search & Filtering** - Full-text search with multi-criteria filters
+- 🏷️ **Photo Tags & Categories** - Organization with many-to-many relationships
+
+**Tier 2: Organization & Discovery**
+- 📁 **Photo Albums** - Multi-photo collections with drag-and-drop
+- 🔎 **Advanced Search Hub** - Faceted search across all dimensions
+
+**Tier 3: Performance & Modern Architecture**
+- 🖼️ **Image Thumbnails & Processing** - Performance optimization, CDN integration
+- ⚡ **Redis Caching Layer** - Distributed caching for scale
+- 🔴 **Real-Time WebSockets** - Live updates without refresh
+
+**Tier 4: Production Readiness**
+- 📧 **Email Verification & Notifications** - Production-grade authentication
+- 📊 **Logging & Monitoring** - Observability with Sentry
+- ☁️ **Cloud Deployment & CI/CD** - Live on AWS/Railway with GitHub Actions
+
+### Recommended Learning Paths
+
+**Path 1: Social Photo Platform**
+Transform IKP Labs into a full-featured social platform (Instagram-lite):
+- Photo Likes → Comments → Search → Tags → Albums
+- Result: ~85% of full-stack concepts mastered
+
+**Path 2: High-Performance Production App**
+Focus on performance, scalability, and deployment:
+- Likes → Thumbnails → Redis → Email → Monitoring → Cloud Deployment
+- Result: Production-ready, scalable application
+
+**Path 3: Modern Real-Time App**
+Build cutting-edge real-time features:
+- Likes → Comments → WebSockets → Tags → Email → Deployment
+- Result: Real-time platform supporting 100+ concurrent users
+
+### Gap Analysis: What You'll Learn
+
+**Currently Mastered ✅**
+- Authentication & Authorization (JWT, BCrypt)
+- RESTful API Design (CRUD operations)
+- One-to-Many Relationships (User → Photos)
+- File Upload & Management
+- Testing (91 unit + 70+ E2E tests, 91% coverage)
+
+**Next Level Concepts 🎯**
+- ❌ Many-to-Many Relationships (Tags feature)
+- ❌ Self-Referencing Foreign Keys (Comments feature)
+- ❌ Full-Text Search (Search feature)
+- ❌ Distributed Caching (Redis)
+- ❌ Real-Time Communication (WebSockets)
+- ❌ Image Processing & CDN
+- ❌ Email Service Integration
+- ❌ Cloud Deployment & CI/CD
+
+**[Read Full Roadmap Document](docs/explanation/feature-roadmap-recommendations.md)** for detailed technical specs, learning outcomes, and implementation strategies.
+
+---
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
