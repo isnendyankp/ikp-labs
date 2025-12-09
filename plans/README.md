@@ -205,11 +205,18 @@
 
 ## Related Documentation
 
+**Planning & Roadmap:**
+- 🚀 **[Feature Roadmap & Recommendations](../docs/explanation/feature-roadmap-recommendations.md)** - Strategic roadmap for next features after Gallery completion
+  - 10 feature recommendations across 4 tiers
+  - 3 implementation paths (Social Platform / High-Performance / Real-Time)
+  - Learning outcomes & effort estimates
+  - What full-stack concepts to master next
+
 **Existing Docs (for reference):**
-- [Test Plan Checklist Strategy](../explanation/testing/test-plan-checklist-strategy.md) - Testing methodology
+- [Test Plan Checklist Strategy](../docs/explanation/testing/test-plan-checklist-strategy.md) - Testing methodology
 - [Profile Picture E2E Test Plan](profile-picture-e2e-test-plan.md) - Similar feature reference
-- [Database Schema](../reference/database-schema.md) - Current schema
-- [API Endpoints](../reference/api-endpoints.md) - Existing endpoints
+- [Database Schema](../docs/reference/database-schema.md) - Current schema (if exists)
+- [API Endpoints](../docs/reference/api-endpoints.md) - Existing endpoints (if exists)
 
 **Will Create During Implementation:**
 - `docs/reference/gallery-api.md` - Gallery API reference
