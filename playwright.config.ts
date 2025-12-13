@@ -123,20 +123,8 @@ export default defineConfig({
     // },
   ],
 
-  // Run your local dev server before starting the tests
-  // Uncomment this if you want Playwright to start servers automatically
-  // webServer: [
-  //   {
-  //     command: 'cd frontend && npm run dev',
-  //     url: 'http://localhost:3002',
-  //     reuseExistingServer: !process.env.CI,
-  //     timeout: 120 * 1000,
-  //   },
-  //   {
-  //     command: 'cd backend/registration-form-api && mvn spring-boot:run',
-  //     url: 'http://localhost:8081/api/auth/health',
-  //     reuseExistingServer: !process.env.CI,
-  //     timeout: 120 * 1000,
-  //   },
-  // ],
+  // IMPORTANT: Servers must be running manually before tests
+  // Frontend: http://localhost:3002
+  // Backend: http://localhost:8081
+  // webServer config removed - run servers manually
 });
