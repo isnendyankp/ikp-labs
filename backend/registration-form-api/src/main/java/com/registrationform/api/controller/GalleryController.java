@@ -7,6 +7,7 @@ import com.registrationform.api.dto.GalleryPhotoResponse;
 import com.registrationform.api.entity.GalleryPhoto;
 import com.registrationform.api.security.UserPrincipal;
 import com.registrationform.api.service.GalleryService;
+import com.registrationform.api.service.PhotoLikeService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -60,6 +61,9 @@ public class GalleryController {
 
     @Autowired
     private GalleryService galleryService;
+
+    @Autowired
+    private PhotoLikeService photoLikeService;
 
     /**
      * ENDPOINT 1: UPLOAD PHOTO
@@ -174,8 +178,14 @@ public class GalleryController {
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
         List<GalleryPhoto> photos = galleryService.getMyPhotos(currentUser.getId(), pageable);
 
+        Long currentUserId = currentUser.getId();
+
         List<GalleryPhotoResponse> photoResponses = photos.stream()
-                .map(GalleryPhotoResponse::fromEntity)
+                .map(photo -> {
+                    long likeCount = photoLikeService.getLikeCount(photo.getId());
+                    boolean isLikedByUser = photoLikeService.isLikedByUser(photo.getId(), currentUserId);
+                    return GalleryPhotoResponse.fromEntityWithLikes(photo, currentUserId, likeCount, isLikedByUser);
+                })
                 .collect(Collectors.toList());
 
         long totalPhotos = galleryService.countMyPhotos(currentUser.getId());
@@ -217,13 +227,20 @@ public class GalleryController {
     @GetMapping("/public")
     public ResponseEntity<GalleryListResponse> getPublicPhotos(
             @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "size", defaultValue = "12") int size) {
+            @RequestParam(value = "size", defaultValue = "12") int size,
+            @AuthenticationPrincipal UserPrincipal currentUser) {
 
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
         List<GalleryPhoto> photos = galleryService.getPublicPhotos(pageable);
 
+        Long currentUserId = currentUser.getId();
+
         List<GalleryPhotoResponse> photoResponses = photos.stream()
-                .map(GalleryPhotoResponse::fromEntity)
+                .map(photo -> {
+                    long likeCount = photoLikeService.getLikeCount(photo.getId());
+                    boolean isLikedByUser = photoLikeService.isLikedByUser(photo.getId(), currentUserId);
+                    return GalleryPhotoResponse.fromEntityWithLikes(photo, currentUserId, likeCount, isLikedByUser);
+                })
                 .collect(Collectors.toList());
 
         long totalPhotos = galleryService.countPublicPhotos();
@@ -270,13 +287,20 @@ public class GalleryController {
     public ResponseEntity<GalleryListResponse> getUserPublicPhotos(
             @PathVariable Long userId,
             @RequestParam(value = "page", defaultValue = "0") int page,
-            @RequestParam(value = "size", defaultValue = "12") int size) {
+            @RequestParam(value = "size", defaultValue = "12") int size,
+            @AuthenticationPrincipal UserPrincipal currentUser) {
 
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
         List<GalleryPhoto> photos = galleryService.getUserPublicPhotos(userId, pageable);
 
+        Long currentUserId = currentUser.getId();
+
         List<GalleryPhotoResponse> photoResponses = photos.stream()
-                .map(GalleryPhotoResponse::fromEntity)
+                .map(photo -> {
+                    long likeCount = photoLikeService.getLikeCount(photo.getId());
+                    boolean isLikedByUser = photoLikeService.isLikedByUser(photo.getId(), currentUserId);
+                    return GalleryPhotoResponse.fromEntityWithLikes(photo, currentUserId, likeCount, isLikedByUser);
+                })
                 .collect(Collectors.toList());
 
         long totalPhotos = galleryService.countUserPublicPhotos(userId);
@@ -341,7 +365,14 @@ public class GalleryController {
             @AuthenticationPrincipal UserPrincipal currentUser) {
 
         GalleryPhoto photo = galleryService.getPhotoById(photoId, currentUser.getId());
-        GalleryPhotoDetailResponse response = GalleryPhotoDetailResponse.fromEntity(photo);
+
+        Long currentUserId = currentUser.getId();
+        long likeCount = photoLikeService.getLikeCount(photo.getId());
+        boolean isLikedByUser = photoLikeService.isLikedByUser(photo.getId(), currentUserId);
+
+        GalleryPhotoDetailResponse response = GalleryPhotoDetailResponse.fromEntityWithLikes(
+                photo, currentUserId, likeCount, isLikedByUser
+        );
         return ResponseEntity.ok(response);
     }
 
