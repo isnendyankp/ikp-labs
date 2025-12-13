@@ -115,6 +115,9 @@ export interface GalleryPhoto {
   uploadOrder: number;
   createdAt: string;
   updatedAt: string;
+  // Photo Likes fields (optional for backward compatibility)
+  likeCount?: number;
+  isLikedByCurrentUser?: boolean;
 }
 
 /**

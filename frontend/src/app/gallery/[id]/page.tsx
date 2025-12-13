@@ -19,6 +19,7 @@ import { useRouter, useParams } from 'next/navigation';
 import { isAuthenticated, getUserFromToken } from '../../../lib/auth';
 import { GalleryPhotoDetailResponse, AuthUser } from '../../../types/api';
 import { getPhotoById, updatePhoto, deletePhoto, getPhotoUrl } from '../../../services/galleryService';
+import LikeButton from '../../../components/LikeButton';
 
 export default function PhotoDetailPage() {
   const router = useRouter();
@@ -288,6 +289,16 @@ export default function PhotoDetailPage() {
                       <p className="text-gray-600">{photo.description}</p>
                     </div>
                   )}
+
+                  {/* Like Button - larger size for detail view */}
+                  <div className="pt-4 border-t">
+                    <LikeButton
+                      photoId={photo.id}
+                      initialIsLiked={false}
+                      initialLikeCount={0}
+                      size="large"
+                    />
+                  </div>
 
                   {isOwner && (
                     <div className="flex gap-4 pt-4 border-t">

@@ -191,14 +191,21 @@ export default function HomePage() {
                 </p>
               </div>
 
-              {/* Gallery Link */}
-              <div className="mt-6">
+              {/* Gallery Links */}
+              <div className="mt-6 space-y-3">
                 <button
                   onClick={() => router.push('/gallery')}
                   className="w-full py-3 px-6 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition-colors shadow-md flex items-center justify-center gap-2"
                 >
                   <span>📸</span>
                   <span>Go to My Gallery</span>
+                </button>
+                <button
+                  onClick={() => router.push('/home/liked-photos')}
+                  className="w-full py-3 px-6 bg-red-500 text-white rounded-lg font-medium hover:bg-red-600 transition-colors shadow-md flex items-center justify-center gap-2"
+                >
+                  <span>❤️</span>
+                  <span>View Liked Photos</span>
                 </button>
               </div>
             </div>

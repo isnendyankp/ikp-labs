@@ -17,6 +17,7 @@
 import { GalleryPhoto } from '../../types/api';
 import { getPhotoUrl } from '../../services/galleryService';
 import { useRouter } from 'next/navigation';
+import LikeButton from '../LikeButton';
 
 interface PhotoCardProps {
   photo: GalleryPhoto;
@@ -84,6 +85,16 @@ export default function PhotoCard({ photo }: PhotoCardProps) {
             year: 'numeric'
           })}
         </p>
+
+        {/* Like Button */}
+        <div className="mt-3 pt-3 border-t border-gray-100">
+          <LikeButton
+            photoId={photo.id}
+            initialIsLiked={photo.isLikedByCurrentUser || false}
+            initialLikeCount={photo.likeCount || 0}
+            size="small"
+          />
+        </div>
       </div>
     </div>
   );

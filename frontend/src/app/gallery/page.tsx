@@ -119,6 +119,13 @@ export default function GalleryPage() {
             </div>
             <div className="flex items-center gap-4">
               <button
+                onClick={() => router.push('/home/liked-photos')}
+                className="flex items-center gap-2 px-4 py-2 text-red-600 hover:text-red-700 font-medium transition-colors"
+              >
+                <span>❤️</span>
+                <span>Liked Photos</span>
+              </button>
+              <button
                 onClick={() => router.push('/home')}
                 className="px-4 py-2 text-gray-700 hover:text-gray-900 font-medium"
               >
