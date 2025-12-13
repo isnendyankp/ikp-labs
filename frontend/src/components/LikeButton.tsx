@@ -75,13 +75,18 @@ export default function LikeButton({
    * Handle like/unlike click
    *
    * Flow (Optimistic Update Pattern):
-   * 1. Store previous state (untuk rollback)
-   * 2. Update UI immediately (optimistic)
-   * 3. Call API
-   * 4. If error: Rollback to previous state
-   * 5. If success: Keep optimistic state
+   * 1. Prevent event bubbling (stopPropagation)
+   * 2. Store previous state (untuk rollback)
+   * 3. Update UI immediately (optimistic)
+   * 4. Call API
+   * 5. If error: Rollback to previous state
+   * 6. If success: Keep optimistic state
    */
-  const handleLikeClick = async () => {
+  const handleLikeClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+    // CRITICAL: Prevent event bubbling to parent PhotoCard's onClick
+    // Without this, clicking like button will navigate to detail page!
+    e.stopPropagation();
+
     // Prevent double-click
     if (isLoading) return;
 
