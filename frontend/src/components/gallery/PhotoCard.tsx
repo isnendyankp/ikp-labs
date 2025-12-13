@@ -90,8 +90,8 @@ export default function PhotoCard({ photo }: PhotoCardProps) {
         <div className="mt-3 pt-3 border-t border-gray-100">
           <LikeButton
             photoId={photo.id}
-            initialIsLiked={photo.isLikedByCurrentUser || false}
-            initialLikeCount={photo.likeCount || 0}
+            initialIsLiked={photo.isLikedByUser}
+            initialLikeCount={photo.likeCount}
             size="small"
           />
         </div>
