@@ -522,11 +522,7 @@ test.describe('Photo Likes Feature', () => {
       console.log('✅ E2E-PL-007: View liked photos page test PASSED');
     });
 
-    test.skip('E2E-PL-008: unlike from liked photos page', async ({ page }) => {
-      // TODO: Fix - Photo not disappearing from Liked Photos page after unlike
-      // Issue: onLikeChange callback is being called but page doesn't refresh properly
-      // Need to investigate React state update timing or add manual page reload
-
+    test('E2E-PL-008: unlike from liked photos page', async ({ page }) => {
       // GIVEN: User A uploads a photo and logs out
       const { user: userA } = await createAuthenticatedGalleryUser(page);
       createdUsers.push(userA.email); // Track for cleanup

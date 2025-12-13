@@ -149,7 +149,12 @@ export default function LikedPhotosPage() {
           photos={photos}
           loading={loading}
           emptyMessage="You haven't liked any photos yet. Explore the gallery and like some photos!"
-          onLikeChange={fetchLikedPhotos}
+          onLikeChange={(photoId) => {
+            // Optimistic update: Immediately remove photo from state
+            // This gives instant feedback without waiting for API refetch
+            console.log('📸 Removing photo from Liked Photos page:', photoId);
+            setPhotos(prevPhotos => prevPhotos.filter(p => p.id !== photoId));
+          }}
         />
 
         {/* Pagination */}

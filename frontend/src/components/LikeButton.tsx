@@ -38,7 +38,7 @@ interface LikeButtonProps {
   initialLikeCount?: number;
   size?: 'small' | 'medium' | 'large';
   className?: string;
-  onLikeChange?: () => void;
+  onLikeChange?: (photoId: number) => void;
 }
 
 // === COMPONENT ===
@@ -125,8 +125,8 @@ export default function LikeButton({
 
         // Notify parent component of the change
         if (onLikeChange) {
-          console.log('🔄 Calling onLikeChange callback');
-          onLikeChange();
+          console.log('🔄 Calling onLikeChange callback with photoId:', photoId);
+          onLikeChange(photoId);
         } else {
           console.log('⚠️  onLikeChange callback not provided');
         }

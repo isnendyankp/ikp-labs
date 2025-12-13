@@ -19,7 +19,7 @@ interface PhotoGridProps {
   photos: GalleryPhoto[];
   loading?: boolean;
   emptyMessage?: string;
-  onLikeChange?: () => void;
+  onLikeChange?: (photoId: number) => void;
 }
 
 export default function PhotoGrid({

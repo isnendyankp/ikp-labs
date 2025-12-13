@@ -21,7 +21,7 @@ import LikeButton from '../LikeButton';
 
 interface PhotoCardProps {
   photo: GalleryPhoto;
-  onLikeChange?: () => void;
+  onLikeChange?: (photoId: number) => void;
 }
 
 export default function PhotoCard({ photo, onLikeChange }: PhotoCardProps) {
