@@ -238,9 +238,9 @@ npm run dev
 ```
 
 4. Open your browser and navigate to:
-   - [http://localhost:3001/register](http://localhost:3001/register) - Registration form
-   - [http://localhost:3001/login](http://localhost:3001/login) - Login form
-   - [http://localhost:3001/home](http://localhost:3001/home) - Homepage (requires authentication)
+   - [http://localhost:3002/register](http://localhost:3002/register) - Registration form
+   - [http://localhost:3002/login](http://localhost:3002/login) - Login form
+   - [http://localhost:3002/home](http://localhost:3002/home) - Homepage (requires authentication)
 
 ### Complete User Journey
 
@@ -417,7 +417,7 @@ The application includes comprehensive automated end-to-end tests using Playwrig
 
 **Prerequisites:**
 - Backend server running on `http://localhost:8081`
-- Frontend server running on `http://localhost:3001`
+- Frontend server running on `http://localhost:3002`
 
 **Run all tests:**
 ```bash

@@ -44,7 +44,7 @@ Testing untuk memverifikasi **login flow** berfungsi dengan benar dari frontend 
 **Goal:** Verify successful login flow dengan credentials yang benar
 
 #### 📝 Test Steps:
-1. Open browser → Navigate to `http://localhost:3001/login`
+1. Open browser → Navigate to `http://localhost:3002/login`
 2. Open Browser DevTools:
    - **Console tab** - untuk monitoring logs
    - **Network tab** - untuk monitoring HTTP requests
@@ -122,7 +122,7 @@ Testing untuk memverifikasi **login flow** berfungsi dengan benar dari frontend 
 **Goal:** Verify error handling ketika password salah
 
 #### 📝 Test Steps:
-1. Navigate to `http://localhost:3001/login`
+1. Navigate to `http://localhost:3002/login`
 2. Open Browser DevTools (Console + Network tab)
 3. Fill login form:
    - **Email:** `testbrowser2025@example.com` (email yang benar)
@@ -183,7 +183,7 @@ Testing untuk memverifikasi **login flow** berfungsi dengan benar dari frontend 
 **Goal:** Verify error handling ketika email tidak terdaftar
 
 #### 📝 Test Steps:
-1. Navigate to `http://localhost:3001/login`
+1. Navigate to `http://localhost:3002/login`
 2. Open Browser DevTools (Console + Network tab)
 3. Fill login form:
    - **Email:** `notexist@example.com` (email yang TIDAK TERDAFTAR)
@@ -224,7 +224,7 @@ Testing untuk memverifikasi **login flow** berfungsi dengan benar dari frontend 
 **Goal:** Verify frontend validation untuk email format
 
 #### 📝 Test Steps:
-1. Navigate to `http://localhost:3001/login`
+1. Navigate to `http://localhost:3002/login`
 2. Fill login form:
    - **Email:** `invalid-email-format` (tanpa @)
    - **Password:** `TestPass123!`
@@ -251,7 +251,7 @@ Testing untuk memverifikasi **login flow** berfungsi dengan benar dari frontend 
 **Goal:** Verify minimum password length validation
 
 #### 📝 Test Steps:
-1. Navigate to `http://localhost:3001/login`
+1. Navigate to `http://localhost:3002/login`
 2. Fill login form:
    - **Email:** `testbrowser2025@example.com`
    - **Password:** `short` (kurang dari 8 characters)
@@ -275,7 +275,7 @@ Testing untuk memverifikasi **login flow** berfungsi dengan benar dari frontend 
 **Goal:** Verify required field validation
 
 #### 📝 Test Steps:
-1. Navigate to `http://localhost:3001/login`
+1. Navigate to `http://localhost:3002/login`
 2. Leave all fields empty
 3. Click "Sign In" button
 
@@ -295,7 +295,7 @@ Testing untuk memverifikasi **login flow** berfungsi dengan benar dari frontend 
 **Goal:** Verify "Remember Me" checkbox behavior
 
 #### 📝 Test Steps:
-1. Navigate to `http://localhost:3001/login`
+1. Navigate to `http://localhost:3002/login`
 2. Fill valid credentials
 3. **Check** "Remember Me" checkbox
 4. Submit form
@@ -318,7 +318,7 @@ Testing untuk memverifikasi **login flow** berfungsi dengan benar dari frontend 
 **Goal:** Verify password visibility toggle works
 
 #### 📝 Test Steps:
-1. Navigate to `http://localhost:3001/login`
+1. Navigate to `http://localhost:3002/login`
 2. Fill password field: `TestPass123!`
 3. Click eye icon (👁️) next to password field
 4. Observe password becomes visible
@@ -347,7 +347,7 @@ Testing untuk memverifikasi **login flow** berfungsi dengan benar dari frontend 
    # Kill backend process
    lsof -ti:8081 | xargs kill
    ```
-2. Navigate to `http://localhost:3001/login`
+2. Navigate to `http://localhost:3002/login`
 3. Fill valid credentials
 4. Click "Sign In"
 5. Observe error handling
@@ -377,7 +377,7 @@ Testing untuk memverifikasi **login flow** berfungsi dengan benar dari frontend 
 **Goal:** Verify CORS allows frontend-backend communication
 
 #### 📝 Test Steps:
-1. Navigate to `http://localhost:3001/login`
+1. Navigate to `http://localhost:3002/login`
 2. Open Browser Console
 3. Submit login form
 4. Check for CORS errors in console
@@ -391,7 +391,7 @@ Testing untuk memverifikasi **login flow** berfungsi dengan benar dari frontend 
   - ✅ Request succeeds normally
 
 - **Network Tab (Response Headers):**
-  - ✅ `Access-Control-Allow-Origin: http://localhost:3001`
+  - ✅ `Access-Control-Allow-Origin: http://localhost:3002`
   - ✅ `Access-Control-Allow-Credentials: true`
 
 #### 🎬 Test Status:
@@ -495,7 +495,7 @@ mvn spring-boot:run
 **Solution:** Verify CorsConfig.java includes port 3001:
 ```java
 configuration.setAllowedOrigins(Arrays.asList(
-    "http://localhost:3001",
+    "http://localhost:3002",
     "http://127.0.0.1:3001"
 ));
 ```

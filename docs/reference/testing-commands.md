@@ -398,7 +398,7 @@ Updates visual comparison snapshots.
 ### Generate Code
 
 ```bash
-npx playwright codegen http://localhost:3001
+npx playwright codegen http://localhost:3002
 ```
 
 Opens browser and records actions as test code.
@@ -576,7 +576,7 @@ Environment variables for tests:
 ```bash
 # .env.test
 API_BASE_URL=http://localhost:8081
-FRONTEND_URL=http://localhost:3001
+FRONTEND_URL=http://localhost:3002
 TEST_USER_EMAIL=test@example.com
 ```
 

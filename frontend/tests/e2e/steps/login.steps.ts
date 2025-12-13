@@ -20,7 +20,7 @@ After(async function () {
 
 // Background steps
 Given('I am on the login page', async function () {
-  await page.goto('http://localhost:3000/login');
+  await page.goto('http://localhost:3002/login');
   await page.waitForLoadState('networkidle');
 });
 

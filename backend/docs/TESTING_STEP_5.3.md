@@ -20,7 +20,7 @@
 **Objective:** Test normal registration flow
 
 **Steps:**
-1. Open browser: http://localhost:3001
+1. Open browser: http://localhost:3002
 2. Navigate to Registration Form page
 3. Fill in form:
    - Full Name: `Test EndToEnd User`

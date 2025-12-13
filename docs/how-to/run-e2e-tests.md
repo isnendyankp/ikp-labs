@@ -20,7 +20,7 @@ cd frontend
 npm run dev
 ```
 
-Frontend should be available at: `http://localhost:3001`
+Frontend should be available at: `http://localhost:3002`
 
 ## Running Tests
 
@@ -125,7 +125,7 @@ npx playwright test --debug -g "Should register successfully"
 Record browser actions to generate test code:
 
 ```bash
-npx playwright codegen http://localhost:3001/register
+npx playwright codegen http://localhost:3002/register
 ```
 
 This opens a browser where your actions are converted to Playwright code.
@@ -160,7 +160,7 @@ For detailed behavior specifications, see [Gherkin Specs](../../specs/README.md)
 
 Test configuration is in `playwright.config.ts`:
 
-- **Base URL**: `http://localhost:3001`
+- **Base URL**: `http://localhost:3002`
 - **Browsers**: Chromium, Firefox, WebKit
 - **Timeout**: 30 seconds per test
 - **Retries**: 2 retries on CI, 0 locally

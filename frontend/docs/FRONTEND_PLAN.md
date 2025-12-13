@@ -22,7 +22,7 @@ Setelah menyelesaikan testing plan ini, Anda akan:
 
 ## 🔌 Frontend-Backend Integration Points
 ```
-Frontend (localhost:3001)  ←→  Backend (localhost:8081)
+Frontend (localhost:3002)  ←→  Backend (localhost:8081)
 
 Components:
 - RegistrationForm.tsx  →  POST /api/auth/register
@@ -59,7 +59,7 @@ frontend/
 
 #### ✅ Step 1.1: Registration Flow - Valid Data ✅ COMPLETED
 **Test Case:**
-- Open http://localhost:3001/register
+- Open http://localhost:3002/register
 - Fill form dengan data valid:
   - Full Name: "Test Browser User"
   - Email: "testbrowser2025@example.com"
@@ -83,7 +83,7 @@ frontend/
 
 #### ✅ Step 1.2: Registration Flow - Duplicate Email ✅ COMPLETED
 **Test Case:**
-- Open http://localhost:3001/register
+- Open http://localhost:3002/register
 - Fill form dengan email yang sudah ada:
   - Email: "testbrowser2025@example.com" (already exists)
 - Submit form
@@ -127,7 +127,7 @@ frontend/
 
 #### [x] Step 1.4: Login Flow - Valid Credentials ✅ COMPLETED
 **Test Case:**
-- Open http://localhost:3001/login
+- Open http://localhost:3002/login
 - Fill form dengan credentials yang benar:
   - Email: "testbrowser2025@example.com"
   - Password: "TestPass123!"
@@ -149,7 +149,7 @@ frontend/
 
 #### [x] Step 1.5: Login Flow - Invalid Password ✅ COMPLETED
 **Test Case:**
-- Open http://localhost:3001/login
+- Open http://localhost:3002/login
 - Fill form dengan password salah:
   - Email: "testbrowser2025@example.com"
   - Password: "WrongPassword123!"
@@ -444,14 +444,14 @@ describe('Error Handling', () => {
 describe('Performance & Accessibility', () => {
   test('should load registration page within 2 seconds', async ({ page }) => {
     const startTime = Date.now();
-    await page.goto('http://localhost:3001/register');
+    await page.goto('http://localhost:3002/register');
     const loadTime = Date.now() - startTime;
     expect(loadTime).toBeLessThan(2000);
   });
 
   test('should pass accessibility checks', async ({ page }) => {
     // Use @axe-core/playwright
-    await page.goto('http://localhost:3001/register');
+    await page.goto('http://localhost:3002/register');
     const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
     expect(accessibilityScanResults.violations).toEqual([]);
   });
@@ -505,7 +505,7 @@ jobs:
       - name: Start frontend server
         run: npm run dev &
       - name: Wait for servers
-        run: npx wait-on http://localhost:3001 http://localhost:8081
+        run: npx wait-on http://localhost:3002 http://localhost:8081
       - name: Run E2E tests
         run: npx playwright test
       - name: Upload test results
@@ -721,7 +721,7 @@ export default defineConfig({
 
 ### Before Each Test:
 - [ ] Backend server running (localhost:8081)
-- [ ] Frontend server running (localhost:3001)
+- [ ] Frontend server running (localhost:3002)
 - [ ] Database connection verified
 - [ ] Browser DevTools open (Console + Network tab)
 - [ ] Clear localStorage (untuk test clean state)

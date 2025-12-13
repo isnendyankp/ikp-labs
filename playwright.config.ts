@@ -8,7 +8,7 @@ import { defineConfig, devices } from '@playwright/test';
  * 2. API Tests (request-based) - Backend API testing
  *
  * Test servers:
- * - Frontend: http://localhost:3000
+ * - Frontend: http://localhost:3002 (Custom port for IKP-Labs)
  * - Backend API: http://localhost:8081
  */
 
@@ -52,7 +52,7 @@ export default defineConfig({
   // Shared settings for all the projects below
   use: {
     // Base URL to use in actions like `await page.goto('/')`
-    baseURL: 'http://localhost:3000',
+    baseURL: 'http://localhost:3002',
 
     // Collect trace when retrying the failed test
     trace: 'on-first-retry',
@@ -128,7 +128,7 @@ export default defineConfig({
   // webServer: [
   //   {
   //     command: 'cd frontend && npm run dev',
-  //     url: 'http://localhost:3001',
+  //     url: 'http://localhost:3002',
   //     reuseExistingServer: !process.env.CI,
   //     timeout: 120 * 1000,
   //   },

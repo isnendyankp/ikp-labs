@@ -16,7 +16,7 @@ import java.util.Arrays;
  * CORS seperti "Aturan Keamanan Kantor untuk Tamu":
  *
  * Bayangkan kantor backend di gedung A (localhost:8081)
- * dan kantor frontend di gedung B (localhost:3001).
+ * dan kantor frontend di gedung B (localhost:3002 - custom port IKP-Labs).
  *
  * Tanpa CORS: "Maaf, tidak bisa terima panggilan dari gedung lain"
  * Dengan CORS: "Oke, gedung B boleh hubungi gedung A untuk keperluan tertentu"
@@ -24,7 +24,7 @@ import java.util.Arrays;
  * MENGAPA PERLU CORS:
  * ===================
  * Browser punya security policy "Same-Origin Policy":
- * - Frontend di http://localhost:3001
+ * - Frontend di http://localhost:3002
  * - Backend di http://localhost:8081
  * - Ini "different origin" → blocked by browser
  *
@@ -57,9 +57,9 @@ public class CorsConfig {
         // Frontend yang diizinkan akses ke backend
         // Step 5.1: Configure untuk frontend port 3001, 3000, 3003, 3004, dan 3005
         configuration.setAllowedOrigins(Arrays.asList(
-            "http://localhost:3001",     // Frontend development server (target)
+            "http://localhost:3002",     // Frontend development server (IKP-Labs custom port)
             "http://127.0.0.1:3001",     // Alternative localhost format
-            "http://localhost:3000",     // Standard React port
+            "http://localhost:3000",     // Standard React port (for other projects)
             "http://localhost:3003",     // Auto-assigned port by Next.js (current)
             "http://localhost:3004",     // Auto-assigned port by Next.js
             "http://localhost:3005"      // Auto-assigned port by Next.js

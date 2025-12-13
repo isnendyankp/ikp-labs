@@ -178,7 +178,7 @@ Link Repo: https://lnkd.in/gk3UVTgG
  🔐 Credentials & preflight handling
  🛡️ Secure communication layer
 
- localhost:3001 ↔️ localhost:8081
+ localhost:3002 ↔️ localhost:8081
  Connection established! 🚀
 
  Repository: https://lnkd.in/gDE8vmWA
@@ -196,7 +196,7 @@ Link Repo: https://lnkd.in/gk3UVTgG
 
 ### Key Milestones
 - CORS policy configured
-- Multiple origin support (localhost:3001 ↔️ localhost:8081)
+- Multiple origin support (localhost:3002 ↔️ localhost:8081)
 - JWT Authorization headers working
 - Credentials & preflight handling implemented
 - Frontend-backend connection established

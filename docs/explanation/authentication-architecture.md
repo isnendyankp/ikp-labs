@@ -380,7 +380,7 @@ boolean isValid = passwordEncoder.matches(password, hash); // true
 **Configuration:**
 ```java
 // Allow frontend origin
-allowedOrigins: "http://localhost:3001"
+allowedOrigins: "http://localhost:3002"
 
 // Allow credentials (cookies, authorization headers)
 allowCredentials: true
@@ -685,7 +685,7 @@ Access to XMLHttpRequest blocked by CORS policy
 
 **Solution:** Check `CorsConfig.java` allows frontend origin:
 ```java
-.allowedOrigins("http://localhost:3001")
+.allowedOrigins("http://localhost:3002")
 ```
 
 **3. 401 Unauthorized on Protected Routes:**

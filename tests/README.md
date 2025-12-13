@@ -343,7 +343,7 @@ npx playwright test --debug
 npx playwright test --ui
 
 # Generate code (record actions)
-npx playwright codegen http://localhost:3001
+npx playwright codegen http://localhost:3002
 ```
 
 ## 📊 CI/CD Integration

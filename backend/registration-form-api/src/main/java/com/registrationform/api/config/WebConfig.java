@@ -201,7 +201,7 @@ public class WebConfig implements WebMvcConfigurer {
      *      → Only logged-in users can access
      *
      * 7. CORS:
-     *    - Frontend (localhost:3000) can access backend (localhost:8081)
+     *    - Frontend (localhost:3002) can access backend (localhost:8081)
      *    - Already configured in CorsConfig.java
      *    - Static files follow same CORS rules
      *

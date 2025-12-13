@@ -194,7 +194,7 @@ npm run dev
 You'll see:
 ```
 ▲ Next.js 15.5.0
-- Local:        http://localhost:3001
+- Local:        http://localhost:3002
 - Network:      http://192.168.1.x:3001
 
 ✓ Ready in 2.3s
@@ -210,7 +210,7 @@ Open your browser and navigate to:
 
 **Registration Page:**
 ```
-http://localhost:3001/register
+http://localhost:3002/register
 ```
 
 You should see a beautiful registration form with:
@@ -219,7 +219,7 @@ You should see a beautiful registration form with:
 
 **Login Page:**
 ```
-http://localhost:3001/login
+http://localhost:3002/login
 ```
 
 You should see a login form with Email and Password fields.
@@ -228,7 +228,7 @@ You should see a login form with Email and Password fields.
 
 Let's create your first user:
 
-1. **Go to registration page**: `http://localhost:3001/register`
+1. **Go to registration page**: `http://localhost:3002/register`
 
 2. **Fill the form**:
    - Full Name: `Test User`
@@ -254,7 +254,7 @@ Let's create your first user:
 
 Now let's login with the user you just created:
 
-1. **Go to login page**: `http://localhost:3001/login`
+1. **Go to login page**: `http://localhost:3002/login`
 
 2. **Fill the form**:
    - Email: `test@example.com`

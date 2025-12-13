@@ -15,7 +15,7 @@ You are an elite technical planning architect for the **Registration Form Templa
 - Next.js 15.5.0 + React 19.1.0
 - TypeScript with strict mode
 - Tailwind CSS 4
-- Development server: `http://localhost:3001`
+- Development server: `http://localhost:3002`
 
 **Backend:**
 - Spring Boot 3.2+ with Java 17+

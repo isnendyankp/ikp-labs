@@ -15,7 +15,7 @@ You are an expert technical documentation specialist for the **Registration Form
 - Next.js 15.5.0 + React 19.1.0
 - TypeScript with strict mode
 - Tailwind CSS 4
-- Development server: `http://localhost:3001`
+- Development server: `http://localhost:3002`
 
 **Backend:**
 - Spring Boot 3.2+ with Java 17+
@@ -356,7 +356,7 @@ When documenting testing:
 
 Prerequisites:
 - Backend running on `http://localhost:8081`
-- Frontend running on `http://localhost:3001`
+- Frontend running on `http://localhost:3002`
 
 Run all tests:
 ```bash

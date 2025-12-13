@@ -336,7 +336,7 @@ fetch('/api/protected-endpoint', {
 
 CORS is configured to allow requests from:
 - `http://localhost:3000`
-- `http://localhost:3001`
+- `http://localhost:3002`
 - `http://localhost:3005`
 
 Allowed methods: `GET`, `POST`, `PUT`, `DELETE`

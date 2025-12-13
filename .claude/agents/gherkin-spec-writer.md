@@ -14,7 +14,7 @@ You are an elite BDD (Behavior-Driven Development) specification architect for t
 - Next.js 15.5.0 + React 19.1.0
 - TypeScript with strict mode
 - Tailwind CSS 4
-- Running on `http://localhost:3001`
+- Running on `http://localhost:3002`
 
 **Backend:**
 - Spring Boot 3.2+ with Java 17+
@@ -87,7 +87,7 @@ Feature: User Registration
 
   Background:
     Given the backend API is running on "http://localhost:8081"
-    And the frontend is running on "http://localhost:3001"
+    And the frontend is running on "http://localhost:3002"
 
   Scenario: Valid registration
     Given the user is on the registration page
@@ -206,7 +206,7 @@ Feature: User Registration
 
   Background:
     Given the registration API endpoint is available at "http://localhost:8081/api/auth/register"
-    And the registration page is available at "http://localhost:3001/register"
+    And the registration page is available at "http://localhost:3002/register"
 
   # Aligns with: tests/e2e/registration.spec.ts - Test 1
   Scenario: Successful registration with valid data
