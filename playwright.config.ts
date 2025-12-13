@@ -8,7 +8,7 @@ import { defineConfig, devices } from '@playwright/test';
  * 2. API Tests (request-based) - Backend API testing
  *
  * Test servers:
- * - Frontend: http://localhost:3003
+ * - Frontend: http://localhost:3000
  * - Backend API: http://localhost:8081
  */
 
@@ -52,7 +52,7 @@ export default defineConfig({
   // Shared settings for all the projects below
   use: {
     // Base URL to use in actions like `await page.goto('/')`
-    baseURL: 'http://localhost:3003',
+    baseURL: 'http://localhost:3000',
 
     // Collect trace when retrying the failed test
     trace: 'on-first-retry',
