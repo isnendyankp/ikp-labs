@@ -108,6 +108,7 @@ export interface ProfilePictureResponse {
 export interface GalleryPhoto {
   id: number;
   userId: number;
+  ownerName: string;
   filePath: string;
   title: string | null;
   description: string | null;
@@ -115,9 +116,9 @@ export interface GalleryPhoto {
   uploadOrder: number;
   createdAt: string;
   updatedAt: string;
-  // Photo Likes fields (optional for backward compatibility)
-  likeCount?: number;
-  isLikedByCurrentUser?: boolean;
+  // Photo Likes fields (required - populated by backend)
+  likeCount: number;
+  isLikedByUser: boolean;
 }
 
 /**
