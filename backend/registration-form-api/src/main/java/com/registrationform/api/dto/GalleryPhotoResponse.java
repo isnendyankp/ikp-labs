@@ -111,6 +111,26 @@ public class GalleryPhotoResponse {
     private LocalDateTime updatedAt;
 
     /**
+     * Like count
+     *
+     * Jumlah total likes yang diterima foto ini.
+     * Digunakan untuk tampilkan "❤️ 42" di UI.
+     *
+     * Example: 0, 5, 100
+     */
+    private Long likeCount;
+
+    /**
+     * Is liked by current user
+     *
+     * Boolean flag apakah user yang sedang login sudah like foto ini.
+     * Digunakan untuk tampilkan heart icon state:
+     * - true = ❤️ (filled red heart)
+     * - false = ♡ (outline heart)
+     */
+    private Boolean isLikedByUser;
+
+    /**
      * Default constructor - required by Spring for serialization
      */
     public GalleryPhotoResponse() {
@@ -136,7 +156,7 @@ public class GalleryPhotoResponse {
     }
 
     /**
-     * Static factory method - Convert Entity to DTO
+     * Static factory method - Convert Entity to DTO (without like data)
      *
      * RECOMMENDED WAY untuk create response dari entity.
      * Lebih clean dan readable daripada new GalleryPhotoResponse(...).
@@ -152,6 +172,9 @@ public class GalleryPhotoResponse {
      * return ResponseEntity.ok(response);
      * ```
      *
+     * NOTE: This method does NOT populate likeCount and isLikedByUser.
+     * Use fromEntityWithLikes() if you need like data.
+     *
      * @param photo GalleryPhoto entity from database
      * @return GalleryPhotoResponse DTO for API response
      */
@@ -166,6 +189,47 @@ public class GalleryPhotoResponse {
         response.setIsPublic(photo.getIsPublic());
         response.setCreatedAt(photo.getCreatedAt());
         response.setUpdatedAt(photo.getUpdatedAt());
+        response.setLikeCount(0L); // Default to 0
+        response.setIsLikedByUser(false); // Default to false
+        return response;
+    }
+
+    /**
+     * Static factory method - Convert Entity to DTO (WITH like data)
+     *
+     * RECOMMENDED WAY untuk create response dengan like information.
+     * Use this method when fetching photos to display in gallery/list.
+     *
+     * Use case:
+     * - GET /api/gallery/public - List all public photos with like data
+     * - GET /api/gallery/my-photos - List my photos with like data
+     * - GET /api/gallery/photo/{id} - Get single photo with like data
+     *
+     * Example:
+     * ```
+     * List<GalleryPhoto> photos = galleryService.getPublicPhotos(pageable);
+     * List<GalleryPhotoResponse> responses = photos.stream()
+     *     .map(photo -> GalleryPhotoResponse.fromEntityWithLikes(
+     *         photo, currentUserId, photoLikeService
+     *     ))
+     *     .collect(Collectors.toList());
+     * ```
+     *
+     * @param photo GalleryPhoto entity from database
+     * @param currentUserId ID of current logged-in user (null if not authenticated)
+     * @param likeCount Total number of likes for this photo
+     * @param isLikedByUser Whether current user has liked this photo
+     * @return GalleryPhotoResponse DTO with complete like information
+     */
+    public static GalleryPhotoResponse fromEntityWithLikes(
+            GalleryPhoto photo,
+            Long currentUserId,
+            long likeCount,
+            boolean isLikedByUser) {
+
+        GalleryPhotoResponse response = fromEntity(photo);
+        response.setLikeCount(likeCount);
+        response.setIsLikedByUser(isLikedByUser);
         return response;
     }
 
@@ -243,6 +307,22 @@ public class GalleryPhotoResponse {
         this.updatedAt = updatedAt;
     }
 
+    public Long getLikeCount() {
+        return likeCount;
+    }
+
+    public void setLikeCount(Long likeCount) {
+        this.likeCount = likeCount;
+    }
+
+    public Boolean getIsLikedByUser() {
+        return isLikedByUser;
+    }
+
+    public void setIsLikedByUser(Boolean isLikedByUser) {
+        this.isLikedByUser = isLikedByUser;
+    }
+
     /**
      * toString for debugging
      */
@@ -258,6 +338,8 @@ public class GalleryPhotoResponse {
                 ", isPublic=" + isPublic +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
+                ", likeCount=" + likeCount +
+                ", isLikedByUser=" + isLikedByUser +
                 '}';
     }
 
