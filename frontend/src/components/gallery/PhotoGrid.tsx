@@ -19,12 +19,14 @@ interface PhotoGridProps {
   photos: GalleryPhoto[];
   loading?: boolean;
   emptyMessage?: string;
+  onLikeChange?: () => void;
 }
 
 export default function PhotoGrid({
   photos,
   loading = false,
-  emptyMessage = 'No photos found'
+  emptyMessage = 'No photos found',
+  onLikeChange
 }: PhotoGridProps) {
   // Loading state - show skeleton cards
   if (loading) {
@@ -57,7 +59,7 @@ export default function PhotoGrid({
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       {photos.map((photo) => (
-        <PhotoCard key={photo.id} photo={photo} />
+        <PhotoCard key={photo.id} photo={photo} onLikeChange={onLikeChange} />
       ))}
     </div>
   );

@@ -21,9 +21,10 @@ import LikeButton from '../LikeButton';
 
 interface PhotoCardProps {
   photo: GalleryPhoto;
+  onLikeChange?: () => void;
 }
 
-export default function PhotoCard({ photo }: PhotoCardProps) {
+export default function PhotoCard({ photo, onLikeChange }: PhotoCardProps) {
   const router = useRouter();
 
   const handleClick = () => {
@@ -93,6 +94,7 @@ export default function PhotoCard({ photo }: PhotoCardProps) {
             initialIsLiked={photo.isLikedByUser}
             initialLikeCount={photo.likeCount}
             size="small"
+            onLikeChange={onLikeChange}
           />
         </div>
       </div>

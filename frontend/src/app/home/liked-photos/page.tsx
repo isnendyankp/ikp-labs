@@ -14,7 +14,7 @@
 
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import { isAuthenticated, getUserFromToken } from '../../../lib/auth';
 import { GalleryPhoto, AuthUser } from '../../../types/api';
@@ -49,14 +49,8 @@ export default function LikedPhotosPage() {
     }
   }, [router]);
 
-  // Fetch liked photos when page changes
-  useEffect(() => {
-    if (user) {
-      fetchLikedPhotos();
-    }
-  }, [user, currentPage]);
-
-  const fetchLikedPhotos = async () => {
+  // Fetch liked photos function (wrapped in useCallback to avoid stale closures)
+  const fetchLikedPhotos = useCallback(async () => {
     if (!user) return;
 
     setLoading(true);
@@ -86,7 +80,14 @@ export default function LikedPhotosPage() {
     } finally {
       setLoading(false);
     }
-  };
+  }, [user, currentPage]);
+
+  // Fetch liked photos when page changes
+  useEffect(() => {
+    if (user) {
+      fetchLikedPhotos();
+    }
+  }, [user, fetchLikedPhotos]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
@@ -148,6 +149,7 @@ export default function LikedPhotosPage() {
           photos={photos}
           loading={loading}
           emptyMessage="You haven't liked any photos yet. Explore the gallery and like some photos!"
+          onLikeChange={fetchLikedPhotos}
         />
 
         {/* Pagination */}

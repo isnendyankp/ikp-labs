@@ -38,6 +38,7 @@ interface LikeButtonProps {
   initialLikeCount?: number;
   size?: 'small' | 'medium' | 'large';
   className?: string;
+  onLikeChange?: () => void;
 }
 
 // === COMPONENT ===
@@ -48,6 +49,7 @@ export default function LikeButton({
   initialLikeCount = 0,
   size = 'medium',
   className = '',
+  onLikeChange,
 }: LikeButtonProps) {
   // === STATE ===
 
@@ -120,6 +122,14 @@ export default function LikeButton({
       } else {
         // Success - optimistic update was correct
         console.log('✅ Like/Unlike successful');
+
+        // Notify parent component of the change
+        if (onLikeChange) {
+          console.log('🔄 Calling onLikeChange callback');
+          onLikeChange();
+        } else {
+          console.log('⚠️  onLikeChange callback not provided');
+        }
       }
     } catch (error) {
       // Rollback on exception
