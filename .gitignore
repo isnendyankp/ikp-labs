@@ -114,3 +114,10 @@ uploads/*
 !tests/fixtures/**/*.jpeg
 !tests/fixtures/**/*.png
 !tests/fixtures/**/*.gif
+
+# Documentation - Private/Internal folders
+docs/linkedin/
+docs/.internal/
+docs/implementation-summaries/
+# Test Reports
+docs/test-reports/
