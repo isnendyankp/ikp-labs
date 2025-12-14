@@ -507,7 +507,7 @@ This allows controllers to access authenticated user information without manual 
 
 ### Application Properties
 
-**Location:** `backend/registration-form-api/src/main/resources/application.properties`
+**Location:** `backend/ikp-labs-api/src/main/resources/application.properties`
 
 ```properties
 # JWT Configuration

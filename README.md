@@ -119,7 +119,7 @@ createdb registration_form_db
 
 ### 3. Start Backend
 ```bash
-cd backend/registration-form-api
+cd backend/ikp-labs-api
 ./mvnw spring-boot:run
 
 # Backend runs on http://localhost:8081
@@ -140,7 +140,7 @@ npm run dev
 npx playwright test
 
 # Integration Tests
-cd backend/registration-form-api
+cd backend/ikp-labs-api
 ./mvnw test
 ```
 
@@ -211,7 +211,7 @@ High-level organization:
 ikp-labs/
 ├── frontend/              # Next.js application
 ├── backend/              # Spring Boot API
-│   └── registration-form-api/
+│   └── ikp-labs-api/
 ├── tests/                # E2E and API tests
 │   ├── e2e/             # Playwright E2E tests
 │   └── api/             # Playwright API tests
@@ -235,7 +235,7 @@ npm run dev
 
 **Backend:**
 ```bash
-cd backend/registration-form-api
+cd backend/ikp-labs-api
 ./mvnw spring-boot:run
 ```
 
@@ -245,7 +245,7 @@ cd backend/registration-form-api
 npx playwright test
 
 # Integration
-cd backend/registration-form-api
+cd backend/ikp-labs-api
 ./mvnw test
 ```
 

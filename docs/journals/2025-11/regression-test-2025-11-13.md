@@ -299,7 +299,7 @@ The Photo Gallery feature has been implemented successfully without breaking any
 
 **Test Command:**
 ```bash
-cd backend/registration-form-api
+cd backend/ikp-labs-api
 mvn test
 ```
 

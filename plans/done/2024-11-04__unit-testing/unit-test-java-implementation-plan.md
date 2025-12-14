@@ -501,7 +501,7 @@ Repository Layer:      50%+  (Optional)
 ### Step 1: Setup (5 minutes)
 ```bash
 # Verify dependencies in pom.xml
-cd backend/registration-form-api
+cd backend/ikp-labs-api
 mvn clean test
 
 # Should see:

@@ -8,7 +8,7 @@ Before running tests, ensure both servers are running:
 
 **Terminal 1 - Backend Server:**
 ```bash
-cd backend/registration-form-api
+cd backend/ikp-labs-api
 mvn spring-boot:run
 ```
 
@@ -191,7 +191,7 @@ These users must exist in the database for login tests to pass.
 
 **Solution**: Start the backend server:
 ```bash
-cd backend/registration-form-api
+cd backend/ikp-labs-api
 mvn spring-boot:run
 ```
 
@@ -255,7 +255,7 @@ jobs:
 
       - name: Start backend
         run: |
-          cd backend/registration-form-api
+          cd backend/ikp-labs-api
           mvn spring-boot:run &
 
       - name: Start frontend

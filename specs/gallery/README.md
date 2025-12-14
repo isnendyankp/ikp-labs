@@ -191,12 +191,12 @@ Scenario: Update photo denied for non-owner
 
 ## Related Documentation
 
-- **Backend Implementation:** `backend/registration-form-api/src/main/java/com/registrationform/api/`
+- **Backend Implementation:** `backend/ikp-labs-api/src/main/java/com/registrationform/api/`
   - `controller/GalleryController.java`
   - `service/GalleryService.java`
   - `service/FileStorageService.java`
 - **Test Plan:** `docs/plans/photo-gallery-test-plan.md`
-- **Unit Tests:** `backend/registration-form-api/src/test/java/com/registrationform/api/service/`
+- **Unit Tests:** `backend/ikp-labs-api/src/test/java/com/registrationform/api/service/`
   - `GalleryServiceTest.java`
   - `FileStorageServiceTest.java`
 - **Authentication Specs:** `specs/authentication/` (for reference)

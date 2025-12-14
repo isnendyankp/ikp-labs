@@ -44,7 +44,7 @@ RegistrationForm/
 │       ├── app/       # App router (pages)
 │       └── components/ # React components
 ├── backend/           # Spring Boot API
-│   └── registration-form-api/
+│   └── ikp-labs-api/
 │       └── src/main/java/
 ├── tests/             # Playwright E2E tests
 │   ├── e2e/          # Test specs
@@ -205,7 +205,7 @@ Use actual code and configuration:
 - Use actual routes from `frontend/src/app/`
 
 **For Backend (Spring Boot):**
-- Check `backend/registration-form-api/pom.xml` for versions
+- Check `backend/ikp-labs-api/pom.xml` for versions
 - Reference actual controllers, services, repositories
 - Use actual API endpoints from controllers
 
@@ -328,7 +328,7 @@ When documenting Spring Boot features:
 ```markdown
 ## User Service (Singleton Pattern)
 
-Location: `backend/registration-form-api/src/main/java/com/registrationform/api/service/UserService.java`
+Location: `backend/ikp-labs-api/src/main/java/com/registrationform/api/service/UserService.java`
 
 The UserService is a Spring Bean with Singleton scope (default):
 

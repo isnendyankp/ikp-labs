@@ -207,7 +207,7 @@ private JwtUtil jwtUtil;  // ← Token generator palsu
 ### File Structure
 
 ```
-backend/registration-form-api/
+backend/ikp-labs-api/
 ├── src/main/java/
 │   └── com/registrationform/api/
 │       ├── controller/
@@ -222,7 +222,7 @@ backend/registration-form-api/
 
 ### Test Cases yang Sudah Dibuat
 
-File: [`AuthServiceTest.java`](../../backend/registration-form-api/src/test/java/com/registrationform/api/service/AuthServiceTest.java)
+File: [`AuthServiceTest.java`](../../backend/ikp-labs-api/src/test/java/com/registrationform/api/service/AuthServiceTest.java)
 
 #### Test 1: Login dengan Valid Credentials ✅
 ```java
@@ -773,7 +773,7 @@ mvn clean test jacoco:report
 
 ### 1. Run Test yang Sudah Dibuat
 ```bash
-cd backend/registration-form-api
+cd backend/ikp-labs-api
 mvn test -Dtest=AuthServiceTest
 ```
 

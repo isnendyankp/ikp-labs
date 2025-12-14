@@ -82,14 +82,14 @@ playwright-report/
 # Uploaded Files - JANGAN commit file upload user!
 # File foto hanya ada di server local, tidak masuk Git repository
 # Note: .gitkeep files are allowed (negation must come after ignore)
-backend/registration-form-api/uploads/*
-!backend/registration-form-api/uploads/.gitkeep
-!backend/registration-form-api/uploads/profiles/
-backend/registration-form-api/uploads/profiles/*
-!backend/registration-form-api/uploads/profiles/.gitkeep
-!backend/registration-form-api/uploads/gallery/
-backend/registration-form-api/uploads/gallery/*
-!backend/registration-form-api/uploads/gallery/.gitkeep
+backend/ikp-labs-api/uploads/*
+!backend/ikp-labs-api/uploads/.gitkeep
+!backend/ikp-labs-api/uploads/profiles/
+backend/ikp-labs-api/uploads/profiles/*
+!backend/ikp-labs-api/uploads/profiles/.gitkeep
+!backend/ikp-labs-api/uploads/gallery/
+backend/ikp-labs-api/uploads/gallery/*
+!backend/ikp-labs-api/uploads/gallery/.gitkeep
 
 backend/uploads/*
 !backend/uploads/.gitkeep

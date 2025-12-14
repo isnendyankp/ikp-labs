@@ -486,7 +486,7 @@ Verify JWT token structure and content:
 **Cause:** Backend server not running
 **Solution:**
 ```bash
-cd backend/registration-form-api
+cd backend/ikp-labs-api
 mvn spring-boot:run
 ```
 

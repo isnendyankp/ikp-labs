@@ -39,7 +39,7 @@ tests/
 **For E2E Tests:** Both servers must be running
 ```bash
 # Terminal 1: Backend (port 8081)
-cd backend/registration-form-api
+cd backend/ikp-labs-api
 mvn spring-boot:run
 
 # Terminal 2: Frontend (port 3001)
@@ -50,7 +50,7 @@ npm run dev
 **For API Tests:** Only backend is required
 ```bash
 # Backend (port 8081)
-cd backend/registration-form-api
+cd backend/ikp-labs-api
 mvn spring-boot:run
 ```
 

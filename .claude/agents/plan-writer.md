@@ -43,7 +43,7 @@ RegistrationForm/
 │       ├── app/          # App router pages
 │       └── components/   # React components
 ├── backend/              # Spring Boot API
-│   └── registration-form-api/
+│   └── ikp-labs-api/
 │       └── src/main/java/com/registrationform/api/
 │           ├── controller/   # REST controllers
 │           ├── service/      # Business logic (Singleton)
@@ -223,9 +223,9 @@ Password Reset Flow:
 ## Files to Create
 
 **Backend:**
-- `backend/registration-form-api/src/main/java/com/registrationform/api/controller/PasswordResetController.java`
-- `backend/registration-form-api/src/main/java/com/registrationform/api/service/PasswordResetService.java`
-- `backend/registration-form-api/src/main/java/com/registrationform/api/dto/ForgotPasswordRequest.java`
+- `backend/ikp-labs-api/src/main/java/com/registrationform/api/controller/PasswordResetController.java`
+- `backend/ikp-labs-api/src/main/java/com/registrationform/api/service/PasswordResetService.java`
+- `backend/ikp-labs-api/src/main/java/com/registrationform/api/dto/ForgotPasswordRequest.java`
 
 **Frontend:**
 - `frontend/src/app/forgot-password/page.tsx`

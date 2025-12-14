@@ -116,7 +116,7 @@ userRepository.save(user);  // updated_at auto-updated
 
 ### Application Properties
 
-Located in: `backend/registration-form-api/src/main/resources/application.properties`
+Located in: `backend/ikp-labs-api/src/main/resources/application.properties`
 
 ```properties
 # Database connection

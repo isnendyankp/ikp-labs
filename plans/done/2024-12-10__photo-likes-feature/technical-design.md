@@ -155,7 +155,7 @@ CREATE INDEX idx_photo_likes_created_at ON photo_likes(created_at DESC);
 
 ### Flyway Migration Script
 
-**File:** `backend/registration-form-api/src/main/resources/db/migration/V3__create_photo_likes.sql`
+**File:** `backend/ikp-labs-api/src/main/resources/db/migration/V3__create_photo_likes.sql`
 
 ```sql
 -- V3: Create photo_likes table for Photo Likes feature

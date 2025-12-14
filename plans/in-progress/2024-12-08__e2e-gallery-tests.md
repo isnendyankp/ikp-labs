@@ -814,7 +814,7 @@ tests/fixtures/images/
 ### Environment Check:
 ```bash
 # Backend
-cd backend/registration-form-api
+cd backend/ikp-labs-api
 ./mvnw spring-boot:run
 
 # Frontend

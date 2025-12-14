@@ -118,7 +118,7 @@ Exit PostgreSQL:
 ### Configure Database Connection
 
 The backend is already configured with default settings in:
-`backend/registration-form-api/src/main/resources/application.properties`
+`backend/ikp-labs-api/src/main/resources/application.properties`
 
 Default configuration:
 ```properties
@@ -131,7 +131,7 @@ spring.datasource.password=your_password_here
 
 ```bash
 # Edit the file
-cd backend/registration-form-api/src/main/resources
+cd backend/ikp-labs-api/src/main/resources
 # Update username and password to match your PostgreSQL setup
 ```
 
@@ -145,7 +145,7 @@ Open a **new terminal window** and start the backend:
 
 ```bash
 # From project root
-cd backend/registration-form-api
+cd backend/ikp-labs-api
 mvn spring-boot:run
 ```
 

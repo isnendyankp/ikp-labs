@@ -84,9 +84,9 @@ Overall Progress: 33/50 tasks (66%)
 
 **Commit 1:**
 ```bash
-git add backend/registration-form-api/src/main/resources/db/migration/V3__create_photo_likes.sql
-git add backend/registration-form-api/src/main/java/com/registrationform/api/entity/PhotoLike.java
-git add backend/registration-form-api/src/main/java/com/registrationform/api/repository/PhotoLikeRepository.java
+git add backend/ikp-labs-api/src/main/resources/db/migration/V3__create_photo_likes.sql
+git add backend/ikp-labs-api/src/main/java/com/registrationform/api/entity/PhotoLike.java
+git add backend/ikp-labs-api/src/main/java/com/registrationform/api/repository/PhotoLikeRepository.java
 git commit -m "feat(db): add photo_likes table with migration and repository
 
 - Create V3 Flyway migration for photo_likes table
@@ -187,8 +187,8 @@ git push
 
 **Commit 3:**
 ```bash
-git add backend/registration-form-api/src/main/java/com/registrationform/api/service/PhotoLikeService.java
-git add backend/registration-form-api/src/main/java/com/registrationform/api/controller/PhotoLikeController.java
+git add backend/ikp-labs-api/src/main/java/com/registrationform/api/service/PhotoLikeService.java
+git add backend/ikp-labs-api/src/main/java/com/registrationform/api/controller/PhotoLikeController.java
 git commit -m "feat(backend): add PhotoLikeService with business logic
 
 - Create PhotoLikeService with like/unlike/getLikedPhotos methods
@@ -291,7 +291,7 @@ git push
 
 **Commit 5:**
 ```bash
-git add backend/registration-form-api/src/test/java/com/registrationform/api/service/PhotoLikeServiceTest.java
+git add backend/ikp-labs-api/src/test/java/com/registrationform/api/service/PhotoLikeServiceTest.java
 git commit -m "test(unit): add PhotoLikeService unit tests (8 tests)
 
 - Test like/unlike business logic in isolation
@@ -330,7 +330,7 @@ git push
 
 **Commit 6:**
 ```bash
-git add backend/registration-form-api/src/test/java/com/registrationform/api/controller/PhotoLikeControllerIntegrationTest.java
+git add backend/ikp-labs-api/src/test/java/com/registrationform/api/controller/PhotoLikeControllerIntegrationTest.java
 git commit -m "test(integration): add PhotoLikeController integration tests (6 tests)
 
 - Test controller + service interaction with MockMvc

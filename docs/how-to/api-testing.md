@@ -24,7 +24,7 @@ Before running API tests, ensure the backend server is running:
 
 **Terminal 1 - Backend Server:**
 ```bash
-cd backend/registration-form-api
+cd backend/ikp-labs-api
 mvn spring-boot:run
 ```
 
@@ -387,7 +387,7 @@ Error: connect ECONNREFUSED 127.0.0.1:8081
 **Solution:**
 Make sure the backend server is running on port 8081:
 ```bash
-cd backend/registration-form-api
+cd backend/ikp-labs-api
 mvn spring-boot:run
 ```
 
@@ -408,7 +408,7 @@ Could not connect to PostgreSQL database
    sudo systemctl status postgresql
    ```
 
-2. Verify database credentials in `backend/registration-form-api/src/main/resources/application.properties`
+2. Verify database credentials in `backend/ikp-labs-api/src/main/resources/application.properties`
 
 ### Test Timeouts
 

@@ -257,7 +257,7 @@ jobs:
 
       - name: Start backend
         run: |
-          cd backend/registration-form-api
+          cd backend/ikp-labs-api
           mvn spring-boot:run &
           sleep 30
 
@@ -288,7 +288,7 @@ jobs:
 curl http://localhost:8081/api/health
 
 # Restart backend if needed
-cd backend/registration-form-api
+cd backend/ikp-labs-api
 mvn spring-boot:run
 ```
 
