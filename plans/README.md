@@ -1,273 +1,217 @@
-# Photo Gallery Feature - Planning Documents
+# Plans
 
-**Last Updated:** 2025-11-11
-**Status:** 📋 Planning Complete, Ready for Review
-
----
-
-## Quick Navigation
-
-**Start Here:**
-1. 📄 **[Executive Summary](photo-gallery-feature-summary.md)** ← **READ THIS FIRST**
-   - Quick overview for approval
-   - What, Why, How, When
-   - Risk assessment
-   - Approval checklist
-
-**Detailed Plans:**
-2. 📋 **[Implementation Plan](photo-gallery-feature-plan.md)**
-   - Complete technical design
-   - API endpoints with examples
-   - File storage architecture
-   - 35-task checklist for backend
-   - 28-task checklist for frontend
-
-3. 🧪 **[Test Plan](photo-gallery-test-plan.md)**
-   - All 87 test cases
-   - Unit tests (33 tests)
-   - Component tests (15 tests)
-   - E2E tests (20 tests)
-   - TestPlanTracker integration
-
-4. ✅ **[Progress Checklist](photo-gallery-progress-checklist.md)**
-   - Daily tracking tool
-   - 120 tasks with checkboxes
-   - Quick stats dashboard
-   - Daily progress log template
+**Temporary, ephemeral project planning** - Separate from permanent documentation in `docs/`.
 
 ---
 
-## Document Purpose
+## 📁 Directory Structure
 
-### 1. Executive Summary (Start Here!)
-
-**Who:** Anyone reviewing the feature (team lead, developer, self)
-**Purpose:** Quick approval decision
-**Length:** ~10 min read
-
-**Contains:**
-- Feature overview (what & why)
-- Scope (in/out)
-- Technical highlights
-- Timeline (11 days)
-- Risk assessment
-- Success criteria
-- Approval checklist
-
-**Use When:**
-- Need quick overview
-- Making approval decision
-- Explaining to others
+```
+plans/
+├── README.md          # This file
+├── ideas.md           # Quick concept snippets
+├── backlog/           # Planned for future
+├── in-progress/       # Currently working on
+└── done/              # Completed and archived
+```
 
 ---
 
-### 2. Implementation Plan (For Developers)
+## 🔄 Planning Workflow
 
-**Who:** Developer implementing the feature
-**Purpose:** Technical blueprint for coding
-**Length:** ~30 min read
+### 1. **Ideas** → `ideas.md`
+Quick brainstorming, rough concepts not yet formalized
 
-**Contains:**
-- Database schema (SQL)
-- API endpoint specs (8 endpoints)
-- File storage structure
-- Security rules
-- Backend checklist (35 tasks)
-- Frontend checklist (28 tasks)
-- Documentation checklist (10 tasks)
+**Format**: Simple bullet points with dates
+**Purpose**: Capture ideas before they're forgotten
+**Example**:
+```markdown
+### 2024-12-14: Photo Albums Feature
+- Allow users to organize photos into albums
+- Estimated: 5 days
+```
 
-**Use When:**
-- Starting implementation
-- Need technical details
-- Designing architecture
-- Writing code
+### 2. **Backlog** → `backlog/`
+Ideas that have been formalized into actionable plans
 
----
+**Format**: `YYYY-MM-DD__project-identifier/`
+**Contents**: Requirements, technical design, estimates
+**Status**: Planned but not started
 
-### 3. Test Plan (For QA & Developers)
+### 3. **In Progress** → `in-progress/`
+Plans actively being worked on
 
-**Who:** QA engineers, developers writing tests
-**Purpose:** Complete test coverage plan
-**Length:** ~25 min read
+**Format**: `YYYY-MM-DD__project-identifier.md` or folder
+**Contents**: Implementation plan, checklist, progress tracking
+**Status**: Currently implementing
 
-**Contains:**
-- Backend unit tests (33 tests)
-- Frontend component tests (15 tests)
-- E2E test scenarios (20 tests)
-- Test fixtures specification
-- TestPlanTracker integration
-- Acceptance criteria
+### 4. **Done** → `done/`
+Completed plans, archived for reference
 
-**Use When:**
-- Writing tests
-- Reviewing test coverage
-- Creating test data
-- Debugging test failures
+**Format**: `YYYY-MM-DD__project-identifier/`
+**Contents**: All planning documents from the project
+**Status**: Completed and archived
 
 ---
 
-### 4. Progress Checklist (Daily Tool)
+## 📝 Naming Convention
 
-**Who:** Everyone on the team
-**Purpose:** Track daily progress
-**Length:** Living document (update daily)
+All plans follow date-based naming:
 
-**Contains:**
-- 120 tasks with checkboxes
-- Phase completion stats
-- Daily progress log
-- Blocker tracking
-- Quick reference
+**Format**: `YYYY-MM-DD__project-identifier`
 
-**Use When:**
-- Daily standup
-- Checking progress
-- Planning tomorrow
-- End-of-day review
+**Examples**:
+- `2024-11-24__photo-gallery-feature/`
+- `2024-12-10__photo-likes-feature/`
+- `2024-12-08__e2e-gallery-tests.md`
+
+**Why Date-Based?**
+- Clear chronological order
+- Easy to track when projects started
+- Simple sorting by date
+- Prevents name conflicts
 
 ---
 
-## How to Use These Plans
+## 🗂️ Current Plans
 
-### For Approval (Today)
+### Done (Archived)
+```
+done/
+├── 2024-11-04__unit-testing/
+│   ├── unit-test-checklist.md
+│   └── unit-test-java-implementation-plan.md
+├── 2024-11-04__profile-picture-e2e/
+│   └── profile-picture-e2e-test-plan.md
+├── 2024-11-24__photo-gallery-feature/
+│   ├── photo-gallery-feature-plan.md
+│   ├── photo-gallery-feature-summary.md
+│   ├── photo-gallery-progress-checklist.md
+│   └── photo-gallery-test-plan.md
+└── 2024-12-10__photo-likes-feature/
+    ├── README.md
+    ├── requirements.md
+    ├── technical-design.md
+    └── checklist.md
+```
 
-**Step 1:** Read [Executive Summary](photo-gallery-feature-summary.md)
-- Understand scope and timeline
-- Review risk assessment
-- Check approval checklist
+### In Progress
+```
+in-progress/
+└── 2024-12-08__e2e-gallery-tests.md
+```
 
-**Step 2:** Decide to approve or request changes
-
-**Step 3:** If approved, proceed to implementation tomorrow
-
----
-
-### For Implementation (Day 2+)
-
-**Each Morning:**
-1. Open [Progress Checklist](photo-gallery-progress-checklist.md)
-2. Review today's planned tasks
-3. Check yesterday's completed tasks
-
-**While Coding:**
-1. Reference [Implementation Plan](photo-gallery-feature-plan.md) for technical details
-2. Follow API specifications exactly
-3. Check off tasks in Progress Checklist as you complete
-
-**While Testing:**
-1. Reference [Test Plan](photo-gallery-test-plan.md)
-2. Implement tests in order (unit → integration → E2E)
-3. Check off test cases in Progress Checklist
-
-**End of Day:**
-1. Update [Progress Checklist](photo-gallery-progress-checklist.md)
-2. Fill in Daily Progress Log
-3. Note any blockers
-4. Plan tomorrow's tasks
+### Backlog
+```
+backlog/
+(empty - add planned projects here)
+```
 
 ---
 
-## Document Status
+## ✅ How to Create a New Plan
 
-| Document | Status | Last Updated | Pages |
-|----------|--------|--------------|-------|
-| [Executive Summary](photo-gallery-feature-summary.md) | ✅ Complete | 2025-11-11 | 12 |
-| [Implementation Plan](photo-gallery-feature-plan.md) | ✅ Complete | 2025-11-11 | 28 |
-| [Test Plan](photo-gallery-test-plan.md) | ✅ Complete | 2025-11-11 | 24 |
-| [Progress Checklist](photo-gallery-progress-checklist.md) | 🔄 Living Doc | 2025-11-11 | 16 |
+### Step 1: Add to Ideas
+```markdown
+# In ideas.md
+### 2024-12-15: New Feature Name
+- Brief description
+- Why it's valuable
+- Rough estimate
+```
 
-**Total Planning Pages:** 80 pages of comprehensive documentation
+### Step 2: Move to Backlog (when ready to plan)
+```bash
+mkdir -p plans/backlog/2024-12-15__new-feature/
+cd plans/backlog/2024-12-15__new-feature/
 
----
+# Create planning docs
+touch README.md
+touch requirements.md
+touch technical-design.md
+touch checklist.md
+```
 
-## Quick Stats
+### Step 3: Move to In Progress (when starting)
+```bash
+git mv plans/backlog/2024-12-15__new-feature/ \
+       plans/in-progress/
+```
 
-**Project Scope:**
-- **Total Tasks:** 120
-- **Test Cases:** 87
-- **API Endpoints:** 8
-- **Database Tables:** 1 (new)
-- **Frontend Pages:** 2 (new)
-- **Components:** 6 (new)
-- **Estimated Duration:** 11 days
-
-**Current Progress:**
-- **Planning:** ✅ 100% Complete (4/4 tasks)
-- **Backend:** 🔄 5.7% Complete (2/35 tasks)
-- **Testing:** ⏳ Not Started (0/25 tasks)
-- **Frontend:** ⏳ Not Started (0/28 tasks)
-- **E2E:** ⏳ Not Started (0/20 tasks)
-- **Docs:** ⏳ Not Started (0/10 tasks)
-
-**Overall:** 4/120 tasks complete (3.3%)
-
----
-
-## Related Documentation
-
-**Planning & Roadmap:**
-- 🚀 **[Feature Roadmap & Recommendations](../docs/explanation/feature-roadmap-recommendations.md)** - Strategic roadmap for next features after Gallery completion
-  - 10 feature recommendations across 4 tiers
-  - 3 implementation paths (Social Platform / High-Performance / Real-Time)
-  - Learning outcomes & effort estimates
-  - What full-stack concepts to master next
-
-**Existing Docs (for reference):**
-- [Test Plan Checklist Strategy](../docs/explanation/testing/test-plan-checklist-strategy.md) - Testing methodology
-- [Profile Picture E2E Test Plan](profile-picture-e2e-test-plan.md) - Similar feature reference
-- [Database Schema](../docs/reference/database-schema.md) - Current schema (if exists)
-- [API Endpoints](../docs/reference/api-endpoints.md) - Existing endpoints (if exists)
-
-**Will Create During Implementation:**
-- `docs/reference/gallery-api.md` - Gallery API reference
-- `docs/how-to/use-gallery.md` - User guide
-- `docs/explanation/gallery-architecture.md` - Technical architecture
-- `docs/tutorials/gallery-tutorial.md` - Step-by-step tutorial
+### Step 4: Move to Done (when completed)
+```bash
+git mv plans/in-progress/2024-12-15__new-feature/ \
+       plans/done/
+```
 
 ---
 
-## Approval Process
+## 📋 Plan Template Structure
 
-**Before Implementation Starts:**
+Each plan folder typically contains:
 
-1. ✅ Planning documents created (DONE)
-2. ⏳ Review executive summary
-3. ⏳ Approve or request changes
-4. ⏳ Schedule kick-off (Day 2)
+### Required Files
+- **`README.md`** - Quick navigation & overview
+- **`requirements.md`** - Feature scope, user stories, success criteria
+- **`technical-design.md`** - Architecture, API design, database schema
+- **`checklist.md`** - Implementation tasks with checkboxes
 
-**Approval Checklist:**
-- [ ] Scope is clear and agreed upon
-- [ ] Technical design reviewed and approved
-- [ ] Timeline is realistic (11 days)
-- [ ] Test plan is comprehensive (87 tests)
-- [ ] Risk mitigation strategies acceptable
-- [ ] Ready to start implementation
-
-**Approved By:** ___________________ **Date:** __________
+### Optional Files
+- `test-plan.md` - Testing strategy
+- `api-spec.md` - API endpoint specifications
+- `progress-log.md` - Daily progress tracking
+- `lessons-learned.md` - Post-mortem notes
 
 ---
 
-## Contact & Questions
+## 🎯 Best Practices
 
-**Questions About:**
-- **Scope/Requirements:** Review Executive Summary
-- **Technical Implementation:** Review Implementation Plan
-- **Testing Strategy:** Review Test Plan
-- **Daily Progress:** Check Progress Checklist
+### Do ✅
+- Use date-based naming (`YYYY-MM-DD__project-name`)
+- Keep plans focused and scoped
+- Update status regularly (ideas → backlog → in-progress → done)
+- Archive completed plans to `done/`
+- Reference plans in commit messages
 
-**Need Help?**
-- Ask questions before implementation starts
-- Clarify scope early to avoid rework
-- Request changes to plan if needed
-
----
-
-## Version History
-
-| Version | Date | Changes |
-|---------|------|---------|
-| 1.0 | 2025-11-11 | Initial planning documents created |
+### Don't ❌
+- Don't create permanent documentation here (use `docs/` instead)
+- Don't leave plans in wrong status folder
+- Don't use generic names without dates
+- Don't delete completed plans (archive to `done/`)
 
 ---
 
-**Next Action:** Review [Executive Summary](photo-gallery-feature-summary.md) and approve! 🚀
+## 📚 Related Documentation
+
+Plans are **temporary** - they track work in progress.
+
+For **permanent** documentation, see:
+- **[docs/](../docs/)** - Permanent documentation (Diátaxis framework)
+  - `tutorials/` - Learning guides
+  - `how-to/` - Problem-solving
+  - `reference/` - Technical specs
+  - `explanation/` - Understanding
+  - `journals/` - Development logs
+
+**Key Difference**:
+- `plans/` = Work tracking (temporary, project-focused)
+- `docs/` = Knowledge sharing (permanent, topic-focused)
+
+---
+
+## 📊 Quick Stats
+
+**Completed Projects**: 4
+- Unit Testing (Nov 4, 2024)
+- Profile Picture E2E (Nov 4, 2024)
+- Photo Gallery Feature (Nov 24, 2024)
+- Photo Likes Feature (Dec 10, 2024)
+
+**In Progress**: 1
+- E2E Gallery Tests (Dec 8, 2024)
+
+**Backlog**: 0
+
+---
+
+**Last Updated**: December 14, 2024
