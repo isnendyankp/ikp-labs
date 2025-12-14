@@ -54,7 +54,7 @@ import java.util.stream.Collectors;
  */
 @RestController
 @RequestMapping("/api/gallery")
-@CrossOrigin(origins = "http://localhost:3005")
+@CrossOrigin(origins = {"http://localhost:3002", "http://localhost:3005"})
 public class PhotoLikeController {
 
     @Autowired
