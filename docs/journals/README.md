@@ -25,6 +25,11 @@ journals/
 
 ### Testing & Quality
 - **[Regression Test 2025-11-13](2025-11/regression-test-2025-11-13.md)** - Regression testing report
+- **[E2E Tests Final Results](2025-11/e2e-tests-final-results.md)** - Profile picture E2E tests completion (Nov 5)
+
+### Implementation Summaries
+- **[Backend Testing Week (Nov 24-30)](2025-11/backend-testing-week-nov24-30.md)** - Weekly backend testing summary
+- **[Profile Picture E2E Tests Implementation](2025-11/profile-picture-e2e-tests-implementation.md)** - E2E automation implementation notes (Nov 4)
 
 ## December 2025
 

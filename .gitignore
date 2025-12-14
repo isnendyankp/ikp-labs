@@ -118,6 +118,6 @@ uploads/*
 # Documentation - Private/Internal folders
 docs/linkedin/
 docs/.internal/
-docs/implementation-summaries/
+
 # Test Reports
 docs/test-reports/
