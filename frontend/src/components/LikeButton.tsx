@@ -25,7 +25,7 @@
  * />
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { HeartIcon as HeartOutline } from '@heroicons/react/24/outline';
 import { HeartIcon as HeartSolid } from '@heroicons/react/24/solid';
 import photoLikeService from '../services/photoLikeService';
@@ -56,6 +56,14 @@ export default function LikeButton({
   const [isLiked, setIsLiked] = useState<boolean>(initialIsLiked);
   const [likeCount, setLikeCount] = useState<number>(initialLikeCount);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  // === SYNC STATE WITH PROPS ===
+  // When parent component refreshes data, update local state
+  // This fixes the bug where like status doesn't update after navigation
+  useEffect(() => {
+    setIsLiked(initialIsLiked);
+    setLikeCount(initialLikeCount);
+  }, [initialIsLiked, initialLikeCount]);
 
   // === SIZE VARIANTS ===
 
