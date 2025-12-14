@@ -254,10 +254,15 @@ public class PhotoLikeController {
         // Get liked photos from service (returns Page<GalleryPhoto>)
         Page<GalleryPhoto> likedPhotosPage = photoLikeService.getLikedPhotos(userId, pageable);
 
-        // Convert entities to DTOs
+        // Convert entities to DTOs with like data
+        // All photos in this list are liked by current user (isLikedByUser = true)
         List<GalleryPhotoResponse> photoResponses = likedPhotosPage.getContent()
                 .stream()
-                .map(GalleryPhotoResponse::fromEntity)
+                .map(photo -> {
+                    long likeCount = photoLikeService.getLikeCount(photo.getId());
+                    // isLikedByUser is always true for liked photos list
+                    return GalleryPhotoResponse.fromEntityWithLikes(photo, userId, likeCount, true);
+                })
                 .collect(Collectors.toList());
 
         // Build response with pagination metadata
