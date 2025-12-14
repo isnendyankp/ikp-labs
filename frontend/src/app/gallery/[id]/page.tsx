@@ -294,9 +294,10 @@ export default function PhotoDetailPage() {
                   <div className="pt-4 border-t">
                     <LikeButton
                       photoId={photo.id}
-                      initialIsLiked={false}
-                      initialLikeCount={0}
+                      initialIsLiked={photo.isLikedByUser}
+                      initialLikeCount={photo.likeCount}
                       size="large"
+                      onLikeChange={fetchPhoto}
                     />
                   </div>
 
