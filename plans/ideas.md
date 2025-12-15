@@ -27,6 +27,13 @@ Quick concept snippets and brainstorming notes that haven't been formalized into
   - Initial idea: December 2024
   - Completed: December 14, 2024
 
+- **E2E Gallery Tests** (moved to `done/2024-12-08__e2e-gallery-tests/`)
+  - Completed: December 1-6, 2024
+  - 20 comprehensive E2E tests covering full Gallery lifecycle
+  - 6-day commit streak with 31 atomic commits
+  - 1,207 lines of test code (tests + helpers)
+  - 1 critical frontend bug discovered and fixed
+
 ---
 
 ## 💡 How to Use This File
@@ -49,4 +56,4 @@ Quick concept snippets and brainstorming notes that haven't been formalized into
 
 ---
 
-**Last Updated**: December 14, 2024
+**Last Updated**: December 15, 2024
