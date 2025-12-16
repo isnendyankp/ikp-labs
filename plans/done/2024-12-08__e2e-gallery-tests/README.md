@@ -15,13 +15,13 @@
    - Success criteria
 
 **Implementation Details:**
-2. 🔧 **[Technical Documentation](tech-docs.md)**
+2. 🔧 **[Technical Design](technical-design.md)**
    - Test architecture & patterns
    - Helper functions (8+ helpers, 409 LOC)
    - Playwright configuration
    - Code examples & selectors
 
-3. 📅 **[Delivery Timeline](delivery.md)**
+3. ✅ **[Daily Checklist](checklist.md)**
    - 6-day breakdown (Day 1-6)
    - Daily tasks & completion status
    - Commit history per day
@@ -254,12 +254,12 @@ setPhoto({ ...response.data }); // GalleryPhotoResponse directly
 - Review all 20 test specifications
 - See success criteria
 
-**Step 2:** Review [Technical Documentation](tech-docs.md)
+**Step 2:** Review [Technical Design](technical-design.md)
 - Study test architecture
 - Learn helper function patterns
 - See code examples
 
-**Step 3:** Check [Delivery Timeline](delivery.md)
+**Step 3:** Check [Daily Checklist](checklist.md)
 - See day-by-day execution
 - Review commits per day
 - Understand learning progression
@@ -316,8 +316,8 @@ setPhoto({ ...response.data }); // GalleryPhotoResponse directly
 |----------|--------|---------|
 | [README.md](README.md) | ✅ Complete | Navigation & overview |
 | [requirements.md](requirements.md) | ✅ Complete | Test objectives & specifications |
-| [tech-docs.md](tech-docs.md) | ✅ Complete | Architecture & implementation |
-| [delivery.md](delivery.md) | ✅ Complete | Daily breakdown & progress |
+| [technical-design.md](technical-design.md) | ✅ Complete | Architecture & implementation |
+| [checklist.md](checklist.md) | ✅ Complete | Daily breakdown & progress |
 
 **Total Documentation:** 4 comprehensive files
 
