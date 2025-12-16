@@ -10,7 +10,7 @@
 
 This document defines the requirements and specifications for the E2E Gallery Tests implementation. The goal is to achieve **100% Gallery user flow coverage** through comprehensive end-to-end testing using Playwright.
 
-**Back to:** [Main README](README.md) | **See also:** [Technical Docs](tech-docs.md) | [Delivery Timeline](delivery.md)
+**Back to:** [Main README](README.md) | **See also:** [Technical Design](technical-design.md) | [Daily Checklist](checklist.md)
 
 ---
 
@@ -658,7 +658,7 @@ The following are explicitly **NOT** included in this test plan:
 - ✅ Code follows project conventions
 
 **Documentation:**
-- ✅ All 4 plan documents complete (README, requirements, tech-docs, delivery)
+- ✅ All 4 plan documents complete (README, requirements, technical-design, checklist)
 - ✅ Journal entry with daily progress
 - ✅ Helper functions documented
 - ✅ Known issues documented
@@ -698,4 +698,4 @@ The following are explicitly **NOT** included in this test plan:
 **Status:** ✅ COMPLETED
 **Last Updated:** December 8, 2024
 
-**Back to:** [Main README](README.md) | **Next:** [Technical Documentation](tech-docs.md)
+**Back to:** [Main README](README.md) | **Next:** [Technical Design](technical-design.md)
