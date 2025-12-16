@@ -10,7 +10,7 @@
 
 This document tracks the day-by-day execution and completion of the E2E Gallery Tests implementation. Each day includes tasks, deliverables, commits, and learning outcomes.
 
-**Back to:** [Main README](README.md) | **See also:** [Requirements](requirements.md) | [Technical Docs](tech-docs.md)
+**Back to:** [Main README](README.md) | **See also:** [Requirements](requirements.md) | [Technical Design](technical-design.md)
 
 ---
 
@@ -641,7 +641,7 @@ Dec 6: ██████ (6 commits)
 
 **Plans:**
 - [Requirements](requirements.md) - Test specifications
-- [Technical Docs](tech-docs.md) - Implementation details
+- [Technical Design](technical-design.md) - Implementation details
 
 ---
 
