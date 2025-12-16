@@ -10,7 +10,7 @@
 
 This document provides technical implementation details for the E2E Gallery Tests. It includes test architecture, helper functions, Playwright configuration, code patterns, and technical references.
 
-**Back to:** [Main README](README.md) | **See also:** [Requirements](requirements.md) | [Delivery Timeline](delivery.md)
+**Back to:** [Main README](README.md) | **See also:** [Requirements](requirements.md) | [Daily Checklist](checklist.md)
 
 ---
 
@@ -915,4 +915,4 @@ setPhoto({ ...response.data }); // Direct GalleryPhotoResponse
 **Status:** ✅ COMPLETED
 **Last Updated:** December 8, 2024
 
-**Back to:** [Main README](README.md) | **Next:** [Delivery Timeline](delivery.md)
+**Back to:** [Main README](README.md) | **Next:** [Daily Checklist](checklist.md)
