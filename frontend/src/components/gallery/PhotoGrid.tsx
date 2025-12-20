@@ -8,6 +8,7 @@
  * - Loading state with skeletons
  * - Empty state message
  * - Flexible gap between cards
+ * - Support both like and favorite callbacks
  */
 
 'use client';
@@ -20,13 +21,15 @@ interface PhotoGridProps {
   loading?: boolean;
   emptyMessage?: string;
   onLikeChange?: (photoId: number) => void;
+  onFavoriteChange?: (photoId: number) => void;
 }
 
 export default function PhotoGrid({
   photos,
   loading = false,
   emptyMessage = 'No photos found',
-  onLikeChange
+  onLikeChange,
+  onFavoriteChange
 }: PhotoGridProps) {
   // Loading state - show skeleton cards
   if (loading) {
@@ -59,7 +62,12 @@ export default function PhotoGrid({
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
       {photos.map((photo) => (
-        <PhotoCard key={photo.id} photo={photo} onLikeChange={onLikeChange} />
+        <PhotoCard
+          key={photo.id}
+          photo={photo}
+          onLikeChange={onLikeChange}
+          onFavoriteChange={onFavoriteChange}
+        />
       ))}
     </div>
   );

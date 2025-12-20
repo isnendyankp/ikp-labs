@@ -10,6 +10,8 @@
  * - Click to view detail
  * - Responsive design
  * - Hover effects
+ * - Like button (public appreciation)
+ * - Favorite button (private bookmarks)
  */
 
 'use client';
@@ -18,13 +20,15 @@ import { GalleryPhoto } from '../../types/api';
 import { getPhotoUrl } from '../../services/galleryService';
 import { useRouter } from 'next/navigation';
 import LikeButton from '../LikeButton';
+import FavoriteButton from '../FavoriteButton';
 
 interface PhotoCardProps {
   photo: GalleryPhoto;
   onLikeChange?: (photoId: number) => void;
+  onFavoriteChange?: (photoId: number) => void;
 }
 
-export default function PhotoCard({ photo, onLikeChange }: PhotoCardProps) {
+export default function PhotoCard({ photo, onLikeChange, onFavoriteChange }: PhotoCardProps) {
   const router = useRouter();
 
   const handleClick = () => {
@@ -87,14 +91,23 @@ export default function PhotoCard({ photo, onLikeChange }: PhotoCardProps) {
           })}
         </p>
 
-        {/* Like Button */}
-        <div className="mt-3 pt-3 border-t border-gray-100">
+        {/* Action Buttons: Like & Favorite */}
+        <div className="mt-3 pt-3 border-t border-gray-100 flex items-center gap-4">
+          {/* Like Button - Public appreciation */}
           <LikeButton
             photoId={photo.id}
             initialIsLiked={photo.isLikedByUser}
             initialLikeCount={photo.likeCount}
             size="small"
             onLikeChange={onLikeChange}
+          />
+
+          {/* Favorite Button - Private bookmarks */}
+          <FavoriteButton
+            photoId={photo.id}
+            initialIsFavorited={photo.isFavoritedByUser}
+            size="small"
+            onFavoriteChange={onFavoriteChange}
           />
         </div>
       </div>

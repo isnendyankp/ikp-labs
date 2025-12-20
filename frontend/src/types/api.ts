@@ -119,6 +119,8 @@ export interface GalleryPhoto {
   // Photo Likes fields (required - populated by backend)
   likeCount: number;
   isLikedByUser: boolean;
+  // Photo Favorites fields (optional - populated by backend if available)
+  isFavoritedByUser?: boolean;
 }
 
 /**
