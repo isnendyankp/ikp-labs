@@ -207,6 +207,13 @@ export default function HomePage() {
                   <span>❤️</span>
                   <span>View Liked Photos</span>
                 </button>
+                <button
+                  onClick={() => router.push('/home/favorited-photos')}
+                  className="w-full py-3 px-6 bg-yellow-500 text-white rounded-lg font-medium hover:bg-yellow-600 transition-colors shadow-md flex items-center justify-center gap-2"
+                >
+                  <span>⭐</span>
+                  <span>View Favorited Photos</span>
+                </button>
               </div>
             </div>
           </div>

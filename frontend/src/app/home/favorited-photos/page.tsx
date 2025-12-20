@@ -138,6 +138,12 @@ export default function FavoritedPhotosPage() {
                 Gallery
               </button>
               <button
+                onClick={() => router.push('/home/liked-photos')}
+                className="px-4 py-2 text-red-600 hover:text-red-700 font-medium"
+              >
+                ❤️ Liked Photos
+              </button>
+              <button
                 onClick={() => router.push('/home')}
                 className="px-4 py-2 text-gray-700 hover:text-gray-900 font-medium"
               >
