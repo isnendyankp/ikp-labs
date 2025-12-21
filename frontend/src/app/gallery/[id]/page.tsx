@@ -20,6 +20,7 @@ import { isAuthenticated, getUserFromToken } from '../../../lib/auth';
 import { GalleryPhotoDetailResponse, AuthUser } from '../../../types/api';
 import { getPhotoById, updatePhoto, deletePhoto, getPhotoUrl } from '../../../services/galleryService';
 import LikeButton from '../../../components/LikeButton';
+import FavoriteButton from '../../../components/FavoriteButton';
 
 export default function PhotoDetailPage() {
   const router = useRouter();
@@ -290,15 +291,23 @@ export default function PhotoDetailPage() {
                     </div>
                   )}
 
-                  {/* Like Button - larger size for detail view */}
+                  {/* Like & Favorite Buttons - larger size for detail view */}
                   <div className="pt-4 border-t">
-                    <LikeButton
-                      photoId={photo.id}
-                      initialIsLiked={photo.isLikedByUser}
-                      initialLikeCount={photo.likeCount}
-                      size="large"
-                      onLikeChange={fetchPhoto}
-                    />
+                    <div className="flex items-center gap-6">
+                      <LikeButton
+                        photoId={photo.id}
+                        initialIsLiked={photo.isLikedByUser}
+                        initialLikeCount={photo.likeCount}
+                        size="large"
+                        onLikeChange={fetchPhoto}
+                      />
+                      <FavoriteButton
+                        photoId={photo.id}
+                        initialIsFavorited={photo.isFavoritedByUser}
+                        size="large"
+                        onFavoriteChange={fetchPhoto}
+                      />
+                    </div>
                   </div>
 
                   {isOwner && (

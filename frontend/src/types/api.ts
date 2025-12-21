@@ -183,6 +183,10 @@ export interface GalleryPhotoDetailResponse {
   uploadOrder: number;
   createdAt: string;
   updatedAt: string;
+  // Photo interaction fields
+  likeCount: number;
+  isLikedByUser: boolean;
+  isFavoritedByUser?: boolean;
 }
 
 /**
