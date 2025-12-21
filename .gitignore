@@ -15,6 +15,7 @@
 /test-results/
 /playwright-report/
 /tests/e2e/reports/
+/tests/gherkin/reports/
 frontend/test-results/
 frontend/playwright-report/
 frontend/tests/e2e/reports/
