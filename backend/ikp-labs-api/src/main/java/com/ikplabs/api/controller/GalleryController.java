@@ -188,7 +188,11 @@ public class GalleryController {
                 .map(photo -> {
                     long likeCount = photoLikeService.getLikeCount(photo.getId());
                     boolean isLikedByUser = photoLikeService.isLikedByUser(photo.getId(), currentUserId);
-                    return GalleryPhotoResponse.fromEntityWithLikes(photo, currentUserId, likeCount, isLikedByUser);
+                    boolean isFavoritedByUser = photoFavoriteService.isFavoritedByUser(photo.getId(), currentUserId);
+
+                    GalleryPhotoResponse response = GalleryPhotoResponse.fromEntityWithLikes(photo, currentUserId, likeCount, isLikedByUser);
+                    response.setIsFavoritedByUser(isFavoritedByUser);
+                    return response;
                 })
                 .collect(Collectors.toList());
 
@@ -243,7 +247,11 @@ public class GalleryController {
                 .map(photo -> {
                     long likeCount = photoLikeService.getLikeCount(photo.getId());
                     boolean isLikedByUser = photoLikeService.isLikedByUser(photo.getId(), currentUserId);
-                    return GalleryPhotoResponse.fromEntityWithLikes(photo, currentUserId, likeCount, isLikedByUser);
+                    boolean isFavoritedByUser = photoFavoriteService.isFavoritedByUser(photo.getId(), currentUserId);
+
+                    GalleryPhotoResponse response = GalleryPhotoResponse.fromEntityWithLikes(photo, currentUserId, likeCount, isLikedByUser);
+                    response.setIsFavoritedByUser(isFavoritedByUser);
+                    return response;
                 })
                 .collect(Collectors.toList());
 
@@ -303,7 +311,11 @@ public class GalleryController {
                 .map(photo -> {
                     long likeCount = photoLikeService.getLikeCount(photo.getId());
                     boolean isLikedByUser = photoLikeService.isLikedByUser(photo.getId(), currentUserId);
-                    return GalleryPhotoResponse.fromEntityWithLikes(photo, currentUserId, likeCount, isLikedByUser);
+                    boolean isFavoritedByUser = photoFavoriteService.isFavoritedByUser(photo.getId(), currentUserId);
+
+                    GalleryPhotoResponse response = GalleryPhotoResponse.fromEntityWithLikes(photo, currentUserId, likeCount, isLikedByUser);
+                    response.setIsFavoritedByUser(isFavoritedByUser);
+                    return response;
                 })
                 .collect(Collectors.toList());
 
