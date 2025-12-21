@@ -6,12 +6,22 @@ Automated testing suite for the Registration Form application using Playwright, 
 
 ```
 tests/
-├── e2e/                    # E2E test specs (browser tests)
+├── e2e/                    # E2E test specs (Playwright native - browser tests)
 │   ├── login.spec.ts       # Login flow tests
 │   ├── registration.spec.ts # Registration flow tests
 │   ├── registration-with-tracker.spec.ts # 🆕 Registration with Test Plan Tracker
-│   └── auth-flow.spec.ts   # Complete authentication flow tests
-├── api/                    # API test specs (backend tests)
+│   ├── auth-flow.spec.ts   # Complete authentication flow tests
+│   ├── gallery.spec.ts     # Photo gallery tests
+│   ├── photo-likes.spec.ts # Photo likes feature tests
+│   └── helpers/            # E2E test utilities
+├── gherkin/                # 🆕 Gherkin/BDD specifications (Cucumber)
+│   ├── features/           # Feature files (Given-When-Then)
+│   │   ├── login.feature   # Login scenarios
+│   │   └── registration.feature # Registration scenarios
+│   └── steps/              # Step definitions (Cucumber + Playwright)
+│       ├── login.steps.ts
+│       └── registration.steps.ts
+├── api/                    # API test specs (backend contract tests)
 │   ├── helpers/            # API test utilities
 │   │   ├── api-client.ts   # HTTP request wrapper
 │   │   ├── auth-helper.ts  # Authentication utilities
@@ -243,6 +253,60 @@ test('should create user', async ({ request }) => {
 ```
 
 For complete guide, see [API Testing Documentation](../docs/how-to/api-testing.md).
+
+---
+
+## 🥒 Gherkin/BDD Testing (Cucumber)
+
+**Business-friendly test specifications** using Given-When-Then syntax.
+
+For detailed information about Gherkin/BDD testing, see [tests/gherkin/README.md](gherkin/README.md).
+
+### Quick Start - Gherkin Tests
+
+```bash
+# Run all Gherkin/Cucumber tests
+cd frontend
+npm run test:cucumber
+
+# Run specific feature file
+npx cucumber-js ../tests/gherkin/features/login.feature --require-module ts-node/register --require ../tests/gherkin/steps/**/*.ts
+```
+
+### Gherkin Test Coverage
+
+**Login Feature** (`login.feature`) - 11 scenarios:
+- ✅ Successful login with valid credentials
+- ✅ Failed login with invalid password
+- ✅ Failed login with non-existent email
+- ✅ Email validation errors
+- ✅ Empty form submission
+- ✅ Session management
+- ✅ Logout functionality
+- ✅ And more...
+
+**Registration Feature** (`registration.feature`) - 10 scenarios:
+- ✅ Successful registration flow
+- ✅ Duplicate email validation
+- ✅ Password strength requirements
+- ✅ Form validation errors
+- ✅ Database persistence checks
+- ✅ And more...
+
+### Gherkin vs Playwright E2E
+
+**Why two testing approaches?**
+
+| Aspect | Gherkin/BDD (Week 5) | Playwright Native (Week 12+) |
+|--------|---------------------|------------------------------|
+| **Syntax** | Given-When-Then | TypeScript test cases |
+| **Audience** | Business + Developers | Developers only |
+| **Readability** | Non-technical friendly | Technical |
+| **Maintenance** | Separate step definitions | All-in-one test file |
+| **Use Case** | Requirements validation | Technical regression testing |
+| **Run Command** | `npm run test:cucumber` | `npx playwright test tests/e2e/` |
+
+**Both are valuable!** Gherkin is great for stakeholder communication, Playwright native is faster for developers.
 
 ---
 
