@@ -5,6 +5,7 @@ import com.ikplabs.api.dto.GalleryPhotoResponse;
 import com.ikplabs.api.entity.GalleryPhoto;
 import com.ikplabs.api.security.UserPrincipal;
 import com.ikplabs.api.service.PhotoFavoriteService;
+import com.ikplabs.api.service.PhotoLikeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -74,6 +75,9 @@ public class PhotoFavoriteController {
 
     @Autowired
     private PhotoFavoriteService photoFavoriteService;
+
+    @Autowired
+    private PhotoLikeService photoLikeService;
 
     /**
      * ENDPOINT 1: FAVORITE A PHOTO
@@ -282,10 +286,25 @@ public class PhotoFavoriteController {
         // Fetch favorited photos from service (only THIS user's favorites!)
         Page<GalleryPhoto> favoritedPhotosPage = photoFavoriteService.getFavoritedPhotos(userId, pageable);
 
-        // Convert GalleryPhoto entities to DTOs
+        // Convert GalleryPhoto entities to DTOs with like data AND favorite data
+        // All photos in this list are favorited by current user (isFavoritedByUser = true)
         List<GalleryPhotoResponse> photoResponses = favoritedPhotosPage.getContent()
                 .stream()
-                .map(GalleryPhotoResponse::fromEntity)
+                .map(photo -> {
+                    // Get like data for this photo
+                    long likeCount = photoLikeService.getLikeCount(photo.getId());
+                    boolean isLikedByUser = photoLikeService.isLikedByUser(photo.getId(), userId);
+
+                    // Create response with like data
+                    GalleryPhotoResponse response = GalleryPhotoResponse.fromEntityWithLikes(
+                        photo, userId, likeCount, isLikedByUser
+                    );
+
+                    // Set isFavoritedByUser = true (all photos in favorited list are favorited!)
+                    response.setIsFavoritedByUser(true);
+
+                    return response;
+                })
                 .collect(Collectors.toList());
 
         // Build response with pagination metadata using static factory method
