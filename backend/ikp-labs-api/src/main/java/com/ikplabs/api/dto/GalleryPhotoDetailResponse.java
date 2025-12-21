@@ -182,6 +182,18 @@ public class GalleryPhotoDetailResponse {
     private Boolean isLikedByUser;
 
     /**
+     * Is favorited by current user
+     *
+     * Boolean flag apakah user yang sedang login sudah favorite foto ini.
+     * Digunakan untuk tampilkan star icon state di detail page:
+     * - true = ⭐ (filled gold star)
+     * - false = ☆ (outline star)
+     *
+     * NOTE: Berbeda dengan likes (public), favorites adalah PRIVATE bookmarks.
+     */
+    private Boolean isFavoritedByUser;
+
+    /**
      * Default constructor - required by Spring for serialization
      */
     public GalleryPhotoDetailResponse() {
@@ -247,6 +259,7 @@ public class GalleryPhotoDetailResponse {
         response.setUpdatedAt(photo.getUpdatedAt());
         response.setLikeCount(0L); // Default to 0
         response.setIsLikedByUser(false); // Default to false
+        response.setIsFavoritedByUser(false); // Default to false
         return response;
     }
 
@@ -394,6 +407,14 @@ public class GalleryPhotoDetailResponse {
         this.isLikedByUser = isLikedByUser;
     }
 
+    public Boolean getIsFavoritedByUser() {
+        return isFavoritedByUser;
+    }
+
+    public void setIsFavoritedByUser(Boolean isFavoritedByUser) {
+        this.isFavoritedByUser = isFavoritedByUser;
+    }
+
     /**
      * toString for debugging
      */
@@ -413,6 +434,7 @@ public class GalleryPhotoDetailResponse {
                 ", updatedAt=" + updatedAt +
                 ", likeCount=" + likeCount +
                 ", isLikedByUser=" + isLikedByUser +
+                ", isFavoritedByUser=" + isFavoritedByUser +
                 '}';
     }
 

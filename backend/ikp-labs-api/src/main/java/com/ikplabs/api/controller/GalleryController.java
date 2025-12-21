@@ -8,6 +8,7 @@ import com.ikplabs.api.entity.GalleryPhoto;
 import com.ikplabs.api.security.UserPrincipal;
 import com.ikplabs.api.service.GalleryService;
 import com.ikplabs.api.service.PhotoLikeService;
+import com.ikplabs.api.service.PhotoFavoriteService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -64,6 +65,9 @@ public class GalleryController {
 
     @Autowired
     private PhotoLikeService photoLikeService;
+
+    @Autowired
+    private PhotoFavoriteService photoFavoriteService;
 
     /**
      * ENDPOINT 1: UPLOAD PHOTO
@@ -369,10 +373,12 @@ public class GalleryController {
         Long currentUserId = currentUser.getId();
         long likeCount = photoLikeService.getLikeCount(photo.getId());
         boolean isLikedByUser = photoLikeService.isLikedByUser(photo.getId(), currentUserId);
+        boolean isFavoritedByUser = photoFavoriteService.isFavoritedByUser(photo.getId(), currentUserId);
 
         GalleryPhotoDetailResponse response = GalleryPhotoDetailResponse.fromEntityWithLikes(
                 photo, currentUserId, likeCount, isLikedByUser
         );
+        response.setIsFavoritedByUser(isFavoritedByUser);
         return ResponseEntity.ok(response);
     }
 
