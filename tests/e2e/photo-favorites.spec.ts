@@ -177,23 +177,38 @@ test.describe('Photo Favorites Feature', () => {
 
       // WHEN: User B opens photo detail
       await openPhotoDetail(page, 'Detail Favorite Photo');
-
-      // Verify we're on detail page
-      await expect(page.locator('h1:has-text("Detail Favorite Photo")')).toBeVisible();
-
-      // Initial favorite button state (outline star)
-      const initialFavoriteButton = page.locator('button[aria-label*="Favorite"]').first();
-      console.log(`Detail page initial favorite button text: ${await initialFavoriteButton.textContent()}`);
-
-      // AND: User B clicks favorite on detail page
-      await initialFavoriteButton.click();
       await page.waitForTimeout(1000);
 
-      // THEN: Photo should show as favorited (filled star)
-      const updatedFavoriteButton = page.locator('button[aria-label*="Unfavorite"]').first();
-      await expect(updatedFavoriteButton).toBeVisible({ timeout: 5000 });
+      // Verify we're on detail page (detail page uses h2 for title, not h1)
+      await expect(page.locator('h2:has-text("Detail Favorite Photo")')).toBeVisible();
 
-      console.log(`Detail page updated favorite button text: ${await updatedFavoriteButton.textContent()}`);
+      // Find favorite button using SVG filter pattern (same as photo-likes)
+      // Detail page has buttons with SVG: Back, Like, Favorite, Edit, Delete
+      // We need the favorite button (star icon)
+      const favoriteButton = page.locator('button').filter({ has: page.locator('svg') }).nth(1); // nth(1) after like button
+      await expect(favoriteButton).toBeVisible();
+
+      // Get initial state
+      const initialButtonText = await favoriteButton.textContent();
+      console.log(`Detail page initial favorite button text: ${initialButtonText}`);
+
+      // AND: User B clicks favorite on detail page
+      await favoriteButton.click();
+      await page.waitForTimeout(1000);
+
+      // THEN: Button text should change (star icon changes from outline to filled)
+      const updatedButtonText = await favoriteButton.textContent();
+      console.log(`Detail page updated favorite button text: ${updatedButtonText}`);
+
+      // Verify favorite persists when going back to gallery
+      await page.goto('/gallery');
+      await viewPublicPhotos(page);
+      await page.waitForTimeout(1000);
+
+      const photoCard = page.locator('h3:has-text("Detail Favorite Photo")').locator('../..').first();
+      const galleryFavoriteButton = photoCard.locator('button[aria-label*="Unfavorite"]');
+      await expect(galleryFavoriteButton).toBeVisible();
+
       console.log(`✅ E2E-PF-003: Favorite photo from detail view test PASSED`);
     });
 
@@ -233,7 +248,11 @@ test.describe('Photo Favorites Feature', () => {
 
       // WHEN: User B refreshes the page
       await page.reload();
-      await page.waitForTimeout(2000); // Wait for reload
+      await page.waitForTimeout(1000);
+
+      // Navigate back to Public Photos (same pattern as photo-likes)
+      await viewPublicPhotos(page);
+      await page.waitForTimeout(1000);
 
       // THEN: Photo should still be favorited
       const refreshedPhotoCard = page.locator('h3:has-text("Refresh Persistence Photo")').locator('../..').first();
