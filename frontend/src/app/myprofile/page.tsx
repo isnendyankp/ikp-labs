@@ -10,18 +10,20 @@ import ProfilePictureUpload from '../../components/ProfilePictureUpload';
 import { AuthUser, ProfilePictureResponse } from '../../types/api';
 
 /**
- * Home Page Component
+ * My Profile Page Component
  *
- * Protected route that displays user information after successful login/registration.
+ * Protected route that displays user profile information.
  *
  * Features:
  * - Authentication check on mount
  * - Redirect to /login if not authenticated
  * - Display welcome message with user's full name
  * - Show user email and name from JWT token
+ * - Profile picture upload/display
+ * - Back to gallery navigation
  * - Logout button to end session
  *
- * Route: /home
+ * Route: /myprofile
  */
 export default function HomePage() {
   const router = useRouter();
@@ -105,9 +107,23 @@ export default function HomePage() {
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <header className="bg-white shadow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 flex justify-between items-center">
-          <h1 className="text-3xl font-bold text-gray-900">My Profile</h1>
-          <LogoutButton />
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          {/* Back to Gallery Link */}
+          <button
+            onClick={() => router.push('/gallery')}
+            className="inline-flex items-center text-indigo-600 hover:text-indigo-800 font-medium mb-4 transition-colors"
+          >
+            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+            </svg>
+            Back to Gallery
+          </button>
+
+          {/* Header Title and Logout */}
+          <div className="flex justify-between items-center">
+            <h1 className="text-3xl font-bold text-gray-900">My Profile</h1>
+            <LogoutButton />
+          </div>
         </div>
       </header>
 
@@ -191,29 +207,19 @@ export default function HomePage() {
                 </p>
               </div>
 
-              {/* Gallery Links */}
-              <div className="mt-6 space-y-3">
+              {/* Quick Actions */}
+              <div className="mt-6">
+                <h3 className="text-lg font-semibold text-gray-900 mb-3">Quick Actions</h3>
                 <button
                   onClick={() => router.push('/gallery')}
-                  className="w-full py-3 px-6 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition-colors shadow-md flex items-center justify-center gap-2"
+                  className="w-full py-3 px-6 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition-colors shadow-md flex items-center justify-center gap-2"
                 >
                   <span>📸</span>
                   <span>Go to My Gallery</span>
                 </button>
-                <button
-                  onClick={() => router.push('/home/liked-photos')}
-                  className="w-full py-3 px-6 bg-red-500 text-white rounded-lg font-medium hover:bg-red-600 transition-colors shadow-md flex items-center justify-center gap-2"
-                >
-                  <span>❤️</span>
-                  <span>View Liked Photos</span>
-                </button>
-                <button
-                  onClick={() => router.push('/home/favorited-photos')}
-                  className="w-full py-3 px-6 bg-yellow-500 text-white rounded-lg font-medium hover:bg-yellow-600 transition-colors shadow-md flex items-center justify-center gap-2"
-                >
-                  <span>⭐</span>
-                  <span>View Favorited Photos</span>
-                </button>
+                <p className="mt-3 text-sm text-gray-600 text-center">
+                  Access your photos, liked photos, and favorites from the gallery
+                </p>
               </div>
             </div>
           </div>
