@@ -137,27 +137,27 @@
 - `frontend/src/components/FilterDropdown.tsx`
 
 **Steps:**
-1. [ ] Create new component file
-2. [ ] Define FilterDropdownProps interface
-3. [ ] Define FILTER_OPTIONS constant
-4. [ ] Implement dropdown UI:
+1. [✅] Create new component file
+2. [✅] Define FilterDropdownProps interface
+3. [✅] Define FILTER_OPTIONS constant
+4. [✅] Implement dropdown UI:
    - Button with current filter label
    - Dropdown menu (initially hidden)
    - 4 filter options
    - Visual indicator for selected option
-5. [ ] Add open/close state management
-6. [ ] Add onClick handlers
-7. [ ] Style with Tailwind CSS (consistent with app)
-8. [ ] Test: Dropdown opens, closes, shows options
-9. [ ] **COMMIT 7**: "feat(components): add FilterDropdown component"
+5. [✅] Add open/close state management
+6. [✅] Add onClick handlers
+7. [✅] Style with Tailwind CSS (consistent with app)
+8. [✅] Test: Dropdown opens, closes, shows options
+9. [✅] **COMMIT 7**: "feat(components): add FilterDropdown component" (commit: 8cfc255)
 
 **Acceptance Criteria:**
-- [ ] Component renders without errors
-- [ ] Dropdown opens/closes on button click
-- [ ] All 4 options visible
-- [ ] Selected option highlighted
-- [ ] Clicking option closes dropdown
-- [ ] Calls onFilterChange callback
+- [✅] Component renders without errors
+- [✅] Dropdown opens/closes on button click
+- [✅] All 4 options visible
+- [✅] Selected option highlighted
+- [✅] Clicking option closes dropdown
+- [✅] Calls onFilterChange callback
 
 ---
 
@@ -166,19 +166,19 @@
 - `frontend/src/components/FilterDropdown.tsx`
 
 **Steps:**
-1. [ ] Add hover states
-2. [ ] Add focus states (keyboard navigation)
-3. [ ] Add ARIA attributes
-4. [ ] Add smooth transitions
-5. [ ] Test keyboard navigation (Tab, Enter, Escape)
-6. [ ] Test screen reader compatibility (optional)
-7. [ ] **COMMIT 8**: "style(filter-dropdown): add accessibility and polish"
+1. [✅] Add hover states
+2. [✅] Add focus states (keyboard navigation)
+3. [✅] Add ARIA attributes
+4. [✅] Add smooth transitions
+5. [✅] Test keyboard navigation (Tab, Enter, Escape)
+6. [✅] Test screen reader compatibility (optional)
+7. [✅] **COMMIT 8**: "style(filter-dropdown): add accessibility and polish" (included in commit: 8cfc255)
 
 **Acceptance Criteria:**
-- [ ] Hover states work
-- [ ] Keyboard navigable
-- [ ] Visually polished
-- [ ] Consistent with app design
+- [✅] Hover states work
+- [✅] Keyboard navigable
+- [✅] Visually polished
+- [✅] Consistent with app design
 
 ---
 
