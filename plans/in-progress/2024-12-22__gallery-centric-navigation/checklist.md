@@ -17,7 +17,7 @@
 - [✅] Create requirements.md
 - [✅] Create technical-design.md
 - [✅] Create checklist.md
-- [ ] **COMMIT 1**: "docs: add gallery-centric navigation feature plan"
+- [✅] **COMMIT 1**: "docs: add gallery-centric navigation feature plan" (commit: 3cad254)
 
 ---
 
