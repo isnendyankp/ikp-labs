@@ -21,25 +21,25 @@
 
 ---
 
-## Phase 2: Route Restructuring
+## Phase 2: Route Restructuring ✅
 
 ### Task 2.1: Rename /home Route to /myprofile
 **Files to Modify:**
 - Rename: `frontend/src/app/home/` → `frontend/src/app/myprofile/`
 
 **Steps:**
-1. [ ] Rename directory `home` to `myprofile` via git mv
-2. [ ] Verify sub-routes still accessible:
+1. [✅] Rename directory `home` to `myprofile` via git mv
+2. [✅] Verify sub-routes still accessible:
    - `/myprofile/liked-photos`
    - `/myprofile/favorited-photos`
-3. [ ] Test: Access `/myprofile` in browser
-4. [ ] **COMMIT 2**: "refactor(routes): rename /home to /myprofile"
+3. [✅] Test: Access `/myprofile` in browser
+4. [✅] **COMMIT 2**: "refactor(routes): rename /home to /myprofile" (commit: 046ef0a)
 
 **Acceptance Criteria:**
-- [ ] `/myprofile` page loads successfully
-- [ ] `/myprofile/liked-photos` works
-- [ ] `/myprofile/favorited-photos` works
-- [ ] No 404 errors
+- [✅] `/myprofile` page loads successfully
+- [✅] `/myprofile/liked-photos` works
+- [✅] `/myprofile/favorited-photos` works
+- [✅] No 404 errors
 
 ---
 
@@ -48,19 +48,19 @@
 - `frontend/src/app/myprofile/page.tsx`
 
 **Changes:**
-1. [ ] Add "Back to Gallery" link at top
-2. [ ] Simplify page content (remove photo grids if any)
-3. [ ] Keep profile info section
-4. [ ] Add statistics section (photos uploaded, liked, favorited)
-5. [ ] Keep edit profile button
-6. [ ] Test: Click "Back to Gallery" navigates to `/gallery`
-7. [ ] **COMMIT 3**: "feat(profile): add back to gallery link and simplify layout"
+1. [✅] Add "Back to Gallery" link at top
+2. [✅] Simplify page content (remove photo grids if any)
+3. [✅] Keep profile info section
+4. [✅] Add statistics section (photos uploaded, liked, favorited)
+5. [✅] Keep edit profile button
+6. [✅] Test: Click "Back to Gallery" navigates to `/gallery`
+7. [✅] **COMMIT 3**: "feat(profile): add back to gallery link and simplify layout" (commit: d05bb3b)
 
 **Acceptance Criteria:**
-- [ ] "Back to Gallery" link visible and working
-- [ ] Profile info displays correctly
-- [ ] Statistics show (can be placeholder values for now)
-- [ ] Page layout is clean and simple
+- [✅] "Back to Gallery" link visible and working
+- [✅] Profile info displays correctly
+- [✅] Statistics show (can be placeholder values for now)
+- [✅] Page layout is clean and simple
 
 ---
 
@@ -69,44 +69,44 @@
 - `frontend/src/middleware.ts` (if doesn't exist)
 
 **Changes:**
-1. [ ] Create or update middleware.ts
-2. [ ] Add redirect logic: `/home/*` → `/myprofile/*`
-3. [ ] Test: Access old URLs redirect correctly
+1. [✅] Create or update middleware.ts
+2. [✅] Add redirect logic: `/home/*` → `/myprofile/*`
+3. [✅] Test: Access old URLs redirect correctly
    - `/home` → `/myprofile`
    - `/home/liked-photos` → `/myprofile/liked-photos`
-4. [ ] **COMMIT 4**: "feat(middleware): add redirect from /home to /myprofile"
+4. [✅] **COMMIT 4**: "feat(middleware): add redirect from /home to /myprofile" (commit: fe5240f)
 
 **Acceptance Criteria:**
-- [ ] Old `/home` URL redirects to `/myprofile`
-- [ ] Sub-routes redirect correctly
-- [ ] No bookmarks broken
+- [✅] Old `/home` URL redirects to `/myprofile`
+- [✅] Sub-routes redirect correctly
+- [✅] No bookmarks broken
 
 ---
 
-## Phase 3: Root Page Auto-Redirect
+## Phase 3: Root Page Auto-Redirect ✅
 
 ### Task 3.1: Implement Root Page Redirect Logic
 **Files to Modify:**
 - `frontend/src/app/page.tsx`
 
 **Changes:**
-1. [ ] Replace default Next.js content
-2. [ ] Add client component directive
-3. [ ] Import auth utilities
-4. [ ] Add useEffect for redirect logic:
+1. [✅] Replace default Next.js content
+2. [✅] Add client component directive
+3. [✅] Import auth utilities
+4. [✅] Add useEffect for redirect logic:
    - If authenticated → `/gallery`
    - If not authenticated → `/login`
-5. [ ] Add loading state ("Redirecting...")
-6. [ ] Test both scenarios:
+5. [✅] Add loading state ("Redirecting...")
+6. [✅] Test both scenarios:
    - Logged in user visits `/`
    - Logged out user visits `/`
-7. [ ] **COMMIT 5**: "feat(root): add auto-redirect based on auth status"
+7. [✅] **COMMIT 5**: "feat(root): add auto-redirect based on auth status" (commit: 877c967)
 
 **Acceptance Criteria:**
-- [ ] Authenticated users redirect to `/gallery`
-- [ ] Unauthenticated users redirect to `/login`
-- [ ] No flash of wrong content
-- [ ] Smooth redirect experience
+- [✅] Authenticated users redirect to `/gallery`
+- [✅] Unauthenticated users redirect to `/login`
+- [✅] No flash of wrong content
+- [✅] Smooth redirect experience
 
 ---
 
