@@ -110,23 +110,23 @@
 
 ---
 
-## Phase 4: Login Redirect Update
+## Phase 4: Login Redirect Update ✅
 
 ### Task 4.1: Update Login Success Redirect
 **Files to Modify:**
 - `frontend/src/components/LoginForm.tsx`
 
 **Changes:**
-1. [ ] Find login success handler
-2. [ ] Change redirect from `/home` to `/gallery`
-3. [ ] Test: Login redirects to gallery
-4. [ ] Verify: Gallery shows default "All Photos" view
-5. [ ] **COMMIT 6**: "feat(auth): redirect to gallery after login instead of home"
+1. [✅] Find login success handler
+2. [✅] Change redirect from `/home` to `/gallery`
+3. [✅] Test: Login redirects to gallery
+4. [✅] Verify: Gallery shows default "All Photos" view
+5. [✅] **COMMIT 6**: "feat(auth): redirect to gallery after login instead of home" (commit: c32bc26)
 
 **Acceptance Criteria:**
-- [ ] Login success → redirects to `/gallery`
-- [ ] No intermediate redirects
-- [ ] User sees photos immediately after login
+- [✅] Login success → redirects to `/gallery`
+- [✅] No intermediate redirects
+- [✅] User sees photos immediately after login
 
 ---
 
