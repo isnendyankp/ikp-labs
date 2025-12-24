@@ -26,7 +26,7 @@
  * - CAN favorite own photos
  * - Private collection (no public counter)
  *
- * Route: /home/favorited-photos
+ * Route: /myprofile/favorited-photos
  */
 
 'use client';
@@ -138,13 +138,13 @@ export default function FavoritedPhotosPage() {
                 Gallery
               </button>
               <button
-                onClick={() => router.push('/home/liked-photos')}
+                onClick={() => router.push('/myprofile/liked-photos')}
                 className="px-4 py-2 text-red-600 hover:text-red-700 font-medium"
               >
                 ❤️ Liked Photos
               </button>
               <button
-                onClick={() => router.push('/home')}
+                onClick={() => router.push('/myprofile')}
                 className="px-4 py-2 text-gray-700 hover:text-gray-900 font-medium"
               >
                 My Profile
@@ -215,10 +215,10 @@ export default function FavoritedPhotosPage() {
  *
  * 1. ROUTE STRUCTURE:
  *    ================
- *    /home/favorited-photos → This page (PRIVATE collection)
- *    /home/liked-photos → Liked photos page (PUBLIC appreciation)
+ *    /myprofile/favorited-photos → This page (PRIVATE collection)
+ *    /myprofile/liked-photos → Liked photos page (PUBLIC appreciation)
  *    /gallery → All photos (my photos + public)
- *    /home → User profile
+ *    /myprofile → User profile
  *
  * 2. DATA FETCHING:
  *    ==============
@@ -267,7 +267,7 @@ export default function FavoritedPhotosPage() {
  *    ===========
  *    Header links:
  *    - Gallery → /gallery (main photo gallery)
- *    - My Profile → /home (user profile page)
+ *    - My Profile → /myprofile (user profile page)
  *    - Logout → Clear session
  *
  * 9. STATE MANAGEMENT:

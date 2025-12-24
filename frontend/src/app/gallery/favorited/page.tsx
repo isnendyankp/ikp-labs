@@ -2,14 +2,14 @@
  * Favorited Photos Page - Alias Route
  *
  * This page serves as an alias route for /gallery/favorited
- * It redirects to the main implementation at /home/favorited-photos
+ * It redirects to the main implementation at /myprofile/favorited-photos
  *
  * Why alias route?
  * - Tests expect /gallery/favorited (semantic grouping with gallery features)
- * - Main implementation is at /home/favorited-photos (established route)
+ * - Main implementation is at /myprofile/favorited-photos (established route)
  * - This alias ensures backward compatibility while supporting test expectations
  *
- * Route: /gallery/favorited → redirects to → /home/favorited-photos
+ * Route: /gallery/favorited → redirects to → /myprofile/favorited-photos
  */
 
 'use client';
@@ -22,7 +22,7 @@ export default function FavoritedPhotosAliasPage() {
 
   useEffect(() => {
     // Redirect to main favorited photos implementation
-    router.replace('/home/favorited-photos');
+    router.replace('/myprofile/favorited-photos');
   }, [router]);
 
   return (

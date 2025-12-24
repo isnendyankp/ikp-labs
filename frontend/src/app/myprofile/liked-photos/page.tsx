@@ -9,7 +9,7 @@
  * - Back to gallery link
  * - Responsive design
  *
- * Route: /home/liked-photos
+ * Route: /myprofile/liked-photos
  */
 
 'use client';
@@ -121,13 +121,13 @@ export default function LikedPhotosPage() {
                 Gallery
               </button>
               <button
-                onClick={() => router.push('/home/favorited-photos')}
+                onClick={() => router.push('/myprofile/favorited-photos')}
                 className="px-4 py-2 text-yellow-600 hover:text-yellow-700 font-medium"
               >
                 ⭐ Favorited Photos
               </button>
               <button
-                onClick={() => router.push('/home')}
+                onClick={() => router.push('/myprofile')}
                 className="px-4 py-2 text-gray-700 hover:text-gray-900 font-medium"
               >
                 My Profile
@@ -195,9 +195,9 @@ export default function LikedPhotosPage() {
  *
  * 1. ROUTE STRUCTURE:
  *    ================
- *    /home/liked-photos → This page
+ *    /myprofile/liked-photos → This page
  *    /gallery → All photos (my photos + public)
- *    /home → User profile
+ *    /myprofile → User profile
  *
  * 2. DATA FETCHING:
  *    ==============
@@ -246,7 +246,7 @@ export default function LikedPhotosPage() {
  *    ===========
  *    Header links:
  *    - Gallery → /gallery (main photo gallery)
- *    - My Profile → /home (user profile page)
+ *    - My Profile → /myprofile (user profile page)
  *    - Logout → Clear session
  *
  * 9. STATE MANAGEMENT:
