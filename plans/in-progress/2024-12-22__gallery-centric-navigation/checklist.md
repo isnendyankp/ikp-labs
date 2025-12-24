@@ -189,23 +189,23 @@
 - `frontend/src/app/gallery/page.tsx`
 
 **Steps:**
-1. [ ] Import `useSearchParams`, `useRouter` from next/navigation
-2. [ ] Read `filter` query param (default: 'all')
-3. [ ] Read `page` query param (default: 1)
-4. [ ] Create `handleFilterChange` function
+1. [✅] Import `useSearchParams`, `useRouter` from next/navigation
+2. [✅] Read `filter` query param (default: 'all')
+3. [✅] Read `page` query param (default: 1)
+4. [✅] Create `handleFilterChange` function
    - Updates URL with new filter
    - Resets to page 1
-5. [ ] Create `handlePageChange` function
+5. [✅] Create `handlePageChange` function
    - Updates URL with new page
    - Keeps current filter
-6. [ ] Test: URL updates when filter changes
-7. [ ] **COMMIT 9**: "feat(gallery): add URL query param management"
+6. [✅] Test: URL updates when filter changes
+7. [✅] **COMMIT 9**: "feat(gallery): add URL query param management" (included in commit: 9b0292f)
 
 **Acceptance Criteria:**
-- [ ] URL reflects current filter
-- [ ] URL reflects current page
-- [ ] Browser back/forward works
-- [ ] Refresh maintains state
+- [✅] URL reflects current filter
+- [✅] URL reflects current page
+- [✅] Browser back/forward works
+- [✅] Refresh maintains state
 
 ---
 
@@ -214,20 +214,20 @@
 - `frontend/src/app/gallery/page.tsx`
 
 **Steps:**
-1. [ ] Import FilterDropdown component
-2. [ ] Add FilterDropdown to page (above photo grid)
-3. [ ] Pass `currentFilter` prop from URL param
-4. [ ] Pass `handleFilterChange` as `onFilterChange` prop
-5. [ ] Remove old "My Photos" / "Public" toggle buttons
-6. [ ] Adjust layout (filter left, upload button right)
-7. [ ] Test: Filter dropdown renders correctly
-8. [ ] **COMMIT 10**: "feat(gallery): integrate filter dropdown and remove old toggles"
+1. [✅] Import FilterDropdown component
+2. [✅] Add FilterDropdown to page (above photo grid)
+3. [✅] Pass `currentFilter` prop from URL param
+4. [✅] Pass `handleFilterChange` as `onFilterChange` prop
+5. [✅] Remove old "My Photos" / "Public" toggle buttons
+6. [✅] Adjust layout (filter left, upload button right)
+7. [✅] Test: Filter dropdown renders correctly
+8. [✅] **COMMIT 10**: "feat(gallery): integrate filter dropdown and remove old toggles" (included in commit: 9b0292f)
 
 **Acceptance Criteria:**
-- [ ] FilterDropdown visible above gallery
-- [ ] Upload button positioned correctly
-- [ ] Old toggle buttons removed
-- [ ] Layout looks clean
+- [✅] FilterDropdown visible above gallery
+- [✅] Upload button positioned correctly
+- [✅] Old toggle buttons removed
+- [✅] Layout looks clean
 
 ---
 
