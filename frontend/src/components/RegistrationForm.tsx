@@ -35,10 +35,10 @@ export default function RegistrationForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [apiError, setApiError] = useState<string>('');
 
-  // Redirect to home if already authenticated
+  // Redirect to gallery if already authenticated
   useEffect(() => {
     if (isAuthenticated()) {
-      router.push('/home');
+      router.push('/gallery');
     }
   }, [router]);
 
@@ -88,8 +88,8 @@ export default function RegistrationForm() {
 
         // Token already saved by registerUser() in api.ts
         // User is automatically logged in after registration
-        // Redirect to home page
-        router.push('/home');
+        // Redirect to gallery page
+        router.push('/gallery');
       } else if (response.error) {
         console.error('❌ Registration failed:', response.error);
 
