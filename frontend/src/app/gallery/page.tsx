@@ -17,6 +17,8 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { isAuthenticated, getUserFromToken } from "../../lib/auth";
 import { GalleryPhoto, AuthUser } from "../../types/api";
 import { getUserPhotos, getPublicPhotos } from "../../services/galleryService";
+import { getLikedPhotos } from "../../services/photoLikeService";
+import { getFavoritedPhotos } from "../../services/photoFavoriteService";
 import PhotoGrid from "../../components/gallery/PhotoGrid";
 import Pagination from "../../components/gallery/Pagination";
 import LogoutButton from "../../components/LogoutButton";
@@ -84,12 +86,10 @@ export default function GalleryPage() {
           response = await getPublicPhotos(currentPage, PHOTOS_PER_PAGE);
           break;
         case "liked":
-          // TODO: Implement getLikedPhotos API function
-          response = await getPublicPhotos(currentPage, PHOTOS_PER_PAGE);
+          response = await getLikedPhotos(currentPage, PHOTOS_PER_PAGE);
           break;
         case "favorited":
-          // TODO: Implement getFavoritedPhotos API function
-          response = await getPublicPhotos(currentPage, PHOTOS_PER_PAGE);
+          response = await getFavoritedPhotos(currentPage, PHOTOS_PER_PAGE);
           break;
         default:
           response = await getPublicPhotos(currentPage, PHOTOS_PER_PAGE);
