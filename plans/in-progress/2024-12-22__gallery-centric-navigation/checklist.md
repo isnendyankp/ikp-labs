@@ -237,30 +237,30 @@
 - `frontend/src/services/api.ts` (if needed)
 
 **Steps:**
-1. [ ] Update `useEffect` dependencies (add `filter`, `page`)
-2. [ ] Add filter switch logic in data fetching:
+1. [✅] Update `useEffect` dependencies (add `filter`, `page`)
+2. [✅] Add filter switch logic in data fetching:
    - `all` → fetch public photos
    - `my-photos` → fetch user's photos
    - `liked` → fetch liked photos
    - `favorited` → fetch favorited photos
-3. [ ] Verify API functions exist in `api.ts`:
-   - `fetchPublicPhotos(page)` ✅ (should exist)
-   - `fetchMyPhotos(userId, page)` (verify/create)
-   - `fetchLikedPhotos(userId, page)` (verify/create)
-   - `fetchFavoritedPhotos(userId, page)` ✅ (should exist)
-4. [ ] Implement missing API functions if needed
-5. [ ] Test all 4 filters:
+3. [✅] Verify API functions exist in `api.ts`:
+   - `fetchPublicPhotos(page)` ✅ (exists in galleryService)
+   - `fetchMyPhotos(userId, page)` ✅ (exists as getUserPhotos)
+   - `fetchLikedPhotos(userId, page)` ✅ (exists in photoLikeService)
+   - `fetchFavoritedPhotos(userId, page)` ✅ (exists in photoFavoriteService)
+4. [✅] Implement missing API functions if needed
+5. [✅] Test all 4 filters:
    - All Photos shows public photos
    - My Photos shows user's uploads
    - Liked Photos shows liked photos
    - Favorited Photos shows favorited photos
-6. [ ] **COMMIT 11**: "feat(gallery): implement filter-based data fetching"
+6. [✅] **COMMIT 11**: "feat(gallery): implement filter-based data fetching" (commit: 7b5f85f)
 
 **Acceptance Criteria:**
-- [ ] All 4 filters fetch correct data
-- [ ] Loading states work
-- [ ] Error handling in place
-- [ ] Empty states handled
+- [✅] All 4 filters fetch correct data
+- [✅] Loading states work
+- [✅] Error handling in place
+- [✅] Empty states handled
 
 ---
 
