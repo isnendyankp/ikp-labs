@@ -18,6 +18,7 @@
 
 import { GalleryPhoto } from '../../types/api';
 import { getPhotoUrl } from '../../services/galleryService';
+import { getUserFromToken } from '../../lib/auth';
 import { useRouter } from 'next/navigation';
 import LikeButton from '../LikeButton';
 import FavoriteButton from '../FavoriteButton';
@@ -30,6 +31,7 @@ interface PhotoCardProps {
 
 export default function PhotoCard({ photo, onLikeChange, onFavoriteChange }: PhotoCardProps) {
   const router = useRouter();
+  const currentUser = getUserFromToken();
 
   const handleClick = () => {
     router.push(`/gallery/${photo.id}`);
@@ -100,6 +102,7 @@ export default function PhotoCard({ photo, onLikeChange, onFavoriteChange }: Pho
             initialLikeCount={photo.likeCount}
             size="small"
             onLikeChange={onLikeChange}
+            isOwnPhoto={currentUser?.id === photo.userId}
           />
 
           {/* Favorite Button - Private bookmarks */}

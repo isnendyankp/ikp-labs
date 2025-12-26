@@ -39,6 +39,7 @@ interface LikeButtonProps {
   size?: 'small' | 'medium' | 'large';
   className?: string;
   onLikeChange?: (photoId: number) => void;
+  isOwnPhoto?: boolean; // New: Disable like button for own photos
 }
 
 // === COMPONENT ===
@@ -50,6 +51,7 @@ export default function LikeButton({
   size = 'medium',
   className = '',
   onLikeChange,
+  isOwnPhoto = false,
 }: LikeButtonProps) {
   // === STATE ===
 
@@ -96,6 +98,12 @@ export default function LikeButton({
     // CRITICAL: Prevent event bubbling to parent PhotoCard's onClick
     // Without this, clicking like button will navigate to detail page!
     e.stopPropagation();
+
+    // Prevent liking own photos
+    if (isOwnPhoto) {
+      alert('You cannot like your own photo');
+      return;
+    }
 
     // Prevent double-click
     if (isLoading) return;
@@ -158,21 +166,23 @@ export default function LikeButton({
       {/* Like Button */}
       <button
         onClick={handleLikeClick}
-        disabled={isLoading}
+        disabled={isLoading || isOwnPhoto}
         className={`
           ${buttonSizeClasses[size]}
           flex items-center justify-center
           rounded-full
           transition-all duration-200
-          ${isLiked
+          ${isOwnPhoto
+            ? 'text-gray-300 cursor-not-allowed'
+            : isLiked
             ? 'text-red-500 hover:text-red-600'
             : 'text-gray-400 hover:text-red-500'
           }
-          ${isLoading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-gray-100'}
+          ${isLoading ? 'opacity-50 cursor-not-allowed' : isOwnPhoto ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-gray-100'}
           focus:outline-none focus:ring-2 focus:ring-red-300
         `}
-        aria-label={isLiked ? 'Unlike photo' : 'Like photo'}
-        title={isLiked ? 'Unlike' : 'Like'}
+        aria-label={isOwnPhoto ? 'Cannot like own photo' : isLiked ? 'Unlike photo' : 'Like photo'}
+        title={isOwnPhoto ? 'You cannot like your own photo' : isLiked ? 'Unlike' : 'Like'}
       >
         {isLiked ? (
           <HeartSolid className={`${sizeClasses[size]} animate-pulse-once`} />

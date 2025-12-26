@@ -300,6 +300,7 @@ export default function PhotoDetailPage() {
                         initialLikeCount={photo.likeCount}
                         size="large"
                         onLikeChange={fetchPhoto}
+                        isOwnPhoto={user?.id === photo.userId}
                       />
                       <FavoriteButton
                         photoId={photo.id}
