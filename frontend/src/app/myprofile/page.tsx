@@ -200,15 +200,8 @@ export default function HomePage() {
                 </div>
               </div>
 
-              {/* Info Message */}
-              <div className="mt-8 p-4 bg-blue-50 border border-blue-200 rounded-md">
-                <p className="text-sm text-blue-700">
-                  You are successfully logged in. Your session is secured with JWT authentication.
-                </p>
-              </div>
-
               {/* Quick Actions */}
-              <div className="mt-6">
+              <div className="mt-8">
                 <h3 className="text-lg font-semibold text-gray-900 mb-3">Quick Actions</h3>
                 <button
                   onClick={() => router.push('/gallery')}
