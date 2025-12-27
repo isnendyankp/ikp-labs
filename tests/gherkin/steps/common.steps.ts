@@ -15,6 +15,12 @@ Before(async function () {
     baseURL: 'http://localhost:3002',  // Set baseURL for relative URL navigation
   });
   page = await context.newPage();
+
+  // Set up global console message collection for all scenarios
+  (this as any).consoleMessages = [];
+  page.on('console', (msg) => {
+    (this as any).consoleMessages.push(msg.text());
+  });
 });
 
 After(async function () {

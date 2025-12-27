@@ -53,17 +53,10 @@ Then('the remember me checkbox should be checked', async function () {
 });
 
 Then('the Google signin handler should be called', async function () {
-  // Listen for console.log from the Google signin handler
-  let consoleMessage = '';
-  page.on('console', msg => {
-    if (msg.text() === 'Sign in with Google clicked') {
-      consoleMessage = msg.text();
-    }
-  });
-  
-  // Wait a moment for the console message
-  await page.waitForTimeout(100);
-  expect(consoleMessage).toBe('Sign in with Google clicked');
+  // Check if console message was captured (global listener set up in Before hook)
+  const messages = (this as any).consoleMessages || [];
+  const found = messages.some((msg: string) => msg === 'Sign in with Google clicked');
+  expect(found).toBe(true);
 });
 
 Then('the password should be hidden by default', async function () {
