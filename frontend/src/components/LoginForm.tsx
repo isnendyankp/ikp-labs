@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { z } from "zod";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import Tooltip from "./Tooltip";
 import { loginUser } from "../services/api";
 import { LoginRequest, LoginFormData } from "../types/api";
 import { isAuthenticated } from "../lib/auth";
@@ -243,15 +242,13 @@ export default function LoginForm() {
                   } focus:ring-0 pb-2 pr-10 bg-transparent text-gray-900 placeholder-gray-500 focus:outline-none transition-colors`}
                   required
                 />
-                <Tooltip
-                  text={showPassword ? "Hide password" : "Show password"}
-                  position="top"
+                <button
+                  type="button"
+                  data-testid="password-toggle-button"
+                  className="absolute inset-y-0 right-0 flex items-center px-2 text-gray-400 hover:text-gray-600"
+                  onClick={() => setShowPassword(!showPassword)}
+                  title={showPassword ? "Hide password" : "Show password"}
                 >
-                  <button
-                    type="button"
-                    className="absolute inset-y-0 right-0 flex items-center px-2 text-gray-400 hover:text-gray-600"
-                    onClick={() => setShowPassword(!showPassword)}
-                  >
                     {showPassword ? (
                       <svg
                         className="w-5 h-5"
@@ -287,8 +284,7 @@ export default function LoginForm() {
                         />
                       </svg>
                     )}
-                  </button>
-                </Tooltip>
+                </button>
               </div>
               {errors.password && (
                 <p className="mt-1 text-sm text-red-600">{errors.password}</p>

@@ -25,8 +25,8 @@ When('I start typing in the email field', async function () {
   await page.fill('[name="email"]', 'te');
 });
 
-When('I click the password visibility toggle button', async function () {
-  await page.click('[name="password"] + div button, [name="password"] ~ div button');
+When(/^I click the password visibility toggle button(?: again)?$/, async function () {
+  await page.click('[data-testid="password-toggle-button"]');
 });
 
 When('I view the login page', async function () {
