@@ -4,7 +4,7 @@ import { page } from './common.steps';
 
 // Background steps
 Given('I am on the login page', async function () {
-  await page.goto('http://localhost:3002/login');
+  await page.goto('/login');  // Use relative URL to respect baseURL config
   await page.waitForLoadState('networkidle');
 });
 
@@ -30,7 +30,7 @@ When('I click the password visibility toggle button', async function () {
 });
 
 When('I view the login page', async function () {
-  await page.goto('http://localhost:3000/login');
+  await page.goto('/login');  // Use relative URL to respect baseURL config
   await page.waitForLoadState('networkidle');
 });
 

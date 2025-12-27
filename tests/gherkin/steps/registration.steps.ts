@@ -4,7 +4,7 @@ import { page } from './common.steps';
 
 // Background steps
 Given('I am on the registration page', async function () {
-  await page.goto('http://localhost:3002/register');
+  await page.goto('/register');  // Use relative URL to respect baseURL config
   await page.waitForLoadState('networkidle');
 });
 
@@ -60,6 +60,6 @@ Then('the name field should have normal border styling', async function () {
 });
 
 When('I view the registration page', async function () {
-  await page.goto('http://localhost:3000/register');
+  await page.goto('/register');  // Use relative URL to respect baseURL config
   await page.waitForLoadState('networkidle');
 });
