@@ -11,7 +11,9 @@ let page: Page;
 
 Before(async function () {
   browser = await chromium.launch({ headless: true });
-  context = await browser.newContext();
+  context = await browser.newContext({
+    baseURL: 'http://localhost:3002',  // Set baseURL for relative URL navigation
+  });
   page = await context.newPage();
 });
 
@@ -26,6 +28,7 @@ After(async function () {
 Given('I am using a mobile device', async function () {
   await context.close();
   context = await browser.newContext({
+    baseURL: 'http://localhost:3002',  // Set baseURL for mobile context too
     viewport: { width: 375, height: 667 },
     userAgent: 'Mozilla/5.0 (iPhone; CPU iPhone OS 14_0 like Mac OS X) AppleWebKit/605.1.15'
   });
