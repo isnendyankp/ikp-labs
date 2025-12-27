@@ -183,7 +183,7 @@ export default function RegistrationForm() {
           )}
 
           {/* Form */}
-          <form onSubmit={handleSubmit} className="space-y-6" data-testid="registration-form">
+          <form onSubmit={handleSubmit} noValidate className="space-y-6" data-testid="registration-form">
             {/* Name Field */}
             <div>
               <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
