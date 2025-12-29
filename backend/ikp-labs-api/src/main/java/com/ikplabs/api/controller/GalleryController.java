@@ -148,10 +148,15 @@ public class GalleryController {
      * Query parameters:
      * - page: int (default 0) - page number (0-indexed)
      * - size: int (default 12) - photos per page
+     * - sortBy: string (default "newest") - sort order
+     *   * "newest": newest first (createdAt DESC)
+     *   * "oldest": oldest first (createdAt ASC)
+     *   * "mostLiked": most liked first (likeCount DESC)
+     *   * "mostFavorited": most favorited first (favoriteCount DESC)
      *
      * Example request:
      * ```
-     * GET /api/gallery/my-photos?page=0&size=12
+     * GET /api/gallery/my-photos?page=0&size=12&sortBy=mostLiked
      * Authorization: Bearer <jwt-token>
      * ```
      *
@@ -170,6 +175,7 @@ public class GalleryController {
      *
      * @param page Page number (0-indexed, default 0)
      * @param size Photos per page (default 12)
+     * @param sortBy Sort order (default "newest")
      * @param currentUser Current logged-in user (from JWT)
      * @return GalleryListResponse with paginated photos
      */
@@ -177,9 +183,18 @@ public class GalleryController {
     public ResponseEntity<GalleryListResponse> getMyPhotos(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "12") int size,
+            @RequestParam(value = "sortBy", defaultValue = "newest") String sortBy,
             @AuthenticationPrincipal UserPrincipal currentUser) {
 
+        // Validate sortBy parameter (whitelist approach)
+        if (!isValidSortBy(sortBy)) {
+            throw new IllegalArgumentException(
+                "Invalid sortBy parameter. Allowed values: newest, oldest, mostLiked, mostFavorited"
+            );
+        }
+
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+        // TODO: Will be updated in Task 2.2 when service layer supports sortBy
         List<GalleryPhoto> photos = galleryService.getMyPhotos(currentUser.getId(), pageable);
 
         Long currentUserId = currentUser.getId();
@@ -219,10 +234,15 @@ public class GalleryController {
      * Query parameters:
      * - page: int (default 0) - page number (0-indexed)
      * - size: int (default 12) - photos per page
+     * - sortBy: string (default "newest") - sort order
+     *   * "newest": newest first (createdAt DESC)
+     *   * "oldest": oldest first (createdAt ASC)
+     *   * "mostLiked": most liked first (likeCount DESC)
+     *   * "mostFavorited": most favorited first (favoriteCount DESC)
      *
      * Example request:
      * ```
-     * GET /api/gallery/public?page=0&size=12
+     * GET /api/gallery/public?page=0&size=12&sortBy=mostLiked
      * Authorization: Bearer <jwt-token>
      * ```
      *
@@ -230,15 +250,25 @@ public class GalleryController {
      *
      * @param page Page number (0-indexed, default 0)
      * @param size Photos per page (default 12)
+     * @param sortBy Sort order (default "newest")
      * @return GalleryListResponse with paginated public photos
      */
     @GetMapping("/public")
     public ResponseEntity<GalleryListResponse> getPublicPhotos(
             @RequestParam(value = "page", defaultValue = "0") int page,
             @RequestParam(value = "size", defaultValue = "12") int size,
+            @RequestParam(value = "sortBy", defaultValue = "newest") String sortBy,
             @AuthenticationPrincipal UserPrincipal currentUser) {
 
+        // Validate sortBy parameter (whitelist approach)
+        if (!isValidSortBy(sortBy)) {
+            throw new IllegalArgumentException(
+                "Invalid sortBy parameter. Allowed values: newest, oldest, mostLiked, mostFavorited"
+            );
+        }
+
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+        // TODO: Will be updated in Task 2.2 when service layer supports sortBy
         List<GalleryPhoto> photos = galleryService.getPublicPhotos(pageable);
 
         Long currentUserId = currentUser.getId();
@@ -533,6 +563,22 @@ public class GalleryController {
         GalleryPhoto photo = galleryService.togglePrivacy(photoId, currentUser.getId());
         GalleryPhotoResponse response = GalleryPhotoResponse.fromEntity(photo);
         return ResponseEntity.ok(response);
+    }
+
+    /**
+     * HELPER METHOD: VALIDATE SORTBY PARAMETER
+     * =========================================
+     * Validates sortBy parameter using whitelist approach.
+     * Only allows: newest, oldest, mostLiked, mostFavorited
+     *
+     * @param sortBy Sort parameter from request
+     * @return true if valid, false if invalid
+     */
+    private boolean isValidSortBy(String sortBy) {
+        return sortBy.equals("newest") ||
+               sortBy.equals("oldest") ||
+               sortBy.equals("mostLiked") ||
+               sortBy.equals("mostFavorited");
     }
 
     /**

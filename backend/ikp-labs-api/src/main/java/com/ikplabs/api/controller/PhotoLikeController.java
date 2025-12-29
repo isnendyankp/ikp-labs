@@ -173,15 +173,20 @@ public class PhotoLikeController {
      * GET /api/gallery/liked-photos
      *
      * Get paginated list of photos liked by current user.
-     * Photos ordered by most recently liked first.
+     * Photos ordered by most recently liked first by default.
      *
      * Query parameters:
      * - page: int (default 0) - page number (0-indexed)
      * - size: int (default 12) - photos per page
+     * - sortBy: string (default "newest") - sort order
+     *   * "newest": newest first (createdAt DESC)
+     *   * "oldest": oldest first (createdAt ASC)
+     *   * "mostLiked": most liked first (likeCount DESC)
+     *   * "mostFavorited": most favorited first (favoriteCount DESC)
      *
      * Example request:
      * ```
-     * GET /api/gallery/liked-photos?page=0&size=12
+     * GET /api/gallery/liked-photos?page=0&size=12&sortBy=mostLiked
      * Authorization: Bearer <jwt-token>
      * ```
      *
@@ -236,6 +241,7 @@ public class PhotoLikeController {
      *
      * @param page Page number (0-indexed, default 0)
      * @param size Photos per page (default 12)
+     * @param sortBy Sort order (default "newest")
      * @param currentUser Current logged-in user (from JWT, injected by Spring Security)
      * @return ResponseEntity with GalleryListResponse (photos + pagination metadata)
      */
@@ -243,7 +249,15 @@ public class PhotoLikeController {
     public ResponseEntity<GalleryListResponse> getLikedPhotos(
             @RequestParam(defaultValue = "0") int page,
             @RequestParam(defaultValue = "12") int size,
+            @RequestParam(defaultValue = "newest") String sortBy,
             @AuthenticationPrincipal UserPrincipal currentUser) {
+
+        // Validate sortBy parameter (whitelist approach)
+        if (!isValidSortBy(sortBy)) {
+            throw new IllegalArgumentException(
+                "Invalid sortBy parameter. Allowed values: newest, oldest, mostLiked, mostFavorited"
+            );
+        }
 
         // Extract user ID from authenticated user
         Long userId = currentUser.getId();
@@ -252,6 +266,7 @@ public class PhotoLikeController {
         Pageable pageable = PageRequest.of(page, size);
 
         // Get liked photos from service (returns Page<GalleryPhoto>)
+        // TODO: Will be updated in Task 2.2 when service layer supports sortBy
         Page<GalleryPhoto> likedPhotosPage = photoLikeService.getLikedPhotos(userId, pageable);
 
         // Convert entities to DTOs with like data
@@ -278,6 +293,22 @@ public class PhotoLikeController {
 
         // Return 200 OK with response body
         return ResponseEntity.ok(response);
+    }
+
+    /**
+     * HELPER METHOD: VALIDATE SORTBY PARAMETER
+     * =========================================
+     * Validates sortBy parameter using whitelist approach.
+     * Only allows: newest, oldest, mostLiked, mostFavorited
+     *
+     * @param sortBy Sort parameter from request
+     * @return true if valid, false if invalid
+     */
+    private boolean isValidSortBy(String sortBy) {
+        return sortBy.equals("newest") ||
+               sortBy.equals("oldest") ||
+               sortBy.equals("mostLiked") ||
+               sortBy.equals("mostFavorited");
     }
 
     /**
