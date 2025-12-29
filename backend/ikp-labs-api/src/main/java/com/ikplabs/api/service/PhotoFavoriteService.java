@@ -204,11 +204,14 @@ public class PhotoFavoriteService {
      * - Only User A can see this list (100% private)
      *
      * @param userId ID of user (MUST be from JWT token!)
+     * @param sortBy Sort order (newest, oldest, mostLiked, mostFavorited)
      * @param pageable Pagination parameters (page, size, sort)
      * @return Page<GalleryPhoto> with photos and pagination metadata
      */
     @Transactional(readOnly = true)
-    public Page<GalleryPhoto> getFavoritedPhotos(Long userId, Pageable pageable) {
+    public Page<GalleryPhoto> getFavoritedPhotos(Long userId, String sortBy, Pageable pageable) {
+        // Note: Sorting will be implemented in Task 2.3 with optimized queries
+        // For now, maintain existing behavior
         return photoFavoriteRepository.findFavoritedPhotosByUserId(userId, pageable);
     }
 

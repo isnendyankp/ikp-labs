@@ -118,10 +118,13 @@ public class GalleryService {
      * Used in "My Gallery" page.
      *
      * @param userId ID of photo owner
+     * @param sortBy Sort order (newest, oldest, mostLiked, mostFavorited)
      * @param pageable Pagination parameters
-     * @return List of photos (paginated)
+     * @return List of photos (paginated and sorted)
      */
-    public List<GalleryPhoto> getMyPhotos(Long userId, Pageable pageable) {
+    public List<GalleryPhoto> getMyPhotos(Long userId, String sortBy, Pageable pageable) {
+        // Note: Sorting will be implemented in Task 2.3 with optimized queries
+        // For now, maintain existing behavior (sort by createdAt DESC)
         return galleryPhotoRepository.findByUserId(userId, pageable);
     }
 
@@ -144,10 +147,13 @@ public class GalleryService {
      * Used in "Public Gallery" page.
      * Accessible by anyone (authenticated or anonymous).
      *
+     * @param sortBy Sort order (newest, oldest, mostLiked, mostFavorited)
      * @param pageable Pagination parameters
-     * @return List of public photos (paginated)
+     * @return List of public photos (paginated and sorted)
      */
-    public List<GalleryPhoto> getPublicPhotos(Pageable pageable) {
+    public List<GalleryPhoto> getPublicPhotos(String sortBy, Pageable pageable) {
+        // Note: Sorting will be implemented in Task 2.3 with optimized queries
+        // For now, maintain existing behavior (sort by createdAt DESC)
         return galleryPhotoRepository.findByIsPublicTrue(pageable);
     }
 

@@ -266,8 +266,7 @@ public class PhotoLikeController {
         Pageable pageable = PageRequest.of(page, size);
 
         // Get liked photos from service (returns Page<GalleryPhoto>)
-        // TODO: Will be updated in Task 2.2 when service layer supports sortBy
-        Page<GalleryPhoto> likedPhotosPage = photoLikeService.getLikedPhotos(userId, pageable);
+        Page<GalleryPhoto> likedPhotosPage = photoLikeService.getLikedPhotos(userId, sortBy, pageable);
 
         // Convert entities to DTOs with like data
         // All photos in this list are liked by current user (isLikedByUser = true)

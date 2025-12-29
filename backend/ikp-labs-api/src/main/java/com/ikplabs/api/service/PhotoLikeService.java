@@ -170,11 +170,14 @@ public class PhotoLikeService {
      * - Returns: Page with 12 photos + metadata (totalPages=5, hasNext=true)
      *
      * @param userId ID of user
+     * @param sortBy Sort order (newest, oldest, mostLiked, mostFavorited)
      * @param pageable Pagination parameters (page, size, sort)
      * @return Page<GalleryPhoto> with photos and pagination metadata
      */
     @Transactional(readOnly = true)
-    public Page<GalleryPhoto> getLikedPhotos(Long userId, Pageable pageable) {
+    public Page<GalleryPhoto> getLikedPhotos(Long userId, String sortBy, Pageable pageable) {
+        // Note: Sorting will be implemented in Task 2.3 with optimized queries
+        // For now, maintain existing behavior
         return photoLikeRepository.findLikedPhotosByUserId(userId, pageable);
     }
 

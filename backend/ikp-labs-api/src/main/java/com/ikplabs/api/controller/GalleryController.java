@@ -194,8 +194,7 @@ public class GalleryController {
         }
 
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
-        // TODO: Will be updated in Task 2.2 when service layer supports sortBy
-        List<GalleryPhoto> photos = galleryService.getMyPhotos(currentUser.getId(), pageable);
+        List<GalleryPhoto> photos = galleryService.getMyPhotos(currentUser.getId(), sortBy, pageable);
 
         Long currentUserId = currentUser.getId();
 
@@ -268,8 +267,7 @@ public class GalleryController {
         }
 
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
-        // TODO: Will be updated in Task 2.2 when service layer supports sortBy
-        List<GalleryPhoto> photos = galleryService.getPublicPhotos(pageable);
+        List<GalleryPhoto> photos = galleryService.getPublicPhotos(sortBy, pageable);
 
         Long currentUserId = currentUser.getId();
 

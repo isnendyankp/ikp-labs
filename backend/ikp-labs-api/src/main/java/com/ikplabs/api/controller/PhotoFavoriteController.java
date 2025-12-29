@@ -298,8 +298,7 @@ public class PhotoFavoriteController {
         Pageable pageable = PageRequest.of(page, size);
 
         // Fetch favorited photos from service (only THIS user's favorites!)
-        // TODO: Will be updated in Task 2.2 when service layer supports sortBy
-        Page<GalleryPhoto> favoritedPhotosPage = photoFavoriteService.getFavoritedPhotos(userId, pageable);
+        Page<GalleryPhoto> favoritedPhotosPage = photoFavoriteService.getFavoritedPhotos(userId, sortBy, pageable);
 
         // Convert GalleryPhoto entities to DTOs with like data AND favorite data
         // All photos in this list are favorited by current user (isFavoritedByUser = true)
