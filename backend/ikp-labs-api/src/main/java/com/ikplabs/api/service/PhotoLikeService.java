@@ -159,6 +159,9 @@ public class PhotoLikeService {
      * Returns paginated list of GalleryPhoto objects.
      * Photos ordered by most recently liked first (created_at DESC).
      *
+     * OPTIMIZED: Uses single query with JOINs to get like/favorite counts.
+     * Solves N+1 problem for liked photos page.
+     *
      * Use case: "Liked Photos" page
      * - User navigates to /liked-photos
      * - Frontend calls GET /api/gallery/liked-photos?page=0&size=12
@@ -176,9 +179,8 @@ public class PhotoLikeService {
      */
     @Transactional(readOnly = true)
     public Page<GalleryPhoto> getLikedPhotos(Long userId, String sortBy, Pageable pageable) {
-        // Note: Sorting will be implemented in Task 2.3 with optimized queries
-        // For now, maintain existing behavior
-        return photoLikeRepository.findLikedPhotosByUserId(userId, pageable);
+        // Use optimized query with JOINs for like/favorite counts
+        return photoLikeRepository.findLikedPhotosByUserIdWithCounts(userId, sortBy, pageable);
     }
 
     /**

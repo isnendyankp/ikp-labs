@@ -187,6 +187,9 @@ public class PhotoFavoriteService {
      * Returns paginated list of GalleryPhoto objects.
      * Photos ordered by most recently favorited first (created_at DESC).
      *
+     * OPTIMIZED: Uses single query with JOINs to get like/favorite counts.
+     * Solves N+1 problem for favorited photos page.
+     *
      * PRIVACY ENFORCEMENT:
      * - Only returns THIS user's favorites
      * - Other users cannot see this list
@@ -210,9 +213,8 @@ public class PhotoFavoriteService {
      */
     @Transactional(readOnly = true)
     public Page<GalleryPhoto> getFavoritedPhotos(Long userId, String sortBy, Pageable pageable) {
-        // Note: Sorting will be implemented in Task 2.3 with optimized queries
-        // For now, maintain existing behavior
-        return photoFavoriteRepository.findFavoritedPhotosByUserId(userId, pageable);
+        // Use optimized query with JOINs for like/favorite counts
+        return photoFavoriteRepository.findFavoritedPhotosByUserIdWithCounts(userId, sortBy, pageable);
     }
 
     /**

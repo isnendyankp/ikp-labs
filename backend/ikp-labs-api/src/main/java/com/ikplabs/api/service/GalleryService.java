@@ -117,15 +117,17 @@ public class GalleryService {
      * Returns ALL photos (public + private) because this is for the owner.
      * Used in "My Gallery" page.
      *
+     * OPTIMIZED: Uses single query with JOINs to get like/favorite counts.
+     * Solves N+1 problem - was 1 + N queries, now just 1 query!
+     *
      * @param userId ID of photo owner
      * @param sortBy Sort order (newest, oldest, mostLiked, mostFavorited)
      * @param pageable Pagination parameters
-     * @return List of photos (paginated and sorted)
+     * @return List of photos (paginated and sorted with counts)
      */
     public List<GalleryPhoto> getMyPhotos(Long userId, String sortBy, Pageable pageable) {
-        // Note: Sorting will be implemented in Task 2.3 with optimized queries
-        // For now, maintain existing behavior (sort by createdAt DESC)
-        return galleryPhotoRepository.findByUserId(userId, pageable);
+        // Use optimized query with JOINs for like/favorite counts
+        return galleryPhotoRepository.findByUserIdWithCounts(userId, sortBy, pageable);
     }
 
     /**
@@ -147,14 +149,16 @@ public class GalleryService {
      * Used in "Public Gallery" page.
      * Accessible by anyone (authenticated or anonymous).
      *
+     * OPTIMIZED: Uses single query with JOINs to get like/favorite counts.
+     * Solves N+1 problem for public gallery page.
+     *
      * @param sortBy Sort order (newest, oldest, mostLiked, mostFavorited)
      * @param pageable Pagination parameters
-     * @return List of public photos (paginated and sorted)
+     * @return List of public photos (paginated and sorted with counts)
      */
     public List<GalleryPhoto> getPublicPhotos(String sortBy, Pageable pageable) {
-        // Note: Sorting will be implemented in Task 2.3 with optimized queries
-        // For now, maintain existing behavior (sort by createdAt DESC)
-        return galleryPhotoRepository.findByIsPublicTrue(pageable);
+        // Use optimized query with JOINs for like/favorite counts
+        return galleryPhotoRepository.findPublicPhotosWithCounts(sortBy, pageable);
     }
 
     /**

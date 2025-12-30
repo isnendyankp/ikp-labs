@@ -144,6 +144,49 @@ public interface PhotoLikeRepository extends JpaRepository<PhotoLike, Long> {
     Page<GalleryPhoto> findLikedPhotosByUserId(@Param("userId") Long userId, Pageable pageable);
 
     /**
+     * OPTIMIZED: Get liked photos with counts and sorting
+     *
+     * Solves N+1 problem for liked photos page.
+     * Gets all liked photos with like/favorite counts in single query.
+     *
+     * Native SQL with JOINs:
+     * - JOIN with photo_likes for user's liked photos
+     * - LEFT JOIN for like counts
+     * - LEFT JOIN for favorite counts
+     * - Dynamic ORDER BY based on sortBy
+     *
+     * @param userId ID of the user
+     * @param sortBy Sort option: "newest", "oldest", "mostLiked", "mostFavorited"
+     * @param pageable Pagination parameters
+     * @return Page of liked photos with counts (sorted)
+     */
+    @Query(value = """
+        SELECT DISTINCT p.*
+        FROM gallery_photos p
+        INNER JOIN photo_likes user_like ON p.id = user_like.photo_id AND user_like.user_id = :userId
+        LEFT JOIN photo_likes pl ON p.id = pl.photo_id
+        LEFT JOIN photo_favorites pf ON p.id = pf.photo_id
+        GROUP BY p.id
+        ORDER BY
+            CASE WHEN :sortBy = 'newest' THEN p.created_at END DESC,
+            CASE WHEN :sortBy = 'oldest' THEN p.created_at END ASC,
+            CASE WHEN :sortBy = 'mostLiked' THEN COUNT(DISTINCT pl.id) END DESC,
+            CASE WHEN :sortBy = 'mostFavorited' THEN COUNT(DISTINCT pf.id) END DESC,
+            p.created_at DESC
+        """,
+        countQuery = """
+        SELECT COUNT(DISTINCT p.id)
+        FROM gallery_photos p
+        INNER JOIN photo_likes user_like ON p.id = user_like.photo_id AND user_like.user_id = :userId
+        """,
+        nativeQuery = true)
+    Page<GalleryPhoto> findLikedPhotosByUserIdWithCounts(
+        @Param("userId") Long userId,
+        @Param("sortBy") String sortBy,
+        Pageable pageable
+    );
+
+    /**
      * Delete a like by photo ID and user ID
      *
      * Use case: Unlike operation
