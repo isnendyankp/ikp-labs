@@ -273,17 +273,68 @@ public class GalleryServiceTest {
         List<GalleryPhoto> allPhotos = Arrays.asList(publicPhoto, privatePhoto);
         Pageable pageable = PageRequest.of(0, 20);
 
-        when(galleryPhotoRepository.findByUserId(TEST_USER_ID, pageable)).thenReturn(allPhotos);
+        when(galleryPhotoRepository.findByUserIdWithCounts(TEST_USER_ID, "newest", pageable)).thenReturn(allPhotos);
 
         // ACT
-        List<GalleryPhoto> result = galleryService.getMyPhotos(TEST_USER_ID, pageable);
+        List<GalleryPhoto> result = galleryService.getMyPhotos(TEST_USER_ID, "newest", pageable);
 
         // ASSERT
         assertNotNull(result, "Result should not be null");
         assertEquals(2, result.size(), "Should return both public and private photos");
-        verify(galleryPhotoRepository, times(1)).findByUserId(TEST_USER_ID, pageable);
+        verify(galleryPhotoRepository, times(1)).findByUserIdWithCounts(TEST_USER_ID, "newest", pageable);
 
         System.out.println("✅ GST-004 PASSED: Owner can see all their photos");
+    }
+
+    /**
+     * GST-004b: getMyPhotos() - Sorting by mostLiked
+     * Scenario: User retrieves photos sorted by most liked
+     * Expected: Repository called with mostLiked sort parameter
+     */
+    @Test
+    @DisplayName("GST-004b: getMyPhotos - sort by mostLiked - Should call repository with correct sortBy")
+    void testGetMyPhotos_SortByMostLiked_ShouldCallRepository() {
+        // ARRANGE
+        List<GalleryPhoto> photos = Arrays.asList(testPhoto);
+        Pageable pageable = PageRequest.of(0, 12);
+
+        when(galleryPhotoRepository.findByUserIdWithCounts(TEST_USER_ID, "mostLiked", pageable))
+            .thenReturn(photos);
+
+        // ACT
+        List<GalleryPhoto> result = galleryService.getMyPhotos(TEST_USER_ID, "mostLiked", pageable);
+
+        // ASSERT
+        assertNotNull(result);
+        assertEquals(1, result.size());
+        verify(galleryPhotoRepository, times(1)).findByUserIdWithCounts(TEST_USER_ID, "mostLiked", pageable);
+
+        System.out.println("✅ GST-004b PASSED: getMyPhotos with mostLiked sorting");
+    }
+
+    /**
+     * GST-004c: getMyPhotos() - Sorting by oldest
+     * Scenario: User retrieves photos sorted by oldest first
+     * Expected: Repository called with oldest sort parameter
+     */
+    @Test
+    @DisplayName("GST-004c: getMyPhotos - sort by oldest - Should call repository with correct sortBy")
+    void testGetMyPhotos_SortByOldest_ShouldCallRepository() {
+        // ARRANGE
+        List<GalleryPhoto> photos = Arrays.asList(testPhoto);
+        Pageable pageable = PageRequest.of(0, 12);
+
+        when(galleryPhotoRepository.findByUserIdWithCounts(TEST_USER_ID, "oldest", pageable))
+            .thenReturn(photos);
+
+        // ACT
+        List<GalleryPhoto> result = galleryService.getMyPhotos(TEST_USER_ID, "oldest", pageable);
+
+        // ASSERT
+        assertNotNull(result);
+        verify(galleryPhotoRepository, times(1)).findByUserIdWithCounts(TEST_USER_ID, "oldest", pageable);
+
+        System.out.println("✅ GST-004c PASSED: getMyPhotos with oldest sorting");
     }
 
     /**
@@ -325,16 +376,41 @@ public class GalleryServiceTest {
         List<GalleryPhoto> publicPhotos = Arrays.asList(photo1, photo2);
         Pageable pageable = PageRequest.of(0, 20);
 
-        when(galleryPhotoRepository.findByIsPublicTrue(pageable)).thenReturn(publicPhotos);
+        when(galleryPhotoRepository.findPublicPhotosWithCounts("newest", pageable)).thenReturn(publicPhotos);
 
         // ACT
-        List<GalleryPhoto> result = galleryService.getPublicPhotos(pageable);
+        List<GalleryPhoto> result = galleryService.getPublicPhotos("newest", pageable);
 
         // ASSERT
         assertEquals(2, result.size(), "Should return public photos");
-        verify(galleryPhotoRepository, times(1)).findByIsPublicTrue(pageable);
+        verify(galleryPhotoRepository, times(1)).findPublicPhotosWithCounts("newest", pageable);
 
         System.out.println("✅ GST-006 PASSED: Public photos returned correctly");
+    }
+
+    /**
+     * GST-006b: getPublicPhotos() - Sorting by mostFavorited
+     * Scenario: Get public photos sorted by most favorited
+     * Expected: Repository called with mostFavorited sort parameter
+     */
+    @Test
+    @DisplayName("GST-006b: getPublicPhotos - sort by mostFavorited - Should call repository")
+    void testGetPublicPhotos_SortByMostFavorited_ShouldCallRepository() {
+        // ARRANGE
+        List<GalleryPhoto> photos = Arrays.asList(testPhoto);
+        Pageable pageable = PageRequest.of(0, 12);
+
+        when(galleryPhotoRepository.findPublicPhotosWithCounts("mostFavorited", pageable))
+            .thenReturn(photos);
+
+        // ACT
+        List<GalleryPhoto> result = galleryService.getPublicPhotos("mostFavorited", pageable);
+
+        // ASSERT
+        assertNotNull(result);
+        verify(galleryPhotoRepository, times(1)).findPublicPhotosWithCounts("mostFavorited", pageable);
+
+        System.out.println("✅ GST-006b PASSED: getPublicPhotos with mostFavorited sorting");
     }
 
     /**

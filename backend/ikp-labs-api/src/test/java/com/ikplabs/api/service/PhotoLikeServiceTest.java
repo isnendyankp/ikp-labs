@@ -359,7 +359,7 @@ public class PhotoLikeServiceTest {
      *
      * Scenario: User retrieves their liked photos
      * Given: User has liked 3 photos
-     * When: getLikedPhotos() called with pagination
+     * When: getLikedPhotos() called with pagination and sorting
      * Then: Returns Page with 3 photos ordered by most recent
      */
     @Test
@@ -384,11 +384,11 @@ public class PhotoLikeServiceTest {
 
         Pageable pageable = PageRequest.of(0, 12);
 
-        when(photoLikeRepository.findLikedPhotosByUserId(LIKER_USER_ID, pageable))
+        when(photoLikeRepository.findLikedPhotosByUserIdWithCounts(LIKER_USER_ID, "newest", pageable))
             .thenReturn(photoPage);
 
         // ACT
-        Page<GalleryPhoto> result = photoLikeService.getLikedPhotos(LIKER_USER_ID, pageable);
+        Page<GalleryPhoto> result = photoLikeService.getLikedPhotos(LIKER_USER_ID, "newest", pageable);
 
         // ASSERT
         assertNotNull(result);
@@ -397,9 +397,38 @@ public class PhotoLikeServiceTest {
         assertEquals(photo2.getId(), result.getContent().get(1).getId());
         assertEquals(photo1.getId(), result.getContent().get(2).getId());
 
-        // Verify repository method was called
+        // Verify repository method was called with correct sortBy
         verify(photoLikeRepository, times(1))
-            .findLikedPhotosByUserId(LIKER_USER_ID, pageable);
+            .findLikedPhotosByUserIdWithCounts(LIKER_USER_ID, "newest", pageable);
+    }
+
+    /**
+     * PLST-009: getLikedPhotos() - Sorting by mostLiked
+     *
+     * Scenario: User retrieves their liked photos sorted by most liked
+     * Given: User has liked photos
+     * When: getLikedPhotos() called with sortBy="mostLiked"
+     * Then: Repository called with mostLiked parameter
+     */
+    @Test
+    @DisplayName("PLST-009: getLikedPhotos - sort by mostLiked - Should call repository with sortBy")
+    void testGetLikedPhotos_SortByMostLiked_ShouldCallRepository() {
+        // ARRANGE
+        List<GalleryPhoto> photos = Arrays.asList(publicPhoto);
+        Page<GalleryPhoto> photoPage = new PageImpl<>(photos);
+        Pageable pageable = PageRequest.of(0, 12);
+
+        when(photoLikeRepository.findLikedPhotosByUserIdWithCounts(LIKER_USER_ID, "mostLiked", pageable))
+            .thenReturn(photoPage);
+
+        // ACT
+        Page<GalleryPhoto> result = photoLikeService.getLikedPhotos(LIKER_USER_ID, "mostLiked", pageable);
+
+        // ASSERT
+        assertNotNull(result);
+        assertEquals(1, result.getContent().size());
+        verify(photoLikeRepository, times(1))
+            .findLikedPhotosByUserIdWithCounts(LIKER_USER_ID, "mostLiked", pageable);
     }
 
     /**

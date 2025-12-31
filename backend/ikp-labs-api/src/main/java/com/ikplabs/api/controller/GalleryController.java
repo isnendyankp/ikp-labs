@@ -193,7 +193,8 @@ public class GalleryController {
             );
         }
 
-        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+        // Sorting handled by native SQL query, not by Pageable
+        Pageable pageable = PageRequest.of(page, size);
         List<GalleryPhoto> photos = galleryService.getMyPhotos(currentUser.getId(), sortBy, pageable);
 
         Long currentUserId = currentUser.getId();
@@ -266,7 +267,8 @@ public class GalleryController {
             );
         }
 
-        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
+        // Sorting handled by native SQL query, not by Pageable
+        Pageable pageable = PageRequest.of(page, size);
         List<GalleryPhoto> photos = galleryService.getPublicPhotos(sortBy, pageable);
 
         Long currentUserId = currentUser.getId();

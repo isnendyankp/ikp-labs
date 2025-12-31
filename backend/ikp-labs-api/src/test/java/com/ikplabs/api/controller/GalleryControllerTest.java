@@ -8,6 +8,8 @@ import com.ikplabs.api.entity.GalleryPhoto;
 import com.ikplabs.api.entity.User;
 import com.ikplabs.api.security.UserPrincipal;
 import com.ikplabs.api.service.GalleryService;
+import com.ikplabs.api.service.PhotoLikeService;
+import com.ikplabs.api.service.PhotoFavoriteService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -30,6 +32,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.lenient;
 
 /**
  * GalleryControllerTest - Unit Tests for GalleryController REST API
@@ -91,9 +94,15 @@ public class GalleryControllerTest {
     @Mock
     private GalleryService galleryService;
 
+    @Mock
+    private PhotoLikeService photoLikeService;
+
+    @Mock
+    private PhotoFavoriteService photoFavoriteService;
+
     /**
      * Controller yang akan di-test
-     * Mockito inject mock GalleryService
+     * Mockito inject mock services
      */
     @InjectMocks
     private GalleryController galleryController;
@@ -156,6 +165,13 @@ public class GalleryControllerTest {
                 "image/jpeg",
                 "test image content".getBytes()
         );
+
+        // Setup default mocks for PhotoLikeService and PhotoFavoriteService
+        // These are needed for getMyPhotos and getPublicPhotos endpoints
+        // Using lenient() because not all tests use these services
+        lenient().when(photoLikeService.getLikeCount(anyLong())).thenReturn(0L);
+        lenient().when(photoLikeService.isLikedByUser(anyLong(), anyLong())).thenReturn(false);
+        lenient().when(photoFavoriteService.isFavoritedByUser(anyLong(), anyLong())).thenReturn(false);
     }
 
     // ========================================
@@ -240,13 +256,13 @@ public class GalleryControllerTest {
     void getMyPhotos_Success() {
         // Arrange
         List<GalleryPhoto> photos = Arrays.asList(testPhoto1, testPhoto2);
-        Pageable pageable = PageRequest.of(0, 12, Sort.by("createdAt").descending());
+        Pageable pageable = PageRequest.of(0, 12);
 
-        when(galleryService.getMyPhotos(1L, pageable)).thenReturn(photos);
+        when(galleryService.getMyPhotos(1L, "newest", pageable)).thenReturn(photos);
         when(galleryService.countMyPhotos(1L)).thenReturn(2L);
 
         // Act
-        ResponseEntity<GalleryListResponse> response = galleryController.getMyPhotos(0, 12, currentUser);
+        ResponseEntity<GalleryListResponse> response = galleryController.getMyPhotos(0, 12, "newest", currentUser);
 
         // Assert
         assertNotNull(response);
@@ -259,7 +275,7 @@ public class GalleryControllerTest {
         assertFalse(response.getBody().isHasNext());
         assertFalse(response.getBody().isHasPrevious());
 
-        verify(galleryService, times(1)).getMyPhotos(1L, pageable);
+        verify(galleryService, times(1)).getMyPhotos(1L, "newest", pageable);
         verify(galleryService, times(1)).countMyPhotos(1L);
     }
 
@@ -272,13 +288,13 @@ public class GalleryControllerTest {
     void getPublicPhotos_Success() {
         // Arrange
         List<GalleryPhoto> photos = Arrays.asList(testPhoto2); // Only public photo
-        Pageable pageable = PageRequest.of(0, 12, Sort.by("createdAt").descending());
+        Pageable pageable = PageRequest.of(0, 12);
 
-        when(galleryService.getPublicPhotos(pageable)).thenReturn(photos);
+        when(galleryService.getPublicPhotos("newest", pageable)).thenReturn(photos);
         when(galleryService.countPublicPhotos()).thenReturn(1L);
 
         // Act
-        ResponseEntity<GalleryListResponse> response = galleryController.getPublicPhotos(0, 12, null);
+        ResponseEntity<GalleryListResponse> response = galleryController.getPublicPhotos(0, 12, "newest", currentUser);
 
         // Assert
         assertNotNull(response);
@@ -287,7 +303,7 @@ public class GalleryControllerTest {
         assertEquals(1, response.getBody().getPhotos().size());
         assertEquals(1, response.getBody().getTotalPhotos());
 
-        verify(galleryService, times(1)).getPublicPhotos(pageable);
+        verify(galleryService, times(1)).getPublicPhotos("newest", pageable);
         verify(galleryService, times(1)).countPublicPhotos();
     }
 
@@ -307,7 +323,7 @@ public class GalleryControllerTest {
         when(galleryService.countUserPublicPhotos(userId)).thenReturn(1L);
 
         // Act
-        ResponseEntity<GalleryListResponse> response = galleryController.getUserPublicPhotos(userId, 0, 12, null);
+        ResponseEntity<GalleryListResponse> response = galleryController.getUserPublicPhotos(userId, 0, 12, currentUser);
 
         // Assert
         assertNotNull(response);
@@ -442,13 +458,13 @@ public class GalleryControllerTest {
     void getMyPhotos_PaginationMultiplePages() {
         // Arrange: Simulate 25 photos, page size 12
         List<GalleryPhoto> firstPagePhotos = Arrays.asList(testPhoto1, testPhoto2);
-        Pageable pageable = PageRequest.of(0, 12, Sort.by("createdAt").descending());
+        Pageable pageable = PageRequest.of(0, 12);
 
-        when(galleryService.getMyPhotos(1L, pageable)).thenReturn(firstPagePhotos);
+        when(galleryService.getMyPhotos(1L, "newest", pageable)).thenReturn(firstPagePhotos);
         when(galleryService.countMyPhotos(1L)).thenReturn(25L); // Total 25 photos
 
         // Act
-        ResponseEntity<GalleryListResponse> response = galleryController.getMyPhotos(0, 12, currentUser);
+        ResponseEntity<GalleryListResponse> response = galleryController.getMyPhotos(0, 12, "newest", currentUser);
 
         // Assert
         assertNotNull(response);
@@ -466,13 +482,13 @@ public class GalleryControllerTest {
     void getMyPhotos_CustomPageSize() {
         // Arrange: Custom page size of 5
         List<GalleryPhoto> photos = Arrays.asList(testPhoto1, testPhoto2);
-        Pageable pageable = PageRequest.of(0, 5, Sort.by("createdAt").descending());
+        Pageable pageable = PageRequest.of(0, 5);
 
-        when(galleryService.getMyPhotos(1L, pageable)).thenReturn(photos);
+        when(galleryService.getMyPhotos(1L, "newest", pageable)).thenReturn(photos);
         when(galleryService.countMyPhotos(1L)).thenReturn(2L);
 
         // Act
-        ResponseEntity<GalleryListResponse> response = galleryController.getMyPhotos(0, 5, currentUser);
+        ResponseEntity<GalleryListResponse> response = galleryController.getMyPhotos(0, 5, "newest", currentUser);
 
         // Assert
         assertNotNull(response);
@@ -480,5 +496,97 @@ public class GalleryControllerTest {
         assertNotNull(response.getBody());
         assertEquals(5, response.getBody().getPageSize());
         assertEquals(1, response.getBody().getTotalPages());
+    }
+
+    // ========================================
+    // SORTING PARAMETER TESTS
+    // ========================================
+
+    @Test
+    @DisplayName("Get my photos - Valid sortBy parameter 'newest'")
+    void getMyPhotos_SortByNewest_ShouldSucceed() {
+        // Arrange
+        List<GalleryPhoto> photos = Arrays.asList(testPhoto2, testPhoto1); // Newest first
+        Pageable pageable = PageRequest.of(0, 12);
+
+        when(galleryService.getMyPhotos(1L, "newest", pageable)).thenReturn(photos);
+        when(galleryService.countMyPhotos(1L)).thenReturn(2L);
+
+        // Act
+        ResponseEntity<GalleryListResponse> response = galleryController.getMyPhotos(0, 12, "newest", currentUser);
+
+        // Assert
+        assertNotNull(response);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        verify(galleryService, times(1)).getMyPhotos(1L, "newest", pageable);
+    }
+
+    @Test
+    @DisplayName("Get my photos - Valid sortBy parameter 'mostLiked'")
+    void getMyPhotos_SortByMostLiked_ShouldSucceed() {
+        // Arrange
+        List<GalleryPhoto> photos = Arrays.asList(testPhoto1, testPhoto2);
+        Pageable pageable = PageRequest.of(0, 12);
+
+        when(galleryService.getMyPhotos(1L, "mostLiked", pageable)).thenReturn(photos);
+        when(galleryService.countMyPhotos(1L)).thenReturn(2L);
+
+        // Act
+        ResponseEntity<GalleryListResponse> response = galleryController.getMyPhotos(0, 12, "mostLiked", currentUser);
+
+        // Assert
+        assertNotNull(response);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        verify(galleryService, times(1)).getMyPhotos(1L, "mostLiked", pageable);
+    }
+
+    @Test
+    @DisplayName("Get my photos - Invalid sortBy parameter should throw exception")
+    void getMyPhotos_InvalidSortBy_ShouldThrowException() {
+        // Act & Assert
+        assertThrows(IllegalArgumentException.class, () -> {
+            galleryController.getMyPhotos(0, 12, "invalid", currentUser);
+        });
+
+        // Verify service never called
+        verify(galleryService, never()).getMyPhotos(anyLong(), anyString(), any());
+    }
+
+    @Test
+    @DisplayName("Get my photos - Default sortBy when not specified")
+    void getMyPhotos_DefaultSortBy_ShouldUseNewest() {
+        // Arrange
+        List<GalleryPhoto> photos = Arrays.asList(testPhoto1, testPhoto2);
+        Pageable pageable = PageRequest.of(0, 12);
+
+        when(galleryService.getMyPhotos(1L, "newest", pageable)).thenReturn(photos);
+        when(galleryService.countMyPhotos(1L)).thenReturn(2L);
+
+        // Act - Call without sortBy parameter (should default to "newest")
+        ResponseEntity<GalleryListResponse> response = galleryController.getMyPhotos(0, 12, "newest", currentUser);
+
+        // Assert
+        assertNotNull(response);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        verify(galleryService, times(1)).getMyPhotos(1L, "newest", pageable);
+    }
+
+    @Test
+    @DisplayName("Get public photos - SortBy parameter validation")
+    void getPublicPhotos_SortByValidation_ShouldWork() {
+        // Arrange
+        List<GalleryPhoto> photos = Arrays.asList(testPhoto2);
+        Pageable pageable = PageRequest.of(0, 12);
+
+        when(galleryService.getPublicPhotos("mostFavorited", pageable)).thenReturn(photos);
+        when(galleryService.countPublicPhotos()).thenReturn(1L);
+
+        // Act
+        ResponseEntity<GalleryListResponse> response = galleryController.getPublicPhotos(0, 12, "mostFavorited", currentUser);
+
+        // Assert
+        assertNotNull(response);
+        assertEquals(HttpStatus.OK, response.getStatusCode());
+        verify(galleryService, times(1)).getPublicPhotos("mostFavorited", pageable);
     }
 }
