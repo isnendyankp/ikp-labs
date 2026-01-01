@@ -125,25 +125,27 @@ export async function uploadPhoto(
 }
 
 /**
- * Get user's photos with pagination
- * GET /api/gallery/my-photos?page=0&size=12
+ * Get user's photos with pagination and sorting
+ * GET /api/gallery/my-photos?page=0&size=12&sortBy=newest
  *
  * Returns GalleryListResponse with photos array and pagination metadata
  *
  * @param userId - User ID (not used, kept for compatibility)
  * @param page - Page number (0-indexed)
  * @param size - Items per page (default: 12)
+ * @param sortBy - Sort option (default: newest)
  */
 export async function getUserPhotos(
   userId: number,
   page: number = 0,
-  size: number = 12
+  size: number = 12,
+  sortBy: string = 'newest'
 ): Promise<ApiResponse<GalleryListResponse>> {
-  console.log('🚀 Fetching user photos:', { userId, page, size });
+  console.log('🚀 Fetching user photos:', { userId, page, size, sortBy });
 
   try {
     const response = await fetch(
-      `${API_BASE_URL}/api/gallery/my-photos?page=${page}&size=${size}`,
+      `${API_BASE_URL}/api/gallery/my-photos?page=${page}&size=${size}&sortBy=${sortBy}`,
       {
         method: 'GET',
         headers: createAuthHeaders(),
@@ -174,23 +176,25 @@ export async function getUserPhotos(
 }
 
 /**
- * Get public photos with pagination
- * GET /api/gallery/public?page=0&size=12
+ * Get public photos with pagination and sorting
+ * GET /api/gallery/public?page=0&size=12&sortBy=newest
  *
  * Returns GalleryListResponse with photos array and pagination metadata
  *
  * @param page - Page number (0-indexed)
  * @param size - Items per page (default: 12)
+ * @param sortBy - Sort option (default: newest)
  */
 export async function getPublicPhotos(
   page: number = 0,
-  size: number = 12
+  size: number = 12,
+  sortBy: string = 'newest'
 ): Promise<ApiResponse<GalleryListResponse>> {
-  console.log('🚀 Fetching public photos:', { page, size });
+  console.log('🚀 Fetching public photos:', { page, size, sortBy });
 
   try {
     const response = await fetch(
-      `${API_BASE_URL}/api/gallery/public?page=${page}&size=${size}`,
+      `${API_BASE_URL}/api/gallery/public?page=${page}&size=${size}&sortBy=${sortBy}`,
       {
         method: 'GET',
         headers: createAuthHeaders(),

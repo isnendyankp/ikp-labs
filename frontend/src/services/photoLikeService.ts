@@ -167,11 +167,11 @@ export async function unlikePhoto(
 }
 
 /**
- * Get liked photos for current user
- * GET /api/gallery/liked-photos?page=0&size=12
+ * Get liked photos for current user with sorting
+ * GET /api/gallery/liked-photos?page=0&size=12&sortBy=newest
  *
  * Returns paginated list of photos liked by current user.
- * Photos ordered by most recently liked first.
+ * Photos can be sorted by: newest, oldest, mostLiked, mostFavorited.
  *
  * HTTP Status Codes:
  * - 200 OK: Success, returns GalleryListResponse
@@ -190,17 +190,19 @@ export async function unlikePhoto(
  *
  * @param page - Page number (0-indexed, default: 0)
  * @param size - Items per page (default: 12)
+ * @param sortBy - Sort option (default: newest)
  * @returns ApiResponse with GalleryListResponse
  */
 export async function getLikedPhotos(
   page: number = 0,
-  size: number = 12
+  size: number = 12,
+  sortBy: string = 'newest'
 ): Promise<ApiResponse<GalleryListResponse>> {
-  console.log('🚀 Fetching liked photos:', { page, size });
+  console.log('🚀 Fetching liked photos:', { page, size, sortBy });
 
   try {
     const response = await fetch(
-      `${API_BASE_URL}/api/gallery/liked-photos?page=${page}&size=${size}`,
+      `${API_BASE_URL}/api/gallery/liked-photos?page=${page}&size=${size}&sortBy=${sortBy}`,
       {
         method: 'GET',
         headers: createAuthHeaders(),

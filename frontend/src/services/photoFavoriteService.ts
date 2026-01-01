@@ -211,17 +211,19 @@ export async function unfavoritePhoto(
  *
  * @param page - Page number (0-indexed, default: 0)
  * @param size - Items per page (default: 12)
+ * @param sortBy - Sort option (default: newest)
  * @returns ApiResponse with GalleryListResponse
  */
 export async function getFavoritedPhotos(
   page: number = 0,
-  size: number = 12
+  size: number = 12,
+  sortBy: string = 'newest'
 ): Promise<ApiResponse<GalleryListResponse>> {
-  console.log('🚀 Fetching favorited photos:', { page, size });
+  console.log('🚀 Fetching favorited photos:', { page, size, sortBy });
 
   try {
     const response = await fetch(
-      `${API_BASE_URL}/api/gallery/favorited-photos?page=${page}&size=${size}`,
+      `${API_BASE_URL}/api/gallery/favorited-photos?page=${page}&size=${size}&sortBy=${sortBy}`,
       {
         method: 'GET',
         headers: createAuthHeaders(),
