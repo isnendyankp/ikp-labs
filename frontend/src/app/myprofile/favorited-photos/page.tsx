@@ -39,6 +39,7 @@ import { getFavoritedPhotos } from '../../../services/photoFavoriteService';
 import PhotoGrid from '../../../components/gallery/PhotoGrid';
 import Pagination from '../../../components/gallery/Pagination';
 import LogoutButton from '../../../components/LogoutButton';
+import SortByDropdown, { SortByOption } from '../../../components/SortByDropdown';
 
 const PHOTOS_PER_PAGE = 12;
 
@@ -49,6 +50,7 @@ export default function FavoritedPhotosPage() {
   const [photos, setPhotos] = useState<GalleryPhoto[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
+  const [currentSort, setCurrentSort] = useState<SortByOption>('newest');
   const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
@@ -72,8 +74,8 @@ export default function FavoritedPhotosPage() {
 
     setLoading(true);
 
-    try {
-      const response = await getFavoritedPhotos(currentPage, PHOTOS_PER_PAGE);
+    try{
+      const response = await getFavoritedPhotos(currentPage, PHOTOS_PER_PAGE, currentSort);
 
       if (response.data) {
         // Backend returns GalleryListResponse with photos array AND pagination metadata
@@ -99,15 +101,21 @@ export default function FavoritedPhotosPage() {
     }
   }, [user, currentPage]);
 
-  // Fetch favorited photos when page changes
+  // Fetch favorited photos when page or sort changes
   useEffect(() => {
     if (user) {
       fetchFavoritedPhotos();
     }
-  }, [user, fetchFavoritedPhotos]);
+  }, [user, currentSort, fetchFavoritedPhotos]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleSortChange = (sort: SortByOption) => {
+    setCurrentSort(sort);
+    setCurrentPage(0); // Reset to page 1 when sort changes
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -157,6 +165,14 @@ export default function FavoritedPhotosPage() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Sort Dropdown */}
+        <div className="mb-6">
+          <SortByDropdown
+            currentSort={currentSort}
+            onSortChange={handleSortChange}
+          />
+        </div>
+
         {/* Info Banner */}
         {!loading && photos.length > 0 && (
           <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">

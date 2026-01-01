@@ -22,6 +22,7 @@ import { getLikedPhotos } from '../../../services/photoLikeService';
 import PhotoGrid from '../../../components/gallery/PhotoGrid';
 import Pagination from '../../../components/gallery/Pagination';
 import LogoutButton from '../../../components/LogoutButton';
+import SortByDropdown, { SortByOption } from '../../../components/SortByDropdown';
 
 const PHOTOS_PER_PAGE = 12;
 
@@ -32,6 +33,7 @@ export default function LikedPhotosPage() {
   const [photos, setPhotos] = useState<GalleryPhoto[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
+  const [currentSort, setCurrentSort] = useState<SortByOption>('newest');
   const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
@@ -56,7 +58,7 @@ export default function LikedPhotosPage() {
     setLoading(true);
 
     try {
-      const response = await getLikedPhotos(currentPage, PHOTOS_PER_PAGE);
+      const response = await getLikedPhotos(currentPage, PHOTOS_PER_PAGE, currentSort);
 
       if (response.data) {
         // Backend returns GalleryListResponse with photos array AND pagination metadata
@@ -82,15 +84,21 @@ export default function LikedPhotosPage() {
     }
   }, [user, currentPage]);
 
-  // Fetch liked photos when page changes
+  // Fetch liked photos when page or sort changes
   useEffect(() => {
     if (user) {
       fetchLikedPhotos();
     }
-  }, [user, fetchLikedPhotos]);
+  }, [user, currentSort, fetchLikedPhotos]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleSortChange = (sort: SortByOption) => {
+    setCurrentSort(sort);
+    setCurrentPage(0); // Reset to page 1 when sort changes
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -140,6 +148,14 @@ export default function LikedPhotosPage() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        {/* Sort Dropdown */}
+        <div className="mb-6">
+          <SortByDropdown
+            currentSort={currentSort}
+            onSortChange={handleSortChange}
+          />
+        </div>
+
         {/* Info Banner */}
         {!loading && photos.length > 0 && (
           <div className="mb-6 p-4 bg-pink-50 border border-pink-200 rounded-lg">
