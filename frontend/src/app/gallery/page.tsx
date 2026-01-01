@@ -23,6 +23,7 @@ import PhotoGrid from "../../components/gallery/PhotoGrid";
 import Pagination from "../../components/gallery/Pagination";
 import LogoutButton from "../../components/LogoutButton";
 import FilterDropdown, { FilterOption } from "../../components/FilterDropdown";
+import SortByDropdown, { SortByOption } from "../../components/SortByDropdown";
 
 const PHOTOS_PER_PAGE = 12;
 
@@ -30,15 +31,17 @@ export default function GalleryPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
 
-  // Read filter and page from URL query params
+  // Read filter, page, and sortBy from URL query params
   const filterParam = (searchParams.get("filter") as FilterOption) || "all";
   const pageParam = parseInt(searchParams.get("page") || "1", 10);
+  const sortByParam = (searchParams.get("sortBy") as SortByOption) || "newest";
 
   const [user, setUser] = useState<AuthUser | null>(null);
   const [photos, setPhotos] = useState<GalleryPhoto[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentFilter, setCurrentFilter] = useState<FilterOption>(filterParam);
   const [currentPage, setCurrentPage] = useState(pageParam - 1); // Convert to 0-indexed
+  const [currentSort, setCurrentSort] = useState<SortByOption>(sortByParam);
   const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
@@ -60,14 +63,15 @@ export default function GalleryPage() {
   useEffect(() => {
     setCurrentFilter(filterParam);
     setCurrentPage(pageParam - 1);
-  }, [filterParam, pageParam]);
+    setCurrentSort(sortByParam);
+  }, [filterParam, pageParam, sortByParam]);
 
-  // Fetch photos when user, page, or filter changes
+  // Fetch photos when user, page, filter, or sort changes
   useEffect(() => {
     if (user) {
       fetchPhotos();
     }
-  }, [user, currentPage, currentFilter]);
+  }, [user, currentPage, currentFilter, currentSort]);
 
   const fetchPhotos = async () => {
     if (!user) return;
@@ -77,22 +81,22 @@ export default function GalleryPage() {
     try {
       let response;
 
-      // Fetch based on current filter
+      // Fetch based on current filter (with sorting)
       switch (currentFilter) {
         case "my-photos":
-          response = await getUserPhotos(user.id, currentPage, PHOTOS_PER_PAGE);
+          response = await getUserPhotos(user.id, currentPage, PHOTOS_PER_PAGE, currentSort);
           break;
         case "all":
-          response = await getPublicPhotos(currentPage, PHOTOS_PER_PAGE);
+          response = await getPublicPhotos(currentPage, PHOTOS_PER_PAGE, currentSort);
           break;
         case "liked":
-          response = await getLikedPhotos(currentPage, PHOTOS_PER_PAGE);
+          response = await getLikedPhotos(currentPage, PHOTOS_PER_PAGE, currentSort);
           break;
         case "favorited":
-          response = await getFavoritedPhotos(currentPage, PHOTOS_PER_PAGE);
+          response = await getFavoritedPhotos(currentPage, PHOTOS_PER_PAGE, currentSort);
           break;
         default:
-          response = await getPublicPhotos(currentPage, PHOTOS_PER_PAGE);
+          response = await getPublicPhotos(currentPage, PHOTOS_PER_PAGE, currentSort);
       }
 
       if (response.data) {
@@ -123,6 +127,7 @@ export default function GalleryPage() {
     const params = new URLSearchParams();
     params.set("filter", currentFilter);
     params.set("page", newPage.toString());
+    params.set("sortBy", currentSort);
     router.push(`/gallery?${params.toString()}`);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -131,7 +136,17 @@ export default function GalleryPage() {
     const params = new URLSearchParams();
     params.set("filter", filter);
     params.set("page", "1"); // Reset to page 1 when filter changes
+    params.set("sortBy", currentSort); // Keep current sort
     router.push(`/gallery?${params.toString()}`);
+  };
+
+  const handleSortChange = (sort: SortByOption) => {
+    const params = new URLSearchParams();
+    params.set("filter", currentFilter);
+    params.set("page", "1"); // Reset to page 1 when sort changes
+    params.set("sortBy", sort);
+    router.push(`/gallery?${params.toString()}`);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   if (!user) {
@@ -169,16 +184,25 @@ export default function GalleryPage() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Action Bar */}
         <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-8">
-          {/* Filter Dropdown */}
-          <FilterDropdown
-            currentFilter={currentFilter}
-            onFilterChange={handleFilterChange}
-          />
+          {/* Left: Filter and Sort Dropdowns */}
+          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
+            {/* Filter Dropdown */}
+            <FilterDropdown
+              currentFilter={currentFilter}
+              onFilterChange={handleFilterChange}
+            />
 
-          {/* Upload Button */}
+            {/* Sort By Dropdown */}
+            <SortByDropdown
+              currentSort={currentSort}
+              onSortChange={handleSortChange}
+            />
+          </div>
+
+          {/* Right: Upload Button */}
           <button
             onClick={() => router.push("/gallery/upload")}
-            className="px-6 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors shadow"
+            className="w-full sm:w-auto px-6 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors shadow"
           >
             + Upload Photo
           </button>
