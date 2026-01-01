@@ -12,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * PhotoLikeService - Business logic for photo like/unlike operations
  *
@@ -156,7 +158,7 @@ public class PhotoLikeService {
     /**
      * Get all photos liked by a user
      *
-     * Returns paginated list of GalleryPhoto objects.
+     * Returns list of GalleryPhoto objects (for pagination).
      * Photos ordered by most recently liked first (created_at DESC).
      *
      * OPTIMIZED: Uses single query with JOINs to get like/favorite counts.
@@ -170,15 +172,15 @@ public class PhotoLikeService {
      * Example:
      * - User A has liked 50 photos
      * - Request: getLikedPhotos(456, PageRequest.of(0, 12))
-     * - Returns: Page with 12 photos + metadata (totalPages=5, hasNext=true)
+     * - Returns: List with 12 photos (controller builds pagination metadata)
      *
      * @param userId ID of user
      * @param sortBy Sort order (newest, oldest, mostLiked, mostFavorited)
      * @param pageable Pagination parameters (page, size, sort)
-     * @return Page<GalleryPhoto> with photos and pagination metadata
+     * @return List<GalleryPhoto> with photos (controller adds pagination)
      */
     @Transactional(readOnly = true)
-    public Page<GalleryPhoto> getLikedPhotos(Long userId, String sortBy, Pageable pageable) {
+    public List<GalleryPhoto> getLikedPhotos(Long userId, String sortBy, Pageable pageable) {
         // Use optimized query with JOINs for like/favorite counts
         return photoLikeRepository.findLikedPhotosByUserIdWithCounts(userId, sortBy, pageable);
     }
@@ -204,6 +206,25 @@ public class PhotoLikeService {
     @Transactional(readOnly = true)
     public long getLikeCount(Long photoId) {
         return photoLikeRepository.countByPhotoId(photoId);
+    }
+
+    /**
+     * Count total liked photos by user
+     *
+     * Returns total number of photos liked by user.
+     * Used for pagination metadata calculation.
+     *
+     * Example:
+     * - User A has liked 50 photos
+     * - countLikedPhotosByUserId(456) → returns 50
+     * - Controller uses this to calculate: totalPages = ceil(50 / 12) = 5
+     *
+     * @param userId ID of user
+     * @return Total number of photos liked by user
+     */
+    @Transactional(readOnly = true)
+    public long countLikedPhotosByUserId(Long userId) {
+        return photoLikeRepository.countLikedPhotosByUserId(userId);
     }
 
     /**

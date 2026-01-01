@@ -298,12 +298,11 @@ public class PhotoFavoriteController {
         Pageable pageable = PageRequest.of(page, size);
 
         // Fetch favorited photos from service (only THIS user's favorites!)
-        Page<GalleryPhoto> favoritedPhotosPage = photoFavoriteService.getFavoritedPhotos(userId, sortBy, pageable);
+        List<GalleryPhoto> favoritedPhotos = photoFavoriteService.getFavoritedPhotos(userId, sortBy, pageable);
 
         // Convert GalleryPhoto entities to DTOs with like data AND favorite data
         // All photos in this list are favorited by current user (isFavoritedByUser = true)
-        List<GalleryPhotoResponse> photoResponses = favoritedPhotosPage.getContent()
-                .stream()
+        List<GalleryPhotoResponse> photoResponses = favoritedPhotos.stream()
                 .map(photo -> {
                     // Get like data for this photo
                     long likeCount = photoLikeService.getLikeCount(photo.getId());
@@ -321,15 +320,21 @@ public class PhotoFavoriteController {
                 })
                 .collect(Collectors.toList());
 
+        // Manually build pagination metadata (same pattern as GalleryController)
+        long totalPhotos = photoFavoriteService.countFavoritedPhotosByUserId(userId);
+        int totalPages = (int) Math.ceil((double) totalPhotos / size);
+        boolean hasNext = page < totalPages - 1;
+        boolean hasPrevious = page > 0;
+
         // Build response with pagination metadata using static factory method
         GalleryListResponse response = GalleryListResponse.fromPage(
                 photoResponses,
-                favoritedPhotosPage.getNumber(),
-                favoritedPhotosPage.getTotalPages(),
-                favoritedPhotosPage.getTotalElements(),
-                favoritedPhotosPage.getSize(),
-                favoritedPhotosPage.hasNext(),
-                favoritedPhotosPage.hasPrevious()
+                page,          // Current page (0-indexed)
+                totalPages,    // Total pages
+                totalPhotos,   // Total favorited photos count
+                size,          // Page size
+                hasNext,       // Has next page?
+                hasPrevious    // Has previous page?
         );
 
         // Return 200 OK with JSON response

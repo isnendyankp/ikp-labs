@@ -418,11 +418,11 @@ test.describe('Gallery Sorting Feature', () => {
       const { user } = await createAuthenticatedGalleryUser(page);
       createdUsers.push(user.email); // Track for cleanup
 
-      // AND: User uploads 3 PUBLIC photos sequentially (newest to oldest)
+      // AND: User uploads 3 photos sequentially (newest to oldest)
       await uploadGalleryPhoto(page, 'test-photo.jpg', {
         title: 'Photo 1 - Newest',
         description: 'Uploaded first (newest)',
-        isPublic: true // Public so they appear in "All Photos" filter
+        isPublic: false  // Privacy doesn't matter for "My Photos" view
       });
 
       // Wait 1 second to ensure different timestamps
@@ -442,9 +442,13 @@ test.describe('Gallery Sorting Feature', () => {
         isPublic: false
       });
 
-      // WHEN: User navigates to gallery (defaults to "All Photos" showing public photos)
-      await page.goto('/gallery');
-      await page.waitForTimeout(2500); // Wait for page and photos to load
+      // WHEN: User navigates to "My Photos" view with URL parameters
+      await page.goto('/gallery?filter=my-photos', { waitUntil: 'networkidle' });
+      await page.waitForTimeout(3000); // Wait for photos to load
+
+      // Wait for photos to appear
+      await page.waitForSelector('h3', { timeout: 10000 });
+      await page.waitForTimeout(500);
 
       // THEN: Photos appear in newest-first order
       const photoTitles = await page.locator('h3').allTextContents();
@@ -523,13 +527,13 @@ test.describe('Gallery Sorting Feature', () => {
       await uploadGalleryPhoto(page, 'test-photo.jpg', {
         title: 'Photo with Some Likes',
         description: 'Will have likes',
-        isPublic: false
+        isPublic: true // FIX: Make public for consistency
       });
 
       await uploadGalleryPhoto(page, 'test-photo.jpg', {
         title: 'Photo with Most Likes',
         description: 'Will have most likes',
-        isPublic: false
+        isPublic: true // FIX: Make public for consistency
       });
 
       // WHEN: User navigates to gallery

@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -161,7 +162,7 @@ public interface PhotoFavoriteRepository extends JpaRepository<PhotoFavorite, Lo
      * @return Page of favorited photos with counts (sorted)
      */
     @Query(value = """
-        SELECT DISTINCT p.*
+        SELECT p.*
         FROM gallery_photos p
         INNER JOIN photo_favorites user_fav ON p.id = user_fav.photo_id AND user_fav.user_id = :userId
         LEFT JOIN photo_likes pl ON p.id = pl.photo_id
@@ -173,18 +174,31 @@ public interface PhotoFavoriteRepository extends JpaRepository<PhotoFavorite, Lo
             CASE WHEN :sortBy = 'mostLiked' THEN COUNT(DISTINCT pl.id) END DESC,
             CASE WHEN :sortBy = 'mostFavorited' THEN COUNT(DISTINCT pf.id) END DESC,
             p.created_at DESC
-        """,
-        countQuery = """
-        SELECT COUNT(DISTINCT p.id)
-        FROM gallery_photos p
-        INNER JOIN photo_favorites user_fav ON p.id = user_fav.photo_id AND user_fav.user_id = :userId
-        """,
-        nativeQuery = true)
-    Page<GalleryPhoto> findFavoritedPhotosByUserIdWithCounts(
+        """, nativeQuery = true)
+    List<GalleryPhoto> findFavoritedPhotosByUserIdWithCounts(
         @Param("userId") Long userId,
         @Param("sortBy") String sortBy,
         Pageable pageable
     );
+
+    /**
+     * Count total favorited photos by user
+     *
+     * Use case: Calculate total pages for pagination in "Favorited Photos" page
+     *
+     * Example:
+     * User has favorited 50 photos, page size = 12
+     * Total pages = ceil(50 / 12) = 5 pages
+     *
+     * @param userId ID of the user
+     * @return Total number of photos favorited by user
+     */
+    @Query(value = """
+        SELECT COUNT(DISTINCT p.id)
+        FROM gallery_photos p
+        INNER JOIN photo_favorites user_fav ON p.id = user_fav.photo_id AND user_fav.user_id = :userId
+        """, nativeQuery = true)
+    long countFavoritedPhotosByUserId(@Param("userId") Long userId);
 
     /**
      * Delete a favorite by photo ID and user ID

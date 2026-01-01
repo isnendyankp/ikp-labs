@@ -92,8 +92,22 @@ export async function uploadGalleryPhoto(
   if (options?.description) {
     await page.fill('textarea', options.description);
   }
-  if (options?.isPublic) {
-    await page.check('input#isPublic');
+
+  // Handle isPublic checkbox explicitly
+  if (options?.isPublic !== undefined) {
+    const checkbox = page.locator('input#isPublic');
+    const isChecked = await checkbox.isChecked();
+
+    // Only toggle if current state doesn't match desired state
+    if (isChecked !== options.isPublic) {
+      await checkbox.click();
+    }
+
+    // Verify final state matches what we want
+    const finalState = await checkbox.isChecked();
+    if (finalState !== options.isPublic) {
+      throw new Error(`Failed to set isPublic to ${options.isPublic}. Final state: ${finalState}`);
+    }
   }
 
   // Submit upload

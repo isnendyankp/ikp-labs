@@ -12,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 /**
  * PhotoFavoriteService - Business logic for photo favorite/unfavorite operations
  *
@@ -184,7 +186,7 @@ public class PhotoFavoriteService {
     /**
      * Get all photos favorited by a user
      *
-     * Returns paginated list of GalleryPhoto objects.
+     * Returns list of GalleryPhoto objects (for pagination).
      * Photos ordered by most recently favorited first (created_at DESC).
      *
      * OPTIMIZED: Uses single query with JOINs to get like/favorite counts.
@@ -203,18 +205,39 @@ public class PhotoFavoriteService {
      * Example:
      * - User A has favorited 50 photos (own photos + others' public photos)
      * - Request: getFavoritedPhotos(456, PageRequest.of(0, 12))
-     * - Returns: Page with 12 photos + metadata (totalPages=5, hasNext=true)
+     * - Returns: List with 12 photos (controller builds pagination metadata)
      * - Only User A can see this list (100% private)
      *
      * @param userId ID of user (MUST be from JWT token!)
      * @param sortBy Sort order (newest, oldest, mostLiked, mostFavorited)
      * @param pageable Pagination parameters (page, size, sort)
-     * @return Page<GalleryPhoto> with photos and pagination metadata
+     * @return List<GalleryPhoto> with photos (controller adds pagination)
      */
     @Transactional(readOnly = true)
-    public Page<GalleryPhoto> getFavoritedPhotos(Long userId, String sortBy, Pageable pageable) {
+    public List<GalleryPhoto> getFavoritedPhotos(Long userId, String sortBy, Pageable pageable) {
         // Use optimized query with JOINs for like/favorite counts
         return photoFavoriteRepository.findFavoritedPhotosByUserIdWithCounts(userId, sortBy, pageable);
+    }
+
+    /**
+     * Count total favorited photos by user
+     *
+     * Returns total number of photos favorited by user.
+     * Used for pagination metadata calculation.
+     *
+     * PRIVACY: Only counts THIS user's favorites.
+     *
+     * Example:
+     * - User A has favorited 50 photos
+     * - countFavoritedPhotosByUserId(456) → returns 50
+     * - Controller uses this to calculate: totalPages = ceil(50 / 12) = 5
+     *
+     * @param userId ID of user (MUST be from JWT!)
+     * @return Total number of photos favorited by user
+     */
+    @Transactional(readOnly = true)
+    public long countFavoritedPhotosByUserId(Long userId) {
+        return photoFavoriteRepository.countFavoritedPhotosByUserId(userId);
     }
 
     /**

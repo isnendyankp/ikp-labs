@@ -155,7 +155,7 @@ public interface GalleryPhotoRepository extends JpaRepository<GalleryPhoto, Long
      * @return List of photos with counts (sorted)
      */
     @Query(value = """
-        SELECT DISTINCT p.*
+        SELECT p.*
         FROM gallery_photos p
         LEFT JOIN photo_likes pl ON p.id = pl.photo_id
         LEFT JOIN photo_favorites pf ON p.id = pf.photo_id
@@ -185,7 +185,7 @@ public interface GalleryPhotoRepository extends JpaRepository<GalleryPhoto, Long
      * @return List of public photos with counts (sorted)
      */
     @Query(value = """
-        SELECT DISTINCT p.*
+        SELECT p.*
         FROM gallery_photos p
         LEFT JOIN photo_likes pl ON p.id = pl.photo_id
         LEFT JOIN photo_favorites pf ON p.id = pf.photo_id

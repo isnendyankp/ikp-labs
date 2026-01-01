@@ -265,13 +265,12 @@ public class PhotoLikeController {
         // Create Pageable for pagination (page, size, no sorting needed - handled by repository)
         Pageable pageable = PageRequest.of(page, size);
 
-        // Get liked photos from service (returns Page<GalleryPhoto>)
-        Page<GalleryPhoto> likedPhotosPage = photoLikeService.getLikedPhotos(userId, sortBy, pageable);
+        // Get liked photos from service (returns List<GalleryPhoto>)
+        List<GalleryPhoto> likedPhotos = photoLikeService.getLikedPhotos(userId, sortBy, pageable);
 
         // Convert entities to DTOs with like data
         // All photos in this list are liked by current user (isLikedByUser = true)
-        List<GalleryPhotoResponse> photoResponses = likedPhotosPage.getContent()
-                .stream()
+        List<GalleryPhotoResponse> photoResponses = likedPhotos.stream()
                 .map(photo -> {
                     long likeCount = photoLikeService.getLikeCount(photo.getId());
                     // isLikedByUser is always true for liked photos list
@@ -279,15 +278,21 @@ public class PhotoLikeController {
                 })
                 .collect(Collectors.toList());
 
+        // Manually build pagination metadata (same pattern as GalleryController)
+        long totalPhotos = photoLikeService.countLikedPhotosByUserId(userId);
+        int totalPages = (int) Math.ceil((double) totalPhotos / size);
+        boolean hasNext = page < totalPages - 1;
+        boolean hasPrevious = page > 0;
+
         // Build response with pagination metadata
         GalleryListResponse response = GalleryListResponse.fromPage(
                 photoResponses,
-                likedPhotosPage.getNumber(),        // Current page (0-indexed)
-                likedPhotosPage.getTotalPages(),    // Total pages
-                likedPhotosPage.getTotalElements(), // Total liked photos count
-                likedPhotosPage.getSize(),          // Page size
-                likedPhotosPage.hasNext(),          // Has next page?
-                likedPhotosPage.hasPrevious()       // Has previous page?
+                page,          // Current page (0-indexed)
+                totalPages,    // Total pages
+                totalPhotos,   // Total liked photos count
+                size,          // Page size
+                hasNext,       // Has next page?
+                hasPrevious    // Has previous page?
         );
 
         // Return 200 OK with response body

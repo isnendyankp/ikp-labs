@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -161,7 +162,7 @@ public interface PhotoLikeRepository extends JpaRepository<PhotoLike, Long> {
      * @return Page of liked photos with counts (sorted)
      */
     @Query(value = """
-        SELECT DISTINCT p.*
+        SELECT p.*
         FROM gallery_photos p
         INNER JOIN photo_likes user_like ON p.id = user_like.photo_id AND user_like.user_id = :userId
         LEFT JOIN photo_likes pl ON p.id = pl.photo_id
@@ -173,18 +174,31 @@ public interface PhotoLikeRepository extends JpaRepository<PhotoLike, Long> {
             CASE WHEN :sortBy = 'mostLiked' THEN COUNT(DISTINCT pl.id) END DESC,
             CASE WHEN :sortBy = 'mostFavorited' THEN COUNT(DISTINCT pf.id) END DESC,
             p.created_at DESC
-        """,
-        countQuery = """
-        SELECT COUNT(DISTINCT p.id)
-        FROM gallery_photos p
-        INNER JOIN photo_likes user_like ON p.id = user_like.photo_id AND user_like.user_id = :userId
-        """,
-        nativeQuery = true)
-    Page<GalleryPhoto> findLikedPhotosByUserIdWithCounts(
+        """, nativeQuery = true)
+    List<GalleryPhoto> findLikedPhotosByUserIdWithCounts(
         @Param("userId") Long userId,
         @Param("sortBy") String sortBy,
         Pageable pageable
     );
+
+    /**
+     * Count total liked photos by user
+     *
+     * Use case: Calculate total pages for pagination in "Liked Photos" page
+     *
+     * Example:
+     * User has liked 50 photos, page size = 12
+     * Total pages = ceil(50 / 12) = 5 pages
+     *
+     * @param userId ID of the user
+     * @return Total number of photos liked by user
+     */
+    @Query(value = """
+        SELECT COUNT(DISTINCT p.id)
+        FROM gallery_photos p
+        INNER JOIN photo_likes user_like ON p.id = user_like.photo_id AND user_like.user_id = :userId
+        """, nativeQuery = true)
+    long countLikedPhotosByUserId(@Param("userId") Long userId);
 
     /**
      * Delete a like by photo ID and user ID
