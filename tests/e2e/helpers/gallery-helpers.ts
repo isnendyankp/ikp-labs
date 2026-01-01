@@ -111,8 +111,17 @@ export async function uploadGalleryPhoto(
  */
 export async function viewMyPhotos(page: Page) {
   await page.goto('/gallery');
-  await page.click('button:has-text("My Photos")');
-  await page.waitForTimeout(1500); // Increased wait for API response
+  await page.waitForTimeout(1000); // Wait for page to load
+
+  // Click on FilterDropdown to open it
+  const filterButton = page.locator('button:has-text("All Photos"), button:has-text("My Photos")').first();
+  await filterButton.click();
+  await page.waitForTimeout(500);
+
+  // Click on "📸 My Photos" option in dropdown menu
+  const myPhotosOption = page.locator('button:has-text("📸 My Photos")');
+  await myPhotosOption.click();
+  await page.waitForTimeout(2000); // Wait for filter to apply and photos to load
 }
 
 /**
