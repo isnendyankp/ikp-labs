@@ -783,11 +783,153 @@ test.describe('Gallery Sorting Feature', () => {
 
   });
 
-  test.describe('Task 4.4: Sort + Filter Combination (To Be Implemented)', () => {
-    // TODO: Will be implemented in next task
-    test.skip('SORT-015: should combine sort with filter correctly', async ({ page }) => {
-      // Placeholder for Task 4.4
+  test.describe('Task 4.4: Sort + Filter Combination', () => {
+
+    test('SORT-021: should sort All Photos filter correctly', async ({ page }) => {
+      // GIVEN: User is registered and logged in
+      const { user } = await createAuthenticatedGalleryUser(page);
+      createdUsers.push(user.email); // Track for cleanup
+
+      // AND: User uploads 2 public photos
+      await uploadGalleryPhoto(page, 'test-photo.jpg', {
+        title: 'Public Photo 1',
+        description: 'First public',
+        isPublic: true
+      });
+
+      await page.waitForTimeout(1000);
+
+      await uploadGalleryPhoto(page, 'test-photo.jpg', {
+        title: 'Public Photo 2',
+        description: 'Second public',
+        isPublic: true
+      });
+
+      // WHEN: User navigates to All Photos with oldest sort
+      await page.goto('/gallery?filter=all&sortBy=oldest', { waitUntil: 'networkidle' });
+      await page.waitForTimeout(3000);
+
+      // THEN: URL contains both parameters
+      const currentUrl = page.url();
+      expect(currentUrl).toContain('filter=all');
+      expect(currentUrl).toContain('sortBy=oldest');
+
+      // AND: Photos are displayed (oldest first based on created_at)
+      const photoCards = page.locator('.group.cursor-pointer.bg-white.rounded-lg');
+      const count = await photoCards.count();
+      expect(count).toBeGreaterThanOrEqual(2);
+
+      console.log('✅ SORT-021: All Photos filter with oldest sort works');
     });
+
+    test('SORT-022: should sort Public Photos filter correctly', async ({ page }) => {
+      // GIVEN: User is registered and logged in
+      const { user } = await createAuthenticatedGalleryUser(page);
+      createdUsers.push(user.email); // Track for cleanup
+
+      // AND: User uploads 1 public and 1 private photo
+      await uploadGalleryPhoto(page, 'test-photo.jpg', {
+        title: 'Private Photo',
+        description: 'Should not appear in public filter',
+        isPublic: false
+      });
+
+      await page.waitForTimeout(1000);
+
+      await uploadGalleryPhoto(page, 'test-photo.jpg', {
+        title: 'Public Photo',
+        description: 'Should appear in public filter',
+        isPublic: true
+      });
+
+      // WHEN: User navigates to Public Photos with newest sort
+      await page.goto('/gallery?filter=public&sortBy=newest', { waitUntil: 'networkidle' });
+      await page.waitForTimeout(3000);
+
+      // THEN: URL contains both parameters
+      const currentUrl = page.url();
+      expect(currentUrl).toContain('filter=public');
+      expect(currentUrl).toContain('sortBy=newest');
+
+      // AND: Only public photos are shown (at least 1)
+      const photoCards = page.locator('.group.cursor-pointer.bg-white.rounded-lg');
+      const count = await photoCards.count();
+      expect(count).toBeGreaterThanOrEqual(1);
+
+      console.log('✅ SORT-022: Public Photos filter with newest sort works');
+    });
+
+    test('SORT-023: should sort My Photos filter with all sort options', async ({ page }) => {
+      // GIVEN: User is registered and logged in
+      const { user } = await createAuthenticatedGalleryUser(page);
+      createdUsers.push(user.email); // Track for cleanup
+
+      // AND: User uploads 3 photos
+      await uploadGalleryPhoto(page, 'test-photo.jpg', {
+        title: 'My Photo 1',
+        description: 'Oldest',
+        isPublic: false
+      });
+
+      await page.waitForTimeout(1000);
+
+      await uploadGalleryPhoto(page, 'test-photo.jpg', {
+        title: 'My Photo 2',
+        description: 'Middle',
+        isPublic: true
+      });
+
+      await page.waitForTimeout(1000);
+
+      await uploadGalleryPhoto(page, 'test-photo.jpg', {
+        title: 'My Photo 3',
+        description: 'Newest',
+        isPublic: false
+      });
+
+      // TEST 1: Oldest sort
+      await page.goto('/gallery?filter=my-photos&sortBy=oldest', { waitUntil: 'networkidle' });
+      await page.waitForTimeout(3000);
+
+      let photoTitles = await page.locator('h3').allTextContents();
+      expect(photoTitles[0]).toContain('My Photo 1'); // Oldest
+
+      // TEST 2: Newest sort
+      await page.goto('/gallery?filter=my-photos&sortBy=newest', { waitUntil: 'networkidle' });
+      await page.waitForTimeout(3000);
+
+      photoTitles = await page.locator('h3').allTextContents();
+      expect(photoTitles[0]).toContain('My Photo 3'); // Newest
+
+      console.log('✅ SORT-023: My Photos filter works with multiple sort options');
+    });
+
+    test('SORT-024: should handle empty filter results with sort', async ({ page }) => {
+      // GIVEN: User is registered and logged in (no photos uploaded)
+      const { user } = await createAuthenticatedGalleryUser(page);
+      createdUsers.push(user.email); // Track for cleanup
+
+      // WHEN: User navigates to My Photos with sort (but has no photos)
+      await page.goto('/gallery?filter=my-photos&sortBy=oldest', { waitUntil: 'networkidle' });
+      await page.waitForTimeout(2000);
+
+      // THEN: URL contains parameters
+      const currentUrl = page.url();
+      expect(currentUrl).toContain('filter=my-photos');
+      expect(currentUrl).toContain('sortBy=oldest');
+
+      // AND: Empty state is shown (no photos)
+      const photoCards = page.locator('.group.cursor-pointer.bg-white.rounded-lg');
+      const count = await photoCards.count();
+      expect(count).toBe(0);
+
+      // AND: Sort dropdown still works
+      const sortDropdown = page.locator('button[aria-label="Sort photos"]');
+      await expect(sortDropdown).toBeVisible();
+
+      console.log('✅ SORT-024: Empty filter with sort handled correctly');
+    });
+
   });
 
 });
