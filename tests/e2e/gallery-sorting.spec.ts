@@ -626,11 +626,161 @@ test.describe('Gallery Sorting Feature', () => {
 
   });
 
-  test.describe('Task 4.3: Sort Persistence (To Be Implemented)', () => {
-    // TODO: Will be implemented in next task
-    test.skip('SORT-014: should persist sort in URL on main gallery page', async ({ page }) => {
-      // Placeholder for Task 4.3
+  test.describe('Task 4.3: Sort Persistence', () => {
+
+    test('SORT-017: should update URL when sort option is selected', async ({ page }) => {
+      // GIVEN: User is registered and logged in
+      const { user } = await createAuthenticatedGalleryUser(page);
+      createdUsers.push(user.email); // Track for cleanup
+
+      // AND: User uploads a photo
+      await uploadGalleryPhoto(page, 'test-photo.jpg', {
+        title: 'Test Photo',
+        description: 'For URL persistence test',
+        isPublic: false
+      });
+
+      // AND: User is on My Photos view
+      await page.goto('/gallery?filter=my-photos', { waitUntil: 'networkidle' });
+      await page.waitForTimeout(2000);
+
+      // WHEN: User selects "Oldest First" sort option
+      const sortDropdown = page.locator('button[aria-label="Sort photos"]');
+      await sortDropdown.click();
+      await page.waitForTimeout(300);
+
+      const oldestOption = page.locator('button:has-text("Oldest First")');
+      await oldestOption.click();
+      await page.waitForTimeout(1000); // Wait for URL update
+
+      // THEN: URL should contain sortBy=oldest parameter
+      const currentUrl = page.url();
+      expect(currentUrl).toContain('sortBy=oldest');
+      expect(currentUrl).toContain('filter=my-photos');
+
+      console.log('✅ SORT-017: URL updated with sortBy parameter:', currentUrl);
     });
+
+    test('SORT-018: should persist sort after page refresh', async ({ page }) => {
+      // GIVEN: User is registered and logged in
+      const { user } = await createAuthenticatedGalleryUser(page);
+      createdUsers.push(user.email); // Track for cleanup
+
+      // AND: User uploads photos
+      await uploadGalleryPhoto(page, 'test-photo.jpg', {
+        title: 'First Photo',
+        description: 'Oldest',
+        isPublic: false
+      });
+
+      await page.waitForTimeout(1000);
+
+      await uploadGalleryPhoto(page, 'test-photo.jpg', {
+        title: 'Second Photo',
+        description: 'Newest',
+        isPublic: false
+      });
+
+      // AND: User navigates to My Photos with oldest sort
+      await page.goto('/gallery?filter=my-photos&sortBy=oldest', { waitUntil: 'networkidle' });
+      await page.waitForTimeout(2000);
+
+      // Verify initial sort is "Oldest First"
+      const sortDropdownBefore = page.locator('button[aria-label="Sort photos"]');
+      await expect(sortDropdownBefore.locator('span:has-text("Oldest First")')).toBeVisible();
+
+      // WHEN: User refreshes the page
+      await page.reload({ waitUntil: 'networkidle' });
+      await page.waitForTimeout(2000);
+
+      // THEN: Sort should still be "Oldest First"
+      const sortDropdownAfter = page.locator('button[aria-label="Sort photos"]');
+      await expect(sortDropdownAfter.locator('span:has-text("Oldest First")')).toBeVisible();
+
+      // AND: URL should still contain sortBy=oldest
+      const currentUrl = page.url();
+      expect(currentUrl).toContain('sortBy=oldest');
+
+      console.log('✅ SORT-018: Sort persisted after refresh');
+    });
+
+    test('SORT-019: should load correct sort from direct URL access', async ({ page }) => {
+      // GIVEN: User is registered and logged in
+      const { user } = await createAuthenticatedGalleryUser(page);
+      createdUsers.push(user.email); // Track for cleanup
+
+      // AND: User uploads 3 photos
+      await uploadGalleryPhoto(page, 'test-photo.jpg', {
+        title: 'Photo 1',
+        description: 'Uploaded first',
+        isPublic: false
+      });
+
+      await page.waitForTimeout(1000);
+
+      await uploadGalleryPhoto(page, 'test-photo.jpg', {
+        title: 'Photo 2',
+        description: 'Uploaded second',
+        isPublic: false
+      });
+
+      await page.waitForTimeout(1000);
+
+      await uploadGalleryPhoto(page, 'test-photo.jpg', {
+        title: 'Photo 3',
+        description: 'Uploaded third',
+        isPublic: false
+      });
+
+      // WHEN: User directly navigates to URL with sortBy=oldest
+      await page.goto('/gallery?filter=my-photos&sortBy=oldest', { waitUntil: 'networkidle' });
+      await page.waitForTimeout(3000); // Wait for photos to load
+
+      // THEN: Sort dropdown shows "Oldest First"
+      const sortDropdown = page.locator('button[aria-label="Sort photos"]');
+      await expect(sortDropdown.locator('span:has-text("Oldest First")')).toBeVisible();
+
+      // AND: Photos are sorted oldest first
+      const photoTitles = await page.locator('h3').allTextContents();
+      expect(photoTitles[0]).toContain('Photo 1'); // Oldest
+      expect(photoTitles[1]).toContain('Photo 2');
+      expect(photoTitles[2]).toContain('Photo 3'); // Newest
+
+      console.log('✅ SORT-019: Direct URL with sortBy loaded correctly');
+    });
+
+    test('SORT-020: should maintain sort with combined filter and sortBy URL parameters', async ({ page }) => {
+      // GIVEN: User is registered and logged in
+      const { user } = await createAuthenticatedGalleryUser(page);
+      createdUsers.push(user.email); // Track for cleanup
+
+      // AND: User uploads a photo
+      await uploadGalleryPhoto(page, 'test-photo.jpg', {
+        title: 'Test Photo',
+        description: 'For combined params test',
+        isPublic: false
+      });
+
+      // WHEN: User navigates to URL with both filter and sortBy parameters
+      await page.goto('/gallery?filter=my-photos&sortBy=oldest', { waitUntil: 'networkidle' });
+      await page.waitForTimeout(3000);
+
+      // THEN: URL contains both parameters
+      const currentUrl = page.url();
+      expect(currentUrl).toContain('filter=my-photos');
+      expect(currentUrl).toContain('sortBy=oldest');
+
+      // AND: Sort dropdown shows "Oldest First"
+      const sortDropdown = page.locator('button[aria-label="Sort photos"]');
+      await expect(sortDropdown.locator('span:has-text("Oldest First")')).toBeVisible();
+
+      // AND: Filter dropdown shows "My Photos"
+      const filterDropdown = page.locator('button:has-text("My Photos")').first();
+      await expect(filterDropdown).toBeVisible();
+
+      console.log('✅ SORT-020: Combined filter + sortBy parameters work together');
+    });
+
   });
 
   test.describe('Task 4.4: Sort + Filter Combination (To Be Implemented)', () => {
