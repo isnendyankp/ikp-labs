@@ -181,8 +181,14 @@ public class PhotoLikeService {
      */
     @Transactional(readOnly = true)
     public List<GalleryPhoto> getLikedPhotos(Long userId, String sortBy, Pageable pageable) {
-        // Use optimized query with JOINs for like/favorite counts
-        return photoLikeRepository.findLikedPhotosByUserIdWithCounts(userId, sortBy, pageable);
+        // Use JPQL queries based on sortBy parameter to avoid entity mapping issues
+        return switch (sortBy) {
+            case "newest" -> photoLikeRepository.findLikedPhotosByUserIdNewest(userId, pageable);
+            case "oldest" -> photoLikeRepository.findLikedPhotosByUserIdOldest(userId, pageable);
+            case "mostLiked" -> photoLikeRepository.findLikedPhotosByUserIdMostLiked(userId, pageable);
+            case "mostFavorited" -> photoLikeRepository.findLikedPhotosByUserIdMostFavorited(userId, pageable);
+            default -> photoLikeRepository.findLikedPhotosByUserIdNewest(userId, pageable); // Default to newest
+        };
     }
 
     /**

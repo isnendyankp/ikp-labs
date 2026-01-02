@@ -143,41 +143,81 @@ public interface PhotoFavoriteRepository extends JpaRepository<PhotoFavorite, Lo
     Page<GalleryPhoto> findFavoritedPhotosByUserId(@Param("userId") Long userId, Pageable pageable);
 
     /**
-     * OPTIMIZED: Get favorited photos with counts and sorting
+     * OPTIMIZED: Get favorited photos with JPQL (sortBy=newest)
      *
-     * Solves N+1 problem for favorited photos page.
-     * Gets all favorited photos with like/favorite counts in single query.
-     *
-     * Native SQL with JOINs:
-     * - JOIN with photo_favorites for user's favorited photos
-     * - LEFT JOIN for like counts
-     * - LEFT JOIN for favorite counts
-     * - Dynamic ORDER BY based on sortBy
+     * JPQL version avoids native SQL entity mapping issues.
+     * Returns photos ordered by created_at DESC (newest first).
      *
      * PRIVACY: Only returns THIS user's favorites
      *
      * @param userId ID of the user (from JWT!)
-     * @param sortBy Sort option: "newest", "oldest", "mostLiked", "mostFavorited"
      * @param pageable Pagination parameters
-     * @return Page of favorited photos with counts (sorted)
+     * @return List of favorited photos sorted by newest
      */
-    @Query(value = """
-        SELECT p.*
-        FROM gallery_photos p
-        INNER JOIN photo_favorites user_fav ON p.id = user_fav.photo_id AND user_fav.user_id = :userId
-        LEFT JOIN photo_likes pl ON p.id = pl.photo_id
-        LEFT JOIN photo_favorites pf ON p.id = pf.photo_id
-        GROUP BY p.id
-        ORDER BY
-            CASE WHEN :sortBy = 'newest' THEN p.created_at END DESC,
-            CASE WHEN :sortBy = 'oldest' THEN p.created_at END ASC,
-            CASE WHEN :sortBy = 'mostLiked' THEN COUNT(DISTINCT pl.id) END DESC,
-            CASE WHEN :sortBy = 'mostFavorited' THEN COUNT(DISTINCT pf.id) END DESC,
-            p.created_at DESC
-        """, nativeQuery = true)
-    List<GalleryPhoto> findFavoritedPhotosByUserIdWithCounts(
+    @Query("SELECT pf.photo FROM PhotoFavorite pf WHERE pf.user.id = :userId ORDER BY pf.photo.createdAt DESC")
+    List<GalleryPhoto> findFavoritedPhotosByUserIdNewest(
         @Param("userId") Long userId,
-        @Param("sortBy") String sortBy,
+        Pageable pageable
+    );
+
+    /**
+     * OPTIMIZED: Get favorited photos with JPQL (sortBy=oldest)
+     *
+     * Returns photos ordered by created_at ASC (oldest first).
+     *
+     * PRIVACY: Only returns THIS user's favorites
+     *
+     * @param userId ID of the user (from JWT!)
+     * @param pageable Pagination parameters
+     * @return List of favorited photos sorted by oldest
+     */
+    @Query("SELECT pf.photo FROM PhotoFavorite pf WHERE pf.user.id = :userId ORDER BY pf.photo.createdAt ASC")
+    List<GalleryPhoto> findFavoritedPhotosByUserIdOldest(
+        @Param("userId") Long userId,
+        Pageable pageable
+    );
+
+    /**
+     * OPTIMIZED: Get favorited photos with JPQL (sortBy=mostLiked)
+     *
+     * Returns photos ordered by like count DESC (most liked first).
+     * Uses subquery to count likes for each photo.
+     *
+     * PRIVACY: Only returns THIS user's favorites
+     *
+     * @param userId ID of the user (from JWT!)
+     * @param pageable Pagination parameters
+     * @return List of favorited photos sorted by most liked
+     */
+    @Query("""
+        SELECT pf.photo FROM PhotoFavorite pf
+        WHERE pf.user.id = :userId
+        ORDER BY (SELECT COUNT(pl) FROM PhotoLike pl WHERE pl.photo.id = pf.photo.id) DESC, pf.photo.createdAt DESC
+        """)
+    List<GalleryPhoto> findFavoritedPhotosByUserIdMostLiked(
+        @Param("userId") Long userId,
+        Pageable pageable
+    );
+
+    /**
+     * OPTIMIZED: Get favorited photos with JPQL (sortBy=mostFavorited)
+     *
+     * Returns photos ordered by favorite count DESC (most favorited first).
+     * Uses subquery to count favorites for each photo.
+     *
+     * PRIVACY: Only returns THIS user's favorites
+     *
+     * @param userId ID of the user (from JWT!)
+     * @param pageable Pagination parameters
+     * @return List of favorited photos sorted by most favorited
+     */
+    @Query("""
+        SELECT pf.photo FROM PhotoFavorite pf
+        WHERE pf.user.id = :userId
+        ORDER BY (SELECT COUNT(pf2) FROM PhotoFavorite pf2 WHERE pf2.photo.id = pf.photo.id) DESC, pf.photo.createdAt DESC
+        """)
+    List<GalleryPhoto> findFavoritedPhotosByUserIdMostFavorited(
+        @Param("userId") Long userId,
         Pageable pageable
     );
 

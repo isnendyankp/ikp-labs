@@ -145,39 +145,73 @@ public interface PhotoLikeRepository extends JpaRepository<PhotoLike, Long> {
     Page<GalleryPhoto> findLikedPhotosByUserId(@Param("userId") Long userId, Pageable pageable);
 
     /**
-     * OPTIMIZED: Get liked photos with counts and sorting
+     * OPTIMIZED: Get liked photos with JPQL (sortBy=newest)
      *
-     * Solves N+1 problem for liked photos page.
-     * Gets all liked photos with like/favorite counts in single query.
-     *
-     * Native SQL with JOINs:
-     * - JOIN with photo_likes for user's liked photos
-     * - LEFT JOIN for like counts
-     * - LEFT JOIN for favorite counts
-     * - Dynamic ORDER BY based on sortBy
+     * JPQL version avoids native SQL entity mapping issues.
+     * Returns photos ordered by created_at DESC (newest first).
      *
      * @param userId ID of the user
-     * @param sortBy Sort option: "newest", "oldest", "mostLiked", "mostFavorited"
      * @param pageable Pagination parameters
-     * @return Page of liked photos with counts (sorted)
+     * @return List of liked photos sorted by newest
      */
-    @Query(value = """
-        SELECT p.*
-        FROM gallery_photos p
-        INNER JOIN photo_likes user_like ON p.id = user_like.photo_id AND user_like.user_id = :userId
-        LEFT JOIN photo_likes pl ON p.id = pl.photo_id
-        LEFT JOIN photo_favorites pf ON p.id = pf.photo_id
-        GROUP BY p.id
-        ORDER BY
-            CASE WHEN :sortBy = 'newest' THEN p.created_at END DESC,
-            CASE WHEN :sortBy = 'oldest' THEN p.created_at END ASC,
-            CASE WHEN :sortBy = 'mostLiked' THEN COUNT(DISTINCT pl.id) END DESC,
-            CASE WHEN :sortBy = 'mostFavorited' THEN COUNT(DISTINCT pf.id) END DESC,
-            p.created_at DESC
-        """, nativeQuery = true)
-    List<GalleryPhoto> findLikedPhotosByUserIdWithCounts(
+    @Query("SELECT pl.photo FROM PhotoLike pl WHERE pl.user.id = :userId ORDER BY pl.photo.createdAt DESC")
+    List<GalleryPhoto> findLikedPhotosByUserIdNewest(
         @Param("userId") Long userId,
-        @Param("sortBy") String sortBy,
+        Pageable pageable
+    );
+
+    /**
+     * OPTIMIZED: Get liked photos with JPQL (sortBy=oldest)
+     *
+     * Returns photos ordered by created_at ASC (oldest first).
+     *
+     * @param userId ID of the user
+     * @param pageable Pagination parameters
+     * @return List of liked photos sorted by oldest
+     */
+    @Query("SELECT pl.photo FROM PhotoLike pl WHERE pl.user.id = :userId ORDER BY pl.photo.createdAt ASC")
+    List<GalleryPhoto> findLikedPhotosByUserIdOldest(
+        @Param("userId") Long userId,
+        Pageable pageable
+    );
+
+    /**
+     * OPTIMIZED: Get liked photos with JPQL (sortBy=mostLiked)
+     *
+     * Returns photos ordered by like count DESC (most liked first).
+     * Uses subquery to count likes for each photo.
+     *
+     * @param userId ID of the user
+     * @param pageable Pagination parameters
+     * @return List of liked photos sorted by most liked
+     */
+    @Query("""
+        SELECT pl.photo FROM PhotoLike pl
+        WHERE pl.user.id = :userId
+        ORDER BY (SELECT COUNT(pl2) FROM PhotoLike pl2 WHERE pl2.photo.id = pl.photo.id) DESC, pl.photo.createdAt DESC
+        """)
+    List<GalleryPhoto> findLikedPhotosByUserIdMostLiked(
+        @Param("userId") Long userId,
+        Pageable pageable
+    );
+
+    /**
+     * OPTIMIZED: Get liked photos with JPQL (sortBy=mostFavorited)
+     *
+     * Returns photos ordered by favorite count DESC (most favorited first).
+     * Uses subquery to count favorites for each photo.
+     *
+     * @param userId ID of the user
+     * @param pageable Pagination parameters
+     * @return List of liked photos sorted by most favorited
+     */
+    @Query("""
+        SELECT pl.photo FROM PhotoLike pl
+        WHERE pl.user.id = :userId
+        ORDER BY (SELECT COUNT(pf) FROM PhotoFavorite pf WHERE pf.photo.id = pl.photo.id) DESC, pl.photo.createdAt DESC
+        """)
+    List<GalleryPhoto> findLikedPhotosByUserIdMostFavorited(
+        @Param("userId") Long userId,
         Pageable pageable
     );
 
