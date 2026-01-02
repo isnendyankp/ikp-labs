@@ -489,8 +489,9 @@ test.describe('Gallery Sorting Feature', () => {
         isPublic: false
       });
 
-      // WHEN: User navigates to My Photos view
-      await viewMyPhotos(page);
+      // WHEN: User navigates to My Photos view with URL parameters
+      await page.goto('/gallery?filter=my-photos', { waitUntil: 'networkidle' });
+      await page.waitForTimeout(3000); // Wait for photos to load
 
       // AND: User selects "Oldest First" sort option
       const sortDropdown = page.locator('button[aria-label="Sort photos"]');
@@ -596,8 +597,9 @@ test.describe('Gallery Sorting Feature', () => {
         isPublic: false
       });
 
-      // WHEN: User navigates to My Photos view
-      await viewMyPhotos(page);
+      // WHEN: User navigates to My Photos view with URL parameters
+      await page.goto('/gallery?filter=my-photos', { waitUntil: 'networkidle' });
+      await page.waitForTimeout(3000); // Wait for photos to load
 
       // AND: User selects "Most Favorited" sort option
       const sortDropdown = page.locator('button[aria-label="Sort photos"]');
