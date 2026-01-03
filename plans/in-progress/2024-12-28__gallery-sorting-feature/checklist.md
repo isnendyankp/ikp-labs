@@ -391,15 +391,16 @@
 
 ## Phase 4: End-to-End Testing (Priority 3)
 
-### Task 4.1: Create Gherkin BDD Scenarios (45 min)
+### Task 4.1: Create Gherkin BDD Scenarios (45 min) ✅
 **Affected Files**: New Gherkin feature file
 **Estimated Time**: 45 minutes
+**Status**: ✅ COMPLETED (January 3, 2026)
 
 **Files Created**:
-- `specs/gallery/photo-sorting.feature`
+- `specs/gallery/photo-sorting.feature` ✅
 
 **Steps**:
-1. [ ] Create feature file with Background:
+1. [✅] Create feature file with Background:
    ```gherkin
    Feature: Gallery Photo Sorting
 
@@ -407,34 +408,36 @@
      Given I am logged in as a test user
      And test photos exist with different like and favorite counts
    ```
-2. [ ] Write scenarios for basic sorting (12-15 scenarios):
-   - [ ] Scenario: User sorts photos by newest first
-   - [ ] Scenario: User sorts photos by oldest first
-   - [ ] Scenario: User sorts photos by most liked
-   - [ ] Scenario: User sorts photos by most favorited
-3. [ ] Write scenarios for filter + sort combinations:
-   - [ ] Scenario: User views liked photos sorted by newest
-   - [ ] Scenario: User views liked photos sorted by most liked
-   - [ ] Scenario: User views favorited photos sorted by most favorited
-   - [ ] Scenario: User views my photos sorted by oldest
-4. [ ] Write scenarios for URL persistence:
-   - [ ] Scenario: Sort selection persists in URL
-   - [ ] Scenario: Sort selection persists after page refresh
-   - [ ] Scenario: Direct URL with sortBy parameter works
-5. [ ] Write scenarios for edge cases:
-   - [ ] Scenario: Invalid sortBy parameter defaults to newest
-   - [ ] Scenario: Empty results maintain sort dropdown
-   - [ ] Scenario: Pagination maintains sort order
-6. [ ] Write scenarios for accessibility:
-   - [ ] Scenario: Sort dropdown is keyboard accessible
+2. [✅] Write scenarios for basic sorting (30+ scenarios):
+   - [✅] Scenario: User sorts photos by newest first
+   - [✅] Scenario: User sorts photos by oldest first
+   - [✅] Scenario: User sorts photos by most liked
+   - [✅] Scenario: User sorts photos by most favorited
+3. [✅] Write scenarios for filter + sort combinations:
+   - [✅] Scenario: User views liked photos sorted by newest
+   - [✅] Scenario: User views liked photos sorted by most liked
+   - [✅] Scenario: User views favorited photos sorted by most favorited
+   - [✅] Scenario: User views my photos sorted by oldest
+4. [✅] Write scenarios for URL persistence:
+   - [✅] Scenario: Sort selection persists in URL
+   - [✅] Scenario: Sort selection persists after page refresh
+   - [✅] Scenario: Direct URL with sortBy parameter works
+5. [✅] Write scenarios for edge cases:
+   - [✅] Scenario: Invalid sortBy parameter defaults to newest
+   - [✅] Scenario: Empty results maintain sort dropdown
+   - [✅] Scenario: Pagination maintains sort order
+6. [✅] Write scenarios for accessibility:
+   - [✅] Scenario: Sort dropdown is keyboard accessible
 7. [ ] **COMMIT 10**: "test(gherkin): add BDD scenarios for gallery photo sorting"
 8. [ ] **PUSH IMMEDIATELY** (Atomic commit push)
 
 **Acceptance Criteria**:
-- [ ] 12-15 comprehensive scenarios written
-- [ ] Scenarios follow Given/When/Then pattern
-- [ ] Scenarios cover happy path and edge cases
-- [ ] Scenarios test all 16 filter+sort combinations (representative sample)
+- [✅] 30+ comprehensive scenarios written (exceeds 12-15 target)
+- [✅] Scenarios follow Given/When/Then pattern
+- [✅] Scenarios cover happy path and edge cases
+- [✅] Scenarios test all 16 filter+sort combinations (representative sample)
+- [✅] Scenarios aligned with E2E tests (SORT-001 through SORT-024)
+- [✅] Additional scenarios for performance, accessibility, and mobile
 
 ---
 
