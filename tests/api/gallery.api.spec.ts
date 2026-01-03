@@ -1044,4 +1044,386 @@ test.describe('Gallery Photo API', () => {
   test.describe('PUT /api/gallery/photo/:id/toggle-privacy', () => {
     // Tests will be implemented here
   });
+
+  // Gallery Sorting API Tests - Gallery Sorting Feature
+  test.describe('Gallery Sorting API', () => {
+
+    test.describe('GET /api/gallery/public with sortBy parameter', () => {
+
+      test('API-SORT-001: should sort public photos by newest (default)', async ({ request }) => {
+        const { token } = await getAuthenticatedUser(request);
+        const client = new ApiClient(request);
+
+        // Upload 3 public photos with delays to ensure different timestamps
+        for (let i = 1; i <= 3; i++) {
+          await client.postMultipart(
+            '/api/gallery/upload',
+            {
+              file: './tests/fixtures/images/test-photo.jpg',
+              title: `Newest Test ${i}`,
+              isPublic: 'true'
+            },
+            token
+          );
+          await new Promise(resolve => setTimeout(resolve, 100)); // Small delay
+        }
+
+        // Get public photos sorted by newest (default)
+        const response = await client.get('/api/gallery/public?page=0&size=12&sortBy=newest', token);
+
+        expect(response.status).toBe(200);
+        expect(response.body.photos).toBeTruthy();
+        expect(Array.isArray(response.body.photos)).toBe(true);
+
+        // Verify photos are sorted by createdAt descending
+        const photos = response.body.photos;
+        for (let i = 0; i < photos.length - 1; i++) {
+          const current = new Date(photos[i].createdAt).getTime();
+          const next = new Date(photos[i + 1].createdAt).getTime();
+          expect(current).toBeGreaterThanOrEqual(next);
+        }
+      });
+
+      test('API-SORT-002: should sort public photos by oldest', async ({ request }) => {
+        const { token } = await getAuthenticatedUser(request);
+        const client = new ApiClient(request);
+
+        // Upload 3 public photos
+        for (let i = 1; i <= 3; i++) {
+          await client.postMultipart(
+            '/api/gallery/upload',
+            {
+              file: './tests/fixtures/images/test-photo.jpg',
+              title: `Oldest Test ${i}`,
+              isPublic: 'true'
+            },
+            token
+          );
+          await new Promise(resolve => setTimeout(resolve, 100));
+        }
+
+        // Get public photos sorted by oldest
+        const response = await client.get('/api/gallery/public?page=0&size=12&sortBy=oldest', token);
+
+        expect(response.status).toBe(200);
+        expect(response.body.photos).toBeTruthy();
+
+        // Verify photos are sorted by createdAt ascending
+        const photos = response.body.photos;
+        for (let i = 0; i < photos.length - 1; i++) {
+          const current = new Date(photos[i].createdAt).getTime();
+          const next = new Date(photos[i + 1].createdAt).getTime();
+          expect(current).toBeLessThanOrEqual(next);
+        }
+      });
+
+      test('API-SORT-003: should sort public photos by mostLiked', async ({ request }) => {
+        const { token } = await getAuthenticatedUser(request);
+        const client = new ApiClient(request);
+
+        // Get public photos sorted by most liked
+        const response = await client.get('/api/gallery/public?page=0&size=12&sortBy=mostLiked', token);
+
+        expect(response.status).toBe(200);
+        expect(response.body.photos).toBeTruthy();
+
+        // Verify response includes like counts
+        const photos = response.body.photos;
+        if (photos.length > 0) {
+          expect(photos[0].likeCount).toBeDefined();
+          expect(typeof photos[0].likeCount).toBe('number');
+        }
+
+        // Verify photos are sorted by like count descending
+        for (let i = 0; i < photos.length - 1; i++) {
+          expect(photos[i].likeCount).toBeGreaterThanOrEqual(photos[i + 1].likeCount);
+        }
+      });
+
+      test('API-SORT-004: should sort public photos by mostFavorited', async ({ request }) => {
+        const { token } = await getAuthenticatedUser(request);
+        const client = new ApiClient(request);
+
+        // Get public photos sorted by most favorited
+        const response = await client.get('/api/gallery/public?page=0&size=12&sortBy=mostFavorited', token);
+
+        expect(response.status).toBe(200);
+        expect(response.body.photos).toBeTruthy();
+
+        // Verify response includes favorite counts
+        const photos = response.body.photos;
+        if (photos.length > 0) {
+          expect(photos[0].favoriteCount).toBeDefined();
+          expect(typeof photos[0].favoriteCount).toBe('number');
+        }
+
+        // Verify photos are sorted by favorite count descending
+        for (let i = 0; i < photos.length - 1; i++) {
+          expect(photos[i].favoriteCount).toBeGreaterThanOrEqual(photos[i + 1].favoriteCount);
+        }
+      });
+
+      test('API-SORT-005: should default to newest when sortBy parameter is missing', async ({ request }) => {
+        const { token } = await getAuthenticatedUser(request);
+        const client = new ApiClient(request);
+
+        // Get public photos without sortBy parameter
+        const response = await client.get('/api/gallery/public?page=0&size=12', token);
+
+        expect(response.status).toBe(200);
+        expect(response.body.photos).toBeTruthy();
+
+        // Verify photos are sorted by newest (default)
+        const photos = response.body.photos;
+        for (let i = 0; i < photos.length - 1; i++) {
+          const current = new Date(photos[i].createdAt).getTime();
+          const next = new Date(photos[i + 1].createdAt).getTime();
+          expect(current).toBeGreaterThanOrEqual(next);
+        }
+      });
+
+      test('API-SORT-006: should return 400 for invalid sortBy parameter', async ({ request }) => {
+        const { token } = await getAuthenticatedUser(request);
+        const client = new ApiClient(request);
+
+        // Try to get photos with invalid sortBy
+        const response = await client.get('/api/gallery/public?page=0&size=12&sortBy=invalidOption', token);
+
+        // Should return 400 Bad Request
+        expect(response.status).toBe(400);
+        expect(response.body.message || response.body.error).toBeTruthy();
+      });
+    });
+
+    test.describe('GET /api/gallery/my-photos with sortBy parameter', () => {
+
+      test('API-SORT-007: should sort my photos by newest', async ({ request }) => {
+        const { token } = await getAuthenticatedUser(request);
+        const client = new ApiClient(request);
+
+        // Upload 3 photos
+        for (let i = 1; i <= 3; i++) {
+          await client.postMultipart(
+            '/api/gallery/upload',
+            {
+              file: './tests/fixtures/images/test-photo.jpg',
+              title: `My Photo ${i}`,
+              isPublic: 'false'
+            },
+            token
+          );
+          await new Promise(resolve => setTimeout(resolve, 100));
+        }
+
+        // Get my photos sorted by newest
+        const response = await client.get('/api/gallery/my-photos?page=0&size=12&sortBy=newest', token);
+
+        expect(response.status).toBe(200);
+        expect(response.body.photos).toBeTruthy();
+
+        // Verify photos are sorted by createdAt descending
+        const photos = response.body.photos;
+        for (let i = 0; i < photos.length - 1; i++) {
+          const current = new Date(photos[i].createdAt).getTime();
+          const next = new Date(photos[i + 1].createdAt).getTime();
+          expect(current).toBeGreaterThanOrEqual(next);
+        }
+      });
+
+      test('API-SORT-008: should sort my photos by oldest', async ({ request }) => {
+        const { token } = await getAuthenticatedUser(request);
+        const client = new ApiClient(request);
+
+        // Get my photos sorted by oldest
+        const response = await client.get('/api/gallery/my-photos?page=0&size=12&sortBy=oldest', token);
+
+        expect(response.status).toBe(200);
+        expect(response.body.photos).toBeTruthy();
+
+        // Verify photos are sorted by createdAt ascending
+        const photos = response.body.photos;
+        for (let i = 0; i < photos.length - 1; i++) {
+          const current = new Date(photos[i].createdAt).getTime();
+          const next = new Date(photos[i + 1].createdAt).getTime();
+          expect(current).toBeLessThanOrEqual(next);
+        }
+      });
+
+      test('API-SORT-009: should sort my photos by mostLiked', async ({ request }) => {
+        const { token } = await getAuthenticatedUser(request);
+        const client = new ApiClient(request);
+
+        // Get my photos sorted by most liked
+        const response = await client.get('/api/gallery/my-photos?page=0&size=12&sortBy=mostLiked', token);
+
+        expect(response.status).toBe(200);
+        expect(response.body.photos).toBeTruthy();
+
+        // Verify photos are sorted by like count
+        const photos = response.body.photos;
+        for (let i = 0; i < photos.length - 1; i++) {
+          expect(photos[i].likeCount).toBeGreaterThanOrEqual(photos[i + 1].likeCount);
+        }
+      });
+
+      test('API-SORT-010: should sort my photos by mostFavorited', async ({ request }) => {
+        const { token } = await getAuthenticatedUser(request);
+        const client = new ApiClient(request);
+
+        // Get my photos sorted by most favorited
+        const response = await client.get('/api/gallery/my-photos?page=0&size=12&sortBy=mostFavorited', token);
+
+        expect(response.status).toBe(200);
+        expect(response.body.photos).toBeTruthy();
+
+        // Verify photos are sorted by favorite count
+        const photos = response.body.photos;
+        for (let i = 0; i < photos.length - 1; i++) {
+          expect(photos[i].favoriteCount).toBeGreaterThanOrEqual(photos[i + 1].favoriteCount);
+        }
+      });
+    });
+
+    test.describe('Pagination with Sorting', () => {
+
+      test('API-SORT-011: should maintain sort order across pagination pages', async ({ request }) => {
+        const { token } = await getAuthenticatedUser(request);
+        const client = new ApiClient(request);
+
+        // Upload 15 photos to test pagination
+        for (let i = 1; i <= 15; i++) {
+          await client.postMultipart(
+            '/api/gallery/upload',
+            {
+              file: './tests/fixtures/images/test-photo.jpg',
+              title: `Pagination Test ${i}`,
+              isPublic: 'true'
+            },
+            token
+          );
+        }
+
+        // Get page 0 sorted by newest
+        const page0Response = await client.get('/api/gallery/public?page=0&size=12&sortBy=newest', token);
+
+        // Get page 1 sorted by newest
+        const page1Response = await client.get('/api/gallery/public?page=1&size=12&sortBy=newest', token);
+
+        expect(page0Response.status).toBe(200);
+        expect(page1Response.status).toBe(200);
+
+        // Verify both pages are sorted correctly
+        const page0Photos = page0Response.body.photos;
+        const page1Photos = page1Response.body.photos;
+
+        // Page 0 should be sorted
+        for (let i = 0; i < page0Photos.length - 1; i++) {
+          const current = new Date(page0Photos[i].createdAt).getTime();
+          const next = new Date(page0Photos[i + 1].createdAt).getTime();
+          expect(current).toBeGreaterThanOrEqual(next);
+        }
+
+        // Last photo of page 0 should be older than first photo of page 1
+        if (page0Photos.length > 0 && page1Photos.length > 0) {
+          const lastPage0 = new Date(page0Photos[page0Photos.length - 1].createdAt).getTime();
+          const firstPage1 = new Date(page1Photos[0].createdAt).getTime();
+          expect(lastPage0).toBeGreaterThanOrEqual(firstPage1);
+        }
+      });
+
+      test('API-SORT-012: should work with empty results', async ({ request }) => {
+        // Create new user with no photos
+        const client = new ApiClient(request);
+        const authHelper = new AuthHelper(client);
+
+        const newUser = await authHelper.registerAndLogin(
+          `apitest-empty-sort-${Date.now()}@test.com`,
+          'Empty Sort User',
+          'Test@1234'
+        );
+
+        // Get my photos with sortBy (should be empty)
+        const response = await client.get('/api/gallery/my-photos?page=0&size=12&sortBy=mostLiked', newUser.token);
+
+        expect(response.status).toBe(200);
+        expect(response.body.photos).toBeTruthy();
+        expect(Array.isArray(response.body.photos)).toBe(true);
+        expect(response.body.photos.length).toBe(0);
+        expect(response.body.totalPhotos).toBe(0);
+      });
+    });
+
+    test.describe('Data Integrity with Sorting', () => {
+
+      test('API-SORT-013: should include correct like and favorite counts', async ({ request }) => {
+        const { token } = await getAuthenticatedUser(request);
+        const client = new ApiClient(request);
+
+        // Upload a public photo
+        const uploadResponse = await client.postMultipart(
+          '/api/gallery/upload',
+          {
+            file: './tests/fixtures/images/test-photo.jpg',
+            title: 'Integrity Test Photo',
+            isPublic: 'true'
+          },
+          token
+        );
+
+        // Get public photos with sorting
+        const response = await client.get('/api/gallery/public?page=0&size=12&sortBy=mostLiked', token);
+
+        expect(response.status).toBe(200);
+
+        // Verify each photo has like and favorite counts
+        const photos = response.body.photos;
+        photos.forEach((photo: any) => {
+          expect(photo.likeCount).toBeDefined();
+          expect(photo.favoriteCount).toBeDefined();
+          expect(typeof photo.likeCount).toBe('number');
+          expect(typeof photo.favoriteCount).toBe('number');
+          expect(photo.likeCount).toBeGreaterThanOrEqual(0);
+          expect(photo.favoriteCount).toBeGreaterThanOrEqual(0);
+        });
+      });
+
+      test('API-SORT-014: should include user-specific flags (isLikedByUser, isFavoritedByUser)', async ({ request }) => {
+        const { token } = await getAuthenticatedUser(request);
+        const client = new ApiClient(request);
+
+        // Get public photos
+        const response = await client.get('/api/gallery/public?page=0&size=12&sortBy=newest', token);
+
+        expect(response.status).toBe(200);
+
+        // Verify each photo has user-specific flags
+        const photos = response.body.photos;
+        photos.forEach((photo: any) => {
+          expect(photo.isLikedByUser).toBeDefined();
+          expect(photo.isFavoritedByUser).toBeDefined();
+          expect(typeof photo.isLikedByUser).toBe('boolean');
+          expect(typeof photo.isFavoritedByUser).toBe('boolean');
+        });
+      });
+    });
+
+    test.describe('Response Performance', () => {
+
+      test('API-SORT-015: should respond within acceptable time (< 1000ms)', async ({ request }) => {
+        const { token } = await getAuthenticatedUser(request);
+        const client = new ApiClient(request);
+
+        const startTime = Date.now();
+
+        const response = await client.get('/api/gallery/public?page=0&size=25&sortBy=mostLiked', token);
+
+        const endTime = Date.now();
+        const responseTime = endTime - startTime;
+
+        expect(response.status).toBe(200);
+        // Response time should be under 1 second (generous for CI/CD environments)
+        expect(responseTime).toBeLessThan(1000);
+      });
+    });
+  });
 });
