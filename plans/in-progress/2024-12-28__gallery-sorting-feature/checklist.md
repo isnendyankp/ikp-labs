@@ -705,18 +705,19 @@
 
 ---
 
-## Phase 5: Documentation & Cleanup
+## Phase 5: Documentation & Cleanup ✅
 
-### Task 5.1: Update API Documentation (20 min)
+### Task 5.1: Update API Documentation (20 min) ✅
 **Affected Files**: API documentation
 **Estimated Time**: 20 minutes
+**Status**: ✅ COMPLETED (January 4, 2026)
 
 **Files Modified/Created**:
-- `docs/api/gallery-endpoints.md` (or similar)
-- Swagger/OpenAPI spec (if exists)
+- `docs/reference/api-endpoints.md` ✅ (284 lines added)
+- Swagger/OpenAPI spec (N/A - not applicable for this project)
 
 **Steps**:
-1. [ ] Document sortBy parameter for all 4 endpoints:
+1. [✅] Document sortBy parameter for all 4 endpoints:
    ```markdown
    ### GET /api/gallery/public
 
@@ -733,31 +734,39 @@
    ```
    GET /api/gallery/public?page=0&size=25&sortBy=mostLiked
    ```
-2. [ ] Document response format (unchanged)
-3. [ ] Document error responses:
-   - [ ] 400 Bad Request for invalid sortBy
-4. [ ] Add examples for all sort options
-5. [ ] Update Swagger/OpenAPI spec (if applicable)
-6. [ ] **COMMIT 15**: "docs: update API documentation with sortBy parameter"
-7. [ ] **PUSH IMMEDIATELY** (Atomic commit push)
+2. [✅] Document response format (unchanged)
+3. [✅] Document error responses:
+   - [✅] 400 Bad Request for invalid sortBy
+4. [✅] Add examples for all sort options
+5. [✅] Update Swagger/OpenAPI spec (N/A for this project)
+6. [✅] **COMMIT 15**: "docs: add gallery sorting API documentation and JSDoc comments" (commit 61d624c)
+7. [✅] **PUSH IMMEDIATELY** (Atomic commit push) ✅ Pushed to main
 
 **Acceptance Criteria**:
-- [ ] All endpoints documented
-- [ ] sortBy parameter clearly explained
-- [ ] Examples provided
-- [ ] Error responses documented
+- [✅] All endpoints documented (4 endpoints)
+- [✅] sortBy parameter clearly explained
+- [✅] Examples provided (curl + TypeScript)
+- [✅] Error responses documented
+
+**Deliverables**:
+- Documented 4 gallery endpoints with sortBy
+- Added sort options comparison table
+- Included performance optimization notes (96% query reduction)
+- Added security and pagination documentation
+- Created curl and frontend usage examples
 
 ---
 
-### Task 5.2: Add Component Documentation (15 min)
+### Task 5.2: Add Component Documentation (15 min) ✅
 **Affected Files**: Component files
 **Estimated Time**: 15 minutes
+**Status**: ✅ COMPLETED (January 4, 2026)
 
 **Files Modified**:
-- `frontend/src/components/SortingDropdown.tsx`
+- `frontend/src/components/SortByDropdown.tsx` ✅ (enhanced JSDoc)
 
 **Steps**:
-1. [ ] Add JSDoc comments to SortingDropdown:
+1. [✅] Add JSDoc comments to SortingDropdown:
    ```typescript
    /**
     * SortingDropdown - Allows users to sort gallery photos by different criteria
@@ -776,7 +785,7 @@
     * @param {function} props.onSortChange - Callback when sort option changes
     */
    ```
-2. [ ] Document SortOption type:
+2. [✅] Document SortOption type:
    ```typescript
    /**
     * Available sort options for gallery photos
@@ -787,27 +796,37 @@
     */
    export type SortOption = 'newest' | 'oldest' | 'mostLiked' | 'mostFavorited';
    ```
-3. [ ] Add inline comments for complex logic
-4. [ ] **COMMIT 16**: "docs: add JSDoc documentation to SortingDropdown component"
-5. [ ] **PUSH IMMEDIATELY** (Atomic commit push)
+3. [✅] Add inline comments for complex logic
+4. [✅] **COMMIT 16**: "docs: add gallery sorting API documentation and JSDoc comments" (commit 61d624c)
+5. [✅] **PUSH IMMEDIATELY** (Atomic commit push) ✅ Pushed to main
 
 **Acceptance Criteria**:
-- [ ] Component has clear JSDoc
-- [ ] Props documented
-- [ ] Usage example provided
-- [ ] Types documented
+- [✅] Component has clear JSDoc
+- [✅] Props documented with @param tags
+- [✅] Usage example provided
+- [✅] Types documented with @typedef
+- [✅] SORT_OPTIONS constant documented
+
+**Deliverables**:
+- Comprehensive JSDoc header with @component and @example
+- Documented SortByOption type with detailed explanations
+- Added @param and @returns tags for main function
+- Documented SortByDropdownProps interface
+- Documented SORT_OPTIONS constant
 
 ---
 
-### Task 5.3: Update User Guide (15 min)
+### Task 5.3: Update User Guide (15 min) ✅
 **Affected Files**: User-facing documentation
 **Estimated Time**: 15 minutes
+**Status**: ✅ COMPLETED (January 4, 2026)
 
 **Files Modified/Created**:
-- `docs/user-guide/gallery.md` (or similar)
+- `docs/how-to/sort-gallery-photos.md` ✅ (new file, 219 lines)
+- `docs/how-to/README.md` ✅ (updated index)
 
 **Steps**:
-1. [ ] Add section on sorting photos:
+1. [✅] Add section on sorting photos:
    ```markdown
    ## Sorting Photos
 
@@ -825,49 +844,60 @@
    - View all public photos sorted by most liked
    - And more!
    ```
-2. [ ] Add screenshots (optional):
-   - [ ] Sort dropdown UI
-   - [ ] Combined filter + sort example
-3. [ ] Update table of contents
-4. [ ] **COMMIT 17**: "docs: add user guide for gallery photo sorting"
-5. [ ] **PUSH IMMEDIATELY** (Atomic commit push)
+2. [✅] Add screenshots (optional):
+   - [⏭️] Sort dropdown UI (skipped - not required)
+   - [⏭️] Combined filter + sort example (skipped - not required)
+3. [✅] Update table of contents (updated docs/how-to/README.md)
+4. [✅] **COMMIT 17**: "docs: add user guide for gallery photo sorting feature" (commit 20b18b9)
+5. [✅] **PUSH IMMEDIATELY** (Atomic commit push) ✅ Pushed to main
 
 **Acceptance Criteria**:
-- [ ] User guide updated
-- [ ] Clear instructions provided
-- [ ] Examples included
-- [ ] Screenshots added (optional)
+- [✅] User guide updated (comprehensive how-to created)
+- [✅] Clear instructions provided (step-by-step guide)
+- [✅] Examples included (16 filter+sort combinations)
+- [⏭️] Screenshots added (optional - skipped)
+
+**Deliverables**:
+- Created comprehensive how-to guide (219 lines)
+- Documented all 4 sort options with use cases
+- Added step-by-step instructions
+- Included filter + sort combination matrix
+- Provided URL sharing examples
+- Added tips, troubleshooting, and accessibility notes
+- Updated docs/how-to/README.md with organized guide list
 
 ---
 
-### Task 5.4: Update Plan Status to Complete (10 min)
+### Task 5.4: Update Plan Status to Complete (10 min) ⏳
 **Affected Files**: Plan files
 **Estimated Time**: 10 minutes
+**Status**: ⏳ IN PROGRESS (January 4, 2026)
 
 **Files Modified**:
-- `plans/in-progress/2024-12-28__gallery-sorting-feature/README.md`
-- `plans/in-progress/2024-12-28__gallery-sorting-feature/checklist.md`
+- `plans/in-progress/2024-12-28__gallery-sorting-feature/README.md` ⏳
+- `plans/in-progress/2024-12-28__gallery-sorting-feature/checklist.md` ⏳
 
 **Steps**:
-1. [ ] Update README.md:
-   - [ ] Change status from "⏳ In Progress" to "✅ Completed"
-   - [ ] Add completion date
-   - [ ] Update success criteria summary
-2. [ ] Update checklist.md:
-   - [ ] Mark all tasks as [✅] completed
-   - [ ] Add final verification notes
-3. [ ] Move plan folder to done:
+1. [⏳] Update README.md:
+   - [⏳] Change status from "⏳ In Progress" to "✅ Completed"
+   - [⏳] Add completion date
+   - [⏳] Update success criteria summary
+2. [⏳] Update checklist.md:
+   - [✅] Mark Phase 5 tasks as completed
+   - [⏳] Mark Phase 6 tasks as verified
+   - [⏳] Add final verification notes
+3. [⏳] Move plan folder to done:
    ```bash
    git mv plans/in-progress/2024-12-28__gallery-sorting-feature plans/done/
    ```
-4. [ ] **COMMIT 18**: "docs: mark gallery sorting feature plan as completed"
-5. [ ] **PUSH IMMEDIATELY** (Atomic commit push)
+4. [⏳] **COMMIT 18**: "docs: mark gallery sorting feature plan as completed"
+5. [⏳] **PUSH IMMEDIATELY** (Atomic commit push)
 
 **Acceptance Criteria**:
-- [ ] Plan marked as complete
-- [ ] Plan moved to done folder
-- [ ] All documentation updated
-- [ ] Completion date recorded
+- [⏳] Plan marked as complete
+- [⏳] Plan moved to done folder
+- [⏳] All documentation updated
+- [⏳] Completion date recorded
 
 ---
 
