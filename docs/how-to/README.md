@@ -8,12 +8,20 @@ How-to guides are goal-oriented directions that help you solve a specific proble
 
 ## Available How-To Guides
 
-Browse the files in this directory for specific problem-solving guides on:
-- Database operations
-- Deployment procedures
-- Configuration tasks
-- Common development workflows
-- Troubleshooting specific issues
+### User Features
+
+- [Sort Gallery Photos](./sort-gallery-photos.md) - How to sort photos by newest, oldest, most liked, or most favorited
+- [Upload Profile Picture](./upload-profile-picture.md) - How to upload and manage your profile picture
+
+### Development & Testing
+
+- [Run E2E Tests](./run-e2e-tests.md) - How to run end-to-end tests with Playwright
+- [API Testing](./api-testing.md) - How to test API endpoints
+- [Testing Commands](./testing/run-automated-tests.md) - How to run automated test suites
+
+### Technical Implementation
+
+- [Implement Protected Routes](./implement-protected-routes.md) - How to add authentication to routes
 
 ---
 
