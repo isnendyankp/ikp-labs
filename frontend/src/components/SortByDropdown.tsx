@@ -1,35 +1,78 @@
 /**
  * SortByDropdown Component
  *
- * Reusable dropdown for sorting photos by different criteria.
+ * A reusable dropdown component for sorting gallery photos by different criteria.
+ * Provides a clean UI with icon indicators and descriptions for each sort option.
+ *
+ * @component
+ * @example
+ * ```tsx
+ * import SortByDropdown, { SortByOption } from '@/components/SortByDropdown';
+ *
+ * function GalleryPage() {
+ *   const [sort, setSort] = useState<SortByOption>('newest');
+ *
+ *   return (
+ *     <SortByDropdown
+ *       currentSort={sort}
+ *       onSortChange={(newSort) => {
+ *         setSort(newSort);
+ *         // Fetch photos with new sort order
+ *       }}
+ *     />
+ *   );
+ * }
+ * ```
  *
  * Features:
  * - 4 sort options: newest, oldest, mostLiked, mostFavorited
- * - Clean Tailwind UI design
- * - Accessible with keyboard navigation
- * - Icon indicators for each option
+ * - Clean Tailwind CSS UI design with hover states
+ * - Accessible with ARIA attributes
+ * - Click-outside-to-close functionality
+ * - Icon and description for each option
+ * - Visual indicator for currently selected option
  * - Callback on selection change
  *
- * Usage:
- * ```tsx
- * <SortByDropdown
- *   currentSort="newest"
- *   onSortChange={(sort) => handleSortChange(sort)}
- * />
- * ```
+ * @see {@link https://github.com/isnendyankp/ikp-labs} - Project Repository
  */
 
 'use client';
 
 import { useState, useRef, useEffect } from 'react';
 
+/**
+ * Available sort options for gallery photos.
+ *
+ * @typedef {('newest' | 'oldest' | 'mostLiked' | 'mostFavorited')} SortByOption
+ *
+ * - `newest`: Sort by creation date (newest first) - Default
+ * - `oldest`: Sort by creation date (oldest first)
+ * - `mostLiked`: Sort by like count (highest first, then by newest)
+ * - `mostFavorited`: Sort by favorite count (highest first, then by newest)
+ */
 export type SortByOption = 'newest' | 'oldest' | 'mostLiked' | 'mostFavorited';
 
+/**
+ * Props for the SortByDropdown component.
+ *
+ * @interface SortByDropdownProps
+ * @property {SortByOption} currentSort - Currently selected sort option
+ * @property {(sort: SortByOption) => void} onSortChange - Callback function called when sort option changes
+ */
 interface SortByDropdownProps {
+  /** Currently selected sort option */
   currentSort: SortByOption;
+  /** Callback function invoked when user selects a different sort option */
   onSortChange: (sort: SortByOption) => void;
 }
 
+/**
+ * Configuration for all available sort options.
+ * Each option includes a value, label, icon, and description.
+ *
+ * @constant
+ * @type {Array<{value: SortByOption, label: string, icon: string, description: string}>}
+ */
 const SORT_OPTIONS: Array<{
   value: SortByOption;
   label: string;
@@ -62,6 +105,23 @@ const SORT_OPTIONS: Array<{
   }
 ];
 
+/**
+ * SortByDropdown - A dropdown component for selecting photo sort order.
+ *
+ * Renders a button that opens a dropdown menu with 4 sorting options.
+ * Closes automatically when clicking outside the dropdown or selecting an option.
+ *
+ * @param {SortByDropdownProps} props - Component props
+ * @param {SortByOption} props.currentSort - Currently selected sort option
+ * @param {(sort: SortByOption) => void} props.onSortChange - Callback when sort changes
+ * @returns {JSX.Element} Rendered dropdown component
+ *
+ * @example
+ * <SortByDropdown
+ *   currentSort="newest"
+ *   onSortChange={(sort) => console.log('Selected:', sort)}
+ * />
+ */
 export default function SortByDropdown({ currentSort, onSortChange }: SortByDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);

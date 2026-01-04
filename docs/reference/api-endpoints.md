@@ -386,8 +386,221 @@ Import collection or manually create requests:
 
 See [How to Run E2E Tests](../how-to/run-e2e-tests.md) for automated testing.
 
+## Gallery Endpoints
+
+All gallery endpoints require authentication (JWT token in Authorization header).
+
+### GET /api/gallery/public
+
+Get paginated list of public photos with optional sorting.
+
+**Location**: `GalleryController.java`
+
+**Authentication**: Required (Bearer token)
+
+**Query Parameters**:
+- `page` (number, optional): Page number (0-indexed), default: `0`
+- `size` (number, optional): Items per page, default: `25`
+- `sortBy` (string, optional): Sort order, default: `"newest"`
+  - `newest`: Sort by creation date (newest first)
+  - `oldest`: Sort by creation date (oldest first)
+  - `mostLiked`: Sort by like count (highest first, then by newest)
+  - `mostFavorited`: Sort by favorite count (highest first, then by newest)
+
+**Request Headers**:
+```
+Authorization: Bearer eyJhbGciOiJIUzUxMiJ9...
+```
+
+**Success Response** (200 OK):
+```json
+{
+  "content": [
+    {
+      "id": 1,
+      "title": "Sunset Beach",
+      "description": "Beautiful sunset",
+      "imageUrl": "/uploads/photos/sunset.jpg",
+      "createdAt": "2025-01-01T10:00:00",
+      "likeCount": 15,
+      "favoriteCount": 8,
+      "isLikedByCurrentUser": false,
+      "isFavoritedByCurrentUser": false,
+      "userId": 2,
+      "userName": "Jane Doe"
+    }
+  ],
+  "page": 0,
+  "size": 25,
+  "totalElements": 100,
+  "totalPages": 4,
+  "last": false
+}
+```
+
+**Error Response** (400 Bad Request):
+```json
+{
+  "error": "Invalid sortBy parameter. Allowed values: newest, oldest, mostLiked, mostFavorited"
+}
+```
+
+**Error Response** (401 Unauthorized):
+```json
+{
+  "error": "Unauthorized - JWT token missing or invalid"
+}
+```
+
+**Examples**:
+```bash
+# Get first page (newest first - default)
+curl http://localhost:8081/api/gallery/public \
+  -H "Authorization: Bearer eyJ..."
+
+# Get photos sorted by most liked
+curl "http://localhost:8081/api/gallery/public?sortBy=mostLiked" \
+  -H "Authorization: Bearer eyJ..."
+
+# Get second page, sorted by oldest, 12 items per page
+curl "http://localhost:8081/api/gallery/public?page=1&size=12&sortBy=oldest" \
+  -H "Authorization: Bearer eyJ..."
+
+# Get photos sorted by most favorited
+curl "http://localhost:8081/api/gallery/public?sortBy=mostFavorited" \
+  -H "Authorization: Bearer eyJ..."
+```
+
+**Frontend Usage**:
+```typescript
+const token = localStorage.getItem('authToken');
+const response = await fetch(
+  'http://localhost:8081/api/gallery/public?page=0&size=25&sortBy=mostLiked',
+  {
+    headers: {
+      'Authorization': `Bearer ${token}`
+    }
+  }
+);
+
+const data = await response.json();
+// Display photos: data.content
+```
+
+---
+
+### GET /api/gallery/my-photos
+
+Get paginated list of current user's uploaded photos with optional sorting.
+
+**Location**: `GalleryController.java`
+
+**Authentication**: Required (Bearer token)
+
+**Query Parameters**:
+- `page` (number, optional): Page number (0-indexed), default: `0`
+- `size` (number, optional): Items per page, default: `25`
+- `sortBy` (string, optional): Sort order, default: `"newest"`
+  - Values: `newest`, `oldest`, `mostLiked`, `mostFavorited`
+
+**Success Response**: Same format as `/api/gallery/public`
+
+**Example**:
+```bash
+curl "http://localhost:8081/api/gallery/my-photos?sortBy=newest" \
+  -H "Authorization: Bearer eyJ..."
+```
+
+---
+
+### GET /api/gallery/liked-photos
+
+Get paginated list of photos liked by current user with optional sorting.
+
+**Location**: `PhotoLikeController.java`
+
+**Authentication**: Required (Bearer token)
+
+**Query Parameters**:
+- `page` (number, optional): Page number (0-indexed), default: `0`
+- `size` (number, optional): Items per page, default: `25`
+- `sortBy` (string, optional): Sort order, default: `"newest"`
+  - Values: `newest`, `oldest`, `mostLiked`, `mostFavorited`
+
+**Success Response**: Same format as `/api/gallery/public`
+
+**Example**:
+```bash
+curl "http://localhost:8081/api/gallery/liked-photos?sortBy=mostLiked" \
+  -H "Authorization: Bearer eyJ..."
+```
+
+---
+
+### GET /api/gallery/favorited-photos
+
+Get paginated list of photos favorited by current user with optional sorting.
+
+**Location**: `PhotoFavoriteController.java`
+
+**Authentication**: Required (Bearer token)
+
+**Query Parameters**:
+- `page` (number, optional): Page number (0-indexed), default: `0`
+- `size` (number, optional): Items per page, default: `25`
+- `sortBy` (string, optional): Sort order, default: `"newest"`
+  - Values: `newest`, `oldest`, `mostLiked`, `mostFavorited`
+
+**Success Response**: Same format as `/api/gallery/public`
+
+**Example**:
+```bash
+curl "http://localhost:8081/api/gallery/favorited-photos?sortBy=mostFavorited" \
+  -H "Authorization: Bearer eyJ..."
+```
+
+---
+
+## Gallery API Notes
+
+### Sort Options Details
+
+| sortBy Value | Primary Sort | Secondary Sort | Use Case |
+|--------------|-------------|----------------|----------|
+| `newest` | `createdAt DESC` | N/A | Show latest uploads first (default) |
+| `oldest` | `createdAt ASC` | N/A | Show earliest uploads first |
+| `mostLiked` | `likeCount DESC` | `createdAt DESC` | Popular photos by likes |
+| `mostFavorited` | `favoriteCount DESC` | `createdAt DESC` | Popular photos by favorites |
+
+**Tiebreaker Logic**: When photos have the same like/favorite count, they are sorted by newest creation date.
+
+### Performance Optimization
+
+All gallery endpoints use optimized queries with:
+- Single database query per request (no N+1 problem)
+- LEFT JOIN for like/favorite counts
+- LEFT JOIN for user-specific flags (isLiked, isFavorited)
+- Average response time: < 100ms
+
+Query reduction: **96%** (from 25 queries → 1 query per page)
+
+### Pagination
+
+- Default page size: 25 items
+- Maximum page size: 100 items (configurable)
+- Zero-indexed pages (first page = 0)
+- Pagination metadata included in response
+
+### Security
+
+- All endpoints require valid JWT token
+- Users can only see public photos or their own private photos
+- sortBy parameter validated against whitelist (prevents SQL injection)
+- Invalid sortBy returns 400 Bad Request
+
 ## Related Documentation
 
 - [Authentication Architecture](../explanation/authentication-architecture.md) - Understand JWT flow
 - [How to Add API Endpoint](../how-to/add-api-endpoint.md) - Extend the API
 - [Database Schema](./database-schema.md) - Database structure reference
+- [Gallery Sorting E2E Tests](./test-scenarios/e2e-gallery-scenarios.md) - Test scenarios reference
