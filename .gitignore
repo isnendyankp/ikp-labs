@@ -123,3 +123,9 @@ docs/.internal/
 # Test Reports
 docs/test-reports/
 README.md.backup
+
+# Claude Agents - Generated Reports
+# Auto-generated audit reports from validator agents
+generated-reports/*.md
+!generated-reports/README.md
+!generated-reports/.gitkeep
