@@ -14,7 +14,10 @@ Welcome to the IKP Labs documentation. This documentation follows the [Diátaxis
 ### [How-To Guides](how-to/)
 **Problem-solving** - Practical guides for specific tasks.
 
-Browse the [how-to](how-to/) directory for available guides.
+- [Use Claude Validators](how-to/use-claude-validators.md) - How to use validator agents
+- [Run E2E Tests](how-to/run-e2e-tests.md) - How to run end-to-end tests
+
+Browse the [how-to](how-to/) directory for all available guides.
 
 ### [Reference](reference/)
 **Information-oriented** - Technical specifications and API documentation.
@@ -46,11 +49,13 @@ Browse the [how-to](how-to/) directory for available guides.
 Start with [Getting Started](tutorials/getting-started.md) to set up your development environment.
 
 ### For Developers
+- [Use Claude Validators](how-to/use-claude-validators.md) - Validate code, docs, and plans
 - [API Reference](reference/api-endpoints.md)
 - [Testing Commands](reference/testing-commands.md)
 - [Authentication Architecture](explanation/authentication-architecture.md)
 
 ### For QA/Testing
+- [Use Claude Validators](how-to/use-claude-validators.md) - Validate test coverage and quality
 - [Testing Guide](tutorials/testing-guide.md)
 - [Test Scenarios](reference/test-scenarios/)
 - [MCP Playwright Setup](tutorials/mcp-playwright-setup.md)
