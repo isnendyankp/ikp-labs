@@ -35,6 +35,7 @@ frontend/out/
 
 # Claude Code local configuration (personal settings)
 .clauderc
+.claude/
 
 # debug
 npm-debug.log*
