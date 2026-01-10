@@ -22,6 +22,7 @@ How-to guides are goal-oriented directions that help you solve a specific proble
 
 ### Technical Implementation
 
+- [Create Implementation Plans](./create-implementation-plans.md) - How to create structured 4-document plans
 - [Implement Protected Routes](./implement-protected-routes.md) - How to add authentication to routes
 
 ---
