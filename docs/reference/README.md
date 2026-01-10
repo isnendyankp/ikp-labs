@@ -8,6 +8,11 @@ Reference documentation provides dry, factual information about the system. It d
 
 ## Available Reference Documentation
 
+### Claude Agents
+[claude-agents.md](claude-agents.md)
+
+Complete reference for all Claude agents in the project, including maker agents (plan-writer, documentation-writer, gherkin-spec-writer) and validator agents (test-validator, docs-validator, plan-checker).
+
 ### API Endpoints
 [api-endpoints.md](api-endpoints.md)
 

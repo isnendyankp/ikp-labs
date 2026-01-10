@@ -23,6 +23,7 @@ Browse the [how-to](how-to/) directory for all available guides.
 ### [Reference](reference/)
 **Information-oriented** - Technical specifications and API documentation.
 
+- [Claude Agents](reference/claude-agents.md) - Complete agent reference
 - [API Endpoints](reference/api-endpoints.md)
 - [Database Schema](reference/database-schema.md)
 - [Testing Commands](reference/testing-commands.md)
