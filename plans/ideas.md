@@ -8,13 +8,36 @@ Quick concept snippets and brainstorming notes that haven't been formalized into
 
 <!-- Add new ideas here with date -->
 
-### 2024-12-14: Future Feature Ideas
-- Photo Albums/Collections organization
-- Photo Search & Filtering (by tags, date, user)
-- Photo Comments feature
-- Advanced Analytics Dashboard
-- Multi-file upload with drag & drop
-- Image thumbnails for performance
+### 2026-01-12: Future Feature Ideas (High Priority)
+- **Photo Comments System** - Allow users to comment on photos
+- **Photo Search & Advanced Filtering** - Search by tags, date ranges, metadata
+- **User Tagging in Photos** - Tag other users in photos (@mentions)
+- **Photo Albums/Collections** - Organize photos into albums
+- **Batch Photo Operations** - Select multiple photos for bulk actions
+- **Photo Metadata Editor** - Edit EXIF data, location, tags
+- **Dark Mode Toggle** - Theme switcher for the entire application
+- **Notification System** - In-app notifications for likes, comments, mentions
+
+### 2026-01-12: Infrastructure Ideas (Medium Priority)
+- **Docker Containerization** - Dockerfiles for local development and deployment
+- **Redis Caching Layer** - Cache frequently accessed data
+- **API Rate Limiting** - Prevent abuse, ensure fair usage
+- **Database Backup Automation** - Automated backup system
+- **Monitoring & Logging** - Application monitoring with alerts
+- **API Documentation with Swagger/OpenAPI** - Interactive API docs
+
+### 2026-01-12: Testing Ideas (Low Priority)
+- **Visual Regression Tests** - Storybook + Chromatic for UI changes
+- **Performance Tests** - Lighthouse CI for performance tracking
+- **Accessibility Tests** - jest-axe for a11y validation
+- **Contract Testing** - Pact for API contract validation
+
+### 2026-01-12: Nice-to-Have Features
+- **Photo Editing Tools** - Crop, rotate, filters
+- **Social Sharing** - Share photos to social media
+- **Photo Download** - Allow users to download photos
+- **Print Ordering** - Integration with print services
+- **Mobile App** - React Native or PWA version
 
 ---
 
@@ -22,7 +45,31 @@ Quick concept snippets and brainstorming notes that haven't been formalized into
 
 <!-- Ideas that have been implemented or rejected -->
 
+### ✅ Moved to Backlog (Formal Plans Created)
+- **UX Improvements** (moved to `backlog/2026-01-12__ux-improvements/`)
+  - Toast notifications, loading states, confirmation dialogs
+  - Empty states, form validation, micro-interactions
+  - Created: January 12, 2026
+
+- **Frontend Unit Tests** (moved to `backlog/2026-01-12__frontend-unit-tests/`)
+  - Jest + React Testing Library setup
+  - Component, hook, utility, and service testing
+  - Created: January 12, 2026
+
+- **CI/CD Pipeline** (moved to `backlog/2026-01-12__cicd-pipeline/`)
+  - GitHub Actions workflows
+  - Pre-commit hooks, automated deployment
+  - Created: January 12, 2026
+
 ### ✅ Implemented
+- **Gallery Sorting Feature** (moved to `done/2024-12-28__gallery-sorting-feature/`)
+  - Completed: January 4, 2026
+  - 116+ comprehensive tests
+  - 96% query reduction (N+1 problem solved)
+
+- **Photo Favorites Feature** (moved to `done/2024-12-18__photo-favorites-feature/`)
+  - Completed: December 22, 2024
+
 - **Photo Likes Feature** (moved to `done/2024-12-10__photo-likes-feature/`)
   - Initial idea: December 2024
   - Completed: December 14, 2024
@@ -56,4 +103,4 @@ Quick concept snippets and brainstorming notes that haven't been formalized into
 
 ---
 
-**Last Updated**: December 15, 2024
+**Last Updated**: January 12, 2026
