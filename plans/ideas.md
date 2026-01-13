@@ -8,6 +8,25 @@ Quick concept snippets and brainstorming notes that haven't been formalized into
 
 <!-- Add new ideas here with date -->
 
+### 2026-01-13: Core UX Improvements (In Progress - Week 1)
+- **Toast Notifications System** - Success/Error/Warning/Info feedback
+- **Loading States** - Skeleton screens, spinners, progress bars
+- **Confirmation Dialogs** - Destructive action confirmations
+- **Empty States** - Helpful messages with CTAs
+- **Form Validation UX** - Real-time inline validation
+- **Micro-interactions** - Hover effects, animations
+- Note: 6 core improvements, estimated 12-17 hours
+
+### 2026-01-13: UX Enhancements (Backlog - Week 2+)
+- **Dark Mode Toggle** - Theme switcher (light/dark/auto)
+- **Image Lightbox/Preview** - Full-size image viewer with zoom
+- **Drag & Drop Upload** - Better file upload experience
+- **Lazy Loading Images** - Performance + UX improvement
+- **Command Palette (Cmd+K)** - Quick search and actions
+- **Keyboard Shortcuts** - Power user navigation
+- **Optimistic UI** - Instant feedback with rollback
+- **Infinite Scroll** - Replace pagination (optional)
+
 ### 2026-01-12: Future Feature Ideas (High Priority)
 - **Photo Comments System** - Allow users to comment on photos
 - **Photo Search & Advanced Filtering** - Search by tags, date ranges, metadata
@@ -15,7 +34,6 @@ Quick concept snippets and brainstorming notes that haven't been formalized into
 - **Photo Albums/Collections** - Organize photos into albums
 - **Batch Photo Operations** - Select multiple photos for bulk actions
 - **Photo Metadata Editor** - Edit EXIF data, location, tags
-- **Dark Mode Toggle** - Theme switcher for the entire application
 - **Notification System** - In-app notifications for likes, comments, mentions
 
 ### 2026-01-12: Infrastructure Ideas (Medium Priority)
