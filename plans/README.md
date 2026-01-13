@@ -98,13 +98,21 @@ done/
 ### In Progress
 ```
 in-progress/
-└── 2024-12-08__e2e-gallery-tests.md
+└── 2026-01-13__ux-improvements/
+    ├── README.md
+    ├── requirements.md
+    ├── technical-design.md
+    └── checklist.md
 ```
 
 ### Backlog
 ```
 backlog/
-(empty - add planned projects here)
+└── 2026-01-12__ux-improvements/
+    ├── README.md
+    ├── requirements.md
+    ├── technical-design.md
+    └── checklist.md
 ```
 
 ---
@@ -201,17 +209,24 @@ For **permanent** documentation, see:
 
 ## 📊 Quick Stats
 
-**Completed Projects**: 4
+**Completed Projects**: 11
 - Unit Testing (Nov 4, 2024)
 - Profile Picture E2E (Nov 4, 2024)
 - Photo Gallery Feature (Nov 24, 2024)
 - Photo Likes Feature (Dec 10, 2024)
+- Photo Favorites Feature (Dec 18, 2024)
+- E2E Gallery Tests (Dec 16, 2024)
+- Gallery-Centric Navigation (Dec 22, 2024)
+- E2E Test Fixes (Dec 27, 2024)
+- Gallery Sorting Feature (Jan 5, 2026)
+- Claude Agents Infrastructure (Jan 11, 2026)
 
 **In Progress**: 1
-- E2E Gallery Tests (Dec 8, 2024)
+- UX Improvements (Jan 13, 2026)
 
-**Backlog**: 0
+**Backlog**: 1
+- UX Improvements (original plan in backlog - moved to in-progress)
 
 ---
 
-**Last Updated**: December 14, 2024
+**Last Updated**: January 13, 2026
