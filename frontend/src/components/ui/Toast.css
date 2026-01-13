@@ -1,0 +1,176 @@
+/**
+ * Toast Component Styles
+ *
+ * Toast notification styling with slide-in/slide-out animations.
+ * Supports different types: success, error, warning, info.
+ */
+
+/* Toast Container Item */
+.toast-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 300px;
+  max-width: 500px;
+  padding: 1rem 1.25rem;
+  margin-bottom: 0.75rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  font-family:
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  background-color: white;
+  border-left: 4px solid;
+  animation: none;
+}
+
+.toast-item:last-child {
+  margin-bottom: 0;
+}
+
+/* Toast Content */
+.toast-content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.toast-icon {
+  flex-shrink: 0;
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+.toast-message {
+  margin: 0;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+/* Close Button */
+.toast-close {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin-left: 0.75rem;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: inherit;
+  opacity: 0.6;
+  cursor: pointer;
+  font-size: 1rem;
+  line-height: 1;
+  transition: opacity 0.2s ease;
+}
+
+.toast-close:hover {
+  opacity: 1;
+}
+
+.toast-close:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+/* Toast Types */
+.toast-success {
+  border-left-color: #10b981;
+  background-color: #f0fdf4;
+  color: #065f46;
+}
+
+.toast-error {
+  border-left-color: #ef4444;
+  background-color: #fef2f2;
+  color: #991b1b;
+}
+
+.toast-warning {
+  border-left-color: #f59e0b;
+  background-color: #fffbeb;
+  color: #92400e;
+}
+
+.toast-info {
+  border-left-color: #3b82f6;
+  background-color: #eff6ff;
+  color: #1e40af;
+}
+
+/* Toast Icon Colors by Type */
+.toast-success .toast-icon {
+  color: #10b981;
+}
+
+.toast-error .toast-icon {
+  color: #ef4444;
+}
+
+.toast-warning .toast-icon {
+  color: #f59e0b;
+}
+
+.toast-info .toast-icon {
+  color: #3b82f6;
+}
+
+/* Close Button Color by Type */
+.toast-success .toast-close {
+  color: #065f46;
+}
+
+.toast-error .toast-close {
+  color: #991b1b;
+}
+
+.toast-warning .toast-close {
+  color: #92400e;
+}
+
+.toast-info .toast-close {
+  color: #1e40af;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .toast-item {
+    transition: none !important;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  .toast-success {
+    background-color: #064e3b;
+    color: #d1fae5;
+  }
+
+  .toast-error {
+    background-color: #7f1d1d;
+    color: #fee2e2;
+  }
+
+  .toast-warning {
+    background-color: #78350f;
+    color: #fef3c7;
+  }
+
+  .toast-info {
+    background-color: #1e3a8a;
+    color: #dbeafe;
+  }
+}
