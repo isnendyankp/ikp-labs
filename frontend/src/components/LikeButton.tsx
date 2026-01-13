@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 /**
  * LikeButton Component - Heart button untuk like/unlike photos
@@ -25,10 +25,11 @@
  * />
  */
 
-import React, { useState, useEffect } from 'react';
-import { HeartIcon as HeartOutline } from '@heroicons/react/24/outline';
-import { HeartIcon as HeartSolid } from '@heroicons/react/24/solid';
-import photoLikeService from '../services/photoLikeService';
+import React, { useState, useEffect } from "react";
+import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
+import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
+import photoLikeService from "../services/photoLikeService";
+import { useToast } from "@/context/ToastContext";
 
 // === TYPE DEFINITIONS ===
 
@@ -36,7 +37,7 @@ interface LikeButtonProps {
   photoId: number;
   initialIsLiked?: boolean;
   initialLikeCount?: number;
-  size?: 'small' | 'medium' | 'large';
+  size?: "small" | "medium" | "large";
   className?: string;
   onLikeChange?: (photoId: number) => void;
   isOwnPhoto?: boolean; // New: Disable like button for own photos
@@ -48,8 +49,8 @@ export default function LikeButton({
   photoId,
   initialIsLiked = false,
   initialLikeCount = 0,
-  size = 'medium',
-  className = '',
+  size = "medium",
+  className = "",
   onLikeChange,
   isOwnPhoto = false,
 }: LikeButtonProps) {
@@ -58,6 +59,7 @@ export default function LikeButton({
   const [isLiked, setIsLiked] = useState<boolean>(initialIsLiked);
   const [likeCount, setLikeCount] = useState<number>(initialLikeCount);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { showError, showInfo } = useToast();
 
   // === SYNC STATE WITH PROPS ===
   // When parent component refreshes data, update local state
@@ -70,15 +72,15 @@ export default function LikeButton({
   // === SIZE VARIANTS ===
 
   const sizeClasses = {
-    small: 'h-5 w-5',
-    medium: 'h-6 w-6',
-    large: 'h-8 w-8',
+    small: "h-5 w-5",
+    medium: "h-6 w-6",
+    large: "h-8 w-8",
   };
 
   const buttonSizeClasses = {
-    small: 'p-1 text-sm',
-    medium: 'p-2 text-base',
-    large: 'p-3 text-lg',
+    small: "p-1 text-sm",
+    medium: "p-2 text-base",
+    large: "p-3 text-lg",
   };
 
   // === CLICK HANDLER ===
@@ -101,7 +103,7 @@ export default function LikeButton({
 
     // Prevent liking own photos
     if (isOwnPhoto) {
-      alert('You cannot like your own photo');
+      showInfo("You cannot like your own photo");
       return;
     }
 
@@ -129,31 +131,34 @@ export default function LikeButton({
       // Check for errors
       if (response.error) {
         // Rollback on error
-        console.error('❌ Like/Unlike failed, rolling back:', response.error);
+        console.error("❌ Like/Unlike failed, rolling back:", response.error);
         setIsLiked(previousIsLiked);
         setLikeCount(previousLikeCount);
 
-        // Show error message (optional - could use toast notification)
-        alert(response.error.message || 'Failed to update like');
+        // Show error toast
+        showError(response.error.message || "Failed to update like");
       } else {
         // Success - optimistic update was correct
-        console.log('✅ Like/Unlike successful');
+        console.log("✅ Like/Unlike successful");
 
         // Notify parent component of the change
         if (onLikeChange) {
-          console.log('🔄 Calling onLikeChange callback with photoId:', photoId);
+          console.log(
+            "🔄 Calling onLikeChange callback with photoId:",
+            photoId,
+          );
           onLikeChange(photoId);
         } else {
-          console.log('⚠️  onLikeChange callback not provided');
+          console.log("⚠️  onLikeChange callback not provided");
         }
       }
     } catch (error) {
       // Rollback on exception
-      console.error('❌ Exception during like/unlike, rolling back:', error);
+      console.error("❌ Exception during like/unlike, rolling back:", error);
       setIsLiked(previousIsLiked);
       setLikeCount(previousLikeCount);
 
-      alert('An error occurred. Please try again.');
+      showError("An error occurred. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -172,17 +177,30 @@ export default function LikeButton({
           flex items-center justify-center
           rounded-full
           transition-all duration-200
-          ${isOwnPhoto
-            ? 'text-gray-300 cursor-not-allowed'
-            : isLiked
-            ? 'text-red-500 hover:text-red-600'
-            : 'text-gray-400 hover:text-red-500'
+          ${
+            isOwnPhoto
+              ? "text-gray-300 cursor-not-allowed"
+              : isLiked
+                ? "text-red-500 hover:text-red-600"
+                : "text-gray-400 hover:text-red-500"
           }
-          ${isLoading ? 'opacity-50 cursor-not-allowed' : isOwnPhoto ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-gray-100'}
+          ${isLoading ? "opacity-50 cursor-not-allowed" : isOwnPhoto ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:bg-gray-100"}
           focus:outline-none focus:ring-2 focus:ring-red-300
         `}
-        aria-label={isOwnPhoto ? 'Cannot like own photo' : isLiked ? 'Unlike photo' : 'Like photo'}
-        title={isOwnPhoto ? 'You cannot like your own photo' : isLiked ? 'Unlike' : 'Like'}
+        aria-label={
+          isOwnPhoto
+            ? "Cannot like own photo"
+            : isLiked
+              ? "Unlike photo"
+              : "Like photo"
+        }
+        title={
+          isOwnPhoto
+            ? "You cannot like your own photo"
+            : isLiked
+              ? "Unlike"
+              : "Like"
+        }
       >
         {isLiked ? (
           <HeartSolid className={`${sizeClasses[size]} animate-pulse-once`} />
@@ -194,7 +212,7 @@ export default function LikeButton({
       {/* Like Count */}
       {likeCount > 0 && (
         <span className="text-sm text-gray-600 font-medium">
-          {likeCount} {likeCount === 1 ? 'like' : 'likes'}
+          {likeCount} {likeCount === 1 ? "like" : "likes"}
         </span>
       )}
     </div>
