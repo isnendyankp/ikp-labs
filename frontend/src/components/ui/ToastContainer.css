@@ -1,0 +1,62 @@
+/**
+ * Toast Container Styles
+ *
+ * Fixed-position container for toast notifications.
+ * Positioned at top-right of the screen with proper z-index.
+ */
+
+/* Toast Container */
+.toast-container {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+  max-width: 100vw;
+  padding: 0;
+  margin: 0;
+  pointer-events: none;
+}
+
+/* Enable pointer events only on toast items */
+.toast-container .toast-item {
+  pointer-events: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .toast-container {
+    top: 0.5rem;
+    right: 0.5rem;
+    left: 0.5rem;
+  }
+
+  .toast-container .toast-item {
+    min-width: 0;
+    max-width: 100%;
+  }
+}
+
+/* Animation for container appearance */
+@keyframes containerFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.toast-container {
+  animation: containerFadeIn 0.3s ease-in-out;
+}
+
+/* Accessibility - Reduced Motion */
+@media (prefers-reduced-motion: reduce) {
+  .toast-container {
+    animation: none;
+  }
+}
