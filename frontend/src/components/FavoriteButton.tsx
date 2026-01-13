@@ -1,4 +1,4 @@
-'use client';
+"use client";
 
 /**
  * FavoriteButton Component - Star button untuk favorite/unfavorite photos
@@ -39,17 +39,18 @@
  * />
  */
 
-import React, { useState, useEffect } from 'react';
-import { StarIcon as StarOutline } from '@heroicons/react/24/outline';
-import { StarIcon as StarSolid } from '@heroicons/react/24/solid';
-import photoFavoriteService from '../services/photoFavoriteService';
+import React, { useState, useEffect } from "react";
+import { StarIcon as StarOutline } from "@heroicons/react/24/outline";
+import { StarIcon as StarSolid } from "@heroicons/react/24/solid";
+import photoFavoriteService from "../services/photoFavoriteService";
+import { useToast } from "@/context/ToastContext";
 
 // === TYPE DEFINITIONS ===
 
 interface FavoriteButtonProps {
   photoId: number;
   initialIsFavorited?: boolean;
-  size?: 'small' | 'medium' | 'large';
+  size?: "small" | "medium" | "large";
   className?: string;
   onFavoriteChange?: (photoId: number) => void;
 }
@@ -59,14 +60,15 @@ interface FavoriteButtonProps {
 export default function FavoriteButton({
   photoId,
   initialIsFavorited = false,
-  size = 'medium',
-  className = '',
+  size = "medium",
+  className = "",
   onFavoriteChange,
 }: FavoriteButtonProps) {
   // === STATE ===
 
   const [isFavorited, setIsFavorited] = useState<boolean>(initialIsFavorited);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const { showError } = useToast();
 
   // === SYNC STATE WITH PROPS ===
   // When parent component refreshes data, update local state
@@ -78,15 +80,15 @@ export default function FavoriteButton({
   // === SIZE VARIANTS ===
 
   const sizeClasses = {
-    small: 'h-5 w-5',
-    medium: 'h-6 w-6',
-    large: 'h-8 w-8',
+    small: "h-5 w-5",
+    medium: "h-6 w-6",
+    large: "h-8 w-8",
   };
 
   const buttonSizeClasses = {
-    small: 'p-1 text-sm',
-    medium: 'p-2 text-base',
-    large: 'p-3 text-lg',
+    small: "p-1 text-sm",
+    medium: "p-2 text-base",
+    large: "p-3 text-lg",
   };
 
   // === CLICK HANDLER ===
@@ -102,7 +104,9 @@ export default function FavoriteButton({
    * 5. If error: Rollback to previous state
    * 6. If success: Keep optimistic state
    */
-  const handleFavoriteClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleFavoriteClick = async (
+    e: React.MouseEvent<HTMLButtonElement>,
+  ) => {
     // CRITICAL: Prevent event bubbling to parent PhotoCard's onClick
     // Without this, clicking favorite button will navigate to detail page!
     e.stopPropagation();
@@ -128,29 +132,38 @@ export default function FavoriteButton({
       // Check for errors
       if (response.error) {
         // Rollback on error
-        console.error('❌ Favorite/Unfavorite failed, rolling back:', response.error);
+        console.error(
+          "❌ Favorite/Unfavorite failed, rolling back:",
+          response.error,
+        );
         setIsFavorited(previousIsFavorited);
 
-        // Show error message (optional - could use toast notification)
-        alert(response.error.message || 'Failed to update favorite');
+        // Show error toast
+        showError(response.error.message || "Failed to update favorite");
       } else {
         // Success - optimistic update was correct
-        console.log('✅ Favorite/Unfavorite successful');
+        console.log("✅ Favorite/Unfavorite successful");
 
         // Notify parent component of the change
         if (onFavoriteChange) {
-          console.log('🔄 Calling onFavoriteChange callback with photoId:', photoId);
+          console.log(
+            "🔄 Calling onFavoriteChange callback with photoId:",
+            photoId,
+          );
           onFavoriteChange(photoId);
         } else {
-          console.log('⚠️  onFavoriteChange callback not provided');
+          console.log("⚠️  onFavoriteChange callback not provided");
         }
       }
     } catch (error) {
       // Rollback on exception
-      console.error('❌ Exception during favorite/unfavorite, rolling back:', error);
+      console.error(
+        "❌ Exception during favorite/unfavorite, rolling back:",
+        error,
+      );
       setIsFavorited(previousIsFavorited);
 
-      alert('An error occurred. Please try again.');
+      showError("An error occurred. Please try again.");
     } finally {
       setIsLoading(false);
     }
@@ -169,15 +182,16 @@ export default function FavoriteButton({
           flex items-center justify-center
           rounded-full
           transition-all duration-200
-          ${isFavorited
-            ? 'text-yellow-500 hover:text-yellow-600'
-            : 'text-gray-400 hover:text-yellow-500'
+          ${
+            isFavorited
+              ? "text-yellow-500 hover:text-yellow-600"
+              : "text-gray-400 hover:text-yellow-500"
           }
-          ${isLoading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer hover:bg-gray-100'}
+          ${isLoading ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:bg-gray-100"}
           focus:outline-none focus:ring-2 focus:ring-yellow-300
         `}
-        aria-label={isFavorited ? 'Unfavorite photo' : 'Favorite photo'}
-        title={isFavorited ? 'Remove from favorites' : 'Add to favorites'}
+        aria-label={isFavorited ? "Unfavorite photo" : "Favorite photo"}
+        title={isFavorited ? "Remove from favorites" : "Add to favorites"}
       >
         {isFavorited ? (
           <StarSolid className={`${sizeClasses[size]} animate-pulse-once`} />
