@@ -12,19 +12,26 @@
  * - Owner-only actions
  */
 
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useRouter, useParams } from 'next/navigation';
-import { isAuthenticated, getUserFromToken } from '../../../lib/auth';
-import { GalleryPhotoDetailResponse, AuthUser } from '../../../types/api';
-import { getPhotoById, updatePhoto, deletePhoto, getPhotoUrl } from '../../../services/galleryService';
-import LikeButton from '../../../components/LikeButton';
-import FavoriteButton from '../../../components/FavoriteButton';
+import { useEffect, useState } from "react";
+import { useRouter, useParams } from "next/navigation";
+import { isAuthenticated, getUserFromToken } from "../../../lib/auth";
+import { GalleryPhotoDetailResponse, AuthUser } from "../../../types/api";
+import {
+  getPhotoById,
+  updatePhoto,
+  deletePhoto,
+  getPhotoUrl,
+} from "../../../services/galleryService";
+import LikeButton from "../../../components/LikeButton";
+import FavoriteButton from "../../../components/FavoriteButton";
+import { useToast } from "@/context/ToastContext";
 
 export default function PhotoDetailPage() {
   const router = useRouter();
   const params = useParams();
+  const { showError, showSuccess } = useToast();
   const photoId = params.id as string;
 
   const [user, setUser] = useState<AuthUser | null>(null);
@@ -35,14 +42,14 @@ export default function PhotoDetailPage() {
   const [deleting, setDeleting] = useState(false);
 
   // Edit form state
-  const [editTitle, setEditTitle] = useState('');
-  const [editDescription, setEditDescription] = useState('');
+  const [editTitle, setEditTitle] = useState("");
+  const [editDescription, setEditDescription] = useState("");
   const [editIsPublic, setEditIsPublic] = useState(false);
 
   useEffect(() => {
     // Check authentication
     if (!isAuthenticated()) {
-      router.push('/login');
+      router.push("/login");
       return;
     }
 
@@ -50,7 +57,7 @@ export default function PhotoDetailPage() {
     if (userInfo) {
       setUser(userInfo);
     } else {
-      router.push('/login');
+      router.push("/login");
     }
   }, [router]);
 
@@ -69,17 +76,17 @@ export default function PhotoDetailPage() {
       if (response.data) {
         // Backend returns GalleryPhotoDetailResponse directly (flat object, not nested under .photo)
         setPhoto(response.data);
-        setEditTitle(response.data.title || '');
-        setEditDescription(response.data.description || '');
+        setEditTitle(response.data.title || "");
+        setEditDescription(response.data.description || "");
         setEditIsPublic(response.data.isPublic);
       } else if (response.error) {
-        alert('Photo not found or access denied');
-        router.push('/gallery');
+        showError("Photo not found or access denied");
+        router.push("/gallery");
       }
     } catch (error) {
-      console.error('Error fetching photo:', error);
-      alert('Failed to load photo');
-      router.push('/gallery');
+      console.error("Error fetching photo:", error);
+      showError("Failed to load photo");
+      router.push("/gallery");
     } finally {
       setLoading(false);
     }
@@ -103,12 +110,12 @@ export default function PhotoDetailPage() {
           ...response.data,
         });
         setEditing(false);
-        alert('Photo updated successfully!');
+        showSuccess("Photo updated successfully!");
       } else if (response.error) {
-        alert('Update failed: ' + response.error.message);
+        showError("Update failed: " + response.error.message);
       }
     } catch (error) {
-      alert('Update failed. Please try again.');
+      showError("Update failed. Please try again.");
     } finally {
       setSaving(false);
     }
@@ -118,7 +125,7 @@ export default function PhotoDetailPage() {
     if (!photo) return;
 
     const confirmed = window.confirm(
-      'Are you sure you want to delete this photo? This action cannot be undone.'
+      "Are you sure you want to delete this photo? This action cannot be undone.",
     );
 
     if (!confirmed) return;
@@ -129,13 +136,13 @@ export default function PhotoDetailPage() {
       const response = await deletePhoto(photo.id);
 
       if (response.data) {
-        alert('Photo deleted successfully!');
-        router.push('/gallery');
+        showSuccess("Photo deleted successfully!");
+        router.push("/gallery");
       } else if (response.error) {
-        alert('Delete failed: ' + response.error.message);
+        showError("Delete failed: " + response.error.message);
       }
     } catch (error) {
-      alert('Delete failed. Please try again.');
+      showError("Delete failed. Please try again.");
     } finally {
       setDeleting(false);
     }
@@ -143,8 +150,8 @@ export default function PhotoDetailPage() {
 
   const handleCancelEdit = () => {
     setEditing(false);
-    setEditTitle(photo?.title || '');
-    setEditDescription(photo?.description || '');
+    setEditTitle(photo?.title || "");
+    setEditDescription(photo?.description || "");
     setEditIsPublic(photo?.isPublic || false);
   };
 
@@ -169,7 +176,7 @@ export default function PhotoDetailPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center gap-4">
             <button
-              onClick={() => router.push('/gallery')}
+              onClick={() => router.push("/gallery")}
               className="text-gray-600 hover:text-gray-900"
             >
               ← Back to Gallery
@@ -185,7 +192,7 @@ export default function PhotoDetailPage() {
           <div className="bg-white rounded-lg shadow p-4">
             <img
               src={photoUrl}
-              alt={photo.title || 'Photo'}
+              alt={photo.title || "Photo"}
               className="w-full rounded-lg"
             />
           </div>
@@ -233,7 +240,10 @@ export default function PhotoDetailPage() {
                       onChange={(e) => setEditIsPublic(e.target.checked)}
                       className="w-5 h-5 text-blue-600 border-gray-300 rounded"
                     />
-                    <label htmlFor="editIsPublic" className="text-sm font-medium text-gray-700">
+                    <label
+                      htmlFor="editIsPublic"
+                      className="text-sm font-medium text-gray-700"
+                    >
                       Make this photo public
                     </label>
                   </div>
@@ -244,7 +254,7 @@ export default function PhotoDetailPage() {
                       disabled={saving}
                       className="flex-1 py-2 px-4 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 disabled:bg-gray-300"
                     >
-                      {saving ? 'Saving...' : 'Save Changes'}
+                      {saving ? "Saving..." : "Save Changes"}
                     </button>
                     <button
                       onClick={handleCancelEdit}
@@ -261,32 +271,35 @@ export default function PhotoDetailPage() {
                   <div className="flex items-start justify-between">
                     <div>
                       <h2 className="text-2xl font-bold text-gray-900">
-                        {photo.title || 'Untitled'}
+                        {photo.title || "Untitled"}
                       </h2>
                       <p className="text-sm text-gray-500 mt-1">
-                        {new Date(photo.createdAt).toLocaleDateString('id-ID', {
-                          day: 'numeric',
-                          month: 'long',
-                          year: 'numeric',
+                        {new Date(photo.createdAt).toLocaleDateString("id-ID", {
+                          day: "numeric",
+                          month: "long",
+                          year: "numeric",
                         })}
                       </p>
                     </div>
                     <span
                       className={`
                         px-3 py-1 text-sm font-medium rounded
-                        ${photo.isPublic
-                          ? 'bg-green-100 text-green-800'
-                          : 'bg-gray-100 text-gray-800'
+                        ${
+                          photo.isPublic
+                            ? "bg-green-100 text-green-800"
+                            : "bg-gray-100 text-gray-800"
                         }
                       `}
                     >
-                      {photo.isPublic ? 'Public' : 'Private'}
+                      {photo.isPublic ? "Public" : "Private"}
                     </span>
                   </div>
 
                   {photo.description && (
                     <div>
-                      <h3 className="text-sm font-medium text-gray-700 mb-2">Description</h3>
+                      <h3 className="text-sm font-medium text-gray-700 mb-2">
+                        Description
+                      </h3>
                       <p className="text-gray-600">{photo.description}</p>
                     </div>
                   )}
@@ -324,7 +337,7 @@ export default function PhotoDetailPage() {
                         disabled={deleting}
                         className="flex-1 py-2 px-4 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 disabled:bg-gray-300"
                       >
-                        {deleting ? 'Deleting...' : 'Delete'}
+                        {deleting ? "Deleting..." : "Delete"}
                       </button>
                     </div>
                   )}
