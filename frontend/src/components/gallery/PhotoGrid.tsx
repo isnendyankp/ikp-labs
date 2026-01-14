@@ -11,10 +11,11 @@
  * - Support both like and favorite callbacks
  */
 
-'use client';
+"use client";
 
-import { GalleryPhoto } from '../../types/api';
-import PhotoCard from './PhotoCard';
+import { GalleryPhoto } from "../../types/api";
+import PhotoCard from "./PhotoCard";
+import { GalleryGridSkeleton } from "../skeletons/GalleryGridSkeleton";
 
 interface PhotoGridProps {
   photos: GalleryPhoto[];
@@ -27,25 +28,13 @@ interface PhotoGridProps {
 export default function PhotoGrid({
   photos,
   loading = false,
-  emptyMessage = 'No photos found',
+  emptyMessage = "No photos found",
   onLikeChange,
-  onFavoriteChange
+  onFavoriteChange,
 }: PhotoGridProps) {
   // Loading state - show skeleton cards
   if (loading) {
-    return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {[1, 2, 3, 4, 5, 6, 7, 8].map((i) => (
-          <div key={i} className="bg-gray-200 rounded-lg overflow-hidden animate-pulse">
-            <div className="w-full pt-[100%] bg-gray-300"></div>
-            <div className="p-4 space-y-2">
-              <div className="h-4 bg-gray-300 rounded w-3/4"></div>
-              <div className="h-3 bg-gray-300 rounded w-1/2"></div>
-            </div>
-          </div>
-        ))}
-      </div>
-    );
+    return <GalleryGridSkeleton />;
   }
 
   // Empty state
