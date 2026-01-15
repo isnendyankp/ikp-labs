@@ -16,11 +16,15 @@
 import { GalleryPhoto } from "../../types/api";
 import PhotoCard from "./PhotoCard";
 import { GalleryGridSkeleton } from "../skeletons/GalleryGridSkeleton";
+import { EmptyState } from "../ui/EmptyState";
 
 interface PhotoGridProps {
   photos: GalleryPhoto[];
   loading?: boolean;
   emptyMessage?: string;
+  emptyIcon?: string;
+  actionText?: string;
+  onAction?: () => void;
   onLikeChange?: (photoId: number) => void;
   onFavoriteChange?: (photoId: number) => void;
 }
@@ -29,6 +33,9 @@ export default function PhotoGrid({
   photos,
   loading = false,
   emptyMessage = "No photos found",
+  emptyIcon = "📷",
+  actionText,
+  onAction,
   onLikeChange,
   onFavoriteChange,
 }: PhotoGridProps) {
@@ -40,10 +47,12 @@ export default function PhotoGrid({
   // Empty state
   if (photos.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center py-16">
-        <div className="text-6xl mb-4">📷</div>
-        <p className="text-gray-500 text-lg">{emptyMessage}</p>
-      </div>
+      <EmptyState
+        icon={emptyIcon}
+        title={emptyMessage}
+        actionText={actionText}
+        onAction={onAction}
+      />
     );
   }
 

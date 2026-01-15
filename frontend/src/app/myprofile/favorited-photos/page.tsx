@@ -29,17 +29,19 @@
  * Route: /myprofile/favorited-photos
  */
 
-'use client';
+"use client";
 
-import { useEffect, useState, useCallback } from 'react';
-import { useRouter } from 'next/navigation';
-import { isAuthenticated, getUserFromToken } from '../../../lib/auth';
-import { GalleryPhoto, AuthUser } from '../../../types/api';
-import { getFavoritedPhotos } from '../../../services/photoFavoriteService';
-import PhotoGrid from '../../../components/gallery/PhotoGrid';
-import Pagination from '../../../components/gallery/Pagination';
-import LogoutButton from '../../../components/LogoutButton';
-import SortByDropdown, { SortByOption } from '../../../components/SortByDropdown';
+import { useEffect, useState, useCallback } from "react";
+import { useRouter } from "next/navigation";
+import { isAuthenticated, getUserFromToken } from "../../../lib/auth";
+import { GalleryPhoto, AuthUser } from "../../../types/api";
+import { getFavoritedPhotos } from "../../../services/photoFavoriteService";
+import PhotoGrid from "../../../components/gallery/PhotoGrid";
+import Pagination from "../../../components/gallery/Pagination";
+import LogoutButton from "../../../components/LogoutButton";
+import SortByDropdown, {
+  SortByOption,
+} from "../../../components/SortByDropdown";
 
 const PHOTOS_PER_PAGE = 12;
 
@@ -50,13 +52,13 @@ export default function FavoritedPhotosPage() {
   const [photos, setPhotos] = useState<GalleryPhoto[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
-  const [currentSort, setCurrentSort] = useState<SortByOption>('newest');
+  const [currentSort, setCurrentSort] = useState<SortByOption>("newest");
   const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     // Check authentication
     if (!isAuthenticated()) {
-      router.push('/login');
+      router.push("/login");
       return;
     }
 
@@ -64,7 +66,7 @@ export default function FavoritedPhotosPage() {
     if (userInfo) {
       setUser(userInfo);
     } else {
-      router.push('/login');
+      router.push("/login");
     }
   }, [router]);
 
@@ -74,26 +76,30 @@ export default function FavoritedPhotosPage() {
 
     setLoading(true);
 
-    try{
-      const response = await getFavoritedPhotos(currentPage, PHOTOS_PER_PAGE, currentSort);
+    try {
+      const response = await getFavoritedPhotos(
+        currentPage,
+        PHOTOS_PER_PAGE,
+        currentSort,
+      );
 
       if (response.data) {
         // Backend returns GalleryListResponse with photos array AND pagination metadata
         setPhotos(response.data.photos || []);
         setTotalPages(response.data.totalPages || 1);
-        console.log('⭐ Favorited photos fetched:', {
+        console.log("⭐ Favorited photos fetched:", {
           count: response.data.photos?.length || 0,
           currentPage: response.data.currentPage,
           totalPages: response.data.totalPages,
-          totalPhotos: response.data.totalPhotos
+          totalPhotos: response.data.totalPhotos,
         });
       } else if (response.error) {
-        console.error('Failed to fetch favorited photos:', response.error);
+        console.error("Failed to fetch favorited photos:", response.error);
         setPhotos([]);
         setTotalPages(1);
       }
     } catch (error) {
-      console.error('Error fetching favorited photos:', error);
+      console.error("Error fetching favorited photos:", error);
       setPhotos([]);
       setTotalPages(1);
     } finally {
@@ -110,13 +116,13 @@ export default function FavoritedPhotosPage() {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const handleSortChange = (sort: SortByOption) => {
     setCurrentSort(sort);
     setCurrentPage(0); // Reset to page 1 when sort changes
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   if (!user) {
@@ -140,19 +146,19 @@ export default function FavoritedPhotosPage() {
             </div>
             <div className="flex items-center gap-4">
               <button
-                onClick={() => router.push('/gallery')}
+                onClick={() => router.push("/gallery")}
                 className="px-4 py-2 text-gray-700 hover:text-gray-900 font-medium"
               >
                 Gallery
               </button>
               <button
-                onClick={() => router.push('/myprofile/liked-photos')}
+                onClick={() => router.push("/myprofile/liked-photos")}
                 className="px-4 py-2 text-red-600 hover:text-red-700 font-medium"
               >
                 ❤️ Liked Photos
               </button>
               <button
-                onClick={() => router.push('/myprofile')}
+                onClick={() => router.push("/myprofile")}
                 className="px-4 py-2 text-gray-700 hover:text-gray-900 font-medium"
               >
                 My Profile
@@ -177,11 +183,15 @@ export default function FavoritedPhotosPage() {
         {!loading && photos.length > 0 && (
           <div className="mb-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
             <p className="text-sm text-yellow-800">
-              <span className="font-semibold">🔒 Private Collection: {photos.length} favorited photo{photos.length !== 1 ? 's' : ''} on this page</span>
+              <span className="font-semibold">
+                🔒 Private Collection: {photos.length} favorited photo
+                {photos.length !== 1 ? "s" : ""} on this page
+              </span>
               {totalPages > 1 && ` (Page ${currentPage + 1} of ${totalPages})`}
             </p>
             <p className="text-xs text-yellow-700 mt-1">
-              Only you can see this collection. Favorites are private bookmarks for your reference.
+              Only you can see this collection. Favorites are private bookmarks
+              for your reference.
             </p>
           </div>
         )}
@@ -190,12 +200,20 @@ export default function FavoritedPhotosPage() {
         <PhotoGrid
           photos={photos}
           loading={loading}
+          emptyIcon="⭐"
           emptyMessage="You haven't favorited any photos yet. Browse the gallery and save your favorite photos!"
+          actionText="Explore Gallery"
+          onAction={() => router.push("/gallery")}
           onFavoriteChange={(photoId) => {
             // Optimistic update: Immediately remove photo from state
             // This gives instant feedback without waiting for API refetch
-            console.log('📸 Removing photo from Favorited Photos page:', photoId);
-            setPhotos(prevPhotos => prevPhotos.filter(p => p.id !== photoId));
+            console.log(
+              "📸 Removing photo from Favorited Photos page:",
+              photoId,
+            );
+            setPhotos((prevPhotos) =>
+              prevPhotos.filter((p) => p.id !== photoId),
+            );
           }}
         />
 
@@ -207,18 +225,6 @@ export default function FavoritedPhotosPage() {
             onPageChange={handlePageChange}
             loading={loading}
           />
-        )}
-
-        {/* Back to Gallery Button (shown when empty) */}
-        {!loading && photos.length === 0 && (
-          <div className="flex justify-center mt-8">
-            <button
-              onClick={() => router.push('/gallery')}
-              className="px-8 py-3 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors shadow-md"
-            >
-              Explore Gallery
-            </button>
-          </div>
         )}
       </main>
     </div>
