@@ -26,6 +26,7 @@ import {
 } from "../../../services/galleryService";
 import LikeButton from "../../../components/LikeButton";
 import FavoriteButton from "../../../components/FavoriteButton";
+import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { useToast } from "@/context/ToastContext";
 
 export default function PhotoDetailPage() {
@@ -40,6 +41,7 @@ export default function PhotoDetailPage() {
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
+  const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
   // Edit form state
   const [editTitle, setEditTitle] = useState("");
@@ -121,15 +123,14 @@ export default function PhotoDetailPage() {
     }
   };
 
-  const handleDelete = async () => {
+  const handleDeleteClick = () => {
+    setShowDeleteDialog(true);
+  };
+
+  const handleDeleteConfirm = async () => {
     if (!photo) return;
 
-    const confirmed = window.confirm(
-      "Are you sure you want to delete this photo? This action cannot be undone.",
-    );
-
-    if (!confirmed) return;
-
+    setShowDeleteDialog(false);
     setDeleting(true);
 
     try {
@@ -146,6 +147,10 @@ export default function PhotoDetailPage() {
     } finally {
       setDeleting(false);
     }
+  };
+
+  const handleDeleteCancel = () => {
+    setShowDeleteDialog(false);
   };
 
   const handleCancelEdit = () => {
@@ -333,7 +338,7 @@ export default function PhotoDetailPage() {
                         Edit
                       </button>
                       <button
-                        onClick={handleDelete}
+                        onClick={handleDeleteClick}
                         disabled={deleting}
                         className="flex-1 py-2 px-4 bg-red-600 text-white rounded-lg font-medium hover:bg-red-700 disabled:bg-gray-300"
                       >
@@ -347,6 +352,18 @@ export default function PhotoDetailPage() {
           </div>
         </div>
       </main>
+
+      {/* Delete Confirmation Dialog */}
+      <ConfirmDialog
+        isOpen={showDeleteDialog}
+        title="Delete Photo"
+        message="Are you sure you want to delete this photo? This action cannot be undone."
+        confirmText="Delete"
+        cancelText="Cancel"
+        variant="danger"
+        onConfirm={handleDeleteConfirm}
+        onCancel={handleDeleteCancel}
+      />
     </div>
   );
 }
