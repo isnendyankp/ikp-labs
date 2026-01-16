@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { loginUser } from "../services/api";
 import { LoginRequest, LoginFormData } from "../types/api";
 import { isAuthenticated } from "../lib/auth";
+import { FormField } from "./ui/FormField";
 
 const loginSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
@@ -26,6 +27,8 @@ export default function LoginForm() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState(false);
   const [apiError, setApiError] = useState<string>("");
+  const [touched, setTouched] = useState<Record<string, boolean>>({});
+  const [isValid, setIsValid] = useState<Record<string, boolean>>({});
 
   // Redirect to gallery if already authenticated
   useEffect(() => {
@@ -47,6 +50,36 @@ export default function LoginForm() {
         ...errors,
         [name]: "",
       });
+    }
+  };
+
+  const validateField = (name: string, value: string) => {
+    try {
+      // Validate only this field using Zod
+      const fieldSchema = z.object({
+        [name]: loginSchema.shape[name as keyof typeof loginSchema.shape],
+      });
+      fieldSchema.parse({ [name]: value });
+
+      // Field is valid
+      setErrors((prev) => ({ ...prev, [name]: "" }));
+      setIsValid((prev) => ({ ...prev, [name]: true }));
+    } catch (error) {
+      if (error instanceof z.ZodError) {
+        const errorMsg = error.issues[0]?.message || "Invalid value";
+        setErrors((prev) => ({ ...prev, [name]: errorMsg }));
+        setIsValid((prev) => ({ ...prev, [name]: false }));
+      }
+    }
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setTouched((prev) => ({ ...prev, [name]: true }));
+
+    // Validate on blur only if field has value
+    if (value) {
+      validateField(name, value);
     }
   };
 
@@ -97,14 +130,14 @@ export default function LoginForm() {
         } else {
           // General API error
           setApiError(
-            response.error.message || "Login failed. Please try again."
+            response.error.message || "Login failed. Please try again.",
           );
         }
       } else if (response.data && !response.data.success) {
         // Backend returned success: false
         setApiError(
           response.data.message ||
-            "Login failed. Please check your credentials."
+            "Login failed. Please check your credentials.",
         );
       }
     } catch (error) {
@@ -195,39 +228,33 @@ export default function LoginForm() {
             data-testid="login-form"
           >
             {/* Email Field */}
-            <div>
-              <label
-                htmlFor="email"
-                className="block text-sm font-medium text-gray-700 mb-2"
-              >
-                Email
-              </label>
+            <FormField
+              id="email"
+              label="Email"
+              error={touched.email ? errors.email : ""}
+              isValid={isValid.email}
+              required
+            >
               <input
                 type="email"
                 id="email"
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className={`w-full border-0 border-b-2 ${
-                  errors.email
-                    ? "border-red-500"
-                    : "border-gray-300 focus:border-black"
-                } focus:ring-0 pb-2 bg-transparent text-gray-900 placeholder-gray-500 focus:outline-none transition-colors`}
+                onBlur={handleBlur}
+                className="w-full border-0 border-b-2 border-gray-300 focus:border-black focus:ring-0 pb-2 bg-transparent text-gray-900 placeholder-gray-500 focus:outline-none transition-colors"
                 required
               />
-              {errors.email && (
-                <p className="mt-1 text-sm text-red-600">{errors.email}</p>
-              )}
-            </div>
+            </FormField>
 
             {/* Password Field */}
-            <div>
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium text-gray-700 mb-2"
-              >
-                Password
-              </label>
+            <FormField
+              id="password"
+              label="Password"
+              error={touched.password ? errors.password : ""}
+              isValid={isValid.password}
+              required
+            >
               <div className="relative">
                 <input
                   type={showPassword ? "text" : "password"}
@@ -235,11 +262,8 @@ export default function LoginForm() {
                   name="password"
                   value={formData.password}
                   onChange={handleChange}
-                  className={`w-full border-0 border-b-2 ${
-                    errors.password
-                      ? "border-red-500"
-                      : "border-gray-300 focus:border-black"
-                  } focus:ring-0 pb-2 pr-10 bg-transparent text-gray-900 placeholder-gray-500 focus:outline-none transition-colors`}
+                  onBlur={handleBlur}
+                  className="w-full border-0 border-b-2 border-gray-300 focus:border-black focus:ring-0 pb-2 pr-10 bg-transparent text-gray-900 placeholder-gray-500 focus:outline-none transition-colors"
                   required
                 />
                 <button
@@ -249,47 +273,44 @@ export default function LoginForm() {
                   onClick={() => setShowPassword(!showPassword)}
                   title={showPassword ? "Hide password" : "Show password"}
                 >
-                    {showPassword ? (
-                      <svg
-                        className="w-5 h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L6.187 6.187m7.032 7.032l3.71 3.71M9.878 9.878L6.187 6.187m0 0L3 3m18 18l-3-3"
-                        />
-                      </svg>
-                    ) : (
-                      <svg
-                        className="w-5 h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
-                        />
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
-                        />
-                      </svg>
-                    )}
+                  {showPassword ? (
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.878 9.878L6.187 6.187m7.032 7.032l3.71 3.71M9.878 9.878L6.187 6.187m0 0L3 3m18 18l-3-3"
+                      />
+                    </svg>
+                  ) : (
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+                      />
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"
+                      />
+                    </svg>
+                  )}
                 </button>
               </div>
-              {errors.password && (
-                <p className="mt-1 text-sm text-red-600">{errors.password}</p>
-              )}
-            </div>
+            </FormField>
 
             {/* Remember Me and Forgot Password */}
             <div className="flex items-center justify-between">
