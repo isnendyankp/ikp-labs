@@ -181,7 +181,7 @@ export default function PhotoDetailPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <div className="flex items-center gap-4">
             <button
-              onClick={() => router.push("/gallery")}
+              onClick={() => router.back()}
               className="text-gray-600 hover:text-gray-900"
             >
               ← Back to Gallery
