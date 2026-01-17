@@ -753,10 +753,34 @@ Filter labels "Liked Photos" and "Favorited Photos" are ambiguous - users might 
 
 ---
 
+### Task 9.3: Fix Sort State Reset from Upload Page (15 min) ✅
+**Estimated Time**: 15 minutes
+
+**Bug Description**:
+When user selects sort/filter in gallery, clicks "Upload Photo", then clicks back from upload page, the sort/filter resets to default instead of preserving the selection.
+
+**Files to Modify**:
+- `frontend/src/app/gallery/upload/page.tsx`
+
+**Steps**:
+1. [x] Investigate Upload Photo button navigation
+2. [x] Check if upload page has back button
+3. [x] Ensure navigation preserves URL params
+4. [x] Test with all sort and filter options
+5. [x] **COMMIT**: "fix(ux): preserve sort/filter state when navigating to/from upload page"
+
+**Acceptance Criteria**:
+- [x] Sort/filter preserved when going to upload page
+- [x] Sort/filter preserved when returning from upload page
+- [x] Works with all sort options
+- [x] Works with all filter options
+
+---
+
 ## Atomic Commit Summary
 
-**Total Commits: 27**
-**Completed: 27/27**
+**Total Commits: 28**
+**Completed: 28/28**
 
 ✅ **Phase 1 - Toast Notification System (7 commits)**:
 1. [x] feat(ux): add toast TypeScript types
@@ -802,9 +826,10 @@ Filter labels "Liked Photos" and "Favorited Photos" are ambiguous - users might 
 ✅ **Phase 8 - Final Testing (1 commit)**:
 28. [x] docs(ux): add UX testing summary
 
-✅ **Phase 9 - Bug Fixes (2 commits)**:
+✅ **Phase 9 - Bug Fixes (3 commits)**:
 29. [x] fix(ux): preserve sort/filter state when navigating back to gallery
 30. [x] fix(ux): improve filter label clarity with 'My' prefix
+31. [x] fix(ux): preserve sort/filter state when navigating back from upload page
 
 ---
 
@@ -832,14 +857,15 @@ Filter labels "Liked Photos" and "Favorited Photos" are ambiguous - users might 
 
 ---
 
-**Checklist Version**: 1.5
+**Checklist Version**: 1.6
 **Created**: January 12, 2026
 **Updated**: January 17, 2026 (All phases completed including bug fixes)
 **Total Estimated Time**: 12-18 hours
-**Progress**: 27/27 commits completed (100%)
+**Progress**: 28/28 commits completed (100%)
 **Next Step**: Move to Done folder after final review
 **All E2E Tests Created**: 33 test scenarios across 3 test files
 **Documentation**: 3 new documentation files created
 **Bug Fixes Completed**:
 - Sort/filter state preservation on photo detail navigation
 - Filter label clarity ("My Liked Photos", "My Favorited Photos")
+- Sort/filter state preservation on upload page navigation
