@@ -177,25 +177,25 @@ export default function LoginForm() {
             {/* Brand */}
             <div>
               <h1 className="text-white text-2xl font-bold drop-shadow-lg">
-                abc.com
+                Kameravue
               </h1>
             </div>
 
             {/* Main Content */}
             <div className="flex-1 flex flex-col justify-center">
               <h2 className="text-white text-2xl lg:text-3xl font-bold leading-tight mb-8 drop-shadow-lg">
-                Welcome back! Ready to continue your journey with the best
-                remote talent platform?
+                Welcome back! Ready to continue capturing and sharing your
+                beautiful moments?
               </h2>
             </div>
 
             {/* Author */}
             <div>
               <p className="text-white font-semibold drop-shadow-lg">
-                Madhushan sasanka
+                Kameravue Team
               </p>
               <p className="text-white text-sm opacity-90 drop-shadow-lg">
-                CEO, abc.com
+                Your moments, perfectly captured
               </p>
             </div>
           </div>

@@ -146,21 +146,20 @@ export default function RegistrationForm() {
           <div className="absolute inset-0 flex flex-col justify-between p-12">
             {/* Brand */}
             <div>
-              <h1 className="text-white text-2xl font-bold drop-shadow-lg">abc.com</h1>
+              <h1 className="text-white text-2xl font-bold drop-shadow-lg">Kameravue</h1>
             </div>
-            
+
             {/* Main Content */}
             <div className="flex-1 flex flex-col justify-center">
               <h2 className="text-white text-2xl lg:text-3xl font-bold leading-tight mb-8 drop-shadow-lg">
-                abc.com is the best place to find remote talent. We&apos;ve been super
-                impressed by the quality of applicants.
+                Kameravue - Your perfect moments, beautifully captured and shared with the world.
               </h2>
             </div>
-            
+
             {/* Author */}
             <div>
-              <p className="text-white font-semibold drop-shadow-lg">Madhushan sasanka</p>
-              <p className="text-white text-sm opacity-90 drop-shadow-lg">CEO, abc.com</p>
+              <p className="text-white font-semibold drop-shadow-lg">Kameravue Team</p>
+              <p className="text-white text-sm opacity-90 drop-shadow-lg">Your moments, perfectly captured</p>
             </div>
           </div>
         </div>
