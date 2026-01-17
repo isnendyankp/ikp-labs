@@ -729,10 +729,34 @@ When user sorts gallery (e.g., by "most liked"), clicks a photo, then clicks "ba
 
 ---
 
+### Task 9.2: Improve Filter Label Clarity (15 min) ✅
+**Estimated Time**: 15 minutes
+
+**UX Issue**:
+Filter labels "Liked Photos" and "Favorited Photos" are ambiguous - users might think they show photos with most likes/favorites globally, rather than their own personal likes/favorites.
+
+**Files to Modify**:
+- `frontend/src/components/FilterDropdown.tsx`
+- `frontend/src/app/gallery/page.tsx` (empty state messages)
+
+**Steps**:
+1. [x] Change "Liked Photos" → "My Liked Photos"
+2. [x] Change "Favorited Photos" → "My Favorited Photos"
+3. [x] Verify empty state messages are consistent
+4. [x] Test that existing functionality still works
+5. [x] **COMMIT**: "fix(ux): improve filter label clarity with 'My' prefix"
+
+**Acceptance Criteria**:
+- [x] Filter labels are clearer and consistent
+- [x] No breaking changes to existing functionality
+- [x] Empty state messages remain consistent
+
+---
+
 ## Atomic Commit Summary
 
-**Total Commits: 26**
-**Completed: 26/26**
+**Total Commits: 27**
+**Completed: 27/27**
 
 ✅ **Phase 1 - Toast Notification System (7 commits)**:
 1. [x] feat(ux): add toast TypeScript types
@@ -778,8 +802,9 @@ When user sorts gallery (e.g., by "most liked"), clicks a photo, then clicks "ba
 ✅ **Phase 8 - Final Testing (1 commit)**:
 28. [x] docs(ux): add UX testing summary
 
-✅ **Phase 9 - Bug Fixes (1 commit)**:
+✅ **Phase 9 - Bug Fixes (2 commits)**:
 29. [x] fix(ux): preserve sort/filter state when navigating back to gallery
+30. [x] fix(ux): improve filter label clarity with 'My' prefix
 
 ---
 
@@ -807,12 +832,14 @@ When user sorts gallery (e.g., by "most liked"), clicks a photo, then clicks "ba
 
 ---
 
-**Checklist Version**: 1.4
+**Checklist Version**: 1.5
 **Created**: January 12, 2026
-**Updated**: January 17, 2026 (All phases completed including bug fix)
+**Updated**: January 17, 2026 (All phases completed including bug fixes)
 **Total Estimated Time**: 12-18 hours
-**Progress**: 26/26 commits completed (100%)
+**Progress**: 27/27 commits completed (100%)
 **Next Step**: Move to Done folder after final review
 **All E2E Tests Created**: 33 test scenarios across 3 test files
 **Documentation**: 3 new documentation files created
-**Bug Fix Completed**: Sort/filter state now preserved when navigating back from photo detail
+**Bug Fixes Completed**:
+- Sort/filter state preservation on photo detail navigation
+- Filter label clarity ("My Liked Photos", "My Favorited Photos")
