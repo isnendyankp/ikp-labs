@@ -703,10 +703,36 @@
 
 ---
 
+## Phase 9: Bug Fixes (30 min) 🔄 IN PROGRESS
+
+### Task 9.1: Fix Sort State Reset on "Back to Gallery" (30 min) ✅
+**Estimated Time**: 30 minutes
+
+**Bug Description**:
+When user sorts gallery (e.g., by "most liked"), clicks a photo, then clicks "back to gallery", the sort resets to "newest first" instead of preserving the selected sort option.
+
+**Files to Modify**:
+- `frontend/src/app/gallery/[id]/page.tsx`
+
+**Steps**:
+1. [x] Update "Back to Gallery" button to use `router.back()` instead of `router.push("/gallery")`
+2. [x] Test with all sort options (newest, oldest, most liked, most favorited)
+3. [x] Test with all filter options (all, my-photos, liked, favorited)
+4. [x] Test with pagination
+5. [x] **COMMIT**: "fix(ux): preserve sort/filter state when navigating back to gallery"
+
+**Acceptance Criteria**:
+- [x] Sort selection is preserved after photo detail navigation
+- [x] Filter selection is preserved after photo detail navigation
+- [x] Page number is preserved after photo detail navigation
+- [x] Works with all sort options
+
+---
+
 ## Atomic Commit Summary
 
-**Total Commits: 25**
-**Completed: 25/25**
+**Total Commits: 26**
+**Completed: 26/26**
 
 ✅ **Phase 1 - Toast Notification System (7 commits)**:
 1. [x] feat(ux): add toast TypeScript types
@@ -752,6 +778,9 @@
 ✅ **Phase 8 - Final Testing (1 commit)**:
 28. [x] docs(ux): add UX testing summary
 
+✅ **Phase 9 - Bug Fixes (1 commit)**:
+29. [x] fix(ux): preserve sort/filter state when navigating back to gallery
+
 ---
 
 ## Success Criteria Summary
@@ -778,11 +807,12 @@
 
 ---
 
-**Checklist Version**: 1.2
+**Checklist Version**: 1.4
 **Created**: January 12, 2026
-**Updated**: January 16, 2026 (All Phases Completed - Ready for Final Review)
-**Total Estimated Time**: 12-17 hours
-**Progress**: 25/25 commits completed (100%)
+**Updated**: January 17, 2026 (All phases completed including bug fix)
+**Total Estimated Time**: 12-18 hours
+**Progress**: 26/26 commits completed (100%)
 **Next Step**: Move to Done folder after final review
 **All E2E Tests Created**: 33 test scenarios across 3 test files
 **Documentation**: 3 new documentation files created
+**Bug Fix Completed**: Sort/filter state now preserved when navigating back from photo detail
