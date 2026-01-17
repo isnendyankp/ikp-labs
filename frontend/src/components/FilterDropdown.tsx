@@ -2,7 +2,7 @@
  * FilterDropdown Component
  *
  * A dropdown component for filtering gallery photos.
- * Provides 4 filter options: All Photos, My Photos, Liked Photos, Favorited Photos
+ * Provides 4 filter options: All Photos, My Photos, My Liked Photos, My Favorited Photos
  *
  * Features:
  * - Dropdown UI with open/close state
@@ -32,8 +32,8 @@ interface FilterConfig {
 const FILTER_OPTIONS: FilterConfig[] = [
   { value: "all", label: "All Photos", icon: "🌐" },
   { value: "my-photos", label: "My Photos", icon: "📸" },
-  { value: "liked", label: "Liked Photos", icon: "❤️" },
-  { value: "favorited", label: "Favorited Photos", icon: "⭐" },
+  { value: "liked", label: "My Liked Photos", icon: "❤️" },
+  { value: "favorited", label: "My Favorited Photos", icon: "⭐" },
 ];
 
 export default function FilterDropdown({
