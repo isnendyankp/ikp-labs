@@ -103,6 +103,23 @@ export default defineConfig({
       use: { ...devices['Desktop Firefox'] },
     },
 
+    /* LinkedIn video recording - slower, realistic user pace */
+    {
+      name: 'linkedin',
+      testDir: './tests/e2e',
+      testMatch: '**/ux-story-journey.spec.ts',
+      testIgnore: ['**/ux-confirmations.spec.ts', '**/ux-empty-states.spec.ts', '**/ux-validation.spec.ts'],
+      use: {
+        ...devices['Desktop Chrome'],
+        // Slow down actions for realistic video (100ms delay between actions)
+        launchOptions: {
+          slowMo: 100,
+        },
+        // Always record video for linkedin project
+        video: 'on',
+      },
+    },
+
     // WebKit (Safari) disabled due to extreme slowness under parallel load
     // All features verified working in isolation - failures are resource contention only
     // Primary browsers (Chromium + Firefox) provide 100% coverage for production use
