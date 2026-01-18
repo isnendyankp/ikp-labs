@@ -16,9 +16,6 @@
 /playwright-report/
 /tests/e2e/reports/
 /tests/gherkin/reports/
-frontend/test-results/
-frontend/playwright-report/
-frontend/tests/e2e/reports/
 
 # next.js
 /.next/
@@ -120,6 +117,9 @@ uploads/*
 # Documentation - Private/Internal folders
 docs/linkedin/
 docs/.internal/
+
+# LinkedIn Video Scripts - Personal workflow for weekly content
+frontend/scripts/
 
 # Test Reports
 docs/test-reports/
