@@ -114,6 +114,56 @@ npx playwright test tests/e2e/ --project=chromium --project=firefox --project=we
 - ✅ Image validation
 - ✅ Display in navbar
 
+**[photo-favorites.spec.ts](photo-favorites.spec.ts)** - Photo favorites feature
+- ✅ Favorite/unfavorite other users' photos
+- ✅ Cannot favorite own photos
+- ✅ Favorite count updates correctly
+- ✅ Favorited photos page shows user's favorited photos
+- ✅ Multi-user testing
+- ✅ Pagination on favorited photos page
+
+**[gallery-sorting.spec.ts](gallery-sorting.spec.ts)** - Gallery sorting & filtering
+- ✅ Sort by newest/oldest
+- ✅ Sort by most liked/favorited
+- ✅ Filter by all/my-photos/liked/favorited
+- ✅ Sort/filter state preservation (bug fix)
+
+### UX-Specific Tests
+
+**[ux-validation.spec.ts](ux-validation.spec.ts)** - Form Validation UX
+- ✅ Email format validation on blur
+- ✅ Password strength validation on blur
+- ✅ Success messages for valid input
+- ✅ Error message clearing on type
+- ✅ Validation on submit
+- ✅ Keyboard navigation (Tab, Enter)
+- ✅ Error icons with messages
+- ✅ Success icons with messages
+
+**[ux-confirmations.spec.ts](ux-confirmations.spec.ts)** - Confirmation Dialogs
+- ✅ Delete confirmation appears before action
+- ✅ Cancel button closes dialog
+- ✅ ESC key closes dialog
+- ✅ Click outside closes dialog
+- ✅ Confirm button executes action
+- ✅ Focus trap within dialog
+- ✅ Proper ARIA attributes
+
+**[ux-empty-states.spec.ts](ux-empty-states.spec.ts)** - Empty State UX
+- ✅ Empty gallery shows helpful message
+- ✅ Empty liked photos with CTA
+- ✅ Empty favorited photos with CTA
+- ✅ Empty state component structure
+- ✅ Transition from empty to populated
+- ✅ Empty state disappears when photos exist
+
+**[ux-story-journey.spec.ts](ux-story-journey.spec.ts)** - UX Story Journey (LinkedIn Demo)
+- ✅ Register new account
+- ✅ Gallery shows photos from ALL users
+- ✅ Change sort from "Newest First" to "Oldest First"
+- ✅ Navigate to upload page (but don't upload)
+- ✅ Click back - sort preserved (bug fix!)
+
 ### Demo & Utilities
 
 **[demo-screenshot-capture.spec.ts](demo-screenshot-capture.spec.ts)** - Screenshot testing demo
