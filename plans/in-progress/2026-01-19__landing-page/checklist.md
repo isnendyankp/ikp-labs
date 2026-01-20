@@ -448,10 +448,277 @@
 
 ---
 
+## Phase 6: E2E Testing (3-4 hours)
+
+### Task 6.1: Explore Existing E2E Test Patterns (20 min)
+**Estimated Time**: 20 minutes
+
+**Files to Explore**:
+- `tests/e2e/*.spec.ts` - Existing test files
+- `tests/fixtures/test-users.ts` - Test data fixtures
+- `tests/e2e/helpers/*.ts` - Helper functions
+- `playwright.config.ts` - Playwright configuration
+
+**Steps**:
+1. [ ] Review existing E2E test structure and patterns
+2. [ ] Examine test helper functions and fixtures
+3. [ ] Understand Playwright configuration (baseURL, timeouts)
+4. [ ] Document test patterns to follow (emoji logging, describe blocks, etc.)
+5. [ ] **COMMIT**: N/A (exploration only)
+
+**Acceptance Criteria**:
+- [ ] Test patterns understood
+- [ ] Helper functions identified
+- [ ] Configuration verified
+
+---
+
+### Task 6.2: Create Landing Page Test Suite Structure (25 min)
+**Estimated Time**: 25 minutes
+
+**Files to Create**:
+- `tests/e2e/landing-page.spec.ts`
+
+**Steps**:
+1. [ ] Create test file with proper imports
+2. [ ] Set up test.describe block for landing page tests
+3. [ ] Add beforeEach hook to navigate to landing page
+4. [ ] Add afterEach hook for cleanup (if needed)
+5. [ ] Add console.log with emoji pattern (🧪 for test start, ✅ for pass)
+6. [ ] **COMMIT**: "test(e2e): create landing page test suite structure"
+
+**Acceptance Criteria**:
+- [ ] Test file created
+- [ ] Test suite structure follows existing patterns
+- [ ] beforeEach navigates to `/` or root URL
+
+---
+
+### Task 6.3: Add Navigation Button Tests (30 min)
+**Estimated Time**: 30 minutes
+
+**Test Cases**:
+1. "Get Started Free" buttons (Hero + CTA) navigate to `/login`
+2. "Login" button (Navbar) navigates to `/login`
+3. "Learn More" button smooth scrolls to Features section
+4. "Go to Gallery" button (authenticated) navigates to `/gallery`
+
+**Steps**:
+1. [ ] Test Hero section "Get Started Free" button click → `/login`
+2. [ ] Test CTA section "Get Started Free" button click → `/login`
+3. [ ] Test Navbar "Login" button click → `/login`
+4. [ ] Test "Learn More" button scroll to `#features`
+5. [ ] Test authenticated state shows "Go to Gallery" button
+6. [ ] Test "Go to Gallery" click → `/gallery`
+7. [ ] **COMMIT**: "test(e2e): add landing page navigation button tests"
+
+**Acceptance Criteria**:
+- [ ] All CTA buttons navigate to correct URLs
+- [ ] Smooth scroll functionality verified
+- [ ] Auth-aware button states tested
+
+---
+
+### Task 6.4: Add Responsive Navbar Tests (35 min)
+**Estimated Time**: 35 minutes
+
+**Test Cases**:
+1. Desktop: All nav links visible and clickable
+2. Mobile: Hamburger menu toggle works
+3. Mobile: All links accessible via hamburger menu
+4. Scroll effect: Backdrop/shadow appears on scroll
+5. Auth-aware: Correct buttons shown for authenticated/unauthenticated
+
+**Steps**:
+1. [ ] Test desktop viewport (>1024px) - all links visible
+2. [ ] Test mobile viewport (<640px) - hamburger menu shows
+3. [ ] Test hamburger menu click opens menu
+4. [ ] Test hamburger menu click closes menu
+5. [ ] Test nav links in mobile menu are clickable
+6. [ ] Test scroll effect adds backdrop (scrolled state)
+7. [ ] Test auth-aware button rendering (unauthenticated state)
+8. [ ] **COMMIT**: "test(e2e): add responsive navbar tests"
+
+**Acceptance Criteria**:
+- [ ] Navbar responsive behavior verified
+- [ ] Mobile hamburger menu functional
+- [ ] Scroll effects tested
+- [ ] Auth-aware buttons render correctly
+
+---
+
+### Task 6.5: Add Section Render Tests (30 min)
+**Estimated Time**: 30 minutes
+
+**Test Cases**:
+1. Hero section: Headline, subheadline, CTAs, hero image
+2. Features section: 6 feature cards with icons and text
+3. About section: Mission text and 3 stats cards
+4. CTA section: Headline, CTA button, trust elements
+5. Footer: Logo, links, copyright
+
+**Steps**:
+1. [ ] Test Hero section renders with correct headline text
+2. [ ] Test Hero subheadline text matches expected
+3. [ ] Test Hero image is visible (using Next.js Image)
+4. [ ] Test Features section has 6 feature cards
+5. [ ] Test each feature card has icon, title, description
+6. [ ] Test About section mission text is visible
+7. [ ] Test About section 3 stats cards render
+8. [ ] Test CTA section has dark background
+9. [ ] Test CTA button is prominent
+10. [ ] Test Footer has all link columns
+11. [ ] Test Footer copyright notice visible
+12. [ ] **COMMIT**: "test(e2e): add landing page section render tests"
+
+**Acceptance Criteria**:
+- [ ] All sections render correctly
+- [ ] All text content is present
+- [ ] Images and icons are visible
+- [ ] Stats display correctly
+
+---
+
+### Task 6.6: Add Smooth Scroll Navigation Tests (20 min)
+**Estimated Time**: 20 minutes
+
+**Test Cases**:
+1. Navbar "Features" link smooth scrolls to Features section
+2. Navbar "About" link smooth scrolls to About section
+3. "Learn More" button smooth scrolls to Features section
+
+**Steps**:
+1. [ ] Test clicking Navbar "Features" link scrolls to `#features`
+2. [ ] Test clicking Navbar "About" link scrolls to `#about`
+3. [ ] Test "Learn More" button scrolls to `#features`
+4. [ ] Verify smooth scroll behavior (not instant jump)
+5. [ ] Verify section is in view after scroll
+6. [ ] **COMMIT**: "test(e2e): add smooth scroll navigation tests"
+
+**Acceptance Criteria**:
+- [ ] All anchor links work correctly
+- [ ] Smooth scroll behavior verified
+- [ ] Target sections are in viewport after scroll
+
+---
+
+### Task 6.7: Add Responsive Layout Tests (35 min)
+**Estimated Time**: 35 minutes
+
+**Test Cases**:
+1. Mobile (375px): Stacked layouts, 1-column grids
+2. Tablet (768px): 2-column features grid
+3. Desktop (1280px+): Full layouts, 3-column features grid
+
+**Steps**:
+1. [ ] Test mobile viewport (375px) - Hero stacked layout
+2. [ ] Test mobile viewport - Features 1-column grid
+3. [ ] Test mobile viewport - About section stacked
+4. [ ] Test mobile viewport - Footer 2-column layout
+5. [ ] Test tablet viewport (768px) - Features 2-column grid
+6. [ ] Test desktop viewport (1280px) - Features 3-column grid
+7. [ ] Test desktop viewport - Hero 2-column layout
+8. [ ] Test desktop viewport - About 2-column layout
+9. [ ] Test desktop viewport - Footer 4-column layout
+10. [ ] **COMMIT**: "test(e2e): add responsive layout tests"
+
+**Acceptance Criteria**:
+- [ ] Mobile layout verified (stacked, 1-col)
+- [ ] Tablet layout verified (2-col features)
+- [ ] Desktop layout verified (full, 3-col features)
+
+---
+
+### Task 6.8: Add Interactive Element Tests (25 min)
+**Estimated Time**: 25 minutes
+
+**Test Cases**:
+1. Feature cards: Hover effect (scale + shadow)
+2. Buttons: Hover effects
+3. All links are clickable
+4. Footer links navigate correctly
+
+**Steps**:
+1. [ ] Test feature card hover effect (scale-105)
+2. [ ] Test feature card shadow on hover
+3. [ ] Test button hover states
+4. [ ] Test all footer links are clickable
+5. [ ] Test footer links navigate to correct anchors/sections
+6. [ ] Test Navbar logo click scrolls to top
+7. [ ] **COMMIT**: "test(e2e): add interactive element tests"
+
+**Acceptance Criteria**:
+- [ ] Hover effects verified
+- [ ] All interactive elements clickable
+- [ ] Footer navigation works
+
+---
+
+### Task 6.9: Add Auth-Aware Button Tests (20 min)
+**Estimated Time**: 20 minutes
+
+**Test Cases**:
+1. Unauthenticated: Shows "Login" + "Get Started" buttons
+2. Authenticated: Shows "Go to Gallery" button
+3. No auth state: Shows default buttons
+
+**Steps**:
+1. [ ] Test unauthenticated state shows Login + Get Started buttons
+2. [ ] Test authenticated state (mock auth) shows Go to Gallery button
+3. [ ] Verify Login button navigates to `/login`
+4. [ ] Verify Get Started button navigates to `/login`
+5. [ ] Verify Go to Gallery button navigates to `/gallery`
+6. [ ] **COMMIT**: "test(e2e): add auth-aware button tests"
+
+**Acceptance Criteria**:
+- [ ] Unauthenticated buttons render correctly
+- [ ] Authenticated button renders correctly
+- [ ] All buttons navigate to correct URLs
+
+---
+
+### Task 6.10: Run All E2E Tests (15 min)
+**Estimated Time**: 15 minutes
+
+**Steps**:
+1. [ ] Run E2E tests in headless mode: `npm run test:e2e`
+2. [ ] Verify all tests pass (100% pass rate)
+3. [ ] Review test report for any warnings
+4. [ ] Fix any failing tests
+5. [ ] Re-run tests until all pass
+6. [ ] **COMMIT**: "test(e2e): fix failing landing page tests" (if fixes needed)
+
+**Acceptance Criteria**:
+- [ ] All E2E tests pass
+- [ ] Test coverage sufficient
+- [ ] No flaky tests
+
+---
+
+### Task 6.11: Update Test Documentation (15 min)
+**Estimated Time**: 15 minutes
+
+**Files to Modify**:
+- `tests/e2e/README.md` (if exists)
+- `plans/in-progress/2026-01-19__landing-page/README.md`
+
+**Steps**:
+1. [ ] Document landing page E2E tests in test README
+2. [ ] Update landing page plan README with test completion
+3. [ ] Add test coverage summary
+4. [ ] **COMMIT**: "docs(e2e): document landing page E2E tests"
+
+**Acceptance Criteria**:
+- [ ] E2E tests documented
+- [ ] Landing page plan updated
+- [ ] Test coverage noted
+
+---
+
 ## Atomic Commit Summary
 
-**Total Commits: 10**
-**Completed: 10/10**
+**Total Commits: 22** (12 completed + 10 planned for E2E)
+**Completed: 12/22**
 
 ✅ **Phase 1 - Setup (2 commits)**:
 1. [x] feat(landing): create landing components folder
@@ -472,10 +739,22 @@
 12. [x] feat(landing): update app metadata for SEO
 
 ⏭️ **Phase 4 - Testing (0 commits)**:
-- Testing deferred (manual testing completed)
+- Manual testing completed
 
 ⏭️ **Phase 5 - Documentation (0 commits)**:
 - Documentation deferred
+
+📋 **Phase 6 - E2E Testing (10 planned commits)**:
+13. [ ] test(e2e): create landing page test suite structure
+14. [ ] test(e2e): add landing page navigation button tests
+15. [ ] test(e2e): add responsive navbar tests
+16. [ ] test(e2e): add landing page section render tests
+17. [ ] test(e2e): add smooth scroll navigation tests
+18. [ ] test(e2e): add responsive layout tests
+19. [ ] test(e2e): add interactive element tests
+20. [ ] test(e2e): add auth-aware button tests
+21. [ ] test(e2e): fix failing landing page tests (if needed)
+22. [ ] docs(e2e): document landing page E2E tests
 
 ---
 
@@ -508,19 +787,20 @@
 
 ---
 
-**Checklist Version**: 1.0
+**Checklist Version**: 1.1
 **Created**: January 19, 2026
-**Total Estimated Time**: 4-6 hours
-**Progress**: 10/10 core commits completed (100%)
-**Testing**: Manual testing completed (desktop/mobile)
-**Documentation**: Deferred
-**Status**: ✅ **CORE IMPLEMENTATION COMPLETE**
+**Updated**: January 20, 2026 (Added E2E Testing Phase)
+**Total Estimated Time**: 7-10 hours (4-6 implementation + 3-4 E2E testing)
+**Progress**: 12/22 commits completed (55%)
+**Implementation**: ✅ Complete (12/12 commits)
+**E2E Testing**: 📋 Planned (10 commits)
+**Status**: ✅ **CORE IMPLEMENTATION COMPLETE** | 📋 **E2E TESTING PLAN READY**
 
 ---
 
 ## Notes
 
-### What Was Implemented
+### What Was Implemented (Phase 1-5)
 - ✅ All 9 landing page components created
 - ✅ TypeScript types defined
 - ✅ Root page updated to show landing page
@@ -529,17 +809,29 @@
 - ✅ Responsive design (mobile/tablet/desktop)
 - ✅ Smooth scroll navigation
 - ✅ Hover effects and animations
+- ✅ Manual testing completed (desktop/mobile)
+
+### E2E Testing Plan (Phase 6)
+- 📋 Test suite structure to be created
+- 📋 Navigation button tests planned
+- 📋 Responsive navbar tests planned
+- 📋 Section render tests planned
+- 📋 Smooth scroll navigation tests planned
+- 📋 Responsive layout tests planned
+- 📋 Interactive element tests planned
+- 📋 Auth-aware button tests planned
 
 ### What Was Deferred
 - ⏭️ Cross-browser testing
 - ⏭️ Accessibility testing
-- ⏭️ Documentation
+- ⏭️ Component documentation
 - ⏭️ Additional sections (testimonials, pricing, etc.)
 
 ### Next Steps
-1. User testing and feedback
-2. Adjust content/design based on feedback
-3. Add optional sections (testimonials, pricing)
-4. Complete cross-browser testing
-5. Complete accessibility testing
-6. Write documentation
+1. **E2E Testing**: Execute Phase 6 tasks (3-4 hours)
+2. User testing and feedback
+3. Adjust content/design based on feedback
+4. Add optional sections (testimonials, pricing)
+5. Complete cross-browser testing
+6. Complete accessibility testing
+7. Write component documentation
