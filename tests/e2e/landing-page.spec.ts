@@ -7,6 +7,38 @@ import { test, expect } from '@playwright/test';
  * Tests navigation, responsive design, sections, and interactive elements.
  */
 
+/**
+ * Helper function to create a fake JWT token for testing
+ * The isAuthenticated() function checks:
+ * 1. Token exists
+ * 2. Token has valid JWT format (3 parts)
+ * 3. Token is not expired
+ */
+function createFakeJwtToken(): string {
+  // Create a fake JWT payload with expiration in the future
+  const now = Math.floor(Date.now() / 1000);
+  const exp = now + 3600; // Expires in 1 hour
+
+  const payload = {
+    userId: 123,
+    email: 'test@example.com',
+    fullName: 'Test User',
+    exp: exp,
+    iat: now,
+    sub: 'test-user'
+  };
+
+  // Encode to base64 (URL-safe)
+  const header = btoa(JSON.stringify({ alg: 'HS256', typ: 'JWT' }));
+  const encodedPayload = btoa(JSON.stringify(payload))
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=/g, '');
+
+  // Fake JWT: header.payload.signature
+  return `${header}.${encodedPayload}.fake-signature`;
+}
+
 test.describe('Landing Page - End-to-End Tests', () => {
   // Before each test, navigate to landing page and clear auth state
   test.beforeEach(async ({ page }) => {
@@ -94,23 +126,20 @@ test.describe('Landing Page - End-to-End Tests', () => {
   test('Should show "Go to Gallery" button when authenticated', async ({ page }) => {
     console.log('🧪 Test: Auth-aware "Go to Gallery" button');
 
-    // Set auth token in localStorage to simulate authenticated state
+    // Set auth token BEFORE page load (because useEffect checks on mount)
+    const fakeToken = createFakeJwtToken();
+    await page.addInitScript((token) => {
+      localStorage.setItem('authToken', token);
+    }, fakeToken);
     await page.goto('/');
-    await page.evaluate(() => {
-      localStorage.setItem('authToken', 'fake-test-token');
-      localStorage.setItem('userEmail', 'test@example.com');
-    });
 
-    // Reload page to apply auth state
-    await page.reload();
-
-    // Verify "Go to Gallery" button is visible
-    const goToGalleryButton = page.getByRole('button', { name: 'Go to Gallery' });
+    // Verify "Go to Gallery" button is visible (exact match)
+    const goToGalleryButton = page.getByRole('button', { name: 'Go to Gallery', exact: true });
     await expect(goToGalleryButton).toBeVisible();
 
-    // Verify Login and Get Started buttons are NOT visible
-    const loginButton = page.getByRole('button', { name: 'Login' });
-    const getStartedButton = page.getByRole('button', { name: 'Get Started' });
+    // Verify Login and Get Started buttons are NOT visible (exact match)
+    const loginButton = page.getByRole('button', { name: 'Login', exact: true });
+    const getStartedButton = page.getByRole('button', { name: 'Get Started', exact: true });
     await expect(loginButton).not.toBeVisible();
     await expect(getStartedButton).not.toBeVisible();
 
@@ -120,16 +149,15 @@ test.describe('Landing Page - End-to-End Tests', () => {
   test('Should navigate to gallery when clicking "Go to Gallery" button', async ({ page }) => {
     console.log('🧪 Test: "Go to Gallery" button navigation');
 
-    // Set auth token and reload
+    // Set auth token BEFORE page load
+    const fakeToken = createFakeJwtToken();
+    await page.addInitScript((token) => {
+      localStorage.setItem('authToken', token);
+    }, fakeToken);
     await page.goto('/');
-    await page.evaluate(() => {
-      localStorage.setItem('authToken', 'fake-test-token');
-      localStorage.setItem('userEmail', 'test@example.com');
-    });
-    await page.reload();
 
-    // Click "Go to Gallery" button
-    const goToGalleryButton = page.getByRole('button', { name: 'Go to Gallery' });
+    // Click "Go to Gallery" button (exact match)
+    const goToGalleryButton = page.getByRole('button', { name: 'Go to Gallery', exact: true });
     await goToGalleryButton.click();
 
     // Verify navigation to gallery page
@@ -146,8 +174,9 @@ test.describe('Landing Page - End-to-End Tests', () => {
   test('Should show all nav links on desktop viewport', async ({ page }) => {
     console.log('🧪 Test: Desktop navbar layout');
 
-    // Set desktop viewport
+    // Set desktop viewport and reload to apply responsive styles
     await page.setViewportSize({ width: 1280, height: 720 });
+    await page.reload();
 
     // Verify all nav elements are visible
     await expect(page.getByRole('link', { name: 'Kameravue' })).toBeVisible();
@@ -168,8 +197,9 @@ test.describe('Landing Page - End-to-End Tests', () => {
   test('Should show hamburger menu on mobile viewport', async ({ page }) => {
     console.log('🧪 Test: Mobile navbar hamburger menu');
 
-    // Set mobile viewport
+    // Set mobile viewport and reload to apply responsive styles
     await page.setViewportSize({ width: 375, height: 667 });
+    await page.reload();
 
     // Verify hamburger menu is visible
     const hamburgerMenu = page.getByRole('button', { name: /Toggle navigation menu/i });
@@ -185,8 +215,9 @@ test.describe('Landing Page - End-to-End Tests', () => {
   test('Should open and close mobile hamburger menu', async ({ page }) => {
     console.log('🧪 Test: Mobile hamburger menu toggle');
 
-    // Set mobile viewport
+    // Set mobile viewport and reload to apply responsive styles
     await page.setViewportSize({ width: 375, height: 667 });
+    await page.reload();
 
     // Click hamburger menu to open
     const hamburgerMenu = page.getByRole('button', { name: /Toggle navigation menu/i });
@@ -526,12 +557,12 @@ test.describe('Landing Page - End-to-End Tests', () => {
     });
     await page.reload();
 
-    // Verify Login button is visible
-    const loginButton = page.getByRole('button', { name: 'Login' });
+    // Verify Login button is visible (exact match)
+    const loginButton = page.getByRole('button', { name: 'Login', exact: true });
     await expect(loginButton).toBeVisible();
 
-    // Verify Get Started button is visible
-    const getStartedButton = page.getByRole('button', { name: 'Get Started' });
+    // Verify Get Started button is visible (exact match for Navbar "Get Started")
+    const getStartedButton = page.getByRole('button', { name: 'Get Started', exact: true });
     await expect(getStartedButton).toBeVisible();
 
     console.log('✅ Test: Unauthenticated button states - PASSED');
@@ -540,20 +571,20 @@ test.describe('Landing Page - End-to-End Tests', () => {
   test('Should show Go to Gallery button when authenticated', async ({ page }) => {
     console.log('🧪 Test: Authenticated button state');
 
-    // Set auth state
-    await page.evaluate(() => {
-      localStorage.setItem('authToken', 'fake-test-token');
-      localStorage.setItem('userEmail', 'test@example.com');
-    });
-    await page.reload();
+    // Set auth token BEFORE page load
+    const fakeToken = createFakeJwtToken();
+    await page.addInitScript((token) => {
+      localStorage.setItem('authToken', token);
+    }, fakeToken);
+    await page.goto('/');
 
-    // Verify Go to Gallery button is visible
-    const goToGalleryButton = page.getByRole('button', { name: 'Go to Gallery' });
+    // Verify Go to Gallery button is visible (exact match)
+    const goToGalleryButton = page.getByRole('button', { name: 'Go to Gallery', exact: true });
     await expect(goToGalleryButton).toBeVisible();
 
-    // Verify Login and Get Started buttons are NOT visible
-    const loginButton = page.getByRole('button', { name: 'Login' });
-    const getStartedButton = page.getByRole('button', { name: 'Get Started' });
+    // Verify Login and Get Started buttons are NOT visible (exact match)
+    const loginButton = page.getByRole('button', { name: 'Login', exact: true });
+    const getStartedButton = page.getByRole('button', { name: 'Get Started', exact: true });
     await expect(loginButton).not.toBeVisible();
     await expect(getStartedButton).not.toBeVisible();
 
