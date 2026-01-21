@@ -87,6 +87,54 @@ npx playwright test tests/e2e/ --project=chromium --project=firefox --project=we
 - ✅ Session management
 - ✅ JWT token handling
 
+### Landing Page
+
+**[landing-page.spec.ts](landing-page.spec.ts)** - Landing page E2E tests
+- ✅ Navigation button tests (3 tests)
+  - Hero "Get Started Free" button → `/login`
+  - Navbar "Login" button → `/login`
+  - CTA "Get Started Free" button → `/login`
+  - "Learn More" button smooth scroll to Features
+  - Auth-aware "Go to Gallery" button → `/gallery`
+- ✅ Responsive navbar tests (3 tests)
+  - Desktop viewport (>1024px): All nav links visible
+  - Mobile viewport (<640px): Hamburger menu toggle
+  - Scroll effect: Backdrop/shadow on scroll
+  - Auth-aware button rendering
+- ✅ Section render tests (5 tests)
+  - Hero section with headline, subhead, CTAs
+  - Features section with 6 feature cards
+  - About section with mission and stats
+  - CTA section with dark background
+  - Footer with links and copyright
+- ✅ Smooth scroll navigation (3 tests)
+  - Navbar "Features" button → `#features`
+  - Navbar "About" button → `#about`
+  - "Learn More" button → `#features`
+- ✅ Responsive layout tests (3 tests)
+  - Mobile (375px): Stacked layouts
+  - Tablet (768px): 2-column features grid
+  - Desktop (1280px): Full layouts, 3-column features
+- ✅ Interactive elements (3 tests)
+  - Feature card hover effects
+  - Button hover states
+  - Footer link navigation
+  - Navbar logo scroll to top
+- ✅ Auth-aware button tests (2 tests)
+  - Unauthenticated: Login + Get Started buttons
+  - Authenticated: Go to Gallery button
+
+**Test Coverage:**
+- Desktop viewport (1280px): 100% coverage
+- Tablet viewport (768px): 100% coverage
+- Mobile viewport (375px): 100% coverage
+- Authentication states: Covered (auth + unauth)
+- All interactive elements: Covered
+
+**Test Results:**
+- 50/50 tests passing
+- Tested on Chromium + Firefox
+
 ### Gallery & Photo Features
 
 **[gallery.spec.ts](gallery.spec.ts)** - Photo gallery tests (Week 12)
