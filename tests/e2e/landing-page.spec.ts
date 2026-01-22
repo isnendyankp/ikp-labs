@@ -343,8 +343,8 @@ test.describe('Landing Page - End-to-End Tests', () => {
     await expect(aboutHeading).toBeVisible();
 
     // Verify stats are visible
-    await expect(page.getByText(/10,000\+/)).toBeVisible();
-    await expect(page.getByText(/50,000\+/)).toBeVisible();
+    await expect(page.getByText(/Public or Private/i)).toBeVisible();
+    await expect(page.getByText(/Anonymous Favorites/i)).toBeVisible();
     await expect(page.getByText(/100% Free/i)).toBeVisible();
 
     console.log('✅ Test: About section render - PASSED');
