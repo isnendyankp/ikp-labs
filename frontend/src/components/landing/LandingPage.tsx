@@ -112,9 +112,9 @@ export default function LandingPage() {
         <div id="about">
           <AboutSection
             stats={{
-              users: '10,000+',
-              photos: '50,000+',
-              tagline: '100% Free Forever',
+              stat1: 'Public or Private',
+              stat2: 'Anonymous Favorites',
+              stat3: '100% Free Forever',
             }}
           />
         </div>
