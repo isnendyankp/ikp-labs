@@ -717,8 +717,8 @@
 
 ## Atomic Commit Summary
 
-**Total Commits: 23** (12 implementation + 10 E2E testing + 1 E2E doc)
-**Completed: 22/23 tasks** (1 pending in Phase 7)
+**Total Commits: 28** (12 implementation + 10 E2E testing + 1 E2E doc + 5 Phase 7 content updates)
+**Completed: 22/28 tasks** (6 pending in Phase 7)
 
 ✅ **Phase 1 - Setup (2 commits)**:
 1. [x] feat(landing): create landing components folder
@@ -757,8 +757,12 @@
 22. [x] chore(e2e): remove unused registration-with-tracker test file
 23. [x] docs(e2e): add landing page E2E test documentation
 
-📋 **Phase 7 - Content Improvements (1 pending)**:
-24. [ ] refactor(landing): update About section stats with honest feature benefits
+📋 **Phase 7 - Content Improvements (5 pending)**:
+24. [ ] refactor(landing): update AboutSectionProps interface for new stats
+25. [ ] refactor(landing): update AboutSection component with new stat cards
+26. [ ] refactor(landing): update LandingPage stats prop with new values
+27. [ ] test(e2e): update About section test for new stats
+28. [ ] chore(landing): verify all tests pass after About stats update
 
 ---
 
@@ -792,16 +796,16 @@
 
 ---
 
-**Checklist Version**: 1.4
+**Checklist Version**: 1.5
 **Created**: January 19, 2026
-**Updated**: January 22, 2026 (Added Phase 7 - Content Improvements)
-**Total Estimated Time**: 7-10 hours (4-6 implementation + 3-4 E2E testing + 20min content update)
-**Progress**: 22/23 tasks completed (96% - 1 pending in Phase 7)
+**Updated**: January 22, 2026 (Phase 7 broken into 5 atomic steps)
+**Total Estimated Time**: 7-10 hours (4-6 implementation + 3-4 E2E testing + 25min content updates)
+**Progress**: 22/28 tasks completed (79% - 6 pending in Phase 7)
 **Implementation**: ✅ Complete (12/12 commits)
 **E2E Testing**: ✅ Complete (10 commits, 50/50 tests passing)
 **Documentation**: ✅ Complete (E2E README updated)
-**Content Update**: 📋 1 pending (About section stats)
-**Status**: ✅ **CORE IMPLEMENTATION COMPLETE** | ✅ **E2E TESTING COMPLETE** | 📋 **1 CONTENT UPDATE PENDING**
+**Content Update**: 📋 5 pending (About section stats - 5 atomic steps)
+**Status**: ✅ **CORE IMPLEMENTATION COMPLETE** | ✅ **E2E TESTING COMPLETE** | 📋 **5 CONTENT UPDATES PENDING**
 
 ---
 
@@ -859,31 +863,119 @@
 
 ## Phase 7: Content Improvements (Feedback-Based)
 
-### Task 7.1: Update About Section Stats (20 min)
-**Estimated Time**: 20 minutes
+### Task 7.1: Update AboutSectionProps Interface (5 min)
+**Estimated Time**: 5 minutes
 
-**Background**: User feedback indicated that fake metrics (10,000+ users, 50,000+ photos) are misleading for a new MVP app. Better to highlight honest features/benefits.
+**File**: `frontend/src/components/landing/landing.types.ts`
 
-**New Stats**:
-1. "Public or Private Galleries" - Privacy control feature
-2. "Anonymous Photo Favorites" - Secret favorites feature
-3. "100% Free Forever" - Keep original (honest value prop)
-
-**Files to Modify**:
-1. `frontend/src/components/landing/landing.types.ts` - Update AboutSectionProps interface
-2. `frontend/src/components/landing/AboutSection.tsx` - Update stat cards content
-3. `frontend/src/components/landing/LandingPage.tsx` - Update stats prop values
-4. `tests/e2e/landing-page.spec.ts` - Update test assertions
+**Change**: Update `AboutSectionProps` interface from `{users, photos, tagline}` to `{stat1, stat2, stat3}`
 
 **Steps**:
-1. [ ] Update AboutSectionProps interface from {users, photos, tagline} to {stat1, stat2, stat3}
-2. [ ] Update AboutSection stat cards with new content and icons
-3. [ ] Update LandingPage stats prop: "Public or Private", "Anonymous Favorites", "100% Free Forever"
-4. [ ] Update E2E test assertions for new stat text
-5. [ ] Run tests to verify all pass
-6. [ ] **COMMIT**: "refactor(landing): update About section stats with honest feature benefits"
+1. [ ] Read current interface definition
+2. [ ] Update `stats?: { users: string; photos: string; tagline: string; }` to `stats?: { stat1: string; stat2: string; stat3: string; }`
+3. [ ] **COMMIT**: "refactor(landing): update AboutSectionProps interface for new stats"
 
 **Acceptance Criteria**:
-- [ ] Fake metrics removed (10,000+, 50,000+)
-- [ ] New stats display: Public or Private, Anonymous Favorites, 100% Free Forever
-- [ ] All 50 E2E tests still passing
+- [ ] Interface uses `stat1`, `stat2`, `stat3` instead of `users`, `photos`, `tagline`
+
+---
+
+### Task 7.2: Update AboutSection Component (5 min)
+**Estimated Time**: 5 minutes
+
+**File**: `frontend/src/components/landing/AboutSection.tsx`
+
+**Changes**:
+1. Stat card 1: Replace "10,000+ Active Users" with "Public or Private" (Lock icon)
+2. Stat card 2: Replace "50,000+ Photos Shared" with "Anonymous Favorites" (Heart icon)
+3. Stat card 3: Keep "100% Free Forever" (no change to content, verify it works)
+
+**Steps**:
+1. [ ] Update stat card 1 value from `{stats.users}` to `{stats.stat1}`
+2. [ ] Update stat card 1 label from "Active Users" to "Your photos, your rules"
+3. [ ] Update stat card 2 value from `{stats.photos}` to `{stats.stat2}`
+4. [ ] Update stat card 2 label from "Photos Shared" to "Favorite discreetly"
+5. [ ] Verify stat card 3 still works with `{stats.stat3}`
+6. [ ] **COMMIT**: "refactor(landing): update AboutSection component with new stat cards"
+
+**Acceptance Criteria**:
+- [ ] Stat card 1 shows "Public or Private" with Lock icon
+- [ ] Stat card 2 shows "Anonymous Favorites" with Heart icon
+- [ ] Stat card 3 shows "100% Free Forever" (unchanged)
+
+---
+
+### Task 7.3: Update LandingPage Stats Prop (5 min)
+**Estimated Time**: 5 minutes
+
+**File**: `frontend/src/components/landing/LandingPage.tsx`
+
+**Change**: Update stats prop passed to AboutSection component
+
+**Current**:
+```typescript
+stats={{ users: '10,000+', photos: '50,000+', tagline: '100% Free Forever' }}
+```
+
+**New**:
+```typescript
+stats={{ stat1: 'Public or Private', stat2: 'Anonymous Favorites', stat3: '100% Free Forever' }}
+```
+
+**Steps**:
+1. [ ] Locate AboutSection usage in LandingPage.tsx
+2. [ ] Replace stats prop with new values
+3. [ ] **COMMIT**: "refactor(landing): update LandingPage stats prop with new values"
+
+**Acceptance Criteria**:
+- [ ] Stats prop uses `stat1: 'Public or Private'`
+- [ ] Stats prop uses `stat2: 'Anonymous Favorites'`
+- [ ] Stats prop uses `stat3: '100% Free Forever'`
+
+---
+
+### Task 7.4: Update E2E Test Assertions (5 min)
+**Estimated Time**: 5 minutes
+
+**File**: `tests/e2e/landing-page.spec.ts`
+
+**Current test** (lines 346-348):
+```typescript
+await expect(page.getByText(/10,000\+/)).toBeVisible();
+await expect(page.getByText(/50,000\+/)).toBeVisible();
+await expect(page.getByText(/100% Free/i)).toBeVisible();
+```
+
+**New test**:
+```typescript
+await expect(page.getByText(/Public or Private/i)).toBeVisible();
+await expect(page.getByText(/Anonymous Favorites/i)).toBeVisible();
+await expect(page.getByText(/100% Free/i)).toBeVisible();
+```
+
+**Steps**:
+1. [ ] Locate About section test in landing-page.spec.ts
+2. [ ] Replace old metric assertions with new stat text
+3. [ ] **COMMIT**: "test(e2e): update About section test for new stats"
+
+**Acceptance Criteria**:
+- [ ] Test checks for "Public or Private" instead of "10,000+"
+- [ ] Test checks for "Anonymous Favorites" instead of "50,000+"
+- [ ] Test still checks for "100% Free"
+
+---
+
+### Task 7.5: Verify All Tests Pass (5 min)
+**Estimated Time**: 5 minutes
+
+**Steps**:
+1. [ ] Start frontend server (if not running)
+2. [ ] Run E2E tests: `npx playwright test tests/e2e/landing-page.spec.ts`
+3. [ ] Verify all 50 tests pass
+4. [ ] If any fail, fix and re-run
+5. [ ] **COMMIT**: "chore(landing): verify all tests pass after About stats update" (if fixes needed)
+
+**Acceptance Criteria**:
+- [ ] All 50 E2E tests passing
+- [ ] About section displays new stats correctly
+- [ ] No visual regressions
