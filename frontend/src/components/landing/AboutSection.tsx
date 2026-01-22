@@ -47,7 +47,7 @@ export function AboutSection({ stats }: AboutSectionProps) {
           {/* Right Column - Stats */}
           {stats && (
             <div className="space-y-6">
-              {/* Users Stat */}
+              {/* Public or Private Stat */}
               <div className="bg-gray-50 rounded-xl p-6 border border-gray-100">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center">
@@ -61,43 +61,18 @@ export function AboutSection({ stats }: AboutSectionProps) {
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
-                        d="M15 19.128a9.38 9.38 0 0 0 2.625.372 9.337 9.337 0 0 0 4.121-.952 4.125 4.125 0 0 0-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.106A12.318 12.318 0 0 1 8.624 21c-2.331 0-4.512-.645-6.374-1.766l-.001-.109a6.375 6.375 0 0 1 11.964-3.07M12 6.375a3.375 3.375 0 1 1-6.75 0 3.375 3.375 0 0 1 6.75 0Zm8.25 2.25a2.625 2.625 0 1 1-5.25 0 2.625 2.625 0 0 1 5.25 0Z"
+                        d="M16.5 10.5V6.75a4.5 4.5 0 1 0-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 0 0 2.25-2.25v-6.75a2.25 2.25 0 0 0-2.25-2.25H6.75a2.25 2.25 0 0 0-2.25 2.25v6.75a2.25 2.25 0 0 0 2.25 2.25Z"
                       />
                     </svg>
                   </div>
                   <div>
-                    <p className="text-3xl md:text-4xl font-bold text-black">{stats.users}</p>
-                    <p className="text-gray-600 font-medium">Active Users</p>
+                    <p className="text-xl font-semibold text-gray-900">{stats.stat1}</p>
+                    <p className="text-gray-600 font-medium">Your photos, your rules</p>
                   </div>
                 </div>
               </div>
 
-              {/* Photos Stat */}
-              <div className="bg-gray-50 rounded-xl p-6 border border-gray-100">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center">
-                    <svg
-                      className="w-6 h-6 text-white"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      strokeWidth="1.5"
-                      stroke="currentColor"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        d="M2.25 15.75l5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v12a1.5 1.5 0 0 0 1.5 1.5Zm10.5-11.25h.008v.008h-.008V8.25Zm.375 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z"
-                      />
-                    </svg>
-                  </div>
-                  <div>
-                    <p className="text-3xl md:text-4xl font-bold text-black">{stats.photos}</p>
-                    <p className="text-gray-600 font-medium">Photos Shared</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Free Stat */}
+              {/* Anonymous Favorites Stat */}
               <div className="bg-gray-50 rounded-xl p-6 border border-gray-100">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center">
@@ -116,8 +91,33 @@ export function AboutSection({ stats }: AboutSectionProps) {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-3xl md:text-4xl font-bold text-black">
-                      {stats.tagline}
+                    <p className="text-xl font-semibold text-gray-900">{stats.stat2}</p>
+                    <p className="text-gray-600 font-medium">Favorite discreetly</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Free Forever Stat */}
+              <div className="bg-gray-50 rounded-xl p-6 border border-gray-100">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-black rounded-lg flex items-center justify-center">
+                    <svg
+                      className="w-6 h-6 text-white"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      strokeWidth="1.5"
+                      stroke="currentColor"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <p className="text-xl font-semibold text-gray-900">
+                      {stats.stat3}
                     </p>
                     <p className="text-gray-600 font-medium">No hidden fees</p>
                   </div>
