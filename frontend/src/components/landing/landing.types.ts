@@ -58,9 +58,9 @@ export interface FeaturesSectionProps {
 export interface AboutSectionProps {
   /** Optional stats to display */
   stats?: {
-    users: string;
-    photos: string;
-    tagline: string;
+    stat1: string;  // "Public or Private Galleries"
+    stat2: string;  // "Anonymous Photo Favorites"
+    stat3: string;  // "100% Free Forever"
   };
 }
 
