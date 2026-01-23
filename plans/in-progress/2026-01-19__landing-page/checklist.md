@@ -796,16 +796,17 @@
 
 ---
 
-**Checklist Version**: 1.6
+**Checklist Version**: 1.7
 **Created**: January 19, 2026
-**Updated**: January 22, 2026 (Phase 7 COMPLETE - ALL TASKS DONE!)
-**Total Estimated Time**: 7-10 hours (4-6 implementation + 3-4 E2E testing + 25min content updates)
-**Progress**: 28/28 tasks completed (100% COMPLETE)
+**Updated**: January 22, 2026 (Phase 8 ADDED - Back to Top Button)
+**Total Estimated Time**: 7-11 hours (4-6 implementation + 3-4 E2E testing + 25min content updates + 45min Back to Top)
+**Progress**: 28/33 tasks completed (85% - 5 pending in Phase 8)
 **Implementation**: ✅ Complete (12/12 commits)
 **E2E Testing**: ✅ Complete (10 commits, 50/50 tests passing)
 **Documentation**: ✅ Complete (E2E README updated)
-**Content Update**: ✅ Complete (5 commits - About section stats replaced with honest features)
-**Status**: 🎉 **ALL PHASES COMPLETE** | 🚀 **READY FOR PRODUCTION**
+**Content Update**: ✅ Complete (5 commits - About section stats)
+**Back to Top Button**: 📋 5 pending (UX improvement)
+**Status**: ✅ **CORE COMPLETE** | 📋 **5 BACK TO TOP TASKS PENDING**
 
 ---
 
@@ -850,14 +851,18 @@
 ### Pending Tasks (Phase 7)
 - ✅ ~~Update About section stats (user feedback - replace fake metrics with honest features)~~ COMPLETED!
 
+### Pending Tasks (Phase 8)
+- 📋 Add Back to Top button (UX improvement - scroll to top functionality)
+
 ### Optional Next Steps
 1. ~~**Phase 7: Update About section stats** (feedback-based improvement)~~ ✅ COMPLETED!
-2. User testing and feedback
-3. Adjust content/design based on feedback
-4. Add optional sections (testimonials, pricing)
-5. Complete cross-browser testing (Safari/Edge)
-6. Complete accessibility testing
-7. Write component JSDoc documentation
+2. **Phase 8: Back to Top Button** (UX improvement) - 5 pending tasks
+3. User testing and feedback
+4. Adjust content/design based on feedback
+5. Add optional sections (testimonials, pricing)
+6. Complete cross-browser testing (Safari/Edge)
+7. Complete accessibility testing
+8. Write component JSDoc documentation
 
 ---
 
@@ -979,3 +984,142 @@ await expect(page.getByText(/100% Free/i)).toBeVisible();
 - [x] All 50 E2E tests passing
 - [x] About section displays new stats correctly
 - [x] No visual regressions
+
+---
+
+## Phase 8: Back to Top Button (UX Improvement)
+
+### Task 8.1: Add BackToTop Props to Types (5 min)
+**Estimated Time**: 5 minutes
+
+**File**: `frontend/src/components/landing/landing.types.ts`
+
+**Change**: Add `BackToTopProps` interface
+
+```typescript
+/**
+ * Back to Top Button Props
+ */
+export interface BackToTopProps {
+  /** Scroll threshold in pixels before showing button (default: 400) */
+  showAt?: number;
+}
+```
+
+**Steps**:
+1. [ ] Add `BackToTopProps` interface to landing.types.ts
+2. [ ] **COMMIT**: "feat(landing): add BackToTopProps interface"
+
+**Acceptance Criteria**:
+- [ ] Interface exported correctly
+- [ ] `showAt` property is optional with default 400
+
+---
+
+### Task 8.2: Create BackToTop Component (15 min)
+**Estimated Time**: 15 minutes
+
+**File**: `frontend/src/components/landing/BackToTop.tsx`
+
+**Features**:
+- Floating button (fixed position bottom-right)
+- Chevron up icon from Heroicons
+- Smooth scroll to top on click
+- Show/hide based on scroll position (with useState + useEffect)
+- Accessibility: aria-label="Scroll to top"
+- Hover effect (scale + color change)
+
+**Steps**:
+1. [ ] Create BackToTop component with useState for visibility
+2. [ ] Add useEffect scroll event listener
+3. [ ] Add smooth scroll to top on button click
+4. [ ] Style: fixed bottom-8 right-8, bg-black, text-white, rounded-full
+5. [ ] Add hover effect (scale-110, brightness-110)
+6. [ ] Add transition for smooth show/hide
+7. [ ] **COMMIT**: "feat(landing): create BackToTop component with scroll detection"
+
+**Acceptance Criteria**:
+- [ ] Button appears after scrolling 400px
+- [ ] Button disappears when at top
+- [ ] Clicking smoothly scrolls to top
+- [ ] Accessibility attributes present
+
+---
+
+### Task 8.3: Add BackToTop to LandingPage (10 min)
+**Estimated Time**: 10 minutes
+
+**File**: `frontend/src/components/landing/LandingPage.tsx`
+
+**Steps**:
+1. [ ] Import BackToTop component
+2. [ ] Add `<BackToTop />` before closing div (after Footer)
+3. [ ] Test scroll behavior
+4. [ ] **COMMIT**: "feat(landing): add BackToTop button to landing page"
+
+**Acceptance Criteria**:
+- [ ] BackToTop button renders on page
+- [ ] Shows/hides correctly on scroll
+- [ ] Click scrolls to top smoothly
+
+---
+
+### Task 8.4: Add E2E Test for BackToTop (10 min)
+**Estimated Time**: 10 minutes
+
+**File**: `tests/e2e/landing-page.spec.ts`
+
+**Test Cases**:
+1. Button not visible at top of page
+2. Button appears after scrolling down
+3. Click scrolls to top
+4. Button disappears after scrolling to top
+
+**Steps**:
+1. [ ] Test button hidden on page load
+2. [ ] Test button visible after scroll
+3. [ ] Test click scrolls to top
+4. [ ] Test button hidden at top
+5. [ ] **COMMIT**: "test(e2e): add BackToTop button E2E tests"
+
+**Acceptance Criteria**:
+- [ ] All 4 test cases pass
+- [ ] Total: 54 tests (50 + 4 new)
+
+---
+
+### Task 8.5: Verify All Tests Pass (5 min)
+**Estimated Time**: 5 minutes
+
+**Steps**:
+1. [ ] Run E2E tests: `npx playwright test tests/e2e/landing-page.spec.ts`
+2. [ ] Verify all 54 tests pass (50 + 4 new)
+3. [ ] **COMMIT**: "chore(landing): verify all tests pass after BackToTop addition" (if fixes needed)
+
+**Acceptance Criteria**:
+- [ ] All 54 E2E tests passing
+- [ ] BackToTop button works correctly
+
+---
+
+## Atomic Commit Summary (Updated)
+
+**Total Commits: 33** (12 implementation + 10 E2E testing + 1 E2E doc + 5 Phase 7 + 5 Phase 8)
+**Completed: 28/33 tasks** (5 pending in Phase 8)
+
+✅ **Phase 1 - Setup (2 commits)**: Complete
+
+✅ **Phase 2 - Core Components (7 commits)**: Complete
+
+✅ **Phase 3 - Integration (2 commits)**: Complete
+
+✅ **Phase 6 - E2E Testing (10 commits)**: Complete
+
+✅ **Phase 7 - Content Improvements (5 commits)**: Complete
+
+📋 **Phase 8 - Back to Top Button (5 pending)**:
+29. [ ] feat(landing): add BackToTopProps interface
+30. [ ] feat(landing): create BackToTop component with scroll detection
+31. [ ] feat(landing): add BackToTop button to landing page
+32. [ ] test(e2e): add BackToTop button E2E tests
+33. [ ] chore(landing): verify all tests pass after BackToTop addition
