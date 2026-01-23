@@ -7,6 +7,7 @@ import { FeaturesSection } from './FeaturesSection';
 import { AboutSection } from './AboutSection';
 import { CTASection } from './CTASection';
 import { Footer } from './Footer';
+import { BackToTop } from './BackToTop';
 import { useRouter } from 'next/navigation';
 
 /**
@@ -125,6 +126,9 @@ export default function LandingPage() {
 
       {/* Footer */}
       <Footer onNavigate={scrollToSection} />
+
+      {/* Back to Top Button */}
+      <BackToTop />
     </div>
   );
 }
