@@ -79,3 +79,11 @@ export interface FooterProps {
   /** Callback for navigation links */
   onNavigate?: (path: string) => void;
 }
+
+/**
+ * Back to Top Button Props
+ */
+export interface BackToTopProps {
+  /** Scroll threshold in pixels before showing button (default: 400) */
+  showAt?: number;
+}
