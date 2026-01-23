@@ -796,17 +796,18 @@
 
 ---
 
-**Checklist Version**: 1.8
+**Checklist Version**: 1.9
 **Created**: January 19, 2026
-**Updated**: January 22, 2026 (Phase 8 COMPLETE - ALL TASKS DONE!)
-**Total Estimated Time**: 7-11 hours (4-6 implementation + 3-4 E2E testing + 25min content updates + 45min Back to Top)
-**Progress**: 33/33 tasks completed (100% COMPLETE)
+**Updated**: January 22, 2026 (Phase 9 ADDED - Footer Email Update)
+**Total Estimated Time**: 7-11 hours (4-6 implementation + 3-4 E2E testing + 25min content updates + 45min Back to Top + 5min Footer Email)
+**Progress**: 33/34 tasks completed (97% - 1 pending in Phase 9)
 **Implementation**: ✅ Complete (12/12 commits)
 **E2E Testing**: ✅ Complete (10 commits, 58/58 tests passing)
 **Documentation**: ✅ Complete (E2E README updated)
 **Content Update**: ✅ Complete (5 commits - About section stats)
 **Back to Top Button**: ✅ Complete (5 commits - UX improvement)
-**Status**: 🎉 **ALL PHASES COMPLETE** | 🚀 **READY FOR PRODUCTION**
+**Footer Email Update**: 📋 1 pending (personal email: isnendyankp@gmail.com)
+**Status**: ✅ **CORE COMPLETE** | 📋 **1 FOOTER EMAIL UPDATE PENDING**
 
 ---
 
@@ -851,18 +852,19 @@
 ### Pending Tasks (Phase 7)
 - ✅ ~~Update About section stats (user feedback - replace fake metrics with honest features)~~ COMPLETED!
 
-### Pending Tasks (Phase 8)
-- ✅ ~~Add Back to Top button (UX improvement - scroll to top functionality)~~ COMPLETED!
+### Pending Tasks (Phase 9)
+- 📋 Update Footer contact email to personal email (isnendyankp@gmail.com)
 
 ### Optional Next Steps
 1. ~~**Phase 7: Update About section stats** (feedback-based improvement)~~ ✅ COMPLETED!
 2. ~~**Phase 8: Back to Top Button** (UX improvement)~~ ✅ COMPLETED!
-3. User testing and feedback
-4. Adjust content/design based on feedback
-5. Add optional sections (testimonials, pricing)
-6. Complete cross-browser testing (Safari/Edge)
-7. Complete accessibility testing
-8. Write component JSDoc documentation
+3. **Phase 9: Footer Email Update** - 1 pending task (implement tomorrow)
+4. User testing and feedback
+5. Adjust content/design based on feedback
+6. Add optional sections (testimonials, pricing)
+7. Complete cross-browser testing (Safari/Edge)
+8. Complete accessibility testing
+9. Write component JSDoc documentation
 
 ---
 
@@ -1102,10 +1104,39 @@ export interface BackToTopProps {
 
 ---
 
+## Phase 9: Footer Contact Email Update (Personal Email)
+
+### Task 9.1: Update Footer Contact Email (5 min)
+**Estimated Time**: 5 minutes
+
+**File**: `frontend/src/components/landing/Footer.tsx`
+
+**Change**: Replace fake email with personal email
+
+**Current** (line 71):
+```tsx
+href="mailto:hello@kameravue.com"
+```
+
+**New**:
+```tsx
+href="mailto:isnendyankp@gmail.com"
+```
+
+**Steps**:
+1. [ ] Update contact email href from hello@kameravue.com to isnendyankp@gmail.com
+2. [ ] **COMMIT**: "fix(landing): update footer contact email to personal email"
+
+**Acceptance Criteria**:
+- [ ] Footer contact link uses personal email: isnendyankp@gmail.com
+- [ ] Email opens correctly when clicking Contact link
+
+---
+
 ## Atomic Commit Summary (Updated)
 
-**Total Commits: 33** (12 implementation + 10 E2E testing + 1 E2E doc + 5 Phase 7 + 5 Phase 8)
-**Completed: 33/33 tasks** (100% COMPLETE)
+**Total Commits: 34** (12 implementation + 10 E2E testing + 1 E2E doc + 5 Phase 7 + 5 Phase 8 + 1 Phase 9)
+**Completed: 33/34 tasks** (1 pending in Phase 9)
 
 ✅ **Phase 1 - Setup (2 commits)**: Complete
 
@@ -1118,8 +1149,6 @@ export interface BackToTopProps {
 ✅ **Phase 7 - Content Improvements (5 commits)**: Complete
 
 ✅ **Phase 8 - Back to Top Button (5 commits)**: Complete
-29. [x] feat(landing): add BackToTopProps interface
-30. [x] feat(landing): create BackToTop component with scroll detection
-31. [x] feat(landing): add BackToTop button to landing page
-32. [x] test(e2e): add BackToTop button E2E tests
-33. [x] chore(landing): verify all tests pass after BackToTop addition
+
+📋 **Phase 9 - Footer Email Update (1 pending)**:
+34. [ ] fix(landing): update footer contact email to personal email
