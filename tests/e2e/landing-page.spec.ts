@@ -596,4 +596,85 @@ test.describe('Landing Page - End-to-End Tests', () => {
     console.log('✅ Test: Authenticated button state - PASSED');
   });
 
+  // ========================================
+  // Back to Top Button Tests
+  // ========================================
+
+  test('Should hide BackToTop button at top of page', async ({ page }) => {
+    console.log('🧪 Test: BackToTop button hidden at top');
+
+    // Navigate to landing page
+    await page.goto('/');
+
+    // BackToTop button should not be visible at top
+    const backToTopButton = page.getByRole('button', { name: 'Scroll to top' });
+    await expect(backToTopButton).not.toBeVisible();
+
+    console.log('✅ Test: BackToTop button hidden at top - PASSED');
+  });
+
+  test('Should show BackToTop button after scrolling down', async ({ page }) => {
+    console.log('🧪 Test: BackToTop button appears after scroll');
+
+    // Navigate to landing page
+    await page.goto('/');
+
+    // Scroll to bottom of page
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await page.waitForTimeout(500);
+
+    // BackToTop button should be visible after scrolling
+    const backToTopButton = page.getByRole('button', { name: 'Scroll to top' });
+    await expect(backToTopButton).toBeVisible();
+
+    console.log('✅ Test: BackToTop button appears after scroll - PASSED');
+  });
+
+  test('Should scroll to top when clicking BackToTop button', async ({ page }) => {
+    console.log('🧪 Test: BackToTop button scrolls to top');
+
+    // Navigate to landing page
+    await page.goto('/');
+
+    // Scroll to bottom of page
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await page.waitForTimeout(500);
+
+    // Click BackToTop button
+    const backToTopButton = page.getByRole('button', { name: 'Scroll to top' });
+    await backToTopButton.click();
+
+    // Wait for smooth scroll to complete
+    await page.waitForTimeout(1000);
+
+    // Verify we're at the top of the page
+    const scrollY = await page.evaluate(() => window.scrollY);
+    expect(scrollY).toBe(0);
+
+    console.log('✅ Test: BackToTop button scrolls to top - PASSED');
+  });
+
+  test('Should hide BackToTop button after scrolling to top', async ({ page }) => {
+    console.log('🧪 Test: BackToTop button hides at top after scroll');
+
+    // Navigate to landing page
+    await page.goto('/');
+
+    // Scroll to bottom of page
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await page.waitForTimeout(500);
+
+    // Click BackToTop button to scroll to top
+    const backToTopButton = page.getByRole('button', { name: 'Scroll to top' });
+    await backToTopButton.click();
+
+    // Wait for smooth scroll to complete
+    await page.waitForTimeout(1000);
+
+    // BackToTop button should not be visible at top
+    await expect(backToTopButton).not.toBeVisible();
+
+    console.log('✅ Test: BackToTop button hides at top - PASSED');
+  });
+
 });
