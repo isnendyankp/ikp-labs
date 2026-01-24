@@ -796,18 +796,19 @@
 
 ---
 
-**Checklist Version**: 1.9
+**Checklist Version**: 1.10
 **Created**: January 19, 2026
-**Updated**: January 22, 2026 (Phase 9 ADDED - Footer Email Update)
-**Total Estimated Time**: 7-11 hours (4-6 implementation + 3-4 E2E testing + 25min content updates + 45min Back to Top + 5min Footer Email)
-**Progress**: 33/34 tasks completed (97% - 1 pending in Phase 9)
+**Updated**: January 22, 2026 (Phase 10 ADDED - Legal Pages: Terms of Service & Privacy Policy)
+**Total Estimated Time**: 8-13 hours (4-6 implementation + 3-4 E2E testing + 25min content updates + 45min Back to Top + 5min Footer Email + 1-2hr Legal Pages)
+**Progress**: 33/37 tasks completed (89% - 1 pending in Phase 9, 3 pending in Phase 10)
 **Implementation**: ✅ Complete (12/12 commits)
 **E2E Testing**: ✅ Complete (10 commits, 58/58 tests passing)
 **Documentation**: ✅ Complete (E2E README updated)
 **Content Update**: ✅ Complete (5 commits - About section stats)
 **Back to Top Button**: ✅ Complete (5 commits - UX improvement)
 **Footer Email Update**: 📋 1 pending (personal email: isnendyankp@gmail.com)
-**Status**: ✅ **CORE COMPLETE** | 📋 **1 FOOTER EMAIL UPDATE PENDING**
+**Legal Pages**: 📋 3 pending (Terms of Service & Privacy Policy)
+**Status**: ✅ **CORE COMPLETE** | 📋 **4 TASKS PENDING** (1 Footer Email + 3 Legal Pages)
 
 ---
 
@@ -1133,10 +1134,129 @@ href="mailto:isnendyankp@gmail.com"
 
 ---
 
+## Phase 10: Legal Pages (Terms of Service & Privacy Policy)
+
+### Overview
+Create two legal pages that are linked in the Footer:
+- **Terms of Service** (`/terms`): Legal rules between Kameravue and users
+- **Privacy Policy** (`/privacy`): Data collection, usage, security practices
+
+**Reference**: Based on pixumo.com legal pages structure (already fetched)
+
+**Estimated Time**: 1-2 hours (2-3 commits)
+
+---
+
+### Task 10.1: Create Terms of Service Page (30 min)
+**Estimated Time**: 30 minutes
+
+**File**: `frontend/src/app/terms/page.tsx`
+
+**What to Create**:
+A new Next.js page for Terms of Service with sections:
+1. **Overview**: What this document covers
+2. **Terms of Use**: User rights and responsibilities
+3. **Intellectual Property**: Content ownership and licensing
+4. **User-Generated Content**: Photos, galleries, comments
+5. **Privacy**: Link to Privacy Policy
+6. **Termination**: Account termination conditions
+7. **Disclaimer**: Limitations of liability
+8. **Contact**: How to reach us
+
+**Design**:
+- Use consistent layout with landing page
+- Clean, readable typography (long-form content)
+- Sections with clear headings
+- Footer with navigation back to home
+- Mobile responsive
+
+**Steps**:
+1. [ ] Create `frontend/src/app/terms/page.tsx`
+2. [ ] Write Terms of Service content based on Kameravue's needs
+3. [ ] Add consistent styling with landing page
+4. [ ] **COMMIT**: "feat(legal): create Terms of Service page"
+
+**Acceptance Criteria**:
+- [ ] `/terms` route is accessible
+- [ ] Page renders with proper legal content
+- [ ] Layout is consistent with landing page design
+- [ ] Mobile responsive
+- [ ] Footer link works correctly
+
+---
+
+### Task 10.2: Create Privacy Policy Page (30 min)
+**Estimated Time**: 30 minutes
+
+**File**: `frontend/src/app/privacy/page.tsx`
+
+**What to Create**:
+A new Next.js page for Privacy Policy with sections:
+1. **Overview**: What data we collect
+2. **Data Collection**: Information gathered from users
+3. **Data Usage**: How we use your information
+4. **Security**: Practices to protect user data
+5. **Cookies**: Cookie usage and tracking
+6. **Third-Party Services**: External services we use
+7. **User Rights**: Your rights regarding your data
+8. **Children's Privacy**: Policy for minors
+9. **Policy Changes**: How we update this policy
+10. **Contact**: How to reach privacy questions
+
+**Design**:
+- Same layout style as Terms of Service
+- Consistent branding with Kameravue
+- Clear section headings
+- Easy to read (long-form content)
+- Footer navigation
+
+**Steps**:
+1. [ ] Create `frontend/src/app/privacy/page.tsx`
+2. [ ] Write Privacy Policy content based on Kameravue's data practices
+3. [ ] Match styling with Terms of Service page
+4. [ ] **COMMIT**: "feat(legal): create Privacy Policy page"
+
+**Acceptance Criteria**:
+- [ ] `/privacy` route is accessible
+- [ ] Page renders with proper privacy content
+- [ ] Layout matches Terms of Service design
+- [ ] Mobile responsive
+- [ ] Footer link works correctly
+
+---
+
+### Task 10.3: Create Shared Legal Page Layout (Optional, 20 min)
+**Estimated Time**: 20 minutes (optional refactor)
+
+**Files**:
+- `frontend/src/components/legal/LegalPageLayout.tsx` (new)
+- Update `frontend/src/app/terms/page.tsx` (refactor)
+- Update `frontend/src/app/privacy/page.tsx` (refactor)
+
+**What to Create**:
+A reusable layout component for legal pages to ensure consistency:
+- Consistent header/back navigation
+- Content wrapper with max-width
+- Footer with navigation
+- Typography styles optimized for long-form reading
+
+**Steps** (if doing optional refactor):
+1. [ ] Create shared `LegalPageLayout` component
+2. [ ] Refactor Terms page to use shared layout
+3. [ ] Refactor Privacy page to use shared layout
+4. [ ] **COMMIT**: "refactor(legal): create shared legal page layout component"
+
+**Acceptance Criteria**:
+- [ ] Both legal pages use shared layout
+- [ ] Consistent styling across both pages
+- [ ] DRY principle followed
+
+---
+
 ## Atomic Commit Summary (Updated)
 
-**Total Commits: 34** (12 implementation + 10 E2E testing + 1 E2E doc + 5 Phase 7 + 5 Phase 8 + 1 Phase 9)
-**Completed: 33/34 tasks** (1 pending in Phase 9)
+**Total Commits: 37** (12 implementation + 10 E2E testing + 1 E2E doc + 5 Phase 7 + 5 Phase 8 + 1 Phase 9 + 3 Phase 10)
+**Completed: 33/37 tasks** (1 pending in Phase 9, 3 pending in Phase 10)
 
 ✅ **Phase 1 - Setup (2 commits)**: Complete
 
@@ -1152,3 +1272,8 @@ href="mailto:isnendyankp@gmail.com"
 
 📋 **Phase 9 - Footer Email Update (1 pending)**:
 34. [ ] fix(landing): update footer contact email to personal email
+
+📋 **Phase 10 - Legal Pages (3 pending)**:
+35. [ ] feat(legal): create Terms of Service page
+36. [ ] feat(legal): create Privacy Policy page
+37. [ ] refactor(legal): create shared legal page layout component (optional)
