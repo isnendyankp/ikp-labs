@@ -68,7 +68,7 @@ export function Footer({ onNavigate }: FooterProps) {
                 </li>
                 <li>
                   <a
-                    href="mailto:hello@kameravue.com"
+                    href="mailto:isnendyankp@gmail.com"
                     className="text-gray-600 hover:text-black text-sm transition-colors"
                   >
                     Contact
