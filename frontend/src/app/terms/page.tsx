@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { LegalPageLayout } from '@/components/legal/LegalPageLayout';
 
 /**
  * Terms of Service Page
@@ -7,226 +8,175 @@ import Link from 'next/link';
  */
 export default function TermsPage() {
   return (
-    <div className="min-h-screen bg-white">
-      {/* Header */}
-      <header className="bg-white border-b border-gray-200">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <Link
-            href="/"
-            className="inline-flex items-center text-sm text-gray-600 hover:text-black transition-colors mb-4"
-          >
-            <svg
-              className="w-4 h-4 mr-2"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={2}
-              stroke="currentColor"
-            >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
-            </svg>
-            Back to Home
+    <LegalPageLayout
+      title="Terms of Service"
+      lastUpdated="January 2026"
+      footerLinks={[
+        { label: 'Home', href: '/' },
+        { label: 'Privacy Policy', href: '/privacy' },
+        { label: 'Contact', href: 'mailto:isnendyankp@gmail.com' },
+      ]}
+    >
+      {/* Overview */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-semibold text-gray-900 mb-4">1. Overview</h2>
+        <p className="text-gray-700 leading-relaxed mb-4">
+          Welcome to Kameravue. These Terms of Service govern your use of our photo sharing
+          platform. By accessing or using Kameravue, you agree to be bound by these terms.
+        </p>
+        <p className="text-gray-700 leading-relaxed">
+          Kameravue is a free platform that allows users to upload, organize, and share photos
+          with others. Please read these terms carefully before using our service.
+        </p>
+      </section>
+
+      {/* Terms of Use */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-semibold text-gray-900 mb-4">2. Terms of Use</h2>
+        <p className="text-gray-700 leading-relaxed mb-4">
+          By using Kameravue, you agree to the following:
+        </p>
+        <ul className="list-disc pl-6 space-y-2 text-gray-700">
+          <li>You must be at least 13 years old to use this service</li>
+          <li>You are responsible for maintaining the security of your account</li>
+          <li>You must not share your password with others</li>
+          <li>You are responsible for all activities that occur under your account</li>
+          <li>You must not use Kameravue for any illegal or unauthorized purpose</li>
+          <li>You must not transmit any worms or viruses or any code of a destructive nature</li>
+        </ul>
+      </section>
+
+      {/* Intellectual Property */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-semibold text-gray-900 mb-4">3. Intellectual Property</h2>
+        <p className="text-gray-700 leading-relaxed mb-4">
+          <strong>Content Ownership:</strong> You retain ownership of all photos and content
+          you upload to Kameravue. By uploading content, you grant us a license to store,
+          display, and distribute your content solely for the purpose of providing our service.
+        </p>
+        <p className="text-gray-700 leading-relaxed mb-4">
+          <strong>Platform Content:</strong> The design, layout, and functionality of
+          Kameravue, including all text, graphics, logos, and software, is owned by
+          Kameravue and is protected by intellectual property laws.
+        </p>
+        <p className="text-gray-700 leading-relaxed">
+          <strong>License Grant:</strong> You grant Kameravue a worldwide, non-exclusive,
+          royalty-free license to use, display, and distribute your content for the purpose
+          of operating and improving the service.
+        </p>
+      </section>
+
+      {/* User-Generated Content */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-semibold text-gray-900 mb-4">4. User-Generated Content</h2>
+        <p className="text-gray-700 leading-relaxed mb-4">
+          You are solely responsible for the content you upload to Kameravue. You agree that:
+        </p>
+        <ul className="list-disc pl-6 space-y-2 text-gray-700">
+          <li>Your content will not violate any laws or regulations</li>
+          <li>Your content will not infringe on any third-party rights</li>
+          <li>Your content will not contain harmful, offensive, or inappropriate material</li>
+          <li>You have the right to upload and share the content</li>
+          <li>You will not upload content containing viruses or malicious code</li>
+        </ul>
+        <p className="text-gray-700 leading-relaxed mt-4">
+          We reserve the right to remove any content that violates these terms or is
+          otherwise inappropriate, without prior notice.
+        </p>
+      </section>
+
+      {/* Privacy */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-semibold text-gray-900 mb-4">5. Privacy</h2>
+        <p className="text-gray-700 leading-relaxed mb-4">
+          Your privacy is important to us. Please review our{' '}
+          <Link href="/privacy" className="text-black underline hover:no-underline">
+            Privacy Policy
           </Link>
-          <h1 className="text-3xl font-bold text-gray-900">Terms of Service</h1>
-          <p className="mt-2 text-gray-600">Last updated: January 2026</p>
+          , which also governs your use of Kameravue, to understand how we collect, use,
+          and protect your personal information.
+        </p>
+        <p className="text-gray-700 leading-relaxed">
+          We respect your privacy choices. You can set your galleries to private, public,
+          or share with specific people. Anonymous users can favorite photos without revealing
+          their identity.
+        </p>
+      </section>
+
+      {/* Termination */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-semibold text-gray-900 mb-4">6. Termination</h2>
+        <p className="text-gray-700 leading-relaxed mb-4">
+          We reserve the right to suspend or terminate your account at any time for any
+          reason, including but not limited to:
+        </p>
+        <ul className="list-disc pl-6 space-y-2 text-gray-700">
+          <li>Violation of these Terms of Service</li>
+          <li>Fraudulent or illegal activities</li>
+          <li>Abuse of other users or the platform</li>
+          <li>Inactivity for an extended period</li>
+        </ul>
+        <p className="text-gray-700 leading-relaxed mt-4">
+          Upon termination, your right to use Kameravue will immediately cease. All your
+          content may be deleted from our servers.
+        </p>
+      </section>
+
+      {/* Disclaimer */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-semibold text-gray-900 mb-4">7. Disclaimer</h2>
+        <p className="text-gray-700 leading-relaxed mb-4">
+          Kameravue is provided on an "as is" and "as available" basis. We make no
+          representations or warranties of any kind, express or implied, including but not
+          limited to:
+        </p>
+        <ul className="list-disc pl-6 space-y-2 text-gray-700">
+          <li>The accuracy, reliability, or availability of the service</li>
+          <li>The products, services, or information provided</li>
+          <li>Uninterrupted or error-free operation</li>
+          <li>That bugs or errors will be corrected</li>
+        </ul>
+        <p className="text-gray-700 leading-relaxed mt-4">
+          We are not liable for any damages arising from your use of Kameravue, including
+          but not limited to direct, indirect, incidental, or consequential damages.
+        </p>
+      </section>
+
+      {/* Changes to Terms */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-semibold text-gray-900 mb-4">8. Changes to Terms</h2>
+        <p className="text-gray-700 leading-relaxed">
+          We reserve the right to modify these Terms of Service at any time. We will notify
+          users of significant changes via email or by posting a notice on our platform.
+          Your continued use of Kameravue after such modifications constitutes your acceptance
+          of the updated terms.
+        </p>
+      </section>
+
+      {/* Contact */}
+      <section className="mb-12">
+        <h2 className="text-2xl font-semibold text-gray-900 mb-4">9. Contact Us</h2>
+        <p className="text-gray-700 leading-relaxed mb-4">
+          If you have any questions about these Terms of Service, please contact us:
+        </p>
+        <div className="bg-gray-50 rounded-lg p-6 border border-gray-100">
+          <p className="text-gray-700 mb-2">
+            <strong>Email:</strong>{' '}
+            <a
+              href="mailto:isnendyankp@gmail.com"
+              className="text-black underline hover:no-underline"
+            >
+              isnendyankp@gmail.com
+            </a>
+          </p>
+          <p className="text-gray-700">
+            <strong>Platform:</strong>{' '}
+            <Link href="/" className="text-black underline hover:no-underline">
+              Kameravue
+            </Link>
+          </p>
         </div>
-      </header>
-
-      {/* Content */}
-      <main className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="prose prose-gray max-w-none">
-          {/* Overview */}
-          <section className="mb-12">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">1. Overview</h2>
-            <p className="text-gray-700 leading-relaxed mb-4">
-              Welcome to Kameravue. These Terms of Service govern your use of our photo sharing
-              platform. By accessing or using Kameravue, you agree to be bound by these terms.
-            </p>
-            <p className="text-gray-700 leading-relaxed">
-              Kameravue is a free platform that allows users to upload, organize, and share photos
-              with others. Please read these terms carefully before using our service.
-            </p>
-          </section>
-
-          {/* Terms of Use */}
-          <section className="mb-12">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">2. Terms of Use</h2>
-            <p className="text-gray-700 leading-relaxed mb-4">
-              By using Kameravue, you agree to the following:
-            </p>
-            <ul className="list-disc pl-6 space-y-2 text-gray-700">
-              <li>You must be at least 13 years old to use this service</li>
-              <li>You are responsible for maintaining the security of your account</li>
-              <li>You must not share your password with others</li>
-              <li>You are responsible for all activities that occur under your account</li>
-              <li>You must not use Kameravue for any illegal or unauthorized purpose</li>
-              <li>You must not transmit any worms or viruses or any code of a destructive nature</li>
-            </ul>
-          </section>
-
-          {/* Intellectual Property */}
-          <section className="mb-12">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">3. Intellectual Property</h2>
-            <p className="text-gray-700 leading-relaxed mb-4">
-              <strong>Content Ownership:</strong> You retain ownership of all photos and content
-              you upload to Kameravue. By uploading content, you grant us a license to store,
-              display, and distribute your content solely for the purpose of providing our service.
-            </p>
-            <p className="text-gray-700 leading-relaxed mb-4">
-              <strong>Platform Content:</strong> The design, layout, and functionality of
-              Kameravue, including all text, graphics, logos, and software, is owned by
-              Kameravue and is protected by intellectual property laws.
-            </p>
-            <p className="text-gray-700 leading-relaxed">
-              <strong>License Grant:</strong> You grant Kameravue a worldwide, non-exclusive,
-              royalty-free license to use, display, and distribute your content for the purpose
-              of operating and improving the service.
-            </p>
-          </section>
-
-          {/* User-Generated Content */}
-          <section className="mb-12">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">4. User-Generated Content</h2>
-            <p className="text-gray-700 leading-relaxed mb-4">
-              You are solely responsible for the content you upload to Kameravue. You agree that:
-            </p>
-            <ul className="list-disc pl-6 space-y-2 text-gray-700">
-              <li>Your content will not violate any laws or regulations</li>
-              <li>Your content will not infringe on any third-party rights</li>
-              <li>Your content will not contain harmful, offensive, or inappropriate material</li>
-              <li>You have the right to upload and share the content</li>
-              <li>You will not upload content containing viruses or malicious code</li>
-            </ul>
-            <p className="text-gray-700 leading-relaxed mt-4">
-              We reserve the right to remove any content that violates these terms or is
-              otherwise inappropriate, without prior notice.
-            </p>
-          </section>
-
-          {/* Privacy */}
-          <section className="mb-12">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">5. Privacy</h2>
-            <p className="text-gray-700 leading-relaxed mb-4">
-              Your privacy is important to us. Please review our{' '}
-              <Link href="/privacy" className="text-black underline hover:no-underline">
-                Privacy Policy
-              </Link>
-              , which also governs your use of Kameravue, to understand how we collect, use,
-              and protect your personal information.
-            </p>
-            <p className="text-gray-700 leading-relaxed">
-              We respect your privacy choices. You can set your galleries to private, public,
-              or share with specific people. Anonymous users can favorite photos without revealing
-              their identity.
-            </p>
-          </section>
-
-          {/* Termination */}
-          <section className="mb-12">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">6. Termination</h2>
-            <p className="text-gray-700 leading-relaxed mb-4">
-              We reserve the right to suspend or terminate your account at any time for any
-              reason, including but not limited to:
-            </p>
-            <ul className="list-disc pl-6 space-y-2 text-gray-700">
-              <liViolation of these Terms of Service</li>
-              <li>Fraudulent or illegal activities</li>
-              <li>Abuse of other users or the platform</li>
-              <li>Inactivity for an extended period</li>
-            </ul>
-            <p className="text-gray-700 leading-relaxed mt-4">
-              Upon termination, your right to use Kameravue will immediately cease. All your
-              content may be deleted from our servers.
-            </p>
-          </section>
-
-          {/* Disclaimer */}
-          <section className="mb-12">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">7. Disclaimer</h2>
-            <p className="text-gray-700 leading-relaxed mb-4">
-              Kameravue is provided on an "as is" and "as available" basis. We make no
-              representations or warranties of any kind, express or implied, including but not
-              limited to:
-            </p>
-            <ul className="list-disc pl-6 space-y-2 text-gray-700">
-              <li>The accuracy, reliability, or availability of the service</li>
-              <li>The products, services, or information provided</li>
-              <li>Uninterrupted or error-free operation</li>
-              <li>That bugs or errors will be corrected</li>
-            </ul>
-            <p className="text-gray-700 leading-relaxed mt-4">
-              We are not liable for any damages arising from your use of Kameravue, including
-              but not limited to direct, indirect, incidental, or consequential damages.
-            </p>
-          </section>
-
-          {/* Changes to Terms */}
-          <section className="mb-12">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">8. Changes to Terms</h2>
-            <p className="text-gray-700 leading-relaxed">
-              We reserve the right to modify these Terms of Service at any time. We will notify
-              users of significant changes via email or by posting a notice on our platform.
-              Your continued use of Kameravue after such modifications constitutes your acceptance
-              of the updated terms.
-            </p>
-          </section>
-
-          {/* Contact */}
-          <section className="mb-12">
-            <h2 className="text-2xl font-semibold text-gray-900 mb-4">9. Contact Us</h2>
-            <p className="text-gray-700 leading-relaxed mb-4">
-              If you have any questions about these Terms of Service, please contact us:
-            </p>
-            <div className="bg-gray-50 rounded-lg p-6 border border-gray-100">
-              <p className="text-gray-700 mb-2">
-                <strong>Email:</strong>{' '}
-                <a
-                  href="mailto:isnendyankp@gmail.com"
-                  className="text-black underline hover:no-underline"
-                >
-                  isnendyankp@gmail.com
-                </a>
-              </p>
-              <p className="text-gray-700">
-                <strong>Platform:</strong>{' '}
-                <Link href="/" className="text-black underline hover:no-underline">
-                  Kameravue
-                </Link>
-              </p>
-            </div>
-          </section>
-        </div>
-      </main>
-
-      {/* Footer */}
-      <footer className="border-t border-gray-200 mt-12">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-gray-600 text-sm">
-              © {new Date().getFullYear()} Kameravue. All rights reserved.
-            </p>
-            <div className="flex items-center gap-6 text-sm">
-              <Link
-                href="/"
-                className="text-gray-600 hover:text-black transition-colors"
-              >
-                Home
-              </Link>
-              <Link
-                href="/privacy"
-                className="text-gray-600 hover:text-black transition-colors"
-              >
-                Privacy Policy
-              </Link>
-              <a
-                href="mailto:isnendyankp@gmail.com"
-                className="text-gray-600 hover:text-black transition-colors"
-              >
-                Contact
-              </a>
-            </div>
-          </div>
-        </div>
-      </footer>
-    </div>
+      </section>
+    </LegalPageLayout>
   );
 }
