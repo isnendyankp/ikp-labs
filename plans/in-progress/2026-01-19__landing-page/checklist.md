@@ -796,19 +796,19 @@
 
 ---
 
-**Checklist Version**: 1.10
+**Checklist Version**: 1.11
 **Created**: January 19, 2026
-**Updated**: January 22, 2026 (Phase 10 ADDED - Legal Pages: Terms of Service & Privacy Policy)
+**Updated**: January 22, 2026 (Phase 9 COMPLETE - Footer Email Updated to isnendyankp@gmail.com)
 **Total Estimated Time**: 8-13 hours (4-6 implementation + 3-4 E2E testing + 25min content updates + 45min Back to Top + 5min Footer Email + 1-2hr Legal Pages)
-**Progress**: 33/37 tasks completed (89% - 1 pending in Phase 9, 3 pending in Phase 10)
-**Implementation**: ✅ Complete (12/12 commits)
+**Progress**: 34/37 tasks completed (92% - 1 manual test pending in Phase 9, 3 pending in Phase 10)
+**Implementation**: ✅ Complete (13/13 commits)
 **E2E Testing**: ✅ Complete (10 commits, 58/58 tests passing)
 **Documentation**: ✅ Complete (E2E README updated)
 **Content Update**: ✅ Complete (5 commits - About section stats)
 **Back to Top Button**: ✅ Complete (5 commits - UX improvement)
-**Footer Email Update**: 📋 1 pending (personal email: isnendyankp@gmail.com)
+**Footer Email Update**: ✅ Complete (1 commit - manual testing pending)
 **Legal Pages**: 📋 3 pending (Terms of Service & Privacy Policy)
-**Status**: ✅ **CORE COMPLETE** | 📋 **4 TASKS PENDING** (1 Footer Email + 3 Legal Pages)
+**Status**: ✅ **CORE COMPLETE** | 📋 **3 LEGAL PAGES PENDING** (manual test for footer email + 3 legal pages)
 
 ---
 
@@ -1125,12 +1125,12 @@ href="mailto:isnendyankp@gmail.com"
 ```
 
 **Steps**:
-1. [ ] Update contact email href from hello@kameravue.com to isnendyankp@gmail.com
-2. [ ] **COMMIT**: "fix(landing): update footer contact email to personal email"
+1. [x] Update contact email href from hello@kameravue.com to isnendyankp@gmail.com
+2. [x] **COMMIT**: "fix(landing): update footer contact email to personal email"
 
 **Acceptance Criteria**:
-- [ ] Footer contact link uses personal email: isnendyankp@gmail.com
-- [ ] Email opens correctly when clicking Contact link
+- [x] Footer contact link uses personal email: isnendyankp@gmail.com
+- [ ] Email opens correctly when clicking Contact link (manual testing pending)
 
 ---
 
@@ -1256,7 +1256,7 @@ A reusable layout component for legal pages to ensure consistency:
 ## Atomic Commit Summary (Updated)
 
 **Total Commits: 37** (12 implementation + 10 E2E testing + 1 E2E doc + 5 Phase 7 + 5 Phase 8 + 1 Phase 9 + 3 Phase 10)
-**Completed: 33/37 tasks** (1 pending in Phase 9, 3 pending in Phase 10)
+**Completed: 34/37 tasks** (1 manual test pending in Phase 9, 3 pending in Phase 10)
 
 ✅ **Phase 1 - Setup (2 commits)**: Complete
 
@@ -1270,8 +1270,8 @@ A reusable layout component for legal pages to ensure consistency:
 
 ✅ **Phase 8 - Back to Top Button (5 commits)**: Complete
 
-📋 **Phase 9 - Footer Email Update (1 pending)**:
-34. [ ] fix(landing): update footer contact email to personal email
+✅ **Phase 9 - Footer Email Update (1 commit - manual test pending)**:
+34. [x] fix(landing): update footer contact email to personal email
 
 📋 **Phase 10 - Legal Pages (3 pending)**:
 35. [ ] feat(legal): create Terms of Service page
