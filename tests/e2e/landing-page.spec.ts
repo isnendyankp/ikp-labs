@@ -677,4 +677,349 @@ test.describe('Landing Page - End-to-End Tests', () => {
     console.log('✅ Test: BackToTop button hides at top - PASSED');
   });
 
+  // ========================================
+  // Footer Navigation Tests
+  // ========================================
+
+  test('Should smooth scroll to Features when clicking Footer Features button', async ({ page }) => {
+    console.log('🧪 Test: Footer Features button smooth scroll');
+
+    // Scroll to footer
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await page.waitForTimeout(500);
+
+    // Click Features button in footer
+    const footer = page.locator('footer').first();
+    const featuresButton = footer.getByRole('button', { name: 'Features', exact: true });
+    await featuresButton.click();
+
+    // Wait for smooth scroll
+    await page.waitForTimeout(1000);
+
+    // Verify Features section is in viewport
+    const featuresSection = page.locator('#features');
+    await expect(featuresSection).toBeInViewport();
+
+    console.log('✅ Test: Footer Features button smooth scroll - PASSED');
+  });
+
+  test('Should smooth scroll to About when clicking Footer About button', async ({ page }) => {
+    console.log('🧪 Test: Footer About button smooth scroll');
+
+    // Scroll to footer
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await page.waitForTimeout(500);
+
+    // Click About button in footer
+    const footer = page.locator('footer').first();
+    const aboutButton = footer.getByRole('button', { name: 'About', exact: true });
+    await aboutButton.click();
+
+    // Wait for smooth scroll
+    await page.waitForTimeout(1000);
+
+    // Verify About section is in viewport
+    const aboutSection = page.locator('#about');
+    await expect(aboutSection).toBeInViewport();
+
+    console.log('✅ Test: Footer About button smooth scroll - PASSED');
+  });
+
+  test('Should have contact email link with correct mailto href', async ({ page }) => {
+    console.log('🧪 Test: Footer contact email link');
+
+    // Scroll to footer
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await page.waitForTimeout(500);
+
+    // Get contact link by href attribute
+    const contactLink = page.locator('a[href="mailto:isnendyankp@gmail.com"]');
+    await expect(contactLink).toBeVisible();
+
+    // Verify href attribute
+    const href = await contactLink.getAttribute('href');
+    expect(href).toBe('mailto:isnendyankp@gmail.com');
+
+    console.log('✅ Test: Footer contact email link - PASSED');
+  });
+
+  // ========================================
+  // Footer External Links Tests
+  // ========================================
+
+  test('Should open GitHub in new tab when clicking GitHub link', async ({ page }) => {
+    console.log('🧪 Test: Footer GitHub external link');
+
+    // Scroll to footer
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await page.waitForTimeout(500);
+
+    // Get GitHub link
+    const footer = page.locator('footer').first();
+    const githubLink = footer.locator('a[href="https://github.com/isnendyankp/ikp-labs"]').first();
+    await expect(githubLink).toBeVisible();
+
+    // Verify href and target attributes
+    const href = await githubLink.getAttribute('href');
+    const target = await githubLink.getAttribute('target');
+    const rel = await githubLink.getAttribute('rel');
+
+    expect(href).toBe('https://github.com/isnendyankp/ikp-labs');
+    expect(target).toBe('_blank');
+    expect(rel).toBe('noopener noreferrer');
+
+    // Verify GitHub icon is visible
+    const githubIcon = githubLink.locator('svg');
+    await expect(githubIcon).toBeVisible();
+
+    console.log('✅ Test: Footer GitHub external link - PASSED');
+  });
+
+  test('Should open LinkedIn in new tab when clicking LinkedIn link', async ({ page }) => {
+    console.log('🧪 Test: Footer LinkedIn external link');
+
+    // Scroll to footer
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await page.waitForTimeout(500);
+
+    // Get LinkedIn link
+    const footer = page.locator('footer').first();
+    const linkedinLink = footer.locator('a[href="https://www.linkedin.com/in/isnendyan"]');
+    await expect(linkedinLink).toBeVisible();
+
+    // Verify href and target attributes
+    const href = await linkedinLink.getAttribute('href');
+    const target = await linkedinLink.getAttribute('target');
+    const rel = await linkedinLink.getAttribute('rel');
+
+    expect(href).toBe('https://www.linkedin.com/in/isnendyan');
+    expect(target).toBe('_blank');
+    expect(rel).toBe('noopener noreferrer');
+
+    // Verify LinkedIn icon is visible
+    const linkedinIcon = linkedinLink.locator('svg');
+    await expect(linkedinIcon).toBeVisible();
+
+    console.log('✅ Test: Footer LinkedIn external link - PASSED');
+  });
+
+  // ========================================
+  // Footer Legal Links Tests
+  // ========================================
+
+  test('Should navigate to Terms page when clicking Terms link', async ({ page }) => {
+    console.log('🧪 Test: Footer Terms link navigation');
+
+    // Scroll to footer
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await page.waitForTimeout(500);
+
+    // Click Terms link
+    const termsLink = page.getByRole('link', { name: 'Terms of Service' });
+    await termsLink.click();
+
+    // Verify navigation to Terms page
+    await page.waitForURL('/terms', { timeout: 5000 });
+    expect(page.url()).toContain('/terms');
+
+    console.log('✅ Test: Footer Terms link navigation - PASSED');
+  });
+
+  test('Should navigate to Privacy page when clicking Privacy link', async ({ page }) => {
+    console.log('🧪 Test: Footer Privacy link navigation');
+
+    // Scroll to footer
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await page.waitForTimeout(500);
+
+    // Click Privacy link
+    const privacyLink = page.getByRole('link', { name: 'Privacy Policy' });
+    await privacyLink.click();
+
+    // Verify navigation to Privacy page
+    await page.waitForURL('/privacy', { timeout: 5000 });
+    expect(page.url()).toContain('/privacy');
+
+    console.log('✅ Test: Footer Privacy link navigation - PASSED');
+  });
+
+  // ========================================
+  // Legal Pages Tests
+  // ========================================
+
+  test('Should render Terms page with all sections and disclaimer', async ({ page }) => {
+    console.log('🧪 Test: Terms page rendering');
+
+    // Navigate to Terms page
+    await page.goto('/terms');
+
+    // Verify page title
+    await expect(page.getByRole('heading', { name: 'Terms of Service' })).toBeVisible();
+
+    // Verify main sections
+    await expect(page.getByRole('heading', { name: '1. Overview' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: '2. Terms of Use' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: '3. Intellectual Property' })).toBeVisible();
+
+    // Verify educational disclaimer
+    await expect(page.getByRole('heading', { name: 'Educational Purpose' })).toBeVisible();
+    await expect(page.getByText(/Kameravue is a learning project/i)).toBeVisible();
+
+    // Verify GitHub link in disclaimer
+    const githubLink = page.locator('a[href="https://github.com/isnendyankp/ikp-labs"]').first();
+    await expect(githubLink).toBeVisible();
+
+    // Verify LinkedIn link in disclaimer
+    const linkedinLink = page.locator('a[href="https://www.linkedin.com/in/isnendyan"]');
+    await expect(linkedinLink).toBeVisible();
+
+    console.log('✅ Test: Terms page rendering - PASSED');
+  });
+
+  test('Should render Privacy page with all sections and disclaimer', async ({ page }) => {
+    console.log('🧪 Test: Privacy page rendering');
+
+    // Navigate to Privacy page
+    await page.goto('/privacy');
+
+    // Verify page title
+    await expect(page.getByRole('heading', { name: 'Privacy Policy' })).toBeVisible();
+
+    // Verify main sections
+    await expect(page.getByRole('heading', { name: '1. Overview' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: '2. Information We Collect' })).toBeVisible();
+    await expect(page.getByRole('heading', { name: '3. How We Use Your Information' })).toBeVisible();
+
+    // Verify educational disclaimer
+    await expect(page.getByRole('heading', { name: 'Educational Purpose' })).toBeVisible();
+    await expect(page.getByText(/Kameravue is a learning project/i)).toBeVisible();
+
+    // Verify GitHub link in disclaimer
+    const githubLink = page.locator('a[href="https://github.com/isnendyankp/ikp-labs"]').first();
+    await expect(githubLink).toBeVisible();
+
+    // Verify LinkedIn link in disclaimer
+    const linkedinLink = page.locator('a[href="https://www.linkedin.com/in/isnendyan"]');
+    await expect(linkedinLink).toBeVisible();
+
+    console.log('✅ Test: Privacy page rendering - PASSED');
+  });
+
+  test('Should navigate back to home from Terms page', async ({ page }) => {
+    console.log('🧪 Test: Terms page back to home navigation');
+
+    // Navigate to Terms page
+    await page.goto('/terms');
+
+    // Click "Back to Home" link
+    const backToHomeLink = page.getByRole('link', { name: 'Back to Home' });
+    await backToHomeLink.click();
+
+    // Verify navigation to home
+    await page.waitForURL('/', { timeout: 5000 });
+    expect(page.url()).toBe('/');
+
+    console.log('✅ Test: Terms page back to home navigation - PASSED');
+  });
+
+  test('Should navigate back to home from Privacy page', async ({ page }) => {
+    console.log('🧪 Test: Privacy page back to home navigation');
+
+    // Navigate to Privacy page
+    await page.goto('/privacy');
+
+    // Click "Back to Home" link
+    const backToHomeLink = page.getByRole('link', { name: 'Back to Home' });
+    await backToHomeLink.click();
+
+    // Verify navigation to home
+    await page.waitForURL('/', { timeout: 5000 });
+    expect(page.url()).toBe('/');
+
+    console.log('✅ Test: Privacy page back to home navigation - PASSED');
+  });
+
+  // ========================================
+  // Footer Responsive Layout Tests
+  // ========================================
+
+  test('Should display 2-column footer layout on mobile', async ({ page }) => {
+    console.log('🧪 Test: Footer mobile responsive layout (375px)');
+
+    // Set mobile viewport
+    await page.setViewportSize({ width: 375, height: 667 });
+    await page.goto('/');
+
+    // Scroll to footer
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await page.waitForTimeout(500);
+
+    // Verify footer is visible
+    const footer = page.locator('footer').first();
+    await expect(footer).toBeVisible();
+
+    // Verify all footer columns are present
+    await expect(footer.getByText('Kameravue')).toBeVisible();
+    await expect(footer.getByText('Product')).toBeVisible();
+    await expect(footer.getByText('Company')).toBeVisible();
+    await expect(footer.getByText('Legal')).toBeVisible();
+
+    // Verify GitHub and LinkedIn links are visible
+    await expect(footer.locator('a[href="https://github.com/isnendyankp/ikp-labs"]')).toBeVisible();
+    await expect(footer.locator('a[href="https://www.linkedin.com/in/isnendyan"]')).toBeVisible();
+
+    console.log('✅ Test: Footer mobile responsive layout - PASSED');
+  });
+
+  test('Should display 4-column footer layout on desktop', async ({ page }) => {
+    console.log('🧪 Test: Footer desktop responsive layout (1280px)');
+
+    // Set desktop viewport
+    await page.setViewportSize({ width: 1280, height: 720 });
+    await page.goto('/');
+
+    // Scroll to footer
+    await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
+    await page.waitForTimeout(500);
+
+    // Verify footer is visible
+    const footer = page.locator('footer').first();
+    await expect(footer).toBeVisible();
+
+    // Verify all footer columns are present in proper layout
+    await expect(footer.getByText('Kameravue')).toBeVisible();
+    await expect(footer.getByText('Product')).toBeVisible();
+    await expect(footer.getByText('Company')).toBeVisible();
+    await expect(footer.getByText('Legal')).toBeVisible();
+
+    // Verify GitHub and LinkedIn links are visible in Company column
+    await expect(footer.locator('a[href="https://github.com/isnendyankp/ikp-labs"]')).toBeVisible();
+    await expect(footer.locator('a[href="https://www.linkedin.com/in/isnendyan"]')).toBeVisible();
+
+    console.log('✅ Test: Footer desktop responsive layout - PASSED');
+  });
+
+  // ========================================
+  // About Section Stats Tests
+  // ========================================
+
+  test('Should display updated About section stats', async ({ page }) => {
+    console.log('🧪 Test: About section updated stats');
+
+    // Scroll to About section
+    await page.locator('#about').scrollIntoViewIfNeeded();
+    await page.waitForTimeout(500);
+
+    // Verify updated stats are visible
+    await expect(page.getByText(/Your photos, your rules/i)).toBeVisible();
+    await expect(page.getByText(/Favorite discreetly/i)).toBeVisible();
+    await expect(page.getByText(/No hidden fees/i)).toBeVisible();
+
+    // Verify stat cards are present
+    const statCards = page.locator('#about').locator('.bg-gray-50');
+    await expect(statCards).toHaveCount(3);
+
+    console.log('✅ Test: About section updated stats - PASSED');
+  });
+
 });
