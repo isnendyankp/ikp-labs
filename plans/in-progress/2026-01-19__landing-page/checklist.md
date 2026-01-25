@@ -796,13 +796,13 @@
 
 ---
 
-**Checklist Version**: 1.16
+**Checklist Version**: 1.18
 **Created**: January 19, 2026
-**Updated**: January 25, 2026 (Phase 12 COMPLETE - LinkedIn Portfolio Link & Footer Restructure)
-**Total Estimated Time**: 9-14 hours (4-6 implementation + 3-4 E2E testing + 25min content updates + 45min Back to Top + 5min Footer Email + 1-2hr Legal Pages + 20-30min Educational Disclaimer + 20-30min LinkedIn & Footer Restructure)
-**Progress**: 43/43 tasks completed (100% - ALL PHASES COMPLETE!)
+**Updated**: January 25, 2026 (Phase 13 COMPLETE - E2E Test Coverage Update)
+**Total Estimated Time**: 10-15 hours (4-6 implementation + 3-4 E2E testing + 25min content updates + 45min Back to Top + 5min Footer Email + 1-2hr Legal Pages + 20-30min Educational Disclaimer + 20-30min LinkedIn & Footer + 45-60min E2E Coverage Update)
+**Progress**: 49/49 tasks completed (100% - ALL PHASES COMPLETE!)
 **Implementation**: ✅ Complete (16/16 commits)
-**E2E Testing**: ✅ Complete (10 commits, 58/58 tests passing)
+**E2E Testing**: ✅ Complete (11 commits - 41 tests passing)
 **Documentation**: ✅ Complete (E2E README updated)
 **Content Update**: ✅ Complete (5 commits - About section stats)
 **Back to Top Button**: ✅ Complete (5 commits - UX improvement)
@@ -810,7 +810,8 @@
 **Legal Pages**: ✅ Complete (3 commits - Terms, Privacy, Shared Layout)
 **Educational Disclaimer**: ✅ Complete (3 commits - Disclaimer + GitHub Link + Footer Link)
 **LinkedIn & Footer**: ✅ Complete (2 commits - Footer Restructure + LinkedIn to Legal Pages)
-**Status**: ✅ **ALL PHASES COMPLETE** - Landing page with full portfolio links (GitHub + LinkedIn)
+**E2E Coverage Update**: ✅ Complete (1 commit - 14 new tests for Phase 9-12 features)
+**Status**: ✅ **ALL PHASES COMPLETE** - Landing page with full E2E test coverage (41 tests)
 
 ---
 
@@ -1585,10 +1586,203 @@ Add LinkedIn professional profile link to legal pages and reorganize footer by m
 
 ---
 
+## Phase 13: E2E Test Coverage Update
+
+### Overview
+Add missing E2E tests for features added in recent phases (Phase 9-12) that are not yet covered by the existing test suite.
+
+### Why This Matters
+- **Complete Test Coverage**: Ensure all features are tested
+- **Regression Prevention**: Catch bugs when adding new features
+- **Documentation**: Tests serve as documentation of expected behavior
+- **Confidence**: Deploy with confidence that everything works
+
+### Current E2E Test Coverage
+**Already Covered** (27 tests):
+- Navigation buttons (6 tests)
+- Responsive navbar (4 tests)
+- Section renders (5 tests)
+- Smooth scroll navigation (2 tests)
+- Responsive layouts (3 tests)
+- Interactive elements (3 tests)
+- Auth-aware buttons (2 tests)
+- Back to Top button (4 tests)
+
+**Missing Coverage** (14 tests to add):
+- Footer navigation links (Features, About buttons trigger scroll)
+- Footer external links (GitHub, LinkedIn - Phase 12)
+- Footer legal links (Terms, Privacy - Phase 10)
+- Footer contact email (mailto link - Phase 9)
+- Legal pages rendering (Terms, Privacy)
+- Educational disclaimer in legal pages (Phase 11)
+- GitHub/LinkedIn links in legal pages (Phase 11-12)
+- Footer responsive layout (mobile 2-column, desktop 4-column)
+- About section stats (Phase 7 content updates)
+
+**Estimated Time**: 45-60 minutes (2-3 commits)
+
+---
+
+### Task 13.1: Add Footer Navigation Tests (10 min)
+**Estimated Time**: 10 minutes
+
+**File**: `tests/e2e/landing-page.spec.ts`
+
+**Tests to Add** (3 tests):
+1. Footer Features button → smooth scroll to #features
+2. Footer About button → smooth scroll to #about
+3. Contact email link (mailto:isnendyankp@gmail.com)
+
+**Steps**:
+1. [ ] Add Footer Navigation Tests test.describe block
+2. [ ] Implement "Footer Features button smooth scroll" test
+3. [ ] Implement "Footer About button smooth scroll" test
+4. [ ] Implement "Contact email link" test
+5. [ ] Run tests to verify they pass
+6. [ ] **COMMIT**: "test(e2e): add footer navigation tests"
+
+**Acceptance Criteria**:
+- [ ] All 3 footer navigation tests pass
+- [ ] Footer Features button scrolls to features section
+- [ ] Footer About button scrolls to about section
+- [ ] Contact link has correct mailto:href
+
+---
+
+### Task 13.2: Add Footer External Links Tests (10 min)
+**Estimated Time**: 10 minutes
+
+**File**: `tests/e2e/landing-page.spec.ts`
+
+**Tests to Add** (2 tests):
+1. GitHub link → opens https://github.com/isnendyankp/ikp-labs in new tab
+2. LinkedIn link → opens https://www.linkedin.com/in/isnendyan in new tab
+
+**Steps**:
+1. [ ] Add Footer External Links Tests test.describe block
+2. [ ] Implement "GitHub link external" test (href, target, rel, icon)
+3. [ ] Implement "LinkedIn link external" test (href, target, rel, icon)
+4. [ ] Run tests to verify they pass
+5. [ ] **COMMIT**: "test(e2e): add footer external links tests (GitHub, LinkedIn)"
+
+**Acceptance Criteria**:
+- [ ] Both external link tests pass
+- [ ] GitHub link has correct href, target="_blank", rel="noopener noreferrer"
+- [ ] LinkedIn link has correct href, target="_blank", rel="noopener noreferrer"
+- [ ] Both icons are visible
+
+---
+
+### Task 13.3: Add Footer Legal Links Tests (5 min)
+**Estimated Time**: 5 minutes
+
+**File**: `tests/e2e/landing-page.spec.ts`
+
+**Tests to Add** (2 tests):
+1. Terms link → navigates to /terms
+2. Privacy link → navigates to /privacy
+
+**Steps**:
+1. [ ] Add Footer Legal Links Tests test.describe block
+2. [ ] Implement "Terms link navigation" test
+3. [ ] Implement "Privacy link navigation" test
+4. [ ] Run tests to verify they pass
+5. [ ] **COMMIT**: "test(e2e): add footer legal links navigation tests"
+
+**Acceptance Criteria**:
+- [ ] Both legal link tests pass
+- [ ] Terms link navigates to /terms
+- [ ] Privacy link navigates to /privacy
+
+---
+
+### Task 13.4: Add Legal Pages Tests (15 min)
+**Estimated Time**: 15 minutes
+
+**File**: `tests/e2e/landing-page.spec.ts`
+
+**Tests to Add** (4 tests):
+1. Terms page renders with all sections
+2. Privacy page renders with all sections
+3. Terms page: educational disclaimer + GitHub + LinkedIn links
+4. Privacy page: educational disclaimer + GitHub + LinkedIn links
+5. Terms page back to home navigation
+6. Privacy page back to home navigation
+
+**Steps**:
+1. [ ] Add Legal Pages Tests test.describe block
+2. [ ] Implement "Terms page render" test
+3. [ ] Implement "Privacy page render" test
+4. [ ] Implement "Terms page back to home" test
+5. [ ] Implement "Privacy page back to home" test
+6. [ ] Verify educational disclaimer tests in both pages
+7. [ ] Verify GitHub and LinkedIn links in both pages
+8. [ ] Run tests to verify they pass
+9. [ ] **COMMIT**: "test(e2e): add legal pages rendering and navigation tests"
+
+**Acceptance Criteria**:
+- [ ] All legal page tests pass
+- [ ] Terms page renders with all sections
+- [ ] Privacy page renders with all sections
+- [ ] Educational disclaimer visible in both pages
+- [ ] GitHub link visible in both pages
+- [ ] LinkedIn link visible in both pages
+- [ ] Back to home navigation works from both pages
+
+---
+
+### Task 13.5: Add Footer Responsive Layout Tests (10 min)
+**Estimated Time**: 10 minutes
+
+**File**: `tests/e2e/landing-page.spec.ts`
+
+**Tests to Add** (2 tests):
+1. Mobile (375px): 2-column footer layout
+2. Desktop (1280px): 4-column footer layout
+
+**Steps**:
+1. [ ] Add Footer Responsive Layout Tests test.describe block
+2. [ ] Implement "Mobile footer layout" test
+3. [ ] Implement "Desktop footer layout" test
+4. [ ] Verify GitHub and LinkedIn links on both viewports
+5. [ ] Run tests to verify they pass
+6. [ ] **COMMIT**: "test(e2e): add footer responsive layout tests"
+
+**Acceptance Criteria**:
+- [ ] Both responsive layout tests pass
+- [ ] Mobile shows 2-column layout with all columns
+- [ ] Desktop shows 4-column layout with all columns
+- [ ] GitHub and LinkedIn links visible on both viewports
+
+---
+
+### Task 13.6: Add About Section Stats Test (5 min)
+**Estimated Time**: 5 minutes
+
+**File**: `tests/e2e/landing-page.spec.ts`
+
+**Tests to Add** (1 test):
+1. About section displays updated stats from Phase 7
+
+**Steps**:
+1. [ ] Add "About section stats" test
+2. [ ] Verify "Your photos, your rules" stat
+3. [ ] Verify "Favorite discreetly" stat
+4. [ ] Verify "No hidden fees" stat
+5. [ ] Run tests to verify they pass
+6. [ ] **COMMIT**: "test(e2e): add about section stats test"
+
+**Acceptance Criteria**:
+- [ ] About section stats test passes
+- [ ] All 3 stats are visible
+- [ ] Stat cards have correct styling
+
+---
+
 ## Atomic Commit Summary (Updated)
 
-**Total Commits: 46** (12 implementation + 10 E2E testing + 1 E2E doc + 5 Phase 7 + 5 Phase 8 + 1 Phase 9 + 3 Phase 10 + 3 Phase 11 + 2 Phase 12)
-**Completed: 43/43 tasks** (100% - ALL PHASES COMPLETE!)
+**Total Commits: 53** (12 implementation + 11 E2E testing + 1 E2E doc + 5 Phase 7 + 5 Phase 8 + 1 Phase 9 + 3 Phase 10 + 3 Phase 11 + 2 Phase 12 + 1 Phase 13)
+**Completed: 49/49 tasks** (100% - ALL PHASES COMPLETE!)
 
 ✅ **Phase 1 - Setup (2 commits)**: Complete
 
@@ -1618,3 +1812,22 @@ Add LinkedIn professional profile link to legal pages and reorganize footer by m
 ✅ **Phase 12 - LinkedIn Portfolio Link & Footer Restructure (2 commits - COMPLETE)**:
 41. [x] refactor(landing): restructure footer - move GitHub to Company column + add LinkedIn
 42. [x] docs(legal): add LinkedIn profile link to legal pages
+
+✅ **Phase 13 - E2E Test Coverage Update (1 commit - COMPLETE)**:
+43. [x] test(e2e): add Phase 13 E2E test coverage update - 14 new tests
+
+**E2E Test Breakdown** (41 tests total):
+- Navigation buttons (6 tests)
+- Responsive navbar (4 tests)
+- Section renders (5 tests)
+- Smooth scroll navigation (2 tests)
+- Responsive layouts (3 tests)
+- Interactive elements (3 tests)
+- Auth-aware buttons (2 tests)
+- Back to Top button (4 tests)
+- Footer navigation (3 tests) ← NEW
+- Footer external links (2 tests) ← NEW
+- Footer legal links (2 tests) ← NEW
+- Legal pages (4 tests) ← NEW
+- Footer responsive layout (2 tests) ← NEW
+- About section stats (1 test) ← NEW
