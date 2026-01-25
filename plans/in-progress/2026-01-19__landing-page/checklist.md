@@ -796,11 +796,11 @@
 
 ---
 
-**Checklist Version**: 1.14
+**Checklist Version**: 1.16
 **Created**: January 19, 2026
-**Updated**: January 25, 2026 (Phase 11 COMPLETE - Educational Disclaimer & GitHub Repository Link)
-**Total Estimated Time**: 8.5-13.5 hours (4-6 implementation + 3-4 E2E testing + 25min content updates + 45min Back to Top + 5min Footer Email + 1-2hr Legal Pages + 20-30min Educational Disclaimer)
-**Progress**: 40/40 tasks completed (100% - ALL PHASES COMPLETE!)
+**Updated**: January 25, 2026 (Phase 12 COMPLETE - LinkedIn Portfolio Link & Footer Restructure)
+**Total Estimated Time**: 9-14 hours (4-6 implementation + 3-4 E2E testing + 25min content updates + 45min Back to Top + 5min Footer Email + 1-2hr Legal Pages + 20-30min Educational Disclaimer + 20-30min LinkedIn & Footer Restructure)
+**Progress**: 43/43 tasks completed (100% - ALL PHASES COMPLETE!)
 **Implementation**: ✅ Complete (16/16 commits)
 **E2E Testing**: ✅ Complete (10 commits, 58/58 tests passing)
 **Documentation**: ✅ Complete (E2E README updated)
@@ -809,7 +809,8 @@
 **Footer Email Update**: ✅ Complete (1 commit - manual test PASSED)
 **Legal Pages**: ✅ Complete (3 commits - Terms, Privacy, Shared Layout)
 **Educational Disclaimer**: ✅ Complete (3 commits - Disclaimer + GitHub Link + Footer Link)
-**Status**: ✅ **ALL PHASES COMPLETE** - Landing page with educational disclaimers & GitHub repository link
+**LinkedIn & Footer**: ✅ Complete (2 commits - Footer Restructure + LinkedIn to Legal Pages)
+**Status**: ✅ **ALL PHASES COMPLETE** - Landing page with full portfolio links (GitHub + LinkedIn)
 
 ---
 
@@ -1406,10 +1407,188 @@ GitHub repository link within the educational disclaimer section.
 
 ---
 
+## Phase 12: LinkedIn Portfolio Link & Footer Restructure
+
+### Overview
+Add LinkedIn professional profile link to legal pages and reorganize footer by moving GitHub link from Legal to Company column for better grouping of developer/author links.
+
+### Why This Matters
+- **Professional Presence**: LinkedIn link allows recruiters to connect directly
+- **Better UX**: Company column groups all "about the developer" links together
+- **Logical Organization**: Company (About, Contact, GitHub, LinkedIn) vs Legal (Terms, Privacy)
+- **Portfolio Value**: Multiple touchpoints for employers to review and connect
+
+**Estimated Time**: 20-30 minutes (2-3 commits)
+
+---
+
+### Task 12.1: Restructure Footer - Move GitHub to Company Column (10 min)
+**Estimated Time**: 10 minutes
+
+**File**: `frontend/src/components/landing/Footer.tsx`
+
+**Changes**:
+1. Move GitHub link from Legal column to Company column
+2. Place it after "Contact" link
+3. Legal column will only have Terms and Privacy
+
+**New Structure**:
+```tsx
+{/* Company Column */}
+<div>
+  <h4 className="text-sm font-semibold text-gray-900 mb-4">Company</h4>
+  <ul className="space-y-3">
+    <li>
+      <button onClick={() => handleNavigate('about')}>
+        About Us
+      </button>
+    </li>
+    <li>
+      <a href="mailto:isnendyankp@gmail.com">
+        Contact
+      </a>
+    </li>
+    <li>
+      <a
+        href="https://github.com/isnendyankp/ikp-labs"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center gap-1"
+      >
+        <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+          {/* GitHub icon */}
+        </svg>
+        GitHub
+      </a>
+    </li>
+    {/* LinkedIn will be added in Task 12.2 */}
+  </ul>
+</div>
+
+{/* Legal Column */}
+<div>
+  <h4 className="text-sm font-semibold text-gray-900 mb-4">Legal</h4>
+  <ul className="space-y-3">
+    <li>
+      <a href="/terms">
+        Terms of Service
+      </a>
+    </li>
+    <li>
+      <a href="/privacy">
+        Privacy Policy
+      </a>
+    </li>
+  </ul>
+</div>
+```
+
+**Steps**:
+1. [x] Move GitHub link from Legal column to Company column
+2. [x] Verify Legal column only has Terms and Privacy
+3. [x] Test that links still work correctly
+4. [x] **COMMIT**: "refactor(landing): move GitHub link from Legal to Company column"
+
+**Acceptance Criteria**:
+- [x] GitHub link appears in Company column after Contact
+- [x] Legal column only contains Terms and Privacy links
+- [x] All links work correctly
+- [x] Styling is consistent
+
+---
+
+### Task 12.2: Add LinkedIn Link to Footer (5 min)
+**Estimated Time**: 5 minutes
+
+**File**: `frontend/src/components/landing/Footer.tsx`
+
+**Location**: Company column, after GitHub link
+
+**LinkedIn Icon SVG**:
+```tsx
+<path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+```
+
+**Content**:
+```tsx
+<li>
+  <a
+    href="https://www.linkedin.com/in/isnendyan"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-gray-600 hover:text-black text-sm transition-colors flex items-center gap-1"
+  >
+    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+    </svg>
+    LinkedIn
+  </a>
+</li>
+```
+
+**Steps**:
+1. [x] Add LinkedIn link with icon to Company column
+2. [x] Verify link opens correct profile: https://www.linkedin.com/in/isnendyan
+3. [x] **COMMIT**: "feat(landing): add LinkedIn profile link to footer"
+
+**Acceptance Criteria**:
+- [x] LinkedIn link visible in Company column after GitHub
+- [x] LinkedIn icon displays correctly
+- [x] Link opens in new tab with proper security attributes
+- [x] Styling matches GitHub link
+
+---
+
+### Task 12.3: Add LinkedIn Link to Legal Pages (10 min)
+**Estimated Time**: 10 minutes
+
+**Files**:
+- `frontend/src/app/terms/page.tsx`
+- `frontend/src/app/privacy/page.tsx`
+
+**Location**: In the educational disclaimer section, after the GitHub link
+
+**Content to Add**:
+```tsx
+<p className="text-gray-700 leading-relaxed mt-3">
+  Connect with the developer on{' '}
+  <a
+    href="https://www.linkedin.com/in/isnendyan"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-black underline hover:no-underline font-medium inline-flex items-center gap-1"
+  >
+    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+    </svg>
+    LinkedIn
+  </a>
+  {' '}for professional networking.
+</p>
+```
+
+**Result**: Educational disclaimer will have both links:
+- GitHub (for code review)
+- LinkedIn (for professional connection)
+
+**Steps**:
+1. [x] Add LinkedIn link to terms/page.tsx educational disclaimer
+2. [x] Add LinkedIn link to privacy/page.tsx educational disclaimer
+3. [x] **COMMIT**: "docs(legal): add LinkedIn profile link to legal pages"
+
+**Acceptance Criteria**:
+- [x] LinkedIn link visible in both legal pages
+- [x] Links to correct profile: https://www.linkedin.com/in/isnendyan
+- [x] Opens in new tab with proper security attributes
+- [x] Properly styled with icon
+- [x] Positioned after GitHub link
+
+---
+
 ## Atomic Commit Summary (Updated)
 
-**Total Commits: 43** (12 implementation + 10 E2E testing + 1 E2E doc + 5 Phase 7 + 5 Phase 8 + 1 Phase 9 + 3 Phase 10 + 3 Phase 11)
-**Completed: 40/40 tasks** (100% - ALL PHASES COMPLETE!)
+**Total Commits: 46** (12 implementation + 10 E2E testing + 1 E2E doc + 5 Phase 7 + 5 Phase 8 + 1 Phase 9 + 3 Phase 10 + 3 Phase 11 + 2 Phase 12)
+**Completed: 43/43 tasks** (100% - ALL PHASES COMPLETE!)
 
 ✅ **Phase 1 - Setup (2 commits)**: Complete
 
@@ -1435,3 +1614,7 @@ GitHub repository link within the educational disclaimer section.
 38. [x] docs(legal): add educational learning disclaimer to legal pages
 39. [x] docs(legal): add GitHub repository link to legal pages
 40. [x] feat(landing): add GitHub repository link to footer
+
+✅ **Phase 12 - LinkedIn Portfolio Link & Footer Restructure (2 commits - COMPLETE)**:
+41. [x] refactor(landing): restructure footer - move GitHub to Company column + add LinkedIn
+42. [x] docs(legal): add LinkedIn profile link to legal pages
