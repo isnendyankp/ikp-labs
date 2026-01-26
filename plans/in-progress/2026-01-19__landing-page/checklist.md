@@ -1634,18 +1634,18 @@ Add missing E2E tests for features added in recent phases (Phase 9-12) that are 
 3. Contact email link (mailto:isnendyankp@gmail.com)
 
 **Steps**:
-1. [ ] Add Footer Navigation Tests test.describe block
-2. [ ] Implement "Footer Features button smooth scroll" test
-3. [ ] Implement "Footer About button smooth scroll" test
-4. [ ] Implement "Contact email link" test
-5. [ ] Run tests to verify they pass
-6. [ ] **COMMIT**: "test(e2e): add footer navigation tests"
+1. [x] Add Footer Navigation Tests test.describe block
+2. [x] Implement "Footer Features button smooth scroll" test
+3. [x] Implement "Footer About button smooth scroll" test
+4. [x] Implement "Contact email link" test
+5. [x] Run tests to verify they pass
+6. [x] **COMMIT**: "test(e2e): add footer navigation tests"
 
 **Acceptance Criteria**:
-- [ ] All 3 footer navigation tests pass
-- [ ] Footer Features button scrolls to features section
-- [ ] Footer About button scrolls to about section
-- [ ] Contact link has correct mailto:href
+- [x] All 3 footer navigation tests pass
+- [x] Footer Features button scrolls to features section
+- [x] Footer About button scrolls to about section
+- [x] Contact link has correct mailto:href
 
 ---
 
@@ -1659,17 +1659,17 @@ Add missing E2E tests for features added in recent phases (Phase 9-12) that are 
 2. LinkedIn link → opens https://www.linkedin.com/in/isnendyan in new tab
 
 **Steps**:
-1. [ ] Add Footer External Links Tests test.describe block
-2. [ ] Implement "GitHub link external" test (href, target, rel, icon)
-3. [ ] Implement "LinkedIn link external" test (href, target, rel, icon)
-4. [ ] Run tests to verify they pass
-5. [ ] **COMMIT**: "test(e2e): add footer external links tests (GitHub, LinkedIn)"
+1. [x] Add Footer External Links Tests test.describe block
+2. [x] Implement "GitHub link external" test (href, target, rel, icon)
+3. [x] Implement "LinkedIn link external" test (href, target, rel, icon)
+4. [x] Run tests to verify they pass
+5. [x] **COMMIT**: "test(e2e): add footer external links tests (GitHub, LinkedIn)"
 
 **Acceptance Criteria**:
-- [ ] Both external link tests pass
-- [ ] GitHub link has correct href, target="_blank", rel="noopener noreferrer"
-- [ ] LinkedIn link has correct href, target="_blank", rel="noopener noreferrer"
-- [ ] Both icons are visible
+- [x] Both external link tests pass
+- [x] GitHub link has correct href, target="_blank", rel="noopener noreferrer"
+- [x] LinkedIn link has correct href, target="_blank", rel="noopener noreferrer"
+- [x] Both icons are visible
 
 ---
 
@@ -1683,16 +1683,16 @@ Add missing E2E tests for features added in recent phases (Phase 9-12) that are 
 2. Privacy link → navigates to /privacy
 
 **Steps**:
-1. [ ] Add Footer Legal Links Tests test.describe block
-2. [ ] Implement "Terms link navigation" test
-3. [ ] Implement "Privacy link navigation" test
-4. [ ] Run tests to verify they pass
-5. [ ] **COMMIT**: "test(e2e): add footer legal links navigation tests"
+1. [x] Add Footer Legal Links Tests test.describe block
+2. [x] Implement "Terms link navigation" test
+3. [x] Implement "Privacy link navigation" test
+4. [x] Run tests to verify they pass
+5. [x] **COMMIT**: "test(e2e): add footer legal links navigation tests"
 
 **Acceptance Criteria**:
-- [ ] Both legal link tests pass
-- [ ] Terms link navigates to /terms
-- [ ] Privacy link navigates to /privacy
+- [x] Both legal link tests pass
+- [x] Terms link navigates to /terms
+- [x] Privacy link navigates to /privacy
 
 ---
 
@@ -1710,24 +1710,24 @@ Add missing E2E tests for features added in recent phases (Phase 9-12) that are 
 6. Privacy page back to home navigation
 
 **Steps**:
-1. [ ] Add Legal Pages Tests test.describe block
-2. [ ] Implement "Terms page render" test
-3. [ ] Implement "Privacy page render" test
-4. [ ] Implement "Terms page back to home" test
-5. [ ] Implement "Privacy page back to home" test
-6. [ ] Verify educational disclaimer tests in both pages
-7. [ ] Verify GitHub and LinkedIn links in both pages
-8. [ ] Run tests to verify they pass
-9. [ ] **COMMIT**: "test(e2e): add legal pages rendering and navigation tests"
+1. [x] Add Legal Pages Tests test.describe block
+2. [x] Implement "Terms page render" test
+3. [x] Implement "Privacy page render" test
+4. [x] Implement "Terms page back to home" test
+5. [x] Implement "Privacy page back to home" test
+6. [x] Verify educational disclaimer tests in both pages
+7. [x] Verify GitHub and LinkedIn links in both pages
+8. [x] Run tests to verify they pass
+9. [x] **COMMIT**: "test(e2e): add legal pages rendering and navigation tests"
 
 **Acceptance Criteria**:
-- [ ] All legal page tests pass
-- [ ] Terms page renders with all sections
-- [ ] Privacy page renders with all sections
-- [ ] Educational disclaimer visible in both pages
-- [ ] GitHub link visible in both pages
-- [ ] LinkedIn link visible in both pages
-- [ ] Back to home navigation works from both pages
+- [x] All legal page tests pass
+- [x] Terms page renders with all sections
+- [x] Privacy page renders with all sections
+- [x] Educational disclaimer visible in both pages
+- [x] GitHub link visible in both pages
+- [x] LinkedIn link visible in both pages
+- [x] Back to home navigation works from both pages
 
 ---
 
@@ -1741,18 +1741,18 @@ Add missing E2E tests for features added in recent phases (Phase 9-12) that are 
 2. Desktop (1280px): 4-column footer layout
 
 **Steps**:
-1. [ ] Add Footer Responsive Layout Tests test.describe block
-2. [ ] Implement "Mobile footer layout" test
-3. [ ] Implement "Desktop footer layout" test
-4. [ ] Verify GitHub and LinkedIn links on both viewports
-5. [ ] Run tests to verify they pass
-6. [ ] **COMMIT**: "test(e2e): add footer responsive layout tests"
+1. [x] Add Footer Responsive Layout Tests test.describe block
+2. [x] Implement "Mobile footer layout" test
+3. [x] Implement "Desktop footer layout" test
+4. [x] Verify GitHub and LinkedIn links on both viewports
+5. [x] Run tests to verify they pass
+6. [x] **COMMIT**: "test(e2e): add footer responsive layout tests"
 
 **Acceptance Criteria**:
-- [ ] Both responsive layout tests pass
-- [ ] Mobile shows 2-column layout with all columns
-- [ ] Desktop shows 4-column layout with all columns
-- [ ] GitHub and LinkedIn links visible on both viewports
+- [x] Both responsive layout tests pass
+- [x] Mobile shows 2-column layout with all columns
+- [x] Desktop shows 4-column layout with all columns
+- [x] GitHub and LinkedIn links visible on both viewports
 
 ---
 
@@ -1765,23 +1765,23 @@ Add missing E2E tests for features added in recent phases (Phase 9-12) that are 
 1. About section displays updated stats from Phase 7
 
 **Steps**:
-1. [ ] Add "About section stats" test
-2. [ ] Verify "Your photos, your rules" stat
-3. [ ] Verify "Favorite discreetly" stat
-4. [ ] Verify "No hidden fees" stat
-5. [ ] Run tests to verify they pass
-6. [ ] **COMMIT**: "test(e2e): add about section stats test"
+1. [x] Add "About section stats" test
+2. [x] Verify "Your photos, your rules" stat
+3. [x] Verify "Favorite discreetly" stat
+4. [x] Verify "No hidden fees" stat
+5. [x] Run tests to verify they pass
+6. [x] **COMMIT**: "test(e2e): add about section stats test"
 
 **Acceptance Criteria**:
-- [ ] About section stats test passes
-- [ ] All 3 stats are visible
-- [ ] Stat cards have correct styling
+- [x] About section stats test passes
+- [x] All 3 stats are visible
+- [x] Stat cards have correct styling
 
 ---
 
 ## Atomic Commit Summary (Updated)
 
-**Total Commits: 53** (12 implementation + 11 E2E testing + 1 E2E doc + 5 Phase 7 + 5 Phase 8 + 1 Phase 9 + 3 Phase 10 + 3 Phase 11 + 2 Phase 12 + 1 Phase 13)
+**Total Commits: 54** (12 implementation + 11 E2E testing + 1 E2E doc + 5 Phase 7 + 5 Phase 8 + 1 Phase 9 + 3 Phase 10 + 3 Phase 11 + 2 Phase 12 + 2 Phase 13)
 **Completed: 49/49 tasks** (100% - ALL PHASES COMPLETE!)
 
 ✅ **Phase 1 - Setup (2 commits)**: Complete
@@ -1813,10 +1813,11 @@ Add missing E2E tests for features added in recent phases (Phase 9-12) that are 
 41. [x] refactor(landing): restructure footer - move GitHub to Company column + add LinkedIn
 42. [x] docs(legal): add LinkedIn profile link to legal pages
 
-✅ **Phase 13 - E2E Test Coverage Update (1 commit - COMPLETE)**:
+✅ **Phase 13 - E2E Test Coverage Update (2 commits - COMPLETE)**:
 43. [x] test(e2e): add Phase 13 E2E test coverage update - 14 new tests
+44. [x] test(e2e): fix Phase 13 E2E test assertions (fix selectors, URL assertions, strict mode violations - all 86 tests passing)
 
-**E2E Test Breakdown** (41 tests total):
+**E2E Test Breakdown** (86 tests total - 43 unique tests × 2 browsers):
 - Navigation buttons (6 tests)
 - Responsive navbar (4 tests)
 - Section renders (5 tests)
