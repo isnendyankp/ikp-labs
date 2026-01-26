@@ -17,6 +17,7 @@ const loginSchema = z.object({
 
 export default function LoginForm() {
   const router = useRouter();
+  const toast = useToast();
 
   const [formData, setFormData] = useState<LoginFormData>({
     email: "",
