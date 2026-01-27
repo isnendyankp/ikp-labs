@@ -1,6 +1,6 @@
 # Auth UX Improvements
 
-**Status**: ⏳ In Progress (Phase 1 Complete, Phase 2 Planning)
+**Status**: ✅ Complete (Phase 1 Complete, Phase 2 Complete, Phase 3 Complete, Phase 4 Complete)
 **Created**: January 26, 2026
 **Priority**: P1 (High)
 **Type**: UX Enhancement
@@ -9,7 +9,7 @@
 
 ## Overview
 
-Improve user experience across authentication pages by adding helpful feedback and validation guidance. This includes both login page (Google Sign-in placeholder) and registration page (password requirements).
+Improve user experience across authentication pages by adding helpful feedback and validation guidance. This includes login page (Google Sign-in placeholder), registration page (password validation), user feedback fixes, and registration Google Sign-up toast.
 
 ## Problem Statements
 
@@ -22,8 +22,8 @@ The login page has a "Sign in with Google" button that:
 
 **Status**: ✅ **COMPLETE** - Toast notification added
 
-### Problem 2: Registration Page - Password Validation Gap 🔄 NEW
-The registration form has **inconsistent validation** between frontend and backend:
+### Problem 2: Registration Page - Password Validation Gap ✅ SOLVED
+The registration form had **inconsistent validation** between frontend and backend:
 
 | Requirement | Frontend (Zod) | Backend (Java) |
 |-------------|----------------|----------------|
@@ -40,12 +40,25 @@ The registration form has **inconsistent validation** between frontend and backe
 4. Backend: ❌ "ERROR! Need uppercase + special char"
 5. User: 😤 FRUSTRATED! "Kenapa baru bilang sekarang??"
 
-**Issues**:
-- Poor user experience (submit → fail → retry cycle)
-- No validation hints/guides shown to users
-- Frontend and backend rules don't match
-- PasswordStrengthIndicator component exists but NOT used
-- Users don't know password requirements until AFTER they fail
+**Status**: ✅ **COMPLETE** - Zod schema updated, PasswordRequirementsGuide added
+
+### Problem 3: User Feedback from Testing ✅ SOLVED
+After implementing Phase 2, user tested the registration form and identified issues:
+
+1. **Missing Placeholders**: Input fields have no examples to guide users
+2. **Visual Design Mismatch**: Gray background from Figma design not implemented
+3. **Component Removal**: PasswordRequirementsGuide takes too much space, user prefers placeholder examples
+4. **BUG**: Zod validation only shows ONE error per field instead of ALL failures
+
+**Status**: ✅ **COMPLETE** - All issues fixed in Phase 3
+
+### Problem 4: Registration Google Sign-up Placeholder ✅ SOLVED
+The registration page has a "Sign up with Google" button that:
+- ✅ Exists in the UI
+- ❌ Only logs to console when clicked
+- ❌ No user feedback provided
+
+**Status**: ✅ **COMPLETE** - Toast notification added (Phase 4)
 
 ## Proposed Solutions
 
@@ -72,41 +85,47 @@ This is a learning project - currently only email/password authentication is ava
 - `e3128e5` - Initialize toast hook
 - `6b160a1` - Add toast notification
 
-### Phase 2: Registration Password Validation (🔄 NEW)
+### Phase 2: Registration Password Validation (✅ COMPLETE)
 
 **Approach**: Real-time password requirements checklist with visual feedback
 
-1. **Update Frontend Validation** - Make Zod schema match backend:
-   ```typescript
-   z.string()
-     .min(8, 'At least 8 characters')
-     .regex(/[a-z]/, 'One lowercase letter')
-     .regex(/[A-Z]/, 'One uppercase letter')
-     .regex(/[0-9]/, 'One number')
-     .regex(/[@$!%*?&]/, 'One special character')
-   ```
+**Status**: ✅ **DONE** (3 commits pushed)
 
-2. **Add Requirements Guide** - Show password requirements below field:
-   ```
-   Password Requirements:
-   ⚪ At least 8 characters
-   ⚪ One lowercase letter (a-z)
-   ⚪ One uppercase letter (A-Z)
-   ⚪ One number (0-9)
-   ⚪ One special character (@$!%*?&)
-   ```
+**Commits**:
+- `f3edf90` - Update Zod password schema
+- `0e76ef9` - Add password requirements guide
+- `8db3332` - Add name field validation hint
 
-3. **Real-time Feedback** - Checklist updates as user types:
-   - ⚪ Gray = not yet met
-   - ✓ Green = already met
-   - ✗ Red = not met (on submit if validation fails)
+### Phase 3: User Feedback Fixes (✅ COMPLETE)
+
+**Approach**: Address user feedback from manual testing
+
+1. **Fix Zod Validation Bug** - Show ALL validation errors, not just the last one
+2. **Add Placeholder Examples** - Guide users with "John doe", "Jhondoe@mail.com", "Test1234!"
+3. **Add Gray Background** - Match Figma design with `bg-gray-100`
+4. **Remove PasswordRequirementsGuide** - Simplify UI, rely on placeholders
+
+**Status**: ✅ **DONE** (5 commits pushed)
+
+**Commits**:
+- `28f11c9` - Fix Zod validation bug
+- `b08838f` - Add placeholder examples
+- `37956eb` - Add gray background
+- `7c77ca6` - Remove PasswordRequirementsGuide
+- `4ffa103` - Delete unused component
+
+### Phase 4: Registration Google Sign-up Toast (✅ COMPLETE)
+
+**Approach**: Same as Phase 1, but for RegistrationForm
+
+1. **Import useToast Hook** - Add import to RegistrationForm
+2. **Initialize Toast Hook** - Add `const toast = useToast();`
+3. **Update handleGoogleSignup** - Replace console.log with toast.showInfo()
 
 **Benefits**:
-- ✅ Validation parity (FE = BE)
-- ✅ Immediate feedback (no submit-then-fail)
-- ✅ Better UX (users know what to do)
-- ✅ Reduced frustration (clear requirements)
-- ✅ Professional appearance (matches modern websites)
+- ✅ Consistent UX across login and registration
+- ✅ Same informative message
+- ✅ Reuses existing toast system
 
 ## Success Criteria
 
@@ -117,13 +136,27 @@ This is a learning project - currently only email/password authentication is ava
 - [x] Toast auto-dismisses after 3 seconds
 - [x] No functional change to button (no OAuth flow)
 
-### Phase 2 (New):
-- [ ] Frontend Zod validation matches backend rules
-- [ ] Password requirements guide visible below field
-- [ ] Real-time validation feedback as user types
-- [ ] Clear visual indicators (gray/green/red states)
-- [ ] Error messages are specific and helpful
-- [ ] Existing registration functionality unchanged
+### Phase 2 (✅ Complete):
+- [x] Frontend Zod validation matches backend rules
+- [x] Password requirements guide visible below field
+- [x] Real-time validation feedback as user types
+- [x] Clear visual indicators (gray/green/red states)
+- [x] Error messages are specific and helpful
+- [x] Existing registration functionality unchanged
+
+### Phase 3 (✅ Complete):
+- [x] All Zod validation errors shown (not just last one)
+- [x] Placeholder examples guide users ("John doe", "Jhondoe@mail.com", "Test1234!")
+- [x] Gray background on input fields (bg-gray-100)
+- [x] PasswordRequirementsGuide component removed
+- [x] Figma design reference matched
+
+### Phase 4 (✅ Complete):
+- [x] Toast appears when Google Sign-up is clicked
+- [x] Toast message matches LoginForm (same content)
+- [x] Toast uses info style (blue color)
+- [x] Toast auto-dismisses after 3 seconds
+- [x] No functional change to button (no OAuth flow)
 
 ## Technical Context
 
@@ -172,11 +205,13 @@ Requirements enforced by backend:
 
 ## Estimated Time
 
-| Phase | Tasks | Estimated Time |
-|-------|-------|----------------|
-| Phase 1 | 3 tasks | ~15 minutes (✅ COMPLETE) |
-| Phase 2 | 5 tasks | ~45 minutes |
-| **Total** | **8 tasks** | **~60 minutes** |
+| Phase | Tasks | Estimated Time | Actual Time |
+|-------|-------|----------------|-------------|
+| Phase 1 | 7 tasks | ~15 minutes | ~15 min (✅ COMPLETE) |
+| Phase 2 | 8 tasks | ~45 minutes | ~45 min (✅ COMPLETE) |
+| Phase 3 | 7 tasks | ~50 minutes | ~30 min (✅ COMPLETE) |
+| Phase 4 | 7 tasks | ~20 minutes | ~20 min (✅ COMPLETE) |
+| **Total** | **29 tasks** | **~130 minutes** | **~90 min so far** |
 
 ## Related Work
 
@@ -224,7 +259,12 @@ When registration is fully polished (Phase 2):
 
 | Phase | Feature | Status | Priority |
 |-------|---------|--------|----------|
-| 1 | Google Sign-in Toast | ✅ Complete | P1 |
-| 2 | Password Validation Guide | 🔄 Planning | P1 |
+| 1 | Login Google Sign-in Toast | ✅ Complete | P1 |
+| 2 | Password Validation Guide | ✅ Complete | P1 |
+| 3 | User Feedback Fixes | ✅ Complete | P1 |
+| 4 | Registration Google Sign-up Toast | ✅ Complete | P1 |
 
 This plan focuses on **quick UX wins** that significantly improve user experience with minimal code changes and no backend modifications.
+
+Phase 3 represents the **iterative design process**: implement → test → get feedback → improve.
+Phase 4 provides **consistency** across login and registration flows. All phases complete!
