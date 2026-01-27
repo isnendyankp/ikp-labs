@@ -204,6 +204,7 @@ export default function RegistrationForm() {
                 type="text"
                 id="name"
                 name="name"
+                placeholder="John doe"
                 value={formData.name}
                 onChange={handleChange}
                 className={`w-full border-0 border-b-2 ${errors.name ? 'border-red-500' : 'border-gray-300 focus:border-black'} focus:ring-0 pb-2 bg-transparent text-gray-900 placeholder-gray-500 focus:outline-none transition-colors`}
@@ -224,6 +225,7 @@ export default function RegistrationForm() {
                 type="email"
                 id="email"
                 name="email"
+                placeholder="Jhondoe@mail.com"
                 value={formData.email}
                 onChange={handleChange}
                 className={`w-full border-0 border-b-2 ${errors.email ? 'border-red-500' : 'border-gray-300 focus:border-black'} focus:ring-0 pb-2 bg-transparent text-gray-900 placeholder-gray-500 focus:outline-none transition-colors`}
@@ -244,6 +246,7 @@ export default function RegistrationForm() {
                   type={showPassword ? "text" : "password"}
                   id="password"
                   name="password"
+                  placeholder="Test1234!"
                   value={formData.password}
                   onChange={handleChange}
                   className={`w-full border-0 border-b-2 ${errors.password ? 'border-red-500' : 'border-gray-300 focus:border-black'} focus:ring-0 pb-2 pr-10 bg-transparent text-gray-900 placeholder-gray-500 focus:outline-none transition-colors`}
