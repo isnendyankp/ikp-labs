@@ -5,6 +5,7 @@ import { z } from 'zod';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Tooltip from './Tooltip';
+import { useToast } from '@/context/ToastContext';
 import { registerUser } from '../services/api';
 import { UserRegistrationRequest, RegistrationFormData } from '../types/api';
 import { isAuthenticated } from '../lib/auth';
