@@ -27,6 +27,7 @@ const registrationSchema = z.object({
 
 export default function RegistrationForm() {
   const router = useRouter();
+  const toast = useToast();
 
   const [formData, setFormData] = useState<RegistrationFormData>({
     name: '',
