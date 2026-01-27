@@ -1,6 +1,6 @@
 # Auth UX Improvements
 
-**Status**: 🔄 In Progress (Phase 1 Complete, Phase 2 Complete, Phase 3 Complete, Phase 4 Complete, Phase 5 Complete, Phase 6 Planning)
+**Status**: 🔄 In Progress (Phase 1 Complete, Phase 2 Complete, Phase 3 Complete, Phase 4 Complete, Phase 5 Complete, Phase 6 Complete, Phase 7 Planning)
 **Created**: January 26, 2026
 **Priority**: P1 (High)
 **Type**: UX Enhancement
@@ -159,6 +159,51 @@ This is a learning project - currently only email/password authentication is ava
 - `7818116` - Add instructional placeholder text
 - `3e098e6` - Strengthen password validation
 
+### Phase 6: Backend Test Fixes (✅ COMPLETE)
+
+**Status**: ✅ **DONE** (1 commit pushed)
+
+**Approach**: Fix unit tests to use correct repository methods
+
+1. **Fix PhotoLikeServiceTest** - Updated test to use correct repository methods
+   - Changed from `findLikedPhotosByUserIdWithCounts()` to `findLikedPhotosByUserIdNewest()`
+   - Changed from `findLikedPhotosByUserIdWithCounts()` to `findLikedPhotosByUserIdMostLiked()`
+   - Fixed return type from `Page<GalleryPhoto>` to `List<GalleryPhoto>`
+
+2. **Clean up imports** - Removed unused `Page` and `PageImpl` imports
+
+**Benefits**:
+- ✅ Unit tests now pass (9/9 tests)
+- ✅ Tests match actual service implementation
+- ✅ Clean build with no unused imports
+
+**Commits**:
+- `402956e` - Fix PhotoLikeServiceTest to use correct repository methods
+
+### Phase 7: E2E Test Updates (🔄 PLANNING)
+
+**Status**: 🔄 **PLANNING** - To be added after Phase 6 completion
+
+**Based on E2E Test Analysis**, the following gaps were identified:
+
+1. **Toast Notification Tests** (Missing)
+   - No tests for toast system at all
+   - Need to verify toast display, auto-dismiss, types
+
+2. **Placeholder Text Verification** (Missing)
+   - Confirm password placeholder
+   - Login page placeholders
+   - All registration placeholders
+
+3. **Password Complexity Validation** (Skipped)
+   - Test 6 in registration.spec.ts is SKIPPED
+   - Need tests for all complexity requirements
+
+4. **Gray Background Styling** (Missing)
+   - Need tests to verify bg-gray-100 on login page
+
+**Estimated Time**: ~60-90 minutes
+
 ## Success Criteria
 
 ### Phase 1 (✅ Complete):
@@ -195,6 +240,17 @@ This is a learning project - currently only email/password authentication is ava
 - [x] Login page inputs have gray background (bg-gray-100)
 - [x] Login page has instructional placeholder text
 - [x] Login password validation matches register page complexity
+
+### Phase 6 (✅ Complete):
+- [x] PhotoLikeServiceTest fixed (9/9 tests passed)
+- [x] Correct repository methods used in tests
+- [x] Unused imports cleaned up
+
+### Phase 7 (🔄 Planning):
+- [ ] Toast notification E2E tests
+- [ ] Placeholder text verification tests
+- [ ] Gray background styling tests
+- [ ] Password complexity validation E2E tests
 
 ## Technical Context
 
@@ -250,8 +306,9 @@ Requirements enforced by backend:
 | Phase 3 | 7 tasks | ~50 minutes | ~30 min (✅ COMPLETE) |
 | Phase 4 | 7 tasks | ~20 minutes | ~20 min (✅ COMPLETE) |
 | Phase 5 | 4 tasks | ~35 minutes | ~20 min (✅ COMPLETE) |
-| Phase 6 | 2 tasks | ~30 minutes | ~30 min (🔄 PLANNING) |
-| **Total** | **35 tasks** | **~195 minutes** | **~160 min so far** |
+| Phase 6 | 1 task | ~10 minutes | ~10 min (✅ COMPLETE) |
+| Phase 7 | 4 tasks | ~90 minutes | ~90 min (🔄 PLANNING) |
+| **Total** | **40 tasks** | **~285 minutes** | **~180 min so far** |
 
 ## Related Work
 
@@ -304,11 +361,13 @@ When registration is fully polished (Phase 2):
 | 3 | User Feedback Fixes | ✅ Complete | P1 |
 | 4 | Registration Google Sign-up Toast | ✅ Complete | P1 |
 | 5 | Login Page UX Consistency | ✅ Complete | P1 |
-| 6 | Backend Test Fixes | 🔄 Planning | P2 |
+| 6 | Backend Test Fixes | ✅ Complete | P2 |
+| 7 | E2E Test Updates | 🔄 Planning | P2 |
 
 This plan focuses on **quick UX wins** that significantly improve user experience with minimal code changes and no backend modifications.
 
 Phase 3 represents the **iterative design process**: implement → test → get feedback → improve.
 Phase 4 provides **consistency** across login and registration flows.
 Phase 5 completes the UX consistency by bringing login page up to par with registration page.
-Phase 6 will fix backend test failures to ensure clean build and CI/CD pipeline.
+Phase 6 fixes backend test failures to ensure clean build.
+Phase 7 will add comprehensive E2E tests to cover all UX improvements.

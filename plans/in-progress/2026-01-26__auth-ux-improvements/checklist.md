@@ -1,13 +1,14 @@
 # Auth UX Improvements - Implementation Checklist
 
-## Status: ✅ Phase 1 Complete | ✅ Phase 2 Complete | ✅ Phase 3 Complete | ✅ Phase 4 Complete | ✅ Phase 5 Complete | 🔄 Phase 6 Planning
+## Status: ✅ Phase 1 Complete | ✅ Phase 2 Complete | ✅ Phase 3 Complete | ✅ Phase 4 Complete | ✅ Phase 5 Complete | ✅ Phase 6 Complete | 🔄 Phase 7 Planning
 
 **Phase 1** (Google Sign-in Toast) - COMPLETE
 **Phase 2** (Registration Password Validation) - COMPLETE
 **Phase 3** (User Feedback Fixes) - COMPLETE
 **Phase 4** (Registration Google Sign-up Toast) - COMPLETE
 **Phase 5** (Login Page UX Consistency) - COMPLETE
-**Phase 6** (Backend Test Fixes) - NEW
+**Phase 6** (Backend Test Fixes) - COMPLETE
+**Phase 7** (E2E Test Updates) - NEW
 
 ---
 
@@ -1023,9 +1024,18 @@ const handleGoogleSignup = () => {
 - [x] Task 3: Add placeholder text to login page
 - [x] Task 4: Strengthen login password validation
 
-### Phase 6: 🔄 PLANNING (0/2 tasks)
-- [ ] Task 1: Fix PhotoLikeServiceTest failure
-- [ ] Task 2: Clean up unused imports
+### Phase 6: ✅ COMPLETE (1/1 task)
+- [x] Task 1: Fix PhotoLikeServiceTest to use correct repository methods
+  - Fixed: findLikedPhotosByUserIdNewest()
+  - Fixed: findLikedPhotosByUserIdMostLiked()
+  - Fixed: return type (Page → List)
+  - Cleaned up unused imports (Page, PageImpl)
+
+### Phase 7: 🔄 PLANNING (0/4 tasks)
+- [ ] Task 1: Add toast notification E2E tests
+- [ ] Task 2: Add placeholder text verification tests
+- [ ] Task 3: Add gray background styling tests
+- [ ] Task 4: Implement password complexity validation E2E tests
 
 ---
 
@@ -1038,8 +1048,9 @@ const handleGoogleSignup = () => {
 | 3 | 7 tasks | ✅ Complete | ~30 min |
 | 4 | 7 tasks | ✅ Complete | ~20 min |
 | 5 | 4 tasks | ✅ Complete | ~20 min |
-| 6 | 2 tasks | 🔄 Planning | ~30 min |
-| **Total** | **35 tasks** | **33/35 (94%)** | **~160 min** |
+| 6 | 1 task | ✅ Complete | ~10 min |
+| 7 | 4 tasks | 🔄 Planning | ~90 min |
+| **Total** | **38 tasks** | **34/38 (89%)** | **~200 min** |
 
 ---
 
