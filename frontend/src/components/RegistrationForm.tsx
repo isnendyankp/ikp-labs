@@ -290,6 +290,7 @@ export default function RegistrationForm() {
                   type={showConfirmPassword ? "text" : "password"}
                   id="confirmPassword"
                   name="confirmPassword"
+                  placeholder="Type your password again"
                   value={formData.confirmPassword}
                   onChange={handleChange}
                   className={`w-full border-0 border-b-2 ${errors.confirmPassword ? 'border-red-500' : 'border-gray-300 focus:border-black'} focus:ring-0 pb-2 pr-10 bg-gray-100 text-gray-900 placeholder-gray-500 focus:outline-none transition-colors`}
