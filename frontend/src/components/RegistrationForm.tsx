@@ -143,7 +143,10 @@ export default function RegistrationForm() {
   };
 
   const handleGoogleSignup = () => {
-    console.log('Sign up with Google clicked');
+    toast.showInfo(
+      'Google OAuth authentication is planned for future development. ' +
+      'This is a learning project - currently only email/password authentication is available.'
+    );
   };
 
   return (
