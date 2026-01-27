@@ -12,7 +12,12 @@ import { isAuthenticated } from '../lib/auth';
 const registrationSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters long'),
   email: z.string().email('Please enter a valid email address'),
-  password: z.string().min(8, 'Password must be at least 8 characters long'),
+  password: z.string()
+    .min(8, 'At least 8 characters')
+    .regex(/[a-z]/, 'One lowercase letter (a-z)')
+    .regex(/[A-Z]/, 'One uppercase letter (A-Z)')
+    .regex(/[0-9]/, 'One number (0-9)')
+    .regex(/[@$!%*?&]/, 'One special character (@$!%*?&)'),
   confirmPassword: z.string()
 }).refine((data) => data.password === data.confirmPassword, {
   message: "Passwords don't match",
