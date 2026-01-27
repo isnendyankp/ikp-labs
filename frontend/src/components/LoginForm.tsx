@@ -247,7 +247,7 @@ export default function LoginForm() {
                 value={formData.email}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                className="w-full border-0 border-b-2 border-gray-300 focus:border-black focus:ring-0 pb-2 bg-transparent text-gray-900 placeholder-gray-500 focus:outline-none transition-colors"
+                className="w-full border-0 border-b-2 border-gray-300 focus:border-black focus:ring-0 pb-2 bg-gray-100 text-gray-900 placeholder-gray-500 focus:outline-none transition-colors"
                 required
               />
             </FormField>
@@ -268,7 +268,7 @@ export default function LoginForm() {
                   value={formData.password}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  className="w-full border-0 border-b-2 border-gray-300 focus:border-black focus:ring-0 pb-2 pr-10 bg-transparent text-gray-900 placeholder-gray-500 focus:outline-none transition-colors"
+                  className="w-full border-0 border-b-2 border-gray-300 focus:border-black focus:ring-0 pb-2 pr-10 bg-gray-100 text-gray-900 placeholder-gray-500 focus:outline-none transition-colors"
                   required
                 />
                 <button
