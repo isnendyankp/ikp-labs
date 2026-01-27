@@ -122,7 +122,13 @@ export default function RegistrationForm() {
         const newErrors: Record<string, string> = {};
         error.issues.forEach((err) => {
           if (err.path && err.path.length > 0) {
-            newErrors[err.path[0] as string] = err.message;
+            const field = err.path[0] as string;
+            // Append error message if field already has an error
+            if (newErrors[field]) {
+              newErrors[field] += '; ' + err.message;
+            } else {
+              newErrors[field] = err.message;
+            }
           }
         });
         setErrors(newErrors);
