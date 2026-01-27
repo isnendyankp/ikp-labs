@@ -13,8 +13,6 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
@@ -380,26 +378,25 @@ public class PhotoLikeServiceTest {
         photo3.setTitle("Photo 3");
 
         List<GalleryPhoto> likedPhotos = Arrays.asList(photo3, photo2, photo1); // Most recent first
-        Page<GalleryPhoto> photoPage = new PageImpl<>(likedPhotos);
 
         Pageable pageable = PageRequest.of(0, 12);
 
-        when(photoLikeRepository.findLikedPhotosByUserIdWithCounts(LIKER_USER_ID, "newest", pageable))
-            .thenReturn(photoPage);
+        when(photoLikeRepository.findLikedPhotosByUserIdNewest(LIKER_USER_ID, pageable))
+            .thenReturn(likedPhotos);
 
         // ACT
-        Page<GalleryPhoto> result = photoLikeService.getLikedPhotos(LIKER_USER_ID, "newest", pageable);
+        List<GalleryPhoto> result = photoLikeService.getLikedPhotos(LIKER_USER_ID, "newest", pageable);
 
         // ASSERT
         assertNotNull(result);
-        assertEquals(3, result.getContent().size());
-        assertEquals(photo3.getId(), result.getContent().get(0).getId()); // Most recent first
-        assertEquals(photo2.getId(), result.getContent().get(1).getId());
-        assertEquals(photo1.getId(), result.getContent().get(2).getId());
+        assertEquals(3, result.size());
+        assertEquals(photo3.getId(), result.get(0).getId()); // Most recent first
+        assertEquals(photo2.getId(), result.get(1).getId());
+        assertEquals(photo1.getId(), result.get(2).getId());
 
         // Verify repository method was called with correct sortBy
         verify(photoLikeRepository, times(1))
-            .findLikedPhotosByUserIdWithCounts(LIKER_USER_ID, "newest", pageable);
+            .findLikedPhotosByUserIdNewest(LIKER_USER_ID, pageable);
     }
 
     /**
@@ -415,20 +412,19 @@ public class PhotoLikeServiceTest {
     void testGetLikedPhotos_SortByMostLiked_ShouldCallRepository() {
         // ARRANGE
         List<GalleryPhoto> photos = Arrays.asList(publicPhoto);
-        Page<GalleryPhoto> photoPage = new PageImpl<>(photos);
         Pageable pageable = PageRequest.of(0, 12);
 
-        when(photoLikeRepository.findLikedPhotosByUserIdWithCounts(LIKER_USER_ID, "mostLiked", pageable))
-            .thenReturn(photoPage);
+        when(photoLikeRepository.findLikedPhotosByUserIdMostLiked(LIKER_USER_ID, pageable))
+            .thenReturn(photos);
 
         // ACT
-        Page<GalleryPhoto> result = photoLikeService.getLikedPhotos(LIKER_USER_ID, "mostLiked", pageable);
+        List<GalleryPhoto> result = photoLikeService.getLikedPhotos(LIKER_USER_ID, "mostLiked", pageable);
 
         // ASSERT
         assertNotNull(result);
-        assertEquals(1, result.getContent().size());
+        assertEquals(1, result.size());
         verify(photoLikeRepository, times(1))
-            .findLikedPhotosByUserIdWithCounts(LIKER_USER_ID, "mostLiked", pageable);
+            .findLikedPhotosByUserIdMostLiked(LIKER_USER_ID, pageable);
     }
 
     /**
