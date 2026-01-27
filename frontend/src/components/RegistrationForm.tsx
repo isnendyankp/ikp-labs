@@ -207,7 +207,7 @@ export default function RegistrationForm() {
                 placeholder="John doe"
                 value={formData.name}
                 onChange={handleChange}
-                className={`w-full border-0 border-b-2 ${errors.name ? 'border-red-500' : 'border-gray-300 focus:border-black'} focus:ring-0 pb-2 bg-transparent text-gray-900 placeholder-gray-500 focus:outline-none transition-colors`}
+                className={`w-full border-0 border-b-2 ${errors.name ? 'border-red-500' : 'border-gray-300 focus:border-black'} focus:ring-0 pb-2 bg-gray-100 text-gray-900 placeholder-gray-500 focus:outline-none transition-colors`}
                 required
               />
               {errors.name && (
@@ -228,7 +228,7 @@ export default function RegistrationForm() {
                 placeholder="Jhondoe@mail.com"
                 value={formData.email}
                 onChange={handleChange}
-                className={`w-full border-0 border-b-2 ${errors.email ? 'border-red-500' : 'border-gray-300 focus:border-black'} focus:ring-0 pb-2 bg-transparent text-gray-900 placeholder-gray-500 focus:outline-none transition-colors`}
+                className={`w-full border-0 border-b-2 ${errors.email ? 'border-red-500' : 'border-gray-300 focus:border-black'} focus:ring-0 pb-2 bg-gray-100 text-gray-900 placeholder-gray-500 focus:outline-none transition-colors`}
                 required
               />
               {errors.email && (
@@ -249,7 +249,7 @@ export default function RegistrationForm() {
                   placeholder="Test1234!"
                   value={formData.password}
                   onChange={handleChange}
-                  className={`w-full border-0 border-b-2 ${errors.password ? 'border-red-500' : 'border-gray-300 focus:border-black'} focus:ring-0 pb-2 pr-10 bg-transparent text-gray-900 placeholder-gray-500 focus:outline-none transition-colors`}
+                  className={`w-full border-0 border-b-2 ${errors.password ? 'border-red-500' : 'border-gray-300 focus:border-black'} focus:ring-0 pb-2 pr-10 bg-gray-100 text-gray-900 placeholder-gray-500 focus:outline-none transition-colors`}
                   required
                 />
                 <Tooltip text={showPassword ? "Hide password" : "Show password"} position="top">
@@ -292,7 +292,7 @@ export default function RegistrationForm() {
                   name="confirmPassword"
                   value={formData.confirmPassword}
                   onChange={handleChange}
-                  className={`w-full border-0 border-b-2 ${errors.confirmPassword ? 'border-red-500' : 'border-gray-300 focus:border-black'} focus:ring-0 pb-2 pr-10 bg-transparent text-gray-900 placeholder-gray-500 focus:outline-none transition-colors`}
+                  className={`w-full border-0 border-b-2 ${errors.confirmPassword ? 'border-red-500' : 'border-gray-300 focus:border-black'} focus:ring-0 pb-2 pr-10 bg-gray-100 text-gray-900 placeholder-gray-500 focus:outline-none transition-colors`}
                   required
                 />
                 <Tooltip text={showConfirmPassword ? "Hide confirm password" : "Show confirm password"} position="top">
