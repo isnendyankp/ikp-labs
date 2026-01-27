@@ -5,7 +5,6 @@ import { z } from 'zod';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Tooltip from './Tooltip';
-import { PasswordRequirementsGuide } from './ui/PasswordRequirementsGuide';
 import { registerUser } from '../services/api';
 import { UserRegistrationRequest, RegistrationFormData } from '../types/api';
 import { isAuthenticated } from '../lib/auth';
@@ -274,10 +273,6 @@ export default function RegistrationForm() {
               {errors.password && (
                 <p className="mt-1 text-sm text-red-600">{errors.password}</p>
               )}
-              <PasswordRequirementsGuide
-                password={formData.password}
-                showError={!!errors.password}
-              />
             </div>
 
             {/* Confirm Password Field */}
