@@ -244,6 +244,7 @@ export default function LoginForm() {
                 type="email"
                 id="email"
                 name="email"
+                placeholder="Enter your email here"
                 value={formData.email}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -265,6 +266,7 @@ export default function LoginForm() {
                   type={showPassword ? "text" : "password"}
                   id="password"
                   name="password"
+                  placeholder="Enter your password here"
                   value={formData.password}
                   onChange={handleChange}
                   onBlur={handleBlur}
