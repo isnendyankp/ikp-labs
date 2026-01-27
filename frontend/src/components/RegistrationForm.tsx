@@ -206,6 +206,7 @@ export default function RegistrationForm() {
               {errors.name && (
                 <p className="mt-1 text-sm text-red-600">{errors.name}</p>
               )}
+              <p className="mt-1 text-xs text-gray-500">Min. 2 characters</p>
             </div>
 
             {/* Email Field */}
