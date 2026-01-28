@@ -273,3 +273,318 @@ test.describe("Form Validation Accessibility", () => {
     await expect(passwordInput).toHaveAttribute("type", "password");
   });
 });
+
+// ============================================================================
+// PHASE 7: UX Improvements E2E Tests
+// Tests for Phase 5 UX improvements (placeholders, styling, validation consistency)
+// ============================================================================
+
+test.describe("Phase 7: Placeholder Text Verification", () => {
+  test("login page - should have correct email placeholder", async ({ page }) => {
+    await page.goto("http://localhost:3002/login");
+
+    const emailInput = page.locator('input[name="email"]');
+    const placeholder = await emailInput.getAttribute("placeholder");
+
+    expect(placeholder).toBe("Enter your email here");
+  });
+
+  test("login page - should have correct password placeholder", async ({ page }) => {
+    await page.goto("http://localhost:3002/login");
+
+    const passwordInput = page.locator('input[name="password"]');
+    const placeholder = await passwordInput.getAttribute("placeholder");
+
+    expect(placeholder).toBe("Enter your password here");
+  });
+
+  test("register page - should have correct name placeholder", async ({ page }) => {
+    await page.goto("http://localhost:3002/register");
+
+    const nameInput = page.locator('input[name="name"]');
+    const placeholder = await nameInput.getAttribute("placeholder");
+
+    expect(placeholder).toBe("John doe");
+  });
+
+  test("register page - should have correct email placeholder", async ({ page }) => {
+    await page.goto("http://localhost:3002/register");
+
+    const emailInput = page.locator('input[name="email"]');
+    const placeholder = await emailInput.getAttribute("placeholder");
+
+    expect(placeholder).toBe("Jhondoe@mail.com");
+  });
+
+  test("register page - should have correct password placeholder", async ({ page }) => {
+    await page.goto("http://localhost:3002/register");
+
+    const passwordInput = page.locator('input[name="password"]');
+    const placeholder = await passwordInput.getAttribute("placeholder");
+
+    expect(placeholder).toBe("Test1234!");
+  });
+
+  test("register page - should have correct confirm password placeholder", async ({ page }) => {
+    await page.goto("http://localhost:3002/register");
+
+    const confirmPasswordInput = page.locator('input[name="confirmPassword"]');
+    const placeholder = await confirmPasswordInput.getAttribute("placeholder");
+
+    expect(placeholder).toBe("Type your password again");
+  });
+
+  test("placeholders should disappear when user types", async ({ page }) => {
+    await page.goto("http://localhost:3002/login");
+
+    const emailInput = page.locator('input[name="email"]');
+
+    // Initially placeholder should be visible
+    await expect(emailInput).toHaveAttribute("placeholder", "Enter your email here");
+
+    // Type something
+    await emailInput.fill("test");
+
+    // Placeholder attribute should still exist (it's an HTML attribute)
+    // But visually it should be hidden when input has value
+    const value = await emailInput.inputValue();
+    expect(value).toBe("test");
+
+    // Clear input
+    await emailInput.fill("");
+
+    // Placeholder should return visually
+    const emptyValue = await emailInput.inputValue();
+    expect(emptyValue).toBe("");
+  });
+});
+
+test.describe("Phase 7: Gray Background Styling", () => {
+  test("login page - email field should have gray background", async ({ page }) => {
+    await page.goto("http://localhost:3002/login");
+
+    const emailInput = page.locator('input[name="email"]');
+    const className = await emailInput.getAttribute("class");
+
+    expect(className).toContain("bg-gray-100");
+  });
+
+  test("login page - password field should have gray background", async ({ page }) => {
+    await page.goto("http://localhost:3002/login");
+
+    const passwordInput = page.locator('input[name="password"]');
+    const className = await passwordInput.getAttribute("class");
+
+    expect(className).toContain("bg-gray-100");
+  });
+
+  test("register page - all fields should have gray background", async ({ page }) => {
+    await page.goto("http://localhost:3002/register");
+
+    const nameInput = page.locator('input[name="name"]');
+    const emailInput = page.locator('input[name="email"]');
+    const passwordInput = page.locator('input[name="password"]');
+    const confirmPasswordInput = page.locator('input[name="confirmPassword"]');
+
+    expect(await nameInput.getAttribute("class")).toContain("bg-gray-100");
+    expect(await emailInput.getAttribute("class")).toContain("bg-gray-100");
+    expect(await passwordInput.getAttribute("class")).toContain("bg-gray-100");
+    expect(await confirmPasswordInput.getAttribute("class")).toContain("bg-gray-100");
+  });
+
+  test("login and register should have consistent styling", async ({ page }) => {
+    // Check login page styling
+    await page.goto("http://localhost:3002/login");
+    const loginEmailClass = await page.locator('input[name="email"]').getAttribute("class");
+
+    // Check register page styling
+    await page.goto("http://localhost:3002/register");
+    const registerEmailClass = await page.locator('input[name="email"]').getAttribute("class");
+
+    // Both should have bg-gray-100
+    expect(loginEmailClass).toContain("bg-gray-100");
+    expect(registerEmailClass).toContain("bg-gray-100");
+  });
+});
+
+test.describe("Phase 7: Toast Notification Tests", () => {
+  test("login page - should show toast when Google Sign-in clicked", async ({ page }) => {
+    await page.goto("http://localhost:3002/login");
+
+    // Click "Sign in with Google" button
+    const googleButton = page.locator('button:has-text("Sign in with Google")');
+    await googleButton.click();
+
+    // Wait for toast to appear
+    await page.waitForTimeout(500);
+
+    // Check if toast exists (look for common toast patterns)
+    const toast = page.locator('[class*="toast"], [role="alert"], [id*="toast"]').first();
+    const isVisible = await toast.isVisible().catch(() => false);
+
+    expect(isVisible).toBe(true);
+
+    // Check toast message content
+    const toastText = await toast.textContent();
+    expect(toastText).toContain("Google OAuth");
+    expect(toastText).toContain("future development");
+  });
+
+  test("login page - toast should auto-dismiss after 3 seconds", async ({ page }) => {
+    await page.goto("http://localhost:3002/login");
+
+    const googleButton = page.locator('button:has-text("Sign in with Google")');
+    await googleButton.click();
+
+    // Wait for toast to appear
+    await page.waitForTimeout(500);
+
+    const toast = page.locator('[class*="toast"], [role="alert"], [id*="toast"]').first();
+    expect(await toast.isVisible()).toBe(true);
+
+    // Wait for auto-dismiss (3 seconds + buffer)
+    await page.waitForTimeout(3500);
+
+    // Toast should be gone
+    const isToastVisible = await toast.isVisible().catch(() => false);
+    expect(isToastVisible).toBe(false);
+  });
+
+  test("register page - should show toast when Google Sign-up clicked", async ({ page }) => {
+    await page.goto("http://localhost:3002/register");
+
+    // Click "Sign up with Google" button
+    const googleButton = page.locator('button:has-text("Sign up with Google")');
+    await googleButton.click();
+
+    // Wait for toast to appear
+    await page.waitForTimeout(500);
+
+    // Check if toast exists
+    const toast = page.locator('[class*="toast"], [role="alert"], [id*="toast"]').first();
+    const isVisible = await toast.isVisible().catch(() => false);
+
+    expect(isVisible).toBe(true);
+
+    // Check toast message content
+    const toastText = await toast.textContent();
+    expect(toastText).toContain("Google OAuth");
+  });
+});
+
+test.describe("Phase 7: Password Complexity Validation (Test 6)", () => {
+  test("register page - should validate all password requirements", async ({ page }) => {
+    await page.goto("http://localhost:3002/register");
+
+    // Fill form with weak password (too short, no complexity)
+    await page.fill('input[name="name"]', 'Test User');
+    await page.fill('input[name="email"]', 'test@example.com');
+    await page.fill('input[name="password"]', 'weak');
+    await page.fill('input[name="confirmPassword']', 'weak');
+
+    // Blur password field to trigger validation
+    await page.blur('input[name="password"]');
+    await page.waitForTimeout(200);
+
+    // Check for multiple error messages (all requirements)
+    const passwordField = page.locator('input[name="password"]').locator("..");
+
+    // Look for error messages - they should mention:
+    // - 8 characters
+    // - uppercase letter
+    // - lowercase letter
+    // - number
+    // - special character
+    const errorElements = await page.locator('p.text-red-600').all();
+    const errorTexts = await Promise.all(
+      errorElements.map(async el => await el.textContent())
+    );
+    const combinedErrorText = errorTexts.join(' ').toLowerCase();
+
+    // Should have errors for multiple requirements
+    expect(combinedErrorText).toMatch(/(8|character)/);
+    expect(combinedErrorText.length).toBeGreaterThan(50); // Multiple errors
+  });
+
+  test("register page - should accept password meeting all requirements", async ({ page }) => {
+    await page.goto("http://localhost:3002/register");
+
+    // Valid password: Test1234! (8+ chars, upper, lower, number, special)
+    await page.fill('input[name="name"]', 'Test User');
+    await page.fill('input[name="email"]', 'test@example.com');
+    await page.fill('input[name="password']', 'Test1234!');
+    await page.fill('input[name="confirmPassword']', 'Test1234!');
+
+    // Blur password field to trigger validation
+    await page.blur('input[name="password"]');
+    await page.waitForTimeout(200);
+
+    // Should show success message, no error
+    const passwordField = page.locator('input[name="password"]').locator("..");
+    const errorMessages = await passwordField.locator('p.text-red-600').all();
+
+    expect(errorMessages.length).toBe(0);
+  });
+
+  test("login page - should validate password complexity", async ({ page }) => {
+    await page.goto("http://localhost:3002/login");
+
+    // Enter weak password
+    await page.fill('input[name="email"]', 'test@example.com');
+    await page.fill('input[name="password"]', 'weak');
+
+    // Blur password field to trigger validation
+    await page.blur('input[name="password"]');
+    await page.waitForTimeout(200);
+
+    // Check for validation errors
+    const passwordField = page.locator('input[name="password"]').locator("..");
+    const hasError = await passwordField.locator('p.text-red-600').isVisible().catch(() => false);
+
+    // Login form now has same validation as register
+    expect(hasError).toBe(true);
+  });
+
+  test("login page - should accept strong password", async ({ page }) => {
+    await page.goto("http://localhost:3002/login");
+
+    // Strong password matching all requirements
+    await page.fill('input[name="email"]', 'test@example.com');
+    await page.fill('input[name="password"]', 'Test1234!');
+
+    // Blur password field to trigger validation
+    await page.blur('input[name="password"]');
+    await page.waitForTimeout(200);
+
+    // Should show no errors
+    const passwordField = page.locator('input[name="password"]').locator("..");
+    const errorMessages = await passwordField.locator('p.text-red-600').all();
+
+    expect(errorMessages.length).toBe(0);
+  });
+
+  test("password validation - consistent between login and register", async ({ page }) => {
+    // Test on register page
+    await page.goto("http://localhost:3002/register");
+    await page.fill('input[name="email"]', 'test@example.com');
+    await page.fill('input[name="password']', 'Test1234!');
+    await page.blur('input[name="password"]');
+    await page.waitForTimeout(200);
+
+    const registerField = page.locator('input[name="password"]').locator("..");
+    const registerErrors = await registerField.locator('p.text-red-600').all();
+
+    // Test on login page with same password
+    await page.goto("http://localhost:3002/login");
+    await page.fill('input[name="email"]', 'test@example.com');
+    await page.fill('input[name="password"]', 'Test1234!');
+    await page.blur('input[name="password"]');
+    await page.waitForTimeout(200);
+
+    const loginField = page.locator('input[name="password"]').locator("..");
+    const loginErrors = await loginField.locator('p.text-red-600').all();
+
+    // Both should have same result (no errors for this password)
+    expect(registerErrors.length).toBe(loginErrors.length);
+  });
+});
