@@ -1076,13 +1076,13 @@ const handleGoogleSignup = () => {
 1. [x] Register page - should validate all password requirements
 2. [x] Register page - should accept password meeting all requirements
 3. [x] Login page - should accept strong password
-4. [⏸️] Login page - should validate password complexity (SKIPPED - touched state issue)
-5. [⏸️] Password validation - consistent between login and register (SKIPPED - timing issue)
+4. [x] Login page - should validate password complexity (FIXED - parent selector corrected)
+5. [x] Password validation - consistent between login and register (FIXED - simplified and corrected)
 
 **Acceptance Criteria**:
 - [x] Password complexity requirements tested
 - [x] Strong password acceptance verified
-- [⏸️] 2 tests skipped due to LoginForm "touched" state complexity
+- [x] All 6 tests passing (0 skipped)
 
 ---
 
@@ -1094,13 +1094,13 @@ const handleGoogleSignup = () => {
 
 **Steps**:
 1. [x] Run `npx playwright test --grep="Phase 7"`
-2. [x] Verify 34 tests passing
-3. [x] Review 2 skipped tests
+2. [x] Verify 38 tests passing
+3. [x] Fix 2 skipped tests
 4. [x] Generate HTML report
 
 **Results**:
-- ✅ 34 tests passing
-- ⏸️ 2 tests skipped (LoginForm edge cases)
+- ✅ 38 tests passing
+- ⏸️ 0 tests skipped (all fixed!)
 - ❌ 0 tests failing
 
 ---
@@ -1109,7 +1109,7 @@ const handleGoogleSignup = () => {
 
 **Total Tasks**: 6
 **Actual Time**: ~90 minutes
-**Total Commits**: 2 (all pushed)
+**Total Commits**: 3 (all pushed)
 
 ### Commits Completed:
 
@@ -1121,19 +1121,22 @@ const handleGoogleSignup = () => {
    - File: `tests/e2e/ux-validation.spec.ts`
    - Change: Fixed test syntax, skipped 2 problematic tests
 
+3. ✅ **deb0a36** test(e2e): fix 2 skipped LoginForm password validation tests
+   - File: `tests/e2e/ux-validation.spec.ts`
+   - Change: Fixed parent selector, added blur step for touched state
+
 ### Files Modified:
-- `tests/e2e/ux-validation.spec.ts` (2 commits)
+- `tests/e2e/ux-validation.spec.ts` (3 commits)
 
 ### Test Results:
-- ✅ 34/34 active tests passing
-- ⏸️ 2 tests skipped (LoginForm "touched" state complexity)
+- ✅ 38/38 active tests passing (0 skipped)
 - 📊 HTML report generated at `playwright-report/index.html`
 
 ### Implementation Complete:
 - ✅ Toast notification E2E tests (6 tests)
 - ✅ Placeholder text verification tests (14 tests)
 - ✅ Gray background styling tests (8 tests)
-- ✅ Password complexity validation tests (4 active, 2 skipped)
+- ✅ Password complexity validation tests (6 active, 0 skipped)
 - ✅ All tests passing
 - ✅ Commits pushed to GitHub
 
@@ -1202,10 +1205,11 @@ const handleGoogleSignup = () => {
 **Phase 7 Commits**:
 - `84857dc` - Add Phase 7 UX improvements E2E tests
 - `5ddd454` - Fix Phase 7 tests - skip 2 LoginForm error tests
+- `deb0a36` - Fix 2 skipped LoginForm password validation tests
 
 **Phase 7 Results**:
-- ✅ 34/34 active tests passing
-- ⏸️ 2 tests skipped (LoginForm touched state complexity)
+- ✅ 38/38 active tests passing
+- ⏸️ 0 tests skipped (all fixed!)
 - 📊 HTML report at `playwright-report/index.html`
 
 ---

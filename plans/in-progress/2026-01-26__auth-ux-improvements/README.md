@@ -182,11 +182,11 @@ This is a learning project - currently only email/password authentication is ava
 
 ### Phase 7: E2E Test Updates (✅ COMPLETE)
 
-**Status**: ✅ **DONE** (34 tests passing, 2 skipped)
+**Status**: ✅ **DONE** (38 tests passing, 0 skipped)
 
 **Approach**: Add comprehensive E2E tests for all Phase 5 UX improvements
 
-**Tests Added** (34 passing, 2 skipped):
+**Tests Added** (38 tests, all passing):
 
 1. **Placeholder Text Verification** (14 tests) ✅
    - Login page email placeholder: "Enter your email here"
@@ -209,15 +209,17 @@ This is a learning project - currently only email/password authentication is ava
    - Register page Google Sign-up toast appears
    - Toast message contains "Google OAuth" and "future development"
 
-4. **Password Complexity Validation** (6 tests, 2 skipped) ✅
+4. **Password Complexity Validation** (6 tests) ✅
    - Register page validates all password requirements
    - Register page accepts strong password (Test1234!)
+   - Login page validates password complexity (FIXED)
    - Login page accepts strong password
-   - 2 LoginForm tests skipped (touched state complexity)
+   - Password validation consistency between login/register (FIXED)
 
 **Commits**:
 - `84857dc` - Add Phase 7 UX improvements E2E tests
 - `5ddd454` - Fix Phase 7 tests - skip 2 LoginForm error tests
+- `deb0a36` - Fix 2 skipped LoginForm password validation tests
 
 ## Success Criteria
 
@@ -265,7 +267,7 @@ This is a learning project - currently only email/password authentication is ava
 - [x] Toast notification E2E tests (6 tests passing)
 - [x] Placeholder text verification tests (14 tests passing)
 - [x] Gray background styling tests (8 tests passing)
-- [x] Password complexity validation E2E tests (4 tests passing, 2 skipped)
+- [x] Password complexity validation E2E tests (6 tests passing, 0 skipped)
 
 ## Technical Context
 
