@@ -208,13 +208,7 @@ export default function GalleryPage() {
             />
           </div>
 
-          {/* Right: Upload Button */}
-          <button
-            onClick={() => router.push("/gallery/upload")}
-            className="w-full sm:w-auto px-6 py-3 bg-green-600 text-white rounded-lg font-medium hover:bg-green-700 transition-colors shadow"
-          >
-            + Upload Photo
-          </button>
+          {/* Upload button removed - using FABUpload instead */}
         </div>
 
         {/* Photo Grid */}
