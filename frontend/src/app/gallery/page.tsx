@@ -27,6 +27,7 @@ import SortByDropdown, { SortByOption } from "../../components/SortByDropdown";
 import { MobileHeaderControls } from "../../components/gallery/MobileHeaderControls";
 import { FABUpload } from "../../components/gallery/FABUpload";
 import { StickyActionBar } from "../../components/gallery/StickyActionBar";
+import { BackToTop } from "../../components/landing/BackToTop";
 
 const PHOTOS_PER_PAGE = 12;
 
@@ -228,6 +229,9 @@ export default function GalleryPage() {
 
       {/* FAB Upload Button - Always visible */}
       <FABUpload />
+
+      {/* Back to Top Button - Shows after scrolling */}
+      <BackToTop position="left" />
     </div>
   );
 }
