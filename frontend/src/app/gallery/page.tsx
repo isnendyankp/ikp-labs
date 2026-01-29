@@ -25,6 +25,7 @@ import LogoutButton from "../../components/LogoutButton";
 import FilterDropdown, { FilterOption } from "../../components/FilterDropdown";
 import SortByDropdown, { SortByOption } from "../../components/SortByDropdown";
 import { MobileHeaderControls } from "../../components/gallery/MobileHeaderControls";
+import { FABUpload } from "../../components/gallery/FABUpload";
 
 const PHOTOS_PER_PAGE = 12;
 
@@ -241,6 +242,9 @@ export default function GalleryPage() {
           />
         )}
       </main>
+
+      {/* FAB Upload Button - Always visible */}
+      <FABUpload />
     </div>
   );
 }
