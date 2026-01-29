@@ -27,6 +27,15 @@ interface FilterDropdownProps {
    * - "compact": Hides button, shows only menu items (mobile icon mode)
    */
   variant?: "default" | "compact";
+  /**
+   * Controlled open state (optional). If provided, component becomes controlled.
+   * When not provided, component manages its own internal state.
+   */
+  isOpen?: boolean;
+  /**
+   * Callback when open state changes (for controlled mode)
+   */
+  onOpenChange?: (open: boolean) => void;
 }
 
 interface FilterConfig {
@@ -46,8 +55,12 @@ export default function FilterDropdown({
   currentFilter,
   onFilterChange,
   variant = "default",
+  isOpen: controlledIsOpen,
+  onOpenChange,
 }: FilterDropdownProps) {
-  const [isOpen, setIsOpen] = useState(false);
+  // Use controlled state if provided, otherwise use internal state
+  const [internalIsOpen, setInternalIsOpen] = useState(false);
+  const isOpen = controlledIsOpen !== undefined ? controlledIsOpen : internalIsOpen;
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Get current filter config
@@ -62,7 +75,11 @@ export default function FilterDropdown({
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target as Node)
       ) {
-        setIsOpen(false);
+        if (controlledIsOpen !== undefined) {
+          onOpenChange?.(false);
+        } else {
+          setInternalIsOpen(false);
+        }
       }
     };
 
@@ -73,13 +90,17 @@ export default function FilterDropdown({
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isOpen]);
+  }, [isOpen, controlledIsOpen, onOpenChange]);
 
   // Close dropdown on Escape key
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
-        setIsOpen(false);
+        if (controlledIsOpen !== undefined) {
+          onOpenChange?.(false);
+        } else {
+          setInternalIsOpen(false);
+        }
       }
     };
 
@@ -90,11 +111,24 @@ export default function FilterDropdown({
     return () => {
       document.removeEventListener("keydown", handleEscape);
     };
-  }, [isOpen]);
+  }, [isOpen, controlledIsOpen, onOpenChange]);
 
   const handleFilterSelect = (filter: FilterOption) => {
     onFilterChange(filter);
-    setIsOpen(false);
+    if (controlledIsOpen !== undefined) {
+      onOpenChange?.(false);
+    } else {
+      setInternalIsOpen(false);
+    }
+  };
+
+  const toggleDropdown = () => {
+    const newState = !isOpen;
+    if (controlledIsOpen !== undefined) {
+      onOpenChange?.(newState);
+    } else {
+      setInternalIsOpen(newState);
+    }
   };
 
   return (
@@ -102,7 +136,7 @@ export default function FilterDropdown({
       {/* Dropdown Button - Hidden in compact mode */}
       {variant === "default" && (
         <button
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={toggleDropdown}
           className="flex items-center gap-2 px-4 py-2 bg-white border-2 border-gray-300 rounded-lg font-medium text-gray-700 hover:border-gray-400 transition-colors shadow-sm"
           aria-haspopup="true"
           aria-expanded={isOpen}

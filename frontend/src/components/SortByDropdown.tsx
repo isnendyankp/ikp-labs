@@ -71,6 +71,15 @@ interface SortByDropdownProps {
    * - "compact": Hides button, shows only menu items (mobile icon mode)
    */
   variant?: "default" | "compact";
+  /**
+   * Controlled open state (optional). If provided, component becomes controlled.
+   * When not provided, component manages its own internal state.
+   */
+  isOpen?: boolean;
+  /**
+   * Callback when open state changes (for controlled mode)
+   */
+  onOpenChange?: (open: boolean) => void;
 }
 
 /**
@@ -133,8 +142,12 @@ export default function SortByDropdown({
   currentSort,
   onSortChange,
   variant = "default",
+  isOpen: controlledIsOpen,
+  onOpenChange,
 }: SortByDropdownProps) {
-  const [isOpen, setIsOpen] = useState(false);
+  // Use controlled state if provided, otherwise use internal state
+  const [internalIsOpen, setInternalIsOpen] = useState(false);
+  const isOpen = controlledIsOpen !== undefined ? controlledIsOpen : internalIsOpen;
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Get current sort option details
@@ -144,7 +157,11 @@ export default function SortByDropdown({
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
-        setIsOpen(false);
+        if (controlledIsOpen !== undefined) {
+          onOpenChange?.(false);
+        } else {
+          setInternalIsOpen(false);
+        }
       }
     }
 
@@ -155,11 +172,24 @@ export default function SortByDropdown({
     return () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
-  }, [isOpen]);
+  }, [isOpen, controlledIsOpen, onOpenChange]);
 
   const handleSortSelect = (sort: SortByOption) => {
     onSortChange(sort);
-    setIsOpen(false);
+    if (controlledIsOpen !== undefined) {
+      onOpenChange?.(false);
+    } else {
+      setInternalIsOpen(false);
+    }
+  };
+
+  const toggleDropdown = () => {
+    const newState = !isOpen;
+    if (controlledIsOpen !== undefined) {
+      onOpenChange?.(newState);
+    } else {
+      setInternalIsOpen(newState);
+    }
   };
 
   return (
@@ -167,7 +197,7 @@ export default function SortByDropdown({
       {/* Dropdown Button - Hidden in compact mode */}
       {variant === "default" && (
         <button
-          onClick={() => setIsOpen(!isOpen)}
+          onClick={toggleDropdown}
           className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors shadow-sm min-w-[200px]"
           aria-label="Sort photos"
           aria-expanded={isOpen}

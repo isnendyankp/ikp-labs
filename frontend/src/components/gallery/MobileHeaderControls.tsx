@@ -25,9 +25,8 @@
 
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Search, Settings2 } from "lucide-react";
-import { useClickOutside } from "@/hooks/useClickOutside";
 import { FilterDropdown, type FilterOption } from "@/components/FilterDropdown";
 import { SortByDropdown, type SortByOption } from "@/components/SortByDropdown";
 
@@ -61,14 +60,6 @@ export function MobileHeaderControls({
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isSortOpen, setIsSortOpen] = useState(false);
 
-  // Refs for click outside detection
-  const filterRef = useRef<HTMLDivElement>(null);
-  const sortRef = useRef<HTMLDivElement>(null);
-
-  // Click outside handlers to close dropdowns
-  useClickOutside(filterRef, () => setIsFilterOpen(false));
-  useClickOutside(sortRef, () => setIsSortOpen(false));
-
   // Handle filter selection
   const handleFilterChange = (filter: FilterOption) => {
     onFilterChange(filter);
@@ -83,8 +74,9 @@ export function MobileHeaderControls({
 
   return (
     <div className="flex items-center gap-2 sm:hidden">
-      {/* Filter Icon Button */}
-      <div ref={filterRef} className="relative">
+      {/* Filter Icon Button with Dropdown */}
+      <div className="relative">
+        {/* Filter Icon Button */}
         <button
           onClick={() => setIsFilterOpen(!isFilterOpen)}
           aria-label="Filter photos"
@@ -94,21 +86,19 @@ export function MobileHeaderControls({
         >
           <Search className="w-5 h-5 text-gray-700" strokeWidth={2} />
         </button>
-
-        {/* Filter Dropdown */}
-        {isFilterOpen && (
-          <div className="absolute top-full right-0 mt-2 bg-white rounded-lg shadow-lg border p-2 z-50 min-w-[200px]">
-            <FilterDropdown
-              currentFilter={currentFilter}
-              onFilterChange={handleFilterChange}
-              variant="compact"
-            />
-          </div>
-        )}
+        {/* Filter Dropdown - appears when button is clicked */}
+        <FilterDropdown
+          currentFilter={currentFilter}
+          onFilterChange={handleFilterChange}
+          variant="compact"
+          isOpen={isFilterOpen}
+          onOpenChange={setIsFilterOpen}
+        />
       </div>
 
-      {/* Sort Icon Button */}
-      <div ref={sortRef} className="relative">
+      {/* Sort Icon Button with Dropdown */}
+      <div className="relative">
+        {/* Sort Icon Button */}
         <button
           onClick={() => setIsSortOpen(!isSortOpen)}
           aria-label="Sort photos"
@@ -118,17 +108,14 @@ export function MobileHeaderControls({
         >
           <Settings2 className="w-5 h-5 text-gray-700" strokeWidth={2} />
         </button>
-
-        {/* Sort Dropdown */}
-        {isSortOpen && (
-          <div className="absolute top-full right-0 mt-2 bg-white rounded-lg shadow-lg border p-2 z-50 min-w-[200px]">
-            <SortByDropdown
-              currentSort={currentSort}
-              onSortChange={handleSortChange}
-              variant="compact"
-            />
-          </div>
-        )}
+        {/* Sort Dropdown - appears when button is clicked */}
+        <SortByDropdown
+          currentSort={currentSort}
+          onSortChange={handleSortChange}
+          variant="compact"
+          isOpen={isSortOpen}
+          onOpenChange={setIsSortOpen}
+        />
       </div>
     </div>
   );
