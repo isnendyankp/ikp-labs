@@ -26,6 +26,7 @@ import FilterDropdown, { FilterOption } from "../../components/FilterDropdown";
 import SortByDropdown, { SortByOption } from "../../components/SortByDropdown";
 import { MobileHeaderControls } from "../../components/gallery/MobileHeaderControls";
 import { FABUpload } from "../../components/gallery/FABUpload";
+import { StickyActionBar } from "../../components/gallery/StickyActionBar";
 
 const PHOTOS_PER_PAGE = 12;
 
@@ -191,25 +192,13 @@ export default function GalleryPage() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Action Bar - Hidden on mobile, shown on desktop */}
-        <div className="hidden sm:flex flex-col sm:flex-row justify-between items-center gap-4 mb-8">
-          {/* Left: Filter and Sort Dropdowns */}
-          <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
-            {/* Filter Dropdown */}
-            <FilterDropdown
-              currentFilter={currentFilter}
-              onFilterChange={handleFilterChange}
-            />
-
-            {/* Sort By Dropdown */}
-            <SortByDropdown
-              currentSort={currentSort}
-              onSortChange={handleSortChange}
-            />
-          </div>
-
-          {/* Upload button removed - using FABUpload instead */}
-        </div>
+        {/* Sticky Action Bar - Hidden on mobile, shown on desktop */}
+        <StickyActionBar
+          currentFilter={currentFilter}
+          onFilterChange={handleFilterChange}
+          currentSort={currentSort}
+          onSortChange={handleSortChange}
+        />
 
         {/* Photo Grid */}
         <PhotoGrid
