@@ -28,6 +28,7 @@ import { MobileHeaderControls } from "../../components/gallery/MobileHeaderContr
 import { FABUpload } from "../../components/gallery/FABUpload";
 import { StickyActionBar } from "../../components/gallery/StickyActionBar";
 import { BackToTop } from "../../components/landing/BackToTop";
+import { User, LogOut } from "lucide-react";
 
 const PHOTOS_PER_PAGE = 12;
 
@@ -162,30 +163,64 @@ export default function GalleryPage() {
       {/* Header */}
       <header className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex justify-between items-center">
+          {/* Mobile: 2 rows | Desktop: 1 row */}
+          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+            {/* Left: Title (mobile: row 1, desktop: left) */}
             <div>
-              <h1 className="text-3xl font-bold text-gray-900">
+              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
                 Photo Gallery
               </h1>
-              <p className="text-sm text-gray-600 mt-1">
+              <p className="text-sm text-gray-600 mt-1 hidden sm:block">
                 Manage and share your photos
               </p>
             </div>
-            <div className="flex items-center gap-4">
-              {/* Mobile Header Controls (filter/sort icons) */}
+
+            {/* Right: Icons (mobile: row 2, desktop: right side) */}
+            <div className="flex items-center gap-2 sm:gap-4 w-full sm:w-auto justify-start sm:justify-end">
+              {/* Mobile Header Controls (filter/sort icons) - Only on mobile */}
               <MobileHeaderControls
                 currentFilter={currentFilter}
                 onFilterChange={handleFilterChange}
                 currentSort={currentSort}
                 onSortChange={handleSortChange}
               />
+
+              {/* Profile icon - Mobile only */}
               <button
                 onClick={() => router.push("/myprofile")}
-                className="px-4 py-2 text-gray-700 hover:text-gray-900 font-medium"
+                aria-label="My Profile"
+                className="sm:hidden p-3 hover:bg-gray-100 rounded-lg active:scale-95 transition-transform"
+              >
+                <User className="w-5 h-5 text-gray-700" strokeWidth={2} />
+              </button>
+
+              {/* Logout icon - Mobile only */}
+              <button
+                onClick={() => {
+                  // Logout functionality
+                  if (typeof window !== 'undefined') {
+                    localStorage.removeItem('token');
+                    router.push('/login');
+                  }
+                }}
+                aria-label="Logout"
+                className="sm:hidden p-3 hover:bg-gray-100 rounded-lg active:scale-95 transition-transform"
+              >
+                <LogOut className="w-5 h-5 text-gray-700" strokeWidth={2} />
+              </button>
+
+              {/* Profile text button - Desktop only */}
+              <button
+                onClick={() => router.push("/myprofile")}
+                className="hidden sm:block px-4 py-2 text-gray-700 hover:text-gray-900 font-medium"
               >
                 My Profile
               </button>
-              <LogoutButton />
+
+              {/* Logout button component - Desktop only */}
+              <div className="hidden sm:block">
+                <LogoutButton />
+              </div>
             </div>
           </div>
         </div>
