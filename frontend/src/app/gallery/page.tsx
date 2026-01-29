@@ -165,8 +165,8 @@ export default function GalleryPage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           {/* Mobile: 2 rows | Desktop: 1 row */}
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-            {/* Left: Title (mobile: row 1, desktop: left) */}
-            <div>
+            {/* Left: Title (mobile: centered, desktop: left) */}
+            <div className="w-full sm:w-auto text-center sm:text-left">
               <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
                 Photo Gallery
               </h1>
@@ -175,8 +175,8 @@ export default function GalleryPage() {
               </p>
             </div>
 
-            {/* Right: Icons (mobile: row 2, desktop: right side) */}
-            <div className="flex items-center gap-2 sm:gap-4 w-full sm:w-auto justify-start sm:justify-end">
+            {/* Right: Icons (mobile: row 2, evenly spaced) */}
+            <div className="flex items-center justify-around sm:justify-end sm:gap-4 w-full sm:w-auto">
               {/* Mobile Header Controls (filter/sort icons) - Only on mobile */}
               <MobileHeaderControls
                 currentFilter={currentFilter}
