@@ -9,11 +9,11 @@ import type { BackToTopProps } from './landing.types';
  * Floating button that appears after scrolling down
  * - Shows after scroll threshold (default: 400px)
  * - Smooth scroll to top on click
- * - Fixed position bottom-right
+ * - Fixed position (bottom-right by default, or bottom-left)
  * - Chevron up icon
  * - Accessibility: aria-label
  */
-export function BackToTop({ showAt = 400 }: BackToTopProps) {
+export function BackToTop({ showAt = 400, position = "right" }: BackToTopProps) {
   const [isVisible, setIsVisible] = useState(false);
 
   // Handle scroll event to show/hide button
@@ -49,7 +49,7 @@ export function BackToTop({ showAt = 400 }: BackToTopProps) {
     <button
       onClick={scrollToTop}
       aria-label="Scroll to top"
-      className="fixed bottom-8 right-8 z-50 bg-black text-white w-12 h-12 rounded-full flex items-center justify-center hover:scale-110 hover:brightness-110 transition-all duration-300 shadow-lg hover:shadow-xl"
+      className={`fixed bottom-8 ${position === "left" ? "left-8" : "right-8"} z-50 bg-black text-white w-12 h-12 rounded-full flex items-center justify-center hover:scale-110 hover:brightness-110 transition-all duration-300 shadow-lg hover:shadow-xl`}
       style={{
         opacity: isVisible ? 1 : 0,
         transform: isVisible ? 'translateY(0)' : 'translateY(20px)',

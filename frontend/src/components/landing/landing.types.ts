@@ -86,4 +86,6 @@ export interface FooterProps {
 export interface BackToTopProps {
   /** Scroll threshold in pixels before showing button (default: 400) */
   showAt?: number;
+  /** Position of the button: "right" (default) or "left" */
+  position?: "left" | "right";
 }
