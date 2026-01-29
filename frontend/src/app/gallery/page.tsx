@@ -24,6 +24,7 @@ import Pagination from "../../components/gallery/Pagination";
 import LogoutButton from "../../components/LogoutButton";
 import FilterDropdown, { FilterOption } from "../../components/FilterDropdown";
 import SortByDropdown, { SortByOption } from "../../components/SortByDropdown";
+import { MobileHeaderControls } from "../../components/gallery/MobileHeaderControls";
 
 const PHOTOS_PER_PAGE = 12;
 
@@ -168,6 +169,13 @@ export default function GalleryPage() {
               </p>
             </div>
             <div className="flex items-center gap-4">
+              {/* Mobile Header Controls (filter/sort icons) */}
+              <MobileHeaderControls
+                currentFilter={currentFilter}
+                onFilterChange={handleFilterChange}
+                currentSort={currentSort}
+                onSortChange={handleSortChange}
+              />
               <button
                 onClick={() => router.push("/myprofile")}
                 className="px-4 py-2 text-gray-700 hover:text-gray-900 font-medium"
@@ -182,8 +190,8 @@ export default function GalleryPage() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Action Bar */}
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-8">
+        {/* Action Bar - Hidden on mobile, shown on desktop */}
+        <div className="hidden sm:flex flex-col sm:flex-row justify-between items-center gap-4 mb-8">
           {/* Left: Filter and Sort Dropdowns */}
           <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
             {/* Filter Dropdown */}
