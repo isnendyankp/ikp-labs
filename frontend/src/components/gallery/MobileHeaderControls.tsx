@@ -76,6 +76,14 @@ export function MobileHeaderControls({
     <div className="flex items-center gap-2 sm:hidden">
       {/* Filter Icon Button with Dropdown */}
       <div className="relative">
+        {/* Filter Dropdown - appears when button is clicked */}
+        <FilterDropdown
+          currentFilter={currentFilter}
+          onFilterChange={handleFilterChange}
+          variant="compact"
+          isOpen={isFilterOpen}
+          onOpenChange={setIsFilterOpen}
+        />
         {/* Filter Icon Button */}
         <button
           onClick={() => setIsFilterOpen(!isFilterOpen)}
@@ -86,18 +94,18 @@ export function MobileHeaderControls({
         >
           <Search className="w-5 h-5 text-gray-700" strokeWidth={2} />
         </button>
-        {/* Filter Dropdown - appears when button is clicked */}
-        <FilterDropdown
-          currentFilter={currentFilter}
-          onFilterChange={handleFilterChange}
-          variant="compact"
-          isOpen={isFilterOpen}
-          onOpenChange={setIsFilterOpen}
-        />
       </div>
 
       {/* Sort Icon Button with Dropdown */}
       <div className="relative">
+        {/* Sort Dropdown - appears when button is clicked */}
+        <SortByDropdown
+          currentSort={currentSort}
+          onSortChange={handleSortChange}
+          variant="compact"
+          isOpen={isSortOpen}
+          onOpenChange={setIsSortOpen}
+        />
         {/* Sort Icon Button */}
         <button
           onClick={() => setIsSortOpen(!isSortOpen)}
@@ -108,14 +116,6 @@ export function MobileHeaderControls({
         >
           <Settings2 className="w-5 h-5 text-gray-700" strokeWidth={2} />
         </button>
-        {/* Sort Dropdown - appears when button is clicked */}
-        <SortByDropdown
-          currentSort={currentSort}
-          onSortChange={handleSortChange}
-          variant="compact"
-          isOpen={isSortOpen}
-          onOpenChange={setIsSortOpen}
-        />
       </div>
     </div>
   );
