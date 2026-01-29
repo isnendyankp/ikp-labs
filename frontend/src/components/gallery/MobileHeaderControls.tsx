@@ -26,7 +26,7 @@
 "use client";
 
 import { useState } from "react";
-import { Search, Settings2 } from "lucide-react";
+import { Filter, Settings2 } from "lucide-react";
 import { FilterDropdown, type FilterOption } from "@/components/FilterDropdown";
 import { SortByDropdown, type SortByOption } from "@/components/SortByDropdown";
 
@@ -73,9 +73,19 @@ export function MobileHeaderControls({
   };
 
   return (
-    <div className="flex items-center gap-2 sm:hidden">
+    <div className="flex items-center gap-1 sm:hidden">
       {/* Filter Icon Button with Dropdown */}
       <div className="relative">
+        {/* Filter Icon Button */}
+        <button
+          onClick={() => setIsFilterOpen(!isFilterOpen)}
+          aria-label="Filter photos"
+          aria-haspopup="true"
+          aria-expanded={isFilterOpen}
+          className="p-2 hover:bg-gray-100 rounded-lg active:scale-95 transition-transform"
+        >
+          <Filter className="w-5 h-5 text-gray-700" strokeWidth={2} />
+        </button>
         {/* Filter Dropdown - appears when button is clicked */}
         <FilterDropdown
           currentFilter={currentFilter}
@@ -84,20 +94,20 @@ export function MobileHeaderControls({
           isOpen={isFilterOpen}
           onOpenChange={setIsFilterOpen}
         />
-        {/* Filter Icon Button */}
-        <button
-          onClick={() => setIsFilterOpen(!isFilterOpen)}
-          aria-label="Filter photos"
-          aria-haspopup="true"
-          aria-expanded={isFilterOpen}
-          className="p-3 hover:bg-gray-100 rounded-lg active:scale-95 transition-transform"
-        >
-          <Search className="w-5 h-5 text-gray-700" strokeWidth={2} />
-        </button>
       </div>
 
       {/* Sort Icon Button with Dropdown */}
       <div className="relative">
+        {/* Sort Icon Button */}
+        <button
+          onClick={() => setIsSortOpen(!isSortOpen)}
+          aria-label="Sort photos"
+          aria-haspopup="true"
+          aria-expanded={isSortOpen}
+          className="p-2 hover:bg-gray-100 rounded-lg active:scale-95 transition-transform"
+        >
+          <Settings2 className="w-5 h-5 text-gray-700" strokeWidth={2} />
+        </button>
         {/* Sort Dropdown - appears when button is clicked */}
         <SortByDropdown
           currentSort={currentSort}
@@ -106,16 +116,6 @@ export function MobileHeaderControls({
           isOpen={isSortOpen}
           onOpenChange={setIsSortOpen}
         />
-        {/* Sort Icon Button */}
-        <button
-          onClick={() => setIsSortOpen(!isSortOpen)}
-          aria-label="Sort photos"
-          aria-haspopup="true"
-          aria-expanded={isSortOpen}
-          className="p-3 hover:bg-gray-100 rounded-lg active:scale-95 transition-transform"
-        >
-          <Settings2 className="w-5 h-5 text-gray-700" strokeWidth={2} />
-        </button>
       </div>
     </div>
   );

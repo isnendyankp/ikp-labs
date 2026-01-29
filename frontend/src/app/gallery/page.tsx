@@ -163,11 +163,11 @@ export default function GalleryPage() {
       {/* Header */}
       <header className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          {/* Mobile: 2 rows | Desktop: 1 row */}
-          <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-            {/* Left: Title (mobile: centered, desktop: left) */}
-            <div className="w-full sm:w-auto text-center sm:text-left">
-              <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">
+          {/* Mobile: 1 row | Desktop: 1 row */}
+          <div className="flex flex-row justify-between items-center gap-4">
+            {/* Left: Title */}
+            <div className="flex-1">
+              <h1 className="text-xl sm:text-3xl font-bold text-gray-900">
                 Photo Gallery
               </h1>
               <p className="text-sm text-gray-600 mt-1 hidden sm:block">
@@ -175,8 +175,8 @@ export default function GalleryPage() {
               </p>
             </div>
 
-            {/* Right: Icons (mobile: row 2, evenly spaced) */}
-            <div className="flex items-center justify-around sm:justify-end sm:gap-4 w-full sm:w-auto">
+            {/* Right: Icons */}
+            <div className="flex items-center gap-2 sm:gap-4">
               {/* Mobile Header Controls (filter/sort icons) - Only on mobile */}
               <MobileHeaderControls
                 currentFilter={currentFilter}
@@ -189,7 +189,7 @@ export default function GalleryPage() {
               <button
                 onClick={() => router.push("/myprofile")}
                 aria-label="My Profile"
-                className="sm:hidden p-3 hover:bg-gray-100 rounded-lg active:scale-95 transition-transform"
+                className="sm:hidden p-2 sm:p-3 hover:bg-gray-100 rounded-lg active:scale-95 transition-transform"
               >
                 <User className="w-5 h-5 text-gray-700" strokeWidth={2} />
               </button>
@@ -204,7 +204,7 @@ export default function GalleryPage() {
                   }
                 }}
                 aria-label="Logout"
-                className="sm:hidden p-3 hover:bg-gray-100 rounded-lg active:scale-95 transition-transform"
+                className="sm:hidden p-2 sm:p-3 hover:bg-gray-100 rounded-lg active:scale-95 transition-transform"
               >
                 <LogOut className="w-5 h-5 text-gray-700" strokeWidth={2} />
               </button>

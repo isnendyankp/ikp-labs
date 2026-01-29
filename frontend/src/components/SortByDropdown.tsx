@@ -219,7 +219,7 @@ export default function SortByDropdown({
 
       {/* Dropdown Menu - Only visible when open */}
       {isOpen && (
-        <div className={`absolute top-full mt-2 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-50 overflow-hidden ${variant === "compact" ? "right-0" : "left-0"}`}>
+        <div className={`absolute top-full mt-2 w-full bg-white border border-gray-200 rounded-lg shadow-xl z-[100] overflow-hidden ${variant === "compact" ? "right-0" : "left-0"}`}>
           <div className="py-1">
             {SORT_OPTIONS.map((option) => (
               <button

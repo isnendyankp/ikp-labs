@@ -163,7 +163,7 @@ export default function FilterDropdown({
 
       {/* Dropdown Menu - Only visible when open */}
       {isOpen && (
-        <div className={`absolute top-full mt-2 w-56 bg-white border border-gray-200 rounded-lg shadow-lg z-50 ${variant === "compact" ? "right-0" : "left-0"}`}>
+        <div className={`absolute top-full mt-2 w-56 bg-white border border-gray-200 rounded-lg shadow-xl z-[100] ${variant === "compact" ? "right-0" : "left-0"}`}>
           <div className="py-1">
             {FILTER_OPTIONS.map((option) => (
               <button
