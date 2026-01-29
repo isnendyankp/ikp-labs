@@ -58,12 +58,19 @@ export type SortByOption = 'newest' | 'oldest' | 'mostLiked' | 'mostFavorited';
  * @interface SortByDropdownProps
  * @property {SortByOption} currentSort - Currently selected sort option
  * @property {(sort: SortByOption) => void} onSortChange - Callback function called when sort option changes
+ * @property {"default" | "compact"} variant - Display mode variant (default: shows button, compact: menu only)
  */
 interface SortByDropdownProps {
   /** Currently selected sort option */
   currentSort: SortByOption;
   /** Callback function invoked when user selects a different sort option */
   onSortChange: (sort: SortByOption) => void;
+  /**
+   * Variant for dropdown display mode
+   * - "default": Shows dropdown button trigger (desktop)
+   * - "compact": Hides button, shows only menu items (mobile icon mode)
+   */
+  variant?: "default" | "compact";
 }
 
 /**
@@ -122,7 +129,11 @@ const SORT_OPTIONS: Array<{
  *   onSortChange={(sort) => console.log('Selected:', sort)}
  * />
  */
-export default function SortByDropdown({ currentSort, onSortChange }: SortByDropdownProps) {
+export default function SortByDropdown({
+  currentSort,
+  onSortChange,
+  variant = "default",
+}: SortByDropdownProps) {
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -153,29 +164,31 @@ export default function SortByDropdown({ currentSort, onSortChange }: SortByDrop
 
   return (
     <div className="relative" ref={dropdownRef}>
-      {/* Dropdown Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors shadow-sm min-w-[200px]"
-        aria-label="Sort photos"
-        aria-expanded={isOpen}
-      >
-        <span className="text-lg">{currentOption.icon}</span>
-        <span className="flex-1 text-left font-medium text-gray-700">
-          {currentOption.label}
-        </span>
-        <svg
-          className={`w-4 h-4 text-gray-500 transition-transform ${isOpen ? 'rotate-180' : ''}`}
-          fill="none"
-          stroke="currentColor"
-          viewBox="0 0 24 24"
+      {/* Dropdown Button - Hidden in compact mode */}
+      {variant === "default" && (
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors shadow-sm min-w-[200px]"
+          aria-label="Sort photos"
+          aria-expanded={isOpen}
         >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-        </svg>
-      </button>
+          <span className="text-lg">{currentOption.icon}</span>
+          <span className="flex-1 text-left font-medium text-gray-700">
+            {currentOption.label}
+          </span>
+          <svg
+            className={`w-4 h-4 text-gray-500 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+      )}
 
-      {/* Dropdown Menu */}
-      {isOpen && (
+      {/* Dropdown Menu - Always visible in compact mode, controlled by isOpen otherwise */}
+      {(variant === "compact" || isOpen) && (
         <div className="absolute top-full left-0 mt-2 w-full bg-white border border-gray-200 rounded-lg shadow-lg z-50 overflow-hidden">
           <div className="py-1">
             {SORT_OPTIONS.map((option) => (
@@ -214,3 +227,6 @@ export default function SortByDropdown({ currentSort, onSortChange }: SortByDrop
     </div>
   );
 }
+
+// Named export for easier imports
+export { SortByDropdown };
