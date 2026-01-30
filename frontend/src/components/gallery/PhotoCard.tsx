@@ -12,6 +12,7 @@
  * - Hover effects
  * - Like button (public appreciation)
  * - Favorite button (private bookmarks)
+ * - Scroll position preservation before navigation
  */
 
 'use client';
@@ -19,9 +20,10 @@
 import { GalleryPhoto } from '../../types/api';
 import { getPhotoUrl } from '../../services/galleryService';
 import { getUserFromToken } from '../../lib/auth';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import LikeButton from '../LikeButton';
 import FavoriteButton from '../FavoriteButton';
+import { useScrollRestoration } from '@/hooks/useScrollRestoration';
 
 interface PhotoCardProps {
   photo: GalleryPhoto;
@@ -31,9 +33,19 @@ interface PhotoCardProps {
 
 export default function PhotoCard({ photo, onLikeChange, onFavoriteChange }: PhotoCardProps) {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const currentUser = getUserFromToken();
+  const { saveScrollPosition } = useScrollRestoration();
+
+  // Get current filter, page, and sort from URL
+  const filter = (searchParams.get('filter') as 'all' | 'my-photos' | 'liked' | 'favorited') || 'all';
+  const page = parseInt(searchParams.get('page') || '1', 10);
+  const sort = (searchParams.get('sortBy') as 'newest' | 'oldest' | 'mostLiked' | 'mostFavorited') || 'newest';
 
   const handleClick = () => {
+    // Save scroll position before navigating to photo detail
+    saveScrollPosition(filter, page, sort, photo.id.toString());
+    // Navigate to photo detail page
     router.push(`/gallery/${photo.id}`);
   };
 
