@@ -8,6 +8,7 @@
  * - Upload button
  * - Authentication check
  * - Responsive design
+ * - Scroll position restoration when returning from photo detail
  */
 
 "use client";
@@ -29,12 +30,14 @@ import { FABUpload } from "../../components/gallery/FABUpload";
 import { StickyActionBar } from "../../components/gallery/StickyActionBar";
 import { BackToTop } from "../../components/landing/BackToTop";
 import { User, LogOut } from "lucide-react";
+import { useScrollRestoration } from "@/hooks/useScrollRestoration";
 
 const PHOTOS_PER_PAGE = 12;
 
 export default function GalleryPage() {
   const router = useRouter();
   const searchParams = useSearchParams();
+  const { restoreScrollPosition } = useScrollRestoration();
 
   // Read filter, page, and sortBy from URL query params
   const filterParam = (searchParams.get("filter") as FilterOption) || "all";
@@ -77,6 +80,15 @@ export default function GalleryPage() {
       fetchPhotos();
     }
   }, [user, currentPage, currentFilter, currentSort]);
+
+  // Restore scroll position after photos are loaded
+  useEffect(() => {
+    // Only restore when loading is complete (photos are rendered)
+    if (!loading && photos.length > 0) {
+      // Restore scroll position using current filter, page, and sort
+      restoreScrollPosition(currentFilter, pageParam, currentSort);
+    }
+  }, [loading, photos.length, currentFilter, pageParam, currentSort, restoreScrollPosition]);
 
   const fetchPhotos = async () => {
     if (!user) return;
