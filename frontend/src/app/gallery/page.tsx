@@ -201,7 +201,7 @@ export default function GalleryPage() {
               <button
                 onClick={() => router.push("/myprofile")}
                 aria-label="My Profile"
-                className="sm:hidden p-2 sm:p-3 hover:bg-gray-100 rounded-lg active:scale-95 transition-transform"
+                className="sm:hidden p-3 hover:bg-gray-100 rounded-lg active:scale-95 transition-transform"
               >
                 <User className="w-5 h-5 text-gray-700" strokeWidth={2} />
               </button>
@@ -216,7 +216,7 @@ export default function GalleryPage() {
                   }
                 }}
                 aria-label="Logout"
-                className="sm:hidden p-2 sm:p-3 hover:bg-gray-100 rounded-lg active:scale-95 transition-transform"
+                className="sm:hidden p-3 hover:bg-gray-100 rounded-lg active:scale-95 transition-transform"
               >
                 <LogOut className="w-5 h-5 text-gray-700" strokeWidth={2} />
               </button>

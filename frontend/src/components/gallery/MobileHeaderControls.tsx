@@ -8,7 +8,7 @@
  * - Filter icon (Search) that opens filter dropdown
  * - Sort icon (Adjustments) that opens sort dropdown
  * - Click outside to close dropdowns
- * - Touch-friendly tap targets (min 44x44px)
+ * - Touch-friendly tap targets (44x44px with p-3 padding)
  * - ARIA labels for accessibility
  * - Hidden on desktop (sm:hidden)
  *
@@ -82,7 +82,7 @@ export function MobileHeaderControls({
           aria-label="Filter photos"
           aria-haspopup="true"
           aria-expanded={isFilterOpen}
-          className="p-2 hover:bg-gray-100 rounded-lg active:scale-95 transition-transform"
+          className="p-3 hover:bg-gray-100 rounded-lg active:scale-95 transition-transform"
         >
           <Filter className="w-5 h-5 text-gray-700" strokeWidth={2} />
         </button>
@@ -104,7 +104,7 @@ export function MobileHeaderControls({
           aria-label="Sort photos"
           aria-haspopup="true"
           aria-expanded={isSortOpen}
-          className="p-2 hover:bg-gray-100 rounded-lg active:scale-95 transition-transform"
+          className="p-3 hover:bg-gray-100 rounded-lg active:scale-95 transition-transform"
         >
           <Settings2 className="w-5 h-5 text-gray-700" strokeWidth={2} />
         </button>
