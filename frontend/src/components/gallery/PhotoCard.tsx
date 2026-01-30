@@ -13,6 +13,8 @@
  * - Like button (public appreciation)
  * - Favorite button (private bookmarks)
  * - Scroll position preservation before navigation
+ * - Lazy loading for off-screen images (loading="lazy")
+ * - Async decoding for non-blocking image load (decoding="async")
  */
 
 'use client';
@@ -61,6 +63,8 @@ export default function PhotoCard({ photo, onLikeChange, onFavoriteChange }: Pho
         <img
           src={photoUrl}
           alt={photo.title || 'Gallery photo'}
+          loading="lazy"
+          decoding="async"
           className="absolute top-0 left-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
         />
 
