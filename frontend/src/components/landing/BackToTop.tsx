@@ -49,12 +49,7 @@ export function BackToTop({ showAt = 400, position = "right" }: BackToTopProps) 
     <button
       onClick={scrollToTop}
       aria-label="Scroll to top"
-      className={`fixed bottom-8 ${position === "left" ? "left-8" : "right-8"} z-50 bg-black text-white w-12 h-12 rounded-full flex items-center justify-center hover:scale-110 hover:brightness-110 transition-all duration-300 shadow-lg hover:shadow-xl`}
-      style={{
-        opacity: isVisible ? 1 : 0,
-        transform: isVisible ? 'translateY(0)' : 'translateY(20px)',
-        transition: 'opacity 0.3s ease, transform 0.3s ease',
-      }}
+      className={`fixed bottom-8 ${position === "left" ? "left-8" : "right-8"} z-50 bg-black text-white w-12 h-12 rounded-full flex items-center justify-center hover:scale-110 hover:brightness-110 shadow-lg hover:shadow-xl transition-all duration-300`}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"
