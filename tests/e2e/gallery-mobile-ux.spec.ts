@@ -71,8 +71,8 @@ test.describe('Mobile UX Improvements', () => {
       await page.goto('/gallery');
       await page.setViewportSize({ width: 375, height: 667 }); // iPhone SE
 
-      // THEN: Sort icon is visible
-      const sortIcon = page.getByLabel('Sort photos');
+      // THEN: Sort icon is visible (mobile version in header)
+      const sortIcon = page.getByLabel('Sort photos').first();
       await expect(sortIcon).toBeVisible();
 
       console.log('✅ E2E-MOBILE-002: Sort icon visible on mobile test PASSED');
@@ -85,8 +85,8 @@ test.describe('Mobile UX Improvements', () => {
       await page.goto('/gallery');
       await page.setViewportSize({ width: 375, height: 667 });
 
-      // WHEN: Tapping the filter icon
-      const filterIcon = page.getByLabel('Filter photos');
+      // WHEN: Tapping the filter icon (mobile version)
+      const filterIcon = page.getByLabel('Filter photos').first();
       await filterIcon.click();
 
       // THEN: Filter dropdown is visible
@@ -94,10 +94,10 @@ test.describe('Mobile UX Improvements', () => {
       await expect(dropdown).toBeVisible();
 
       // AND: All filter options are visible
-      await expect(page.getByText('All Photos')).toBeVisible();
-      await expect(page.getByText('My Photos')).toBeVisible();
-      await expect(page.getByText('My Liked Photos')).toBeVisible();
-      await expect(page.getByText('My Favorited Photos')).toBeVisible();
+      await expect(page.getByRole('menu').getByText('All Photos')).toBeVisible();
+      await expect(page.getByRole('menu').getByText('My Photos')).toBeVisible();
+      await expect(page.getByRole('menu').getByText('My Liked Photos')).toBeVisible();
+      await expect(page.getByRole('menu').getByText('My Favorited Photos')).toBeVisible();
 
       console.log('✅ E2E-MOBILE-003: Filter dropdown opens test PASSED');
     });
@@ -109,8 +109,8 @@ test.describe('Mobile UX Improvements', () => {
       await page.goto('/gallery');
       await page.setViewportSize({ width: 375, height: 667 });
 
-      // WHEN: Tapping the sort icon
-      const sortIcon = page.getByLabel('Sort photos');
+      // WHEN: Tapping the sort icon (mobile version)
+      const sortIcon = page.getByLabel('Sort photos').first();
       await sortIcon.click();
 
       // THEN: Sort dropdown is visible
@@ -118,10 +118,10 @@ test.describe('Mobile UX Improvements', () => {
       await expect(dropdown).toBeVisible();
 
       // AND: All sort options are visible
-      await expect(page.getByText('Newest First')).toBeVisible();
-      await expect(page.getByText('Oldest First')).toBeVisible();
-      await expect(page.getByText('Most Liked')).toBeVisible();
-      await expect(page.getByText('Most Favorited')).toBeVisible();
+      await expect(page.getByRole('menu').getByText('Newest First')).toBeVisible();
+      await expect(page.getByRole('menu').getByText('Oldest First')).toBeVisible();
+      await expect(page.getByRole('menu').getByText('Most Liked')).toBeVisible();
+      await expect(page.getByRole('menu').getByText('Most Favorited')).toBeVisible();
 
       console.log('✅ E2E-MOBILE-004: Sort dropdown opens test PASSED');
     });
@@ -380,10 +380,12 @@ test.describe('Mobile UX Improvements', () => {
       await page.goto('/gallery');
       await page.setViewportSize({ width: 375, height: 667 });
 
-      // THEN: Mobile icons visible, desktop controls hidden
-      await expect(page.getByLabel('Filter photos')).toBeVisible();
-      await expect(page.getByLabel('Sort photos')).toBeVisible();
-      await expect(page.locator('button:has-text("All Photos")')).not.toBeVisible();
+      // THEN: Mobile icons visible (first() to get mobile version)
+      await expect(page.getByLabel('Filter photos').first()).toBeVisible();
+      await expect(page.getByLabel('Sort photos').first()).toBeVisible();
+      // Desktop controls hidden (desktop button is hidden on mobile)
+      const desktopFilterButton = page.locator('button').filter({ hasText: 'All Photos' });
+      await expect(desktopFilterButton).not.toBeVisible();
 
       console.log('✅ E2E-MOBILE-017: Mobile layout test PASSED');
     });
@@ -398,9 +400,17 @@ test.describe('Mobile UX Improvements', () => {
       await page.setViewportSize({ width: 1024, height: 768 });
 
       // THEN: Desktop controls visible, mobile icons hidden
-      await expect(page.locator('button:has-text("All Photos")')).toBeVisible();
-      await expect(page.locator('button:has-text("Newest First")')).toBeVisible();
-      await expect(page.getByLabel('Filter photos')).not.toBeVisible();
+      const desktopFilterButton = page.locator('button').filter({ hasText: 'All Photos' });
+      const desktopSortButton = page.locator('button').filter({ hasText: 'Newest First' });
+      await expect(desktopFilterButton).toBeVisible();
+      await expect(desktopSortButton).toBeVisible();
+
+      // Mobile icons hidden (they have sm:hidden class)
+      const mobileFilterIcon = page.getByLabel('Filter photos').first();
+      // On desktop, mobile icons should not be visible
+      const isVisible = await mobileFilterIcon.isVisible();
+      // We check if the mobile version is NOT visible (or check the class)
+      expect(isVisible).toBeFalsy();
 
       console.log('✅ E2E-MOBILE-018: Desktop layout test PASSED');
     });
@@ -415,8 +425,10 @@ test.describe('Mobile UX Improvements', () => {
       await page.setViewportSize({ width: 768, height: 1024 });
 
       // THEN: Desktop controls visible (tablet uses desktop layout)
-      await expect(page.locator('button:has-text("All Photos")')).toBeVisible();
-      await expect(page.locator('button:has-text("Newest First")')).toBeVisible();
+      const desktopFilterButton = page.locator('button').filter({ hasText: 'All Photos' });
+      const desktopSortButton = page.locator('button').filter({ hasText: 'Newest First' });
+      await expect(desktopFilterButton).toBeVisible();
+      await expect(desktopSortButton).toBeVisible();
 
       console.log('✅ E2E-MOBILE-019: Tablet layout test PASSED');
     });
@@ -443,7 +455,7 @@ test.describe('Mobile UX Improvements', () => {
 
         // THEN: Page loads without errors
         const title = await page.title();
-        expect(title).toContain('Photo Gallery');
+        expect(title).toContain('Kameravue');
       }
 
       console.log('✅ E2E-MOBILE-020: No layout issues test PASSED');
@@ -466,8 +478,8 @@ test.describe('Mobile UX Improvements', () => {
       const filters = ['All Photos', 'My Photos', 'My Liked Photos', 'My Favorited Photos'];
 
       for (const filter of filters) {
-        await page.getByLabel('Filter photos').click();
-        await page.getByText(filter).click();
+        await page.getByLabel('Filter photos').first().click();
+        await page.getByRole('menu').getByText(filter).click();
         await page.waitForTimeout(200);
 
         // THEN: URL updates with correct filter parameter
@@ -495,8 +507,8 @@ test.describe('Mobile UX Improvements', () => {
       const sorts = ['Newest First', 'Oldest First', 'Most Liked', 'Most Favorited'];
 
       for (const sort of sorts) {
-        await page.getByLabel('Sort photos').click();
-        await page.getByText(sort).click();
+        await page.getByLabel('Sort photos').first().click();
+        await page.getByRole('menu').getByText(sort).click();
         await page.waitForTimeout(200);
 
         // THEN: URL updates with correct sort parameter
@@ -521,12 +533,12 @@ test.describe('Mobile UX Improvements', () => {
       await page.setViewportSize({ width: 375, height: 667 });
 
       // WHEN: Changing filter and sort
-      await page.getByLabel('Filter photos').click();
-      await page.getByText('My Photos').click();
+      await page.getByLabel('Filter photos').first().click();
+      await page.getByRole('menu').getByText('My Photos').click();
       await page.waitForTimeout(200);
 
-      await page.getByLabel('Sort photos').click();
-      await page.getByText('Oldest First').click();
+      await page.getByLabel('Sort photos').first().click();
+      await page.getByRole('menu').getByText('Oldest First').click();
       await page.waitForTimeout(200);
 
       // THEN: URL contains both parameters
@@ -545,13 +557,13 @@ test.describe('Mobile UX Improvements', () => {
       await page.setViewportSize({ width: 375, height: 667 });
 
       // WHEN: Changing filter
-      await page.getByLabel('Filter photos').click();
-      await page.getByText('My Photos').click();
+      await page.getByLabel('Filter photos').first().click();
+      await page.getByRole('menu').getByText('My Photos').click();
 
       // THEN: Page loads without errors
       await page.waitForLoadState('networkidle');
       const title = await page.title();
-      expect(title).toContain('Photo Gallery');
+      expect(title).toContain('Kameravue');
 
       console.log('✅ E2E-MOBILE-024: API calls test PASSED');
     });
