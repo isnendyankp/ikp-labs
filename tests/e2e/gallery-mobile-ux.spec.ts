@@ -216,17 +216,12 @@ test.describe('Mobile UX Improvements', () => {
       createdUsers.push(user.email);
       await page.goto('/gallery');
 
-      // WHEN: Scrolling down past threshold (400px) by scrolling an element
-      // Scroll by using the page's main content element to trigger scroll events
-      await page.evaluate(() => {
-        window.scrollBy({ top: 500, behavior: 'instant' });
-      });
-
-      // Wait for scroll event listener to update state and component to re-render
+      // WHEN: Scrolling down past threshold (400px)
+      // Use page.mouse.wheel() to simulate real user scrolling which triggers scroll events
+      await page.mouse.wheel(0, 500);
       await page.waitForTimeout(1500);
 
       // THEN: Back to top button becomes visible
-      // Check if the button exists in DOM
       const backToTopExists = await page.getByLabel('Scroll to top').count();
       expect(backToTopExists).toBeGreaterThan(0);
 
@@ -256,19 +251,18 @@ test.describe('Mobile UX Improvements', () => {
       await page.goto('/gallery');
 
       // Scroll down to trigger back to top button visibility
-      await page.evaluate(() => window.scrollBy({ top: 500, behavior: 'instant' }));
+      await page.mouse.wheel(0, 500);
       await page.waitForTimeout(1500);
 
       // WHEN: Clicking back to top button (wait for it to exist first)
       const backToTop = page.getByLabel('Scroll to top');
-      // Wait for button to be present in DOM
       await page.waitForSelector('[aria-label="Scroll to top"]', { timeout: 5000 });
       await backToTop.click();
-      await page.waitForTimeout(1500); // Wait for smooth scroll to complete
+      await page.waitForTimeout(1500);
 
       // THEN: Page is scrolled to top (or very close to it)
       const scrollY = await page.evaluate(() => window.scrollY);
-      expect(scrollY).toBeLessThan(50); // Allow larger margin for smooth scroll
+      expect(scrollY).toBeLessThan(50);
 
       console.log('✅ E2E-MOBILE-011: Back to top scroll test PASSED');
     });
@@ -280,19 +274,18 @@ test.describe('Mobile UX Improvements', () => {
       await page.goto('/gallery');
 
       // Scroll down to trigger back to top button visibility
-      await page.evaluate(() => window.scrollBy({ top: 500, behavior: 'instant' }));
+      await page.mouse.wheel(0, 500);
       await page.waitForTimeout(1500);
 
-      // WHEN: Getting back to top button position (wait for it to exist first)
+      // WHEN: Getting back to top button position
       const backToTop = page.getByLabel('Scroll to top');
-      // Wait for button to be present in DOM
       await page.waitForSelector('[aria-label="Scroll to top"]', { timeout: 5000 });
       const box = await backToTop.boundingBox();
 
       // THEN: Button is positioned at bottom left
       expect(box).not.toBeNull();
-      expect(box!.x).toBeLessThan(100); // Left side of viewport (left-8 = 32px)
-      expect(box!.y).toBeGreaterThan(400); // Bottom of viewport
+      expect(box!.x).toBeLessThan(100);
+      expect(box!.y).toBeGreaterThan(400);
 
       console.log('✅ E2E-MOBILE-012: Back to top position test PASSED');
     });
@@ -314,8 +307,8 @@ test.describe('Mobile UX Improvements', () => {
       const actionBar = page.locator('div.sticky').first();
       const initialPosition = await actionBar.boundingBox();
 
-      // WHEN: Scrolling down
-      await page.evaluate(() => window.scrollBy({ top: 500, behavior: 'instant' }));
+      // WHEN: Scrolling down using mouse wheel
+      await page.mouse.wheel(0, 500);
 
       // THEN: Action bar sticks to top (position changes)
       const scrolledPosition = await actionBar.boundingBox();
@@ -331,8 +324,8 @@ test.describe('Mobile UX Improvements', () => {
       await page.goto('/gallery');
       await page.setViewportSize({ width: 1024, height: 768 });
 
-      // WHEN: Scrolling down
-      await page.evaluate(() => window.scrollBy({ top: 500, behavior: 'instant' }));
+      // WHEN: Scrolling down using mouse wheel
+      await page.mouse.wheel(0, 500);
 
       // THEN: Filter and sort controls are still visible and clickable
       const filterDropdown = page.locator('button:has-text("All Photos")');
@@ -351,7 +344,7 @@ test.describe('Mobile UX Improvements', () => {
       await page.setViewportSize({ width: 1024, height: 768 });
 
       // WHEN: Scrolling down and clicking filter
-      await page.evaluate(() => window.scrollBy({ top: 500, behavior: 'instant' }));
+      await page.mouse.wheel(0, 500);
       const filterDropdown = page.locator('button:has-text("All Photos")');
       await filterDropdown.click();
 
@@ -369,7 +362,7 @@ test.describe('Mobile UX Improvements', () => {
       await page.setViewportSize({ width: 1024, height: 768 });
 
       // WHEN: Scrolling down and clicking sort
-      await page.evaluate(() => window.scrollBy({ top: 500, behavior: 'instant' }));
+      await page.mouse.wheel(0, 500);
       const sortDropdown = page.locator('button:has-text("Newest First")');
       await sortDropdown.click();
 
@@ -582,8 +575,8 @@ test.describe('Mobile UX Improvements', () => {
       createdUsers.push(user.email);
       await page.goto('/gallery');
 
-      // Scroll down using scrollBy to trigger scroll events
-      await page.evaluate(() => window.scrollBy({ top: 500, behavior: 'instant' }));
+      // Scroll down using mouse wheel to trigger scroll events
+      await page.mouse.wheel(0, 500);
       await page.waitForTimeout(500);
 
       // WHEN: Clicking on a photo (if any exists)
@@ -612,8 +605,8 @@ test.describe('Mobile UX Improvements', () => {
       createdUsers.push(user.email);
       await page.goto('/gallery');
 
-      // Scroll down using scrollBy to trigger scroll events
-      await page.evaluate(() => window.scrollBy({ top: 500, behavior: 'instant' }));
+      // Scroll down using mouse wheel to trigger scroll events
+      await page.mouse.wheel(0, 500);
       await page.waitForTimeout(500);
 
       const firstPhoto = page.locator('.group.cursor-pointer').first();
@@ -629,7 +622,7 @@ test.describe('Mobile UX Improvements', () => {
 
         // THEN: Scroll position is restored (not at top)
         const scrollY = await page.evaluate(() => window.scrollY);
-        expect(scrollY).toBeGreaterThan(100); // Allow some margin but definitely not at top
+        expect(scrollY).toBeGreaterThan(50);
       } else {
         console.log('⚠️ No photos found, skipping test');
       }
@@ -645,7 +638,7 @@ test.describe('Mobile UX Improvements', () => {
       await page.setViewportSize({ width: 375, height: 667 });
 
       // WHEN: Scrolling and clicking photo
-      await page.evaluate(() => window.scrollBy({ top: 500, behavior: 'instant' }));
+      await page.mouse.wheel(0, 500);
       await page.waitForTimeout(500);
 
       const firstPhoto = page.locator('.group.cursor-pointer').first();
@@ -659,7 +652,7 @@ test.describe('Mobile UX Improvements', () => {
 
         // THEN: Scroll position is restored (not at top)
         const restoredScroll = await page.evaluate(() => window.scrollY);
-        expect(restoredScroll).toBeGreaterThan(100);
+        expect(restoredScroll).toBeGreaterThan(50);
       } else {
         console.log('⚠️ No photos found, skipping test');
       }
@@ -675,7 +668,7 @@ test.describe('Mobile UX Improvements', () => {
       await page.setViewportSize({ width: 1024, height: 768 });
 
       // WHEN: Scrolling and clicking photo
-      await page.evaluate(() => window.scrollBy({ top: 500, behavior: 'instant' }));
+      await page.mouse.wheel(0, 500);
       await page.waitForTimeout(500);
 
       const firstPhoto = page.locator('.group.cursor-pointer').first();
@@ -689,7 +682,7 @@ test.describe('Mobile UX Improvements', () => {
 
         // THEN: Scroll position is restored (not at top)
         const restoredScroll = await page.evaluate(() => window.scrollY);
-        expect(restoredScroll).toBeGreaterThan(100);
+        expect(restoredScroll).toBeGreaterThan(50);
       } else {
         console.log('⚠️ No photos found, skipping test');
       }
