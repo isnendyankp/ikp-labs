@@ -27,9 +27,9 @@ export default function LandingPage() {
     }
   };
 
-  // Get Started handler - navigate to login
+  // Get Started handler - navigate to register for new users
   const handleGetStarted = () => {
-    router.push('/login');
+    router.push('/register');
   };
 
   // Learn More handler - scroll to features

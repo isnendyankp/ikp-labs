@@ -46,7 +46,7 @@ export function Navbar({ onNavigate }: NavbarProps) {
   };
 
   const handleGetStarted = () => {
-    router.push('/login');
+    router.push('/register');
     setIsMobileMenuOpen(false);
   };
 
