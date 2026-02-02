@@ -342,15 +342,6 @@ export default function LoginForm() {
                   Remember me
                 </label>
               </div>
-
-              <div className="text-sm">
-                <a
-                  href="#"
-                  className="text-blue-600 hover:text-blue-500 font-medium"
-                >
-                  Forgot your password?
-                </a>
-              </div>
             </div>
 
             {/* Sign In Button */}
