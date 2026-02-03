@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Navbar } from './Navbar';
 import { HeroSection } from './HeroSection';
 import { FeaturesSection } from './FeaturesSection';
@@ -9,15 +9,34 @@ import { CTASection } from './CTASection';
 import { Footer } from './Footer';
 import { BackToTop } from './BackToTop';
 import { useRouter } from 'next/navigation';
+import {
+  NavbarSkeleton,
+  HeroSkeleton,
+  FeaturesSkeleton,
+  AboutSkeleton,
+  CTASectionSkeleton,
+  FooterSkeleton,
+} from '../skeletons/LandingPageSkeleton';
 
 /**
  * LandingPage Component
  *
  * Main landing page container for Kameravue
  * Renders all sections: Navbar, Hero, Features, About, CTA, Footer
+ * Shows skeleton loading state during initial page load
  */
 export default function LandingPage() {
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
+
+  // Simulate initial loading for smooth skeleton animation
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 800); // Show skeleton for 800ms
+
+    return () => clearTimeout(timer);
+  }, []);
 
   // Scroll to section handler
   const scrollToSection = (sectionId: string) => {
@@ -36,6 +55,22 @@ export default function LandingPage() {
   const handleLearnMore = () => {
     scrollToSection('features');
   };
+
+  // Show skeleton loading state
+  if (isLoading) {
+    return (
+      <div className="min-h-screen bg-white">
+        <NavbarSkeleton />
+        <main>
+          <HeroSkeleton />
+          <FeaturesSkeleton />
+          <AboutSkeleton />
+          <CTASectionSkeleton />
+        </main>
+        <FooterSkeleton />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-white">
