@@ -442,6 +442,65 @@ For each bug found:
 
 ---
 
+## Phase 9: Google OAuth Button Hiding (OPTIONAL ENHANCEMENT)
+
+### Overview
+Hide Google Sign In/Up buttons on login and register pages to provide cleaner UI for the learning project. Buttons will still exist in code but conditionally hidden.
+
+### Proposed Implementation
+
+#### 9.1 Environment Variable Setup
+- [ ] Add `NEXT_PUBLIC_GOOGLE_OAUTH_ENABLED=false` to `.env.local`
+- [ ] Add `NEXT_PUBLIC_GOOGLE_OAUTH_ENABLED` to `.env.example`
+- [ ] Document environment variable usage
+
+#### 9.2 LoginForm.tsx Updates
+- [ ] Add `GOOGLE_OAUTH_ENABLED` constant at component level
+- [ ] Wrap Google Sign In button with conditional rendering
+- [ ] Keep `handleGoogleSignin` function (for future use)
+- [ ] Test button is hidden when flag is false
+
+#### 9.3 RegistrationForm.tsx Updates
+- [ ] Add `GOOGLE_OAUTH_ENABLED` constant at component level
+- [ ] Wrap Google Sign Up button with conditional rendering
+- [ ] Keep `handleGoogleSignup` function (for future use)
+- [ ] Test button is hidden when flag is false
+
+### Files to Modify
+- `/frontend/.env.local` - Add Google OAuth flag (false)
+- `/frontend/.env.example` - Add Google OAuth flag example
+- `/frontend/src/components/LoginForm.tsx` - Conditional rendering
+- `/frontend/src/components/RegistrationForm.tsx` - Conditional rendering
+
+### Implementation Approach
+```typescript
+// Add at top of component files
+const GOOGLE_OAUTH_ENABLED = process.env.NEXT_PUBLIC_GOOGLE_OAUTH_ENABLED === 'true';
+
+// Wrap Google button with conditional
+{GOOGLE_OAUTH_ENABLED && (
+  <button onClick={handleGoogleSignin}>
+    Sign in with Google
+  </button>
+)}
+```
+
+### Benefits
+- ✅ Cleaner UI without non-functional buttons
+- ✅ No false hope for users
+- ✅ Easy to enable in future (just change env var)
+- ✅ Code remains for future Google OAuth implementation
+- ✅ Feature flagging pattern implemented
+
+### Estimated Time
+- [ ] Environment setup: 5 minutes
+- [ ] Code changes: 15 minutes
+- [ ] Testing: 10 minutes
+
+**Total Estimated Time**: 30 minutes
+
+---
+
 ## Summary Checklist
 
 ### Overall Progress
@@ -452,7 +511,8 @@ For each bug found:
 - [x] Phase 5: Gallery Page Analysis (30-45 min) ✅
 - [x] Phase 6: Profile Page Analysis (20-30 min) ✅
 - [x] Phase 7: Test Coverage Analysis (30-45 min) ✅
-- [ ] Phase 8: Bug Documentation (30 min) 🔄 IN PROGRESS
+- [x] Phase 8: Bug Documentation (30 min) ✅
+- [ ] Phase 9: Google OAuth Button Hiding (30 min) 📋 PLANNED (OPTIONAL)
 
 ### Bug Fix Progress
 
@@ -462,11 +522,16 @@ For each bug found:
 | BUG-002 | Forgot password link non-functional | P2 | ✅ FIXED | 4b1ea87 |
 | BUG-003 | No Register button on landing page | P2 | ✅ FIXED (via BUG-001) | - |
 | BUG-004 | Landing page missing skeleton loading | P2 | ✅ FIXED | 12675b2 |
-| BUG-005 | E2E tests mostly mobile viewport | P2 | ⏳ TODO | - |
-| BUG-006 | No direct profile page E2E tests | P2 | ⏳ TODO | - |
-| BUG-007 | Google Sign In/Up placeholder | P3 | ⏸️ WONT FIX (learning project) | - |
+| BUG-005 | E2E tests mostly mobile viewport | P2 | ✅ ADDRESSED | d8022f4 |
+| BUG-006 | No direct profile page E2E tests | P2 | ✅ ADDRESSED | 61fbef9 |
+| BUG-007 | Google Sign In/Up placeholder | P3 | 📋 PLANNED (Phase 9) | - |
 
-**Progress**: 3/7 bugs fixed (43%) ✅
+**Progress**: 6/7 bugs addressed (86%) ✅
+
+**Note**:
+- "FIXED" = Code changes applied
+- "ADDRESSED" = Tests added for coverage
+- "PLANNED" = Plan created, awaiting approval
 
 ### Deliverables
 - [x] Bug report with severity levels
