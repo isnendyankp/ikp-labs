@@ -502,6 +502,128 @@ const GOOGLE_OAUTH_ENABLED = process.env.NEXT_PUBLIC_GOOGLE_OAUTH_ENABLED === 't
 
 ---
 
+## Phase 10: Skeleton Loading Enhancement (UX Improvement)
+
+### Overview
+Add skeleton loading states to My Profile page and Photo Detail page to improve perceived performance and user experience. All skeletons will be responsive (mobile-friendly).
+
+**Note**: Existing skeletons (LandingPageSkeleton, GalleryGridSkeleton) are already responsive using Tailwind breakpoints.
+
+### Proposed Implementation
+
+#### 10.1 My Profile Page Skeleton
+- [ ] Create `ProfileSkeleton.tsx` component
+- [ ] Add skeleton for profile picture section (circle placeholder)
+- [ ] Add skeleton for user info section (name, email, ID fields)
+- [ ] Add skeleton for quick action buttons
+- [ ] Integrate skeleton into `/myprofile/page.tsx`
+- [ ] Test responsive layout (1 col mobile, 3 col desktop)
+
+**Skeleton Structure:**
+```
+ProfileSkeleton
+├── Header Skeleton (title + logout button)
+├── Grid Layout (1 col mobile → 3 col desktop)
+│   ├── Left: Profile Picture Skeleton (circle)
+│   └── Right: User Info Skeleton
+│       ├── Name field placeholder
+│       ├── Email field placeholder
+│       ├── User ID field placeholder
+│       └── Quick Action button placeholder
+```
+
+#### 10.2 Photo Detail Page Skeleton
+- [ ] Create `PhotoDetailSkeleton.tsx` component
+- [ ] Add skeleton for large photo placeholder
+- [ ] Add skeleton for photo info section
+- [ ] Add skeleton for action buttons (Like, Favorite, Edit, Delete)
+- [ ] Integrate skeleton into `/gallery/[id]/page.tsx`
+- [ ] Test responsive layout (1 col mobile → 2 col desktop)
+
+**Skeleton Structure:**
+```
+PhotoDetailSkeleton
+├── Header Skeleton (back button)
+├── Grid Layout (1 col mobile → 2 col desktop)
+│   ├── Left: Large Photo Placeholder
+│   └── Right: Photo Info Skeleton
+│       ├── Title placeholder
+│       ├── Date placeholder
+│       ├── Description placeholder
+│       ├── Like/Favorite button placeholders
+│       └── Edit/Delete button placeholders
+```
+
+### Files to Create
+- `/frontend/src/components/skeletons/ProfileSkeleton.tsx`
+- `/frontend/src/components/skeletons/PhotoDetailSkeleton.tsx`
+
+### Files to Modify
+- `/frontend/src/app/myprofile/page.tsx` - Add skeleton loading state
+- `/frontend/src/app/gallery/[id]/page.tsx` - Add skeleton loading state
+
+### Responsive Design Notes
+All skeletons will use Tailwind CSS breakpoints:
+- **Mobile (< 640px)**: Single column layout
+- **Tablet (sm: 640px, md: 768px)**: 2 columns where applicable
+- **Desktop (lg: 1024px+)**: Full multi-column layout
+
+### Implementation Approach
+```typescript
+// Example: ProfileSkeleton.tsx
+export function ProfileSkeleton() {
+  return (
+    <div className="min-h-screen bg-gray-50">
+      {/* Header Skeleton */}
+      <header className="bg-white shadow">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <div className="h-8 bg-gray-200 rounded w-32 animate-pulse mb-4"></div>
+          <div className="h-10 bg-gray-200 rounded w-48 animate-pulse"></div>
+        </div>
+      </header>
+
+      {/* Main Content - Responsive Grid */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Profile Picture Skeleton */}
+          <div className="bg-white rounded-lg shadow p-6">
+            <div className="h-40 w-40 rounded-full bg-gray-200 animate-pulse mx-auto"></div>
+            <div className="h-12 bg-gray-200 rounded w-full mt-6 animate-pulse"></div>
+          </div>
+
+          {/* User Info Skeleton */}
+          <div className="lg:col-span-2 bg-white rounded-lg shadow p-8">
+            <div className="h-8 bg-gray-200 rounded w-64 mb-6 animate-pulse"></div>
+            <div className="space-y-4">
+              <div className="h-6 bg-gray-200 rounded w-full animate-pulse"></div>
+              <div className="h-6 bg-gray-200 rounded w-3/4 animate-pulse"></div>
+              <div className="h-6 bg-gray-200 rounded w-1/2 animate-pulse"></div>
+            </div>
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+}
+```
+
+### Benefits
+- ✅ Improved perceived performance
+- ✅ Better UX during data loading
+- ✅ Consistent skeleton pattern across app
+- ✅ Fully responsive (mobile-first)
+- ✅ Smooth loading transitions
+
+### Estimated Time
+- [ ] ProfileSkeleton creation: 15 minutes
+- [ ] PhotoDetailSkeleton creation: 15 minutes
+- [ ] Integration into pages: 10 minutes
+- [ ] Testing (desktop + mobile): 10 minutes
+
+**Total Estimated Time**: 50 minutes
+
+---
+
 ## Summary Checklist
 
 ### Overall Progress
@@ -514,6 +636,7 @@ const GOOGLE_OAUTH_ENABLED = process.env.NEXT_PUBLIC_GOOGLE_OAUTH_ENABLED === 't
 - [x] Phase 7: Test Coverage Analysis (30-45 min) ✅
 - [x] Phase 8: Bug Documentation (30 min) ✅
 - [x] Phase 9: Google OAuth Button Hiding (30 min) ✅ COMPLETED
+- [ ] Phase 10: Skeleton Loading Enhancement (50 min) 📋 PLANNED (OPTIONAL)
 
 ### Bug Fix Progress
 
