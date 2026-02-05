@@ -15,7 +15,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { isAuthenticated, getUserFromToken } from "../../lib/auth";
+import { isAuthenticated, getUserFromToken, logout } from "../../lib/auth";
 import { GalleryPhoto, AuthUser } from "../../types/api";
 import { getUserPhotos, getPublicPhotos } from "../../services/galleryService";
 import { getLikedPhotos } from "../../services/photoLikeService";
