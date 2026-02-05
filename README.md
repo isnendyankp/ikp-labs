@@ -279,9 +279,37 @@ This is a personal learning project. While I'm not actively seeking contribution
 
 ---
 
-## License
+## Copyright & License
 
-This project is open source and available under the [MIT License](LICENSE).
+Copyright © 2026 Isnendy Ankp. All rights reserved.
+
+### Project Purpose
+
+This project ("IKP Labs" / "Kameravue") is a **portfolio project** created for
+educational and demonstration purposes to showcase full-stack development skills.
+
+This is:
+- ✅ A learning project to demonstrate web development skills
+- ✅ A portfolio piece for job applications
+- ✅ Open-source for others to learn from
+- ❌ NOT a commercial product
+- ❌ NOT intended for production use without modifications
+
+### Usage Guidelines
+
+You are free to:
+- Use this code for learning and inspiration
+- Reference this project for your own work
+- Fork and modify for your needs
+
+Please:
+- Give credit where appropriate
+- Use ethically and responsibly
+- Understand this is for educational purposes
+
+### License
+
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 
 ---
 
