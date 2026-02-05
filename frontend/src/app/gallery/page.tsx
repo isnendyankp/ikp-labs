@@ -209,11 +209,8 @@ export default function GalleryPage() {
               {/* Logout icon - Mobile only */}
               <button
                 onClick={() => {
-                  // Logout functionality
-                  if (typeof window !== 'undefined') {
-                    localStorage.removeItem('token');
-                    router.push('/login');
-                  }
+                  logout();
+                  router.push('/login');
                 }}
                 aria-label="Logout"
                 className="sm:hidden p-3 hover:bg-gray-100 rounded-lg active:scale-95 transition-transform focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
