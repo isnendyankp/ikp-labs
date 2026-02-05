@@ -709,6 +709,125 @@ Fix the non-functional logout icon on mobile view in the Gallery page. The icon 
 
 ---
 
+## Phase 12: Add LICENSE & Update README (PROJECT COMPLETION)
+
+### Overview
+Add MIT LICENSE file and update README.md with copyright notice to properly protect and document the project. This phase completes the project setup for portfolio/recruiter purposes.
+
+### Why This Matters
+
+**For Recruiters**:
+- ✅ Shows professionalism and attention to detail
+- ✅ Demonstrates understanding of open-source licensing
+- ✅ Clear project ownership and purpose
+
+**For You**:
+- ✅ Legal protection for your work
+- ✅ Clear that this is a portfolio project
+- ✅ Prevents others from claiming your work as theirs
+
+### Proposed Implementation
+
+#### 12.1 Create LICENSE file
+- [x] Create `LICENSE` file in root directory ✅
+- [x] Use MIT License template ✅
+- [x] Include copyright notice with your name ✅
+- [x] Include current year (2026) ✅
+
+**LICENSE Content Template**:
+```
+MIT License
+
+Copyright (c) 2026 Isnendy Ankp
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+```
+
+#### 12.2 Update README.md
+- [x] Add Copyright & License section at the end ✅
+- [x] Include educational purpose statement ✅
+- [x] Add link to LICENSE file ✅
+- [x] Keep existing content (features, installation, etc.) ✅
+
+**README Section to Add**:
+```markdown
+## Copyright & License
+
+Copyright © 2026 Isnendy Ankp. All rights reserved.
+
+### Project Purpose
+
+This project ("Kameravue" / "IKP Labs") is a **portfolio project** created for
+educational and demonstration purposes to showcase full-stack development skills.
+
+This is:
+- ✅ A learning project to demonstrate web development skills
+- ✅ A portfolio piece for job applications
+- ✅ Open-source for others to learn from
+- ❌ NOT a commercial product
+- ❌ NOT intended for production use without modifications
+
+### Usage Guidelines
+
+You are free to:
+- Use this code for learning and inspiration
+- Reference this project for your own work
+- Fork and modify for your needs
+
+Please:
+- Give credit where appropriate
+- Use ethically and responsibly
+- Understand this is for educational purposes
+
+### License
+
+This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
+```
+
+#### 12.3 Update checklist.md
+- [x] Mark Phase 12 as completed ✅
+- [x] Update overall progress section ✅
+- [x] Update Table of Contents ✅
+
+### Files to Create
+- `/LICENSE` - MIT License file (root directory)
+
+### Files to Modify
+- `/README.md` - Add Copyright & License section
+- `/plans/in-progress/2026-02-02__bug-analysis-testing-coverage/checklist.md` - Track Phase 12
+
+### Benefits
+- ✅ Professional documentation
+- ✅ Clear legal protection
+- ✅ Recruiter-friendly project setup
+- ✅ Proper attribution for portfolio purposes
+
+### Estimated Time
+- [x] Create LICENSE file: 3 minutes ✅
+- [x] Update README.md: 5 minutes ✅
+- [x] Update checklist.md: 2 minutes ✅
+
+**Total Estimated Time**: 10 minutes
+**Actual Time**: Completed
+
+---
+
 ## Summary Checklist
 
 ### Overall Progress
@@ -723,6 +842,7 @@ Fix the non-functional logout icon on mobile view in the Gallery page. The icon 
 - [x] Phase 9: Google OAuth Button Hiding (30 min) ✅ COMPLETED
 - [x] Phase 10: Skeleton Loading Enhancement (50 min) ✅ COMPLETED
 - [x] Phase 11: Fix Mobile Logout Icon Bug (10 min) ✅ COMPLETED
+- [x] Phase 12: Add LICENSE & Update README (10 min) ✅ COMPLETED
 
 ### Bug Fix Progress
 
