@@ -9,6 +9,7 @@ import ProfilePicture from "../../components/ProfilePicture";
 import ProfilePictureUpload from "../../components/ProfilePictureUpload";
 import { AuthUser, ProfilePictureResponse } from "../../types/api";
 import { useToast } from "@/context/ToastContext";
+import { ProfileSkeleton } from "../../components/skeletons/ProfileSkeleton";
 
 /**
  * My Profile Page Component
@@ -73,16 +74,9 @@ export default function HomePage() {
     }
   };
 
-  // Show loading state while checking authentication
+  // Show skeleton loading state while checking authentication
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading...</p>
-        </div>
-      </div>
-    );
+    return <ProfileSkeleton />;
   }
 
   // If no user, return null (redirecting to login)
