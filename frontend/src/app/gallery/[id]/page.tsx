@@ -28,6 +28,7 @@ import LikeButton from "../../../components/LikeButton";
 import FavoriteButton from "../../../components/FavoriteButton";
 import { ConfirmDialog } from "@/components/ui/ConfirmDialog";
 import { useToast } from "@/context/ToastContext";
+import { PhotoDetailSkeleton } from "../../../components/skeletons/PhotoDetailSkeleton";
 
 export default function PhotoDetailPage() {
   const router = useRouter();
@@ -161,14 +162,7 @@ export default function PhotoDetailPage() {
   };
 
   if (loading || !photo || !user) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gray-50">
-        <div className="text-center">
-          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-black mx-auto"></div>
-          <p className="mt-4 text-gray-600">Loading...</p>
-        </div>
-      </div>
-    );
+    return <PhotoDetailSkeleton />;
   }
 
   const isOwner = photo.userId === user.id;
