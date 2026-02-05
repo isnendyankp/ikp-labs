@@ -1,9 +1,9 @@
 # Checklist - Bug Analysis & Testing Coverage
 
 **Project**: Bug Analysis & Testing Coverage
-**Status**: ✅ In Progress (Implementation - 7/7 bugs fixed)
+**Status**: ✅ In Progress (Implementation - 7/8 bugs fixed, 1 new bug found)
 **Created**: February 2, 2026
-**Last Updated**: February 5, 2026 - Phase 10 completed (ProfileSkeleton + PhotoDetailSkeleton)
+**Last Updated**: February 5, 2026 - Phase 11 added (BUG-008: Mobile logout icon non-functional)
 
 ---
 
@@ -17,6 +17,9 @@
 6. [Phase 6: Profile Page Analysis](#phase-6-profile-page-analysis)
 7. [Phase 7: Test Coverage Analysis](#phase-7-test-coverage-analysis)
 8. [Phase 8: Bug Documentation](#phase-8-bug-documentation)
+9. [Phase 9: Google OAuth Button Hiding](#phase-9-google-oauth-button-hiding-optional-enhancement)
+10. [Phase 10: Skeleton Loading Enhancement](#phase-10-skeleton-loading-enhancement-ux-improvement)
+11. [Phase 11: Fix Mobile Logout Icon Bug](#phase-11-fix-mobile-logout-icon-bug-bug-fix)
 
 ---
 
@@ -625,6 +628,86 @@ export function ProfileSkeleton() {
 
 ---
 
+## Phase 11: Fix Mobile Logout Icon Bug (BUG FIX)
+
+### Overview
+Fix the non-functional logout icon on mobile view in the Gallery page. The icon currently uses the wrong localStorage key, causing logout to fail silently.
+
+### Bug Details
+
+**Issue**: Mobile logout icon doesn't work - nothing happens when clicked
+
+**Root Cause**: Wrong localStorage key
+- Current code: `localStorage.removeItem('token')` ❌
+- Correct key: `localStorage.removeItem('authToken')` ✅
+
+**Location**: `/frontend/src/app/gallery/page.tsx` (lines 209-222)
+
+**Impact**: Users cannot logout from mobile view, making them stuck in authenticated state
+
+### Proposed Implementation
+
+#### 11.1 Import logout function
+- [ ] Add `logout` import from `../../lib/auth`
+- [ ] Keep existing `isAuthenticated` and `getUserFromToken` imports
+
+#### 11.2 Fix mobile logout icon
+- [ ] Replace inline logout code with `logout()` function call
+- [ ] Keep `router.push('/login')` after logout
+- [ ] Test logout functionality on mobile view
+- [ ] Verify redirect to login page works
+
+### Current Code (Buggy)
+```tsx
+{/* Logout icon - Mobile only */}
+<button
+  onClick={() => {
+    // Logout functionality
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('token');  // ❌ WRONG KEY!
+      router.push('/login');
+    }
+  }}
+  aria-label="Logout"
+  className="sm:hidden p-3 hover:bg-gray-100 rounded-lg active:scale-95 transition-transform focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+>
+  <LogOut className="w-5 h-5 text-gray-700" strokeWidth={2} />
+</button>
+```
+
+### Fixed Code
+```tsx
+{/* Logout icon - Mobile only */}
+<button
+  onClick={() => {
+    logout();  // ✅ Use auth utility function
+    router.push('/login');
+  }}
+  aria-label="Logout"
+  className="sm:hidden p-3 hover:bg-gray-100 rounded-lg active:scale-95 transition-transform focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+>
+  <LogOut className="w-5 h-5 text-gray-700" strokeWidth={2} />
+</button>
+```
+
+### Files to Modify
+- `/frontend/src/app/gallery/page.tsx` - Fix mobile logout icon
+
+### Benefits
+- ✅ Users can now logout from mobile view
+- ✅ Consistent logout behavior across mobile and desktop
+- ✅ Uses same `logout()` utility as desktop LogoutButton
+- ✅ Properly clears `'authToken'` from localStorage
+
+### Estimated Time
+- [ ] Import logout function: 2 minutes
+- [ ] Fix mobile logout icon: 3 minutes
+- [ ] Testing (mobile view): 5 minutes
+
+**Total Estimated Time**: 10 minutes
+
+---
+
 ## Summary Checklist
 
 ### Overall Progress
@@ -638,6 +721,7 @@ export function ProfileSkeleton() {
 - [x] Phase 8: Bug Documentation (30 min) ✅
 - [x] Phase 9: Google OAuth Button Hiding (30 min) ✅ COMPLETED
 - [x] Phase 10: Skeleton Loading Enhancement (50 min) ✅ COMPLETED
+- [ ] Phase 11: Fix Mobile Logout Icon Bug (10 min) 📋 PLANNED
 
 ### Bug Fix Progress
 
@@ -650,8 +734,9 @@ export function ProfileSkeleton() {
 | BUG-005 | E2E tests mostly mobile viewport | P2 | ✅ ADDRESSED | d8022f4 |
 | BUG-006 | No direct profile page E2E tests | P2 | ✅ ADDRESSED | 61fbef9 |
 | BUG-007 | Google Sign In/Up placeholder | P3 | ✅ FIXED | a6facf0 |
+| BUG-008 | Mobile logout icon non-functional | P1 | 📋 PLANNED | - |
 
-**Progress**: 7/7 bugs addressed (100%) ✅
+**Progress**: 7/8 bugs addressed (87.5%), 1 new bug found
 
 **Note**:
 - "FIXED" = Code changes applied
