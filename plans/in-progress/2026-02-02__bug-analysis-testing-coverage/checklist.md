@@ -828,6 +828,142 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ---
 
+## Phase 13: Fix E2E Test DRY Violation (CODE QUALITY)
+
+### Overview
+Fix DRY (Don't Repeat Yourself) violation in E2E tests by extracting duplicate `createFakeJwtToken()` function to a shared helper file.
+
+### Problem Identified
+
+**DRY Violation**: `createFakeJwtToken()` function is duplicated across 3 test files
+
+| File | Lines | Code Duplication |
+|------|-------|------------------|
+| `tests/e2e/profile.spec.ts` | 13-33 | 22 lines |
+| `tests/e2e/landing-page.spec.ts` | 17-40 | 24 lines (with comments) |
+| `tests/e2e/desktop-viewport.spec.ts` | 13-33 | 22 lines |
+
+**Total**: 68 lines of duplicate code!
+
+**Impact**: Code duplication, harder maintenance, violation of DRY principle
+
+### Why This Happened?
+
+**Copy-Paste Development** 👨‍💻
+- Developer pertama kali buat function ini di `profile.spec.ts`
+- Pas buat test baru di `landing-page.spec.ts`, dia copy-paste function itu
+- Pas buat test lagi di `desktop-viewport.spec.ts`, copy-paste lagi
+- **Alasannya**: "Lancar, cepat, function-nya sudah jadi"
+
+### Why Must Fix?
+
+| Problem | Example |
+|---------|---------|
+| **Susah Maintain** | Kalau JWT format berubah, harus update 3 file |
+| **Risk of Inconsistency** | Bisa saja satu file update, file lain lupa |
+| **Code Bloat** | 68 lines duplicate code untuk hal yang sama |
+| **Violates DRY Principle** | Don't Repeat Yourself = basic programming principle |
+| **Harder to Read** | Test files jadi lebih panjang dari necessary |
+
+### Proposed Implementation
+
+#### 13.1 Create auth-helpers.ts
+- [ ] Create `tests/e2e/helpers/auth-helpers.ts`
+- [ ] Extract `createFakeJwtToken()` function
+- [ ] Add JSDoc comments
+- [ ] Export function for use in test files
+
+**File to Create**: `tests/e2e/helpers/auth-helpers.ts`
+
+```typescript
+/**
+ * Authentication E2E Test Helpers
+ *
+ * Reusable helper functions for authentication-related E2E tests.
+ * Includes JWT token creation and auth state management.
+ */
+
+/**
+ * Create a fake JWT token for testing
+ *
+ * The isAuthenticated() function checks:
+ * 1. Token exists in localStorage
+ * 2. Token has valid JWT format (3 parts: header.payload.signature)
+ * 3. Token is not expired (exp > now)
+ *
+ * @returns Fake JWT token string
+ */
+export function createFakeJwtToken(): string {
+  const now = Math.floor(Date.now() / 1000);
+  const exp = now + 3600; // Expires in 1 hour
+
+  const payload = {
+    userId: 123,
+    email: 'test@example.com',
+    fullName: 'Test User',
+    exp: exp,
+    iat: now,
+    sub: 'test-user'
+  };
+
+  const header = btoa(JSON.stringify({ alg: 'HS256', typ: 'JWT' }));
+  const encodedPayload = btoa(JSON.stringify(payload))
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/=/g, '');
+
+  return `${header}.${encodedPayload}.fake-signature`;
+}
+```
+
+#### 13.2 Update profile.spec.ts
+- [ ] Remove local `createFakeJwtToken()` function (lines 10-33)
+- [ ] Add import: `import { createFakeJwtToken } from './helpers/auth-helpers';`
+- [ ] Verify tests still pass
+
+**File to Modify**: `tests/e2e/profile.spec.ts`
+
+#### 13.3 Update landing-page.spec.ts
+- [ ] Remove local `createFakeJwtToken()` function (lines 10-40)
+- [ ] Add import: `import { createFakeJwtToken } from './helpers/auth-helpers';`
+- [ ] Verify tests still pass
+
+**File to Modify**: `tests/e2e/landing-page.spec.ts`
+
+#### 13.4 Update desktop-viewport.spec.ts
+- [ ] Remove local `createFakeJwtToken()` function (lines 10-33)
+- [ ] Add import: `import { createFakeJwtToken } from './helpers/auth-helpers';`
+- [ ] Verify tests still pass
+
+**File to Modify**: `tests/e2e/desktop-viewport.spec.ts`
+
+### Files to Create
+- `tests/e2e/helpers/auth-helpers.ts` - Shared authentication helper functions
+
+### Files to Modify
+- `tests/e2e/profile.spec.ts` - Remove duplicate function, add import
+- `tests/e2e/landing-page.spec.ts` - Remove duplicate function, add import
+- `tests/e2e/desktop-viewport.spec.ts` - Remove duplicate function, add import
+
+### Benefits
+- ✅ Eliminates 68 lines of duplicate code
+- ✅ Single source of truth for JWT token creation
+- ✅ Easier maintenance (change once, apply everywhere)
+- ✅ Follows DRY principle
+- ✅ Better code organization
+- ✅ Shows clean code practices for recruiters
+
+### Estimated Time
+- [ ] Create auth-helpers.ts: 3 minutes
+- [ ] Update profile.spec.ts: 2 minutes
+- [ ] Update landing-page.spec.ts: 2 minutes
+- [ ] Update desktop-viewport.spec.ts: 2 minutes
+- [ ] Run tests to verify: 5 minutes
+
+**Total Estimated Time**: 15 minutes
+
+---
+
 ## Summary Checklist
 
 ### Overall Progress
@@ -843,6 +979,7 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 - [x] Phase 10: Skeleton Loading Enhancement (50 min) ✅ COMPLETED
 - [x] Phase 11: Fix Mobile Logout Icon Bug (10 min) ✅ COMPLETED
 - [x] Phase 12: Add LICENSE & Update README (10 min) ✅ COMPLETED
+- [ ] Phase 13: Fix E2E Test DRY Violation (15 min) 📋 PLANNED
 
 ### Bug Fix Progress
 
