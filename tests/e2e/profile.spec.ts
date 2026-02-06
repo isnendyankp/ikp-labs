@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { createFakeJwtToken } from './helpers/auth-helpers';
 
 /**
  * Profile Page E2E Tests
@@ -6,31 +7,6 @@ import { test, expect } from '@playwright/test';
  * Test suite for the profile page functionality.
  * Tests profile display, picture management, and responsive layout.
  */
-
-/**
- * Helper function to create a fake JWT token for testing
- */
-function createFakeJwtToken(): string {
-  const now = Math.floor(Date.now() / 1000);
-  const exp = now + 3600; // Expires in 1 hour
-
-  const payload = {
-    userId: 123,
-    email: 'test@example.com',
-    fullName: 'Test User',
-    exp: exp,
-    iat: now,
-    sub: 'test-user'
-  };
-
-  const header = btoa(JSON.stringify({ alg: 'HS256', typ: 'JWT' }));
-  const encodedPayload = btoa(JSON.stringify(payload))
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_')
-    .replace(/=/g, '');
-
-  return `${header}.${encodedPayload}.fake-signature`;
-}
 
 test.describe('Profile Page - Desktop View (1280x720)', () => {
   test.use({ viewport: { width: 1280, height: 720 } });
