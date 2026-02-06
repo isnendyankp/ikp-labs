@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { createFakeJwtToken } from './helpers/auth-helpers';
 
 /**
  * Desktop Viewport E2E Tests
@@ -6,31 +7,6 @@ import { test, expect } from '@playwright/test';
  * Test suite for verifying the application works correctly on desktop viewports.
  * Focuses on Full HD (1920x1080) and common desktop resolutions.
  */
-
-/**
- * Helper function to create a fake JWT token for testing
- */
-function createFakeJwtToken(): string {
-  const now = Math.floor(Date.now() / 1000);
-  const exp = now + 3600; // Expires in 1 hour
-
-  const payload = {
-    userId: 123,
-    email: 'test@example.com',
-    fullName: 'Test User',
-    exp: exp,
-    iat: now,
-    sub: 'test-user'
-  };
-
-  const header = btoa(JSON.stringify({ alg: 'HS256', typ: 'JWT' }));
-  const encodedPayload = btoa(JSON.stringify(payload))
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_')
-    .replace(/=/g, '');
-
-  return `${header}.${encodedPayload}.fake-signature`;
-}
 
 test.describe('Desktop Viewport - 1920x1080 (Full HD)', () => {
   // Use Full HD viewport for all tests in this suite
