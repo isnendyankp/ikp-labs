@@ -965,7 +965,209 @@ export function createFakeJwtToken(): string {
 
 ---
 
-## Summary Checklist
+## Phase 14: Fix Frontend & Backend DRY Violations (CODE QUALITY)
+
+### Overview
+Fix DRY (Don't Repeat Yourself) violations in Frontend (FE) and Backend (BE) code by extracting duplicate logic to shared utilities, components, and services.
+
+### Problem Identified
+
+**After exploration, found multiple DRY violations in FE and BE:**
+
+---
+
+## Frontend DRY Violations (FE)
+
+### FE-1: Authentication Token Handling 🔴 HIGH PRIORITY
+**Problem**: `getToken()` and `createAuthHeaders()` functions duplicated across 5 service files
+
+| File | Lines | Duplication |
+|------|-------|-------------|
+| `api.ts` | 30-53 | Token + headers logic |
+| `profileService.ts` | 27-32, 37-46 | Token + headers logic |
+| `galleryService.ts` | 33-38, 43-71 | Token + headers logic |
+| `photoLikeService.ts` | 33-38, 43-54 | Token + headers logic |
+| `photoFavoriteService.ts` | 49-54, 59-70 | Token + headers logic |
+
+**Total**: ~100 lines of duplicate code across 5 files
+
+**Solution**: Create centralized auth utilities (already exists in `lib/auth.ts`, but services not using it)
+
+### FE-2: Like vs Favorite Button Logic 🟡 MEDIUM PRIORITY
+**Problem**: Both components implement nearly identical optimistic update logic
+
+| File | Lines | Similar Logic |
+|------|-------|---------------|
+| `LikeButton.tsx` | 99-165 | Optimistic update, rollback, loading |
+| `FavoriteButton.tsx` | 107-170 | Optimistic update, rollback, loading |
+
+**Total**: ~140 lines with similar patterns
+
+**Solution**: Create reusable `ActionButton` component or extract shared hook
+
+### FE-3: API Response Handling Pattern 🟡 MEDIUM PRIORITY
+**Problem**: Same response parsing and error handling across all services
+
+**Pattern repeated in**: api.ts, profileService.ts, galleryService.ts, photoLikeService.ts, photoFavoriteService.ts
+
+**Solution**: Create base API service or fetch wrapper
+
+---
+
+## Backend DRY Violations (BE)
+
+### BE-1: Pagination Logic Repetition 🔴 HIGH PRIORITY
+**Problem**: Same pagination metadata calculation in 3 controllers
+
+| File | Lines | Duplication |
+|------|-------|-------------|
+| `GalleryController.java` | 216-221, 290-295, 354-359 | Pagination calculation |
+| `PhotoLikeController.java` | 282-296 | Pagination calculation |
+| `PhotoFavoriteController.java` | 326-337 | Pagination calculation |
+
+```java
+// Repeated in all 3 controllers:
+int totalPages = (int) Math.ceil((double) totalPhotos / size);
+boolean hasNext = page < totalPages - 1;
+boolean hasPrevious = page > 0;
+```
+
+**Solution**: Create `PaginationUtil` helper class
+
+### BE-2: SortBy Validation Logic 🟡 MEDIUM PRIORITY
+**Problem**: Identical `isValidSortBy()` method in 3 controllers
+
+| File | Lines | Same Method |
+|------|-------|-------------|
+| `GalleryController.java` | 577-582 | isValidSortBy() |
+| `PhotoLikeController.java` | 311-316 | isValidSortBy() |
+| `PhotoFavoriteController.java` | 303-308 | isValidSortBy() |
+
+```java
+// Exact same method repeated:
+private boolean isValidSortBy(String sortBy) {
+    return sortBy.equals("newest") ||
+           sortBy.equals("oldest") ||
+           sortBy.equals("mostLiked") ||
+           sortBy.equals("mostFavorited");
+}
+```
+
+**Solution**: Create `SortByEnum` or validation utility
+
+### BE-3: Controller Response Patterns 🟢 LOW PRIORITY
+**Problem**: Similar ResponseEntity patterns with try-catch blocks
+
+**Solution**: Create base controller or response helper (lower priority)
+
+---
+
+## Proposed Implementation
+
+### Priority 1 (Highest Impact): FE Auth Token Consolidation
+
+#### 14.1 Create centralized API client
+- [ ] Create `frontend/src/lib/apiClient.ts` with token management
+- [ ] Add `getToken()` method (centralized)
+- [ ] Add `createAuthHeaders()` method (centralized)
+- [ ] Add `fetchWithAuth()` wrapper for API calls
+
+**Benefits**:
+- Eliminate ~100 lines duplicate code
+- Single source of truth for auth
+- Easier to add interceptors, error handling
+
+### Priority 2: Backend Pagination Utility
+
+#### 14.2 Create PaginationUtil
+- [ ] Create `backend/.../util/PaginationUtil.java`
+- [ ] Extract pagination metadata calculation
+- [ ] Update GalleryController to use utility
+- [ ] Update PhotoLikeController to use utility
+- [ ] Update PhotoFavoriteController to use utility
+
+**Benefits**:
+- Eliminate ~30 lines duplicate code
+- Consistent pagination across all endpoints
+- Easier to add pagination features
+
+### Priority 3: Backend SortBy Validation
+
+#### 14.3 Create SortByEnum
+- [ ] Create `SortByEnum` with all valid values
+- [ ] Add validation method to enum
+- [ ] Update GalleryController to use enum
+- [ ] Update PhotoLikeController to use enum
+- [ ] Update PhotoFavoriteController to use enum
+
+**Benefits**:
+- Eliminate ~24 lines duplicate code
+- Type-safe sortBy values
+- Single place to add new sort options
+
+### Priority 4 (Optional): Reusable Action Button
+
+#### 14.4 Create ActionButton component (Optional)
+- [ ] Create `frontend/src/components/ActionButton.tsx`
+- [ ] Extract common optimistic update logic
+- [ ] Update LikeButton to use ActionButton
+- [ ] Update FavoriteButton to use ActionButton
+
+**Benefits**:
+- Eliminate ~60 lines duplicate code
+- Consistent button behavior
+- Easier to add new action buttons
+
+---
+
+## Files to Create
+- `frontend/src/lib/apiClient.ts` - Centralized API client
+- `backend/.../util/PaginationUtil.java` - Pagination utility
+- `backend/.../dto/SortByEnum.java` - SortBy enum
+- `frontend/src/components/ActionButton.tsx` (optional) - Reusable action button
+
+## Files to Modify
+
+**Frontend:**
+- `frontend/src/services/api.ts` - Use apiClient
+- `frontend/src/services/profileService.ts` - Use apiClient
+- `frontend/src/services/galleryService.ts` - Use apiClient
+- `frontend/src/services/photoLikeService.ts` - Use apiClient
+- `frontend/src/services/photoFavoriteService.ts` - Use apiClient
+- `frontend/src/components/LikeButton.tsx` (optional) - Use ActionButton
+- `frontend/src/components/FavoriteButton.tsx` (optional) - Use ActionButton
+
+**Backend:**
+- `backend/.../controller/GalleryController.java` - Use PaginationUtil & SortByEnum
+- `backend/.../controller/PhotoLikeController.java` - Use PaginationUtil & SortByEnum
+- `backend/.../controller/PhotoFavoriteController.java` - Use PaginationUtil & SortByEnum
+
+---
+
+## Benefits Summary
+- ✅ Eliminate ~200+ lines of duplicate code (combined)
+- ✅ Single source of truth for auth, pagination, and validation
+- ✅ Easier maintenance across FE and BE
+- ✅ Consistent behavior across all features
+- ✅ Better code organization
+- ✅ Shows clean code practices for recruiters
+
+---
+
+## Estimated Time
+- [ ] Priority 1: API Client consolidation: 30 minutes
+- [ ] Priority 2: Backend Pagination Utility: 20 minutes
+- [ ] Priority 3: Backend SortBy Enum: 15 minutes
+- [ ] Priority 4: ActionButton component (optional): 30 minutes
+- [ ] Testing & Verification: 30 minutes
+
+**Total Estimated Time**: 95 minutes (without Priority 4: 65 minutes)
+
+**Note**: This phase can be split into multiple sub-phases if needed for Atomic Commit Push compliance.
+
+---
+
+## Summary Checklist (Updated)
 
 ### Overall Progress
 - [x] Phase 1: Pre-Analysis Setup (5-10 min) ✅
@@ -981,6 +1183,7 @@ export function createFakeJwtToken(): string {
 - [x] Phase 11: Fix Mobile Logout Icon Bug (10 min) ✅ COMPLETED
 - [x] Phase 12: Add LICENSE & Update README (10 min) ✅ COMPLETED
 - [x] Phase 13: Fix E2E Test DRY Violation (15 min) ✅ COMPLETED
+- [ ] Phase 14: Fix Frontend & Backend DRY Violations (95 min) 📋 PLANNED
 
 ### Bug Fix Progress
 
