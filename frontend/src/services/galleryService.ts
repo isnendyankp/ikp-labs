@@ -20,6 +20,7 @@ import {
   ApiResponse,
   ApiError
 } from '../types/api';
+import { createAuthHeaders } from '../lib/apiClient';
 
 // === CONFIGURATION ===
 
@@ -28,41 +29,15 @@ const API_BASE_URL = 'http://localhost:8081';
 // === UTILITY FUNCTIONS ===
 
 /**
- * Get JWT token from localStorage
+ * Create headers for FormData requests (no Content-Type)
+ * Browser akan meng-set Content-Type dengan boundary otomatis untuk FormData
  */
-const getToken = (): string | null => {
-  if (typeof window !== 'undefined') {
-    return localStorage.getItem('authToken');
-  }
-  return null;
-};
-
-/**
- * Create headers with JWT token
- */
-const createAuthHeaders = (): HeadersInit => {
-  const token = getToken();
+const createFormDataHeaders = (): HeadersInit => {
   const headers: HeadersInit = {
     'Accept': 'application/json',
   };
 
-  if (token) {
-    headers['Authorization'] = `Bearer ${token}`;
-  }
-
-  return headers;
-};
-
-/**
- * Create headers for JSON requests
- */
-const createJsonHeaders = (): HeadersInit => {
-  const token = getToken();
-  const headers: HeadersInit = {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
-  };
-
+  const token = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
   if (token) {
     headers['Authorization'] = `Bearer ${token}`;
   }
@@ -98,7 +73,7 @@ export async function uploadPhoto(
 
     const response = await fetch(`${API_BASE_URL}/api/gallery/upload`, {
       method: 'POST',
-      headers: createAuthHeaders(),
+      headers: createFormDataHeaders(),
       body: formData,
       credentials: 'include',
     });
@@ -148,7 +123,7 @@ export async function getUserPhotos(
       `${API_BASE_URL}/api/gallery/my-photos?page=${page}&size=${size}&sortBy=${sortBy}`,
       {
         method: 'GET',
-        headers: createAuthHeaders(),
+        headers: createFormDataHeaders(),
         credentials: 'include',
       }
     );
@@ -197,7 +172,7 @@ export async function getPublicPhotos(
       `${API_BASE_URL}/api/gallery/public?page=${page}&size=${size}&sortBy=${sortBy}`,
       {
         method: 'GET',
-        headers: createAuthHeaders(),
+        headers: createFormDataHeaders(),
         credentials: 'include',
       }
     );
@@ -240,7 +215,7 @@ export async function getPhotoById(
       `${API_BASE_URL}/api/gallery/photo/${photoId}`,
       {
         method: 'GET',
-        headers: createAuthHeaders(),
+        headers: createFormDataHeaders(),
         credentials: 'include',
       }
     );
@@ -284,7 +259,7 @@ export async function updatePhoto(
       `${API_BASE_URL}/api/gallery/photo/${photoId}`,
       {
         method: 'PUT',
-        headers: createJsonHeaders(),
+        headers: createAuthHeaders(),
         body: JSON.stringify(updates),
         credentials: 'include',
       }
@@ -329,7 +304,7 @@ export async function deletePhoto(
       `${API_BASE_URL}/api/gallery/photo/${photoId}`,
       {
         method: 'DELETE',
-        headers: createAuthHeaders(),
+        headers: createFormDataHeaders(),
         credentials: 'include',
       }
     );
