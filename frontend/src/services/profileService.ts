@@ -14,6 +14,7 @@ import {
   ApiResponse,
   ApiError
 } from '../types/api';
+import { getToken } from '../lib/apiClient';
 
 // === CONFIGURATION ===
 
@@ -22,19 +23,10 @@ const API_BASE_URL = 'http://localhost:8081';
 // === UTILITY FUNCTIONS ===
 
 /**
- * Get JWT token from localStorage
+ * Create headers for FormData requests (without Content-Type)
+ * Browser akan meng-set Content-Type dengan boundary otomatis untuk FormData
  */
-const getToken = (): string | null => {
-  if (typeof window !== 'undefined') {
-    return localStorage.getItem('authToken');
-  }
-  return null;
-};
-
-/**
- * Create headers for API requests (without Content-Type for FormData)
- */
-const createAuthHeaders = (): HeadersInit => {
+const createFormDataHeaders = (): HeadersInit => {
   const headers: HeadersInit = {};
 
   const token = getToken();
@@ -81,7 +73,7 @@ export async function uploadProfilePicture(
 
     const response = await fetch(`${API_BASE_URL}/api/profile/upload-picture`, {
       method: 'POST',
-      headers: createAuthHeaders(), // Tidak include Content-Type, browser akan set otomatis
+      headers: createFormDataHeaders(), // Browser akan set Content-Type otomatis dengan boundary
       body: formData,
       credentials: 'include',
     });
@@ -144,7 +136,7 @@ export async function deleteProfilePicture(): Promise<ApiResponse<ProfilePicture
     const response = await fetch(`${API_BASE_URL}/api/profile/picture`, {
       method: 'DELETE',
       headers: {
-        ...createAuthHeaders(),
+        ...createFormDataHeaders(),
         'Content-Type': 'application/json',
       },
       credentials: 'include',
