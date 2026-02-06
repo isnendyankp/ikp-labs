@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { createFakeJwtToken } from './helpers/auth-helpers';
 
 /**
  * Landing Page E2E Tests
@@ -6,38 +7,6 @@ import { test, expect } from '@playwright/test';
  * Test suite for the Kameravue landing page.
  * Tests navigation, responsive design, sections, and interactive elements.
  */
-
-/**
- * Helper function to create a fake JWT token for testing
- * The isAuthenticated() function checks:
- * 1. Token exists
- * 2. Token has valid JWT format (3 parts)
- * 3. Token is not expired
- */
-function createFakeJwtToken(): string {
-  // Create a fake JWT payload with expiration in the future
-  const now = Math.floor(Date.now() / 1000);
-  const exp = now + 3600; // Expires in 1 hour
-
-  const payload = {
-    userId: 123,
-    email: 'test@example.com',
-    fullName: 'Test User',
-    exp: exp,
-    iat: now,
-    sub: 'test-user'
-  };
-
-  // Encode to base64 (URL-safe)
-  const header = btoa(JSON.stringify({ alg: 'HS256', typ: 'JWT' }));
-  const encodedPayload = btoa(JSON.stringify(payload))
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_')
-    .replace(/=/g, '');
-
-  // Fake JWT: header.payload.signature
-  return `${header}.${encodedPayload}.fake-signature`;
-}
 
 test.describe('Landing Page - End-to-End Tests', () => {
   // Before each test, navigate to landing page and clear auth state
