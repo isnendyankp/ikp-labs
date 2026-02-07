@@ -30,6 +30,7 @@ import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
 import photoLikeService from "../services/photoLikeService";
 import { useToast } from "@/context/ToastContext";
+import { IconButton } from "./ui/IconButton";
 
 // === TYPE DEFINITIONS ===
 
@@ -68,20 +69,6 @@ export default function LikeButton({
     setIsLiked(initialIsLiked);
     setLikeCount(initialLikeCount);
   }, [initialIsLiked, initialLikeCount]);
-
-  // === SIZE VARIANTS ===
-
-  const sizeClasses = {
-    small: "h-5 w-5",
-    medium: "h-6 w-6",
-    large: "h-8 w-8",
-  };
-
-  const buttonSizeClasses = {
-    small: "p-1 text-sm",
-    medium: "p-2 text-base",
-    large: "p-3 text-lg",
-  };
 
   // === CLICK HANDLER ===
 
@@ -169,25 +156,18 @@ export default function LikeButton({
   return (
     <div className={`flex items-center gap-2 ${className}`}>
       {/* Like Button */}
-      <button
+      <IconButton
+        icon={isLiked ? <HeartSolid /> : <HeartOutline />}
+        isActive={isLiked}
+        activeColor="text-red-500"
+        inactiveColor="text-gray-400"
+        hoverColor="hover:text-red-500"
+        focusRing="focus:ring-red-300"
+        size={size}
         onClick={handleLikeClick}
         disabled={isLoading || isOwnPhoto}
-        className={`
-          ${buttonSizeClasses[size]}
-          flex items-center justify-center
-          rounded-full
-          transition-all duration-200
-          ${
-            isOwnPhoto
-              ? "text-gray-300 cursor-not-allowed"
-              : isLiked
-                ? "text-red-500 hover:text-red-600"
-                : "text-gray-400 hover:text-red-500"
-          }
-          ${isLoading ? "opacity-50 cursor-not-allowed" : isOwnPhoto ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:bg-gray-100"}
-          focus:outline-none focus:ring-2 focus:ring-red-300
-        `}
-        aria-label={
+        isLoading={isLoading}
+        ariaLabel={
           isOwnPhoto
             ? "Cannot like own photo"
             : isLiked
@@ -201,13 +181,7 @@ export default function LikeButton({
               ? "Unlike"
               : "Like"
         }
-      >
-        {isLiked ? (
-          <HeartSolid className={`${sizeClasses[size]} animate-pulse-once`} />
-        ) : (
-          <HeartOutline className={sizeClasses[size]} />
-        )}
-      </button>
+      />
 
       {/* Like Count */}
       {likeCount > 0 && (

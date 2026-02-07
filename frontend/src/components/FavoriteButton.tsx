@@ -44,6 +44,7 @@ import { StarIcon as StarOutline } from "@heroicons/react/24/outline";
 import { StarIcon as StarSolid } from "@heroicons/react/24/solid";
 import photoFavoriteService from "../services/photoFavoriteService";
 import { useToast } from "@/context/ToastContext";
+import { IconButton } from "./ui/IconButton";
 
 // === TYPE DEFINITIONS ===
 
@@ -76,20 +77,6 @@ export default function FavoriteButton({
   useEffect(() => {
     setIsFavorited(initialIsFavorited);
   }, [initialIsFavorited]);
-
-  // === SIZE VARIANTS ===
-
-  const sizeClasses = {
-    small: "h-5 w-5",
-    medium: "h-6 w-6",
-    large: "h-8 w-8",
-  };
-
-  const buttonSizeClasses = {
-    small: "p-1 text-sm",
-    medium: "p-2 text-base",
-    large: "p-3 text-lg",
-  };
 
   // === CLICK HANDLER ===
 
@@ -174,31 +161,20 @@ export default function FavoriteButton({
   return (
     <div className={`flex items-center gap-2 ${className}`}>
       {/* Favorite Button */}
-      <button
+      <IconButton
+        icon={isFavorited ? <StarSolid /> : <StarOutline />}
+        isActive={isFavorited}
+        activeColor="text-yellow-500"
+        inactiveColor="text-gray-400"
+        hoverColor="hover:text-yellow-500"
+        focusRing="focus:ring-yellow-300"
+        size={size}
         onClick={handleFavoriteClick}
         disabled={isLoading}
-        className={`
-          ${buttonSizeClasses[size]}
-          flex items-center justify-center
-          rounded-full
-          transition-all duration-200
-          ${
-            isFavorited
-              ? "text-yellow-500 hover:text-yellow-600"
-              : "text-gray-400 hover:text-yellow-500"
-          }
-          ${isLoading ? "opacity-50 cursor-not-allowed" : "cursor-pointer hover:bg-gray-100"}
-          focus:outline-none focus:ring-2 focus:ring-yellow-300
-        `}
-        aria-label={isFavorited ? "Unfavorite photo" : "Favorite photo"}
+        isLoading={isLoading}
+        ariaLabel={isFavorited ? "Unfavorite photo" : "Favorite photo"}
         title={isFavorited ? "Remove from favorites" : "Add to favorites"}
-      >
-        {isFavorited ? (
-          <StarSolid className={`${sizeClasses[size]} animate-pulse-once`} />
-        ) : (
-          <StarOutline className={sizeClasses[size]} />
-        )}
-      </button>
+      />
 
       {/* NO COUNT DISPLAY - Favorites are private! */}
       {/* Unlike LikeButton, we don't show favorite count because it's a private collection */}
