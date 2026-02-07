@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { cleanupTestUser } from './helpers/gallery-helpers';
 
 /**
  * UX Story Journey - Filter State Bug Fix Demo
@@ -14,6 +15,9 @@ import { test, expect } from '@playwright/test';
  */
 
 test.describe('UX Story Journey', () => {
+  // Track all created users for cleanup
+  const createdUsers: string[] = [];
+
   const TEST_USER = {
     name: 'LinkedIn Demo User',
     email: `linkedin-demo-${Date.now()}@test.com`,
@@ -48,6 +52,9 @@ test.describe('UX Story Journey', () => {
       await page.waitForURL('**/gallery', { timeout: 20000 });
       await page.waitForLoadState('networkidle');
       await page.waitForTimeout(2000);
+
+      // Track user for cleanup
+      createdUsers.push(TEST_USER.email);
     });
 
     // ========== PART 2: SORT FILTER BUG FIX DEMO ==========
@@ -96,4 +103,14 @@ test.describe('UX Story Journey', () => {
     // Final pause
     await page.waitForTimeout(2000);
   });
+
+  // Cleanup hook - Delete all test users after tests complete
+  test.afterAll(async ({ request }) => {
+    console.log(`\n🧹 Starting cleanup of ${createdUsers.length} test users...`);
+    for (const email of createdUsers) {
+      await cleanupTestUser(request, email);
+    }
+    console.log(`✅ Cleanup complete! Database is clean.\n`);
+  });
+
 });
