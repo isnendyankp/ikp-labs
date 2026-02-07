@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import { cleanupTestUser } from './helpers/gallery-helpers';
 
 /**
  * Authentication Flow E2E Tests
@@ -13,6 +14,9 @@ import { test, expect } from '@playwright/test';
  */
 
 test.describe('Authentication Flow - Complete User Journey', () => {
+
+  // Track all created users for cleanup
+  const createdUsers: string[] = [];
 
   // Helper function to generate unique email
   const generateUniqueEmail = () => {
@@ -40,6 +44,9 @@ test.describe('Authentication Flow - Complete User Journey', () => {
 
     // Clear localStorage to prepare for login test
     await page.evaluate(() => localStorage.clear());
+
+    // Track user for cleanup
+    createdUsers.push(testUser.email);
 
     return testUser;
   };
@@ -91,6 +98,9 @@ test.describe('Authentication Flow - Complete User Journey', () => {
     // Verify token saved in localStorage
     const token = await page.evaluate(() => localStorage.getItem('authToken'));
     expect(token).toBeTruthy();
+
+    // Track user for cleanup
+    createdUsers.push(testData.email);
 
     console.log('✅ Test 1: Registration → Home redirect successful');
   });
@@ -290,6 +300,15 @@ test.describe('Authentication Flow - Complete User Journey', () => {
     expect(token).toBeTruthy();
 
     console.log('✅ Test 8: Token persists after refresh');
+  });
+
+  // Cleanup hook - Delete all test users after tests complete
+  test.afterAll(async ({ request }) => {
+    console.log(`\n🧹 Starting cleanup of ${createdUsers.length} test users...`);
+    for (const email of createdUsers) {
+      await cleanupTestUser(request, email);
+    }
+    console.log(`✅ Cleanup complete! Database is clean.\n`);
   });
 
 });
