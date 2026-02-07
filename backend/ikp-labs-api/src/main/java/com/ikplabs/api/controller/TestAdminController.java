@@ -2,10 +2,14 @@ package com.ikplabs.api.controller;
 
 import com.ikplabs.api.dto.UserResponse;
 import com.ikplabs.api.entity.User;
+import com.ikplabs.api.repository.GalleryPhotoRepository;
+import com.ikplabs.api.repository.PhotoLikeRepository;
+import com.ikplabs.api.repository.PhotoFavoriteRepository;
 import com.ikplabs.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
@@ -53,6 +57,15 @@ public class TestAdminController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private GalleryPhotoRepository galleryPhotoRepository;
+
+    @Autowired
+    private PhotoLikeRepository photoLikeRepository;
+
+    @Autowired
+    private PhotoFavoriteRepository photoFavoriteRepository;
+
     /**
      * Endpoint: DELETE /api/test-admin/users/{email}
      * Purpose: Hapus user berdasarkan email (untuk cleanup setelah test)
@@ -69,6 +82,7 @@ public class TestAdminController {
      * Response: {"success": true, "message": "User autotest-reg-001@example.com deleted", "email": "autotest-reg-001@example.com"}
      */
     @DeleteMapping("/users/{email}")
+    @Transactional
     public ResponseEntity<Map<String, Object>> deleteUserByEmail(@PathVariable String email) {
         Map<String, Object> response = new HashMap<>();
 
@@ -85,13 +99,24 @@ public class TestAdminController {
             }
 
             User user = userOpt.get();
+            Long userId = user.getId();
 
-            // Hapus user by ID
-            userService.deleteUser(user.getId());
+            // CASCADE DELETE: Hapus dalam urutan yang benar
+            // 1. Hapus photo_likes untuk semua foto milik user ini
+            photoLikeRepository.deleteByPhotoUserId(userId);
+
+            // 2. Hapus photo_favorites untuk semua foto milik user ini
+            photoFavoriteRepository.deleteByPhotoUserId(userId);
+
+            // 3. Hapus gallery_photos milik user ini
+            galleryPhotoRepository.deleteByUserId(userId);
+
+            // 4. Hapus user
+            userService.deleteUser(userId);
 
             // Success response
             response.put("success", true);
-            response.put("message", "User " + email + " deleted");
+            response.put("message", "User " + email + " deleted with cascade");
             response.put("email", email);
             return ResponseEntity.ok(response);
 

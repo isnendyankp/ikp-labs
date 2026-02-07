@@ -3,6 +3,7 @@ package com.ikplabs.api.repository;
 import com.ikplabs.api.entity.GalleryPhoto;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -257,4 +258,25 @@ public interface GalleryPhotoRepository extends JpaRepository<GalleryPhoto, Long
      *    - Test privacy filtering (no private photos leak)
      *    - Test count methods return correct numbers
      */
+
+    /**
+     * Delete all photos owned by a specific user
+     *
+     * Use case: Cascade delete when user is deleted (test cleanup)
+     *
+     * Example:
+     * - User 456 is being deleted (test cleanup)
+     * - Service calls deleteByUserId(456)
+     * - All photos owned by User 456 are removed
+     *
+     * Database Query:
+     * DELETE FROM gallery_photos WHERE user_id = 456
+     *
+     * Important: Must use @Transactional in Service layer
+     *
+     * @param userId ID of the photo owner
+     */
+    @Modifying
+    @Query("DELETE FROM GalleryPhoto gp WHERE gp.user.id = :userId")
+    void deleteByUserId(@Param("userId") Long userId);
 }

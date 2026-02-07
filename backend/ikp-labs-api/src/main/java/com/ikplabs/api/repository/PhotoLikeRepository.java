@@ -5,6 +5,7 @@ import com.ikplabs.api.entity.PhotoLike;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
@@ -262,6 +263,28 @@ public interface PhotoLikeRepository extends JpaRepository<PhotoLike, Long> {
      * @param userId ID of the user
      */
     void deleteByPhotoIdAndUserId(Long photoId, Long userId);
+
+    /**
+     * Delete all likes for photos owned by a specific user
+     *
+     * Use case: Cascade delete when user is deleted (test cleanup)
+     *
+     * Example:
+     * - User 456 is being deleted (test cleanup)
+     * - Service calls deleteByPhotoUserId(456)
+     * - All likes on User 456's photos are removed
+     *
+     * Database Query:
+     * DELETE FROM photo_likes
+     * WHERE photo_id IN (SELECT id FROM gallery_photos WHERE user_id = 456)
+     *
+     * Important: Must use @Transactional in Service layer
+     *
+     * @param userId ID of the photo owner
+     */
+    @Modifying
+    @Query("DELETE FROM PhotoLike pl WHERE pl.photo.user.id = :userId")
+    void deleteByPhotoUserId(@Param("userId") Long userId);
 
     /**
      * NOTES UNTUK PEMAHAMAN:
