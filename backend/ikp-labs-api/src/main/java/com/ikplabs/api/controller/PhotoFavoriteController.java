@@ -6,6 +6,7 @@ import com.ikplabs.api.entity.GalleryPhoto;
 import com.ikplabs.api.security.UserPrincipal;
 import com.ikplabs.api.service.PhotoFavoriteService;
 import com.ikplabs.api.service.PhotoLikeService;
+import com.ikplabs.api.util.PaginationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -322,19 +323,8 @@ public class PhotoFavoriteController {
 
         // Manually build pagination metadata (same pattern as GalleryController)
         long totalPhotos = photoFavoriteService.countFavoritedPhotosByUserId(userId);
-        int totalPages = (int) Math.ceil((double) totalPhotos / size);
-        boolean hasNext = page < totalPages - 1;
-        boolean hasPrevious = page > 0;
-
-        // Build response with pagination metadata using static factory method
-        GalleryListResponse response = GalleryListResponse.fromPage(
-                photoResponses,
-                page,          // Current page (0-indexed)
-                totalPages,    // Total pages
-                totalPhotos,   // Total favorited photos count
-                size,          // Page size
-                hasNext,       // Has next page?
-                hasPrevious    // Has previous page?
+        GalleryListResponse response = PaginationUtil.buildPaginatedResponse(
+                photoResponses, page, totalPhotos, size
         );
 
         // Return 200 OK with JSON response

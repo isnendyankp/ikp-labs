@@ -9,6 +9,7 @@ import com.ikplabs.api.security.UserPrincipal;
 import com.ikplabs.api.service.GalleryService;
 import com.ikplabs.api.service.PhotoLikeService;
 import com.ikplabs.api.service.PhotoFavoriteService;
+import com.ikplabs.api.util.PaginationUtil;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -212,12 +213,8 @@ public class GalleryController {
                 .collect(Collectors.toList());
 
         long totalPhotos = galleryService.countMyPhotos(currentUser.getId());
-        int totalPages = (int) Math.ceil((double) totalPhotos / size);
-        boolean hasNext = page < totalPages - 1;
-        boolean hasPrevious = page > 0;
-
-        GalleryListResponse response = GalleryListResponse.fromPage(
-                photoResponses, page, totalPages, totalPhotos, size, hasNext, hasPrevious
+        GalleryListResponse response = PaginationUtil.buildPaginatedResponse(
+                photoResponses, page, totalPhotos, size
         );
 
         return ResponseEntity.ok(response);
@@ -286,12 +283,8 @@ public class GalleryController {
                 .collect(Collectors.toList());
 
         long totalPhotos = galleryService.countPublicPhotos();
-        int totalPages = (int) Math.ceil((double) totalPhotos / size);
-        boolean hasNext = page < totalPages - 1;
-        boolean hasPrevious = page > 0;
-
-        GalleryListResponse response = GalleryListResponse.fromPage(
-                photoResponses, page, totalPages, totalPhotos, size, hasNext, hasPrevious
+        GalleryListResponse response = PaginationUtil.buildPaginatedResponse(
+                photoResponses, page, totalPhotos, size
         );
 
         return ResponseEntity.ok(response);
@@ -350,12 +343,8 @@ public class GalleryController {
                 .collect(Collectors.toList());
 
         long totalPhotos = galleryService.countUserPublicPhotos(userId);
-        int totalPages = (int) Math.ceil((double) totalPhotos / size);
-        boolean hasNext = page < totalPages - 1;
-        boolean hasPrevious = page > 0;
-
-        GalleryListResponse response = GalleryListResponse.fromPage(
-                photoResponses, page, totalPages, totalPhotos, size, hasNext, hasPrevious
+        GalleryListResponse response = PaginationUtil.buildPaginatedResponse(
+                photoResponses, page, totalPhotos, size
         );
 
         return ResponseEntity.ok(response);
