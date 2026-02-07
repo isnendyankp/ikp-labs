@@ -20,6 +20,7 @@
  */
 
 import { test, expect } from '@playwright/test';
+import { cleanupTestUser } from './helpers/gallery-helpers';
 
 // Force video recording for this entire test suite
 test.describe('Demo: Complete User Journey with Video Recording', {
@@ -29,6 +30,9 @@ test.describe('Demo: Complete User Journey with Video Recording', {
     video: 'on', // Override config to always record video
   }
 }, () => {
+
+  // Track all created users for cleanup
+  const createdUsers: string[] = [];
 
   // Generate unique test data for each run
   const timestamp = Date.now();
@@ -97,6 +101,9 @@ test.describe('Demo: Complete User Journey with Video Recording', {
       expect(url).toMatch(/login|dashboard|success/i);
 
       console.log('✅ Registration successful! Redirected to:', url);
+
+      // Track user for cleanup
+      createdUsers.push(testUser.email);
     });
 
     // ============================================
@@ -221,6 +228,15 @@ test.describe('Demo: Complete User Journey with Video Recording', {
     });
 
     console.log('📹 Video of validation errors saved for debugging');
+  });
+
+  // Cleanup hook - Delete all test users after tests complete
+  test.afterAll(async ({ request }) => {
+    console.log(`\n🧹 Starting cleanup of ${createdUsers.length} test users...`);
+    for (const email of createdUsers) {
+      await cleanupTestUser(request, email);
+    }
+    console.log(`✅ Cleanup complete! Database is clean.\n`);
   });
 });
 
