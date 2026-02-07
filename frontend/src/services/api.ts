@@ -17,58 +17,17 @@ import {
   ApiResponse,
   ApiError
 } from '../types/api';
+import { getToken, saveToken, removeToken } from '../lib/apiClient';
 
 // === CONFIGURATION ===
 
 const API_BASE_URL = 'http://localhost:8081';
 
-// === UTILITY FUNCTIONS ===
+// === CONSTANTS ===
 
-/**
- * Get JWT token from localStorage
- */
-const getToken = (): string | null => {
-  if (typeof window !== 'undefined') {
-    return localStorage.getItem('authToken');
-  }
-  return null;
-};
-
-/**
- * Save JWT token to localStorage
- */
-const saveToken = (token: string): void => {
-  if (typeof window !== 'undefined') {
-    localStorage.setItem('authToken', token);
-  }
-};
-
-/**
- * Remove JWT token from localStorage
- */
-const removeToken = (): void => {
-  if (typeof window !== 'undefined') {
-    localStorage.removeItem('authToken');
-  }
-};
-
-/**
- * Create headers for API requests
- */
-const createHeaders = (includeAuth = false): HeadersInit => {
-  const headers: HeadersInit = {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
-  };
-
-  if (includeAuth) {
-    const token = getToken();
-    if (token) {
-      headers['Authorization'] = `Bearer ${token}`;
-    }
-  }
-
-  return headers;
+const DEFAULT_HEADERS: HeadersInit = {
+  'Content-Type': 'application/json',
+  'Accept': 'application/json',
 };
 
 /**
@@ -83,7 +42,7 @@ async function apiRequest<T>(
       ...options,
       credentials: 'include', // Important for CORS with cookies/auth
       headers: {
-        ...createHeaders(false),
+        ...DEFAULT_HEADERS,
         ...options.headers,
       },
     });
