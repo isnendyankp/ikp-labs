@@ -36,38 +36,11 @@ import {
   ApiResponse,
   ApiError
 } from '../types/api';
+import { createAuthHeaders } from '../lib/apiClient';
 
 // === CONFIGURATION ===
 
 const API_BASE_URL = 'http://localhost:8081';
-
-// === UTILITY FUNCTIONS ===
-
-/**
- * Get JWT token from localStorage
- */
-const getToken = (): string | null => {
-  if (typeof window !== 'undefined') {
-    return localStorage.getItem('authToken');
-  }
-  return null;
-};
-
-/**
- * Create headers with JWT token
- */
-const createAuthHeaders = (): HeadersInit => {
-  const token = getToken();
-  const headers: HeadersInit = {
-    'Accept': 'application/json',
-  };
-
-  if (token) {
-    headers['Authorization'] = `Bearer ${token}`;
-  }
-
-  return headers;
-};
 
 // === API FUNCTIONS ===
 
