@@ -5,6 +5,7 @@ import com.ikplabs.api.dto.GalleryPhotoDetailResponse;
 import com.ikplabs.api.dto.GalleryPhotoRequest;
 import com.ikplabs.api.dto.GalleryPhotoResponse;
 import com.ikplabs.api.entity.GalleryPhoto;
+import com.ikplabs.api.enums.SortBy;
 import com.ikplabs.api.security.UserPrincipal;
 import com.ikplabs.api.service.GalleryService;
 import com.ikplabs.api.service.PhotoLikeService;
@@ -187,10 +188,10 @@ public class GalleryController {
             @RequestParam(value = "sortBy", defaultValue = "newest") String sortBy,
             @AuthenticationPrincipal UserPrincipal currentUser) {
 
-        // Validate sortBy parameter (whitelist approach)
-        if (!isValidSortBy(sortBy)) {
+        // Validate sortBy parameter using SortBy enum
+        if (!SortBy.isValid(sortBy)) {
             throw new IllegalArgumentException(
-                "Invalid sortBy parameter. Allowed values: newest, oldest, mostLiked, mostFavorited"
+                "Invalid sortBy parameter. Allowed values: " + SortBy.getAllowedValues()
             );
         }
 
@@ -257,10 +258,10 @@ public class GalleryController {
             @RequestParam(value = "sortBy", defaultValue = "newest") String sortBy,
             @AuthenticationPrincipal UserPrincipal currentUser) {
 
-        // Validate sortBy parameter (whitelist approach)
-        if (!isValidSortBy(sortBy)) {
+        // Validate sortBy parameter using SortBy enum
+        if (!SortBy.isValid(sortBy)) {
             throw new IllegalArgumentException(
-                "Invalid sortBy parameter. Allowed values: newest, oldest, mostLiked, mostFavorited"
+                "Invalid sortBy parameter. Allowed values: " + SortBy.getAllowedValues()
             );
         }
 
@@ -552,22 +553,6 @@ public class GalleryController {
         GalleryPhoto photo = galleryService.togglePrivacy(photoId, currentUser.getId());
         GalleryPhotoResponse response = GalleryPhotoResponse.fromEntity(photo);
         return ResponseEntity.ok(response);
-    }
-
-    /**
-     * HELPER METHOD: VALIDATE SORTBY PARAMETER
-     * =========================================
-     * Validates sortBy parameter using whitelist approach.
-     * Only allows: newest, oldest, mostLiked, mostFavorited
-     *
-     * @param sortBy Sort parameter from request
-     * @return true if valid, false if invalid
-     */
-    private boolean isValidSortBy(String sortBy) {
-        return sortBy.equals("newest") ||
-               sortBy.equals("oldest") ||
-               sortBy.equals("mostLiked") ||
-               sortBy.equals("mostFavorited");
     }
 
     /**

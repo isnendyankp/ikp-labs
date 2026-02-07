@@ -3,6 +3,7 @@ package com.ikplabs.api.controller;
 import com.ikplabs.api.dto.GalleryListResponse;
 import com.ikplabs.api.dto.GalleryPhotoResponse;
 import com.ikplabs.api.entity.GalleryPhoto;
+import com.ikplabs.api.enums.SortBy;
 import com.ikplabs.api.security.UserPrincipal;
 import com.ikplabs.api.service.PhotoLikeService;
 import com.ikplabs.api.util.PaginationUtil;
@@ -253,10 +254,10 @@ public class PhotoLikeController {
             @RequestParam(defaultValue = "newest") String sortBy,
             @AuthenticationPrincipal UserPrincipal currentUser) {
 
-        // Validate sortBy parameter (whitelist approach)
-        if (!isValidSortBy(sortBy)) {
+        // Validate sortBy parameter using SortBy enum
+        if (!SortBy.isValid(sortBy)) {
             throw new IllegalArgumentException(
-                "Invalid sortBy parameter. Allowed values: newest, oldest, mostLiked, mostFavorited"
+                "Invalid sortBy parameter. Allowed values: " + SortBy.getAllowedValues()
             );
         }
 
@@ -287,22 +288,6 @@ public class PhotoLikeController {
 
         // Return 200 OK with response body
         return ResponseEntity.ok(response);
-    }
-
-    /**
-     * HELPER METHOD: VALIDATE SORTBY PARAMETER
-     * =========================================
-     * Validates sortBy parameter using whitelist approach.
-     * Only allows: newest, oldest, mostLiked, mostFavorited
-     *
-     * @param sortBy Sort parameter from request
-     * @return true if valid, false if invalid
-     */
-    private boolean isValidSortBy(String sortBy) {
-        return sortBy.equals("newest") ||
-               sortBy.equals("oldest") ||
-               sortBy.equals("mostLiked") ||
-               sortBy.equals("mostFavorited");
     }
 
     /**
