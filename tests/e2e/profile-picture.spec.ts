@@ -1,5 +1,6 @@
 import { test, expect, Page } from '@playwright/test';
 import path from 'path';
+import { cleanupTestUser } from './helpers/gallery-helpers';
 
 /**
  * Profile Picture E2E Tests
@@ -18,6 +19,13 @@ import path from 'path';
  * - large-image.jpg (6MB) - Oversized file
  * - invalid-file.txt (55 bytes) - Non-image file
  */
+
+// =============================================================================
+// GLOBAL TRACKING
+// =============================================================================
+
+// Track all created users for cleanup
+const createdUsers: string[] = [];
 
 // =============================================================================
 // HELPER FUNCTIONS
@@ -54,6 +62,9 @@ async function createAuthenticatedUser(page: Page) {
 
   // Wait for redirect to home
   await page.waitForURL('/home', { timeout: 5000 });
+
+  // Track user for cleanup
+  createdUsers.push(testUser.email);
 
   return { page, user: testUser };
 }
@@ -260,6 +271,9 @@ test.describe('Profile Picture E2E Tests', () => {
     await page.waitForURL('/home', { timeout: 5000 });
     console.log('  ✓ Registration successful');
 
+    // Track user for cleanup
+    createdUsers.push(testUser.email);
+
     // STEP 2: Verify on home page with user info
     await expect(page.locator(`text=Welcome, ${testUser.fullName}!`)).toBeVisible();
     console.log('  ✓ Home page loaded');
@@ -457,6 +471,15 @@ test.describe('Profile Picture E2E Tests', () => {
     console.log('  ✓ Unauthenticated user redirected to login');
 
     console.log('✅ Test 10: Authentication enforced');
+  });
+
+  // Cleanup hook - Delete all test users after tests complete
+  test.afterAll(async ({ request }) => {
+    console.log(`\n🧹 Starting cleanup of ${createdUsers.length} test users...`);
+    for (const email of createdUsers) {
+      await cleanupTestUser(request, email);
+    }
+    console.log(`✅ Cleanup complete! Database is clean.\n`);
   });
 
 });
