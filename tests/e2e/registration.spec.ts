@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import { apiEndpoints } from '../fixtures/test-users';
+import { cleanupTestUser } from './helpers/gallery-helpers';
 
 /**
  * Registration Flow E2E Tests
@@ -17,6 +18,9 @@ import { apiEndpoints } from '../fixtures/test-users';
  */
 
 test.describe('Registration Flow - End-to-End Tests', () => {
+
+  // Track all created users for cleanup
+  const createdUsers: string[] = [];
 
   // Helper function to generate unique email
   const generateUniqueEmail = () => {
@@ -83,6 +87,9 @@ test.describe('Registration Flow - End-to-End Tests', () => {
 
     console.log('✅ Test 1: PASSED');
     console.log(`   User created: ${testData.email} (ID: ${responseData.userId})`);
+
+    // Track user for cleanup
+    createdUsers.push(testData.email);
   });
 
   /**
@@ -338,6 +345,9 @@ test.describe('Registration Flow - End-to-End Tests', () => {
       response => response.url().includes('/api/auth/register')
     );
 
+    // Track user for cleanup
+    createdUsers.push(testData.email);
+
     console.log('✅ Test 7: PASSED - Loading state displayed correctly');
   });
 
@@ -386,7 +396,19 @@ test.describe('Registration Flow - End-to-End Tests', () => {
 
     expect(corsErrors.length).toBe(0);
 
+    // Track user for cleanup
+    createdUsers.push(testData.email);
+
     console.log('✅ Test 8: PASSED - No CORS errors detected');
+  });
+
+  // Cleanup hook - Delete all test users after tests complete
+  test.afterAll(async ({ request }) => {
+    console.log(`\n🧹 Starting cleanup of ${createdUsers.length} test users...`);
+    for (const email of createdUsers) {
+      await cleanupTestUser(request, email);
+    }
+    console.log(`✅ Cleanup complete! Database is clean.\n`);
   });
 
 });
