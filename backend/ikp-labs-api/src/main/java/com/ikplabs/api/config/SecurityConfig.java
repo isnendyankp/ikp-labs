@@ -118,8 +118,13 @@ public class SecurityConfig {
                 // PROFILE ENDPOINTS - Protected (perlu login)
                 .requestMatchers("/api/profile/**").authenticated() // Upload/delete own picture
 
-                // GALLERY ENDPOINTS - Protected (perlu login)
-                .requestMatchers("/api/gallery/**").authenticated() // Photo gallery endpoints
+                // GALLERY PUBLIC ENDPOINTS - Public access (tanpa login)
+                .requestMatchers("/api/gallery/public").permitAll()           // View all public photos
+                .requestMatchers("/api/gallery/user/*/public").permitAll()    // View user's public photos
+                .requestMatchers("/api/gallery/photo/*").permitAll()          // View photo detail
+
+                // GALLERY PROTECTED ENDPOINTS - Protected (perlu login)
+                .requestMatchers("/api/gallery/**").authenticated()           // Upload, my-photos, update, delete
 
                 // PROTECTED ENDPOINTS - Area hotel (perlu key card)
                 .requestMatchers("/api/user/**").authenticated()    // User profile endpoints

@@ -57,9 +57,11 @@ import java.util.stream.Collectors;
  *
  * @RestController = Controller untuk REST API
  * @RequestMapping = Base URL untuk semua endpoints ("/api/gallery")
+ * @CrossOrigin = Allow requests from frontend (CORS)
  */
 @RestController
 @RequestMapping("/api/gallery")
+@CrossOrigin(origins = {"http://localhost:3002", "http://localhost:3005"})
 public class GalleryController {
 
     @Autowired
@@ -269,13 +271,15 @@ public class GalleryController {
         Pageable pageable = PageRequest.of(page, size);
         List<GalleryPhoto> photos = galleryService.getPublicPhotos(sortBy, pageable);
 
-        Long currentUserId = currentUser.getId();
+        // For public endpoint, currentUser may be null (anonymous access)
+        Long currentUserId = currentUser != null ? currentUser.getId() : null;
 
         List<GalleryPhotoResponse> photoResponses = photos.stream()
                 .map(photo -> {
                     long likeCount = photoLikeService.getLikeCount(photo.getId());
-                    boolean isLikedByUser = photoLikeService.isLikedByUser(photo.getId(), currentUserId);
-                    boolean isFavoritedByUser = photoFavoriteService.isFavoritedByUser(photo.getId(), currentUserId);
+                    // For anonymous users, isLikedByUser and isFavoritedByUser are always false
+                    boolean isLikedByUser = currentUserId != null && photoLikeService.isLikedByUser(photo.getId(), currentUserId);
+                    boolean isFavoritedByUser = currentUserId != null && photoFavoriteService.isFavoritedByUser(photo.getId(), currentUserId);
 
                     GalleryPhotoResponse response = GalleryPhotoResponse.fromEntityWithLikes(photo, currentUserId, likeCount, isLikedByUser);
                     response.setIsFavoritedByUser(isFavoritedByUser);
@@ -329,13 +333,15 @@ public class GalleryController {
         Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
         List<GalleryPhoto> photos = galleryService.getUserPublicPhotos(userId, pageable);
 
-        Long currentUserId = currentUser.getId();
+        // For public endpoint, currentUser may be null (anonymous access)
+        Long currentUserId = currentUser != null ? currentUser.getId() : null;
 
         List<GalleryPhotoResponse> photoResponses = photos.stream()
                 .map(photo -> {
                     long likeCount = photoLikeService.getLikeCount(photo.getId());
-                    boolean isLikedByUser = photoLikeService.isLikedByUser(photo.getId(), currentUserId);
-                    boolean isFavoritedByUser = photoFavoriteService.isFavoritedByUser(photo.getId(), currentUserId);
+                    // For anonymous users, isLikedByUser and isFavoritedByUser are always false
+                    boolean isLikedByUser = currentUserId != null && photoLikeService.isLikedByUser(photo.getId(), currentUserId);
+                    boolean isFavoritedByUser = currentUserId != null && photoFavoriteService.isFavoritedByUser(photo.getId(), currentUserId);
 
                     GalleryPhotoResponse response = GalleryPhotoResponse.fromEntityWithLikes(photo, currentUserId, likeCount, isLikedByUser);
                     response.setIsFavoritedByUser(isFavoritedByUser);
@@ -400,12 +406,15 @@ public class GalleryController {
             @PathVariable Long photoId,
             @AuthenticationPrincipal UserPrincipal currentUser) {
 
-        GalleryPhoto photo = galleryService.getPhotoById(photoId, currentUser.getId());
+        // For public endpoint, currentUser may be null (anonymous access)
+        Long currentUserId = currentUser != null ? currentUser.getId() : null;
 
-        Long currentUserId = currentUser.getId();
+        GalleryPhoto photo = galleryService.getPhotoById(photoId, currentUserId);
+
         long likeCount = photoLikeService.getLikeCount(photo.getId());
-        boolean isLikedByUser = photoLikeService.isLikedByUser(photo.getId(), currentUserId);
-        boolean isFavoritedByUser = photoFavoriteService.isFavoritedByUser(photo.getId(), currentUserId);
+        // For anonymous users, isLikedByUser and isFavoritedByUser are always false
+        boolean isLikedByUser = currentUserId != null && photoLikeService.isLikedByUser(photo.getId(), currentUserId);
+        boolean isFavoritedByUser = currentUserId != null && photoFavoriteService.isFavoritedByUser(photo.getId(), currentUserId);
 
         GalleryPhotoDetailResponse response = GalleryPhotoDetailResponse.fromEntityWithLikes(
                 photo, currentUserId, likeCount, isLikedByUser
