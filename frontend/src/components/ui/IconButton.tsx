@@ -177,9 +177,9 @@ export function IconButton({
       {...props}
     >
       {/* Clone icon and add size class */}
-      {typeof icon === "object" && "type" in icon ? (
+      {icon != null && typeof icon === "object" && "type" in icon ? (
         // It's a React component, clone with className
-        <icon.type {...icon.props} className={sizeClasses[size]} />
+        <icon.type {...(icon.props || {})} className={sizeClasses[size]} />
       ) : (
         // It's a ReactNode, render as-is
         <span className={sizeClasses[size]}>{icon}</span>

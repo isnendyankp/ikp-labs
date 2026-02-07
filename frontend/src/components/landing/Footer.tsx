@@ -44,12 +44,12 @@ export function Footer({ onNavigate }: FooterProps) {
                   </button>
                 </li>
                 <li>
-                  <a
-                    href="/gallery"
+                  <button
+                    onClick={() => handleNavigate('/gallery')}
                     className="text-gray-600 hover:text-black text-sm transition-colors"
                   >
                     Gallery
-                  </a>
+                  </button>
                 </li>
               </ul>
             </div>
