@@ -168,6 +168,12 @@ export function Navbar({ onNavigate }: NavbarProps) {
                 >
                   Login
                 </button>
+                <button
+                  onClick={handleGetStarted}
+                  className="block w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:text-black hover:bg-gray-50 rounded-md"
+                >
+                  Get Started
+                </button>
               </>
             )}
             {isUserAuthenticated && (
