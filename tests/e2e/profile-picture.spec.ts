@@ -158,10 +158,11 @@ async function verifyAvatarFallback(page: Page, initials: string) {
 }
 
 // =============================================================================
-// TEST SUITE
+// TEST SUITE - DESKTOP
 // =============================================================================
 
-test.describe('Profile Picture E2E Tests', () => {
+test.describe('Profile Picture E2E Tests - Desktop View (1280x720)', () => {
+  test.use({ viewport: { width: 1280, height: 720 } });
 
   test.beforeEach(async ({ page }) => {
     // Clear localStorage before each test
@@ -480,6 +481,170 @@ test.describe('Profile Picture E2E Tests', () => {
       await cleanupTestUser(request, email);
     }
     console.log(`✅ Cleanup complete! Database is clean.\n`);
+  });
+
+});
+
+// =============================================================================
+// TEST SUITE - MOBILE
+// =============================================================================
+
+test.describe('Profile Picture E2E Tests - Mobile View (375x667)', () => {
+  test.use({ viewport: { width: 375, height: 667 } });
+
+  test.beforeEach(async ({ page }) => {
+    // Clear localStorage before each test
+    await page.goto('/');
+    await page.evaluate(() => localStorage.clear());
+  });
+
+  // ===========================================================================
+  // MOBILE TEST 1: Upload Profile Picture on Mobile
+  // ===========================================================================
+
+  test('Should upload profile picture successfully on mobile', async ({ page }) => {
+    console.log('🧪 Mobile Test 1: Upload profile picture');
+
+    // Create authenticated user
+    const { user } = await createAuthenticatedUser(page);
+
+    // Verify we're on home page
+    expect(page.url()).toContain('/home');
+
+    // Upload valid JPEG on mobile
+    await uploadProfilePicture(page, 'valid-profile.jpg');
+
+    // Verify profile picture is displayed
+    await verifyProfilePictureDisplayed(page);
+
+    // Verify no horizontal scroll on mobile
+    const scrollWidth = await page.evaluate(() => document.body.scrollWidth);
+    const clientWidth = await page.evaluate(() => document.body.clientWidth);
+    expect(scrollWidth).toEqual(clientWidth);
+
+    console.log('✅ Mobile Test 1: Upload successful');
+  });
+
+  // ===========================================================================
+  // MOBILE TEST 2: Delete Profile Picture on Mobile
+  // ===========================================================================
+
+  test('Should delete profile picture successfully on mobile', async ({ page }) => {
+    console.log('🧪 Mobile Test 2: Delete profile picture');
+
+    // Create authenticated user and upload picture first
+    const { user } = await createAuthenticatedUser(page);
+    await uploadProfilePicture(page, 'valid-profile.jpg');
+
+    // Wait for upload to complete
+    await verifyProfilePictureDisplayed(page);
+    console.log('  ✓ Upload completed, picture displayed');
+
+    // Now delete the picture
+    await deleteProfilePicture(page);
+
+    // Verify fallback avatar is shown
+    const initials = user.fullName.split(' ').map(n => n[0]).join('').toUpperCase();
+    await verifyAvatarFallback(page, initials.substring(0, 2));
+
+    // Verify no horizontal scroll
+    const scrollWidth = await page.evaluate(() => document.body.scrollWidth);
+    const clientWidth = await page.evaluate(() => document.body.clientWidth);
+    expect(scrollWidth).toEqual(clientWidth);
+
+    console.log('✅ Mobile Test 2: Delete successful');
+  });
+
+  // ===========================================================================
+  // MOBILE TEST 3: Touch-Friendly Buttons on Mobile
+  // ===========================================================================
+
+  test('Should have touch-friendly buttons on mobile', async ({ page }) => {
+    console.log('🧪 Mobile Test 3: Touch-friendly buttons');
+
+    const { user } = await createAuthenticatedUser(page);
+
+    // Click to open upload form
+    const changePictureButton = page.locator('button:has-text("Change Picture")');
+    await changePictureButton.click();
+    await page.waitForTimeout(800);
+
+    // Check that upload button is at least 44x44 pixels (iOS touch target)
+    const uploadButton = page.locator('button:has-text("Upload Picture")');
+    const box = await uploadButton.boundingBox();
+
+    if (box) {
+      expect(box.height).toBeGreaterThanOrEqual(44);
+      expect(box.width).toBeGreaterThanOrEqual(44);
+      console.log('  ✓ Upload button meets touch target size (44x44)');
+    }
+
+    // Verify no horizontal scroll
+    const scrollWidth = await page.evaluate(() => document.body.scrollWidth);
+    const clientWidth = await page.evaluate(() => document.body.clientWidth);
+    expect(scrollWidth).toEqual(clientWidth);
+
+    console.log('✅ Mobile Test 3: Touch-friendly buttons verified');
+  });
+
+  // ===========================================================================
+  // MOBILE TEST 4: Complete Mobile Flow - Register → Upload → Delete
+  // ===========================================================================
+
+  test('Complete mobile flow: Register → Upload → Delete', async ({ page }) => {
+    console.log('🧪 Mobile Test 4: Complete mobile flow');
+
+    // STEP 1: Register
+    const testUser = {
+      fullName: 'Mobile Flow Test User',
+      email: generateUniqueEmail(),
+      password: 'SecurePass123!',
+      confirmPassword: 'SecurePass123!'
+    };
+
+    await page.goto('/register');
+    await page.fill('input[name="name"]', testUser.fullName);
+    await page.fill('input[name="email"]', testUser.email);
+    await page.fill('input[name="password"]', testUser.password);
+    await page.fill('input[name="confirmPassword"]', testUser.confirmPassword);
+    await page.click('button[type="submit"]');
+    await page.waitForURL('/home', { timeout: 5000 });
+    console.log('  ✓ Registration successful');
+
+    // Track user for cleanup
+    createdUsers.push(testUser.email);
+
+    // STEP 2: Verify on home page
+    await expect(page.locator(`text=Welcome, ${testUser.fullName}!`)).toBeVisible();
+    console.log('  ✓ Home page loaded');
+
+    // STEP 3: Upload profile picture on mobile
+    await uploadProfilePicture(page, 'valid-profile.jpg');
+    await verifyProfilePictureDisplayed(page);
+    console.log('  ✓ Upload successful');
+
+    // STEP 4: Delete profile picture on mobile
+    await deleteProfilePicture(page);
+    const initials = testUser.fullName.split(' ').map(n => n[0]).join('').toUpperCase();
+    await verifyAvatarFallback(page, initials.substring(0, 2));
+    console.log('  ✓ Delete successful');
+
+    // STEP 5: Verify no horizontal scroll throughout flow
+    const scrollWidth = await page.evaluate(() => document.body.scrollWidth);
+    const clientWidth = await page.evaluate(() => document.body.clientWidth);
+    expect(scrollWidth).toEqual(clientWidth);
+    console.log('  ✓ No horizontal scroll (mobile responsive)');
+
+    console.log('✅ Mobile Test 4: Complete flow successful');
+  });
+
+  // Cleanup hook - Delete all test users after mobile tests complete
+  test.afterAll(async ({ request }) => {
+    console.log(`\n🧹 Starting cleanup of ${createdUsers.length} test users (mobile)...`);
+    for (const email of createdUsers) {
+      await cleanupTestUser(request, email);
+    }
+    console.log(`✅ Mobile cleanup complete! Database is clean.\n`);
   });
 
 });
