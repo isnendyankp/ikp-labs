@@ -29,11 +29,12 @@ export default function LandingPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(true);
 
-  // Simulate initial loading for smooth skeleton animation
+  // Cosmetic skeleton for smooth visual entry (not tied to data fetching)
+  // This provides a polished UX by preventing content flash
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsLoading(false);
-    }, 800); // Show skeleton for 800ms
+    }, 500); // 500ms balance: visible but snappy (industry standard)
 
     return () => clearTimeout(timer);
   }, []);
