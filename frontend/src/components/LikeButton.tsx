@@ -25,12 +25,11 @@
  * />
  */
 
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
 import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
 import photoLikeService from "../services/photoLikeService";
-import { useToast } from "@/context/ToastContext";
-import { IconButton } from "./ui/IconButton";
+import ActionButton from "./ActionButton";
 
 // === TYPE DEFINITIONS ===
 
@@ -41,7 +40,7 @@ interface LikeButtonProps {
   size?: "small" | "medium" | "large";
   className?: string;
   onLikeChange?: (photoId: number) => void;
-  isOwnPhoto?: boolean; // New: Disable like button for own photos
+  isOwnPhoto?: boolean; // Disable like button for own photos
 }
 
 // === COMPONENT ===
@@ -55,141 +54,31 @@ export default function LikeButton({
   onLikeChange,
   isOwnPhoto = false,
 }: LikeButtonProps) {
-  // === STATE ===
-
-  const [isLiked, setIsLiked] = useState<boolean>(initialIsLiked);
-  const [likeCount, setLikeCount] = useState<number>(initialLikeCount);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const { showError, showInfo } = useToast();
-
-  // === SYNC STATE WITH PROPS ===
-  // When parent component refreshes data, update local state
-  // This fixes the bug where like status doesn't update after navigation
-  useEffect(() => {
-    setIsLiked(initialIsLiked);
-    setLikeCount(initialLikeCount);
-  }, [initialIsLiked, initialLikeCount]);
-
-  // === CLICK HANDLER ===
-
-  /**
-   * Handle like/unlike click
-   *
-   * Flow (Optimistic Update Pattern):
-   * 1. Prevent event bubbling (stopPropagation)
-   * 2. Store previous state (untuk rollback)
-   * 3. Update UI immediately (optimistic)
-   * 4. Call API
-   * 5. If error: Rollback to previous state
-   * 6. If success: Keep optimistic state
-   */
-  const handleLikeClick = async (e: React.MouseEvent<HTMLButtonElement>) => {
-    // CRITICAL: Prevent event bubbling to parent PhotoCard's onClick
-    // Without this, clicking like button will navigate to detail page!
-    e.stopPropagation();
-
-    // Prevent liking own photos
-    if (isOwnPhoto) {
-      showInfo("You cannot like your own photo");
-      return;
-    }
-
-    // Prevent double-click
-    if (isLoading) return;
-
-    // Store previous state for rollback
-    const previousIsLiked = isLiked;
-    const previousLikeCount = likeCount;
-
-    // Optimistic update (update UI immediately)
-    const newIsLiked = !isLiked;
-    const newLikeCount = newIsLiked ? likeCount + 1 : likeCount - 1;
-
-    setIsLiked(newIsLiked);
-    setLikeCount(newLikeCount);
-    setIsLoading(true);
-
-    try {
-      // Call API
-      const response = newIsLiked
-        ? await photoLikeService.likePhoto(photoId)
-        : await photoLikeService.unlikePhoto(photoId);
-
-      // Check for errors
-      if (response.error) {
-        // Rollback on error
-        console.error("❌ Like/Unlike failed, rolling back:", response.error);
-        setIsLiked(previousIsLiked);
-        setLikeCount(previousLikeCount);
-
-        // Show error toast
-        showError(response.error.message || "Failed to update like");
-      } else {
-        // Success - optimistic update was correct
-        console.log("✅ Like/Unlike successful");
-
-        // Notify parent component of the change
-        if (onLikeChange) {
-          console.log(
-            "🔄 Calling onLikeChange callback with photoId:",
-            photoId,
-          );
-          onLikeChange(photoId);
-        } else {
-          console.log("⚠️  onLikeChange callback not provided");
-        }
-      }
-    } catch (error) {
-      // Rollback on exception
-      console.error("❌ Exception during like/unlike, rolling back:", error);
-      setIsLiked(previousIsLiked);
-      setLikeCount(previousLikeCount);
-
-      showError("An error occurred. Please try again.");
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  // === RENDER ===
-
   return (
-    <div className={`flex items-center gap-2 ${className}`}>
-      {/* Like Button */}
-      <IconButton
-        icon={isLiked ? <HeartSolid /> : <HeartOutline />}
-        isActive={isLiked}
-        activeColor="text-red-500"
-        inactiveColor="text-gray-400"
-        hoverColor="hover:text-red-500"
-        focusRing="focus:ring-red-300"
-        size={size}
-        onClick={handleLikeClick}
-        disabled={isLoading || isOwnPhoto}
-        isLoading={isLoading}
-        ariaLabel={
-          isOwnPhoto
-            ? "Cannot like own photo"
-            : isLiked
-              ? "Unlike photo"
-              : "Like photo"
-        }
-        title={
-          isOwnPhoto
-            ? "You cannot like your own photo"
-            : isLiked
-              ? "Unlike"
-              : "Like"
-        }
-      />
-
-      {/* Like Count */}
-      {likeCount > 0 && (
-        <span className="text-sm text-gray-600 font-medium">
-          {likeCount} {likeCount === 1 ? "like" : "likes"}
-        </span>
-      )}
-    </div>
+    <ActionButton
+      photoId={photoId}
+      initialActive={initialIsLiked}
+      initialCount={initialLikeCount}
+      activeIcon={<HeartSolid />}
+      inactiveIcon={<HeartOutline />}
+      activeColor="text-red-500"
+      inactiveColor="text-gray-400"
+      hoverColor="hover:text-red-500"
+      focusRing="focus:ring-red-300"
+      apiCall={(isActive) =>
+        isActive
+          ? photoLikeService.unlikePhoto(photoId)
+          : photoLikeService.likePhoto(photoId)
+      }
+      activeLabel="Unlike photo"
+      inactiveLabel="Like photo"
+      size={size}
+      className={className}
+      countLabel={(count) => `${count} ${count === 1 ? "like" : "likes"}`}
+      shouldDisable={() => isOwnPhoto}
+      disabledLabel="You cannot like your own photo"
+      onChange={onLikeChange}
+    />
   );
 }
 
@@ -197,79 +86,14 @@ export default function LikeButton({
  * NOTES UNTUK PEMAHAMAN (PEMULA):
  * =================================
  *
- * 1. OPTIMISTIC UPDATES:
- *    ===================
- *    Bayangkan Instagram Like:
- *    - User klik ♡ → Langsung jadi ❤️ (tidak tunggu server response)
- *    - Jika server gagal → Balik ke ♡ (rollback)
- *    - Jika server sukses → Tetap ❤️
+ * This component now uses ActionButton to eliminate DRY violations.
+ * All optimistic update logic, state management, and error handling
+ * are centralized in ActionButton component.
  *
- *    Kenapa pakai pattern ini?
- *    - User experience lebih baik (instant feedback)
- *    - App feels faster
- *    - User tidak tunggu network latency
+ * Key differences from FavoriteButton:
+ * - Uses Heart icons (red color)
+ * - Shows like count (public)
+ * - Cannot like own photos (isOwnPhoto check)
  *
- * 2. STATE MANAGEMENT:
- *    =================
- *    isLiked → Boolean (heart filled atau outline)
- *    likeCount → Number (jumlah likes)
- *    isLoading → Boolean (prevent double-click)
- *
- * 3. ROLLBACK PATTERN:
- *    =================
- *    const previous = currentState;  // Simpan state lama
- *    setCurrentState(newState);      // Update optimistically
- *    try {
- *      await api.call();             // Call API
- *    } catch {
- *      setCurrentState(previous);    // Rollback jika error
- *    }
- *
- * 4. HEROICONS:
- *    ===========
- *    HeartOutline (24/outline) → ♡ Empty heart
- *    HeartSolid (24/solid) → ❤️ Filled heart
- *
- * 5. TAILWIND CSS:
- *    =============
- *    text-red-500 → Red color untuk liked state
- *    text-gray-400 → Gray untuk unliked state
- *    hover:text-red-600 → Darker red on hover
- *    animate-pulse-once → Small animation saat like
- *
- * 6. PROPS:
- *    ======
- *    photoId → ID foto (untuk API call)
- *    initialIsLiked → Initial state (dari backend)
- *    initialLikeCount → Initial count (dari backend)
- *    size → 'small' | 'medium' | 'large'
- *
- * 7. PREVENT DOUBLE-CLICK:
- *    =====================
- *    if (isLoading) return;  // Jika sedang loading, ignore click
- *    setIsLoading(true);     // Set loading saat mulai API call
- *    finally { setIsLoading(false); }  // Reset loading after API
- *
- * 8. ERROR HANDLING:
- *    ===============
- *    - Check response.error
- *    - Rollback state jika error
- *    - Show error message ke user
- *    - Log error untuk debugging
- *
- * 9. ACCESSIBILITY:
- *    ==============
- *    - aria-label → Screen reader support
- *    - title → Tooltip on hover
- *    - disabled={isLoading} → Prevent interaction saat loading
- *    - focus:ring → Keyboard navigation highlight
- *
- * 10. COMPONENT REUSABILITY:
- *     =====================
- *     LikeButton bisa dipakai di:
- *     - GalleryPhotoCard (small size)
- *     - PhotoDetailPage (large size)
- *     - LikedPhotosPage (medium size)
- *
- *     Same component, different sizes → Props-based customization!
+ * See ActionButton.tsx for the shared optimistic update implementation.
  */
