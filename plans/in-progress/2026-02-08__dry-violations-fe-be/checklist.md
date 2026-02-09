@@ -1,9 +1,8 @@
 # Checklist - Fix Frontend & Backend DRY Violations
 
-**Project**: Fix Frontend & Backend DRY Violations
-**Status**: ✅ ALL PRIORITIES COMPLETED
+**Project**: Fix Frontend & Backend DRY Violations + Hot Fix BUG-001
+**Status**: 🚧 Priority 1-4 Completed, Priority 5 In Progress
 **Created**: February 8, 2026
-**Completed**: February 9, 2026
 
 ---
 
@@ -13,7 +12,8 @@
 2. [Priority 2: BE Pagination Utility](#priority-2-be-pagination-utility)
 3. [Priority 3: BE SortBy Enum](#priority-3-be-sortby-enum)
 4. [Priority 4: ActionButton Component (Optional)](#priority-4-actionbutton-component-optional)
-5. [Final Verification](#final-verification)
+5. [Priority 5: Hot Fix BUG-001 (E2E Test Update)](#priority-5-hot-fix-bug-001-e2e-test-update)
+6. [Final Verification](#final-verification)
 
 ---
 
@@ -242,6 +242,32 @@
 
 ---
 
+## Priority 5: Hot Fix BUG-001 (E2E Test Update)
+
+**Estimated Time**: 5 minutes
+**Impact**: LOW (Test alignment with actual behavior)
+
+### 5.1 Update E2E Test for Landing Page
+- [x] Update test title: "Should navigate to **register** page" (was "login page")
+- [x] Update URL assertion: `/register` (was `/login`)
+- [x] Add comment: "BUG-001 fixed: now goes to /register"
+- [x] Update Hero "Get Started Free" button test
+- [x] Update CTA section "Get Started Free" button test
+
+### 5.2 Testing
+- [ ] Run E2E tests to verify
+- [ ] Verify navigation to /register works correctly
+
+### 5.3 Commit
+- [ ] Stage test changes
+- [ ] Commit with message: `test(e2e): fix landing page navigation test for BUG-001`
+- [ ] Push to remote
+
+**Total Estimated Time**: 5 minutes
+**Status**: 🚧 In Progress
+
+---
+
 ## Final Verification
 
 ### Overall Progress
@@ -249,6 +275,7 @@
 - [x] Priority 2: BE Pagination Utility (20 min) ✅ **ALREADY COMPLETED** - Pre-existing (2026-02-07)
 - [x] Priority 3: BE SortBy Enum (15 min) ✅ **ALREADY COMPLETED** - Pre-existing (2026-02-07)
 - [x] Priority 4: ActionButton Component (30 min) ✅ **COMPLETED** - Commit c9c0e16
+- [ ] Priority 5: Hot Fix BUG-001 (5 min) 🚧 **IN PROGRESS**
 
 ### Code Quality Checks
 - [x] No TypeScript compilation errors ✅
