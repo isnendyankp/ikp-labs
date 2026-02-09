@@ -1,7 +1,7 @@
 # Checklist - Fix Frontend & Backend DRY Violations
 
 **Project**: Fix Frontend & Backend DRY Violations
-**Status**: 🚧 In Progress - Priority 1 Completed
+**Status**: 🚧 In Progress - Priority 1-3 Completed
 **Created**: February 8, 2026
 
 ---
@@ -83,70 +83,50 @@
 
 **Estimated Time**: 20 minutes
 **Impact**: MEDIUM (~30 lines duplicate code eliminated)
+**Status**: ✅ **ALREADY COMPLETED** (Created 2026-02-07, before plan)
 
 ### 2.1 Create PaginationUtil.java
-- [ ] Find package location: `backend/src/main/java/com/ikplabs/kameravue/util/`
-- [ ] Create file `PaginationUtil.java`
-- [ ] Create package declaration
-- [ ] Create `calculatePagination()` static method
-  - [ ] Accept `page`, `size`, `totalElements` parameters
-  - [ ] Calculate `totalPages`
-  - [ ] Calculate `hasNext`
-  - [ ] Calculate `hasPrevious`
-  - [ ] Return `PaginationMetadata`
-- [ ] Create `PaginationMetadata` record
-  - [ ] `page` (int)
-  - [ ] `size` (int)
-  - [ ] `totalElements` (long)
-  - [ ] `totalPages` (int)
-  - [ ] `hasNext` (boolean)
-  - [ ] `hasPrevious` (boolean)
-- [ ] Add Javadoc comments
+- [x] File created at `backend/ikp-labs-api/src/main/java/com/ikplabs/api/util/PaginationUtil.java`
+- [x] Package declaration: `com.ikplabs.api.util`
+- [x] `buildPaginatedResponse()` static method implemented
+  - [x] Accept `photos`, `page`, `totalPhotos`, `size` parameters
+  - [x] Calculate `totalPages` (ceiling division)
+  - [x] Calculate `hasNext`
+  - [x] Calculate `hasPrevious`
+  - [x] Return `GalleryListResponse` using static factory method
+- [x] Javadoc comments included
+- [x] Private constructor to prevent instantiation
 
 ### 2.2 Update GalleryController.java
-- [ ] Import `PaginationUtil`
-- [ ] Import `PaginationMetadata`
-- [ ] Find pagination calculation (first occurrence: ~line 216-221)
-- [ ] Replace with `PaginationUtil.calculatePagination()`
-- [ ] Update response to use `PaginationMetadata` getters
-- [ ] Find pagination calculation (second occurrence: ~line 290-295)
-- [ ] Replace with `PaginationUtil.calculatePagination()`
-- [ ] Update response to use `PaginationMetadata` getters
-- [ ] Find pagination calculation (third occurrence: ~line 354-359)
-- [ ] Replace with `PaginationUtil.calculatePagination()`
-- [ ] Update response to use `PaginationMetadata` getters
-- [ ] Remove `isValidSortBy()` method (will be replaced by enum in Priority 3)
-- [ ] Test compilation
+- [x] Import `PaginationUtil`
+- [x] 3 occurrences using `PaginationUtil.buildPaginatedResponse()`:
+  - [x] getMyPhotos() (line 219-221)
+  - [x] getPublicPhotos() (line 291-293)
+  - [x] getUserPublicPhotos() (line 353-355)
+- [x] Using `SortBy.isValid()` instead of `isValidSortBy()`
 
 ### 2.3 Update PhotoLikeController.java
-- [ ] Import `PaginationUtil`
-- [ ] Import `PaginationMetadata`
-- [ ] Find pagination calculation (~line 282-296)
-- [ ] Replace with `PaginationUtil.calculatePagination()`
-- [ ] Update response to use `PaginationMetadata` getters
-- [ ] Remove `isValidSortBy()` method (will be replaced by enum in Priority 3)
-- [ ] Test compilation
+- [x] Import `PaginationUtil`
+- [x] getLikedPhotos() using `PaginationUtil.buildPaginatedResponse()` (line 285-287)
+- [x] Using `SortBy.isValid()` instead of `isValidSortBy()`
 
 ### 2.4 Update PhotoFavoriteController.java
-- [ ] Import `PaginationUtil`
-- [ ] Import `PaginationMetadata`
-- [ ] Find pagination calculation (~line 326-337)
-- [ ] Replace with `PaginationUtil.calculatePagination()`
-- [ ] Update response to use `PaginationMetadata` getters
-- [ ] Remove `isValidSortBy()` method (will be replaced by enum in Priority 3)
-- [ ] Test compilation
+- [x] Import `PaginationUtil`
+- [x] getFavoritedPhotos() using `PaginationUtil.buildPaginatedResponse()` (line 327-329)
+- [x] Using `SortBy.isValid()` instead of `isValidSortBy()`
 
 ### 2.5 Testing
-- [ ] Run backend tests: `mvn test`
-- [ ] Manual test: Gallery pagination works
-- [ ] Manual test: Liked photos pagination works
-- [ ] Manual test: Favorited photos pagination works
+- [x] Compilation successful
+- [ ] Run backend tests: `mvn test` - Deferred to final verification
+- [ ] Manual test: Gallery pagination works - Deferred to final verification
+- [ ] Manual test: Liked photos pagination works - Deferred to final verification
+- [ ] Manual test: Favorited photos pagination works - Deferred to final verification
 
 ### 2.6 Commit
-- [ ] Stage all changes
-- [ ] Commit with message: `feat(backend): add PaginationUtil for pagination metadata`
+- [x] Already committed before this plan (2026-02-07)
 
 **Total Estimated Time**: 20 minutes
+**Actual Status**: ✅ COMPLETED (Pre-existing implementation)
 
 ---
 
@@ -154,53 +134,53 @@
 
 **Estimated Time**: 15 minutes
 **Impact**: MEDIUM (~24 lines duplicate code eliminated + type-safe)
+**Status**: ✅ **ALREADY COMPLETED** (Created 2026-02-07, before plan)
 
-### 3.1 Create SortByEnum.java
-- [ ] Find package location: `backend/src/main/java/com/ikplabs/kameravue/enums/`
-- [ ] Create file `SortByEnum.java`
-- [ ] Create package declaration
-- [ ] Create enum values:
-  - [ ] `NEWEST("newest")`
-  - [ ] `OLDEST("oldest")`
-  - [ ] `MOST_LIKED("mostLiked")`
-  - [ ] `MOST_FAVORITED("mostFavorited")`
-- [ ] Add `private final String value;` field
-- [ ] Add constructor
-- [ ] Add `getValue()` method
-- [ ] Add `fromValue(String value)` static method
-- [ ] Add `isValid(String value)` static method
-- [ ] Add Javadoc comments
+### 3.1 Create SortBy.java (Enum)
+- [x] File created at `backend/ikp-labs-api/src/main/java/com/ikplabs/api/enums/SortBy.java`
+- [x] Package declaration: `com.ikplabs.api.enums`
+- [x] Enum values created:
+  - [x] `NEWEST("newest")`
+  - [x] `OLDEST("oldest")`
+  - [x] `MOST_LIKED("mostLiked")`
+  - [x] `MOST_FAVORITED("mostFavorited")`
+- [x] `private final String value;` field
+- [x] Constructor
+- [x] `getValue()` method
+- [x] `fromValue(String value)` static method
+- [x] `isValid(String value)` static method
+- [x] `getAllowedValues()` static method
+- [x] Javadoc comments included
 
 ### 3.2 Update GalleryController.java
-- [ ] Import `SortByEnum`
-- [ ] Find where sortBy is validated (previously had `isValidSortBy()`)
-- [ ] Replace with `SortByEnum.isValid(sortBy)`
-- [ ] Test compilation
+- [x] Import `SortBy` enum
+- [x] getMyPhotos() using `SortBy.isValid(sortBy)` (line 194)
+- [x] getPublicPhotos() using `SortBy.isValid(sortBy)` (line 264)
+- [x] Compilation successful
 
 ### 3.3 Update PhotoLikeController.java
-- [ ] Import `SortByEnum`
-- [ ] Find where sortBy is validated (previously had `isValidSortBy()`)
-- [ ] Replace with `SortByEnum.isValid(sortBy)`
-- [ ] Test compilation
+- [x] Import `SortBy` enum
+- [x] getLikedPhotos() using `SortBy.isValid(sortBy)` (line 258)
+- [x] Compilation successful
 
 ### 3.4 Update PhotoFavoriteController.java
-- [ ] Import `SortByEnum`
-- [ ] Find where sortBy is validated (previously had `isValidSortBy()`)
-- [ ] Replace with `SortByEnum.isValid(sortBy)`
-- [ ] Test compilation
+- [x] Import `SortBy` enum
+- [x] getFavoritedPhotos() using `SortBy.isValid(sortBy)` (line 290)
+- [x] Compilation successful
 
 ### 3.5 Testing
-- [ ] Run backend tests: `mvn test`
-- [ ] Manual test: Sort by newest works
-- [ ] Manual test: Sort by oldest works
-- [ ] Manual test: Sort by mostLiked works
-- [ ] Manual test: Sort by mostFavorited works
+- [x] Compilation successful
+- [ ] Run backend tests: `mvn test` - Deferred to final verification
+- [ ] Manual test: Sort by newest works - Deferred to final verification
+- [ ] Manual test: Sort by oldest works - Deferred to final verification
+- [ ] Manual test: Sort by mostLiked works - Deferred to final verification
+- [ ] Manual test: Sort by mostFavorited works - Deferred to final verification
 
 ### 3.6 Commit
-- [ ] Stage all changes
-- [ ] Commit with message: `feat(backend): add SortByEnum for type-safe sort validation`
+- [x] Already committed before this plan (2026-02-07)
 
 **Total Estimated Time**: 15 minutes
+**Actual Status**: ✅ COMPLETED (Pre-existing implementation)
 
 ---
 
@@ -256,8 +236,8 @@
 
 ### Overall Progress
 - [x] Priority 1: FE Auth Token Consolidation (30 min) ✅ **COMPLETED** - Commit 97fc992
-- [ ] Priority 2: BE Pagination Utility (20 min)
-- [ ] Priority 3: BE SortBy Enum (15 min)
+- [x] Priority 2: BE Pagination Utility (20 min) ✅ **ALREADY COMPLETED** - Pre-existing (2026-02-07)
+- [x] Priority 3: BE SortBy Enum (15 min) ✅ **ALREADY COMPLETED** - Pre-existing (2026-02-07)
 - [ ] Priority 4: ActionButton Component - OPTIONAL (30 min)
 
 ### Code Quality Checks
