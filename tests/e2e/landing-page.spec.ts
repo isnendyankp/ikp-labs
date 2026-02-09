@@ -22,7 +22,7 @@ test.describe('Landing Page - End-to-End Tests', () => {
   // Navigation Button Tests
   // ========================================
 
-  test('Should navigate to login page when clicking Hero "Get Started Free" button', async ({ page }) => {
+  test('Should navigate to register page when clicking Hero "Get Started Free" button', async ({ page }) => {
     console.log('🧪 Test: Hero "Get Started Free" button navigation');
 
     // Find and click the Get Started Free button in Hero section
@@ -30,14 +30,14 @@ test.describe('Landing Page - End-to-End Tests', () => {
     await expect(getStartedButton).toBeVisible();
     await getStartedButton.click();
 
-    // Verify navigation to login page
-    await page.waitForURL('/login', { timeout: 5000 });
-    expect(page.url()).toContain('/login');
+    // Verify navigation to register page (BUG-001 fixed: now goes to /register)
+    await page.waitForURL('/register', { timeout: 5000 });
+    expect(page.url()).toContain('/register');
 
     console.log('✅ Test: Hero "Get Started Free" button navigation - PASSED');
   });
 
-  test('Should navigate to login page when clicking CTA section "Get Started Free" button', async ({ page }) => {
+  test('Should navigate to register page when clicking CTA section "Get Started Free" button', async ({ page }) => {
     console.log('🧪 Test: CTA section "Get Started Free" button navigation');
 
     // Scroll to CTA section (at bottom of page)
@@ -52,9 +52,9 @@ test.describe('Landing Page - End-to-End Tests', () => {
     // Click the last Get Started button (in CTA section with arrow)
     await getStartedButtons.nth(count - 1).click();
 
-    // Verify navigation to login page
-    await page.waitForURL('/login', { timeout: 5000 });
-    expect(page.url()).toContain('/login');
+    // Verify navigation to register page (BUG-001 fixed: now goes to /register)
+    await page.waitForURL('/register', { timeout: 5000 });
+    expect(page.url()).toContain('/register');
 
     console.log('✅ Test: CTA section "Get Started Free" button navigation - PASSED');
   });
