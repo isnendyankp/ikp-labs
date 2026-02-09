@@ -125,3 +125,24 @@ export async function fetchWithoutAuth(
     },
   });
 }
+
+/**
+ * Create headers for FormData requests (without Content-Type)
+ *
+ * Browser automatically sets Content-Type with boundary for FormData.
+ * This function creates headers with optional auth for FormData requests.
+ *
+ * @returns HeadersInit with Authorization (if token exists) and Accept
+ */
+export function createFormDataHeaders(): HeadersInit {
+  const headers: HeadersInit = {
+    'Accept': 'application/json',
+  };
+
+  const token = getToken();
+  if (token) {
+    headers['Authorization'] = `Bearer ${token}`;
+  }
+
+  return headers;
+}

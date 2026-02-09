@@ -17,7 +17,7 @@ import {
   ApiResponse,
   ApiError
 } from '../types/api';
-import { getToken, saveToken, removeToken } from '../lib/apiClient';
+import { getToken, saveToken, removeToken, createAuthHeaders } from '../lib/apiClient';
 
 // === CONFIGURATION ===
 
@@ -179,9 +179,7 @@ export async function getUserProfile(userId: number): Promise<ApiResponse<UserRe
 
   const response = await apiRequest<UserRegistrationResponse>(`/api/users/${userId}`, {
     method: 'GET',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-    },
+    headers: createAuthHeaders(),
   });
 
   if (response.data) {

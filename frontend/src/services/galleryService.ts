@@ -20,30 +20,11 @@ import {
   ApiResponse,
   ApiError
 } from '../types/api';
-import { createAuthHeaders } from '../lib/apiClient';
+import { createAuthHeaders, createFormDataHeaders } from '../lib/apiClient';
 
 // === CONFIGURATION ===
 
 const API_BASE_URL = 'http://localhost:8081';
-
-// === UTILITY FUNCTIONS ===
-
-/**
- * Create headers for FormData requests (no Content-Type)
- * Browser akan meng-set Content-Type dengan boundary otomatis untuk FormData
- */
-const createFormDataHeaders = (): HeadersInit => {
-  const headers: HeadersInit = {
-    'Accept': 'application/json',
-  };
-
-  const token = typeof window !== 'undefined' ? localStorage.getItem('authToken') : null;
-  if (token) {
-    headers['Authorization'] = `Bearer ${token}`;
-  }
-
-  return headers;
-};
 
 // === API FUNCTIONS ===
 

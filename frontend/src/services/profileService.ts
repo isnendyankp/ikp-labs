@@ -14,28 +14,11 @@ import {
   ApiResponse,
   ApiError
 } from '../types/api';
-import { getToken } from '../lib/apiClient';
+import { getToken, createFormDataHeaders } from '../lib/apiClient';
 
 // === CONFIGURATION ===
 
 const API_BASE_URL = 'http://localhost:8081';
-
-// === UTILITY FUNCTIONS ===
-
-/**
- * Create headers for FormData requests (without Content-Type)
- * Browser akan meng-set Content-Type dengan boundary otomatis untuk FormData
- */
-const createFormDataHeaders = (): HeadersInit => {
-  const headers: HeadersInit = {};
-
-  const token = getToken();
-  if (token) {
-    headers['Authorization'] = `Bearer ${token}`;
-  }
-
-  return headers;
-};
 
 // === PROFILE PICTURE API FUNCTIONS ===
 
