@@ -1,9 +1,8 @@
 # Checklist - Fix Frontend & Backend DRY Violations
 
 **Project**: Fix Frontend & Backend DRY Violations + Hot Fix BUG-001 + Test Verification + Manual Testing
-**Status**: ✅ ALL PRIORITIES COMPLETED
+**Status**: 🚧 Priority 1-7 Completed, Priority 8 In Progress
 **Created**: February 8, 2026
-**Completed**: February 10, 2026
 
 ---
 
@@ -16,7 +15,8 @@
 5. [Priority 5: Hot Fix BUG-001 (E2E Test Update)](#priority-5-hot-fix-bug-001-e2e-test-update)
 6. [Priority 6: Test Verification & Fix](#priority-6-test-verification-fix)
 7. [Priority 7: Manual Testing & Config Fixes](#priority-7-manual-testing-config-fixes)
-8. [Final Verification](#final-verification)
+8. [Priority 8: RSC Payload Navigation Fix](#priority-8-rsc-payload-navigation-fix)
+9. [Final Verification](#final-verification)
 
 ---
 
@@ -371,6 +371,58 @@ Manual testing revealed issues that needed fixing:
 - BUG-001 fix verified (landing page → /register)
 
 **Commit**: `6c9466a` - test(e2e): fix playwright config to ignore Jest test files
+
+---
+
+## Priority 8: RSC Payload Navigation Fix
+
+**Estimated Time**: 15 minutes
+**Impact**: HIGH (Fixes navigation errors in manual testing)
+
+### Context
+Manual testing discovered navigation error when clicking Login/Get Started buttons:
+```
+Failed to fetch RSC payload for http://localhost:3002/login.
+Falling back to browser navigation.
+TypeError: Failed to fetch at handleLogin (Navbar.tsx:44:12)
+```
+
+### Root Cause Analysis
+- Error: Next.js trying to fetch RSC (React Server Component) payload for `/login` and `/register` pages
+- Cause: These pages were Server Components (no 'use client' directive) but imported components using hooks (useRouter, useState, etc.)
+- Result: RSC payload fetch failed during client-side navigation, forcing full page reload
+
+### 8.1 Fix Login Page
+- [x] Add `'use client'` directive to `frontend/src/app/login/page.tsx`
+- [x] Ensures LoginForm hooks (useRouter, useState) work correctly
+- [x] Prevents RSC payload fetch errors
+
+### 8.2 Fix Register Page
+- [x] Add `'use client'` directive to `frontend/src/app/register/page.tsx`
+- [x] Ensures RegistrationForm hooks work correctly
+- [x] Prevents RSC payload fetch errors
+
+### 8.3 Other Pages (Already Fixed)
+- [x] `app/gallery/page.tsx` - Already has `'use client'`
+- [x] `app/gallery/[id]/page.tsx` - Already has `'use client'`
+- [x] `app/myprofile/page.tsx` - Already has `'use client'`
+- [x] `app/gallery/upload/page.tsx` - Already has `'use client'`
+
+### 8.4 Testing
+- [ ] Manual test: Click Login button from Navbar - Pending user verification
+- [ ] Manual test: Click Get Started button from Navbar - Pending user verification
+- [ ] Manual test: Click Login from mobile menu - Pending user verification
+
+### 8.5 Commit
+- [x] Stage changes
+- [x] Commit with message: `fix(frontend): add 'use client' directive to login and register pages`
+- [x] Push to remote: **Commit 2350340**
+
+**Total Estimated Time**: 15 minutes
+**Status**: ✅ COMPLETED - Code fixed, awaiting manual verification
+
+**Technical Note**:
+Next.js App Router pages are Server Components by default. When they import Client Components that use hooks (useRouter, useState, etc.) without the 'use client' directive, Next.js tries to fetch the RSC payload for client-side navigation. This fails because the imported component requires client-side rendering. Adding 'use client' ensures the entire page is rendered on the client side.
 
 ---
 
