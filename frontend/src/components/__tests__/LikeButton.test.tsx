@@ -97,7 +97,7 @@ describe("LikeButton Component", () => {
     it("renders with correct title when liked", () => {
       renderWithToast(<LikeButton photoId={123} initialIsLiked={true} />);
 
-      const button = screen.getByTitle("Unlike");
+      const button = screen.getByTitle("Unlike photo");
       expect(button).toBeInTheDocument();
     });
   });
@@ -304,7 +304,7 @@ describe("LikeButton Component", () => {
       renderWithToast(<LikeButton photoId={123} isOwnPhoto={true} />);
 
       const button = screen.getByRole("button");
-      expect(button).toHaveAttribute("aria-label", "Cannot like own photo");
+      expect(button).toHaveAttribute("aria-label", "You cannot like your own photo");
     });
 
     it("shows correct title for own photo", () => {

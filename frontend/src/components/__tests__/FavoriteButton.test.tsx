@@ -85,14 +85,14 @@ describe("FavoriteButton Component", () => {
     it("renders with correct title when favorited", () => {
       renderWithToast(<FavoriteButton photoId={123} initialIsFavorited={true} />);
 
-      const button = screen.getByTitle("Remove from favorites");
+      const button = screen.getByTitle("Unfavorite photo");
       expect(button).toBeInTheDocument();
     });
 
     it("renders with correct title when not favorited", () => {
       renderWithToast(<FavoriteButton photoId={123} initialIsFavorited={false} />);
 
-      const button = screen.getByTitle("Add to favorites");
+      const button = screen.getByTitle("Favorite photo");
       expect(button).toBeInTheDocument();
     });
   });
