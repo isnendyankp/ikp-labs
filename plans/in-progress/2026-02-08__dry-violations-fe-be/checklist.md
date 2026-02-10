@@ -1,9 +1,8 @@
 # Checklist - Fix Frontend & Backend DRY Violations
 
-**Project**: Fix Frontend & Backend DRY Violations + Hot Fix BUG-001
-**Status**: ✅ ALL PRIORITIES COMPLETED
+**Project**: Fix Frontend & Backend DRY Violations + Hot Fix BUG-001 + Test Verification
+**Status**: 🚧 Priority 1-5 Completed, Priority 6 In Progress
 **Created**: February 8, 2026
-**Completed**: February 9, 2026
 
 ---
 
@@ -14,7 +13,8 @@
 3. [Priority 3: BE SortBy Enum](#priority-3-be-sortby-enum)
 4. [Priority 4: ActionButton Component (Optional)](#priority-4-actionbutton-component-optional)
 5. [Priority 5: Hot Fix BUG-001 (E2E Test Update)](#priority-5-hot-fix-bug-001-e2e-test-update)
-6. [Final Verification](#final-verification)
+6. [Priority 6: Test Verification & Fix](#priority-6-test-verification-fix)
+7. [Final Verification](#final-verification)
 
 ---
 
@@ -270,6 +270,59 @@
 
 ---
 
+## Priority 6: Test Verification & Fix
+
+**Estimated Time**: 30 minutes
+**Impact**: HIGH (Ensure all changes work correctly)
+
+### Context
+Recent changes need testing verification:
+- Commit 97fc992: FormData headers consolidation
+- Commit c9c0e16: ActionButton component refactoring
+- Commit 63f544c: BUG-001 E2E test fix
+
+### 6.1 Frontend E2E Tests
+- [ ] Run E2E tests: `npm run test:e2e`
+- [ ] Verify all tests pass or identify failures
+- [ ] Check for ActionButton-related test failures
+- [ ] Check for FormData header-related issues
+
+### 6.2 Frontend Component Tests
+- [ ] Run component tests: `npm test`
+- [ ] Verify LikeButton tests pass
+- [ ] Verify FavoriteButton tests pass
+- [ ] Check ActionButton component behavior
+
+### 6.3 Backend Tests
+- [ ] Run backend tests: `cd backend/ikp-labs-api && mvn test`
+- [ ] Verify all tests pass
+- [ ] Check PaginationUtil tests
+- [ ] Check SortBy enum tests
+
+### 6.4 Fix Broken Tests
+- [ ] Identify and fix E2E test failures
+- [ ] Identify and fix component test failures
+- [ ] Identify and fix backend test failures (if any)
+- [ ] Re-run tests to verify fixes
+
+### 6.5 Manual Verification
+- [ ] Test login functionality
+- [ ] Test gallery pagination and sorting
+- [ ] Test like button (optimistic update)
+- [ ] Test favorite button (optimistic update)
+- [ ] Test photo upload (FormData headers)
+- [ ] Test profile picture upload (FormData headers)
+
+### 6.6 Commit
+- [ ] Stage test fixes
+- [ ] Commit with appropriate message
+- [ ] Push to remote
+
+**Total Estimated Time**: 30 minutes
+**Status**: 🚧 In Progress
+
+---
+
 ## Final Verification
 
 ### Overall Progress
@@ -278,6 +331,7 @@
 - [x] Priority 3: BE SortBy Enum (15 min) ✅ **ALREADY COMPLETED** - Pre-existing (2026-02-07)
 - [x] Priority 4: ActionButton Component (30 min) ✅ **COMPLETED** - Commit c9c0e16
 - [x] Priority 5: Hot Fix BUG-001 (5 min) ✅ **COMPLETED** - Commit 63f544c
+- [ ] Priority 6: Test Verification & Fix (30 min) 🚧 **IN PROGRESS**
 
 ### Code Quality Checks
 - [x] No TypeScript compilation errors ✅
@@ -309,11 +363,12 @@
 - [x] Improved code maintainability ✅
 - [x] BUG-001: Landing page navigation fixed ✅ (E2E test aligned)
 
-**Total Estimated Time**: 100 minutes (95 + 5 for hot fix)
+**Total Estimated Time**: 130 minutes (95 + 5 for hot fix + 30 for test verification)
 **Actual Commits**:
 1. `97fc992` - feat(frontend): consolidate FormData headers in apiClient
 2. `c9c0e16` - feat(frontend): create reusable ActionButton component
 3. `63f544c` - test(e2e): fix landing page navigation test for BUG-001
+4. _Pending: Test fixes (if any)_
 
 ---
 
@@ -325,6 +380,7 @@ Each priority should be committed independently for easy rollback:
 1. `feat(frontend): consolidate FormData headers in apiClient` ✅
 2. `feat(frontend): create reusable ActionButton component` ✅
 3. `test(e2e): fix landing page navigation test for BUG-001` ✅ (hot fix)
+4. `test(*): fix broken tests after refactoring` 🚧 (pending)
 
 ### Rollback Commands
 ```bash
