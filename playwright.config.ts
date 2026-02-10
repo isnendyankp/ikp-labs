@@ -16,6 +16,9 @@ export default defineConfig({
   // Test directory (default for E2E tests)
   testDir: './tests',
 
+  // Ignore Jest test files in helpers directory
+  testIgnore: '**/helpers/__tests__/**',
+
   // Maximum time one test can run
   // Increased to 60s to accommodate slower WebKit tests with multiple user registrations
   timeout: 60 * 1000,
