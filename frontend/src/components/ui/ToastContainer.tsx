@@ -20,10 +20,7 @@ import "./ToastContainer.css";
 export function ToastContainer() {
   const { toasts, removeToast } = useToast();
 
-  if (toasts.length === 0) {
-    return null;
-  }
-
+  // Always render the container div, even when empty
   return (
     <div
       className="toast-container"

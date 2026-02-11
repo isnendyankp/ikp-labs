@@ -4,7 +4,7 @@
  * Tests for the Toast container component.
  */
 
-import { render, screen } from "@testing-library/react";
+import { render, screen, act } from "@testing-library/react";
 import { ToastContainer } from "../ToastContainer";
 import { ToastProvider, useToast } from "@/context/ToastContext";
 
@@ -45,7 +45,9 @@ describe("ToastContainer Component", () => {
 
     // Click button to show toast
     const button = screen.getByText("Show Toast");
-    button.click();
+    act(() => {
+      button.click();
+    });
 
     // Now toast container should be present
     toastContainer = container.querySelector(".toast-container");
