@@ -34,8 +34,22 @@ Currently, the frontend has minimal unit tests:
 Implement a comprehensive unit testing suite using:
 - **Jest** - Test runner and assertion library (already installed)
 - **React Testing Library (RTL)** - Component testing utilities (already installed)
-- **MSW (Mock Service Worker)** - API mocking (to be installed)
 - **@testing-library/user-event** - User interaction simulation (to be installed)
+
+### Testing Philosophy
+
+**Unit Tests = Test Component Logic & UI, NO API, NO Mocking**
+
+Components that call APIs (LoginForm, RegistrationForm, etc.):
+- ✅ Test: Form validation, UI interactions, state changes
+- ❌ NOT Test: API calls, network requests, response handling
+- ✅ API behavior tested in: `/tests/api` (API Tests)
+- ✅ Full flows tested in: `/tests/e2e` (E2E Tests)
+
+This keeps unit tests:
+- **Fast** - No network calls
+- **Deterministic** - No external dependencies
+- **Reliable** - No flaky mocks
 
 ### Testing Strategy
 
@@ -57,17 +71,17 @@ Implement a comprehensive unit testing suite using:
 | Component Type | Target Coverage | Priority |
 |----------------|----------------|----------|
 | UI Components | 80%+ | HIGH |
-| Custom Hooks | 90%+ | HIGH |
+| Custom Hooks | 85%+ | HIGH |
 | Utility Functions | 100% | HIGH |
-| Service Layer | 80%+ | MEDIUM |
-| Context/Providers | 85%+ | MEDIUM |
+| Context/Providers | 80%+ | MEDIUM |
+
+**Note**: Service layer tested in `/tests/api` (API Tests with Playwright)
 
 ## Scope
 
 ### In-Scope ✅
 
 #### Phase 1: Setup & Infrastructure (Priority 1)
-- Install MSW for API mocking
 - Install @testing-library/user-event
 - Configure Jest for optimal testing
 - Setup test utilities and helpers
@@ -99,19 +113,18 @@ Implement a comprehensive unit testing suite using:
 - FormField component
 
 #### Phase 5: Hook Tests (Priority 5)
-- useAuth hook
+- useAuth hook (state management only)
 - useToast hook
-- Custom API hooks (if any)
+- Custom hooks (if any)
 
-#### Phase 6: Service Tests (Priority 6)
-- authService.ts with MSW
-- galleryService.ts with MSW
-- profileService.ts with MSW
-- photoService.ts with MSW
-
-#### Phase 7: Context/Provider Tests (Priority 7)
+#### Phase 6: Context/Provider Tests (Priority 6)
 - ToastContext/Provider
 - AuthContext/Provider (if exists)
+
+#### Phase 7: Documentation (Priority 7)
+- Update README with testing section
+- Document coverage badges
+- Add testing examples
 
 ### Out-of-Scope ❌
 - E2E tests (already covered by Playwright)
@@ -123,7 +136,6 @@ Implement a comprehensive unit testing suite using:
 ## Success Criteria
 
 ### Must Have (P0)
-- [ ] MSW configured for API mocking
 - [ ] All critical components have tests
 - [ ] All custom hooks have tests
 - [ ] All utility functions have tests
@@ -132,7 +144,6 @@ Implement a comprehensive unit testing suite using:
 - [ ] Tests run in < 30 seconds
 
 ### Should Have (P1)
-- [ ] Service layer tests with mocked API
 - [ ] Context provider tests
 - [ ] Snapshot tests for critical components
 - [ ] Coverage badge in README
@@ -145,23 +156,23 @@ Implement a comprehensive unit testing suite using:
 
 - **Test Runner**: Jest 29+ (already installed)
 - **Component Testing**: React Testing Library (already installed)
-- **API Mocking**: MSW (Mock Service Worker) - to install
 - **User Interactions**: @testing-library/user-event - to install
 - **Coverage**: Istanbul (built-in to Jest)
 - **Snapshot Testing**: Jest snapshots
+
+**Note**: Service layer tested in `/tests/api` (Playwright API tests)
 
 ## Timeline
 
 | Phase | Duration | Tasks |
 |-------|----------|-------|
-| **Phase 1**: Setup & Infrastructure | 1-2 hours | Install dependencies, configure Jest, setup MSW |
+| **Phase 1**: Setup & Infrastructure | 1-2 hours | Install dependencies, configure Jest |
 | **Phase 2**: Utility Tests | 1-2 hours | Test utility functions |
 | **Phase 3**: Core Component Tests | 4-6 hours | Test critical components (PhotoCard, Forms) |
 | **Phase 4**: UI Element Tests | 2-3 hours | Test UI components |
-| **Phase 5**: Hook Tests | 2-3 hours | Test custom hooks |
-| **Phase 6**: Service Tests | 2-3 hours | Test API services with MSW |
-| **Phase 7**: Context Tests | 1-2 hours | Test providers |
-| **Phase 8**: Documentation | 1 hour | Update docs, add coverage badge |
+| **Phase 5**: Hook Tests | 2-3 hours | Test custom hooks (state only) |
+| **Phase 6**: Context Tests | 1-2 hours | Test providers |
+| **Phase 7**: Documentation | 1 hour | Update docs, add coverage badge |
 
 **Total Estimated**: 14-22 hours
 

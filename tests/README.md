@@ -1,8 +1,209 @@
-# 🧪 Tests with Playwright
+# 🧪 Testing Suite
 
-Automated testing suite for the Registration Form application using Playwright, including both end-to-end (E2E) tests and API tests.
+This project uses a comprehensive testing strategy with multiple test types to ensure code quality and reliability.
 
-## 📁 Structure
+## 📊 Testing Overview
+
+| Test Type | Location | Tool | Purpose | API/Mocking |
+|------------|------------|------|---------|--------------|
+| **Unit Tests** | `frontend/**/*.test.tsx` | Jest + RTL | Test component logic & UI | ❌ No API, ❌ No Mocking |
+| **Integration Tests** | `frontend/**/*.test.tsx` | Jest + RTL | Test component interactions | ❌ No API, ❌ No Mocking |
+| **API Tests** | `tests/api/` | Playwright API | Test backend endpoints | ✅ Real API |
+| **E2E Tests** | `tests/e2e/` | Playwright | Test full user flows | ✅ Real API |
+| **Gherkin/BDD** | `tests/gherkin/` | Cucumber | Business requirements | ✅ Real API |
+
+## 🎯 Testing Philosophy
+
+### Unit & Integration Tests (Frontend)
+- **Goal**: Test pure component logic and UI behavior
+- **NO API calls**: Components with API logic tested at E2E level
+- **NO mocking**: Tests are deterministic and fast
+- **Scope**: Form validation, state changes, UI interactions
+
+### API Tests (Backend Contract)
+- **Goal**: Ensure backend endpoints work correctly
+- **Real API**: Tests against actual backend server
+- **Scope**: Endpoint responses, validation, error handling
+- **Used by**: Frontend developers for API contract verification
+
+### E2E Tests (Full User Flows)
+- **Goal**: Test complete user journeys
+- **Real API**: Uses tested backend endpoints
+- **Scope**: Login flow, gallery navigation, profile management
+
+### Gherkin/BDD Tests (Business Specs)
+- **Goal**: Human-readable test specifications
+- **Real API**: Uses tested backend endpoints
+- **Scope**: Business requirement validation
+
+---
+
+## 🧪 Frontend Unit Tests (Jest + React Testing Library)
+
+Fast, isolated component testing without external dependencies.
+
+### Quick Start
+
+```bash
+# From frontend directory
+cd frontend
+
+# Run all unit tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Run tests with coverage report
+npm run test:coverage
+
+# Run specific test file
+npm test LoginForm.test.tsx
+```
+
+### Test Structure
+
+```bash
+frontend/
+├── src/
+│   ├── components/
+│   │   ├── __tests__/
+│   │   │   ├── LoginForm.test.tsx       # Form component tests
+│   │   │   ├── PhotoCard.test.tsx        # UI component tests
+│   │   │   └── ActionButton.test.tsx      # Button component tests
+│   │   ├── ui/
+│   │   │   └── __tests__/
+│   │   │       ├── FormField.test.tsx     # Form field tests
+│   │   │       ├── Toast.test.tsx         # Toast tests
+│   │   │       └── ToastContainer.test.tsx
+│   │   └── ...
+│   ├── hooks/
+│   │   └── __tests__/
+│   │       ├── useAuth.test.ts            # Auth hook tests
+│   │       └── useToast.test.ts           # Toast hook tests
+│   ├── lib/
+│   │   └── __tests__/
+│   │       ├── apiClient.test.ts          # API client utility tests
+│   │       └── validation.test.ts        # Validation utility tests
+│   └── context/
+│       └── __tests__/
+│           └── ToastContext.test.tsx      # Context provider tests
+└── jest.setup.js                      # Global test configuration
+```
+
+### What Gets Tested (Unit Tests)
+
+| Component Type | Examples | What We Test |
+|---------------|-------------|---------------|
+| **Form Components** | LoginForm, RegistrationForm | Validation, error messages, input changes |
+| **UI Components** | PhotoCard, ActionButton | Rendering, click handlers, state changes |
+| **Hooks** | useAuth, useToast | State updates, return values |
+| **Utilities** | validation, format functions | Input/output, edge cases |
+| **Contexts** | ToastContext, AuthContext | Provider values, state management |
+
+### What Does NOT Get Tested Here
+
+| Tested In | Location |
+|-----------|------------|
+| **API calls** | `tests/api/` (API Tests) |
+| **Full flows** | `tests/e2e/` (E2E Tests) |
+| **Backend logic** | Backend JUnit tests |
+
+### Example Unit Test
+
+```typescript
+import { render, screen } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import LoginForm from '../LoginForm';
+import { ToastProvider } from '@/context/ToastContext';
+
+// Helper to wrap with providers
+function renderWithProviders(ui: React.ReactElement) {
+  return render(<ToastProvider>{ui}</ToastProvider>);
+}
+
+describe('LoginForm', () => {
+  it('shows validation error for empty email', async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<LoginForm />);
+
+    const submitButton = screen.getByRole('button', { name: /sign in/i });
+    await user.click(submitButton);
+
+    // Test UI validation only (no API call)
+    expect(screen.getByText(/email is required/i)).toBeInTheDocument();
+  });
+
+  it('toggles password visibility', async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<LoginForm />);
+
+    const toggleButton = screen.getByLabelText(/show password/i);
+    const passwordInput = screen.getByPlaceholderText(/enter your password/i);
+
+    // Test UI interaction only
+    expect(passwordInput).toHaveAttribute('type', 'password');
+
+    await user.click(toggleButton);
+
+    expect(passwordInput).toHaveAttribute('type', 'text');
+  });
+});
+```
+
+### Test Coverage
+
+```bash
+# Run coverage report
+npm run test:coverage
+
+# View coverage in browser
+open frontend/coverage/index.html
+```
+
+Target coverage:
+- UI Components: 80%+
+- Custom Hooks: 85%+
+- Utilities: 100%
+- Context/Providers: 80%+
+
+### Best Practices
+
+1. **Test Behavior, Not Implementation**
+   ```typescript
+   // ✅ Good - tests user behavior
+   it('shows error when email is invalid', () => { ... });
+
+   // ❌ Bad - tests implementation detail
+   it('sets hasError state to true', () => { ... });
+   ```
+
+2. **No API Mocking**
+   - Components with API calls should only test UI part
+   - API call behavior tested in E2E tests
+   - Tests stay fast and deterministic
+
+3. **Use userEvent for Interactions**
+   ```typescript
+   // ✅ Good - realistic user interaction
+   await user.click(button);
+
+   // ❌ Avoid - less realistic
+   button.click();
+   ```
+
+### Documentation
+
+- **Plan**: [Frontend Unit Tests Plan](../plans/in-progress/2026-02-11__frontend-unit-tests/README.md)
+- **Setup**: [jest.setup.js](../frontend/jest.setup.js) configuration
+
+---
+
+## 🧪 Playwright Tests (E2E + API)
+
+Browser-based and API testing with Playwright.
+
+### 📁 Structure
 
 ```
 tests/

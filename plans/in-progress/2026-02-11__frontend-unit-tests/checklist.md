@@ -1,6 +1,6 @@
 # Checklist - Frontend Unit Tests
 
-**Project**: Frontend Unit Tests with Jest, React Testing Library & MSW
+**Project**: Frontend Unit Tests with Jest, React Testing Library
 **Status**: 🚧 In Progress
 **Created**: February 11, 2026
 
@@ -13,9 +13,8 @@
 3. [Phase 3: Core Component Tests](#phase-3-core-component-tests)
 4. [Phase 4: UI Element Tests](#phase-4-ui-element-tests)
 5. [Phase 5: Hook Tests](#phase-5-hook-tests)
-6. [Phase 6: Service Tests](#phase-6-service-tests)
-7. [Phase 7: Context/Provider Tests](#phase-7-contextprovider-tests)
-8. [Phase 8: Documentation](#phase-8-documentation)
+6. [Phase 6: Context/Provider Tests](#phase-6-contextprovider-tests)
+7. [Phase 7: Documentation](#phase-7-documentation)
 
 ---
 
@@ -25,7 +24,6 @@
 **Impact**: HIGH (Foundation for all tests)
 
 ### 1.1 Install Dependencies
-- [ ] Install MSW: `npm install --save-dev msw`
 - [ ] Install @testing-library/user-event: `npm install --save-dev @testing-library/user-event`
 - [ ] Verify installations in package.json
 
@@ -46,23 +44,7 @@
 - [ ] Mock next/navigation
 - [ ] Update jest.config.js to use setup file
 
-### 1.4 Create MSW Configuration
-- [ ] Create `src/__tests__/mocks/handlers.ts`
-- [ ] Set up MSW server with setupServer()
-- [ ] Create auth handlers (login, register, me)
-- [ ] Create gallery handlers (get photos, upload)
-- [ ] Create like handlers (like, unlike, get liked)
-- [ ] Create favorite handlers (favorite, unfavorite, get favorites)
-- [ ] Combine all handlers
-
-### 1.5 Create Mock Data Generators
-- [ ] Create `src/__tests__/mocks/data.ts`
-- [ ] Implement createMockUser()
-- [ ] Implement createMockPhoto()
-- [ ] Implement createMockPhotos()
-- [ ] Add override support for flexibility
-
-### 1.6 Create Test Utilities
+### 1.4 Create Test Utilities
 - [ ] Create `src/__tests__/test-utils.tsx`
 - [ ] Create TestProviders wrapper component
 - [ ] Implement renderWithProviders() function
@@ -81,9 +63,9 @@
 - [ ] Verify LikeButton/FavoriteButton tests still pass
 - [ ] Check test execution time
 
-### 1.9 Commit
+### 1.6 Commit
 - [ ] Stage all changes
-- [ ] Commit: "feat(frontend): setup Jest, RTL, and MSW for unit testing"
+- [ ] Commit: "feat(frontend): setup Jest and RTL for unit testing"
 
 **Total Estimated Time**: 1-2 hours
 
@@ -367,76 +349,16 @@
 
 ---
 
-## Phase 6: Service Tests
-
-**Estimated Time**: 2-3 hours
-**Impact**: MEDIUM (API integration testing)
-
-### 6.1 authService Tests
-- [ ] Create `src/services/authService.test.ts`
-- [ ] Test: Login with valid credentials (with MSW)
-- [ ] Test: Handle login with invalid credentials (with MSW)
-- [ ] Test: Handle network errors (with MSW)
-- [ ] Test: Register with valid data (with MSW)
-- [ ] Test: Handle registration errors (with MSW)
-- [ ] Test: Logout function
-- [ ] Test: Get current user (with MSW)
-- [ ] Test: Handle unauthorized access (with MSW)
-
-### 6.2 galleryService Tests
-- [ ] Create `src/services/galleryService.test.ts`
-- [ ] Test: Get public photos (with MSW)
-- [ ] Test: Get my photos (with MSW)
-- [ ] Test: Get user photos (with MSW)
-- [ ] Test: Get photo by ID (with MSW)
-- [ ] Test: Upload photo (with MSW)
-- [ ] Test: Update photo (with MSW)
-- [ ] Test: Delete photo (with MSW)
-- [ ] Test: Handle pagination parameters
-- [ ] Test: Handle sorting parameters
-
-### 6.3 profileService Tests
-- [ ] Create `src/services/profileService.test.ts`
-- [ ] Test: Get my profile (with MSW)
-- [ ] Test: Get user profile (with MSW)
-- [ ] Test: Update profile (with MSW)
-- [ ] Test: Upload profile picture (with MSW)
-- [ ] Test: Update password (with MSW)
-- [ ] Test: Handle various error responses (with MSW)
-
-### 6.4 photoService Tests (Like & Favorite)
-- [ ] Create `src/services/photoLikeService.test.ts`
-- [ ] Test: Like photo (with MSW)
-- [ ] Test: Unlike photo (with MSW)
-- [ ] Test: Get liked photos (with MSW)
-
-- [ ] Create `src/services/photoFavoriteService.test.ts`
-- [ ] Test: Favorite photo (with MSW)
-- [ ] Test: Unfavorite photo (with MSW)
-- [ ] Test: Get favorited photos (with MSW)
-
-### 6.5 Coverage Verification
-- [ ] Run coverage report for services
-- [ ] Verify 75%+ coverage for services
-
-### 6.6 Commit
-- [ ] Stage service test files
-- [ ] Commit: "test(frontend): add service layer unit tests with MSW"
-
-**Total Estimated Time**: 2-3 hours
-
----
-
-## Phase 7: Context/Provider Tests
+## Phase 6: Context/Provider Tests
 
 **Estimated Time**: 1-2 hours
 **Impact**: MEDIUM (State management)
 
-### 7.1 Identify Contexts
+### 6.1 Identify Contexts
 - [ ] Find all context files in src/contexts/
 - [ ] Document context purposes and APIs
 
-### 7.2 ToastContext Tests
+### 6.2 ToastContext Tests
 - [ ] Create `src/contexts/ToastContext.test.tsx`
 - [ ] Test: Provide toast context to children
 - [ ] Test: Add toast via context
@@ -445,20 +367,20 @@
 - [ ] Test: Update toasts when context changes
 - [ ] Test: Multiple toasts management
 
-### 7.3 AuthContext Tests
+### 6.3 AuthContext Tests
 - [ ] Create `src/contexts/AuthContext.test.tsx`
 - [ ] Test: Provide auth context to children
-- [ ] Test: Login via context (with MSW)
+- [ ] Test: Login via context (state only)
 - [ ] Test: Logout via context
 - [ ] Test: Update user when auth state changes
 - [ ] Test: Protected route behavior
 - [ ] Test: Redirect to login when unauthorized
 
-### 7.4 Coverage Verification
+### 6.4 Coverage Verification
 - [ ] Run coverage report for contexts
 - [ ] Verify 80%+ coverage
 
-### 7.5 Commit
+### 6.5 Commit
 - [ ] Stage context test files
 - [ ] Commit: "test(frontend): add context provider unit tests"
 
@@ -466,39 +388,38 @@
 
 ---
 
-## Phase 8: Documentation
+## Phase 7: Documentation
 
 **Estimated Time**: 1 hour
 **Impact**: LOW (Documentation)
 
-### 8.1 Update README
+### 7.1 Update README
 - [ ] Add testing section to frontend/README.md
 - [ ] Document how to run tests
 - [ ] Document coverage thresholds
 - [ ] Add coverage badge
 - [ ] Document testing patterns
 
-### 8.2 Create Testing Guide
+### 7.2 Create Testing Guide
 - [ ] Create TESTING.md in frontend/
 - [ ] Document testing philosophy
 - [ ] Document common patterns
-- [ ] Document MSW usage
 - [ ] Document test utilities
 - [ ] Add examples
 
-### 8.3 Update Main README
+### 7.3 Update Main README
 - [ ] Add test coverage badge to main README.md
 - [ ] Link to testing guide
 - [ ] Update tech stack with testing tools
 
-### 8.4 Final Verification
+### 7.4 Final Verification
 - [ ] Run all tests: `npm test`
 - [ ] Run coverage: `npm run test:coverage`
 - [ ] Verify overall coverage > 80%
 - [ ] Check test execution time < 30 seconds
 - [ ] Verify no flaky tests
 
-### 8.5 Commit
+### 7.5 Commit
 - [ ] Stage documentation files
 - [ ] Commit: "docs(frontend): add testing documentation and coverage badge"
 
@@ -514,9 +435,8 @@
 - [ ] Phase 3: Core Component Tests (4-6 hours)
 - [ ] Phase 4: UI Element Tests (2-3 hours)
 - [ ] Phase 5: Hook Tests (2-3 hours)
-- [ ] Phase 6: Service Tests (2-3 hours)
-- [ ] Phase 7: Context/Provider Tests (1-2 hours)
-- [ ] Phase 8: Documentation (1 hour)
+- [ ] Phase 6: Context/Provider Tests (1-2 hours)
+- [ ] Phase 7: Documentation (1 hour)
 
 ### Code Quality Checks
 - [ ] All tests pass (100%)
@@ -527,16 +447,15 @@
 - [ ] No console warnings in tests
 
 ### Success Criteria
-- [ ] MSW configured and working
 - [ ] All critical components tested
 - [ ] All custom hooks tested
 - [ ] All utility functions tested (100% coverage)
-- [ ] Service layer tested with MSW
 - [ ] Context providers tested
 - [ ] Documentation updated
 - [ ] Coverage badge added
 
-**Total Estimated Time**: 14-22 hours
+**Note**: Service layer tested in `/tests/api` (Playwright API tests)
+**Total Estimated Time**: 12-18 hours (reduced from 14-22 hours)
 
 ---
 
@@ -550,13 +469,8 @@
 - Keep tests simple and readable
 - One assertion per test ideal
 - Use descriptive test names
-
-### MSW Tips
-- Reset handlers after each test
-- Close server after all tests
-- Use consistent mock data
-- Test both success and error cases
-- Mock at the HTTP level, not function level
+- **NO API mocking** - Test UI/component logic only
+- **NO external dependencies** - Keep tests isolated
 
 ### Common Pitfalls to Avoid
 - Don't test third-party libraries
