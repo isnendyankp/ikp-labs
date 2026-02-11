@@ -24,48 +24,48 @@
 **Impact**: HIGH (Foundation for all tests)
 
 ### 1.1 Install Dependencies
-- [ ] Install @testing-library/user-event: `npm install --save-dev @testing-library/user-event`
-- [ ] Verify installations in package.json
+- [x] Install @testing-library/user-event: `npm install --save-dev @testing-library/user-event`
+- [x] Verify installations in package.json
 
 ### 1.2 Configure Jest
-- [ ] Update `jest.config.js` with coverage thresholds
-- [ ] Configure moduleNameMapper for @/* aliases
-- [ ] Set coverage collection paths
-- [ ] Set up swc/jest transform
-- [ ] Configure testPathIgnorePatterns
+- [x] Update `jest.config.js` with coverage thresholds
+- [x] Configure moduleNameMapper for @/* aliases
+- [x] Set coverage collection paths
+- [x] Set up swc/jest transform
+- [x] Configure testPathIgnorePatterns
 
 ### 1.3 Create Test Setup File
-- [ ] Create `src/__tests__/setup.ts`
-- [ ] Import @testing-library/jest-dom
-- [ ] Add TextEncoder/TextDecoder polyfill
-- [ ] Mock IntersectionObserver
-- [ ] Mock window.matchMedia
-- [ ] Mock next/router
-- [ ] Mock next/navigation
-- [ ] Update jest.config.js to use setup file
+- [x] Create `src/__tests__/setup.ts`
+- [x] Import @testing-library/jest-dom
+- [x] Add TextEncoder/TextDecoder polyfill
+- [x] Mock IntersectionObserver
+- [x] Mock window.matchMedia
+- [x] Mock next/router
+- [x] Mock next/navigation
+- [x] Update jest.config.js to use setup file
 
 ### 1.4 Create Test Utilities
-- [ ] Create `src/__tests__/test-utils.tsx`
-- [ ] Create TestProviders wrapper component
-- [ ] Implement renderWithProviders() function
-- [ ] Re-export RTL utilities
-- [ ] Export userEvent
+- [x] Create `src/lib/test-helpers.tsx` (renamed from test-utils.tsx)
+- [x] Create TestProviders wrapper component
+- [x] Implement renderWithProviders() function
+- [x] Re-export RTL utilities
+- [x] Export userEvent
 
 ### 1.7 Update Package.json Scripts
-- [ ] Add `test` script
-- [ ] Add `test:watch` script
-- [ ] Add `test:coverage` script
-- [ ] Add `test:ci` script
+- [x] Add `test` script
+- [x] Add `test:watch` script
+- [x] Add `test:coverage` script
+- [x] Add `test:ci` script
 
 ### 1.8 Testing & Verification
-- [ ] Run `npm test` - should pass with existing tests
-- [ ] Run `npm run test:coverage` - check coverage report
-- [ ] Verify LikeButton/FavoriteButton tests still pass
-- [ ] Check test execution time
+- [x] Run `npm test` - should pass with existing tests
+- [x] Run `npm run test:coverage` - check coverage report
+- [x] Verify LikeButton/FavoriteButton tests still pass
+- [x] Check test execution time
 
 ### 1.6 Commit
-- [ ] Stage all changes
-- [ ] Commit: "feat(frontend): setup Jest and RTL for unit testing"
+- [x] Stage all changes
+- [x] Commit: "test(frontend): fix failing unit tests and complete Phase 1 setup"
 
 **Total Estimated Time**: 1-2 hours
 
