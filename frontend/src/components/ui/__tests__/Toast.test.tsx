@@ -4,7 +4,7 @@
  * Tests for the Toast notification component.
  */
 
-import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { render, screen, fireEvent, waitFor, act } from "@testing-library/react";
 import { Toast } from "../Toast";
 import { Toast as ToastType } from "@/types/toast";
 
@@ -26,7 +26,9 @@ describe("Toast Component", () => {
   });
 
   afterEach(() => {
-    jest.runOnlyPendingTimers();
+    act(() => {
+      jest.runOnlyPendingTimers();
+    });
     jest.useRealTimers();
   });
 
@@ -65,8 +67,10 @@ describe("Toast Component", () => {
     const closeButton = screen.getByLabelText("Close notification");
     fireEvent.click(closeButton);
 
-    // Wait for animation duration
-    jest.advanceTimersByTime(300);
+    // Wait for animation duration - wrap in act()
+    await act(async () => {
+      jest.advanceTimersByTime(300);
+    });
 
     await waitFor(() => {
       expect(mockOnClose).toHaveBeenCalledWith("1");
@@ -76,8 +80,10 @@ describe("Toast Component", () => {
   it("auto-dismisses after duration", async () => {
     render(<Toast toast={mockToast} onClose={mockOnClose} />);
 
-    // Fast forward time
-    jest.advanceTimersByTime(4000);
+    // Fast forward time - wrap in act()
+    await act(async () => {
+      jest.advanceTimersByTime(4000);
+    });
 
     await waitFor(() => {
       expect(mockOnClose).toHaveBeenCalledWith("1");

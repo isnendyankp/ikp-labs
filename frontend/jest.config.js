@@ -16,6 +16,19 @@ const customJestConfig = {
     'src/**/*.{js,jsx,ts,tsx}',
     '!src/**/*.d.ts',
   ],
+  // Coverage thresholds - enforce minimum coverage
+  coverageThreshold: {
+    global: {
+      branches: 70,
+      functions: 70,
+      lines: 70,
+      statements: 70,
+    },
+  },
+  // Module name mapper for @/* aliases
+  moduleNameMapper: {
+    '^@/(.*)$': '<rootDir>/src/$1',
+  },
 }
 
 module.exports = createJestConfig(customJestConfig)

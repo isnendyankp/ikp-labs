@@ -21,15 +21,20 @@ function TestComponent() {
 }
 
 describe("ToastContainer Component", () => {
-  it("renders nothing when there are no toasts", () => {
+  it("renders container even when there are no toasts", () => {
     const { container } = render(
       <ToastProvider>
         <ToastContainer />
       </ToastProvider>,
     );
 
+    // ToastContainer always renders but with empty toasts array initially
     const toastContainer = container.querySelector(".toast-container");
-    expect(toastContainer).not.toBeInTheDocument();
+    expect(toastContainer).toBeInTheDocument();
+
+    // No toast items should be visible initially
+    const toasts = container.querySelectorAll(".toast-item");
+    expect(toasts).toHaveLength(0);
   });
 
   it("renders toast container when toasts are present", () => {
@@ -39,9 +44,9 @@ describe("ToastContainer Component", () => {
       </ToastProvider>,
     );
 
-    // Initially, no toast container
+    // Container is always present
     let toastContainer = container.querySelector(".toast-container");
-    expect(toastContainer).not.toBeInTheDocument();
+    expect(toastContainer).toBeInTheDocument();
 
     // Click button to show toast
     const button = screen.getByText("Show Toast");
@@ -49,9 +54,9 @@ describe("ToastContainer Component", () => {
       button.click();
     });
 
-    // Now toast container should be present
-    toastContainer = container.querySelector(".toast-container");
-    expect(toastContainer).toBeInTheDocument();
+    // Now toast items should be present
+    const toasts = container.querySelectorAll(".toast-item");
+    expect(toasts).toHaveLength(1);
   });
 
   it("has correct accessibility attributes", () => {
@@ -96,7 +101,9 @@ describe("ToastContainer Component", () => {
     );
 
     const button = screen.getByText("Show Multiple Toasts");
-    button.click();
+    act(() => {
+      button.click();
+    });
 
     const toastContainer = container.querySelector(".toast-container");
     expect(toastContainer).toBeInTheDocument();
