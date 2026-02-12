@@ -79,7 +79,7 @@
 ### 2.1 Identify Utility Files
 - [x] Find all utility files in src/lib/
 - [x] Find apiClient utilities
-- [ ] Find auth utilities
+- [x] Find auth utilities
 - [ ] Find validation utilities (if any)
 - [ ] Find formatting utilities (if any)
 
@@ -97,15 +97,17 @@
 - [x] 19 test cases, all passing
 - [x] Commit: `f8a7285` - test(frontend): add apiClient utility unit tests
 
-### 2.3 Test auth.ts
-- [ ] Create `src/__tests__/lib/auth.test.ts`
-- [ ] Test saveToken(), getToken(), logout()
-- [ ] Test isAuthenticated() - return true for valid token
-- [ ] Test isAuthenticated() - return false for expired token
-- [ ] Test isAuthenticated() - return false for invalid token
-- [ ] Test getUserFromToken() - decode and return user info
-- [ ] Test getUserFromToken() - return null for invalid token
-- [ ] Test decodeToken() - throw error for invalid JWT format
+### 2.3 Test auth.ts ✅ COMPLETED
+- [x] Create `src/__tests__/lib/auth.test.ts`
+- [x] Test saveToken(), getToken(), logout()
+- [x] Test isAuthenticated() - return true for valid token
+- [x] Test isAuthenticated() - return false for expired token
+- [x] Test isAuthenticated() - return false for invalid token
+- [x] Test getUserFromToken() - decode and return user info
+- [x] Test getUserFromToken() - return null for invalid token
+- [x] Test decodeToken() - throw error for invalid JWT format
+- [x] 27 test cases, all passing
+- [x] Commit: `9868167` - test(frontend): add auth.test.ts for auth utilities
 
 ### 2.4 Test Validation Utilities
 - [ ] Test email validation (if exists)
@@ -134,8 +136,9 @@
 - [x] Commit: "test(frontend): add apiClient utility unit tests"
 - [x] Commit: "refactor(test): consolidate frontend unit tests to centralized __tests__ folder"
 - [x] Commit: "fix(test): update import paths after test folder restructure"
+- [x] Commit: `9868167` - "test(frontend): add auth.test.ts for auth utilities"
 
-**Total Estimated Time**: 1-2 hours (apiClient done, auth pending)
+**Total Estimated Time**: 1-2 hours (apiClient & auth done, validation/formatting pending)
 
 ---
 
