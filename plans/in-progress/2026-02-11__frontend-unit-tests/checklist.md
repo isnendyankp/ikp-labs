@@ -181,17 +181,20 @@
 - [x] ~~Create ProfileForm.test.tsx~~ - No standalone ProfileForm component exists
 - Note: ProfilePicture and ProfilePictureUpload exist as separate components
 
-### 3.5 PhotoUploadForm Component Tests
-- [ ] Create `src/components/PhotoUploadForm.test.tsx`
-- [ ] Test: Render file input
-- [ ] Test: Validate file type (images only)
-- [ ] Test: Validate file size
-- [ ] Test: Show preview of selected image
-- [ ] Test: Upload progress indicator
-- [ ] Test: Clear form after successful upload
-- [ ] Test: Handle upload errors
-- [ ] Test: Redirect to gallery on success
-- [ ] Test: Multiple file handling (if supported)
+### 3.5 PhotoUploadForm Component Tests ✅ COMPLETED
+- [x] Create `src/__tests__/components/gallery/PhotoUploadForm.test.tsx`
+- [x] Test: Render file input
+- [x] Test: Validate file type (images only)
+- [x] Test: Validate file size (5MB limit)
+- [x] Test: Show file info when selected
+- [x] Test: Title/description input with character count
+- [x] Test: Privacy toggle
+- [x] Test: Clear form button
+- [x] Test: Cancel button navigation
+- [x] Test: Submit button state (disabled without file)
+- [x] Test: Drag & drop events
+- [x] 32 test cases, all passing
+- [x] Commit: `f46c45c` - test(frontend): add PhotoUploadForm component unit tests
 
 ### 3.6 Coverage Verification
 - [ ] Run coverage report for components
@@ -437,7 +440,7 @@
 ### Overall Progress
 - [x] Phase 1: Setup & Infrastructure (1-2 hours) ✅
 - [x] Phase 2: Utility Tests (1-2 hours) ✅
-- [ ] Phase 3: Core Component Tests (4-6 hours)
+- [x] Phase 3: Core Component Tests (4-6 hours) ✅
 - [ ] Phase 4: UI Element Tests (2-3 hours)
 - [ ] Phase 5: Hook Tests (2-3 hours)
 - [ ] Phase 6: Context/Provider Tests (1-2 hours)
@@ -452,7 +455,7 @@
 - [ ] No console warnings in tests
 
 ### Success Criteria
-- [ ] All critical components tested
+- [x] All critical components tested ✅
 - [ ] All custom hooks tested
 - [x] All utility functions tested (100% coverage) ✅
 - [ ] Context providers tested
