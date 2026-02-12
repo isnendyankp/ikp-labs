@@ -5,7 +5,7 @@
  */
 
 import { render, screen, fireEvent, waitFor, act } from "@testing-library/react";
-import { Toast } from "../Toast";
+import { Toast } from "../../../components/ui/Toast";
 import { Toast as ToastType } from "@/types/toast";
 
 describe("Toast Component", () => {

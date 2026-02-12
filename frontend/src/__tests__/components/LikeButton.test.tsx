@@ -22,7 +22,7 @@
 import React from "react";
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import LikeButton from "../LikeButton";
+import LikeButton from "../../components/LikeButton";
 import photoLikeService from "../../services/photoLikeService";
 import { ToastProvider } from "@/context/ToastContext";
 

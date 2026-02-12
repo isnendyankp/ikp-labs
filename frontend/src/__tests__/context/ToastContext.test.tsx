@@ -5,8 +5,8 @@
  */
 
 import { renderHook, act, waitFor } from "@testing-library/react";
-import { useToast } from "../ToastContext";
-import { ToastProvider } from "../ToastContext";
+import { useToast } from "../../context/ToastContext";
+import { ToastProvider } from "../../context/ToastContext";
 
 describe("ToastContext", () => {
   it("provides toast context to children", () => {

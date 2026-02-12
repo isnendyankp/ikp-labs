@@ -5,7 +5,7 @@
  */
 
 import { render, screen, act } from "@testing-library/react";
-import { ToastContainer } from "../ToastContainer";
+import { ToastContainer } from "../../../components/ui/ToastContainer";
 import { ToastProvider, useToast } from "@/context/ToastContext";
 
 // Helper component to test ToastContainer with context
