@@ -77,45 +77,65 @@
 **Impact**: HIGH (Fastest wins, 100% coverage target)
 
 ### 2.1 Identify Utility Files
-- [ ] Find all utility files in src/lib/utils/
-- [ ] Find validation utilities
-- [ ] Find formatting utilities
-- [ ] Find apiClient utilities
+- [x] Find all utility files in src/lib/
+- [x] Find apiClient utilities
+- [ ] Find auth utilities
+- [ ] Find validation utilities (if any)
+- [ ] Find formatting utilities (if any)
 
-### 2.2 Test apiClient.ts
-- [ ] Create `src/lib/apiClient.test.ts`
-- [ ] Test getToken() - retrieve token from localStorage
-- [ ] Test setToken() - store token to localStorage
-- [ ] Test removeToken() - clear token from localStorage
-- [ ] Test createAuthHeaders() - build headers with auth
-- [ ] Test createAuthHeaders() without token - return empty object
-- [ ] Test createFormDataHeaders() - build FormData headers
-- [ ] Test createFormDataHeaders() with token - include auth
+### 2.2 Test apiClient.ts ✅ COMPLETED
+- [x] Create `src/__tests__/lib/apiClient.test.ts`
+- [x] Test getToken() - retrieve token from localStorage
+- [x] Test saveToken() - store token to localStorage
+- [x] Test removeToken() - clear token from localStorage
+- [x] Test createHeaders() - build headers with/without auth
+- [x] Test createAuthHeaders() - build headers with auth
+- [x] Test createAuthHeaders() without token - return headers without auth
+- [x] Test createFormDataHeaders() - build FormData headers
+- [x] Test createFormDataHeaders() with token - include auth
+- [x] Test token + headers integration scenarios
+- [x] 19 test cases, all passing
+- [x] Commit: `f8a7285` - test(frontend): add apiClient utility unit tests
 
-### 2.3 Test Validation Utilities
-- [ ] Test email validation
-- [ ] Test password strength validation
-- [ ] Test URL validation
-- [ ] Test file type validation
-- [ ] Test image dimension validation
+### 2.3 Test auth.ts
+- [ ] Create `src/__tests__/lib/auth.test.ts`
+- [ ] Test saveToken(), getToken(), logout()
+- [ ] Test isAuthenticated() - return true for valid token
+- [ ] Test isAuthenticated() - return false for expired token
+- [ ] Test isAuthenticated() - return false for invalid token
+- [ ] Test getUserFromToken() - decode and return user info
+- [ ] Test getUserFromToken() - return null for invalid token
+- [ ] Test decodeToken() - throw error for invalid JWT format
 
-### 2.4 Test Format Utilities
-- [ ] Test date formatting (relative time)
-- [ ] Test date formatting (absolute time)
-- [ ] Test file size formatting (bytes, KB, MB)
-- [ ] Test number formatting
-- [ ] Test truncation utilities
+### 2.4 Test Validation Utilities
+- [ ] Test email validation (if exists)
+- [ ] Test password strength validation (if exists)
+- [ ] Test URL validation (if exists)
+- [ ] Test file type validation (if exists)
 
-### 2.5 Coverage Verification
-- [ ] Run coverage report
-- [ ] Verify 100% coverage for utilities
-- [ ] Fix any uncovered lines
+### 2.5 Test Format Utilities
+- [ ] Test date formatting (if exists)
+- [ ] Test file size formatting (if exists)
+- [ ] Test number formatting (if exists)
 
-### 2.6 Commit
-- [ ] Stage utility test files
-- [ ] Commit: "test(frontend): add utility function unit tests"
+### 2.6 Coverage Verification
+- [x] Run coverage report for apiClient.ts
+- [x] Verify coverage for apiClient utilities
+- [ ] Verify 100% coverage for all utilities
 
-**Total Estimated Time**: 1-2 hours
+### 2.7 Additional Improvements ✅ COMPLETED
+- [x] Consolidate test folders to `src/__tests__/`
+- [x] Add README.md to test folder
+- [x] Fix import paths after restructure
+- [x] All 182 tests passing
+
+### 2.8 Commit
+- [x] Stage utility test files
+- [x] Commit: "test(frontend): add apiClient utility unit tests"
+- [x] Commit: "refactor(test): consolidate frontend unit tests to centralized __tests__ folder"
+- [x] Commit: "fix(test): update import paths after test folder restructure"
+
+**Total Estimated Time**: 1-2 hours (apiClient done, auth pending)
 
 ---
 
