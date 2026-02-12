@@ -14,7 +14,7 @@ import {
   createHeaders,
   createAuthHeaders,
   createFormDataHeaders,
-} from '../apiClient';
+} from '../../lib/apiClient';
 
 describe('apiClient', () => {
   const TOKEN_KEY = 'authToken';

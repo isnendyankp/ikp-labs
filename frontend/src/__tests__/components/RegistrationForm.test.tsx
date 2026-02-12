@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import RegistrationForm from '../RegistrationForm';
+import RegistrationForm from '../../components/RegistrationForm';
 import { ToastProvider } from '@/context/ToastContext';
 
 // Custom render function with providers
