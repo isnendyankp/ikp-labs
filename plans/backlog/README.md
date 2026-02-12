@@ -4,29 +4,21 @@ Planned projects for future implementation.
 
 ## Planned Projects
 
-### User Experience
-- **[UX Improvements](./2026-01-12__ux-improvements/)** (2026-01-12)
-  - Toast notifications for user feedback
-  - Loading states and skeleton screens
-  - Confirmation dialogs for destructive actions
-  - Empty states for better UX
-  - Form validation improvements
-  - Micro-interactions and animations
-
-### Testing
-- **[Frontend Unit Tests](./2026-01-12__frontend-unit-tests/)** (2026-01-12)
-  - Setup Jest + React Testing Library
-  - Component testing for PhotoCard, LoginForm, ProfileForm
-  - Hook testing (useAuth, usePhotos)
-  - Utility function tests
-  - Coverage target: 80%+
-
 ### Infrastructure
 - **[CI/CD Pipeline](./2026-01-12__cicd-pipeline/)** (2026-01-12)
   - GitHub Actions workflow setup
   - Automated testing on push/PR
   - Pre-commit hooks with Claude agents
   - Auto-deployment configuration
+
+---
+
+## Completed/Moved Plans
+
+The following plans have been moved to `done/` or `in-progress/`:
+
+- **UX Improvements** → moved to `done/2026-01-13__ux-improvements/`
+- **Frontend Unit Tests** → moved to `in-progress/2026-02-11__frontend-unit-tests/`
 
 ## Instructions
 

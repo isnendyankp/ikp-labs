@@ -98,7 +98,7 @@ done/
 ### In Progress
 ```
 in-progress/
-└── 2026-01-13__ux-improvements/
+└── 2026-02-11__frontend-unit-tests/
     ├── README.md
     ├── requirements.md
     ├── technical-design.md
@@ -108,7 +108,7 @@ in-progress/
 ### Backlog
 ```
 backlog/
-└── 2026-01-12__ux-improvements/
+└── 2026-01-12__cicd-pipeline/
     ├── README.md
     ├── requirements.md
     ├── technical-design.md
@@ -209,7 +209,7 @@ For **permanent** documentation, see:
 
 ## 📊 Quick Stats
 
-**Completed Projects**: 11
+**Completed Projects**: 17
 - Unit Testing (Nov 4, 2024)
 - Profile Picture E2E (Nov 4, 2024)
 - Photo Gallery Feature (Nov 24, 2024)
@@ -220,13 +220,19 @@ For **permanent** documentation, see:
 - E2E Test Fixes (Dec 27, 2024)
 - Gallery Sorting Feature (Jan 5, 2026)
 - Claude Agents Infrastructure (Jan 11, 2026)
+- UX Improvements (Jan 13, 2026)
+- Landing Page (Jan 19, 2026)
+- Auth UX Improvements (Jan 26, 2026)
+- Mobile UX Improvements (Jan 29, 2026)
+- Bug Analysis & Testing Coverage (Feb 2, 2026)
+- DRY Violations Fix (Feb 8, 2026)
 
 **In Progress**: 1
-- UX Improvements (Jan 13, 2026)
+- Frontend Unit Tests (Feb 11, 2026)
 
 **Backlog**: 1
-- UX Improvements (original plan in backlog - moved to in-progress)
+- CI/CD Pipeline (Jan 12, 2026)
 
 ---
 
-**Last Updated**: January 13, 2026
+**Last Updated**: February 12, 2026

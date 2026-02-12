@@ -63,21 +63,21 @@ Quick concept snippets and brainstorming notes that haven't been formalized into
 
 <!-- Ideas that have been implemented or rejected -->
 
-### ✅ Moved to Backlog (Formal Plans Created)
-- **UX Improvements** (moved to `backlog/2026-01-12__ux-improvements/`)
+### ✅ Moved to Done (Formal Plans Completed)
+- **UX Improvements** (completed in `done/2026-01-13__ux-improvements/`)
   - Toast notifications, loading states, confirmation dialogs
   - Empty states, form validation, micro-interactions
-  - Created: January 12, 2026
+  - Completed: January 18, 2026
 
-- **Frontend Unit Tests** (moved to `backlog/2026-01-12__frontend-unit-tests/`)
+- **Frontend Unit Tests** (in progress in `in-progress/2026-02-11__frontend-unit-tests/`)
   - Jest + React Testing Library setup
   - Component, hook, utility, and service testing
-  - Created: January 12, 2026
+  - Phase 1 completed: February 11, 2026
 
-- **CI/CD Pipeline** (moved to `backlog/2026-01-12__cicd-pipeline/`)
+- **CI/CD Pipeline** (planned in `backlog/2026-01-12__cicd-pipeline/`)
   - GitHub Actions workflows
   - Pre-commit hooks, automated deployment
-  - Created: January 12, 2026
+  - Status: Backlog
 
 ### ✅ Implemented
 - **Gallery Sorting Feature** (moved to `done/2024-12-28__gallery-sorting-feature/`)
