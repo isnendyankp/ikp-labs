@@ -310,94 +310,99 @@
 
 ---
 
-## Phase 5: Hook Tests
+## Phase 5: Hook Tests ✅ COMPLETED
 
 **Estimated Time**: 2-3 hours
 **Impact**: HIGH (Custom hook logic)
 
-### 5.1 Identify Custom Hooks
-- [ ] Find all custom hooks in src/hooks/
-- [ ] Document hook purposes and APIs
+### 5.1 Identify Custom Hooks ✅ COMPLETED
+- [x] Find all custom hooks in src/hooks/
+- [x] Document hook purposes and APIs
+- Note: Only 2 hooks exist: useClickOutside.ts, useScrollRestoration.ts
+- Note: useAuth and useToast hooks don't exist (auth utilities in lib/auth.ts, toast via ToastContext)
 
-### 5.2 useAuth Hook Tests
-- [ ] Create `src/hooks/useAuth.test.ts`
-- [ ] Test: Return null user when not authenticated
-- [ ] Test: Return user when authenticated
-- [ ] Test: login() function stores token (with MSW)
-- [ ] Test: login() function sets user (with MSW)
-- [ ] Test: logout() function clears token
-- [ ] Test: logout() function clears user
-- [ ] Test: Persist state across re-renders
-- [ ] Test: Handle login errors (with MSW error handler)
-- [ ] Test: isLoading state during login
+### 5.2 useClickOutside Hook Tests ✅ COMPLETED
+- [x] Create `src/__tests__/hooks/useClickOutside.test.ts`
+- [x] Test: Basic functionality with click outside detection
+- [x] Test: Event listener management (add/remove on mount/unmount)
+- [x] Test: Ref handling (null ref, undefined ref.current)
+- [x] Test: Callback updates when callback changes
+- [x] Test: Edge cases (multiple instances, null ref.current)
+- [x] 9 test cases, all passing
+- [x] Commit: `1bdfb58` - test(frontend): add useClickOutside hook tests
 
-### 5.3 useToast Hook Tests
-- [ ] Create `src/hooks/useToast.test.ts`
-- [ ] Test: Show toast with message
-- [ ] Test: Show toast with specific type (success, error, info)
-- [ ] Test: Dismiss toast after duration
-- [ ] Test: Manual dismiss
-- [ ] Test: Clear all toasts
-- [ ] Test: Support multiple toasts
-- [ ] Test: Toast auto-removal from list
+### 5.3 useScrollRestoration Hook Tests ✅ COMPLETED
+- [x] Create `src/__tests__/hooks/useScrollRestoration.test.ts`
+- [x] Test: Return values (all 4 functions)
+- [x] Test: saveScrollPosition with different filters/pages/sorts
+- [x] Test: restoreScrollPosition (valid data, no data, expired data)
+- [x] Test: clearScrollPosition (specific and non-existent)
+- [x] Test: clearAllScrollPositions (multiple items, other storage items)
+- [x] Test: Hook stability (stable function references)
+- [x] Test: Edge cases (all filter/sort options, large page numbers, malformed data)
+- [x] 21 test cases, all passing
+- [x] Commit: `d77d68b` - test(frontend): add useScrollRestoration hook tests
 
-### 5.4 Custom API Hooks Tests
-- [ ] Identify custom API hooks (usePhotos, useProfile, etc.)
-- [ ] Test: Fetch data on mount
-- [ ] Test: Show loading state
-- [ ] Test: Handle successful response (with MSW)
-- [ ] Test: Handle error state (with MSW error handler)
-- [ ] Test: Refetch function
-- [ ] Test: Cache invalidation
+### 5.4 useAuth Hook Tests - N/A
+- [x] ~~Create useAuth.test.ts~~ - No useAuth hook exists (auth utilities in lib/auth.ts, already tested)
+- Note: Auth logic is in lib/auth.ts with 27 test cases (Phase 2)
 
-### 5.5 Coverage Verification
-- [ ] Run coverage report for hooks
-- [ ] Verify 85%+ coverage for hooks
+### 5.5 useToast Hook Tests - N/A
+- [x] ~~Create useToast.test.ts~~ - No useToast hook exists (toast via ToastContext)
+- Note: ToastContext already has tests at `__tests__/context/ToastContext.test.tsx`
 
-### 5.6 Commit
-- [ ] Stage hook test files
-- [ ] Commit: "test(frontend): add custom hook unit tests"
+### 5.6 Custom API Hooks Tests - N/A
+- [x] ~~Identify custom API hooks~~ - No custom API hooks exist
+- Note: API calls are made directly via apiClient, not through hooks
 
-**Total Estimated Time**: 2-3 hours
+### 5.7 Coverage Verification ✅ COMPLETED
+- [x] Run coverage report for hooks
+- [x] Verify 85%+ coverage for hooks
+- [x] All 393 tests passing
+
+### 5.8 Commit
+- [x] Stage hook test files
+- [x] Commit: `1bdfb58` - test(frontend): add useClickOutside hook tests
+- [x] Commit: `d77d68b` - test(frontend): add useScrollRestoration hook tests
+
+**Total Estimated Time**: 2-3 hours ✅ COMPLETED
 
 ---
 
-## Phase 6: Context/Provider Tests
+## Phase 6: Context/Provider Tests ✅ COMPLETED
 
 **Estimated Time**: 1-2 hours
 **Impact**: MEDIUM (State management)
 
-### 6.1 Identify Contexts
-- [ ] Find all context files in src/contexts/
-- [ ] Document context purposes and APIs
+### 6.1 Identify Contexts ✅ COMPLETED
+- [x] Find all context files in src/contexts/
+- [x] Document context purposes and APIs
+- Note: Only ToastContext exists in src/contexts/
+- Note: No AuthContext exists (auth handled via lib/auth.ts utilities)
 
-### 6.2 ToastContext Tests
-- [ ] Create `src/contexts/ToastContext.test.tsx`
-- [ ] Test: Provide toast context to children
-- [ ] Test: Add toast via context
-- [ ] Test: Remove toast via context
-- [ ] Test: Auto-remove toast after duration
-- [ ] Test: Update toasts when context changes
-- [ ] Test: Multiple toasts management
+### 6.2 ToastContext Tests ✅ EXISTING
+- [x] Create `src/__tests__/context/ToastContext.test.tsx`
+- [x] Test: Provide toast context to children
+- [x] Test: Add toast via context
+- [x] Test: Remove toast via context
+- [x] Test: Auto-remove toast after duration
+- [x] Test: Update toasts when context changes
+- [x] Test: Multiple toasts management
+- [x] Tests already exist and passing
 
-### 6.3 AuthContext Tests
-- [ ] Create `src/contexts/AuthContext.test.tsx`
-- [ ] Test: Provide auth context to children
-- [ ] Test: Login via context (state only)
-- [ ] Test: Logout via context
-- [ ] Test: Update user when auth state changes
-- [ ] Test: Protected route behavior
-- [ ] Test: Redirect to login when unauthorized
+### 6.3 AuthContext Tests - N/A
+- [x] ~~Create AuthContext.test.tsx~~ - No AuthContext exists
+- Note: Auth is handled via lib/auth.ts utilities (already tested in Phase 2)
 
-### 6.4 Coverage Verification
-- [ ] Run coverage report for contexts
-- [ ] Verify 80%+ coverage
+### 6.4 Coverage Verification ✅ COMPLETED
+- [x] Run coverage report for contexts
+- [x] Verify 80%+ coverage
+- [x] All tests passing
 
 ### 6.5 Commit
-- [ ] Stage context test files
-- [ ] Commit: "test(frontend): add context provider unit tests"
+- [x] No new commits needed - ToastContext tests already exist
 
-**Total Estimated Time**: 1-2 hours
+**Total Estimated Time**: 1-2 hours ✅ COMPLETED
 
 ---
 
@@ -447,8 +452,8 @@
 - [x] Phase 2: Utility Tests (1-2 hours) ✅
 - [x] Phase 3: Core Component Tests (4-6 hours) ✅
 - [x] Phase 4: UI Element Tests (2-3 hours) ✅
-- [ ] Phase 5: Hook Tests (2-3 hours)
-- [ ] Phase 6: Context/Provider Tests (1-2 hours)
+- [x] Phase 5: Hook Tests (2-3 hours) ✅
+- [x] Phase 6: Context/Provider Tests (1-2 hours) ✅
 - [ ] Phase 7: Documentation (1 hour)
 
 ### Code Quality Checks
@@ -461,9 +466,9 @@
 
 ### Success Criteria
 - [x] All critical components tested ✅
-- [ ] All custom hooks tested
+- [x] All custom hooks tested ✅
 - [x] All utility functions tested (100% coverage) ✅
-- [ ] Context providers tested
+- [x] Context providers tested ✅
 - [ ] Documentation updated
 - [ ] Coverage badge added
 
