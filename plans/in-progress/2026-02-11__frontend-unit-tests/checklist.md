@@ -261,24 +261,22 @@
 - [x] 18 test cases, all passing
 - [x] Commit: `fc39cbc` - test(frontend): add Pagination component unit tests
 
-### 4.5 ConfirmDialog Component Tests
-- [ ] Create `src/components/ConfirmDialog.test.tsx`
-- [ ] Test: Render dialog with title and message
-- [ ] Test: Show confirm button
-- [ ] Test: Show cancel button
-- [ ] Test: Call onConfirm when confirmed
-- [ ] Test: Call onCancel when cancelled
-- [ ] Test: Close dialog on action
-- [ ] Test: Keyboard shortcuts (Esc, Enter)
+### 4.5 ConfirmDialog Component Tests ✅ COMPLETED
+- [x] Create `src/__tests__/components/ui/ConfirmDialog.test.tsx`
+- [x] Test: Render dialog with title and message
+- [x] Test: Show confirm and cancel buttons
+- [x] Test: Call onConfirm when confirmed
+- [x] Test: Call onCancel when cancelled
+- [x] Test: Keyboard shortcuts (Escape key)
+- [x] Test: Variants (danger, warning, info)
+- [x] Test: Focus management
+- [x] Test: Accessibility (ARIA attributes)
+- [x] 21 test cases, all passing
+- [x] Commit: `ef3752e` - test(frontend): add ConfirmDialog component unit tests
 
-### 4.6 Toast Component Tests
-- [ ] Create `src/components/Toast.test.tsx`
-- [ ] Test: Render toast message
-- [ ] Test: Display correct icon by type (success, error, info)
-- [ ] Test: Auto-dismiss after timeout
-- [ ] Test: Manual dismiss on close button click
-- [ ] Test: Support multiple toasts
-- [ ] Test: Animation on enter/exit
+### 4.6 Toast Component Tests ✅ EXISTING
+- [x] Create `src/__tests__/components/ui/Toast.test.tsx`
+- [x] Existing tests in place
 
 ### 4.7 EmptyState Component Tests ✅ COMPLETED
 - [x] Create `src/__tests__/components/ui/EmptyState.test.tsx`
@@ -448,7 +446,7 @@
 - [x] Phase 1: Setup & Infrastructure (1-2 hours) ✅
 - [x] Phase 2: Utility Tests (1-2 hours) ✅
 - [x] Phase 3: Core Component Tests (4-6 hours) ✅
-- [ ] Phase 4: UI Element Tests (2-3 hours)
+- [x] Phase 4: UI Element Tests (2-3 hours) ✅
 - [ ] Phase 5: Hook Tests (2-3 hours)
 - [ ] Phase 6: Context/Provider Tests (1-2 hours)
 - [ ] Phase 7: Documentation (1 hour)
