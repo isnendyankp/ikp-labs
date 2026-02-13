@@ -236,15 +236,17 @@
 - [x] 20 test cases, all passing
 - [x] Commit: `73c4c9f` - test(frontend): add FilterDropdown component unit tests
 
-### 4.3 SortByDropdown Component Tests
-- [ ] Create `src/components/SortByDropdown.test.tsx`
-- [ ] Test: Render dropdown button
-- [ ] Test: Open/close dropdown
-- [ ] Test: Display all sort options
-- [ ] Test: Select sort option
-- [ ] Test: Display selected option
-- [ ] Test: Keyboard navigation
-- [ ] Test: Close on click outside
+### 4.3 SortByDropdown Component Tests ✅ COMPLETED
+- [x] Create `src/__tests__/components/SortByDropdown.test.tsx`
+- [x] Test: Render dropdown button
+- [x] Test: Open/close dropdown
+- [x] Test: Display all sort options
+- [x] Test: Select sort option
+- [x] Test: Display selected option
+- [x] Test: Close on click outside
+- [x] Test: Controlled mode
+- [x] 20 test cases, all passing
+- [x] Commit: `30bd6b7` - test(frontend): add SortByDropdown component unit tests
 
 ### 4.4 Pagination Component Tests ✅ COMPLETED
 - [x] Create `src/__tests__/components/gallery/Pagination.test.tsx`
