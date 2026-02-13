@@ -223,16 +223,18 @@
 - [ ] Test: Optimistic update behavior
 - [ ] Test: Rollback on error (with MSW error handler)
 
-### 4.2 FilterDropdown Component Tests
-- [ ] Create `src/components/FilterDropdown.test.tsx`
-- [ ] Test: Render dropdown button
-- [ ] Test: Open/close dropdown
-- [ ] Test: Display all filter options
-- [ ] Test: Select filter option
-- [ ] Test: Display selected filter
-- [ ] Test: Clear filter
-- [ ] Test: Keyboard navigation
-- [ ] Test: Close on click outside
+### 4.2 FilterDropdown Component Tests ✅ COMPLETED
+- [x] Create `src/__tests__/components/FilterDropdown.test.tsx`
+- [x] Test: Render dropdown button
+- [x] Test: Open/close dropdown
+- [x] Test: Display all filter options
+- [x] Test: Select filter option
+- [x] Test: Display selected filter
+- [x] Test: Keyboard navigation (Escape key)
+- [x] Test: Close on click outside
+- [x] Test: Controlled mode
+- [x] 20 test cases, all passing
+- [x] Commit: `73c4c9f` - test(frontend): add FilterDropdown component unit tests
 
 ### 4.3 SortByDropdown Component Tests
 - [ ] Create `src/components/SortByDropdown.test.tsx`
