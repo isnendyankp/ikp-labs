@@ -1,0 +1,175 @@
+# CI Workflow - Automated Testing and Quality Checks
+#
+# This workflow runs on every push and pull request to ensure code quality.
+# It performs:
+# - Frontend unit tests (Jest)
+# - Frontend build (TypeScript check + Next.js build)
+# - Backend tests (JUnit)
+#
+# Workflow Structure:
+# ┌─────────────────────────────────────────────────────────┐
+# │                    Push / PR Trigger                     │
+# └─────────────────────────┬───────────────────────────────┘
+#                           │
+#           ┌───────────────┼───────────────┐
+#           │               │               │
+#           ▼               ▼               ▼
+#     ┌──────────┐    ┌──────────┐    ┌──────────┐
+#     │ Frontend │    │ Frontend │    │ Backend  │
+#     │  Tests   │    │  Build   │    │  Tests   │
+#     │  (Jest)  │    │(TypeScript)  │ (JUnit)  │
+#     └──────────┘    └──────────┘    └──────────┘
+#           │               │               │
+#           └───────────────┴───────────────┘
+#                           │
+#                           ▼
+#                    All Pass = ✅
+#                    Any Fail = ❌
+#
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+# Cancel in-progress runs when a new run is triggered
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  NODE_VERSION: '20'
+  JAVA_VERSION: '21'
+
+jobs:
+  # ===========================================
+  # Frontend Unit Tests (Jest)
+  # ===========================================
+  frontend-tests:
+    name: Frontend Tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run frontend unit tests
+        run: npm run test:frontend -- --watchAll=false --coverage
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: frontend-coverage
+          path: frontend/coverage/
+          retention-days: 7
+
+  # ===========================================
+  # Frontend Build (TypeScript + Next.js)
+  # ===========================================
+  frontend-build:
+    name: Frontend Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build frontend
+        run: npm run build:frontend
+
+  # ===========================================
+  # Backend Tests (JUnit)
+  # ===========================================
+  backend-tests:
+    name: Backend Tests
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: test
+          POSTGRES_PASSWORD: test
+          POSTGRES_DB: registration_form_test
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: ${{ env.JAVA_VERSION }}
+          cache: 'maven'
+
+      - name: Run backend tests
+        working-directory: backend/ikp-labs-api
+        env:
+          SPRING_PROFILES_ACTIVE: test
+          DB_HOST: localhost
+          DB_PORT: 5432
+          DB_NAME: registration_form_test
+          DB_USERNAME: test
+          DB_PASSWORD: test
+        run: ./mvnw test -B
+
+      - name: Upload test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: backend-test-results
+          path: backend/ikp-labs-api/target/surefire-reports/
+          retention-days: 7
+
+  # ===========================================
+  # Summary Job - All checks must pass
+  # ===========================================
+  ci-success:
+    name: CI Summary
+    runs-on: ubuntu-latest
+    needs: [frontend-tests, frontend-build, backend-tests]
+    if: always()
+
+    steps:
+      - name: Check all jobs status
+        run: |
+          if [[ "${{ needs.frontend-tests.result }}" != "success" ]] || \
+             [[ "${{ needs.frontend-build.result }}" != "success" ]] || \
+             [[ "${{ needs.backend-tests.result }}" != "success" ]]; then
+            echo "❌ CI Failed!"
+            echo "- Frontend Tests: ${{ needs.frontend-tests.result }}"
+            echo "- Frontend Build: ${{ needs.frontend-build.result }}"
+            echo "- Backend Tests: ${{ needs.backend-tests.result }}"
+            exit 1
+          fi
+          echo "✅ All CI checks passed!"
