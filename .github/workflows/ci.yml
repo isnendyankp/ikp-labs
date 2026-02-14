@@ -2,9 +2,9 @@
 #
 # This workflow runs on every push and pull request to ensure code quality.
 # It performs:
-# - Frontend unit tests (Jest)
+# - Frontend unit tests (Jest) with coverage
 # - Frontend build (TypeScript check + Next.js build)
-# - Backend tests (JUnit)
+# - Backend tests (JUnit) with JaCoCo coverage
 #
 # Workflow Structure:
 # ┌─────────────────────────────────────────────────────────┐
@@ -17,7 +17,8 @@
 #     ┌──────────┐    ┌──────────┐    ┌──────────┐
 #     │ Frontend │    │ Frontend │    │ Backend  │
 #     │  Tests   │    │  Build   │    │  Tests   │
-#     │  (Jest)  │    │(TypeScript)  │ (JUnit)  │
+#     │ (Jest +  │    │(TypeScript)  │(JUnit +  │
+#     │ Coverage)│    │           │  │ JaCoCo)  │
 #     └──────────┘    └──────────┘    └──────────┘
 #           │               │               │
 #           └───────────────┴───────────────┘
@@ -100,7 +101,7 @@ jobs:
         run: npm run build:frontend
 
   # ===========================================
-  # Backend Tests (JUnit)
+  # Backend Tests (JUnit + JaCoCo Coverage)
   # ===========================================
   backend-tests:
     name: Backend Tests
@@ -132,7 +133,15 @@ jobs:
           java-version: ${{ env.JAVA_VERSION }}
           cache: 'maven'
 
-      - name: Run backend tests
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Run backend tests with coverage
         working-directory: backend/ikp-labs-api
         env:
           SPRING_PROFILES_ACTIVE: test
@@ -150,6 +159,27 @@ jobs:
           name: backend-test-results
           path: backend/ikp-labs-api/target/surefire-reports/
           retention-days: 7
+
+      - name: Upload coverage report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: backend-coverage
+          path: backend/ikp-labs-api/target/site/jacoco/
+          retention-days: 7
+
+      - name: Coverage Summary
+        working-directory: backend/ikp-labs-api
+        run: |
+          echo "## Backend Coverage Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ -f target/site/jacoco/index.html ]; then
+            echo "✅ JaCoCo coverage report generated successfully" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "📊 Coverage report uploaded as artifact" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "⚠️ Coverage report not found" >> $GITHUB_STEP_SUMMARY
+          fi
 
   # ===========================================
   # Summary Job - All checks must pass
