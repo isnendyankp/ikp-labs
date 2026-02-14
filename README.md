@@ -88,6 +88,7 @@ Social feature allowing users to like/unlike photos with real-time counter updat
 - **Build Tool**: Maven
 
 ### Testing
+- **Unit Tests**: Jest + React Testing Library
 - **E2E**: Playwright (TypeScript)
 - **API Testing**: Playwright API
 - **Integration**: JUnit 5 + Spring Boot Test
@@ -157,10 +158,18 @@ cd backend/ikp-labs-api
 
 | Type | Count | Status | Technology |
 |------|-------|--------|------------|
+| **Unit Tests** | 393 tests | ✅ 100% pass | Jest + React Testing Library |
 | **E2E Tests** | 48 tests | ✅ 100% pass | Playwright + TypeScript |
 | **API Tests** | 31 tests | ✅ 100% pass | Playwright API |
 | **Integration Tests** | 40 tests | ✅ 100% pass | JUnit 5 + Spring Boot Test |
-| **Total** | **119 tests** | ✅ **100% pass** | - |
+| **Total** | **512 tests** | ✅ **100% pass** | - |
+
+### Unit Test Breakdown (Frontend)
+- **Utilities**: 46 tests (apiClient, auth)
+- **Core Components**: 73 tests (PhotoCard, PhotoUploadForm, LoginForm, RegistrationForm)
+- **UI Elements**: 98 tests (FilterDropdown, SortByDropdown, Pagination, ConfirmDialog, EmptyState, Toast)
+- **Hooks**: 30 tests (useClickOutside, useScrollRestoration)
+- **Context**: Existing ToastContext tests
 
 ### E2E Test Breakdown
 - **Registration & Login**: 8 tests
