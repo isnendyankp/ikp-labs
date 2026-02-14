@@ -81,39 +81,41 @@
 
 ---
 
-## Phase 2: Backend CI (1-2 hours)
+## Phase 2: Backend CI ✅ COMPLETED
 
-### Task 2.1: Configure Backend Job (30 min)
+### Task 2.1: Configure Backend Job ✅
 **Estimated Time**: 30 minutes
 
 **Steps**:
-1. [ ] Add PostgreSQL service
-2. [ ] Configure Maven cache
-3. [ ] Add test steps
-4. [ ] Add coverage report generation
-5. [ ] **COMMIT**: "ci: configure backend CI job"
+1. [x] Add PostgreSQL service (already configured in Phase 1)
+2. [x] Configure Maven cache
+3. [x] Add test steps
+4. [x] Add coverage report generation (JaCoCo)
+5. [x] **COMMIT**: `671cc52` - ci: enhance backend CI job with coverage and caching
 
 **Acceptance Criteria**:
-- [ ] PostgreSQL service runs correctly
-- [ ] Maven cache works
-- [ ] Tests run successfully
-- [ ] Coverage report generated
+- [x] PostgreSQL service runs correctly
+- [x] Maven cache works
+- [x] Tests run successfully
+- [x] Coverage report generated
 
 ---
 
-### Task 2.2: Add Backend Linting (30 min)
+### Task 2.2: Add Backend Linting ⏭️ SKIPPED
 **Estimated Time**: 30 minutes
 
 **Steps**:
-1. [ ] Add Checkstyle step (if configured)
-2. [ ] Configure linting rules
-3. [ ] Fail on violations
-4. [ ] **COMMIT**: "ci: add backend linting to CI"
+1. [x] ~~Add Checkstyle step~~ - No Checkstyle configured in project
+2. [x] ~~Configure linting rules~~ - Not needed for solo project
+3. [x] ~~Fail on violations~~ - N/A
+4. [x] ~~**COMMIT**~~ - Skipped
+
+**Note**: Backend linting (Checkstyle) skipped as there's no Checkstyle configuration in the project. Can be added later if needed.
 
 **Acceptance Criteria**:
-- [ ] Linting runs in CI
-- [ ] Violations cause failure
-- [ ] Linting report available
+- [x] ~~Linting runs in CI~~ - Skipped
+- [x] ~~Violations cause failure~~ - Skipped
+- [x] ~~Linting report available~~ - Skipped
 
 ---
 
@@ -567,4 +569,4 @@
 **Checklist Version**: 1.0
 **Created**: January 12, 2026
 **Total Estimated Time**: 9-15 hours
-**Next Step**: Task 2.1 - Configure Backend CI Job
+**Next Step**: Task 3.1 - Configure Frontend CI Job
