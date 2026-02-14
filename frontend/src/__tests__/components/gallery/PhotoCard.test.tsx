@@ -40,7 +40,7 @@ jest.mock('../../../lib/auth', () => ({
 }));
 
 // Import the mocked auth module
-const { getUserFromToken } = require('../../../lib/auth');
+import { getUserFromToken } from '../../../lib/auth';
 
 // Custom render function with providers
 function renderWithProviders(ui: React.ReactElement) {

@@ -264,7 +264,7 @@ export default function PrivacyPage() {
 
       {/* Children's Privacy */}
       <section className="mb-12">
-        <h2 className="text-2xl font-semibold text-gray-900 mb-4">9. Children's Privacy</h2>
+        <h2 className="text-2xl font-semibold text-gray-900 mb-4">9. Children&apos;s Privacy</h2>
         <p className="text-gray-700 leading-relaxed mb-4">
           Kameravue is not intended for children under the age of 13. We do not knowingly
           collect personal information from children under 13.
@@ -280,7 +280,7 @@ export default function PrivacyPage() {
         <h2 className="text-2xl font-semibold text-gray-900 mb-4">10. Changes to This Policy</h2>
         <p className="text-gray-700 leading-relaxed">
           We may update our Privacy Policy from time to time. We will notify you of any
-          changes by posting the new policy on this page and updating the "Last updated" date.
+          changes by posting the new policy on this page and updating the &quot;Last updated&quot; date.
           Significant changes will be communicated via email or a prominent notice on our
           platform.
         </p>

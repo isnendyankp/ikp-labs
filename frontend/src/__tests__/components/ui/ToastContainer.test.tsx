@@ -45,7 +45,7 @@ describe("ToastContainer Component", () => {
     );
 
     // Container is always present
-    let toastContainer = container.querySelector(".toast-container");
+    const toastContainer = container.querySelector(".toast-container");
     expect(toastContainer).toBeInTheDocument();
 
     // Click button to show toast

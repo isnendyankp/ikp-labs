@@ -175,7 +175,7 @@ export default function TermsPage() {
       <section className="mb-12">
         <h2 className="text-2xl font-semibold text-gray-900 mb-4">7. Disclaimer</h2>
         <p className="text-gray-700 leading-relaxed mb-4">
-          Kameravue is provided on an "as is" and "as available" basis. We make no
+          Kameravue is provided on an &quot;as is&quot; and &quot;as available&quot; basis. We make no
           representations or warranties of any kind, express or implied, including but not
           limited to:
         </p>

@@ -74,7 +74,7 @@ export default function LikedPhotosPage() {
           count: response.data.photos?.length || 0,
           currentPage: response.data.currentPage,
           totalPages: response.data.totalPages,
-          totalPhotos: response.data.totalPhotos,
+          totalItems: response.data.totalItems,
         });
       } else if (response.error) {
         console.error("Failed to fetch liked photos:", response.error);

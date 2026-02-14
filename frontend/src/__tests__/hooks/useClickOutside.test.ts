@@ -44,12 +44,13 @@ describe('useClickOutside', () => {
       outsideElement.dispatchEvent(mouseEvent);
 
       // Note: The hook uses document.addEventListener, so we need to dispatch to document
+      // @ts-expect-error - JSDOM MouseEvent doesn't fully support all properties
       document.dispatchEvent(
         new MouseEvent('mousedown', {
           bubbles: true,
           cancelable: true,
           target: outsideElement,
-        } as any)
+        })
       );
 
       // Cleanup

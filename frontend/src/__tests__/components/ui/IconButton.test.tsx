@@ -618,7 +618,7 @@ describe("IconButton Component", () => {
   describe("Edge Cases", () => {
     it("handles null icon gracefully", () => {
       render(
-        // @ts-ignore - Testing null icon case
+        // @ts-expect-error - Testing null icon case
         <IconButton icon={null} onClick={mockOnClick} />
       );
 

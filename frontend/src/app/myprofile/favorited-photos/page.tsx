@@ -91,7 +91,7 @@ export default function FavoritedPhotosPage() {
           count: response.data.photos?.length || 0,
           currentPage: response.data.currentPage,
           totalPages: response.data.totalPages,
-          totalPhotos: response.data.totalPhotos,
+          totalItems: response.data.totalItems,
         });
       } else if (response.error) {
         console.error("Failed to fetch favorited photos:", response.error);

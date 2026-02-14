@@ -8,7 +8,8 @@
  */
 
 import { useEffect, useState } from "react";
-import { Toast, TOAST_ICONS } from "@/types/toast";
+import type { Toast as ToastType } from "@/types/toast";
+import { TOAST_ICONS } from "@/types/toast";
 import "./Toast.css";
 
 /**
@@ -16,7 +17,7 @@ import "./Toast.css";
  */
 interface ToastProps {
   /** Toast data to display */
-  toast: Toast;
+  toast: ToastType;
 
   /**
    * Callback when toast is closed (either by timeout or user action)

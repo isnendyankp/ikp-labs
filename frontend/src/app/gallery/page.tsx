@@ -13,7 +13,7 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { isAuthenticated, getUserFromToken, logout } from "../../lib/auth";
 import { GalleryPhoto, AuthUser } from "../../types/api";
@@ -34,7 +34,7 @@ import { useScrollRestoration } from "@/hooks/useScrollRestoration";
 
 const PHOTOS_PER_PAGE = 12;
 
-export default function GalleryPage() {
+function GalleryPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { restoreScrollPosition } = useScrollRestoration();
@@ -277,5 +277,17 @@ export default function GalleryPage() {
       {/* Back to Top Button - Shows after scrolling */}
       <BackToTop position="left" />
     </div>
+  );
+}
+
+export default function GalleryPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-gray-500">Loading...</div>
+      </div>
+    }>
+      <GalleryPageContent />
+    </Suspense>
   );
 }
