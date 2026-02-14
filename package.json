@@ -15,12 +15,25 @@
     "lint:frontend": "npm run lint --workspace=registration-form-frontend",
     "dev": "npm run dev:frontend",
     "build": "npm run build:frontend",
-    "install:all": "npm install && npm install --workspace=registration-form-frontend"
+    "install:all": "npm install && npm install --workspace=registration-form-frontend",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "frontend/**/*.{js,jsx,ts,tsx}": [
+      "npx eslint --fix",
+      "npx prettier --write"
+    ],
+    "frontend/**/*.{json,md,css}": [
+      "npx prettier --write"
+    ]
   },
   "engines": {
     "node": ">=18.0.0"
   },
   "dependencies": {
     "@playwright/mcp": "^0.0.45"
+  },
+  "devDependencies": {
+    "lint-staged": "^16.2.7"
   }
 }

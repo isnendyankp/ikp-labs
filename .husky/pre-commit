@@ -1,0 +1,5 @@
+# Pre-commit hook
+# Runs lint-staged on frontend files before each commit
+# This ensures code quality and consistent formatting
+
+npx lint-staged
