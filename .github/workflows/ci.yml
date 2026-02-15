@@ -184,8 +184,7 @@ jobs:
 
       - name: Run backend tests with coverage
         working-directory: backend/ikp-labs-api
-        env:
-          SPRING_PROFILES_ACTIVE: test
+        # Tests use H2 in-memory database (configured in application-test.properties)
         # Test exclusions configured in pom.xml surefire plugin
         # TODO: Fix pre-existing failing tests and remove exclusions from pom.xml
         run: mvn test -B
