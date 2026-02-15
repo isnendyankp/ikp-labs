@@ -74,11 +74,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Rebuild SWC binaries for Linux
+      - name: Install SWC binaries for Linux
         run: |
           cd frontend
-          npm rebuild @next/swc-linux-x64-gnu || true
-          npm rebuild @next/swc-linux-x64-musl || true
+          npm install @next/swc-linux-x64-gnu --no-save --force || true
+          npm install @next/swc-linux-x64-musl --no-save --force || true
 
       - name: Run ESLint
         working-directory: frontend
@@ -108,11 +108,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Rebuild SWC binaries for Linux
+      - name: Install SWC binaries for Linux
         run: |
           cd frontend
-          npm rebuild @next/swc-linux-x64-gnu || true
-          npm rebuild @next/swc-linux-x64-musl || true
+          npm install @next/swc-linux-x64-gnu --no-save --force || true
+          npm install @next/swc-linux-x64-musl --no-save --force || true
 
       - name: Run frontend unit tests
         run: npm run test:frontend -- --watchAll=false --coverage
@@ -163,11 +163,11 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Rebuild SWC binaries for Linux
+      - name: Install SWC binaries for Linux
         run: |
           cd frontend
-          npm rebuild @next/swc-linux-x64-gnu || true
-          npm rebuild @next/swc-linux-x64-musl || true
+          npm install @next/swc-linux-x64-gnu --no-save --force || true
+          npm install @next/swc-linux-x64-musl --no-save --force || true
 
       - name: Build frontend
         run: npm run build:frontend
