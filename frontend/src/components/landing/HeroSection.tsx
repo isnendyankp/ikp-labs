@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import Image from 'next/image';
-import type { HeroSectionProps } from './landing.types';
+import Image from "next/image";
+import type { HeroSectionProps } from "./landing.types";
 
 /**
  * HeroSection Component
@@ -20,14 +20,15 @@ export function HeroSection({ onGetStarted, onLearnMore }: HeroSectionProps) {
           <div className="text-center lg:text-left space-y-8">
             {/* Headline */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
-              Your perfect moments,{' '}
-              <span className="text-black">beautifully captured</span> and shared with the world
+              Your perfect moments,{" "}
+              <span className="text-black">beautifully captured</span> and
+              shared with the world
             </h1>
 
             {/* Subheadline */}
             <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-              Share life&apos;s beautiful moments with stunning photo galleries that bring your
-              memories to life. Start sharing today.
+              Share life&apos;s beautiful moments with stunning photo galleries
+              that bring your memories to life. Start sharing today.
             </p>
 
             {/* CTA Buttons */}
@@ -49,7 +50,11 @@ export function HeroSection({ onGetStarted, onLearnMore }: HeroSectionProps) {
             {/* Trust Elements */}
             <div className="flex flex-wrap items-center justify-center lg:justify-start gap-6 text-sm text-gray-500">
               <div className="flex items-center gap-2">
-                <svg className="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                <svg
+                  className="w-5 h-5 text-green-600"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
                   <path
                     fillRule="evenodd"
                     d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"
@@ -59,7 +64,11 @@ export function HeroSection({ onGetStarted, onLearnMore }: HeroSectionProps) {
                 <span>No credit card required</span>
               </div>
               <div className="flex items-center gap-2">
-                <svg className="w-5 h-5 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                <svg
+                  className="w-5 h-5 text-green-600"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
                   <path
                     fillRule="evenodd"
                     d="M16.704 4.153a.75.75 0 01.143 1.052l-8 10.5a.75.75 0 01-1.127.075l-4.5-4.5a.75.75 0 011.06-1.06l3.894 3.893 7.48-9.817a.75.75 0 011.05-.143z"

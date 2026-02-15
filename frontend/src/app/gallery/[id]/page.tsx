@@ -110,13 +110,17 @@ export default function PhotoDetailPage() {
       if (response.data) {
         // Update photo dengan data baru (backend returns GalleryPhotoResponse)
         // We need to preserve ownerEmail from the current photo state
-        setPhoto(prev => prev ? {
-          ...prev,
-          title: response.data!.photo.title,
-          description: response.data!.photo.description,
-          isPublic: response.data!.photo.isPublic,
-          updatedAt: response.data!.photo.updatedAt,
-        } : null);
+        setPhoto((prev) =>
+          prev
+            ? {
+                ...prev,
+                title: response.data!.photo.title,
+                description: response.data!.photo.description,
+                isPublic: response.data!.photo.isPublic,
+                updatedAt: response.data!.photo.updatedAt,
+              }
+            : null,
+        );
         setEditing(false);
         showSuccess("Photo updated successfully!");
       } else if (response.error) {

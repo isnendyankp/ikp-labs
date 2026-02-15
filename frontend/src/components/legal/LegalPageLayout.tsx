@@ -1,5 +1,5 @@
-import Link from 'next/link';
-import type { ReactNode } from 'react';
+import Link from "next/link";
+import type { ReactNode } from "react";
 
 /**
  * Legal Page Layout Props
@@ -41,10 +41,10 @@ export function LegalPageLayout({
 
   // Default footer links
   const defaultFooterLinks = [
-    { label: 'Home', href: '/' },
-    { label: 'Terms of Service', href: '/terms' },
-    { label: 'Privacy Policy', href: '/privacy' },
-    { label: 'Contact', href: 'mailto:isnendyankp@gmail.com' },
+    { label: "Home", href: "/" },
+    { label: "Terms of Service", href: "/terms" },
+    { label: "Privacy Policy", href: "/privacy" },
+    { label: "Contact", href: "mailto:isnendyankp@gmail.com" },
   ];
 
   const links = footerLinks || defaultFooterLinks;
@@ -65,7 +65,11 @@ export function LegalPageLayout({
               strokeWidth={2}
               stroke="currentColor"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
+              />
             </svg>
             Back to Home
           </Link>
@@ -87,8 +91,8 @@ export function LegalPageLayout({
               © {currentYear} Kameravue. All rights reserved.
             </p>
             <div className="flex items-center gap-6 text-sm flex-wrap justify-center">
-              {links.map((link) => (
-                link.href.startsWith('mailto:') ? (
+              {links.map((link) =>
+                link.href.startsWith("mailto:") ? (
                   <a
                     key={link.label}
                     href={link.href}
@@ -104,8 +108,8 @@ export function LegalPageLayout({
                   >
                     {link.label}
                   </Link>
-                )
-              ))}
+                ),
+              )}
             </div>
           </div>
         </div>

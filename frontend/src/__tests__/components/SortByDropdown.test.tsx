@@ -7,11 +7,11 @@
  * - NO API calls - only tests UI rendering
  */
 
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import SortByDropdown, { SortByOption } from '../../components/SortByDropdown';
+import { render, screen } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
+import SortByDropdown, { SortByOption } from "../../components/SortByDropdown";
 
-describe('SortByDropdown', () => {
+describe("SortByDropdown", () => {
   const mockOnSortChange = jest.fn();
   const mockOnOpenChange = jest.fn();
 
@@ -23,62 +23,57 @@ describe('SortByDropdown', () => {
   // Rendering Tests
   // ============================================
 
-  describe('Rendering', () => {
-    it('should render dropdown button in default variant', () => {
+  describe("Rendering", () => {
+    it("should render dropdown button in default variant", () => {
       render(
-        <SortByDropdown
-          currentSort="newest"
-          onSortChange={mockOnSortChange}
-        />
+        <SortByDropdown currentSort="newest" onSortChange={mockOnSortChange} />,
       );
 
-      expect(screen.getByRole('button', { name: /sort photos/i })).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: /sort photos/i }),
+      ).toBeInTheDocument();
     });
 
-    it('should not render button in compact variant', () => {
+    it("should not render button in compact variant", () => {
       render(
         <SortByDropdown
           currentSort="newest"
           onSortChange={mockOnSortChange}
           variant="compact"
-        />
+        />,
       );
 
-      expect(screen.queryByRole('button', { name: /sort photos/i })).not.toBeInTheDocument();
+      expect(
+        screen.queryByRole("button", { name: /sort photos/i }),
+      ).not.toBeInTheDocument();
     });
 
-    it('should display current sort label on button', () => {
+    it("should display current sort label on button", () => {
       render(
         <SortByDropdown
           currentSort="mostLiked"
           onSortChange={mockOnSortChange}
-        />
+        />,
       );
 
-      expect(screen.getByText('Most Liked')).toBeInTheDocument();
+      expect(screen.getByText("Most Liked")).toBeInTheDocument();
     });
 
-    it('should display current sort icon on button', () => {
+    it("should display current sort icon on button", () => {
       render(
-        <SortByDropdown
-          currentSort="oldest"
-          onSortChange={mockOnSortChange}
-        />
+        <SortByDropdown currentSort="oldest" onSortChange={mockOnSortChange} />,
       );
 
-      expect(screen.getByText('📅')).toBeInTheDocument();
+      expect(screen.getByText("📅")).toBeInTheDocument();
     });
 
-    it('should have aria-expanded attribute', () => {
+    it("should have aria-expanded attribute", () => {
       render(
-        <SortByDropdown
-          currentSort="newest"
-          onSortChange={mockOnSortChange}
-        />
+        <SortByDropdown currentSort="newest" onSortChange={mockOnSortChange} />,
       );
 
-      const button = screen.getByRole('button');
-      expect(button).toHaveAttribute('aria-expanded', 'false');
+      const button = screen.getByRole("button");
+      expect(button).toHaveAttribute("aria-expanded", "false");
     });
   });
 
@@ -86,40 +81,34 @@ describe('SortByDropdown', () => {
   // Open/Close Tests
   // ============================================
 
-  describe('Open/Close', () => {
-    it('should open dropdown when button is clicked', async () => {
+  describe("Open/Close", () => {
+    it("should open dropdown when button is clicked", async () => {
       const user = userEvent.setup();
       render(
-        <SortByDropdown
-          currentSort="newest"
-          onSortChange={mockOnSortChange}
-        />
+        <SortByDropdown currentSort="newest" onSortChange={mockOnSortChange} />,
       );
 
-      const button = screen.getByRole('button');
+      const button = screen.getByRole("button");
       await user.click(button);
 
-      expect(screen.getByText('Oldest First')).toBeInTheDocument();
-      expect(button).toHaveAttribute('aria-expanded', 'true');
+      expect(screen.getByText("Oldest First")).toBeInTheDocument();
+      expect(button).toHaveAttribute("aria-expanded", "true");
     });
 
-    it('should close dropdown when button is clicked again', async () => {
+    it("should close dropdown when button is clicked again", async () => {
       const user = userEvent.setup();
       render(
-        <SortByDropdown
-          currentSort="newest"
-          onSortChange={mockOnSortChange}
-        />
+        <SortByDropdown currentSort="newest" onSortChange={mockOnSortChange} />,
       );
 
-      const button = screen.getByRole('button');
+      const button = screen.getByRole("button");
       await user.click(button);
       await user.click(button);
 
-      expect(button).toHaveAttribute('aria-expanded', 'false');
+      expect(button).toHaveAttribute("aria-expanded", "false");
     });
 
-    it('should close dropdown when clicking outside', async () => {
+    it("should close dropdown when clicking outside", async () => {
       const user = userEvent.setup();
       render(
         <div>
@@ -128,15 +117,15 @@ describe('SortByDropdown', () => {
             onSortChange={mockOnSortChange}
           />
           <div data-testid="outside">Outside</div>
-        </div>
+        </div>,
       );
 
-      const button = screen.getByRole('button');
+      const button = screen.getByRole("button");
       await user.click(button);
-      expect(button).toHaveAttribute('aria-expanded', 'true');
+      expect(button).toHaveAttribute("aria-expanded", "true");
 
-      await user.click(screen.getByTestId('outside'));
-      expect(button).toHaveAttribute('aria-expanded', 'false');
+      await user.click(screen.getByTestId("outside"));
+      expect(button).toHaveAttribute("aria-expanded", "false");
     });
   });
 
@@ -144,71 +133,62 @@ describe('SortByDropdown', () => {
   // Sort Options Tests
   // ============================================
 
-  describe('Sort Options', () => {
-    it('should display all sort options when open', async () => {
+  describe("Sort Options", () => {
+    it("should display all sort options when open", async () => {
       const user = userEvent.setup();
       render(
-        <SortByDropdown
-          currentSort="newest"
-          onSortChange={mockOnSortChange}
-        />
+        <SortByDropdown currentSort="newest" onSortChange={mockOnSortChange} />,
       );
 
-      await user.click(screen.getByRole('button'));
+      await user.click(screen.getByRole("button"));
 
       // Only in dropdown (not in button)
-      expect(screen.getByText('Oldest First')).toBeInTheDocument();
-      expect(screen.getByText('Most Liked')).toBeInTheDocument();
-      expect(screen.getByText('Most Favorited')).toBeInTheDocument();
+      expect(screen.getByText("Oldest First")).toBeInTheDocument();
+      expect(screen.getByText("Most Liked")).toBeInTheDocument();
+      expect(screen.getByText("Most Favorited")).toBeInTheDocument();
     });
 
-    it('should display icons for each option', async () => {
+    it("should display icons for each option", async () => {
       const user = userEvent.setup();
       render(
-        <SortByDropdown
-          currentSort="newest"
-          onSortChange={mockOnSortChange}
-        />
+        <SortByDropdown currentSort="newest" onSortChange={mockOnSortChange} />,
       );
 
-      await user.click(screen.getByRole('button'));
+      await user.click(screen.getByRole("button"));
 
-      expect(screen.getAllByText('🆕').length).toBeGreaterThan(0);
-      expect(screen.getByText('📅')).toBeInTheDocument();
-      expect(screen.getByText('❤️')).toBeInTheDocument();
-      expect(screen.getByText('⭐')).toBeInTheDocument();
+      expect(screen.getAllByText("🆕").length).toBeGreaterThan(0);
+      expect(screen.getByText("📅")).toBeInTheDocument();
+      expect(screen.getByText("❤️")).toBeInTheDocument();
+      expect(screen.getByText("⭐")).toBeInTheDocument();
     });
 
-    it('should display descriptions for each option', async () => {
+    it("should display descriptions for each option", async () => {
       const user = userEvent.setup();
       render(
-        <SortByDropdown
-          currentSort="newest"
-          onSortChange={mockOnSortChange}
-        />
+        <SortByDropdown currentSort="newest" onSortChange={mockOnSortChange} />,
       );
 
-      await user.click(screen.getByRole('button'));
+      await user.click(screen.getByRole("button"));
 
-      expect(screen.getByText('Most recently uploaded')).toBeInTheDocument();
-      expect(screen.getByText('Oldest uploads first')).toBeInTheDocument();
-      expect(screen.getByText('Sorted by likes count')).toBeInTheDocument();
-      expect(screen.getByText('Sorted by favorites count')).toBeInTheDocument();
+      expect(screen.getByText("Most recently uploaded")).toBeInTheDocument();
+      expect(screen.getByText("Oldest uploads first")).toBeInTheDocument();
+      expect(screen.getByText("Sorted by likes count")).toBeInTheDocument();
+      expect(screen.getByText("Sorted by favorites count")).toBeInTheDocument();
     });
 
-    it('should highlight selected option', async () => {
+    it("should highlight selected option", async () => {
       const user = userEvent.setup();
       render(
         <SortByDropdown
           currentSort="mostFavorited"
           onSortChange={mockOnSortChange}
-        />
+        />,
       );
 
-      await user.click(screen.getByRole('button'));
+      await user.click(screen.getByRole("button"));
 
       // Selected option should have checkmark
-      const checkmarks = document.querySelectorAll('svg');
+      const checkmarks = document.querySelectorAll("svg");
       expect(checkmarks.length).toBeGreaterThan(0);
     });
   });
@@ -217,72 +197,60 @@ describe('SortByDropdown', () => {
   // Selection Tests
   // ============================================
 
-  describe('Selection', () => {
-    it('should call onSortChange when option is clicked', async () => {
+  describe("Selection", () => {
+    it("should call onSortChange when option is clicked", async () => {
       const user = userEvent.setup();
       render(
-        <SortByDropdown
-          currentSort="newest"
-          onSortChange={mockOnSortChange}
-        />
+        <SortByDropdown currentSort="newest" onSortChange={mockOnSortChange} />,
       );
 
-      await user.click(screen.getByRole('button'));
-      await user.click(screen.getByText('Oldest First'));
+      await user.click(screen.getByRole("button"));
+      await user.click(screen.getByText("Oldest First"));
 
-      expect(mockOnSortChange).toHaveBeenCalledWith('oldest');
+      expect(mockOnSortChange).toHaveBeenCalledWith("oldest");
     });
 
-    it('should close dropdown after selection', async () => {
+    it("should close dropdown after selection", async () => {
       const user = userEvent.setup();
       render(
-        <SortByDropdown
-          currentSort="newest"
-          onSortChange={mockOnSortChange}
-        />
+        <SortByDropdown currentSort="newest" onSortChange={mockOnSortChange} />,
       );
 
-      const button = screen.getByRole('button');
+      const button = screen.getByRole("button");
       await user.click(button);
-      await user.click(screen.getByText('Most Liked'));
+      await user.click(screen.getByText("Most Liked"));
 
-      expect(button).toHaveAttribute('aria-expanded', 'false');
+      expect(button).toHaveAttribute("aria-expanded", "false");
     });
 
-    it('should handle each sort option selection', async () => {
+    it("should handle each sort option selection", async () => {
       const user = userEvent.setup();
       const { rerender } = render(
-        <SortByDropdown
-          currentSort="newest"
-          onSortChange={mockOnSortChange}
-        />
+        <SortByDropdown currentSort="newest" onSortChange={mockOnSortChange} />,
       );
 
-      await user.click(screen.getByRole('button'));
-      await user.click(screen.getByText('Oldest First'));
-      expect(mockOnSortChange).toHaveBeenCalledWith('oldest');
+      await user.click(screen.getByRole("button"));
+      await user.click(screen.getByText("Oldest First"));
+      expect(mockOnSortChange).toHaveBeenCalledWith("oldest");
 
       rerender(
-        <SortByDropdown
-          currentSort="oldest"
-          onSortChange={mockOnSortChange}
-        />
+        <SortByDropdown currentSort="oldest" onSortChange={mockOnSortChange} />,
       );
 
-      await user.click(screen.getByRole('button'));
-      await user.click(screen.getByText('Most Liked'));
-      expect(mockOnSortChange).toHaveBeenCalledWith('mostLiked');
+      await user.click(screen.getByRole("button"));
+      await user.click(screen.getByText("Most Liked"));
+      expect(mockOnSortChange).toHaveBeenCalledWith("mostLiked");
 
       rerender(
         <SortByDropdown
           currentSort="mostLiked"
           onSortChange={mockOnSortChange}
-        />
+        />,
       );
 
-      await user.click(screen.getByRole('button'));
-      await user.click(screen.getByText('Most Favorited'));
-      expect(mockOnSortChange).toHaveBeenCalledWith('mostFavorited');
+      await user.click(screen.getByRole("button"));
+      await user.click(screen.getByText("Most Favorited"));
+      expect(mockOnSortChange).toHaveBeenCalledWith("mostFavorited");
     });
   });
 
@@ -290,22 +258,22 @@ describe('SortByDropdown', () => {
   // Controlled Mode Tests
   // ============================================
 
-  describe('Controlled Mode', () => {
-    it('should use controlled isOpen state', () => {
+  describe("Controlled Mode", () => {
+    it("should use controlled isOpen state", () => {
       render(
         <SortByDropdown
           currentSort="newest"
           onSortChange={mockOnSortChange}
           isOpen={true}
           onOpenChange={mockOnOpenChange}
-        />
+        />,
       );
 
       // Dropdown should be open without clicking
-      expect(screen.getByText('Oldest First')).toBeInTheDocument();
+      expect(screen.getByText("Oldest First")).toBeInTheDocument();
     });
 
-    it('should call onOpenChange when button is clicked in controlled mode', async () => {
+    it("should call onOpenChange when button is clicked in controlled mode", async () => {
       const user = userEvent.setup();
       render(
         <SortByDropdown
@@ -313,14 +281,14 @@ describe('SortByDropdown', () => {
           onSortChange={mockOnSortChange}
           isOpen={false}
           onOpenChange={mockOnOpenChange}
-        />
+        />,
       );
 
-      await user.click(screen.getByRole('button'));
+      await user.click(screen.getByRole("button"));
       expect(mockOnOpenChange).toHaveBeenCalledWith(true);
     });
 
-    it('should call onOpenChange when clicking outside in controlled mode', async () => {
+    it("should call onOpenChange when clicking outside in controlled mode", async () => {
       const user = userEvent.setup();
       render(
         <div>
@@ -331,10 +299,10 @@ describe('SortByDropdown', () => {
             onOpenChange={mockOnOpenChange}
           />
           <div data-testid="outside">Outside</div>
-        </div>
+        </div>,
       );
 
-      await user.click(screen.getByTestId('outside'));
+      await user.click(screen.getByTestId("outside"));
       expect(mockOnOpenChange).toHaveBeenCalledWith(false);
     });
   });
@@ -343,33 +311,30 @@ describe('SortByDropdown', () => {
   // Edge Cases Tests
   // ============================================
 
-  describe('Edge Cases', () => {
-    it('should default to first option for invalid currentSort', () => {
+  describe("Edge Cases", () => {
+    it("should default to first option for invalid currentSort", () => {
       render(
         <SortByDropdown
-          currentSort={'invalid' as SortByOption}
+          currentSort={"invalid" as SortByOption}
           onSortChange={mockOnSortChange}
-        />
+        />,
       );
 
-      expect(screen.getByText('Newest First')).toBeInTheDocument();
+      expect(screen.getByText("Newest First")).toBeInTheDocument();
     });
 
-    it('should handle rapid open/close clicks', async () => {
+    it("should handle rapid open/close clicks", async () => {
       const user = userEvent.setup();
       render(
-        <SortByDropdown
-          currentSort="newest"
-          onSortChange={mockOnSortChange}
-        />
+        <SortByDropdown currentSort="newest" onSortChange={mockOnSortChange} />,
       );
 
-      const button = screen.getByRole('button');
+      const button = screen.getByRole("button");
       await user.click(button);
       await user.click(button);
       await user.click(button);
 
-      expect(button).toHaveAttribute('aria-expanded', 'true');
+      expect(button).toHaveAttribute("aria-expanded", "true");
     });
   });
 });

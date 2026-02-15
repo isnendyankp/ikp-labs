@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import type { FeatureCardProps } from './landing.types';
+import type { FeatureCardProps } from "./landing.types";
 
 /**
  * FeatureCard Component
@@ -10,7 +10,11 @@ import type { FeatureCardProps } from './landing.types';
  * - Hover effect: scale and shadow
  * - Responsive: consistent sizing across breakpoints
  */
-export function FeatureCard({ icon: Icon, title, description }: FeatureCardProps) {
+export function FeatureCard({
+  icon: Icon,
+  title,
+  description,
+}: FeatureCardProps) {
   return (
     <article className="group p-6 bg-white border border-gray-200 rounded-xl hover:scale-105 hover:shadow-xl transition-all duration-300">
       {/* Icon */}

@@ -10,6 +10,9 @@ dist/
 # Test coverage
 coverage/
 
+# Test results (E2E artifacts)
+test-results/
+
 # Cache
 .cache/
 .npm/

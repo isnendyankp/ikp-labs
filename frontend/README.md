@@ -38,6 +38,7 @@ frontend/
 ## Development
 
 ### Prerequisites
+
 - Node.js 20+
 - npm
 
@@ -66,6 +67,7 @@ npm run build
 ### Testing Philosophy
 
 **NO MOCKING** - We follow a testing philosophy that avoids mocking:
+
 - Uses real JSDOM environment
 - Tests component behavior, not implementation details
 - Uses real localStorage and sessionStorage
@@ -89,14 +91,14 @@ npm run test:ci
 
 ### Test Coverage
 
-| Category | Tests | Description |
-|----------|-------|-------------|
-| **Utilities** | 46 | apiClient, auth functions |
-| **Core Components** | 73 | PhotoCard, PhotoUploadForm, forms |
-| **UI Elements** | 98 | Dropdowns, Pagination, Dialogs |
-| **Hooks** | 30 | useClickOutside, useScrollRestoration |
-| **Context** | - | ToastContext |
-| **Total** | **393** | All passing |
+| Category            | Tests   | Description                           |
+| ------------------- | ------- | ------------------------------------- |
+| **Utilities**       | 46      | apiClient, auth functions             |
+| **Core Components** | 73      | PhotoCard, PhotoUploadForm, forms     |
+| **UI Elements**     | 98      | Dropdowns, Pagination, Dialogs        |
+| **Hooks**           | 30      | useClickOutside, useScrollRestoration |
+| **Context**         | -       | ToastContext                          |
+| **Total**           | **393** | All passing                           |
 
 ### Test Structure
 
@@ -180,17 +182,20 @@ renderWithProviders(<MyComponent />);
 ## Key Features
 
 ### Authentication
+
 - JWT-based authentication
 - Protected routes
 - Token persistence in localStorage
 
 ### Photo Gallery
+
 - Photo upload with drag & drop
 - Privacy controls (public/private)
 - Like/favorite functionality
 - Pagination
 
 ### Profile Management
+
 - Profile picture upload
 - Real-time preview
 - Avatar fallback

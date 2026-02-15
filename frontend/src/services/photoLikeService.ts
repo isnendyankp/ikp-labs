@@ -15,16 +15,12 @@
  * - User buka "Liked Photos" → API call getLikedPhotos() → Server return semua foto yang di-like
  */
 
-import {
-  GalleryListResponse,
-  ApiResponse,
-  ApiError
-} from '../types/api';
-import { createAuthHeaders } from '../lib/apiClient';
+import { GalleryListResponse, ApiResponse, ApiError } from "../types/api";
+import { createAuthHeaders } from "../lib/apiClient";
 
 // === CONFIGURATION ===
 
-const API_BASE_URL = 'http://localhost:8081';
+const API_BASE_URL = "http://localhost:8081";
 
 // === API FUNCTIONS ===
 
@@ -48,37 +44,36 @@ const API_BASE_URL = 'http://localhost:8081';
  * @param photoId - ID of photo to like
  * @returns ApiResponse with empty data (backend returns 201 with no body)
  */
-export async function likePhoto(
-  photoId: number
-): Promise<ApiResponse<void>> {
-  console.log('❤️ Liking photo:', photoId);
+export async function likePhoto(photoId: number): Promise<ApiResponse<void>> {
+  console.log("❤️ Liking photo:", photoId);
 
   try {
     const response = await fetch(
       `${API_BASE_URL}/api/gallery/photo/${photoId}/like`,
       {
-        method: 'POST',
+        method: "POST",
         headers: createAuthHeaders(),
-        credentials: 'include',
-      }
+        credentials: "include",
+      },
     );
 
     // Backend returns 201 Created with empty body
     if (response.ok) {
-      console.log('✅ Photo liked successfully:', photoId);
+      console.log("✅ Photo liked successfully:", photoId);
       return { data: undefined, status: response.status };
     } else {
       // Error responses have JSON body
       const errorData = await response.json();
-      console.error('❌ Like failed:', errorData);
+      console.error("❌ Like failed:", errorData);
       return { error: errorData as ApiError, status: response.status };
     }
   } catch (error) {
-    console.error('❌ Like error:', error);
+    console.error("❌ Like error:", error);
     return {
       error: {
-        message: error instanceof Error ? error.message : 'Failed to like photo',
-        errorCode: 'LIKE_ERROR'
+        message:
+          error instanceof Error ? error.message : "Failed to like photo",
+        errorCode: "LIKE_ERROR",
       },
       status: 0,
     };
@@ -102,37 +97,36 @@ export async function likePhoto(
  * @param photoId - ID of photo to unlike
  * @returns ApiResponse with empty data (backend returns 204 No Content)
  */
-export async function unlikePhoto(
-  photoId: number
-): Promise<ApiResponse<void>> {
-  console.log('💔 Unliking photo:', photoId);
+export async function unlikePhoto(photoId: number): Promise<ApiResponse<void>> {
+  console.log("💔 Unliking photo:", photoId);
 
   try {
     const response = await fetch(
       `${API_BASE_URL}/api/gallery/photo/${photoId}/like`,
       {
-        method: 'DELETE',
+        method: "DELETE",
         headers: createAuthHeaders(),
-        credentials: 'include',
-      }
+        credentials: "include",
+      },
     );
 
     // Backend returns 204 No Content with empty body
     if (response.ok) {
-      console.log('✅ Photo unliked successfully:', photoId);
+      console.log("✅ Photo unliked successfully:", photoId);
       return { data: undefined, status: response.status };
     } else {
       // Error responses have JSON body
       const errorData = await response.json();
-      console.error('❌ Unlike failed:', errorData);
+      console.error("❌ Unlike failed:", errorData);
       return { error: errorData as ApiError, status: response.status };
     }
   } catch (error) {
-    console.error('❌ Unlike error:', error);
+    console.error("❌ Unlike error:", error);
     return {
       error: {
-        message: error instanceof Error ? error.message : 'Failed to unlike photo',
-        errorCode: 'UNLIKE_ERROR'
+        message:
+          error instanceof Error ? error.message : "Failed to unlike photo",
+        errorCode: "UNLIKE_ERROR",
       },
       status: 0,
     };
@@ -169,18 +163,18 @@ export async function unlikePhoto(
 export async function getLikedPhotos(
   page: number = 0,
   size: number = 12,
-  sortBy: string = 'newest'
+  sortBy: string = "newest",
 ): Promise<ApiResponse<GalleryListResponse>> {
-  console.log('🚀 Fetching liked photos:', { page, size, sortBy });
+  console.log("🚀 Fetching liked photos:", { page, size, sortBy });
 
   try {
     const response = await fetch(
       `${API_BASE_URL}/api/gallery/liked-photos?page=${page}&size=${size}&sortBy=${sortBy}`,
       {
-        method: 'GET',
+        method: "GET",
         headers: createAuthHeaders(),
-        credentials: 'include',
-      }
+        credentials: "include",
+      },
     );
 
     const listResponse = await response.json();
@@ -188,24 +182,27 @@ export async function getLikedPhotos(
     if (response.ok) {
       // Backend returns GalleryListResponse with photos array and pagination metadata
       console.log(
-        '✅ Liked photos fetched:',
+        "✅ Liked photos fetched:",
         listResponse.photos?.length || 0,
-        'Page:',
+        "Page:",
         listResponse.currentPage,
-        'Total:',
-        listResponse.totalPhotos
+        "Total:",
+        listResponse.totalPhotos,
       );
       return { data: listResponse, status: response.status };
     } else {
-      console.error('❌ Fetch liked photos failed:', listResponse);
+      console.error("❌ Fetch liked photos failed:", listResponse);
       return { error: listResponse as ApiError, status: response.status };
     }
   } catch (error) {
-    console.error('❌ Fetch liked photos error:', error);
+    console.error("❌ Fetch liked photos error:", error);
     return {
       error: {
-        message: error instanceof Error ? error.message : 'Failed to fetch liked photos',
-        errorCode: 'FETCH_ERROR'
+        message:
+          error instanceof Error
+            ? error.message
+            : "Failed to fetch liked photos",
+        errorCode: "FETCH_ERROR",
       },
       status: 0,
     };

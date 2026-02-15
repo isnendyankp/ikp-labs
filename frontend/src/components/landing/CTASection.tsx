@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import type { CTASectionProps } from './landing.types';
+import type { CTASectionProps } from "./landing.types";
 
 /**
  * CTASection Component
@@ -22,7 +22,8 @@ export function CTASection({ onGetStarted }: CTASectionProps) {
 
         {/* Subheadline */}
         <p className="text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed">
-          Join thousands of users capturing life&apos;s beauty. Start your free gallery today.
+          Join thousands of users capturing life&apos;s beauty. Start your free
+          gallery today.
         </p>
 
         {/* CTA Button */}

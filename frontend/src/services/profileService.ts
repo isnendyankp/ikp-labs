@@ -9,16 +9,12 @@
  * - Type safety
  */
 
-import {
-  ProfilePictureResponse,
-  ApiResponse,
-  ApiError
-} from '../types/api';
-import { getToken, createFormDataHeaders } from '../lib/apiClient';
+import { ProfilePictureResponse, ApiResponse, ApiError } from "../types/api";
+import { getToken, createFormDataHeaders } from "../lib/apiClient";
 
 // === CONFIGURATION ===
 
-const API_BASE_URL = 'http://localhost:8081';
+const API_BASE_URL = "http://localhost:8081";
 
 // === PROFILE PICTURE API FUNCTIONS ===
 
@@ -30,20 +26,20 @@ const API_BASE_URL = 'http://localhost:8081';
  * @returns ProfilePictureResponse with new picture URL
  */
 export async function uploadProfilePicture(
-  file: File
+  file: File,
 ): Promise<ApiResponse<ProfilePictureResponse>> {
-  console.log('🚀 Uploading profile picture:', {
+  console.log("🚀 Uploading profile picture:", {
     fileName: file.name,
     fileSize: file.size,
-    fileType: file.type
+    fileType: file.type,
   });
 
   const token = getToken();
   if (!token) {
     return {
       error: {
-        message: 'No authentication token found. Please login first.',
-        errorCode: 'UNAUTHORIZED'
+        message: "No authentication token found. Please login first.",
+        errorCode: "UNAUTHORIZED",
       },
       status: 401,
     };
@@ -52,13 +48,13 @@ export async function uploadProfilePicture(
   try {
     // Create FormData untuk multipart/form-data request
     const formData = new FormData();
-    formData.append('file', file);
+    formData.append("file", file);
 
     const response = await fetch(`${API_BASE_URL}/api/profile/upload-picture`, {
-      method: 'POST',
+      method: "POST",
       headers: createFormDataHeaders(), // Browser akan set Content-Type otomatis dengan boundary
       body: formData,
-      credentials: 'include',
+      credentials: "include",
     });
 
     const responseText = await response.text();
@@ -67,28 +63,29 @@ export async function uploadProfilePicture(
     try {
       data = JSON.parse(responseText);
     } catch {
-      throw new Error('Invalid response format');
+      throw new Error("Invalid response format");
     }
 
     if (response.ok) {
-      console.log('✅ Profile picture uploaded successfully:', data);
+      console.log("✅ Profile picture uploaded successfully:", data);
       return {
         data: data as ProfilePictureResponse,
         status: response.status,
       };
     } else {
-      console.error('❌ Upload failed:', data);
+      console.error("❌ Upload failed:", data);
       return {
         error: data as ApiError,
         status: response.status,
       };
     }
   } catch (error) {
-    console.error('❌ Upload request failed:', error);
+    console.error("❌ Upload request failed:", error);
     return {
       error: {
-        message: error instanceof Error ? error.message : 'Network error occurred',
-        errorCode: 'NETWORK_ERROR'
+        message:
+          error instanceof Error ? error.message : "Network error occurred",
+        errorCode: "NETWORK_ERROR",
       },
       status: 0,
     };
@@ -101,15 +98,17 @@ export async function uploadProfilePicture(
  *
  * @returns ProfilePictureResponse with null picture URL
  */
-export async function deleteProfilePicture(): Promise<ApiResponse<ProfilePictureResponse>> {
-  console.log('🚀 Deleting profile picture');
+export async function deleteProfilePicture(): Promise<
+  ApiResponse<ProfilePictureResponse>
+> {
+  console.log("🚀 Deleting profile picture");
 
   const token = getToken();
   if (!token) {
     return {
       error: {
-        message: 'No authentication token found. Please login first.',
-        errorCode: 'UNAUTHORIZED'
+        message: "No authentication token found. Please login first.",
+        errorCode: "UNAUTHORIZED",
       },
       status: 401,
     };
@@ -117,12 +116,12 @@ export async function deleteProfilePicture(): Promise<ApiResponse<ProfilePicture
 
   try {
     const response = await fetch(`${API_BASE_URL}/api/profile/picture`, {
-      method: 'DELETE',
+      method: "DELETE",
       headers: {
         ...createFormDataHeaders(),
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
-      credentials: 'include',
+      credentials: "include",
     });
 
     const responseText = await response.text();
@@ -131,28 +130,29 @@ export async function deleteProfilePicture(): Promise<ApiResponse<ProfilePicture
     try {
       data = JSON.parse(responseText);
     } catch {
-      throw new Error('Invalid response format');
+      throw new Error("Invalid response format");
     }
 
     if (response.ok) {
-      console.log('✅ Profile picture deleted successfully:', data);
+      console.log("✅ Profile picture deleted successfully:", data);
       return {
         data: data as ProfilePictureResponse,
         status: response.status,
       };
     } else {
-      console.error('❌ Delete failed:', data);
+      console.error("❌ Delete failed:", data);
       return {
         error: data as ApiError,
         status: response.status,
       };
     }
   } catch (error) {
-    console.error('❌ Delete request failed:', error);
+    console.error("❌ Delete request failed:", error);
     return {
       error: {
-        message: error instanceof Error ? error.message : 'Network error occurred',
-        errorCode: 'NETWORK_ERROR'
+        message:
+          error instanceof Error ? error.message : "Network error occurred",
+        errorCode: "NETWORK_ERROR",
       },
       status: 0,
     };
@@ -165,13 +165,15 @@ export async function deleteProfilePicture(): Promise<ApiResponse<ProfilePicture
  *
  * @returns ProfilePictureResponse with current user's picture info
  */
-export async function getCurrentProfilePicture(): Promise<ApiResponse<ProfilePictureResponse>> {
+export async function getCurrentProfilePicture(): Promise<
+  ApiResponse<ProfilePictureResponse>
+> {
   const token = getToken();
   if (!token) {
     return {
       error: {
-        message: 'Not authenticated',
-        errorCode: 'UNAUTHORIZED'
+        message: "Not authenticated",
+        errorCode: "UNAUTHORIZED",
       },
       status: 401,
     };
@@ -179,22 +181,23 @@ export async function getCurrentProfilePicture(): Promise<ApiResponse<ProfilePic
 
   try {
     const response = await fetch(`${API_BASE_URL}/api/profile/picture`, {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
       },
-      credentials: 'include',
+      credentials: "include",
     });
 
     const data = await response.json();
     return { data, status: response.status };
   } catch (error) {
-    console.error('❌ Get picture request failed:', error);
+    console.error("❌ Get picture request failed:", error);
     return {
       error: {
-        message: error instanceof Error ? error.message : 'Network error occurred',
-        errorCode: 'NETWORK_ERROR'
+        message:
+          error instanceof Error ? error.message : "Network error occurred",
+        errorCode: "NETWORK_ERROR",
       },
       status: 0,
     };
@@ -207,7 +210,9 @@ export async function getCurrentProfilePicture(): Promise<ApiResponse<ProfilePic
  * @param picturePath - Path from backend (e.g., "profiles/user-83.jpg")
  * @returns Full URL or null
  */
-export function getProfilePictureUrl(picturePath: string | null): string | null {
+export function getProfilePictureUrl(
+  picturePath: string | null,
+): string | null {
   if (!picturePath) {
     return null;
   }
@@ -223,14 +228,14 @@ export function getProfilePictureUrl(picturePath: string | null): string | null 
  */
 export function validateImageFile(file: File): string | null {
   const MAX_SIZE = 5 * 1024 * 1024; // 5MB
-  const ALLOWED_TYPES = ['image/jpeg', 'image/png', 'image/gif'];
+  const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/gif"];
 
   if (!ALLOWED_TYPES.includes(file.type)) {
-    return 'Only JPEG, PNG, and GIF images are allowed';
+    return "Only JPEG, PNG, and GIF images are allowed";
   }
 
   if (file.size > MAX_SIZE) {
-    return 'File size must be less than 5MB';
+    return "File size must be less than 5MB";
   }
 
   return null;

@@ -30,7 +30,9 @@ import { ToastProvider } from "@/context/ToastContext";
 jest.mock("../../services/photoLikeService");
 
 // Get the mocked service
-const mockedPhotoLikeService = photoLikeService as jest.Mocked<typeof photoLikeService>;
+const mockedPhotoLikeService = photoLikeService as jest.Mocked<
+  typeof photoLikeService
+>;
 
 // Helper to render with ToastProvider
 const renderWithToast = (ui: React.ReactElement) => {
@@ -109,7 +111,11 @@ describe("LikeButton Component", () => {
       const user = userEvent.setup();
 
       renderWithToast(
-        <LikeButton photoId={123} initialIsLiked={false} initialLikeCount={5} />
+        <LikeButton
+          photoId={123}
+          initialIsLiked={false}
+          initialLikeCount={5}
+        />,
       );
 
       const button = screen.getByRole("button");
@@ -135,7 +141,7 @@ describe("LikeButton Component", () => {
       const user = userEvent.setup();
 
       renderWithToast(
-        <LikeButton photoId={123} initialIsLiked={true} initialLikeCount={5} />
+        <LikeButton photoId={123} initialIsLiked={true} initialLikeCount={5} />,
       );
 
       const button = screen.getByRole("button");
@@ -154,9 +160,7 @@ describe("LikeButton Component", () => {
       });
 
       // API should be called
-      expect(mockedPhotoLikeService.unlikePhoto).toHaveBeenCalledWith(
-        123
-      );
+      expect(mockedPhotoLikeService.unlikePhoto).toHaveBeenCalledWith(123);
     });
   });
 
@@ -168,11 +172,15 @@ describe("LikeButton Component", () => {
 
       // Mock a slow API call
       (mockedPhotoLikeService.likePhoto as jest.Mock).mockImplementation(
-        () => new Promise((resolve) => setTimeout(() => resolve({}), 100))
+        () => new Promise((resolve) => setTimeout(() => resolve({}), 100)),
       );
 
       renderWithToast(
-        <LikeButton photoId={123} initialIsLiked={false} initialLikeCount={5} />
+        <LikeButton
+          photoId={123}
+          initialIsLiked={false}
+          initialLikeCount={5}
+        />,
       );
 
       const button = screen.getByRole("button");
@@ -189,7 +197,11 @@ describe("LikeButton Component", () => {
       const user = userEvent.setup();
 
       renderWithToast(
-        <LikeButton photoId={123} initialIsLiked={false} initialLikeCount={10} />
+        <LikeButton
+          photoId={123}
+          initialIsLiked={false}
+          initialLikeCount={10}
+        />,
       );
 
       await user.click(screen.getByRole("button"));
@@ -202,7 +214,11 @@ describe("LikeButton Component", () => {
       const user = userEvent.setup();
 
       renderWithToast(
-        <LikeButton photoId={123} initialIsLiked={true} initialLikeCount={10} />
+        <LikeButton
+          photoId={123}
+          initialIsLiked={true}
+          initialLikeCount={10}
+        />,
       );
 
       await user.click(screen.getByRole("button"));
@@ -224,7 +240,11 @@ describe("LikeButton Component", () => {
       });
 
       renderWithToast(
-        <LikeButton photoId={123} initialIsLiked={false} initialLikeCount={5} />
+        <LikeButton
+          photoId={123}
+          initialIsLiked={false}
+          initialLikeCount={5}
+        />,
       );
 
       const button = screen.getByRole("button");
@@ -248,11 +268,15 @@ describe("LikeButton Component", () => {
 
       // Mock exception
       (mockedPhotoLikeService.likePhoto as jest.Mock).mockRejectedValue(
-        new Error("Network error")
+        new Error("Network error"),
       );
 
       renderWithToast(
-        <LikeButton photoId={123} initialIsLiked={false} initialLikeCount={5} />
+        <LikeButton
+          photoId={123}
+          initialIsLiked={false}
+          initialLikeCount={5}
+        />,
       );
 
       const button = screen.getByRole("button");
@@ -304,7 +328,10 @@ describe("LikeButton Component", () => {
       renderWithToast(<LikeButton photoId={123} isOwnPhoto={true} />);
 
       const button = screen.getByRole("button");
-      expect(button).toHaveAttribute("aria-label", "You cannot like your own photo");
+      expect(button).toHaveAttribute(
+        "aria-label",
+        "You cannot like your own photo",
+      );
     });
 
     it("shows correct title for own photo", () => {
@@ -346,7 +373,7 @@ describe("LikeButton Component", () => {
 
       // Mock slow API call
       (mockedPhotoLikeService.likePhoto as jest.Mock).mockImplementation(
-        () => new Promise((resolve) => setTimeout(() => resolve({}), 100))
+        () => new Promise((resolve) => setTimeout(() => resolve({}), 100)),
       );
 
       renderWithToast(<LikeButton photoId={123} />);
@@ -365,7 +392,7 @@ describe("LikeButton Component", () => {
 
       // Mock slow API call
       (mockedPhotoLikeService.likePhoto as jest.Mock).mockImplementation(
-        () => new Promise((resolve) => setTimeout(() => resolve({}), 100))
+        () => new Promise((resolve) => setTimeout(() => resolve({}), 100)),
       );
 
       renderWithToast(<LikeButton photoId={123} initialLikeCount={5} />);
@@ -380,9 +407,7 @@ describe("LikeButton Component", () => {
 
       // API should only be called once
       await waitFor(() => {
-        expect(mockedPhotoLikeService.likePhoto).toHaveBeenCalledTimes(
-          1
-        );
+        expect(mockedPhotoLikeService.likePhoto).toHaveBeenCalledTimes(1);
       });
     });
 
@@ -415,7 +440,7 @@ describe("LikeButton Component", () => {
       const { container } = renderWithToast(
         <div onClick={mockParentClick} data-testid="parent">
           <LikeButton photoId={123} onLikeChange={mockLikeClick} />
-        </div>
+        </div>,
       );
 
       const button = screen.getByRole("button");
@@ -440,7 +465,7 @@ describe("LikeButton Component", () => {
       const user = userEvent.setup();
 
       renderWithToast(
-        <LikeButton photoId={456} onLikeChange={mockOnLikeChange} />
+        <LikeButton photoId={456} onLikeChange={mockOnLikeChange} />,
       );
 
       await user.click(screen.getByRole("button"));
@@ -458,7 +483,7 @@ describe("LikeButton Component", () => {
           photoId={789}
           initialIsLiked={true}
           onLikeChange={mockOnLikeChange}
-        />
+        />,
       );
 
       await user.click(screen.getByRole("button"));
@@ -477,7 +502,7 @@ describe("LikeButton Component", () => {
       });
 
       renderWithToast(
-        <LikeButton photoId={123} onLikeChange={mockOnLikeChange} />
+        <LikeButton photoId={123} onLikeChange={mockOnLikeChange} />,
       );
 
       await user.click(screen.getByRole("button"));
@@ -493,7 +518,7 @@ describe("LikeButton Component", () => {
   describe("State Sync with Props", () => {
     it("syncs state when initialIsLiked prop changes", () => {
       const { rerender } = renderWithToast(
-        <LikeButton photoId={123} initialIsLiked={false} />
+        <LikeButton photoId={123} initialIsLiked={false} />,
       );
 
       const button = screen.getByRole("button");
@@ -503,7 +528,7 @@ describe("LikeButton Component", () => {
       rerender(
         <ToastProvider>
           <LikeButton photoId={123} initialIsLiked={true} />
-        </ToastProvider>
+        </ToastProvider>,
       );
 
       // State should sync with new prop
@@ -512,7 +537,7 @@ describe("LikeButton Component", () => {
 
     it("syncs state when initialLikeCount prop changes", () => {
       const { rerender } = renderWithToast(
-        <LikeButton photoId={123} initialLikeCount={5} />
+        <LikeButton photoId={123} initialLikeCount={5} />,
       );
 
       expect(screen.getByText("5 likes")).toBeInTheDocument();
@@ -521,7 +546,7 @@ describe("LikeButton Component", () => {
       rerender(
         <ToastProvider>
           <LikeButton photoId={123} initialLikeCount={10} />
-        </ToastProvider>
+        </ToastProvider>,
       );
 
       // State should sync with new prop
@@ -560,7 +585,7 @@ describe("LikeButton Component", () => {
   describe("Custom className", () => {
     it("applies custom className to wrapper div", () => {
       const { container } = renderWithToast(
-        <LikeButton photoId={123} className="ml-4 mt-2" />
+        <LikeButton photoId={123} className="ml-4 mt-2" />,
       );
 
       const wrapper = container.querySelector(".ml-4.mt-2");
@@ -615,7 +640,7 @@ describe("LikeButton Component", () => {
 
       // Mock slow API
       (mockedPhotoLikeService.likePhoto as jest.Mock).mockImplementation(
-        () => new Promise((resolve) => setTimeout(() => resolve({}), 100))
+        () => new Promise((resolve) => setTimeout(() => resolve({}), 100)),
       );
 
       renderWithToast(<LikeButton photoId={123} />);
@@ -629,9 +654,7 @@ describe("LikeButton Component", () => {
 
       // Should only call API once (loading state prevents double-click)
       await waitFor(() => {
-        expect(mockedPhotoLikeService.likePhoto).toHaveBeenCalledTimes(
-          1
-        );
+        expect(mockedPhotoLikeService.likePhoto).toHaveBeenCalledTimes(1);
       });
     });
 

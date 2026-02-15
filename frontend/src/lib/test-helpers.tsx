@@ -4,9 +4,9 @@
  * Shared testing utilities and custom render functions.
  */
 
-import { render, RenderOptions } from '@testing-library/react';
-import { ReactElement } from 'react';
-import { ToastProvider } from '@/context/ToastContext';
+import { render, RenderOptions } from "@testing-library/react";
+import { ReactElement } from "react";
+import { ToastProvider } from "@/context/ToastContext";
 
 /**
  * TestProviders wrapper component
@@ -14,11 +14,7 @@ import { ToastProvider } from '@/context/ToastContext';
  * Wraps children with all required providers for testing.
  */
 function TestProviders({ children }: { children: React.ReactNode }) {
-  return (
-    <ToastProvider>
-      {children}
-    </ToastProvider>
-  );
+  return <ToastProvider>{children}</ToastProvider>;
 }
 
 /**
@@ -32,13 +28,13 @@ function TestProviders({ children }: { children: React.ReactNode }) {
  */
 export function renderWithProviders(
   ui: ReactElement,
-  options?: Omit<RenderOptions, 'wrapper'>
+  options?: Omit<RenderOptions, "wrapper">,
 ) {
   return render(ui, { wrapper: TestProviders, ...options });
 }
 
 // Re-export all React Testing Library utilities
-export * from '@testing-library/react';
+export * from "@testing-library/react";
 
 // Export userEvent for realistic user interaction simulation
-export { default as userEvent } from '@testing-library/user-event';
+export { default as userEvent } from "@testing-library/user-event";

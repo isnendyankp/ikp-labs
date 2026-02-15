@@ -12,9 +12,9 @@
  * - getUserFromToken: Decode JWT and extract user information
  */
 
-import { AuthUser } from '../types/api';
+import { AuthUser } from "../types/api";
 
-const TOKEN_KEY = 'authToken';
+const TOKEN_KEY = "authToken";
 
 /**
  * Save JWT token to localStorage
@@ -22,7 +22,7 @@ const TOKEN_KEY = 'authToken';
  * @param token - JWT token string from backend
  */
 export function saveToken(token: string): void {
-  if (typeof window !== 'undefined') {
+  if (typeof window !== "undefined") {
     localStorage.setItem(TOKEN_KEY, token);
   }
 }
@@ -33,7 +33,7 @@ export function saveToken(token: string): void {
  * @returns JWT token string or null if not found
  */
 export function getToken(): string | null {
-  if (typeof window !== 'undefined') {
+  if (typeof window !== "undefined") {
     return localStorage.getItem(TOKEN_KEY);
   }
   return null;
@@ -43,7 +43,7 @@ export function getToken(): string | null {
  * Remove JWT token from localStorage (logout)
  */
 export function logout(): void {
-  if (typeof window !== 'undefined') {
+  if (typeof window !== "undefined") {
     localStorage.removeItem(TOKEN_KEY);
   }
 }
@@ -95,10 +95,10 @@ export function getUserFromToken(): AuthUser | null {
       id: payload.userId || 0, // Read userId from JWT token payload
       email: payload.email,
       fullName: payload.fullName,
-      token: token
+      token: token,
     };
   } catch (error) {
-    console.error('Failed to decode token:', error);
+    console.error("Failed to decode token:", error);
     return null;
   }
 }
@@ -121,9 +121,9 @@ function decodeToken(token: string): {
   sub: string;
 } {
   // Split JWT into parts (header.payload.signature)
-  const parts = token.split('.');
+  const parts = token.split(".");
   if (parts.length !== 3) {
-    throw new Error('Invalid JWT format');
+    throw new Error("Invalid JWT format");
   }
 
   // Decode base64 payload (second part)

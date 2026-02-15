@@ -7,17 +7,17 @@
  * - Uses real event listeners
  */
 
-import { renderHook } from '@testing-library/react';
-import { useRef } from 'react';
-import { useClickOutside } from '../../hooks/useClickOutside';
+import { renderHook } from "@testing-library/react";
+import { useRef } from "react";
+import { useClickOutside } from "../../hooks/useClickOutside";
 
-describe('useClickOutside', () => {
+describe("useClickOutside", () => {
   // ============================================
   // Basic Functionality Tests
   // ============================================
 
-  describe('Basic Functionality', () => {
-    it('should call callback when clicking outside the element', () => {
+  describe("Basic Functionality", () => {
+    it("should call callback when clicking outside the element", () => {
       const callback = jest.fn();
 
       const { result } = renderHook(() => {
@@ -27,17 +27,17 @@ describe('useClickOutside', () => {
       });
 
       // Create a div and assign it to the ref
-      const div = document.createElement('div');
+      const div = document.createElement("div");
       document.body.appendChild(div);
 
       // Manually set the ref current
       result.current.current = div;
 
       // Simulate click outside
-      const outsideElement = document.createElement('span');
+      const outsideElement = document.createElement("span");
       document.body.appendChild(outsideElement);
 
-      const mouseEvent = new MouseEvent('mousedown', {
+      const mouseEvent = new MouseEvent("mousedown", {
         bubbles: true,
         cancelable: true,
       });
@@ -46,11 +46,11 @@ describe('useClickOutside', () => {
       // Note: The hook uses document.addEventListener, so we need to dispatch to document
       // @ts-expect-error - JSDOM MouseEvent doesn't fully support all properties
       document.dispatchEvent(
-        new MouseEvent('mousedown', {
+        new MouseEvent("mousedown", {
           bubbles: true,
           cancelable: true,
           target: outsideElement,
-        })
+        }),
       );
 
       // Cleanup
@@ -58,7 +58,7 @@ describe('useClickOutside', () => {
       document.body.removeChild(outsideElement);
     });
 
-    it('should not call callback when clicking inside the element', () => {
+    it("should not call callback when clicking inside the element", () => {
       const callback = jest.fn();
 
       renderHook(() => {
@@ -76,9 +76,9 @@ describe('useClickOutside', () => {
   // Event Listener Tests
   // ============================================
 
-  describe('Event Listener Management', () => {
-    it('should add mousedown event listener on mount', () => {
-      const addEventListenerSpy = jest.spyOn(document, 'addEventListener');
+  describe("Event Listener Management", () => {
+    it("should add mousedown event listener on mount", () => {
+      const addEventListenerSpy = jest.spyOn(document, "addEventListener");
       const callback = jest.fn();
 
       renderHook(() => {
@@ -87,15 +87,18 @@ describe('useClickOutside', () => {
       });
 
       expect(addEventListenerSpy).toHaveBeenCalledWith(
-        'mousedown',
-        expect.any(Function)
+        "mousedown",
+        expect.any(Function),
       );
 
       addEventListenerSpy.mockRestore();
     });
 
-    it('should remove mousedown event listener on unmount', () => {
-      const removeEventListenerSpy = jest.spyOn(document, 'removeEventListener');
+    it("should remove mousedown event listener on unmount", () => {
+      const removeEventListenerSpy = jest.spyOn(
+        document,
+        "removeEventListener",
+      );
       const callback = jest.fn();
 
       const { unmount } = renderHook(() => {
@@ -106,8 +109,8 @@ describe('useClickOutside', () => {
       unmount();
 
       expect(removeEventListenerSpy).toHaveBeenCalledWith(
-        'mousedown',
-        expect.any(Function)
+        "mousedown",
+        expect.any(Function),
       );
 
       removeEventListenerSpy.mockRestore();
@@ -118,8 +121,8 @@ describe('useClickOutside', () => {
   // Ref Handling Tests
   // ============================================
 
-  describe('Ref Handling', () => {
-    it('should work with null ref', () => {
+  describe("Ref Handling", () => {
+    it("should work with null ref", () => {
       const callback = jest.fn();
 
       renderHook(() => {
@@ -129,11 +132,11 @@ describe('useClickOutside', () => {
 
       // Should not throw error
       expect(() => {
-        document.dispatchEvent(new MouseEvent('mousedown'));
+        document.dispatchEvent(new MouseEvent("mousedown"));
       }).not.toThrow();
     });
 
-    it('should work with undefined ref current', () => {
+    it("should work with undefined ref current", () => {
       const callback = jest.fn();
 
       renderHook(() => {
@@ -150,8 +153,8 @@ describe('useClickOutside', () => {
   // Callback Handling Tests
   // ============================================
 
-  describe('Callback Handling', () => {
-    it('should update callback when it changes', () => {
+  describe("Callback Handling", () => {
+    it("should update callback when it changes", () => {
       const callback1 = jest.fn();
       const callback2 = jest.fn();
 
@@ -160,7 +163,7 @@ describe('useClickOutside', () => {
           const ref = useRef<HTMLDivElement>(null);
           useClickOutside(ref, callback);
         },
-        { initialProps: { callback: callback1 } }
+        { initialProps: { callback: callback1 } },
       );
 
       rerender({ callback: callback2 });
@@ -176,8 +179,8 @@ describe('useClickOutside', () => {
   // Edge Cases Tests
   // ============================================
 
-  describe('Edge Cases', () => {
-    it('should handle multiple instances of the hook', () => {
+  describe("Edge Cases", () => {
+    it("should handle multiple instances of the hook", () => {
       const callback1 = jest.fn();
       const callback2 = jest.fn();
 
@@ -192,7 +195,7 @@ describe('useClickOutside', () => {
       // No errors should occur
     });
 
-    it('should not call callback if ref.current is null', () => {
+    it("should not call callback if ref.current is null", () => {
       const callback = jest.fn();
 
       renderHook(() => {
@@ -201,7 +204,7 @@ describe('useClickOutside', () => {
       });
 
       // Trigger a mousedown event
-      document.dispatchEvent(new MouseEvent('mousedown'));
+      document.dispatchEvent(new MouseEvent("mousedown"));
 
       // Since ref.current is null, callback should not be called
       expect(callback).not.toHaveBeenCalled();

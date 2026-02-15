@@ -88,7 +88,14 @@ function GalleryPageContent() {
       // Restore scroll position using current filter, page, and sort
       restoreScrollPosition(currentFilter, pageParam, currentSort);
     }
-  }, [loading, photos.length, currentFilter, pageParam, currentSort, restoreScrollPosition]);
+  }, [
+    loading,
+    photos.length,
+    currentFilter,
+    pageParam,
+    currentSort,
+    restoreScrollPosition,
+  ]);
 
   const fetchPhotos = async () => {
     if (!user) return;
@@ -101,19 +108,40 @@ function GalleryPageContent() {
       // Fetch based on current filter (with sorting)
       switch (currentFilter) {
         case "my-photos":
-          response = await getUserPhotos(user.id, currentPage, PHOTOS_PER_PAGE, currentSort);
+          response = await getUserPhotos(
+            user.id,
+            currentPage,
+            PHOTOS_PER_PAGE,
+            currentSort,
+          );
           break;
         case "all":
-          response = await getPublicPhotos(currentPage, PHOTOS_PER_PAGE, currentSort);
+          response = await getPublicPhotos(
+            currentPage,
+            PHOTOS_PER_PAGE,
+            currentSort,
+          );
           break;
         case "liked":
-          response = await getLikedPhotos(currentPage, PHOTOS_PER_PAGE, currentSort);
+          response = await getLikedPhotos(
+            currentPage,
+            PHOTOS_PER_PAGE,
+            currentSort,
+          );
           break;
         case "favorited":
-          response = await getFavoritedPhotos(currentPage, PHOTOS_PER_PAGE, currentSort);
+          response = await getFavoritedPhotos(
+            currentPage,
+            PHOTOS_PER_PAGE,
+            currentSort,
+          );
           break;
         default:
-          response = await getPublicPhotos(currentPage, PHOTOS_PER_PAGE, currentSort);
+          response = await getPublicPhotos(
+            currentPage,
+            PHOTOS_PER_PAGE,
+            currentSort,
+          );
       }
 
       if (response.data) {
@@ -210,7 +238,7 @@ function GalleryPageContent() {
               <button
                 onClick={() => {
                   logout();
-                  router.push('/login');
+                  router.push("/login");
                 }}
                 aria-label="Logout"
                 className="sm:hidden p-3 hover:bg-gray-100 rounded-lg active:scale-95 transition-transform focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
@@ -253,10 +281,10 @@ function GalleryPageContent() {
             currentFilter === "my-photos"
               ? "No photos yet. Upload your first photo!"
               : currentFilter === "liked"
-              ? "You haven't liked any photos yet. Explore the gallery!"
-              : currentFilter === "favorited"
-              ? "You haven't favorited any photos yet."
-              : "No public photos available"
+                ? "You haven't liked any photos yet. Explore the gallery!"
+                : currentFilter === "favorited"
+                  ? "You haven't favorited any photos yet."
+                  : "No public photos available"
           }
         />
 
@@ -282,11 +310,13 @@ function GalleryPageContent() {
 
 export default function GalleryPage() {
   return (
-    <Suspense fallback={
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-gray-500">Loading...</div>
-      </div>
-    }>
+    <Suspense
+      fallback={
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+          <div className="text-gray-500">Loading...</div>
+        </div>
+      }
+    >
       <GalleryPageContent />
     </Suspense>
   );

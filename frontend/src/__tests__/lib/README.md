@@ -4,8 +4,8 @@ This folder contains unit tests for utility functions in `frontend/src/lib/`.
 
 ## Files
 
-| Test File | Source File | Description |
-|-----------|-------------|-------------|
+| Test File           | Source File       | Description                                     |
+| ------------------- | ----------------- | ----------------------------------------------- |
 | `apiClient.test.ts` | `../apiClient.ts` | Tests for token management and headers creation |
 
 ## Testing Philosophy
@@ -17,6 +17,7 @@ This folder contains unit tests for utility functions in `frontend/src/lib/`.
 ## What We Test
 
 ### apiClient.ts
+
 - `getToken()` - Retrieve token from localStorage
 - `saveToken()` - Store token to localStorage
 - `removeToken()` - Clear token from localStorage

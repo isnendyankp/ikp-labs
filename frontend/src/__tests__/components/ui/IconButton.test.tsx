@@ -51,7 +51,7 @@ describe("IconButton Component", () => {
           icon={<HeartIcon />}
           onClick={mockOnClick}
           ariaLabel="Like photo"
-        />
+        />,
       );
 
       const button = screen.getByLabelText("Like photo");
@@ -64,7 +64,7 @@ describe("IconButton Component", () => {
           icon={<HeartIcon />}
           onClick={mockOnClick}
           title="Like this photo"
-        />
+        />,
       );
 
       const button = screen.getByTitle("Like this photo");
@@ -77,11 +77,7 @@ describe("IconButton Component", () => {
   describe("Size Variants", () => {
     it("renders small size correctly", () => {
       const { container } = render(
-        <IconButton
-          icon={<HeartIcon />}
-          size="small"
-          onClick={mockOnClick}
-        />
+        <IconButton icon={<HeartIcon />} size="small" onClick={mockOnClick} />,
       );
 
       const button = screen.getByRole("button");
@@ -90,11 +86,7 @@ describe("IconButton Component", () => {
 
     it("renders medium size correctly", () => {
       const { container } = render(
-        <IconButton
-          icon={<HeartIcon />}
-          size="medium"
-          onClick={mockOnClick}
-        />
+        <IconButton icon={<HeartIcon />} size="medium" onClick={mockOnClick} />,
       );
 
       const button = screen.getByRole("button");
@@ -103,11 +95,7 @@ describe("IconButton Component", () => {
 
     it("renders large size correctly", () => {
       const { container } = render(
-        <IconButton
-          icon={<HeartIcon />}
-          size="large"
-          onClick={mockOnClick}
-        />
+        <IconButton icon={<HeartIcon />} size="large" onClick={mockOnClick} />,
       );
 
       const button = screen.getByRole("button");
@@ -116,7 +104,7 @@ describe("IconButton Component", () => {
 
     it("uses medium size as default", () => {
       const { container } = render(
-        <IconButton icon={<HeartIcon />} onClick={mockOnClick} />
+        <IconButton icon={<HeartIcon />} onClick={mockOnClick} />,
       );
 
       const button = screen.getByRole("button");
@@ -133,7 +121,7 @@ describe("IconButton Component", () => {
           icon={<HeartIcon />}
           shape="circle"
           onClick={mockOnClick}
-        />
+        />,
       );
 
       const button = screen.getByRole("button");
@@ -146,7 +134,7 @@ describe("IconButton Component", () => {
           icon={<HeartIcon />}
           shape="rounded"
           onClick={mockOnClick}
-        />
+        />,
       );
 
       const button = screen.getByRole("button");
@@ -159,7 +147,7 @@ describe("IconButton Component", () => {
           icon={<HeartIcon />}
           shape="square"
           onClick={mockOnClick}
-        />
+        />,
       );
 
       const button = screen.getByRole("button");
@@ -168,7 +156,7 @@ describe("IconButton Component", () => {
 
     it("uses circle shape as default", () => {
       const { container } = render(
-        <IconButton icon={<HeartIcon />} onClick={mockOnClick} />
+        <IconButton icon={<HeartIcon />} onClick={mockOnClick} />,
       );
 
       const button = screen.getByRole("button");
@@ -187,7 +175,7 @@ describe("IconButton Component", () => {
           activeColor="text-red-500"
           inactiveColor="text-gray-400"
           onClick={mockOnClick}
-        />
+        />,
       );
 
       const button = screen.getByRole("button");
@@ -203,7 +191,7 @@ describe("IconButton Component", () => {
           activeColor="text-red-500"
           inactiveColor="text-gray-400"
           onClick={mockOnClick}
-        />
+        />,
       );
 
       const button = screen.getByRole("button");
@@ -219,7 +207,7 @@ describe("IconButton Component", () => {
           activeColor="text-red-500"
           inactiveColor="text-gray-400"
           onClick={mockOnClick}
-        />
+        />,
       );
 
       const button = screen.getByRole("button");
@@ -233,7 +221,7 @@ describe("IconButton Component", () => {
           activeColor="text-red-500"
           inactiveColor="text-gray-400"
           onClick={mockOnClick}
-        />
+        />,
       );
 
       expect(button).toHaveClass("text-red-500");
@@ -250,7 +238,7 @@ describe("IconButton Component", () => {
           icon={<HeartIcon />}
           disabled={true}
           onClick={mockOnClick}
-        />
+        />,
       );
 
       const button = screen.getByRole("button");
@@ -264,7 +252,7 @@ describe("IconButton Component", () => {
           disabled={true}
           disabledColor="text-gray-300"
           onClick={mockOnClick}
-        />
+        />,
       );
 
       const button = screen.getByRole("button");
@@ -281,7 +269,7 @@ describe("IconButton Component", () => {
           icon={<HeartIcon />}
           disabled={true}
           onClick={mockOnClick}
-        />
+        />,
       );
 
       const button = screen.getByRole("button");
@@ -296,7 +284,7 @@ describe("IconButton Component", () => {
           icon={<HeartIcon />}
           isLoading={true}
           onClick={mockOnClick}
-        />
+        />,
       );
 
       const button = screen.getByRole("button");
@@ -313,7 +301,7 @@ describe("IconButton Component", () => {
           icon={<HeartIcon />}
           isLoading={true}
           onClick={mockOnClick}
-        />
+        />,
       );
 
       const button = screen.getByRole("button");
@@ -329,7 +317,7 @@ describe("IconButton Component", () => {
           icon={<HeartIcon />}
           isLoading={true}
           onClick={mockOnClick}
-        />
+        />,
       );
 
       const button = screen.getByRole("button");
@@ -347,7 +335,7 @@ describe("IconButton Component", () => {
           activeColor="text-red-500"
           disabledColor="text-gray-300"
           onClick={mockOnClick}
-        />
+        />,
       );
 
       const button = screen.getByRole("button");
@@ -410,7 +398,7 @@ describe("IconButton Component", () => {
           activeColor="text-pink-500"
           inactiveColor="text-gray-400"
           onClick={mockOnClick}
-        />
+        />,
       );
 
       const button = screen.getByRole("button");
@@ -425,7 +413,7 @@ describe("IconButton Component", () => {
           activeColor="text-red-500"
           inactiveColor="text-blue-400"
           onClick={mockOnClick}
-        />
+        />,
       );
 
       const button = screen.getByRole("button");
@@ -438,7 +426,7 @@ describe("IconButton Component", () => {
           icon={<HeartIcon />}
           hoverColor="hover:text-purple-500"
           onClick={mockOnClick}
-        />
+        />,
       );
 
       const button = screen.getByRole("button");
@@ -451,7 +439,7 @@ describe("IconButton Component", () => {
           icon={<HeartIcon />}
           focusRing="focus:ring-purple-300"
           onClick={mockOnClick}
-        />
+        />,
       );
 
       const button = screen.getByRole("button");
@@ -464,7 +452,7 @@ describe("IconButton Component", () => {
   describe("Icon Changing", () => {
     it("changes icon when prop changes", () => {
       const { rerender } = render(
-        <IconButton icon={<HeartIcon />} onClick={mockOnClick} />
+        <IconButton icon={<HeartIcon />} onClick={mockOnClick} />,
       );
 
       // Initially has outline heart
@@ -482,7 +470,7 @@ describe("IconButton Component", () => {
         <IconButton
           icon={<HeartIcon data-testid="heart-icon" />}
           onClick={mockOnClick}
-        />
+        />,
       );
 
       const icon = screen.getByTestId("heart-icon");
@@ -499,7 +487,7 @@ describe("IconButton Component", () => {
           icon={<HeartIcon />}
           onClick={mockOnClick}
           ariaLabel="Like photo"
-        />
+        />,
       );
 
       const button = screen.getByLabelText("Like photo");
@@ -520,7 +508,7 @@ describe("IconButton Component", () => {
           icon={<HeartIcon />}
           onClick={mockOnClick}
           title="Click to like"
-        />
+        />,
       );
 
       const button = screen.getByTitle("Click to like");
@@ -537,7 +525,7 @@ describe("IconButton Component", () => {
           icon={<HeartIcon />}
           onClick={mockOnClick}
           className="ml-4 mt-2"
-        />
+        />,
       );
 
       const button = screen.getByRole("button");
@@ -551,7 +539,7 @@ describe("IconButton Component", () => {
           icon={<HeartIcon />}
           onClick={mockOnClick}
           className="ml-4 mt-2 p-4"
-        />
+        />,
       );
 
       const button = screen.getByRole("button");
@@ -570,7 +558,7 @@ describe("IconButton Component", () => {
           icon={<HeartIcon />}
           showHoverBg={true}
           onClick={mockOnClick}
-        />
+        />,
       );
 
       const button = screen.getByRole("button");
@@ -583,7 +571,7 @@ describe("IconButton Component", () => {
           icon={<HeartIcon />}
           showHoverBg={false}
           onClick={mockOnClick}
-        />
+        />,
       );
 
       const button = screen.getByRole("button");
@@ -604,7 +592,7 @@ describe("IconButton Component", () => {
           showHoverBg={true}
           disabled={true}
           onClick={mockOnClick}
-        />
+        />,
       );
 
       const button = screen.getByRole("button");
@@ -619,7 +607,7 @@ describe("IconButton Component", () => {
     it("handles null icon gracefully", () => {
       render(
         // @ts-expect-error - Testing null icon case
-        <IconButton icon={null} onClick={mockOnClick} />
+        <IconButton icon={null} onClick={mockOnClick} />,
       );
 
       const button = screen.getByRole("button");
@@ -636,11 +624,7 @@ describe("IconButton Component", () => {
 
     it("handles empty aria-label", () => {
       render(
-        <IconButton
-          icon={<HeartIcon />}
-          onClick={mockOnClick}
-          ariaLabel=""
-        />
+        <IconButton icon={<HeartIcon />} onClick={mockOnClick} ariaLabel="" />,
       );
 
       const button = screen.getByRole("button");
@@ -665,7 +649,7 @@ describe("IconButton Component", () => {
           title="Click to like"
           className="ml-4"
           onClick={mockOnClick}
-        />
+        />,
       );
 
       const button = screen.getByRole("button");
@@ -692,7 +676,7 @@ describe("IconButton Component", () => {
           activeColor="text-red-500"
           inactiveColor="text-gray-400"
           onClick={mockOnClick}
-        />
+        />,
       );
 
       const button = screen.getByRole("button");
@@ -708,7 +692,7 @@ describe("IconButton Component", () => {
           activeColor="text-red-500"
           inactiveColor="text-gray-400"
           onClick={mockOnClick}
-        />
+        />,
       );
 
       // Now active (solid heart)
@@ -725,7 +709,7 @@ describe("IconButton Component", () => {
           hoverColor="hover:text-yellow-500"
           focusRing="focus:ring-yellow-300"
           onClick={mockOnClick}
-        />
+        />,
       );
 
       const button = screen.getByRole("button");
@@ -743,7 +727,7 @@ describe("IconButton Component", () => {
           hoverColor="hover:text-yellow-500"
           focusRing="focus:ring-yellow-300"
           onClick={mockOnClick}
-        />
+        />,
       );
 
       expect(button).toHaveClass("text-yellow-500");

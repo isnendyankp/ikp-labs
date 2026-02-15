@@ -12,17 +12,17 @@
  * Route: /gallery/favorited → redirects to → /myprofile/favorited-photos
  */
 
-'use client';
+"use client";
 
-import { useEffect } from 'react';
-import { useRouter } from 'next/navigation';
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 export default function FavoritedPhotosAliasPage() {
   const router = useRouter();
 
   useEffect(() => {
     // Redirect to main favorited photos implementation
-    router.replace('/myprofile/favorited-photos');
+    router.replace("/myprofile/favorited-photos");
   }, [router]);
 
   return (

@@ -31,16 +31,12 @@
  * - Endpoint: /api/gallery/photo/{id}/favorite
  */
 
-import {
-  GalleryListResponse,
-  ApiResponse,
-  ApiError
-} from '../types/api';
-import { createAuthHeaders } from '../lib/apiClient';
+import { GalleryListResponse, ApiResponse, ApiError } from "../types/api";
+import { createAuthHeaders } from "../lib/apiClient";
 
 // === CONFIGURATION ===
 
-const API_BASE_URL = 'http://localhost:8081';
+const API_BASE_URL = "http://localhost:8081";
 
 // === API FUNCTIONS ===
 
@@ -65,36 +61,37 @@ const API_BASE_URL = 'http://localhost:8081';
  * @returns ApiResponse with empty data (backend returns 201 with no body)
  */
 export async function favoritePhoto(
-  photoId: number
+  photoId: number,
 ): Promise<ApiResponse<void>> {
-  console.log('⭐ Favoriting photo:', photoId);
+  console.log("⭐ Favoriting photo:", photoId);
 
   try {
     const response = await fetch(
       `${API_BASE_URL}/api/gallery/photo/${photoId}/favorite`,
       {
-        method: 'POST',
+        method: "POST",
         headers: createAuthHeaders(),
-        credentials: 'include',
-      }
+        credentials: "include",
+      },
     );
 
     // Backend returns 201 Created with empty body
     if (response.ok) {
-      console.log('✅ Photo favorited successfully:', photoId);
+      console.log("✅ Photo favorited successfully:", photoId);
       return { data: undefined, status: response.status };
     } else {
       // Error responses have JSON body
       const errorData = await response.json();
-      console.error('❌ Favorite failed:', errorData);
+      console.error("❌ Favorite failed:", errorData);
       return { error: errorData as ApiError, status: response.status };
     }
   } catch (error) {
-    console.error('❌ Favorite error:', error);
+    console.error("❌ Favorite error:", error);
     return {
       error: {
-        message: error instanceof Error ? error.message : 'Failed to favorite photo',
-        errorCode: 'FAVORITE_ERROR'
+        message:
+          error instanceof Error ? error.message : "Failed to favorite photo",
+        errorCode: "FAVORITE_ERROR",
       },
       status: 0,
     };
@@ -119,36 +116,37 @@ export async function favoritePhoto(
  * @returns ApiResponse with empty data (backend returns 204 No Content)
  */
 export async function unfavoritePhoto(
-  photoId: number
+  photoId: number,
 ): Promise<ApiResponse<void>> {
-  console.log('⭐→☆ Unfavoriting photo:', photoId);
+  console.log("⭐→☆ Unfavoriting photo:", photoId);
 
   try {
     const response = await fetch(
       `${API_BASE_URL}/api/gallery/photo/${photoId}/favorite`,
       {
-        method: 'DELETE',
+        method: "DELETE",
         headers: createAuthHeaders(),
-        credentials: 'include',
-      }
+        credentials: "include",
+      },
     );
 
     // Backend returns 204 No Content with empty body
     if (response.ok) {
-      console.log('✅ Photo unfavorited successfully:', photoId);
+      console.log("✅ Photo unfavorited successfully:", photoId);
       return { data: undefined, status: response.status };
     } else {
       // Error responses have JSON body
       const errorData = await response.json();
-      console.error('❌ Unfavorite failed:', errorData);
+      console.error("❌ Unfavorite failed:", errorData);
       return { error: errorData as ApiError, status: response.status };
     }
   } catch (error) {
-    console.error('❌ Unfavorite error:', error);
+    console.error("❌ Unfavorite error:", error);
     return {
       error: {
-        message: error instanceof Error ? error.message : 'Failed to unfavorite photo',
-        errorCode: 'UNFAVORITE_ERROR'
+        message:
+          error instanceof Error ? error.message : "Failed to unfavorite photo",
+        errorCode: "UNFAVORITE_ERROR",
       },
       status: 0,
     };
@@ -190,18 +188,18 @@ export async function unfavoritePhoto(
 export async function getFavoritedPhotos(
   page: number = 0,
   size: number = 12,
-  sortBy: string = 'newest'
+  sortBy: string = "newest",
 ): Promise<ApiResponse<GalleryListResponse>> {
-  console.log('🚀 Fetching favorited photos:', { page, size, sortBy });
+  console.log("🚀 Fetching favorited photos:", { page, size, sortBy });
 
   try {
     const response = await fetch(
       `${API_BASE_URL}/api/gallery/favorited-photos?page=${page}&size=${size}&sortBy=${sortBy}`,
       {
-        method: 'GET',
+        method: "GET",
         headers: createAuthHeaders(),
-        credentials: 'include',
-      }
+        credentials: "include",
+      },
     );
 
     const listResponse = await response.json();
@@ -209,24 +207,27 @@ export async function getFavoritedPhotos(
     if (response.ok) {
       // Backend returns GalleryListResponse with photos array and pagination metadata
       console.log(
-        '✅ Favorited photos fetched:',
+        "✅ Favorited photos fetched:",
         listResponse.photos?.length || 0,
-        'Page:',
+        "Page:",
         listResponse.currentPage,
-        'Total:',
-        listResponse.totalPhotos
+        "Total:",
+        listResponse.totalPhotos,
       );
       return { data: listResponse, status: response.status };
     } else {
-      console.error('❌ Fetch favorited photos failed:', listResponse);
+      console.error("❌ Fetch favorited photos failed:", listResponse);
       return { error: listResponse as ApiError, status: response.status };
     }
   } catch (error) {
-    console.error('❌ Fetch favorited photos error:', error);
+    console.error("❌ Fetch favorited photos error:", error);
     return {
       error: {
-        message: error instanceof Error ? error.message : 'Failed to fetch favorited photos',
-        errorCode: 'FETCH_ERROR'
+        message:
+          error instanceof Error
+            ? error.message
+            : "Failed to fetch favorited photos",
+        errorCode: "FETCH_ERROR",
       },
       status: 0,
     };

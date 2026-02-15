@@ -4,7 +4,13 @@
  * Tests for the Toast notification component.
  */
 
-import { render, screen, fireEvent, waitFor, act } from "@testing-library/react";
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  act,
+} from "@testing-library/react";
 import { Toast } from "../../../components/ui/Toast";
 import { Toast as ToastType } from "@/types/toast";
 

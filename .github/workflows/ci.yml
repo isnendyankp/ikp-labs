@@ -201,7 +201,7 @@ jobs:
           DB_NAME: registration_form_test
           DB_USERNAME: test
           DB_PASSWORD: test
-        run: ./mvnw test -B
+        run: mvn test -B
 
       - name: Upload test results
         uses: actions/upload-artifact@v4

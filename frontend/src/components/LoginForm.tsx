@@ -12,12 +12,19 @@ import { FormField } from "./ui/FormField";
 
 const loginSchema = z.object({
   email: z.string().email("Please enter a valid email address"),
-  password: z.string()
+  password: z
+    .string()
     .min(8, "At least 8 characters")
-    .refine((val) => /[a-z]/.test(val), { message: "One lowercase letter (a-z)" })
-    .refine((val) => /[A-Z]/.test(val), { message: "One uppercase letter (A-Z)" })
+    .refine((val) => /[a-z]/.test(val), {
+      message: "One lowercase letter (a-z)",
+    })
+    .refine((val) => /[A-Z]/.test(val), {
+      message: "One uppercase letter (A-Z)",
+    })
     .refine((val) => /[0-9]/.test(val), { message: "One number (0-9)" })
-    .refine((val) => /[@$!%*?&]/.test(val), { message: "One special character (@$!%*?&)" }),
+    .refine((val) => /[@$!%*?&]/.test(val), {
+      message: "One special character (@$!%*?&)",
+    }),
 });
 
 export default function LoginForm() {
@@ -25,7 +32,8 @@ export default function LoginForm() {
   const toast = useToast();
 
   // Google OAuth feature flag - controlled by environment variable
-  const GOOGLE_OAUTH_ENABLED = process.env.NEXT_PUBLIC_GOOGLE_OAUTH_ENABLED === 'true';
+  const GOOGLE_OAUTH_ENABLED =
+    process.env.NEXT_PUBLIC_GOOGLE_OAUTH_ENABLED === "true";
 
   const [formData, setFormData] = useState<LoginFormData>({
     email: "",
@@ -172,7 +180,7 @@ export default function LoginForm() {
   const handleGoogleSignin = () => {
     toast.showInfo(
       "Google OAuth authentication is planned for future development. " +
-      "This is a learning project - currently only email/password authentication is available."
+        "This is a learning project - currently only email/password authentication is available.",
     );
   };
 

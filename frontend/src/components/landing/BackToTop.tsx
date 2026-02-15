@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { useState, useEffect } from 'react';
-import type { BackToTopProps } from './landing.types';
+import { useState, useEffect } from "react";
+import type { BackToTopProps } from "./landing.types";
 
 /**
  * BackToTop Component
@@ -13,7 +13,10 @@ import type { BackToTopProps } from './landing.types';
  * - Chevron up icon
  * - Accessibility: aria-label
  */
-export function BackToTop({ showAt = 400, position = "right" }: BackToTopProps) {
+export function BackToTop({
+  showAt = 400,
+  position = "right",
+}: BackToTopProps) {
   const [isVisible, setIsVisible] = useState(false);
 
   // Handle scroll event to show/hide button
@@ -23,20 +26,20 @@ export function BackToTop({ showAt = 400, position = "right" }: BackToTopProps) 
     };
 
     // Add scroll event listener
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
 
     // Check initial scroll position
     handleScroll();
 
     // Cleanup on unmount
-    return () => window.removeEventListener('scroll', handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [showAt]);
 
   // Scroll to top smoothly
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth',
+      behavior: "smooth",
     });
   };
 

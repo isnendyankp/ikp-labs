@@ -30,12 +30,12 @@ __tests__/
 
 ## 📊 Test Types
 
-| Folder | Test Type | What We Test |
-|--------|-----------|--------------|
-| `components/` | Unit Test | Form validation, button clicks, rendering |
-| `components/ui/` | Unit Test | UI elements like Toast, IconButton |
-| `context/` | Unit Test | Context state management |
-| `lib/` | Unit Test | Utility functions (token, headers, etc.) |
+| Folder           | Test Type | What We Test                              |
+| ---------------- | --------- | ----------------------------------------- |
+| `components/`    | Unit Test | Form validation, button clicks, rendering |
+| `components/ui/` | Unit Test | UI elements like Toast, IconButton        |
+| `context/`       | Unit Test | Context state management                  |
+| `lib/`           | Unit Test | Utility functions (token, headers, etc.)  |
 
 ## 🚀 Run Tests
 
@@ -61,12 +61,12 @@ npm test -- --testPathPatterns="components"
 
 ## 📈 Coverage Targets
 
-| Component Type | Target |
-|----------------|--------|
-| UI Components | 80%+ |
-| Hooks | 85%+ |
-| Utility Functions | 100% |
-| Context/Providers | 80%+ |
+| Component Type    | Target |
+| ----------------- | ------ |
+| UI Components     | 80%+   |
+| Hooks             | 85%+   |
+| Utility Functions | 100%   |
+| Context/Providers | 80%+   |
 
 ## 🔗 Related Tests
 

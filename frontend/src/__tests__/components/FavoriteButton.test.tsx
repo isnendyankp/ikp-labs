@@ -36,7 +36,9 @@ import { ToastProvider } from "@/context/ToastContext";
 jest.mock("../../services/photoFavoriteService");
 
 // Get the mocked service
-const mockedPhotoFavoriteService = photoFavoriteService as jest.Mocked<typeof photoFavoriteService>;
+const mockedPhotoFavoriteService = photoFavoriteService as jest.Mocked<
+  typeof photoFavoriteService
+>;
 
 // Helper to render with ToastProvider
 const renderWithToast = (ui: React.ReactElement) => {
@@ -76,21 +78,27 @@ describe("FavoriteButton Component", () => {
     });
 
     it("renders with correct aria-label when favorited", () => {
-      renderWithToast(<FavoriteButton photoId={123} initialIsFavorited={true} />);
+      renderWithToast(
+        <FavoriteButton photoId={123} initialIsFavorited={true} />,
+      );
 
       const button = screen.getByRole("button");
       expect(button).toHaveAttribute("aria-label", "Unfavorite photo");
     });
 
     it("renders with correct title when favorited", () => {
-      renderWithToast(<FavoriteButton photoId={123} initialIsFavorited={true} />);
+      renderWithToast(
+        <FavoriteButton photoId={123} initialIsFavorited={true} />,
+      );
 
       const button = screen.getByTitle("Unfavorite photo");
       expect(button).toBeInTheDocument();
     });
 
     it("renders with correct title when not favorited", () => {
-      renderWithToast(<FavoriteButton photoId={123} initialIsFavorited={false} />);
+      renderWithToast(
+        <FavoriteButton photoId={123} initialIsFavorited={false} />,
+      );
 
       const button = screen.getByTitle("Favorite photo");
       expect(button).toBeInTheDocument();
@@ -104,7 +112,7 @@ describe("FavoriteButton Component", () => {
       const user = userEvent.setup();
 
       renderWithToast(
-        <FavoriteButton photoId={123} initialIsFavorited={false} />
+        <FavoriteButton photoId={123} initialIsFavorited={false} />,
       );
 
       const button = screen.getByRole("button");
@@ -121,16 +129,16 @@ describe("FavoriteButton Component", () => {
       });
 
       // API should be called
-      expect(
-        mockedPhotoFavoriteService.favoritePhoto
-      ).toHaveBeenCalledWith(123);
+      expect(mockedPhotoFavoriteService.favoritePhoto).toHaveBeenCalledWith(
+        123,
+      );
     });
 
     it("toggles from favorited to unfavorited when clicked", async () => {
       const user = userEvent.setup();
 
       renderWithToast(
-        <FavoriteButton photoId={123} initialIsFavorited={true} />
+        <FavoriteButton photoId={123} initialIsFavorited={true} />,
       );
 
       const button = screen.getByRole("button");
@@ -147,9 +155,9 @@ describe("FavoriteButton Component", () => {
       });
 
       // API should be called
-      expect(
-        mockedPhotoFavoriteService.unfavoritePhoto
-      ).toHaveBeenCalledWith(123);
+      expect(mockedPhotoFavoriteService.unfavoritePhoto).toHaveBeenCalledWith(
+        123,
+      );
     });
   });
 
@@ -161,11 +169,11 @@ describe("FavoriteButton Component", () => {
 
       // Mock a slow API call
       mockedPhotoFavoriteService.favoritePhoto.mockImplementation(
-        () => new Promise((resolve) => setTimeout(() => resolve({}), 100))
+        () => new Promise((resolve) => setTimeout(() => resolve({}), 100)),
       );
 
       renderWithToast(
-        <FavoriteButton photoId={123} initialIsFavorited={false} />
+        <FavoriteButton photoId={123} initialIsFavorited={false} />,
       );
 
       const button = screen.getByRole("button");
@@ -182,11 +190,11 @@ describe("FavoriteButton Component", () => {
 
       // Mock a slow API call
       mockedPhotoFavoriteService.unfavoritePhoto.mockImplementation(
-        () => new Promise((resolve) => setTimeout(() => resolve({}), 100))
+        () => new Promise((resolve) => setTimeout(() => resolve({}), 100)),
       );
 
       renderWithToast(
-        <FavoriteButton photoId={123} initialIsFavorited={true} />
+        <FavoriteButton photoId={123} initialIsFavorited={true} />,
       );
 
       const button = screen.getByRole("button");
@@ -211,7 +219,7 @@ describe("FavoriteButton Component", () => {
       });
 
       renderWithToast(
-        <FavoriteButton photoId={123} initialIsFavorited={false} />
+        <FavoriteButton photoId={123} initialIsFavorited={false} />,
       );
 
       const button = screen.getByRole("button");
@@ -233,11 +241,11 @@ describe("FavoriteButton Component", () => {
 
       // Mock exception
       mockedPhotoFavoriteService.favoritePhoto.mockRejectedValue(
-        new Error("Network error")
+        new Error("Network error"),
       );
 
       renderWithToast(
-        <FavoriteButton photoId={123} initialIsFavorited={false} />
+        <FavoriteButton photoId={123} initialIsFavorited={false} />,
       );
 
       const button = screen.getByRole("button");
@@ -293,9 +301,9 @@ describe("FavoriteButton Component", () => {
 
       // API should be called (different from LikeButton)
       await waitFor(() => {
-        expect(
-          mockedPhotoFavoriteService.favoritePhoto
-        ).toHaveBeenCalledWith(123);
+        expect(mockedPhotoFavoriteService.favoritePhoto).toHaveBeenCalledWith(
+          123,
+        );
       });
     });
 
@@ -317,7 +325,7 @@ describe("FavoriteButton Component", () => {
 
       // Mock slow API call
       mockedPhotoFavoriteService.favoritePhoto.mockImplementation(
-        () => new Promise((resolve) => setTimeout(() => resolve({}), 100))
+        () => new Promise((resolve) => setTimeout(() => resolve({}), 100)),
       );
 
       renderWithToast(<FavoriteButton photoId={123} />);
@@ -336,7 +344,7 @@ describe("FavoriteButton Component", () => {
 
       // Mock slow API call
       mockedPhotoFavoriteService.favoritePhoto.mockImplementation(
-        () => new Promise((resolve) => setTimeout(() => resolve({}), 100))
+        () => new Promise((resolve) => setTimeout(() => resolve({}), 100)),
       );
 
       renderWithToast(<FavoriteButton photoId={123} />);
@@ -351,9 +359,9 @@ describe("FavoriteButton Component", () => {
 
       // API should only be called once
       await waitFor(() => {
-        expect(
-          mockedPhotoFavoriteService.favoritePhoto
-        ).toHaveBeenCalledTimes(1);
+        expect(mockedPhotoFavoriteService.favoritePhoto).toHaveBeenCalledTimes(
+          1,
+        );
       });
     });
 
@@ -385,11 +393,8 @@ describe("FavoriteButton Component", () => {
       // Create a parent div with click handler
       const { container } = renderWithToast(
         <div onClick={mockParentClick} data-testid="parent">
-          <FavoriteButton
-            photoId={123}
-            onFavoriteChange={mockFavoriteClick}
-          />
-        </div>
+          <FavoriteButton photoId={123} onFavoriteChange={mockFavoriteClick} />
+        </div>,
       );
 
       const button = screen.getByRole("button");
@@ -414,7 +419,10 @@ describe("FavoriteButton Component", () => {
       const user = userEvent.setup();
 
       renderWithToast(
-        <FavoriteButton photoId={456} onFavoriteChange={mockOnFavoriteChange} />
+        <FavoriteButton
+          photoId={456}
+          onFavoriteChange={mockOnFavoriteChange}
+        />,
       );
 
       await user.click(screen.getByRole("button"));
@@ -432,7 +440,7 @@ describe("FavoriteButton Component", () => {
           photoId={789}
           initialIsFavorited={true}
           onFavoriteChange={mockOnFavoriteChange}
-        />
+        />,
       );
 
       await user.click(screen.getByRole("button"));
@@ -451,7 +459,10 @@ describe("FavoriteButton Component", () => {
       });
 
       renderWithToast(
-        <FavoriteButton photoId={123} onFavoriteChange={mockOnFavoriteChange} />
+        <FavoriteButton
+          photoId={123}
+          onFavoriteChange={mockOnFavoriteChange}
+        />,
       );
 
       await user.click(screen.getByRole("button"));
@@ -467,7 +478,7 @@ describe("FavoriteButton Component", () => {
   describe("State Sync with Props", () => {
     it("syncs state when initialIsFavorited prop changes", () => {
       const { rerender } = renderWithToast(
-        <FavoriteButton photoId={123} initialIsFavorited={false} />
+        <FavoriteButton photoId={123} initialIsFavorited={false} />,
       );
 
       const button = screen.getByRole("button");
@@ -477,7 +488,7 @@ describe("FavoriteButton Component", () => {
       rerender(
         <ToastProvider>
           <FavoriteButton photoId={123} initialIsFavorited={true} />
-        </ToastProvider>
+        </ToastProvider>,
       );
 
       // State should sync with new prop
@@ -515,7 +526,7 @@ describe("FavoriteButton Component", () => {
   describe("Custom className", () => {
     it("applies custom className to wrapper div", () => {
       const { container } = renderWithToast(
-        <FavoriteButton photoId={123} className="ml-4 mt-2" />
+        <FavoriteButton photoId={123} className="ml-4 mt-2" />,
       );
 
       const wrapper = container.querySelector(".ml-4.mt-2");
@@ -527,7 +538,9 @@ describe("FavoriteButton Component", () => {
 
   describe("IconButton Integration", () => {
     it("passes correct icon when favorited", () => {
-      renderWithToast(<FavoriteButton photoId={123} initialIsFavorited={true} />);
+      renderWithToast(
+        <FavoriteButton photoId={123} initialIsFavorited={true} />,
+      );
 
       const button = screen.getByRole("button");
       expect(button).toHaveAttribute("aria-label", "Unfavorite photo");
@@ -535,7 +548,7 @@ describe("FavoriteButton Component", () => {
 
     it("passes correct icon when not favorited", () => {
       renderWithToast(
-        <FavoriteButton photoId={123} initialIsFavorited={false} />
+        <FavoriteButton photoId={123} initialIsFavorited={false} />,
       );
 
       const button = screen.getByRole("button");
@@ -543,7 +556,9 @@ describe("FavoriteButton Component", () => {
     });
 
     it("uses yellow color for favorited state", () => {
-      renderWithToast(<FavoriteButton photoId={123} initialIsFavorited={true} />);
+      renderWithToast(
+        <FavoriteButton photoId={123} initialIsFavorited={true} />,
+      );
 
       const button = screen.getByRole("button");
       // Should have yellow color when favorited
@@ -559,7 +574,7 @@ describe("FavoriteButton Component", () => {
 
       // Mock slow API
       mockedPhotoFavoriteService.favoritePhoto.mockImplementation(
-        () => new Promise((resolve) => setTimeout(() => resolve({}), 100))
+        () => new Promise((resolve) => setTimeout(() => resolve({}), 100)),
       );
 
       renderWithToast(<FavoriteButton photoId={123} />);
@@ -573,9 +588,9 @@ describe("FavoriteButton Component", () => {
 
       // Should only call API once (loading state prevents double-click)
       await waitFor(() => {
-        expect(
-          mockedPhotoFavoriteService.favoritePhoto
-        ).toHaveBeenCalledTimes(1);
+        expect(mockedPhotoFavoriteService.favoritePhoto).toHaveBeenCalledTimes(
+          1,
+        );
       });
     });
 
@@ -643,7 +658,7 @@ describe("FavoriteButton Component", () => {
 
       // Mock slow API
       mockedPhotoFavoriteService.favoritePhoto.mockImplementation(
-        () => new Promise((resolve) => setTimeout(() => resolve({}), 100))
+        () => new Promise((resolve) => setTimeout(() => resolve({}), 100)),
       );
 
       renderWithToast(<FavoriteButton photoId={123} />);
@@ -687,7 +702,7 @@ describe("FavoriteButton Component", () => {
       renderWithToast(
         <div onClick={mockParentClick}>
           <FavoriteButton photoId={123} />
-        </div>
+        </div>,
       );
 
       await user.click(screen.getByRole("button"));

@@ -1,8 +1,8 @@
-'use client';
+"use client";
 
-import { useRouter } from 'next/navigation';
-import { logout } from '../lib/auth';
-import { useState } from 'react';
+import { useRouter } from "next/navigation";
+import { logout } from "../lib/auth";
+import { useState } from "react";
 
 /**
  * LogoutButton Component
@@ -26,7 +26,7 @@ export default function LogoutButton() {
     logout();
 
     // Redirect to login page
-    router.push('/login');
+    router.push("/login");
   };
 
   return (
@@ -35,11 +35,11 @@ export default function LogoutButton() {
       disabled={isLoading}
       className={`py-2 px-4 rounded-lg font-medium transition-colors ${
         isLoading
-          ? 'bg-gray-400 text-gray-600 cursor-not-allowed'
-          : 'bg-red-600 text-white hover:bg-red-700'
+          ? "bg-gray-400 text-gray-600 cursor-not-allowed"
+          : "bg-red-600 text-white hover:bg-red-700"
       }`}
     >
-      {isLoading ? 'Logging Out...' : 'Logout'}
+      {isLoading ? "Logging Out..." : "Logout"}
     </button>
   );
 }

@@ -1,5 +1,5 @@
-import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
+import { NextResponse } from "next/server";
+import type { NextRequest } from "next/server";
 
 /**
  * Next.js Middleware
@@ -18,8 +18,8 @@ export function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Redirect /home to /myprofile (backward compatibility)
-  if (pathname.startsWith('/home')) {
-    const newPath = pathname.replace('/home', '/myprofile');
+  if (pathname.startsWith("/home")) {
+    const newPath = pathname.replace("/home", "/myprofile");
     const url = request.nextUrl.clone();
     url.pathname = newPath;
 
@@ -39,5 +39,5 @@ export function middleware(request: NextRequest) {
  * Using matcher for better performance - only runs on /home paths.
  */
 export const config = {
-  matcher: '/home/:path*',
+  matcher: "/home/:path*",
 };

@@ -141,14 +141,19 @@ export function IconButton({
 
   // === STYLING ===
 
-  const baseStyles = "flex items-center justify-center transition-all duration-200";
+  const baseStyles =
+    "flex items-center justify-center transition-all duration-200";
   const sizeStyle = buttonSizeClasses[size];
   const shapeStyle = shapeClasses[shape];
   const colorStyle = getColorClass();
-  const hoverStyle = hoverColor || (isActive ? "" : `hover:${activeColor.replace(/^text-/, "text-")}`);
-  const hoverBgStyle = showHoverBg && !(disabled || isLoading) ? "hover:bg-gray-100" : "";
+  const hoverStyle =
+    hoverColor ||
+    (isActive ? "" : `hover:${activeColor.replace(/^text-/, "text-")}`);
+  const hoverBgStyle =
+    showHoverBg && !(disabled || isLoading) ? "hover:bg-gray-100" : "";
   const focusStyle = "focus:outline-none focus:ring-2";
-  const disabledStyle = (disabled || isLoading) ? "opacity-50 cursor-not-allowed" : "cursor-pointer";
+  const disabledStyle =
+    disabled || isLoading ? "opacity-50 cursor-not-allowed" : "cursor-pointer";
   const loadingStyle = isLoading ? "cursor-not-allowed" : "";
 
   const buttonClasses = `
@@ -163,7 +168,9 @@ export function IconButton({
     ${disabledStyle}
     ${loadingStyle}
     ${className}
-  `.trim().replace(/\s+/g, " ");
+  `
+    .trim()
+    .replace(/\s+/g, " ");
 
   // === RENDER ===
 

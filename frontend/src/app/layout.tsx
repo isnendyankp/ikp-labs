@@ -15,12 +15,20 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Kameravue - Your Perfect Moments, Beautifully Shared",
-  description: "Share life's beautiful moments with stunning photo galleries. Upload, organize, and share your photos with the world. Free forever.",
-  keywords: ["photo gallery", "share photos", "photo sharing", "free photo storage", "photo organizer"],
+  description:
+    "Share life's beautiful moments with stunning photo galleries. Upload, organize, and share your photos with the world. Free forever.",
+  keywords: [
+    "photo gallery",
+    "share photos",
+    "photo sharing",
+    "free photo storage",
+    "photo organizer",
+  ],
   authors: [{ name: "Kameravue Team" }],
   openGraph: {
     title: "Kameravue - Share Beautiful Moments",
-    description: "Your perfect moments, beautifully captured and shared with the world",
+    description:
+      "Your perfect moments, beautifully captured and shared with the world",
     type: "website",
   },
 };

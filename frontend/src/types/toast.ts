@@ -12,7 +12,7 @@
  * - warning: Yellow toast for warnings
  * - info: Blue toast for informational messages
  */
-export type ToastType = 'success' | 'error' | 'warning' | 'info';
+export type ToastType = "success" | "error" | "warning" | "info";
 
 /**
  * Toast notification interface
@@ -71,8 +71,8 @@ export const MAX_VISIBLE_TOASTS = 5;
  * Toast icons mapping (emoji representation)
  */
 export const TOAST_ICONS: Record<ToastType, string> = {
-  success: '✅',
-  error: '❌',
-  warning: '⚠️',
-  info: 'ℹ️',
+  success: "✅",
+  error: "❌",
+  warning: "⚠️",
+  info: "ℹ️",
 } as const;

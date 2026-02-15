@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import type { AboutSectionProps } from './landing.types';
+import type { AboutSectionProps } from "./landing.types";
 
 /**
  * AboutSection Component
@@ -29,18 +29,19 @@ export function AboutSection({ stats }: AboutSectionProps) {
           {/* Left Column - Mission Text */}
           <div className="space-y-6">
             <p className="text-lg text-gray-700 leading-relaxed">
-              Kameravue was born from a simple belief that everyone deserves to beautifully
-              share their life&apos;s moments. We believe photos are more than just images -
-              they&apos;re stories.
+              Kameravue was born from a simple belief that everyone deserves to
+              beautifully share their life&apos;s moments. We believe photos are
+              more than just images - they&apos;re stories.
             </p>
             <p className="text-lg text-gray-700 leading-relaxed">
-              Our platform makes it easy to upload, organize, and share those stories with the
-              people who matter most. Whether you&apos;re a professional photographer or just
-              love capturing memories, Kameravue is for you.
+              Our platform makes it easy to upload, organize, and share those
+              stories with the people who matter most. Whether you&apos;re a
+              professional photographer or just love capturing memories,
+              Kameravue is for you.
             </p>
             <p className="text-lg text-gray-700 leading-relaxed">
-              Join thousands of users who trust Kameravue to store and share their most precious
-              moments.
+              Join thousands of users who trust Kameravue to store and share
+              their most precious moments.
             </p>
           </div>
 
@@ -66,8 +67,12 @@ export function AboutSection({ stats }: AboutSectionProps) {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-xl font-semibold text-gray-900">{stats.stat1}</p>
-                    <p className="text-gray-600 font-medium">Your photos, your rules</p>
+                    <p className="text-xl font-semibold text-gray-900">
+                      {stats.stat1}
+                    </p>
+                    <p className="text-gray-600 font-medium">
+                      Your photos, your rules
+                    </p>
                   </div>
                 </div>
               </div>
@@ -91,8 +96,12 @@ export function AboutSection({ stats }: AboutSectionProps) {
                     </svg>
                   </div>
                   <div>
-                    <p className="text-xl font-semibold text-gray-900">{stats.stat2}</p>
-                    <p className="text-gray-600 font-medium">Favorite discreetly</p>
+                    <p className="text-xl font-semibold text-gray-900">
+                      {stats.stat2}
+                    </p>
+                    <p className="text-gray-600 font-medium">
+                      Favorite discreetly
+                    </p>
                   </div>
                 </div>
               </div>

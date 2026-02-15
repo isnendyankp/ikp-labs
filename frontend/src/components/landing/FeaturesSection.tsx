@@ -1,7 +1,7 @@
-'use client';
+"use client";
 
-import { FeatureCard } from './FeatureCard';
-import type { FeaturesSectionProps } from './landing.types';
+import { FeatureCard } from "./FeatureCard";
+import type { FeaturesSectionProps } from "./landing.types";
 
 /**
  * FeaturesSection Component

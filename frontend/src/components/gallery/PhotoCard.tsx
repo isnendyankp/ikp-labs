@@ -17,15 +17,15 @@
  * - Async decoding for non-blocking image load (decoding="async")
  */
 
-'use client';
+"use client";
 
-import { GalleryPhoto } from '../../types/api';
-import { getPhotoUrl } from '../../services/galleryService';
-import { getUserFromToken } from '../../lib/auth';
-import { useRouter, useSearchParams } from 'next/navigation';
-import LikeButton from '../LikeButton';
-import FavoriteButton from '../FavoriteButton';
-import { useScrollRestoration } from '@/hooks/useScrollRestoration';
+import { GalleryPhoto } from "../../types/api";
+import { getPhotoUrl } from "../../services/galleryService";
+import { getUserFromToken } from "../../lib/auth";
+import { useRouter, useSearchParams } from "next/navigation";
+import LikeButton from "../LikeButton";
+import FavoriteButton from "../FavoriteButton";
+import { useScrollRestoration } from "@/hooks/useScrollRestoration";
 
 interface PhotoCardProps {
   photo: GalleryPhoto;
@@ -33,16 +33,30 @@ interface PhotoCardProps {
   onFavoriteChange?: (photoId: number) => void;
 }
 
-export default function PhotoCard({ photo, onLikeChange, onFavoriteChange }: PhotoCardProps) {
+export default function PhotoCard({
+  photo,
+  onLikeChange,
+  onFavoriteChange,
+}: PhotoCardProps) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const currentUser = getUserFromToken();
   const { saveScrollPosition } = useScrollRestoration();
 
   // Get current filter, page, and sort from URL
-  const filter = (searchParams.get('filter') as 'all' | 'my-photos' | 'liked' | 'favorited') || 'all';
-  const page = parseInt(searchParams.get('page') || '1', 10);
-  const sort = (searchParams.get('sortBy') as 'newest' | 'oldest' | 'mostLiked' | 'mostFavorited') || 'newest';
+  const filter =
+    (searchParams.get("filter") as
+      | "all"
+      | "my-photos"
+      | "liked"
+      | "favorited") || "all";
+  const page = parseInt(searchParams.get("page") || "1", 10);
+  const sort =
+    (searchParams.get("sortBy") as
+      | "newest"
+      | "oldest"
+      | "mostLiked"
+      | "mostFavorited") || "newest";
 
   const handleClick = () => {
     // Save scroll position before navigating to photo detail
@@ -62,7 +76,7 @@ export default function PhotoCard({ photo, onLikeChange, onFavoriteChange }: Pho
       <div className="relative w-full pt-[100%] bg-gray-100">
         <img
           src={photoUrl}
-          alt={photo.title || 'Gallery photo'}
+          alt={photo.title || "Gallery photo"}
           loading="lazy"
           decoding="async"
           className="absolute top-0 left-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-200"
@@ -73,13 +87,14 @@ export default function PhotoCard({ photo, onLikeChange, onFavoriteChange }: Pho
           <span
             className={`
               px-2 py-1 text-xs font-medium rounded
-              ${photo.isPublic
-                ? 'bg-green-500 text-white'
-                : 'bg-gray-800 text-white'
+              ${
+                photo.isPublic
+                  ? "bg-green-500 text-white"
+                  : "bg-gray-800 text-white"
               }
             `}
           >
-            {photo.isPublic ? 'Public' : 'Private'}
+            {photo.isPublic ? "Public" : "Private"}
           </span>
         </div>
       </div>
@@ -102,10 +117,10 @@ export default function PhotoCard({ photo, onLikeChange, onFavoriteChange }: Pho
 
         {/* Date */}
         <p className="text-xs text-gray-400 mt-2">
-          {new Date(photo.createdAt).toLocaleDateString('id-ID', {
-            day: 'numeric',
-            month: 'short',
-            year: 'numeric'
+          {new Date(photo.createdAt).toLocaleDateString("id-ID", {
+            day: "numeric",
+            month: "short",
+            year: "numeric",
           })}
         </p>
 

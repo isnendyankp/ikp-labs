@@ -21,7 +21,7 @@ export default function Pagination({
   currentPage,
   totalPages,
   onPageChange,
-  loading = false
+  loading = false,
 }: PaginationProps) {
   const hasPrevious = currentPage > 0;
   const hasNext = currentPage < totalPages - 1;
@@ -34,9 +34,10 @@ export default function Pagination({
         disabled={!hasPrevious || loading}
         className={`
           px-6 py-2 rounded-lg font-medium transition-colors
-          ${hasPrevious && !loading
-            ? 'bg-blue-600 text-white hover:bg-blue-700'
-            : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+          ${
+            hasPrevious && !loading
+              ? "bg-blue-600 text-white hover:bg-blue-700"
+              : "bg-gray-200 text-gray-400 cursor-not-allowed"
           }
         `}
       >
@@ -56,9 +57,10 @@ export default function Pagination({
         disabled={!hasNext || loading}
         className={`
           px-6 py-2 rounded-lg font-medium transition-colors
-          ${hasNext && !loading
-            ? 'bg-blue-600 text-white hover:bg-blue-700'
-            : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+          ${
+            hasNext && !loading
+              ? "bg-blue-600 text-white hover:bg-blue-700"
+              : "bg-gray-200 text-gray-400 cursor-not-allowed"
           }
         `}
       >

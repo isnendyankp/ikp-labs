@@ -1,4 +1,4 @@
-import type { ComponentType, SVGProps } from 'react';
+import type { ComponentType, SVGProps } from "react";
 
 /**
  * Feature Card Props
@@ -58,9 +58,9 @@ export interface FeaturesSectionProps {
 export interface AboutSectionProps {
   /** Optional stats to display */
   stats?: {
-    stat1: string;  // "Public or Private Galleries"
-    stat2: string;  // "Anonymous Photo Favorites"
-    stat3: string;  // "100% Free Forever"
+    stat1: string; // "Public or Private Galleries"
+    stat2: string; // "Anonymous Photo Favorites"
+    stat3: string; // "100% Free Forever"
   };
 }
 

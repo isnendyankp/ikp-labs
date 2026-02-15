@@ -59,7 +59,7 @@ export interface ApiResponse<T> {
 // Types untuk forms di frontend (sebelum dikirim ke backend)
 
 export interface RegistrationFormData {
-  name: string;          // Frontend: "name"
+  name: string; // Frontend: "name"
   email: string;
   password: string;
   confirmPassword: string;

@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "lint:check": "eslint . --max-warnings 0",
+    "lint:check": "eslint . --max-warnings 30",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test": "jest",

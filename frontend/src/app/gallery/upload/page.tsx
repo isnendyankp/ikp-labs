@@ -10,12 +10,12 @@
  * - Clean, focused layout
  */
 
-'use client';
+"use client";
 
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { isAuthenticated } from '../../../lib/auth';
-import PhotoUploadForm from '../../../components/gallery/PhotoUploadForm';
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { isAuthenticated } from "../../../lib/auth";
+import PhotoUploadForm from "../../../components/gallery/PhotoUploadForm";
 
 export default function UploadPhotoPage() {
   const router = useRouter();
@@ -24,7 +24,7 @@ export default function UploadPhotoPage() {
   useEffect(() => {
     // Check authentication
     if (!isAuthenticated()) {
-      router.push('/login');
+      router.push("/login");
       return;
     }
     setAuthChecked(true);

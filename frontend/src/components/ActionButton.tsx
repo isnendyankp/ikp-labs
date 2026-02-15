@@ -149,7 +149,8 @@ export default function ActionButton({
 
     // Optimistic update (update UI immediately)
     const newIsActive = !isActive;
-    const newCount = countLabel !== undefined ? (newIsActive ? count + 1 : count - 1) : count;
+    const newCount =
+      countLabel !== undefined ? (newIsActive ? count + 1 : count - 1) : count;
 
     setIsActive(newIsActive);
     if (countLabel !== undefined) {
@@ -201,7 +202,10 @@ export default function ActionButton({
   // === RENDER ===
 
   const isDisabled = shouldDisable?.();
-  const showCount = countLabel !== undefined && count > 0 && (!showCountOnlyWhenActive || isActive);
+  const showCount =
+    countLabel !== undefined &&
+    count > 0 &&
+    (!showCountOnlyWhenActive || isActive);
 
   return (
     <div className={`flex items-center gap-2 ${className}`}>

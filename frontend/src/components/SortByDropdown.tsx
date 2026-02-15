@@ -36,9 +36,9 @@
  * @see {@link https://github.com/isnendyankp/ikp-labs} - Project Repository
  */
 
-'use client';
+"use client";
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from "react";
 
 /**
  * Available sort options for gallery photos.
@@ -50,7 +50,7 @@ import { useState, useRef, useEffect } from 'react';
  * - `mostLiked`: Sort by like count (highest first, then by newest)
  * - `mostFavorited`: Sort by favorite count (highest first, then by newest)
  */
-export type SortByOption = 'newest' | 'oldest' | 'mostLiked' | 'mostFavorited';
+export type SortByOption = "newest" | "oldest" | "mostLiked" | "mostFavorited";
 
 /**
  * Props for the SortByDropdown component.
@@ -96,29 +96,29 @@ const SORT_OPTIONS: Array<{
   description: string;
 }> = [
   {
-    value: 'newest',
-    label: 'Newest First',
-    icon: '🆕',
-    description: 'Most recently uploaded'
+    value: "newest",
+    label: "Newest First",
+    icon: "🆕",
+    description: "Most recently uploaded",
   },
   {
-    value: 'oldest',
-    label: 'Oldest First',
-    icon: '📅',
-    description: 'Oldest uploads first'
+    value: "oldest",
+    label: "Oldest First",
+    icon: "📅",
+    description: "Oldest uploads first",
   },
   {
-    value: 'mostLiked',
-    label: 'Most Liked',
-    icon: '❤️',
-    description: 'Sorted by likes count'
+    value: "mostLiked",
+    label: "Most Liked",
+    icon: "❤️",
+    description: "Sorted by likes count",
   },
   {
-    value: 'mostFavorited',
-    label: 'Most Favorited',
-    icon: '⭐',
-    description: 'Sorted by favorites count'
-  }
+    value: "mostFavorited",
+    label: "Most Favorited",
+    icon: "⭐",
+    description: "Sorted by favorites count",
+  },
 ];
 
 /**
@@ -147,16 +147,21 @@ export default function SortByDropdown({
 }: SortByDropdownProps) {
   // Use controlled state if provided, otherwise use internal state
   const [internalIsOpen, setInternalIsOpen] = useState(false);
-  const isOpen = controlledIsOpen !== undefined ? controlledIsOpen : internalIsOpen;
+  const isOpen =
+    controlledIsOpen !== undefined ? controlledIsOpen : internalIsOpen;
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   // Get current sort option details
-  const currentOption = SORT_OPTIONS.find(opt => opt.value === currentSort) || SORT_OPTIONS[0];
+  const currentOption =
+    SORT_OPTIONS.find((opt) => opt.value === currentSort) || SORT_OPTIONS[0];
 
   // Close dropdown when clicking outside
   useEffect(() => {
     function handleClickOutside(event: MouseEvent) {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
         if (controlledIsOpen !== undefined) {
           onOpenChange?.(false);
         } else {
@@ -166,11 +171,11 @@ export default function SortByDropdown({
     }
 
     if (isOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
+      document.addEventListener("mousedown", handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [isOpen, controlledIsOpen, onOpenChange]);
 
@@ -207,40 +212,59 @@ export default function SortByDropdown({
             {currentOption.label}
           </span>
           <svg
-            className={`w-4 h-4 text-gray-500 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+            className={`w-4 h-4 text-gray-500 transition-transform ${isOpen ? "rotate-180" : ""}`}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
           >
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M19 9l-7 7-7-7"
+            />
           </svg>
         </button>
       )}
 
       {/* Dropdown Menu - Only visible when open */}
       {isOpen && (
-        <div className={`absolute top-full mt-2 ${variant === "compact" ? "w-48 right-0 sm:right-auto sm:left-0" : "w-full left-0"} bg-white border border-gray-200 rounded-lg shadow-xl z-[100] overflow-hidden`}>
+        <div
+          className={`absolute top-full mt-2 ${variant === "compact" ? "w-48 right-0 sm:right-auto sm:left-0" : "w-full left-0"} bg-white border border-gray-200 rounded-lg shadow-xl z-[100] overflow-hidden`}
+        >
           <div className="py-1">
             {SORT_OPTIONS.map((option) => (
               <button
                 key={option.value}
                 onClick={() => handleSortSelect(option.value)}
                 className={`w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors ${
-                  currentSort === option.value ? 'bg-blue-50' : ''
+                  currentSort === option.value ? "bg-blue-50" : ""
                 }`}
               >
                 <div className="flex items-start gap-3">
                   <span className="text-xl">{option.icon}</span>
                   <div className="flex-1">
                     <div className="flex items-center gap-2">
-                      <span className={`font-medium ${
-                        currentSort === option.value ? 'text-blue-700' : 'text-gray-900'
-                      }`}>
+                      <span
+                        className={`font-medium ${
+                          currentSort === option.value
+                            ? "text-blue-700"
+                            : "text-gray-900"
+                        }`}
+                      >
                         {option.label}
                       </span>
                       {currentSort === option.value && (
-                        <svg className="w-4 h-4 text-blue-600" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        <svg
+                          className="w-4 h-4 text-blue-600"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clipRule="evenodd"
+                          />
                         </svg>
                       )}
                     </div>
