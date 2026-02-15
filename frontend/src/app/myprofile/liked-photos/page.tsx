@@ -88,7 +88,7 @@ export default function LikedPhotosPage() {
     } finally {
       setLoading(false);
     }
-  }, [user, currentPage]);
+  }, [user, currentPage, currentSort]);
 
   // Fetch liked photos when page or sort changes
   useEffect(() => {

@@ -110,7 +110,7 @@ export default function LoginForm() {
 
     try {
       // Validate form data using Zod schema (excluding rememberMe from validation)
-      const { rememberMe, ...dataToValidate } = formData;
+      const { rememberMe: _rememberMe, ...dataToValidate } = formData;
       loginSchema.parse(dataToValidate);
 
       setIsLoading(true);

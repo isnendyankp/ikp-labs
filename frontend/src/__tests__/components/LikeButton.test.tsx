@@ -437,7 +437,7 @@ describe("LikeButton Component", () => {
       const mockLikeClick = jest.fn();
 
       // Create a parent div with click handler
-      const { container } = renderWithToast(
+      renderWithToast(
         <div onClick={mockParentClick} data-testid="parent">
           <LikeButton photoId={123} onLikeChange={mockLikeClick} />
         </div>,

@@ -391,7 +391,7 @@ describe("FavoriteButton Component", () => {
       const mockFavoriteClick = jest.fn();
 
       // Create a parent div with click handler
-      const { container } = renderWithToast(
+      renderWithToast(
         <div onClick={mockParentClick} data-testid="parent">
           <FavoriteButton photoId={123} onFavoriteChange={mockFavoriteClick} />
         </div>,

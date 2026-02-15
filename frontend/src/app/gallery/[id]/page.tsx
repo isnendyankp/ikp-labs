@@ -68,6 +68,7 @@ export default function PhotoDetailPage() {
     if (user && photoId) {
       fetchPhoto();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, photoId]);
 
   const fetchPhoto = async () => {
@@ -126,7 +127,7 @@ export default function PhotoDetailPage() {
       } else if (response.error) {
         showError("Update failed: " + response.error.message);
       }
-    } catch (error) {
+    } catch (_error) {
       showError("Update failed. Please try again.");
     } finally {
       setSaving(false);
@@ -152,7 +153,7 @@ export default function PhotoDetailPage() {
       } else if (response.error) {
         showError("Delete failed: " + response.error.message);
       }
-    } catch (error) {
+    } catch (_error) {
       showError("Delete failed. Please try again.");
     } finally {
       setDeleting(false);

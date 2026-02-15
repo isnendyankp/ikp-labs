@@ -79,6 +79,7 @@ function GalleryPageContent() {
     if (user) {
       fetchPhotos();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user, currentPage, currentFilter, currentSort]);
 
   // Restore scroll position after photos are loaded

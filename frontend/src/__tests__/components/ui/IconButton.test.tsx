@@ -76,7 +76,7 @@ describe("IconButton Component", () => {
 
   describe("Size Variants", () => {
     it("renders small size correctly", () => {
-      const { container } = render(
+      render(
         <IconButton icon={<HeartIcon />} size="small" onClick={mockOnClick} />,
       );
 
@@ -85,7 +85,7 @@ describe("IconButton Component", () => {
     });
 
     it("renders medium size correctly", () => {
-      const { container } = render(
+      render(
         <IconButton icon={<HeartIcon />} size="medium" onClick={mockOnClick} />,
       );
 
@@ -94,7 +94,7 @@ describe("IconButton Component", () => {
     });
 
     it("renders large size correctly", () => {
-      const { container } = render(
+      render(
         <IconButton icon={<HeartIcon />} size="large" onClick={mockOnClick} />,
       );
 
@@ -103,9 +103,7 @@ describe("IconButton Component", () => {
     });
 
     it("uses medium size as default", () => {
-      const { container } = render(
-        <IconButton icon={<HeartIcon />} onClick={mockOnClick} />,
-      );
+      render(<IconButton icon={<HeartIcon />} onClick={mockOnClick} />);
 
       const button = screen.getByRole("button");
       expect(button).toHaveClass("p-2"); // default to medium
@@ -116,7 +114,7 @@ describe("IconButton Component", () => {
 
   describe("Shape Variants", () => {
     it("renders circle shape correctly", () => {
-      const { container } = render(
+      render(
         <IconButton
           icon={<HeartIcon />}
           shape="circle"
@@ -129,7 +127,7 @@ describe("IconButton Component", () => {
     });
 
     it("renders rounded shape correctly", () => {
-      const { container } = render(
+      render(
         <IconButton
           icon={<HeartIcon />}
           shape="rounded"
@@ -142,7 +140,7 @@ describe("IconButton Component", () => {
     });
 
     it("renders square shape correctly", () => {
-      const { container } = render(
+      render(
         <IconButton
           icon={<HeartIcon />}
           shape="square"
@@ -155,9 +153,7 @@ describe("IconButton Component", () => {
     });
 
     it("uses circle shape as default", () => {
-      const { container } = render(
-        <IconButton icon={<HeartIcon />} onClick={mockOnClick} />,
-      );
+      render(<IconButton icon={<HeartIcon />} onClick={mockOnClick} />);
 
       const button = screen.getByRole("button");
       expect(button).toHaveClass("rounded-full");

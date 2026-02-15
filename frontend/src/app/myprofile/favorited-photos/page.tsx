@@ -105,7 +105,7 @@ export default function FavoritedPhotosPage() {
     } finally {
       setLoading(false);
     }
-  }, [user, currentPage]);
+  }, [user, currentPage, currentSort]);
 
   // Fetch favorited photos when page or sort changes
   useEffect(() => {

@@ -110,7 +110,7 @@ export default function PhotoUploadForm() {
       } else if (response.error) {
         setError(response.error.message);
       }
-    } catch (err) {
+    } catch (_err) {
       setError("Upload failed. Please try again.");
     } finally {
       setUploading(false);

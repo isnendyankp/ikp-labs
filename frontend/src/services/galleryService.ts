@@ -12,7 +12,6 @@
  */
 
 import {
-  GalleryPhoto,
   GalleryPhotoResponse,
   GalleryPhotoDetailResponse,
   GalleryListResponse,

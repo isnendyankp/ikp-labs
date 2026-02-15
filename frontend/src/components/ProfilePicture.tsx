@@ -155,7 +155,7 @@ export default function ProfilePicture({
             src={fullPictureUrl}
             alt={`${userName}'s profile picture`}
             className={`${sizeClasses} rounded-full object-cover border-4 border-white shadow-lg`}
-            onError={(e) => {
+            onError={(_e) => {
               // Fallback if image fails to load
               console.error("Failed to load image:", fullPictureUrl);
               setCurrentPictureUrl(null);
