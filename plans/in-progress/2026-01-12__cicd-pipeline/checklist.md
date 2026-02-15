@@ -119,45 +119,45 @@
 
 ---
 
-## Phase 3: Frontend CI (1-2 hours)
+## Phase 3: Frontend CI ✅ COMPLETED
 
-### Task 3.1: Configure Frontend Job (30 min)
+### Task 3.1: Configure Frontend Job ✅
 **Estimated Time**: 30 minutes
 
 **Steps**:
-1. [ ] Setup Node.js with npm cache
-2. [ ] Add TypeScript check
-3. [ ] Add ESLint step
-4. [ ] Add Prettier check
-5. [ ] Add unit test step
-6. [ ] Add coverage report
-7. [ ] **COMMIT**: "ci: configure frontend CI job"
+1. [x] Setup Node.js with npm cache (already configured in Phase 1)
+2. [x] Add TypeScript check (via Next.js build)
+3. [x] Add ESLint step
+4. [x] Add Prettier check
+5. [x] Add unit test step (already configured in Phase 1)
+6. [x] Add coverage report
+7. [x] **COMMIT**: `ff621f0` - ci: add frontend lint job with ESLint and Prettier checks
 
 **Acceptance Criteria**:
-- [ ] npm cache works
-- [ ] TypeScript check runs
-- [ ] ESLint runs
-- [ ] Prettier check runs
-- [ ] Unit tests run
-- [ ] Coverage report generated
+- [x] npm cache works
+- [x] TypeScript check runs
+- [x] ESLint runs
+- [x] Prettier check runs
+- [x] Unit tests run
+- [x] Coverage report generated
 
 ---
 
-### Task 3.2: Add Prettier Check Script (15 min)
+### Task 3.2: Add Prettier Check Script ✅
 **Estimated Time**: 15 minutes
 
 **Files to Modify**:
-- `frontend/package.json`
+- `frontend/package.json` ✅
 
 **Steps**:
-1. [ ] Add format:check script
-2. [ ] Verify it runs locally
-3. [ ] **COMMIT**: "feat(fe): add prettier check script"
+1. [x] Add format:check script
+2. [x] Verify it runs locally
+3. [x] **COMMIT**: Included in Task 3.1 commit
 
 **Acceptance Criteria**:
-- [ ] Script runs Prettier with --check
-- [ ] Fails if formatting doesn't match
-- [ ] Works in CI
+- [x] Script runs Prettier with --check
+- [x] Fails if formatting doesn't match
+- [x] Works in CI
 
 ---
 
@@ -569,4 +569,4 @@
 **Checklist Version**: 1.0
 **Created**: January 12, 2026
 **Total Estimated Time**: 9-15 hours
-**Next Step**: Task 3.1 - Configure Frontend CI Job
+**Next Step**: Phase 7 - Add Status Badges (skip Phase 4 E2E, Phase 6 Deployment for now)
