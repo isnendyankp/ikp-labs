@@ -1,5 +1,15 @@
 # IKP Labs
 
+[![CI](https://github.com/isnendyankp/ikp-labs/actions/workflows/ci.yml/badge.svg)](https://github.com/isnendyankp/ikp-labs/actions/workflows/ci.yml)
+[![Tests](https://img.shields.io/badge/Tests-512%20total-blue)](docs/tutorials/testing-guide.md)
+[![Coverage](https://img.shields.io/badge/Coverage-80%25%2B-brightgreen)](docs/tutorials/testing-guide.md)
+
+[![Node.js](https://img.shields.io/badge/Node.js-20-green?logo=node.js)](https://nodejs.org/)
+[![Java](https://img.shields.io/badge/Java-21-orange?logo=openjdk)](https://openjdk.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-15-black?logo=next.js)](https://nextjs.org/)
+[![Spring Boot](https://img.shields.io/badge/Spring%20Boot-3.3-6db33f?logo=spring)](https://spring.io/projects/spring-boot)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-16-336791?logo=postgresql)](https://www.postgresql.org/)
+
 > Full-stack application showcasing modern web development practices with comprehensive testing
 
 A complete full-stack learning project featuring photo gallery, authentication, and profile management. Built as part of my journey to master full-stack development from backend to frontend to testing.
