@@ -110,19 +110,22 @@ jobs:
         if: always()
         with:
           name: frontend-coverage
-          path: coverage/
+          path: |
+            coverage/
+            frontend/coverage/
           retention-days: 7
+          if-no-files-found: warn
 
       - name: Coverage Summary
         run: |
           echo "## Frontend Coverage Report" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          if [ -f coverage/lcov.info ]; then
+          if [ -f coverage/lcov.info ] || [ -f frontend/coverage/lcov.info ]; then
             echo "✅ Jest coverage report generated successfully" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "📊 Coverage report uploaded as artifact" >> $GITHUB_STEP_SUMMARY
           else
-            echo "✅ Coverage report generated" >> $GITHUB_STEP_SUMMARY
+            echo "✅ Tests completed" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "📊 Check the uploaded artifact for detailed coverage" >> $GITHUB_STEP_SUMMARY
           fi
@@ -183,11 +186,9 @@ jobs:
         working-directory: backend/ikp-labs-api
         env:
           SPRING_PROFILES_ACTIVE: test
-        # TODO: Fix pre-existing failing tests and remove exclusions
-        # Failing tests: GalleryControllerIntegrationTest, UserRepositoryTest, PhotoLikeControllerIntegrationTest
-        # These are pre-existing issues not caused by recent changes
-        # Using standard Maven test exclusion syntax
-        run: mvn test -B -Dtest='!GalleryControllerIntegrationTest,!UserRepositoryTest,!PhotoLikeControllerIntegrationTest'
+        # Test exclusions configured in pom.xml surefire plugin
+        # TODO: Fix pre-existing failing tests and remove exclusions from pom.xml
+        run: mvn test -B
 
       - name: Upload test results
         uses: actions/upload-artifact@v4
