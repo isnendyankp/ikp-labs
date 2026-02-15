@@ -1,10 +1,24 @@
 # How to Use CI/CD Pipeline
 
-This guide explains how to use the CI/CD pipeline for the IKP Labs project, including GitHub Actions workflows and pre-commit hooks.
+This guide covers the **GitHub Actions CI workflow** and **pre-commit hooks** for code quality checks.
 
-## Overview
+> **Note**: For E2E/API testing commands, see [Testing Commands Reference](../reference/testing-commands.md).
 
-The CI/CD pipeline automatically runs quality checks on every push and pull request:
+## What This Guide Covers
+
+| Topic | This Guide | Other Docs |
+|-------|------------|------------|
+| GitHub Actions CI (lint, unit tests, build) | ✅ | - |
+| Pre-commit hooks (Husky, lint-staged) | ✅ | - |
+| Playwright E2E commands | - | [Testing Commands](../reference/testing-commands.md) |
+| API Testing | - | [API Testing](./api-testing.md) |
+| E2E Testing Guide | - | [Run E2E Tests](./run-e2e-tests.md) |
+
+---
+
+## CI Workflow Overview
+
+The GitHub Actions CI workflow (`.github/workflows/ci.yml`) runs automatically on every push and pull request:
 
 ```
 ┌─────────────────────────────────────────────────────────┐
@@ -29,17 +43,9 @@ The CI/CD pipeline automatically runs quality checks on every push and pull requ
          │  Build   │
          │(TypeScript)
          └──────────┘
-                │
-                ▼
-         All Pass = ✅
-         Any Fail = ❌
 ```
 
-## GitHub Actions CI Workflow
-
-### What Gets Checked
-
-The CI workflow (`.github/workflows/ci.yml`) runs these checks:
+### CI Jobs
 
 | Job | Description | Tools |
 |-----|-------------|-------|
@@ -50,24 +56,15 @@ The CI workflow (`.github/workflows/ci.yml`) runs these checks:
 
 ### Viewing CI Results
 
-1. **On GitHub**: Go to your repository → Actions tab
-2. **On VS Code**: Use the GitHub Actions extension
-3. **Badge**: Check the CI badge in README.md
+- **GitHub**: Repository → Actions tab
+- **VS Code**: GitHub Actions extension
+- **README**: Check the CI badge at the top
 
-### CI Status Indicators
-
-| Status | Meaning |
-|--------|---------|
-| ✅ Green | All checks passed |
-| 🔴 Red | One or more checks failed |
-| 🟡 Yellow | Checks in progress |
-| ⚪ Gray | Checks not run yet |
+---
 
 ## Pre-commit Hooks
 
-### What Are Pre-commit Hooks?
-
-Pre-commit hooks run automatically before each commit to catch issues early:
+Pre-commit hooks run automatically before each commit using Husky + lint-staged:
 
 ```
 git commit → Pre-commit Hook → lint-staged → Commit
@@ -78,242 +75,81 @@ git commit → Pre-commit Hook → lint-staged → Commit
 
 ### What Gets Checked
 
-The pre-commit hook runs `lint-staged` which checks:
-
 | File Type | Checks |
 |-----------|--------|
 | `.js`, `.jsx`, `.ts`, `.tsx` | ESLint (auto-fix) + Prettier format |
 | `.json`, `.md`, `.css` | Prettier format |
 
-### How It Works
+### Bypass (Not Recommended)
 
 ```bash
-# When you commit:
-git commit -m "feat: add new feature"
-
-# Pre-commit hook automatically:
-# 1. Finds staged files
-# 2. Runs ESLint with auto-fix
-# 3. Formats with Prettier
-# 4. If all pass: commit proceeds
-# 5. If any fail: commit blocked
-```
-
-### Bypassing Pre-commit Hooks (Not Recommended)
-
-```bash
-# Emergency bypass (use sparingly)
+# Emergency bypass only
 git commit --no-verify -m "emergency fix"
 ```
 
+---
+
 ## Running Checks Locally
 
-Before pushing, you can run the same checks locally:
-
-### Frontend Checks
+### Frontend
 
 ```bash
-# From project root
-
-# Run ESLint
-npm run lint:frontend
-
-# Run Prettier check
-cd frontend && npm run format:check
-
-# Run unit tests
-npm run test:frontend
-
-# Run all frontend checks
-npm run lint:frontend && npm run test:frontend
+npm run lint:frontend      # ESLint check
+npm run test:frontend      # Jest tests
+cd frontend && npm run format:check  # Prettier check
 ```
 
-### Backend Checks
+### Backend
 
 ```bash
-# From project root
 cd backend/ikp-labs-api
-
-# Run tests with coverage
-./mvnw test
-
-# Run tests only (skip coverage)
-./mvnw test -Djacoco.skip=true
+./mvnw test               # JUnit tests with JaCoCo
 ```
 
-## Coverage Reports
-
-### Frontend Coverage (Jest)
-
-After running tests, coverage is in:
-```
-frontend/coverage/
-├── lcov-report/    # HTML report
-├── coverage-final.json
-└── clover.xml
-```
-
-View HTML report:
-```bash
-open frontend/coverage/lcov-report/index.html
-```
-
-### Backend Coverage (JaCoCo)
-
-After running tests, coverage is in:
-```
-backend/ikp-labs-api/target/site/jacoco/
-└── index.html      # HTML report
-```
-
-View HTML report:
-```bash
-open backend/ikp-labs-api/target/site/jacoco/index.html
-```
+---
 
 ## Troubleshooting
 
-### CI Fails: ESLint Errors
+### CI Fails: ESLint/Prettier
 
-**Error**: ESLint found issues in CI but not locally
-
-**Solution**: Your local ESLint might be outdated or configured differently
 ```bash
-# Update dependencies
-npm install
-
-# Run ESLint locally
+# Fix locally before pushing
 npm run lint:frontend
-```
-
-### CI Fails: Prettier Format
-
-**Error**: Prettier check failed in CI
-
-**Solution**: Format files locally before pushing
-```bash
-cd frontend
-npm run format
-git add .
-git commit -m "style: format code"
-```
-
-### CI Fails: Backend Tests
-
-**Error**: Backend tests fail with database errors
-
-**Solution**: Check test configuration
-```bash
-cd backend/ikp-labs-api
-# Tests use H2 in-memory database by default
-./mvnw test -Dspring.profiles.active=test
+cd frontend && npm run format
+git add . && git commit -m "fix: lint issues"
 ```
 
 ### Pre-commit Hook Not Running
 
-**Error**: Hook doesn't run on commit
-
-**Solution**: Ensure Husky is installed
 ```bash
 # Reinstall Husky
 npm run prepare
-
-# Verify hook exists
-cat .husky/pre-commit
 ```
 
-### CI Takes Too Long
-
-**Problem**: CI workflow takes > 10 minutes
-
-**Solutions**:
-1. Check if caching is working (Maven, npm)
-2. Reduce test scope if needed
-3. Check for slow tests
-
-## CI/CD Architecture
-
-### Workflow File Structure
-
-```
-.github/
-└── workflows/
-    └── ci.yml          # Main CI workflow
-```
-
-### Key Configuration
-
-**Environment Variables** (in `ci.yml`):
-```yaml
-env:
-  NODE_VERSION: '20'
-  JAVA_VERSION: '21'
-```
-
-**Concurrency** (cancel in-progress runs):
-```yaml
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
-```
-
-**Caching**:
-- npm cache for frontend dependencies
-- Maven cache for backend dependencies
-
-### Dependencies Between Jobs
-
-```
-frontend-lint ──┐
-                ├──→ frontend-build
-frontend-tests ─┘
-
-backend-tests (independent)
-```
-
-The `frontend-build` job only runs if both `frontend-lint` and `frontend-tests` pass.
-
-## Best Practices
-
-### 1. Run Checks Locally First
+### Backend Tests Fail
 
 ```bash
-# Before pushing, always run:
-npm run lint:frontend
-npm run test:frontend
-cd ../backend/ikp-labs-api && ./mvnw test
+cd backend/ikp-labs-api
+./mvnw test -Dspring.profiles.active=test
 ```
 
-### 2. Fix Issues Immediately
-
-When CI fails:
-1. Click the failed job in GitHub Actions
-2. Read the error message
-3. Fix locally
-4. Push again
-
-### 3. Don't Bypass Hooks
-
-Avoid `--no-verify` unless absolutely necessary. It bypasses quality checks.
-
-### 4. Keep Dependencies Updated
-
-```bash
-# Update npm packages
-npm update
-
-# Update Maven dependencies
-cd backend/ikp-labs-api && ./mvnw versions:display-dependency-updates
-```
+---
 
 ## Related Documentation
 
-- [Run E2E Tests](./run-e2e-tests.md) - End-to-end testing guide
+- [Testing Commands Reference](../reference/testing-commands.md) - Complete Playwright commands
+- [Run E2E Tests](./run-e2e-tests.md) - E2E testing guide
 - [API Testing](./api-testing.md) - API testing guide
 - [Testing Guide](../tutorials/testing-guide.md) - Overall testing documentation
 
-## Next Steps
+---
 
-- [View CI on GitHub](https://github.com/isnendyankp/ikp-labs/actions)
-- [Check Coverage Reports](../tutorials/testing-guide.md#coverage-reports)
-- [Learn About Testing](../tutorials/testing-guide.md)
+## Quick Reference
+
+| Command | Description |
+|---------|-------------|
+| `npm run lint:frontend` | ESLint check |
+| `npm run test:frontend` | Jest unit tests |
+| `cd frontend && npm run format:check` | Prettier check |
+| `cd backend/ikp-labs-api && ./mvnw test` | Backend tests |
+| `npm run prepare` | Reinstall Husky hooks |
