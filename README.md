@@ -287,6 +287,45 @@ npx playwright show-report            # View test report
 
 ---
 
+## CI/CD Pipeline
+
+This project uses GitHub Actions for continuous integration with automated quality checks.
+
+### Automated Checks
+
+| Check | Description | Trigger |
+|-------|-------------|---------|
+| **Frontend Lint** | ESLint + Prettier | Push, PR |
+| **Frontend Tests** | Jest unit tests with coverage | Push, PR |
+| **Frontend Build** | TypeScript + Next.js build | Push, PR |
+| **Backend Tests** | JUnit tests with JaCoCo coverage | Push, PR |
+
+### Pre-commit Hooks
+
+Pre-commit hooks run automatically before each commit:
+
+```bash
+# ESLint auto-fix and Prettier format on staged files
+# Commit blocked if checks fail
+git commit -m "feat: add feature"
+```
+
+### Running Checks Locally
+
+```bash
+# Frontend
+npm run lint:frontend      # ESLint check
+npm run test:frontend      # Jest tests
+
+# Backend
+cd backend/ikp-labs-api
+./mvnw test               # JUnit tests
+```
+
+**Full CI/CD Guide**: [docs/how-to/cicd-setup.md](docs/how-to/cicd-setup.md)
+
+---
+
 ## Contributing
 
 This is a personal learning project. While I'm not actively seeking contributions, feel free to:

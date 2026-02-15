@@ -20,6 +20,10 @@ How-to guides are goal-oriented directions that help you solve a specific proble
 - [API Testing](./api-testing.md) - How to test API endpoints
 - [Testing Commands](./testing/run-automated-tests.md) - How to run automated test suites
 
+### CI/CD Pipeline
+
+- [CI/CD Setup](./cicd-setup.md) - How to use GitHub Actions CI/CD and pre-commit hooks
+
 ### Technical Implementation
 
 - [Create Implementation Plans](./create-implementation-plans.md) - How to create structured 4-document plans
