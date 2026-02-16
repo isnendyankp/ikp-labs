@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
+const path = require("path");
 const nextJest = require("next/jest");
 
 const createJestConfig = nextJest({
@@ -6,8 +7,8 @@ const createJestConfig = nextJest({
 });
 
 const customJestConfig = {
-  // Use relative path from the config file location
-  setupFilesAfterEnv: ["./jest.setup.js"],
+  // Use absolute path to ensure CI resolves correctly in npm workspaces
+  setupFilesAfterEnv: [path.resolve(__dirname, "jest.setup.js")],
   testEnvironment: "jsdom",
   testPathIgnorePatterns: [
     "<rootDir>/.next/",
