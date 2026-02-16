@@ -74,11 +74,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install SWC binaries for Linux
+      - name: Install native binaries for Linux
         run: |
           cd frontend
-          npm install @next/swc-linux-x64-gnu --no-save --force || true
-          npm install @next/swc-linux-x64-musl --no-save --force || true
+          npm install @next/swc-linux-x64-gnu @next/swc-linux-x64-musl @unrs/resolver-binding-linux-x64-gnu --no-save --force || true
 
       - name: Run ESLint
         working-directory: frontend
@@ -108,23 +107,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install SWC binaries for Linux
+      - name: Install native binaries for Linux
         run: |
           cd frontend
-          npm install @next/swc-linux-x64-gnu --no-save --force || true
-          npm install @next/swc-linux-x64-musl --no-save --force || true
-
-      - name: Debug - List frontend files
-        working-directory: frontend
-        run: |
-          echo "=== Listing files in frontend directory ==="
-          ls -la
-          echo ""
-          echo "=== Checking jest.setup.js ==="
-          ls -la jest.setup.js || echo "FILE NOT FOUND"
-          echo ""
-          echo "=== Checking jest.config.js ==="
-          ls -la jest.config.js || echo "FILE NOT FOUND"
+          npm install @next/swc-linux-x64-gnu @next/swc-linux-x64-musl @unrs/resolver-binding-linux-x64-gnu --no-save --force || true
 
       - name: Run frontend unit tests
         working-directory: frontend
@@ -176,11 +162,10 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Install SWC binaries for Linux
+      - name: Install native binaries for Linux
         run: |
           cd frontend
-          npm install @next/swc-linux-x64-gnu --no-save --force || true
-          npm install @next/swc-linux-x64-musl --no-save --force || true
+          npm install @next/swc-linux-x64-gnu @next/swc-linux-x64-musl @unrs/resolver-binding-linux-x64-gnu --no-save --force || true
 
       - name: Build frontend
         run: npm run build:frontend
