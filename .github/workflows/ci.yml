@@ -114,6 +114,18 @@ jobs:
           npm install @next/swc-linux-x64-gnu --no-save --force || true
           npm install @next/swc-linux-x64-musl --no-save --force || true
 
+      - name: Debug - List frontend files
+        working-directory: frontend
+        run: |
+          echo "=== Listing files in frontend directory ==="
+          ls -la
+          echo ""
+          echo "=== Checking jest.setup.js ==="
+          ls -la jest.setup.js || echo "FILE NOT FOUND"
+          echo ""
+          echo "=== Checking jest.config.js ==="
+          ls -la jest.config.js || echo "FILE NOT FOUND"
+
       - name: Run frontend unit tests
         working-directory: frontend
         run: npx jest --watchAll=false --coverage

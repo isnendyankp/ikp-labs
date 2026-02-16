@@ -1,12 +1,14 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
 const nextJest = require("next/jest");
+const path = require("path");
 
 const createJestConfig = nextJest({
   dir: "./",
 });
 
 const customJestConfig = {
-  setupFilesAfterEnv: ["<rootDir>/jest.setup.js"],
+  // Use absolute path to avoid issues with rootDir resolution
+  setupFilesAfterEnv: [path.join(__dirname, "jest.setup.js")],
   testEnvironment: "jsdom",
   testPathIgnorePatterns: [
     "<rootDir>/.next/",
