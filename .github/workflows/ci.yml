@@ -77,7 +77,11 @@ jobs:
       - name: Install native binaries for Linux
         run: |
           cd frontend
-          npm install @next/swc-linux-x64-gnu @next/swc-linux-x64-musl @unrs/resolver-binding-linux-x64-gnu lightningcss-linux-x64-gnu --no-save --force || true
+          npm install @next/swc-linux-x64-gnu @next/swc-linux-x64-musl \
+            @unrs/resolver-binding-linux-x64-gnu \
+            lightningcss-linux-x64-gnu \
+            @tailwindcss/oxide-linux-x64-gnu \
+            --no-save --force || true
 
       - name: Run ESLint
         working-directory: frontend
@@ -110,7 +114,11 @@ jobs:
       - name: Install native binaries for Linux
         run: |
           cd frontend
-          npm install @next/swc-linux-x64-gnu @next/swc-linux-x64-musl @unrs/resolver-binding-linux-x64-gnu lightningcss-linux-x64-gnu --no-save --force || true
+          npm install @next/swc-linux-x64-gnu @next/swc-linux-x64-musl \
+            @unrs/resolver-binding-linux-x64-gnu \
+            lightningcss-linux-x64-gnu \
+            @tailwindcss/oxide-linux-x64-gnu \
+            --no-save --force || true
 
       - name: Run frontend unit tests
         working-directory: frontend
@@ -165,7 +173,11 @@ jobs:
       - name: Install native binaries for Linux
         run: |
           cd frontend
-          npm install @next/swc-linux-x64-gnu @next/swc-linux-x64-musl @unrs/resolver-binding-linux-x64-gnu lightningcss-linux-x64-gnu --no-save --force || true
+          npm install @next/swc-linux-x64-gnu @next/swc-linux-x64-musl \
+            @unrs/resolver-binding-linux-x64-gnu \
+            lightningcss-linux-x64-gnu \
+            @tailwindcss/oxide-linux-x64-gnu \
+            --no-save --force || true
 
       - name: Build frontend
         run: npm run build:frontend
