@@ -189,42 +189,157 @@
 
 ---
 
-## Phase 4: E2E Tests in CI (1-2 hours)
+## Phase 4: Expand CI Test Coverage (2-3 hours)
 
-### Task 4.1: Configure E2E Job (45 min)
-**Estimated Time**: 45 minutes
+### Overview
+Project has significant test coverage NOT yet in CI:
+- **6 Backend Integration Tests** (`backend/.../integration/`) — excluded in pom.xml, but use @MockBean (no DB needed)
+- **7 API test specs** (`tests/api/`) — Playwright request-based, needs backend + PostgreSQL
+- **16 E2E test specs** (`tests/e2e/`) — Playwright browser-based, needs full stack
+- **Gherkin/BDD** (`tests/gherkin/`) — deferred (documentation-focused, lower priority)
 
-**Steps**:
-1. [ ] Add PostgreSQL service
-2. [ ] Add backend startup step
-3. [ ] Add wait for backend step
-4. [ ] Install Playwright browsers
-5. [ ] Run E2E tests
-6. [ ] Run API tests
-7. [ ] Upload test results
-8. [ ] **COMMIT**: "ci: configure E2E tests in CI"
+**Strategy**:
+- Task 4.0: Un-exclude backend integration tests (quick win, no infra change)
+- Task 4.1: Add API tests to CI (needs PostgreSQL + backend running)
+- Task 4.2: Add E2E tests to CI (needs full stack, PR-only)
+- Task 4.3: Optimize test execution
 
-**Acceptance Criteria**:
-- [ ] Backend starts successfully
-- [ ] E2E tests run in headless mode
-- [ ] API tests run
-- [ ] Test reports uploaded
+**Key Findings**:
+- `playwright.config.ts` already has CI-friendly settings: `retries: 2`, `workers: 1`, `forbidOnly: true`
+- API tests use Playwright project `api-tests` with `baseURL: http://localhost:8081`
+- E2E tests use Playwright project `chromium` with `baseURL: http://localhost:3002`
+- Backend integration tests use `@SpringBootTest` + `@MockBean` (NO real DB required)
 
 ---
 
-### Task 4.2: Optimize E2E Execution (30 min)
-**Estimated Time**: 30 minutes
+### Task 4.0: Un-exclude Backend Integration Tests (15 min) 🔄
+**Estimated Time**: 15 minutes
+**Complexity**: Low (config change only)
+
+**Current State**: 6 integration tests excluded in `pom.xml` surefire plugin:
+```xml
+<exclude>**/integration/**</exclude>
+<exclude>**/UserRepositoryTest.java</exclude>
+```
+
+**Why they CAN be un-excluded**: Integration tests now use `@MockBean` for database layer (no real DB or Docker/Testcontainers needed). They were excluded when they still depended on Testcontainers.
+
+**Files to Modify**:
+- `backend/ikp-labs-api/pom.xml`
 
 **Steps**:
-1. [ ] Configure test timeouts
-2. [ ] Optimize browser startup
-3. [ ] Add retries for flaky tests
-4. [ ] **COMMIT**: "ci: optimize E2E test execution"
+1. [ ] Verify integration tests pass locally with `mvn test` (without exclusions)
+2. [ ] Remove `<exclude>**/integration/**</exclude>` from pom.xml surefire plugin
+3. [ ] Keep or evaluate `<exclude>**/UserRepositoryTest.java</exclude>` separately
+4. [ ] Run `mvn test` locally to confirm all pass
+5. [ ] **COMMIT**: `fix(ci): un-exclude backend integration tests from surefire`
 
 **Acceptance Criteria**:
-- [ ] Tests run reliably
+- [ ] All 6 integration tests run in `mvn test`
+- [ ] All existing unit tests still pass
+- [ ] CI Backend Tests job passes with integration tests included
+
+---
+
+### Task 4.1: Add API Tests to CI (60 min)
+**Estimated Time**: 60 minutes
+**Complexity**: Medium (needs PostgreSQL service + backend startup)
+
+**Test Files** (7 specs in `tests/api/`, Playwright project `api-tests`):
+- `auth.api.spec.ts` — Authentication endpoints
+- `gallery.api.spec.ts` — Gallery CRUD
+- `health.api.spec.ts` — Health check endpoint
+- `photo-likes.api.spec.ts` — Photo like/unlike
+- `protected.api.spec.ts` — Protected route access
+- `users.api.spec.ts` — User management
+- `error-handling.api.spec.ts` — Error responses
+
+**Infrastructure Required**:
+- PostgreSQL service (for real backend)
+- Java 21 + Maven (build & run Spring Boot)
+- Node.js 20 (run Playwright test runner)
+- Backend running at `localhost:8081`
+
+**Steps**:
+1. [ ] Add `api-tests` job to `ci.yml`
+2. [ ] Configure PostgreSQL service container
+3. [ ] Setup Java 21 + Maven cache
+4. [ ] Build backend with `mvn package -DskipTests`
+5. [ ] Start Spring Boot backend in background
+6. [ ] Add health check wait loop (curl `localhost:8081/api/auth/health`)
+7. [ ] Setup Node.js + install root dependencies
+8. [ ] Install Playwright (`npx playwright install`)
+9. [ ] Run API tests: `npx playwright test --project=api-tests`
+10. [ ] Upload test results as artifact
+11. [ ] Verify locally before push
+12. [ ] **COMMIT**: `ci: add API tests to CI pipeline`
+
+**Acceptance Criteria**:
+- [ ] PostgreSQL service runs in CI
+- [ ] Backend starts and is healthy before tests run
+- [ ] All 7 API test specs execute
+- [ ] Test results uploaded as artifact
+- [ ] Job runs on every push to main
+
+---
+
+### Task 4.2: Add E2E Tests to CI (60 min)
+**Estimated Time**: 60 minutes
+**Complexity**: High (needs full stack: FE + BE + DB)
+
+**Test Files** (16 specs in `tests/e2e/`, Playwright project `chromium`):
+- `auth-flow.spec.ts`, `login.spec.ts`, `registration.spec.ts`
+- `gallery.spec.ts`, `gallery-sorting.spec.ts`, `gallery-mobile-ux.spec.ts`
+- `desktop-viewport.spec.ts`, `landing-page.spec.ts`
+- `photo-favorites.spec.ts`, `photo-likes.spec.ts`
+- `profile.spec.ts`, `profile-picture.spec.ts`
+- `ux-confirmations.spec.ts`, `ux-empty-states.spec.ts`, `ux-validation.spec.ts`
+- `ux-story-journey.spec.ts`, `ux-story-journey-existing-user.spec.ts`
+
+**Infrastructure Required**:
+- Everything from Task 4.1 (PostgreSQL + backend)
+- Node.js 20 + Next.js frontend running at `localhost:3002`
+- Chromium browser (Playwright)
+- Native Linux binaries (SWC, lightningcss, oxide, unrs-resolver)
+
+**Steps**:
+1. [ ] Add `e2e-tests` job to `ci.yml`
+2. [ ] Reuse PostgreSQL + backend setup from API tests job
+3. [ ] Build frontend with `npm run build:frontend`
+4. [ ] Start frontend in background (`npm run start --workspace=frontend`)
+5. [ ] Wait for both services (backend:8081 + frontend:3002)
+6. [ ] Install Playwright browsers (`npx playwright install --with-deps chromium`)
+7. [ ] Run E2E tests: `npx playwright test --project=chromium`
+8. [ ] Upload Playwright HTML report + screenshots/traces as artifact
+9. [ ] Configure to run **only on PR to main** (not every push)
+10. [ ] **COMMIT**: `ci: add E2E tests to CI pipeline`
+
+**Acceptance Criteria**:
+- [ ] Frontend + Backend both running before E2E starts
+- [ ] Playwright runs in headless Chromium
+- [ ] All 16 E2E specs execute (or known flaky ones documented)
+- [ ] Screenshots/traces uploaded on failure
+- [ ] Job triggers only on `pull_request` to main
+
+---
+
+### Task 4.3: Optimize Test Execution (30 min)
+**Estimated Time**: 30 minutes
+**Complexity**: Low
+
+**Steps**:
+1. [ ] Verify Playwright CI settings are working (retries: 2, workers: 1)
+2. [ ] Cache Playwright browsers between CI runs
+3. [ ] Ensure API tests and E2E tests jobs run in parallel
+4. [ ] Review total CI execution time and optimize if needed
+5. [ ] **COMMIT**: `ci: optimize API and E2E test execution`
+
+**Acceptance Criteria**:
+- [ ] Tests run reliably with retries
 - [ ] No unnecessary timeouts
-- [ ] Execution time is acceptable
+- [ ] Total E2E execution < 15 minutes
+- [ ] API tests execution < 5 minutes
+- [ ] Playwright browser cache works
 
 ---
 
@@ -600,12 +715,12 @@
 
 **Checklist Version**: 1.1
 **Created**: January 12, 2026
-**Last Updated**: February 17, 2026
+**Last Updated**: February 18, 2026
 **Total Estimated Time**: 9-15 hours
 **Completed Phases**: 1 (GitHub Actions Setup), 2 (Backend CI), 3 (Frontend CI), 5 (Pre-commit Hooks), 7 (Status Badges), 8 (Documentation)
-**Deferred**: Phase 4 (E2E in CI)
+**Next Up**: Phase 4 (API & E2E Tests in CI) 🔄
 **Skipped**: Phase 6 (Deployment), Phase 9 (Final Verification - optional)
-**Status**: CORE CI/CD PIPELINE COMPLETE ✅
+**Status**: CORE CI PIPELINE COMPLETE ✅ | Phase 4 next
 
 ---
 
