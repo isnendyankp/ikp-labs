@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.http.MediaType;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
@@ -67,6 +68,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Registration Form Team
  */
 @SpringBootTest
+@ActiveProfiles("test")  // Use H2 in-memory database (application-test.properties)
 @AutoConfigureMockMvc(addFilters = false)  // Disable security filters for simpler testing
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 public class UserControllerIntegrationTest {
