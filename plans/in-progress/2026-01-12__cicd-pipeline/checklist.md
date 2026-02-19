@@ -243,7 +243,46 @@ Project has significant test coverage NOT yet in CI:
 **Acceptance Criteria**:
 - [x] 4 of 6 integration test classes run in `mvn test` (+47 tests, 298 total)
 - [x] All existing unit tests still pass
-- [ ] CI Backend Tests job passes with integration tests included (awaiting CI run)
+- [x] CI Backend Tests job passes with integration tests included ✅
+
+---
+
+### Task 4.0b: Clean Up All Backend IDE Warnings ✅ COMPLETED
+**Date**: February 19, 2026 (Thursday)
+**Estimated Time**: N/A (unplanned, done as side task)
+**Actual Time**: ~30 minutes
+**Commits**: `5a054e7`, `b077af9`, `2064128`, `84e9e35`, `96f0e47`
+
+**Context**: After fixing integration tests, Windsurf IDE showed the backend folder as "red" due to accumulated warnings. All warnings were pre-existing, not caused by our CI changes.
+
+**What was done**:
+
+**1. Removed unused imports (4 files)**:
+- `PhotoFavoriteController.java` — removed `import Page`
+- `PhotoLikeController.java` — removed `import Page`
+- `PhotoFavoriteService.java` — removed `import Page`
+- `PhotoLikeService.java` — removed `import Page`
+
+**2. Added `@SuppressWarnings("null")` to main source classes (5 files)**:
+- `ProfileController.java` — null safety from `findById()` calls
+- `GalleryService.java` — null safety from `findById()` calls
+- `PhotoFavoriteService.java` — null safety from `findById()` calls
+- `PhotoLikeService.java` — null safety from `findById()` calls
+- `UserService.java` — null safety from `findById()` calls
+
+**3. Added `@SuppressWarnings` to test classes (11 files)**:
+- 6 integration test classes (Auth, User, UserProfile, PhotoFavorite, Gallery, PhotoLike)
+- 5 unit/other test classes (UserRepository, JwtUtil, AuthService, FileStorage, GalleryService, PhotoLikeService, UserService)
+- Covers: null safety, unchecked varargs, unused methods, deprecated API
+
+**4. Cleaned up `BaseIntegrationTest.java`**:
+- Removed unnecessary field-level `@SuppressWarnings({"resource", "unused"})`
+- Kept local variable `@SuppressWarnings("resource")` for Testcontainers false positive
+
+**5. Removed unused imports in test files**:
+- `PhotoFavoriteControllerIntegrationTest.java` — removed `PhotoLike`, `Page`, `PageImpl`, `PageRequest`
+
+**Result**: IDE Problems panel clean — no more red folder. All 298 tests still pass.
 
 ---
 
@@ -719,14 +758,15 @@ Project has significant test coverage NOT yet in CI:
 
 ---
 
-**Checklist Version**: 1.1
+**Checklist Version**: 1.2
 **Created**: January 12, 2026
-**Last Updated**: February 18, 2026
+**Last Updated**: February 19, 2026
 **Total Estimated Time**: 9-15 hours
 **Completed Phases**: 1 (GitHub Actions Setup), 2 (Backend CI), 3 (Frontend CI), 5 (Pre-commit Hooks), 7 (Status Badges), 8 (Documentation)
-**Next Up**: Phase 4 (API & E2E Tests in CI) 🔄
+**Completed Tasks**: Task 4.0 (Un-exclude Integration Tests), Task 4.0b (IDE Warnings Cleanup)
+**Next Up**: Task 4.1 (Add API Tests to CI) 🔄
 **Skipped**: Phase 6 (Deployment), Phase 9 (Final Verification - optional)
-**Status**: CORE CI PIPELINE COMPLETE ✅ | Phase 4 next
+**Status**: CORE CI PIPELINE COMPLETE ✅ | Phase 4 in progress (Task 4.0 + 4.0b done, 4.1-4.3 remaining)
 
 ---
 
