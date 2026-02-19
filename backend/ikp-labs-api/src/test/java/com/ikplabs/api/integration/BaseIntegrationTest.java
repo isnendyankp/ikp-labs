@@ -64,12 +64,11 @@ public abstract class BaseIntegrationTest {
      * jadi kita tidak perlu manual close(). Testcontainers akan cleanup otomatis.
      */
     @Container
-    @SuppressWarnings({"resource", "unused"}) // Container lifecycle managed by Testcontainers
     protected static final PostgreSQLContainer<?> postgresContainer;
 
     // Static initializer untuk ensure single container instance
     static {
-        @SuppressWarnings("resource")
+        @SuppressWarnings("resource") // False positive: Testcontainers manages container lifecycle
         PostgreSQLContainer<?> container = new PostgreSQLContainer<>("postgres:15")
             .withDatabaseName("testdb")
             .withUsername("testuser")
