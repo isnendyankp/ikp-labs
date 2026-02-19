@@ -20,6 +20,7 @@ import java.util.Optional;
  *
  * @Service = Menandai class ini sebagai Spring service component
  */
+@SuppressWarnings("null")
 @Service
 public class UserService {
 

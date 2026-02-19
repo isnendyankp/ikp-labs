@@ -35,6 +35,7 @@ import java.util.List;
  *
  * @Service = Spring otomatis buat instance (singleton)
  */
+@SuppressWarnings("null")
 @Service
 public class GalleryService {
 

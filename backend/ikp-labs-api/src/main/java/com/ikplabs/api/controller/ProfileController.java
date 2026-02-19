@@ -50,6 +50,7 @@ import java.io.IOException;
  * @RestController = @Controller + @ResponseBody
  * @RequestMapping = Base URL untuk semua endpoints
  */
+@SuppressWarnings("null")
 @RestController
 @RequestMapping("/api/profile")
 public class ProfileController {
