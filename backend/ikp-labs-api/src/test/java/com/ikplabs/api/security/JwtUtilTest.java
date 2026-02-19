@@ -45,6 +45,7 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author Claude Code
  */
+@SuppressWarnings("null")
 @DisplayName("JwtUtil Security Tests")
 public class JwtUtilTest {
 

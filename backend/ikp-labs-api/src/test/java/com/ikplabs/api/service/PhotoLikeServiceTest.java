@@ -69,6 +69,7 @@ import static org.mockito.Mockito.*;
  *
  * @author Claude Code
  */
+@SuppressWarnings("null")
 @ExtendWith(MockitoExtension.class)
 @DisplayName("PhotoLikeService Business Logic Tests")
 public class PhotoLikeServiceTest {

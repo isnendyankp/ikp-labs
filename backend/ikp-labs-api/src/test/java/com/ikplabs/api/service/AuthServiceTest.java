@@ -108,6 +108,7 @@ import static org.mockito.Mockito.*;
  *
  * @author Registration Form Team
  */
+@SuppressWarnings("null")
 @ExtendWith(MockitoExtension.class)
 @DisplayName("AuthService Unit Tests - Using Mock Data")
 public class AuthServiceTest {

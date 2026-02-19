@@ -75,6 +75,7 @@ import static org.mockito.Mockito.*;
  *
  * @author Claude Code
  */
+@SuppressWarnings("null")
 @ExtendWith(MockitoExtension.class)
 @DisplayName("GalleryService Business Logic Tests")
 public class GalleryServiceTest {

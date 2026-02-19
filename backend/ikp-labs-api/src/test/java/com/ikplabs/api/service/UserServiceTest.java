@@ -51,6 +51,7 @@ import static org.mockito.Mockito.*;
  *
  * @author Claude Code
  */
+@SuppressWarnings("null")
 @DisplayName("UserService Unit Tests")
 public class UserServiceTest {
 

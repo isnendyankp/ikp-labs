@@ -49,6 +49,7 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author Claude Code
  */
+@SuppressWarnings("null")
 @DisplayName("FileStorageService File Operations Tests")
 public class FileStorageServiceTest {
 

@@ -62,6 +62,7 @@ import static org.junit.jupiter.api.Assertions.*;
  *
  * @author Registration Form Team
  */
+@SuppressWarnings("null")
 @DisplayName("UserRepository Unit Tests - Using PostgreSQL Testcontainer (Singleton)")
 @org.springframework.transaction.annotation.Transactional
 public class UserRepositoryTest extends com.ikplabs.api.integration.AbstractIntegrationTest {
