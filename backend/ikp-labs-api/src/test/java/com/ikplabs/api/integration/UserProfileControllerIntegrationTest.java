@@ -63,6 +63,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Registration Form Team
  */
+@SuppressWarnings("null")
 @SpringBootTest
 @ActiveProfiles("test")  // Use H2 in-memory database (application-test.properties)
 @AutoConfigureMockMvc  // Enable security filters to test JWT authentication

@@ -67,6 +67,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  *
  * @author Registration Form Team
  */
+@SuppressWarnings("null")
 @SpringBootTest
 @ActiveProfiles("test")  // Use H2 in-memory database (application-test.properties)
 @AutoConfigureMockMvc(addFilters = false)  // Disable security filters for simpler testing

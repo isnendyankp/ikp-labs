@@ -47,6 +47,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
  * @author Isnendy Ankp
  * @since 2026-02-07
  */
+@SuppressWarnings("null")
 @SpringBootTest
 @ActiveProfiles("test")  // Use H2 in-memory database (application-test.properties)
 @AutoConfigureMockMvc
