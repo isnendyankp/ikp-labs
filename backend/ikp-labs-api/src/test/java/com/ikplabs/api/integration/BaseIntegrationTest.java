@@ -36,7 +36,6 @@ import org.testcontainers.junit.jupiter.Testcontainers;
  *
  * @author Registration Form Team
  */
-@SuppressWarnings("null")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("integration")
 @Testcontainers
