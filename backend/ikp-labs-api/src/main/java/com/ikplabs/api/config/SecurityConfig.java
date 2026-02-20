@@ -12,6 +12,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfigurationSource;
+import jakarta.servlet.http.HttpServletResponse;
 
 /**
  * SecurityConfig - Spring Security Configuration
@@ -106,8 +107,9 @@ public class SecurityConfig {
                 // PUBLIC ENDPOINTS - Lobby hotel (semua boleh masuk)
                 .requestMatchers("/api/auth/login").permitAll()
                 .requestMatchers("/api/auth/register").permitAll()
+                .requestMatchers("/api/auth/refresh").permitAll()   // Token refresh (token in query param)
+                .requestMatchers("/api/auth/validate").permitAll()  // Token validation (token in query param)
                 .requestMatchers("/api/auth/health").permitAll()
-                .requestMatchers("/api/users").permitAll()          // User registration
                 .requestMatchers("/api/jwt-test/**").permitAll()    // JWT test endpoints
                 .requestMatchers("/api/test-admin/**").permitAll()  // Test cleanup endpoints (for E2E tests)
 
@@ -132,6 +134,18 @@ public class SecurityConfig {
 
                 // ALL OTHER REQUESTS - Default protected
                 .anyRequest().authenticated()
+            )
+
+            // === EXCEPTION HANDLING ===
+            // Return 401 Unauthorized (not 403 Forbidden) for unauthenticated requests
+            .exceptionHandling(ex -> ex
+                .authenticationEntryPoint((request, response, authException) -> {
+                    response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                    response.setContentType("application/json");
+                    response.getWriter().write(
+                        "{\"success\":false,\"message\":\"Unauthorized - JWT token required\"}"
+                    );
+                })
             )
 
             // === ADD JWT FILTER ===
