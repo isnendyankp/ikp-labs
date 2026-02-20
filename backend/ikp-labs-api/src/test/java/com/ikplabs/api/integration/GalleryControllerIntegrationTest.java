@@ -330,8 +330,8 @@ public class GalleryControllerIntegrationTest {
      */
     @Test
     @Order(3)
-    @DisplayName("3. Upload photo - Without authentication should return 403")
-    void testUploadPhoto_WithoutAuth_ShouldReturn403() throws Exception {
+    @DisplayName("3. Upload photo - Without authentication should return 401")
+    void testUploadPhoto_WithoutAuth_ShouldReturn401() throws Exception {
         // ARRANGE
         MockMultipartFile file = new MockMultipartFile(
                 "file",
@@ -345,7 +345,7 @@ public class GalleryControllerIntegrationTest {
                         .file(file)
                         .param("title", "Should Fail"))
                 .andDo(print())
-                .andExpect(status().isForbidden()); // Spring Security blocks
+                .andExpect(status().isUnauthorized()); // Spring Security blocks
 
         // VERIFY: Repository tidak pernah dipanggil
         verify(galleryPhotoRepository, never()).save(any());
@@ -407,12 +407,12 @@ public class GalleryControllerIntegrationTest {
      */
     @Test
     @Order(5)
-    @DisplayName("5. Get my photos - Without authentication should return 403")
-    void testGetMyPhotos_WithoutAuth_ShouldReturn403() throws Exception {
+    @DisplayName("5. Get my photos - Without authentication should return 401")
+    void testGetMyPhotos_WithoutAuth_ShouldReturn401() throws Exception {
         // ACT & ASSERT
         mockMvc.perform(get("/api/gallery/my-photos"))
                 .andDo(print())
-                .andExpect(status().isForbidden());
+                .andExpect(status().isUnauthorized());
 
         verify(galleryPhotoRepository, never()).findByUserId(anyLong(), any());
     }
@@ -464,12 +464,12 @@ public class GalleryControllerIntegrationTest {
      */
     @Test
     @Order(7)
-    @DisplayName("7. Get public photos - Without authentication should return 403")
-    void testGetPublicPhotos_WithoutAuth_ShouldReturn403() throws Exception {
+    @DisplayName("7. Get public photos - Without authentication should return 401")
+    void testGetPublicPhotos_WithoutAuth_ShouldReturn401() throws Exception {
         // ACT & ASSERT: Call WITHOUT Authorization header
         mockMvc.perform(get("/api/gallery/public"))
                 .andDo(print())
-                .andExpect(status().isForbidden()); // Spring Security blocks
+                .andExpect(status().isUnauthorized()); // Spring Security blocks
 
         verify(galleryPhotoRepository, never()).findByIsPublicTrue(any());
     }
@@ -664,8 +664,8 @@ public class GalleryControllerIntegrationTest {
      */
     @Test
     @Order(13)
-    @DisplayName("13. Update photo - Without authentication should return 403")
-    void testUpdatePhoto_WithoutAuth_ShouldReturn403() throws Exception {
+    @DisplayName("13. Update photo - Without authentication should return 401")
+    void testUpdatePhoto_WithoutAuth_ShouldReturn401() throws Exception {
         // ARRANGE
         String updateRequest = """
                 {
@@ -678,7 +678,7 @@ public class GalleryControllerIntegrationTest {
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(updateRequest))
                 .andDo(print())
-                .andExpect(status().isForbidden());
+                .andExpect(status().isUnauthorized());
 
         verify(galleryPhotoRepository, never()).save(any());
     }

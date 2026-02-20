@@ -262,12 +262,12 @@ public class PhotoLikeControllerIntegrationTest {
      */
     @Test
     @Order(2)
-    @DisplayName("PLCIT-002: POST /like - Without authentication should return 403")
-    void testLikePhoto_WithoutAuth_ShouldReturn403() throws Exception {
+    @DisplayName("PLCIT-002: POST /like - Without authentication should return 401")
+    void testLikePhoto_WithoutAuth_ShouldReturn401() throws Exception {
         // ACT & ASSERT: Try to like without token
         mockMvc.perform(post("/api/gallery/photo/100/like"))
                 .andDo(print())
-                .andExpect(status().isForbidden()); // 403 Forbidden
+                .andExpect(status().isUnauthorized()); // 401 Unauthorized
 
         // VERIFY: Repository never called (Spring Security blocked request)
         verify(photoLikeRepository, never()).save(any());
@@ -332,12 +332,12 @@ public class PhotoLikeControllerIntegrationTest {
      */
     @Test
     @Order(4)
-    @DisplayName("PLCIT-004: DELETE /like - Without authentication should return 403")
-    void testUnlikePhoto_WithoutAuth_ShouldReturn403() throws Exception {
+    @DisplayName("PLCIT-004: DELETE /like - Without authentication should return 401")
+    void testUnlikePhoto_WithoutAuth_ShouldReturn401() throws Exception {
         // ACT & ASSERT: Try to unlike without token
         mockMvc.perform(delete("/api/gallery/photo/100/like"))
                 .andDo(print())
-                .andExpect(status().isForbidden()); // 403 Forbidden
+                .andExpect(status().isUnauthorized()); // 401 Unauthorized
 
         // VERIFY: Repository never called
         verify(photoLikeRepository, never()).deleteByPhotoIdAndUserId(anyLong(), anyLong());
@@ -436,12 +436,12 @@ public class PhotoLikeControllerIntegrationTest {
      */
     @Test
     @Order(6)
-    @DisplayName("PLCIT-006: GET /liked-photos - Without authentication should return 403")
-    void testGetLikedPhotos_WithoutAuth_ShouldReturn403() throws Exception {
+    @DisplayName("PLCIT-006: GET /liked-photos - Without authentication should return 401")
+    void testGetLikedPhotos_WithoutAuth_ShouldReturn401() throws Exception {
         // ACT & ASSERT: Try to get liked photos without token
         mockMvc.perform(get("/api/gallery/liked-photos"))
                 .andDo(print())
-                .andExpect(status().isForbidden()); // 403 Forbidden
+                .andExpect(status().isUnauthorized()); // 401 Unauthorized
 
         // VERIFY: Repository never called
         verify(photoLikeRepository, never()).findLikedPhotosByUserId(anyLong(), any());

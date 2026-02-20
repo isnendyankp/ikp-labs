@@ -195,12 +195,12 @@ public class UserProfileControllerIntegrationTest {
      */
     @Test
     @Order(2)
-    @DisplayName("GET /api/user/profile - Should return 403 without token")
-    void testGetProfile_WithoutToken_ShouldReturn403() throws Exception {
+    @DisplayName("GET /api/user/profile - Should return 401 without token")
+    void testGetProfile_WithoutToken_ShouldReturn401() throws Exception {
         // ACT & ASSERT: Access tanpa Authorization header
         mockMvc.perform(get("/api/user/profile"))
                 .andDo(print())
-                .andExpect(status().isForbidden()); // Spring Security blocks
+                .andExpect(status().isUnauthorized()); // Spring Security blocks
     }
 
     /**
@@ -208,13 +208,13 @@ public class UserProfileControllerIntegrationTest {
      */
     @Test
     @Order(3)
-    @DisplayName("GET /api/user/profile - Should return 403 with invalid token")
-    void testGetProfile_WithInvalidToken_ShouldReturn403() throws Exception {
+    @DisplayName("GET /api/user/profile - Should return 401 with invalid token")
+    void testGetProfile_WithInvalidToken_ShouldReturn401() throws Exception {
         // ACT & ASSERT: Access dengan invalid token
         mockMvc.perform(get("/api/user/profile")
                 .header("Authorization", "Bearer invalid.token.here"))
                 .andDo(print())
-                .andExpect(status().isForbidden()); // JWT validation fails
+                .andExpect(status().isUnauthorized()); // JWT validation fails
     }
 
     /**
@@ -222,8 +222,8 @@ public class UserProfileControllerIntegrationTest {
      */
     @Test
     @Order(4)
-    @DisplayName("GET /api/user/profile - Should return 403 without Bearer prefix")
-    void testGetProfile_WithoutBearerPrefix_ShouldReturn403() throws Exception {
+    @DisplayName("GET /api/user/profile - Should return 401 without Bearer prefix")
+    void testGetProfile_WithoutBearerPrefix_ShouldReturn401() throws Exception {
         // ARRANGE: Get valid token tapi tidak pakai "Bearer " prefix
         String token = registerUserAndGetToken("bearer@test.com", "Bearer Test User");
 
@@ -231,7 +231,7 @@ public class UserProfileControllerIntegrationTest {
         mockMvc.perform(get("/api/user/profile")
                 .header("Authorization", token)) // Missing "Bearer " prefix!
                 .andDo(print())
-                .andExpect(status().isForbidden());
+                .andExpect(status().isUnauthorized());
     }
 
     // ========================================================================
@@ -273,12 +273,12 @@ public class UserProfileControllerIntegrationTest {
      */
     @Test
     @Order(6)
-    @DisplayName("GET /api/user/dashboard - Should return 403 without token")
-    void testGetDashboard_WithoutToken_ShouldReturn403() throws Exception {
+    @DisplayName("GET /api/user/dashboard - Should return 401 without token")
+    void testGetDashboard_WithoutToken_ShouldReturn401() throws Exception {
         // ACT & ASSERT
         mockMvc.perform(get("/api/user/dashboard"))
                 .andDo(print())
-                .andExpect(status().isForbidden());
+                .andExpect(status().isUnauthorized());
     }
 
     /**
@@ -335,12 +335,12 @@ public class UserProfileControllerIntegrationTest {
      */
     @Test
     @Order(9)
-    @DisplayName("GET /api/user/settings - Should return 403 without token")
-    void testGetSettings_WithoutToken_ShouldReturn403() throws Exception {
+    @DisplayName("GET /api/user/settings - Should return 401 without token")
+    void testGetSettings_WithoutToken_ShouldReturn401() throws Exception {
         // ACT & ASSERT
         mockMvc.perform(get("/api/user/settings"))
                 .andDo(print())
-                .andExpect(status().isForbidden());
+                .andExpect(status().isUnauthorized());
     }
 
     // ========================================================================

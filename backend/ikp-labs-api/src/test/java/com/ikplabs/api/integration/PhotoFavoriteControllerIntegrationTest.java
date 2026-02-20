@@ -270,12 +270,12 @@ public class PhotoFavoriteControllerIntegrationTest {
      */
     @Test
     @Order(3)
-    @DisplayName("PFCIT-003: POST /favorite - Without authentication should return 403")
-    void testFavoritePhoto_WithoutAuth_ShouldReturn403() throws Exception {
+    @DisplayName("PFCIT-003: POST /favorite - Without authentication should return 401")
+    void testFavoritePhoto_WithoutAuth_ShouldReturn401() throws Exception {
         // ACT & ASSERT: Try to favorite without token
         mockMvc.perform(post("/api/gallery/photo/100/favorite"))
                 .andDo(print())
-                .andExpect(status().isForbidden()); // 403 Forbidden
+                .andExpect(status().isUnauthorized()); // 401 Unauthorized
 
         // VERIFY: Repository never called
         verify(photoFavoriteRepository, never()).save(any(PhotoFavorite.class));
@@ -321,12 +321,12 @@ public class PhotoFavoriteControllerIntegrationTest {
      */
     @Test
     @Order(5)
-    @DisplayName("PFCIT-005: DELETE /favorite - Without authentication should return 403")
-    void testUnfavoritePhoto_WithoutAuth_ShouldReturn403() throws Exception {
+    @DisplayName("PFCIT-005: DELETE /favorite - Without authentication should return 401")
+    void testUnfavoritePhoto_WithoutAuth_ShouldReturn401() throws Exception {
         // ACT & ASSERT: Try to unfavorite without token
         mockMvc.perform(delete("/api/gallery/photo/100/favorite"))
                 .andDo(print())
-                .andExpect(status().isForbidden()); // 403 Forbidden
+                .andExpect(status().isUnauthorized()); // 401 Unauthorized
 
         // VERIFY: Repository never called
         verify(photoFavoriteRepository, never()).deleteByPhotoIdAndUserId(anyLong(), anyLong());
@@ -399,14 +399,14 @@ public class PhotoFavoriteControllerIntegrationTest {
      */
     @Test
     @Order(7)
-    @DisplayName("PFCIT-007: GET /favorited-photos - Without authentication should return 403")
-    void testGetFavoritedPhotos_WithoutAuth_ShouldReturn403() throws Exception {
+    @DisplayName("PFCIT-007: GET /favorited-photos - Without authentication should return 401")
+    void testGetFavoritedPhotos_WithoutAuth_ShouldReturn401() throws Exception {
         // ACT & ASSERT: Try to get favorited photos without token
         mockMvc.perform(get("/api/gallery/favorited-photos")
                         .param("page", "0")
                         .param("size", "12"))
                 .andDo(print())
-                .andExpect(status().isForbidden()); // 403 Forbidden
+                .andExpect(status().isUnauthorized()); // 401 Unauthorized
 
         // VERIFY: Repository never called
         verify(photoFavoriteRepository, never()).findFavoritedPhotosByUserIdNewest(anyLong(), any());
