@@ -6,34 +6,35 @@
 # - Frontend unit tests (Jest) with coverage
 # - Frontend build (TypeScript check + Next.js build)
 # - Backend tests (JUnit) with JaCoCo coverage
+# - API tests (Playwright against running backend + PostgreSQL)
 #
 # Workflow Structure:
-# ┌─────────────────────────────────────────────────────────┐
-# │                    Push / PR Trigger                     │
-# └─────────────────────────┬───────────────────────────────┘
-#                           │
-#       ┌───────────────────┼───────────────────┐
-#       │                   │                   │
-#       ▼                   ▼                   ▼
-# ┌──────────┐        ┌──────────┐        ┌──────────┐
-# │ Frontend │        │ Frontend │        │ Backend  │
-# │   Lint   │        │  Tests   │        │  Tests   │
-# │(ESLint + │        │ (Jest +  │        │(JUnit +  │
-# │ Prettier)│        │ Coverage)│        │ JaCoCo)  │
-# └──────────┘        └──────────┘        └──────────┘
-#       │                   │                   │
-#       └─────────┬─────────┴───────────────────┘
-#                 │
-#                 ▼
-#          ┌──────────┐
-#          │ Frontend │
-#          │  Build   │
-#          │(TypeScript)
-#          └──────────┘
-#                 │
-#                 ▼
-#          All Pass = ✅
-#          Any Fail = ❌
+# ┌─────────────────────────────────────────────────────────────────┐
+# │                       Push / PR Trigger                         │
+# └──────────────────────────┬──────────────────────────────────────┘
+#                            │
+#       ┌────────────────────┼──────────────────┬───────────────┐
+#       │                    │                  │               │
+#       ▼                    ▼                  ▼               ▼
+# ┌──────────┐        ┌──────────┐       ┌──────────┐   ┌──────────┐
+# │ Frontend │        │ Frontend │       │ Backend  │   │   API    │
+# │   Lint   │        │  Tests   │       │  Tests   │   │  Tests   │
+# │(ESLint + │        │ (Jest +  │       │(JUnit +  │   │(Playwright│
+# │ Prettier)│        │ Coverage)│       │ JaCoCo)  │   │+Postgres)│
+# └──────────┘        └──────────┘       └──────────┘   └──────────┘
+#       │                   │                  │               │
+#       └─────────┬─────────┘                  │               │
+#                 ▼                             │               │
+#          ┌──────────┐                        │               │
+#          │ Frontend │                        │               │
+#          │  Build   │                        │               │
+#          │(TypeScript)                       │               │
+#          └──────────┘                        │               │
+#                 │                             │               │
+#                 └──────────────┬──────────────┘───────────────┘
+#                                ▼
+#                         All Pass = ✅
+#                         Any Fail = ❌
 #
 
 name: CI
