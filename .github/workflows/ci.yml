@@ -346,7 +346,7 @@ jobs:
   ci-success:
     name: CI Summary
     runs-on: ubuntu-latest
-    needs: [frontend-lint, frontend-tests, frontend-build, backend-tests]
+    needs: [frontend-lint, frontend-tests, frontend-build, backend-tests, api-tests]
     if: always()
 
     steps:
@@ -355,12 +355,14 @@ jobs:
           if [[ "${{ needs.frontend-lint.result }}" != "success" ]] || \
              [[ "${{ needs.frontend-tests.result }}" != "success" ]] || \
              [[ "${{ needs.frontend-build.result }}" != "success" ]] || \
-             [[ "${{ needs.backend-tests.result }}" != "success" ]]; then
+             [[ "${{ needs.backend-tests.result }}" != "success" ]] || \
+             [[ "${{ needs.api-tests.result }}" != "success" ]]; then
             echo "❌ CI Failed!"
             echo "- Frontend Lint: ${{ needs.frontend-lint.result }}"
             echo "- Frontend Tests: ${{ needs.frontend-tests.result }}"
             echo "- Frontend Build: ${{ needs.frontend-build.result }}"
             echo "- Backend Tests: ${{ needs.backend-tests.result }}"
+            echo "- API Tests: ${{ needs.api-tests.result }}"
             exit 1
           fi
           echo "✅ All CI checks passed!"
