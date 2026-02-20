@@ -247,6 +247,100 @@ jobs:
           fi
 
   # ===========================================
+  # API Tests (Playwright + Spring Boot + PostgreSQL)
+  # Tests real API endpoints against running backend
+  # ===========================================
+  api-tests:
+    name: API Tests
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_DB: registrationform_db
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # --- Backend Setup ---
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: ${{ env.JAVA_VERSION }}
+          cache: 'maven'
+
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Build backend (skip tests)
+        working-directory: backend/ikp-labs-api
+        run: mvn package -DskipTests -B
+
+      - name: Start Spring Boot backend
+        working-directory: backend/ikp-labs-api
+        run: |
+          java -jar target/*.jar &
+        env:
+          SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/registrationform_db
+          SPRING_DATASOURCE_USERNAME: postgres
+          SPRING_DATASOURCE_PASSWORD: postgres
+          SPRING_JPA_HIBERNATE_DDL_AUTO: update
+
+      - name: Wait for backend health check
+        run: |
+          echo "Waiting for backend to start..."
+          for i in $(seq 1 30); do
+            if curl -s http://localhost:8081/api/auth/health | grep -q "UP"; then
+              echo "✅ Backend is healthy!"
+              exit 0
+            fi
+            echo "Attempt $i/30 - waiting 5s..."
+            sleep 5
+          done
+          echo "❌ Backend failed to start within 150s"
+          exit 1
+
+      # --- Playwright API Tests ---
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run API tests
+        run: npx playwright test --project=api-tests
+
+      - name: Upload API test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: api-test-results
+          path: |
+            test-results/
+            playwright-report/
+          retention-days: 7
+
+  # ===========================================
   # Summary Job - All checks must pass
   # ===========================================
   ci-success:
