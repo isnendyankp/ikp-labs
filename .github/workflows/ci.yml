@@ -297,12 +297,12 @@ jobs:
       - name: Start Spring Boot backend
         working-directory: backend/ikp-labs-api
         run: |
-          java -jar target/*.jar &
-        env:
-          SPRING_DATASOURCE_URL: jdbc:postgresql://localhost:5432/registrationform_db
-          SPRING_DATASOURCE_USERNAME: postgres
-          SPRING_DATASOURCE_PASSWORD: postgres
-          SPRING_JPA_HIBERNATE_DDL_AUTO: update
+          nohup java -jar target/*.jar \
+            --spring.datasource.url=jdbc:postgresql://localhost:5432/registrationform_db \
+            --spring.datasource.username=postgres \
+            --spring.datasource.password=postgres \
+            --spring.jpa.hibernate.ddl-auto=update \
+            > /tmp/spring-boot.log 2>&1 &
 
       - name: Wait for backend health check
         run: |
@@ -316,6 +316,8 @@ jobs:
             sleep 5
           done
           echo "❌ Backend failed to start within 150s"
+          echo "=== Spring Boot Log (last 50 lines) ==="
+          tail -50 /tmp/spring-boot.log || true
           exit 1
 
       # --- Playwright API Tests ---
