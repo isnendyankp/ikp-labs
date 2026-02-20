@@ -213,8 +213,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         // Skip filter untuk public endpoints
         return path.startsWith("/api/auth/login") ||
                path.startsWith("/api/auth/register") ||
+               path.startsWith("/api/auth/refresh") ||   // Token refresh (token in query param)
+               path.startsWith("/api/auth/validate") ||  // Token validation (token in query param)
                path.startsWith("/api/auth/health") ||
-               path.startsWith("/api/users") ||          // User registration endpoint
                path.startsWith("/api/jwt-test") ||       // JWT test endpoints
                path.startsWith("/h2-console") ||         // H2 database console (if used)
                path.startsWith("/actuator");             // Spring actuator endpoints
