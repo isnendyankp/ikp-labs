@@ -1,7 +1,11 @@
-import { test, expect } from '@playwright/test';
-import { ApiClient } from './helpers/api-client';
-import { AuthHelper } from './helpers/auth-helper';
-import { generateUniqueEmail, generateRandomFullName, generateValidPassword } from './helpers/test-data';
+import { test, expect } from "@playwright/test";
+import { ApiClient } from "./helpers/api-client";
+import { AuthHelper } from "./helpers/auth-helper";
+import {
+  generateUniqueEmail,
+  generateRandomFullName,
+  generateValidPassword,
+} from "./helpers/test-data";
 
 /**
  * Error Handling API Tests
@@ -15,22 +19,18 @@ import { generateUniqueEmail, generateRandomFullName, generateValidPassword } fr
  * This ensures robust error handling and proper HTTP status codes
  */
 
-test.describe('Error Handling API Tests', () => {
-
+test.describe("Error Handling API Tests", () => {
   let validToken: string;
   let validUserId: number;
   let validUserEmail: string;
 
-  // Setup: Get valid authentication token before all tests
+  // Setup: Register and get valid authentication token before all tests
   test.beforeAll(async ({ request }) => {
     const client = new ApiClient(request);
     const authHelper = new AuthHelper(client);
 
-    // Login to get a valid token
-    const result = await authHelper.loginAndGetToken(
-      'testuser123@example.com',
-      'SecurePass123!'
-    );
+    // Register a new user to get a valid token (CI has fresh DB)
+    const result = await authHelper.registerAndGetToken();
 
     validToken = result.token;
     validUserEmail = result.email;
@@ -39,10 +39,14 @@ test.describe('Error Handling API Tests', () => {
     const newUserData = {
       fullName: generateRandomFullName(),
       email: generateUniqueEmail(),
-      password: generateValidPassword()
+      password: generateValidPassword(),
     };
 
-    const createResponse = await client.post('/api/users', newUserData, validToken);
+    const createResponse = await client.post(
+      "/api/users",
+      newUserData,
+      validToken,
+    );
     validUserId = createResponse.body.user.id;
   });
 
@@ -50,350 +54,429 @@ test.describe('Error Handling API Tests', () => {
    * 400 Bad Request Error Tests
    * Testing validation errors and malformed data
    */
-  test.describe('400 Bad Request Errors', () => {
-
-    test('Should return 400 for registration with missing required fields', async ({ request }) => {
+  test.describe("400 Bad Request Errors", () => {
+    test("Should return 400 for registration with missing required fields", async ({
+      request,
+    }) => {
       const client = new ApiClient(request);
 
       const incompleteData = {
-        fullName: '',
-        email: '',
-        password: ''
+        fullName: "",
+        email: "",
+        password: "",
       };
 
-      const response = await client.post('/api/auth/register', incompleteData);
+      const response = await client.post("/api/auth/register", incompleteData);
 
       expect(response.status).toBe(400);
       expect(response.body.success).toBe(false);
       expect(response.body.message).toBeTruthy();
 
-      console.log('✅ Test: 400 for missing required fields - PASSED');
+      console.log("✅ Test: 400 for missing required fields - PASSED");
     });
 
-    test('Should return 400 for registration with invalid email format', async ({ request }) => {
+    test("Should return 400 for registration with invalid email format", async ({
+      request,
+    }) => {
       const client = new ApiClient(request);
 
       const invalidEmailData = {
-        fullName: 'Test User',
-        email: 'not-an-email',
-        password: 'ValidPass123!',
-        confirmPassword: 'ValidPass123!'
+        fullName: "Test User",
+        email: "not-an-email",
+        password: "ValidPass123!",
+        confirmPassword: "ValidPass123!",
       };
 
-      const response = await client.post('/api/auth/register', invalidEmailData);
+      const response = await client.post(
+        "/api/auth/register",
+        invalidEmailData,
+      );
 
       expect(response.status).toBe(400);
       expect(response.body.success).toBe(false);
 
-      console.log('✅ Test: 400 for invalid email format - PASSED');
+      console.log("✅ Test: 400 for invalid email format - PASSED");
     });
 
-    test('Should return 400 for registration with weak password', async ({ request }) => {
+    test("Should return 400 for registration with weak password", async ({
+      request,
+    }) => {
       const client = new ApiClient(request);
 
       const weakPasswordData = {
-        fullName: 'Test User',
+        fullName: "Test User",
         email: generateUniqueEmail(),
-        password: '123',
-        confirmPassword: '123'
+        password: "123",
+        confirmPassword: "123",
       };
 
-      const response = await client.post('/api/auth/register', weakPasswordData);
+      const response = await client.post(
+        "/api/auth/register",
+        weakPasswordData,
+      );
 
       expect(response.status).toBe(400);
       expect(response.body.success).toBe(false);
 
-      console.log('✅ Test: 400 for weak password - PASSED');
+      console.log("✅ Test: 400 for weak password - PASSED");
     });
 
-    test('Should return 400 for registration with password mismatch', async ({ request }) => {
+    test("Should return 400 for registration with password mismatch", async ({
+      request,
+    }) => {
       const client = new ApiClient(request);
 
       const mismatchPasswordData = {
-        fullName: 'Test User',
+        fullName: "Test User",
         email: generateUniqueEmail(),
-        password: 'ValidPass123!',
-        confirmPassword: 'DifferentPass123!'
+        password: "ValidPass123!",
+        confirmPassword: "DifferentPass123!",
       };
 
-      const response = await client.post('/api/auth/register', mismatchPasswordData);
+      const response = await client.post(
+        "/api/auth/register",
+        mismatchPasswordData,
+      );
 
       expect(response.status).toBe(400);
       expect(response.body.success).toBe(false);
-      expect(response.body.message).toContain('match');
+      expect(response.body.message).toContain("match");
 
-      console.log('✅ Test: 400 for password mismatch - PASSED');
+      console.log("✅ Test: 400 for password mismatch - PASSED");
     });
 
-    test('Should return 400 for duplicate email registration', async ({ request }) => {
+    test("Should return 400 for duplicate email registration", async ({
+      request,
+    }) => {
       const client = new ApiClient(request);
 
       const duplicateData = {
-        fullName: 'Duplicate User',
-        email: 'testuser123@example.com', // Email that already exists
-        password: 'ValidPass123!',
-        confirmPassword: 'ValidPass123!'
+        fullName: "Duplicate User",
+        email: "testuser123@example.com", // Email that already exists
+        password: "ValidPass123!",
+        confirmPassword: "ValidPass123!",
       };
 
-      const response = await client.post('/api/auth/register', duplicateData);
+      const response = await client.post("/api/auth/register", duplicateData);
 
       expect(response.status).toBe(400);
       expect(response.body.success).toBe(false);
-      expect(response.body.message).toContain('already exists');
+      expect(response.body.message).toContain("already exists");
 
-      console.log('✅ Test: 400 for duplicate email - PASSED');
+      console.log("✅ Test: 400 for duplicate email - PASSED");
     });
 
-    test('Should return 400 for login with missing credentials', async ({ request }) => {
+    test("Should return 400 for login with missing credentials", async ({
+      request,
+    }) => {
       const client = new ApiClient(request);
 
       const emptyCredentials = {
-        email: '',
-        password: ''
+        email: "",
+        password: "",
       };
 
-      const response = await client.post('/api/auth/login', emptyCredentials);
+      const response = await client.post("/api/auth/login", emptyCredentials);
 
       expect(response.status).toBe(400);
       expect(response.body.success).toBe(false);
 
-      console.log('✅ Test: 400 for login with missing credentials - PASSED');
+      console.log("✅ Test: 400 for login with missing credentials - PASSED");
     });
 
-    test('Should return 400 for creating user with invalid data', async ({ request }) => {
+    test("Should return 400 for creating user with invalid data", async ({
+      request,
+    }) => {
       const client = new ApiClient(request);
 
       const invalidUserData = {
-        fullName: '', // Empty name
-        email: 'invalid-email', // Invalid email format
-        password: '123' // Weak password
+        fullName: "", // Empty name
+        email: "invalid-email", // Invalid email format
+        password: "123", // Weak password
       };
 
-      const response = await client.post('/api/users', invalidUserData, validToken);
+      const response = await client.post(
+        "/api/users",
+        invalidUserData,
+        validToken,
+      );
 
       expect(response.status).toBe(400);
       expect(response.body.success).toBe(false);
 
-      console.log('✅ Test: 400 for creating user with invalid data - PASSED');
+      console.log("✅ Test: 400 for creating user with invalid data - PASSED");
     });
 
-    test('Should return 400 for updating user with duplicate email', async ({ request }) => {
+    test("Should return 400 for updating user with duplicate email", async ({
+      request,
+    }) => {
       const client = new ApiClient(request);
 
       // Try to update with an existing email
       const updateData = {
-        fullName: 'Updated Name',
-        email: 'testuser123@example.com', // Email already in use
-        password: 'NewPass123!'
+        fullName: "Updated Name",
+        email: "testuser123@example.com", // Email already in use
+        password: "NewPass123!",
       };
 
-      const response = await client.put(`/api/users/${validUserId}`, updateData, validToken);
+      const response = await client.put(
+        `/api/users/${validUserId}`,
+        updateData,
+        validToken,
+      );
 
       expect(response.status).toBe(400);
       expect(response.body.success).toBe(false);
-      expect(response.body.message).toContain('already exists');
+      expect(response.body.message).toContain("already exists");
 
-      console.log('✅ Test: 400 for updating user with duplicate email - PASSED');
+      console.log(
+        "✅ Test: 400 for updating user with duplicate email - PASSED",
+      );
     });
-
   });
 
   /**
    * 401 Unauthorized Error Tests
    * Testing authentication and authorization errors
    */
-  test.describe('401 Unauthorized Errors', () => {
-
-    test('Should return 401 for login with wrong password', async ({ request }) => {
+  test.describe("401 Unauthorized Errors", () => {
+    test("Should return 401 for login with wrong password", async ({
+      request,
+    }) => {
       const client = new ApiClient(request);
 
       const wrongPasswordData = {
-        email: 'testuser123@example.com',
-        password: 'WrongPassword123!'
+        email: "testuser123@example.com",
+        password: "WrongPassword123!",
       };
 
-      const response = await client.post('/api/auth/login', wrongPasswordData);
+      const response = await client.post("/api/auth/login", wrongPasswordData);
 
       expect(response.status).toBe(401);
       expect(response.body.success).toBe(false);
-      expect(response.body.message).toContain('Invalid');
+      expect(response.body.message).toContain("Invalid");
 
-      console.log('✅ Test: 401 for wrong password - PASSED');
+      console.log("✅ Test: 401 for wrong password - PASSED");
     });
 
-    test('Should return 401 for login with non-existent email', async ({ request }) => {
+    test("Should return 401 for login with non-existent email", async ({
+      request,
+    }) => {
       const client = new ApiClient(request);
 
       const nonExistentData = {
         email: `nonexistent${Date.now()}@example.com`,
-        password: 'SomePassword123!'
+        password: "SomePassword123!",
       };
 
-      const response = await client.post('/api/auth/login', nonExistentData);
+      const response = await client.post("/api/auth/login", nonExistentData);
 
       expect(response.status).toBe(401);
       expect(response.body.success).toBe(false);
 
-      console.log('✅ Test: 401 for non-existent email - PASSED');
+      console.log("✅ Test: 401 for non-existent email - PASSED");
     });
 
-    test('Should return 401 for accessing protected endpoint without token', async ({ request }) => {
+    test("Should return 401 for accessing protected endpoint without token", async ({
+      request,
+    }) => {
       const client = new ApiClient(request);
 
       // Try to access users without token
-      const response = await client.get('/api/users');
+      const response = await client.get("/api/users");
 
       expect(response.status).toBe(401);
 
-      console.log('✅ Test: 401 for accessing protected endpoint without token - PASSED');
+      console.log(
+        "✅ Test: 401 for accessing protected endpoint without token - PASSED",
+      );
     });
 
-    test('Should return 401 for accessing protected endpoint with invalid token', async ({ request }) => {
+    test("Should return 401 for accessing protected endpoint with invalid token", async ({
+      request,
+    }) => {
       const client = new ApiClient(request);
 
-      const invalidToken = 'invalid.jwt.token.here';
-      const response = await client.get('/api/users', invalidToken);
+      const invalidToken = "invalid.jwt.token.here";
+      const response = await client.get("/api/users", invalidToken);
 
       expect(response.status).toBe(401);
 
-      console.log('✅ Test: 401 for invalid token - PASSED');
+      console.log("✅ Test: 401 for invalid token - PASSED");
     });
 
-    test('Should return 401 for creating user without token', async ({ request }) => {
+    test("Should return 401 for creating user without token", async ({
+      request,
+    }) => {
       const client = new ApiClient(request);
 
       const newUserData = {
-        fullName: 'Unauthorized User',
+        fullName: "Unauthorized User",
         email: generateUniqueEmail(),
-        password: generateValidPassword()
+        password: generateValidPassword(),
       };
 
-      const response = await client.post('/api/users', newUserData);
+      const response = await client.post("/api/users", newUserData);
 
       expect(response.status).toBe(401);
 
-      console.log('✅ Test: 401 for creating user without token - PASSED');
+      console.log("✅ Test: 401 for creating user without token - PASSED");
     });
 
-    test('Should return 401 for updating user without token', async ({ request }) => {
+    test("Should return 401 for updating user without token", async ({
+      request,
+    }) => {
       const client = new ApiClient(request);
 
       const updateData = {
-        fullName: 'Unauthorized Update',
+        fullName: "Unauthorized Update",
         email: generateUniqueEmail(),
-        password: 'NewPass123!'
+        password: "NewPass123!",
       };
 
-      const response = await client.put(`/api/users/${validUserId}`, updateData);
+      const response = await client.put(
+        `/api/users/${validUserId}`,
+        updateData,
+      );
 
       expect(response.status).toBe(401);
 
-      console.log('✅ Test: 401 for updating user without token - PASSED');
+      console.log("✅ Test: 401 for updating user without token - PASSED");
     });
 
-    test('Should return 401 for deleting user without token', async ({ request }) => {
+    test("Should return 401 for deleting user without token", async ({
+      request,
+    }) => {
       const client = new ApiClient(request);
 
       const response = await client.delete(`/api/users/${validUserId}`);
 
       expect(response.status).toBe(401);
 
-      console.log('✅ Test: 401 for deleting user without token - PASSED');
+      console.log("✅ Test: 401 for deleting user without token - PASSED");
     });
 
-    test('Should return 401 for token refresh with invalid token', async ({ request }) => {
+    test("Should return 401 for token refresh with invalid token", async ({
+      request,
+    }) => {
       const client = new ApiClient(request);
 
-      const invalidToken = 'totally.invalid.token';
-      const response = await client.post(`/api/auth/refresh?token=${invalidToken}`, {});
-
-      expect(response.status).toBe(401);
-
-      console.log('✅ Test: 401 for token refresh with invalid token - PASSED');
-    });
-
-    test('Should return 401 for token validation with invalid token', async ({ request }) => {
-      const client = new ApiClient(request);
-
-      const invalidToken = 'bad.jwt.token';
+      const invalidToken = "totally.invalid.token";
       const response = await client.post(
-        `/api/auth/validate?token=${invalidToken}&email=${validUserEmail}`,
-        {}
+        `/api/auth/refresh?token=${invalidToken}`,
+        {},
       );
 
       expect(response.status).toBe(401);
 
-      console.log('✅ Test: 401 for token validation with invalid token - PASSED');
+      console.log("✅ Test: 401 for token refresh with invalid token - PASSED");
     });
 
+    test("Should return 401 for token validation with invalid token", async ({
+      request,
+    }) => {
+      const client = new ApiClient(request);
+
+      const invalidToken = "bad.jwt.token";
+      const response = await client.post(
+        `/api/auth/validate?token=${invalidToken}&email=${validUserEmail}`,
+        {},
+      );
+
+      expect(response.status).toBe(401);
+
+      console.log(
+        "✅ Test: 401 for token validation with invalid token - PASSED",
+      );
+    });
   });
 
   /**
    * 404 Not Found Error Tests
    * Testing non-existent resources and edge cases
    */
-  test.describe('404 Not Found Errors', () => {
-
-    test('Should return 404 for getting non-existent user by ID', async ({ request }) => {
+  test.describe("404 Not Found Errors", () => {
+    test("Should return 404 for getting non-existent user by ID", async ({
+      request,
+    }) => {
       const client = new ApiClient(request);
 
       const nonExistentId = 999999;
-      const response = await client.get(`/api/users/${nonExistentId}`, validToken);
+      const response = await client.get(
+        `/api/users/${nonExistentId}`,
+        validToken,
+      );
 
       expect(response.status).toBe(404);
 
-      console.log('✅ Test: 404 for non-existent user ID - PASSED');
+      console.log("✅ Test: 404 for non-existent user ID - PASSED");
     });
 
-    test('Should return 404 for updating non-existent user', async ({ request }) => {
+    test("Should return 404 for updating non-existent user", async ({
+      request,
+    }) => {
       const client = new ApiClient(request);
 
       const nonExistentId = 999999;
       const updateData = {
-        fullName: 'Non-existent User',
+        fullName: "Non-existent User",
         email: generateUniqueEmail(),
-        password: 'NewPass123!'
+        password: "NewPass123!",
       };
 
-      const response = await client.put(`/api/users/${nonExistentId}`, updateData, validToken);
+      const response = await client.put(
+        `/api/users/${nonExistentId}`,
+        updateData,
+        validToken,
+      );
 
       expect(response.status).toBe(404);
 
-      console.log('✅ Test: 404 for updating non-existent user - PASSED');
+      console.log("✅ Test: 404 for updating non-existent user - PASSED");
     });
 
-    test('Should return 404 for deleting non-existent user', async ({ request }) => {
+    test("Should return 404 for deleting non-existent user", async ({
+      request,
+    }) => {
       const client = new ApiClient(request);
 
       const nonExistentId = 999999;
-      const response = await client.delete(`/api/users/${nonExistentId}`, validToken);
+      const response = await client.delete(
+        `/api/users/${nonExistentId}`,
+        validToken,
+      );
 
       expect(response.status).toBe(404);
 
-      console.log('✅ Test: 404 for deleting non-existent user - PASSED');
+      console.log("✅ Test: 404 for deleting non-existent user - PASSED");
     });
 
-    test('Should return 404 for getting user by non-existent email', async ({ request }) => {
+    test("Should return 404 for getting user by non-existent email", async ({
+      request,
+    }) => {
       const client = new ApiClient(request);
 
       const nonExistentEmail = `nonexistent${Date.now()}@example.com`;
-      const response = await client.get(`/api/users/email/${nonExistentEmail}`, validToken);
+      const response = await client.get(
+        `/api/users/email/${nonExistentEmail}`,
+        validToken,
+      );
 
       expect(response.status).toBe(404);
 
-      console.log('✅ Test: 404 for non-existent email - PASSED');
+      console.log("✅ Test: 404 for non-existent email - PASSED");
     });
 
-    test('Should return 404 for accessing invalid endpoint', async ({ request }) => {
+    test("Should return 404 for accessing invalid endpoint", async ({
+      request,
+    }) => {
       const client = new ApiClient(request);
 
-      const response = await client.get('/api/invalid-endpoint', validToken);
+      const response = await client.get("/api/invalid-endpoint", validToken);
 
       expect(response.status).toBe(404);
 
-      console.log('✅ Test: 404 for invalid endpoint - PASSED');
+      console.log("✅ Test: 404 for invalid endpoint - PASSED");
     });
-
   });
-
 });
