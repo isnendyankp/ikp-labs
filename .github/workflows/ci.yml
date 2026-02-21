@@ -355,6 +355,7 @@ jobs:
   e2e-tests:
     name: E2E Tests
     runs-on: ubuntu-latest
+    timeout-minutes: 45
     if: github.event_name == 'pull_request'
 
     services:
@@ -473,7 +474,20 @@ jobs:
       - name: Install Playwright Chromium
         run: npx playwright install --with-deps chromium
 
+      - name: Verify full stack status
+        run: |
+          echo "=== Backend ==="
+          curl -s http://localhost:8081/api/auth/health | head -1
+          echo ""
+          echo "=== Frontend ==="
+          curl -s -o /dev/null -w "HTTP %{http_code}" http://localhost:3002/
+          echo ""
+          echo "=== PostgreSQL ==="
+          pg_isready -h localhost -p 5432 && echo "PostgreSQL is ready" || echo "PostgreSQL not ready"
+
       - name: Run E2E tests
+        env:
+          CI: true
         run: npx playwright test --project=chromium
 
       - name: Upload E2E test results
