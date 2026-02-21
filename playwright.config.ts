@@ -97,7 +97,7 @@ export default defineConfig({
     {
       name: "chromium",
       testDir: "./tests/e2e",
-      testIgnore: ["**/demo-*"],
+      testIgnore: ["**/demo-*", "**/helpers/__tests__/**"],
       use: { ...devices["Desktop Chrome"] },
     },
 
