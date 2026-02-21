@@ -7,34 +7,38 @@
 # - Frontend build (TypeScript check + Next.js build)
 # - Backend tests (JUnit) with JaCoCo coverage
 # - API tests (Playwright against running backend + PostgreSQL)
+# - E2E tests (Playwright + Chromium, PR-only)
 #
 # Workflow Structure:
-# ┌─────────────────────────────────────────────────────────────────┐
-# │                       Push / PR Trigger                         │
-# └──────────────────────────┬──────────────────────────────────────┘
-#                            │
-#       ┌────────────────────┼──────────────────┬───────────────┐
-#       │                    │                  │               │
-#       ▼                    ▼                  ▼               ▼
-# ┌──────────┐        ┌──────────┐       ┌──────────┐   ┌──────────┐
-# │ Frontend │        │ Frontend │       │ Backend  │   │   API    │
-# │   Lint   │        │  Tests   │       │  Tests   │   │  Tests   │
-# │(ESLint + │        │ (Jest +  │       │(JUnit +  │   │(Playwright│
-# │ Prettier)│        │ Coverage)│       │ JaCoCo)  │   │+Postgres)│
-# └──────────┘        └──────────┘       └──────────┘   └──────────┘
-#       │                   │                  │               │
-#       └─────────┬─────────┘                  │               │
-#                 ▼                             │               │
-#          ┌──────────┐                        │               │
-#          │ Frontend │                        │               │
-#          │  Build   │                        │               │
-#          │(TypeScript)                       │               │
-#          └──────────┘                        │               │
-#                 │                             │               │
-#                 └──────────────┬──────────────┘───────────────┘
-#                                ▼
-#                         All Pass = ✅
-#                         Any Fail = ❌
+# ┌─────────────────────────────────────────────────────────────────────────┐
+# │                       Push / PR Trigger                                 │
+# └────────────────────────────────┬────────────────────────────────────────┘
+#                                  │
+#       ┌──────────────────┬───────┼──────────────┬───────────────┐
+#       │                  │       │              │               │
+#       ▼                  ▼       ▼              ▼               ▼
+# ┌──────────┐      ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐
+# │ Frontend │      │ Frontend │ │ Backend  │ │   API    │ │   E2E    │
+# │   Lint   │      │  Tests   │ │  Tests   │ │  Tests   │ │  Tests   │
+# │(ESLint + │      │ (Jest +  │ │(JUnit +  │ │(Playwright│ │(Chromium)│
+# │ Prettier)│      │ Coverage)│ │ JaCoCo)  │ │+Postgres)│ │ PR-only  │
+# └──────────┘      └──────────┘ └──────────┘ └──────────┘ └──────────┘
+#       │                 │            │             │             │
+#       └────────┬────────┘            │             │             │
+#                ▼                     │             │             │
+#         ┌──────────┐                │             │             │
+#         │ Frontend │                │             │             │
+#         │  Build   │                │             │             │
+#         │(TypeScript)               │             │             │
+#         └──────────┘                │             │             │
+#                │                     │             │             │
+#                └─────────┬───────────┘─────────────┘─────────────┘
+#                          ▼
+#                   ┌──────────────┐
+#                   │  CI Summary  │
+#                   │  All Pass=✅  │
+#                   │  Any Fail=❌  │
+#                   └──────────────┘
 #
 
 name: CI
@@ -344,17 +348,157 @@ jobs:
           retention-days: 7
 
   # ===========================================
+  # E2E Tests (Playwright + Chromium + Full Stack)
+  # Only runs on Pull Requests (not on every push)
+  # Requires: PostgreSQL + Backend + Frontend + Chromium browser
+  # ===========================================
+  e2e-tests:
+    name: E2E Tests
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_DB: registrationform_db
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      # --- Backend Setup ---
+      - name: Setup Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: ${{ env.JAVA_VERSION }}
+          cache: 'maven'
+
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2/repository
+          key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-maven-
+
+      - name: Build backend (skip tests)
+        working-directory: backend/ikp-labs-api
+        run: mvn package -DskipTests -B
+
+      - name: Start Spring Boot backend
+        working-directory: backend/ikp-labs-api
+        run: |
+          nohup java -jar target/*.jar \
+            --spring.datasource.url=jdbc:postgresql://localhost:5432/registrationform_db \
+            --spring.datasource.username=postgres \
+            --spring.datasource.password=postgres \
+            --spring.jpa.hibernate.ddl-auto=update \
+            > /tmp/spring-boot.log 2>&1 &
+
+      - name: Wait for backend health check
+        run: |
+          echo "Waiting for backend to start..."
+          for i in $(seq 1 30); do
+            if curl -s http://localhost:8081/api/auth/health | grep -q "UP"; then
+              echo "✅ Backend is healthy!"
+              break
+            fi
+            echo "Attempt $i/30 - waiting 5s..."
+            sleep 5
+          done
+          if ! curl -s http://localhost:8081/api/auth/health | grep -q "UP"; then
+            echo "❌ Backend failed to start within 150s"
+            echo "=== Spring Boot Log (last 50 lines) ==="
+            tail -50 /tmp/spring-boot.log || true
+            exit 1
+          fi
+
+      # --- Frontend Setup ---
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install native binaries for Linux
+        run: |
+          cd frontend
+          npm install @next/swc-linux-x64-gnu @next/swc-linux-x64-musl \
+            @unrs/resolver-binding-linux-x64-gnu \
+            lightningcss-linux-x64-gnu \
+            @tailwindcss/oxide-linux-x64-gnu \
+            --no-save --force || true
+
+      - name: Build frontend
+        run: npm run build:frontend
+
+      - name: Start frontend
+        run: |
+          cd frontend
+          nohup npx next start -p 3002 > /tmp/nextjs.log 2>&1 &
+
+      - name: Wait for frontend health check
+        run: |
+          echo "Waiting for frontend to start..."
+          for i in $(seq 1 15); do
+            if curl -s -o /dev/null -w "%{http_code}" http://localhost:3002/ | grep -q "200"; then
+              echo "✅ Frontend is healthy!"
+              break
+            fi
+            echo "Attempt $i/15 - waiting 3s..."
+            sleep 3
+          done
+          if ! curl -s -o /dev/null -w "%{http_code}" http://localhost:3002/ | grep -q "200"; then
+            echo "❌ Frontend failed to start within 45s"
+            echo "=== Next.js Log ==="
+            cat /tmp/nextjs.log || true
+            exit 1
+          fi
+
+      # --- Playwright E2E Tests ---
+      - name: Install Playwright Chromium
+        run: npx playwright install --with-deps chromium
+
+      - name: Run E2E tests
+        run: npx playwright test --project=chromium
+
+      - name: Upload E2E test results
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: e2e-test-results
+          path: |
+            test-results/
+            playwright-report/
+          retention-days: 7
+
+  # ===========================================
   # Summary Job - All checks must pass
   # ===========================================
   ci-success:
     name: CI Summary
     runs-on: ubuntu-latest
-    needs: [frontend-lint, frontend-tests, frontend-build, backend-tests, api-tests]
+    needs: [frontend-lint, frontend-tests, frontend-build, backend-tests, api-tests, e2e-tests]
     if: always()
 
     steps:
       - name: Check all jobs status
         run: |
+          # Core jobs must pass
           if [[ "${{ needs.frontend-lint.result }}" != "success" ]] || \
              [[ "${{ needs.frontend-tests.result }}" != "success" ]] || \
              [[ "${{ needs.frontend-build.result }}" != "success" ]] || \
@@ -366,6 +510,22 @@ jobs:
             echo "- Frontend Build: ${{ needs.frontend-build.result }}"
             echo "- Backend Tests: ${{ needs.backend-tests.result }}"
             echo "- API Tests: ${{ needs.api-tests.result }}"
+            echo "- E2E Tests: ${{ needs.e2e-tests.result }}"
             exit 1
           fi
+
+          # E2E tests: must pass on PR, skipped is OK on push
+          E2E_RESULT="${{ needs.e2e-tests.result }}"
+          if [[ "$E2E_RESULT" == "failure" ]] || [[ "$E2E_RESULT" == "cancelled" ]]; then
+            echo "❌ E2E Tests Failed!"
+            echo "- E2E Tests: $E2E_RESULT"
+            exit 1
+          fi
+
           echo "✅ All CI checks passed!"
+          echo "- Frontend Lint: ${{ needs.frontend-lint.result }}"
+          echo "- Frontend Tests: ${{ needs.frontend-tests.result }}"
+          echo "- Frontend Build: ${{ needs.frontend-build.result }}"
+          echo "- Backend Tests: ${{ needs.backend-tests.result }}"
+          echo "- API Tests: ${{ needs.api-tests.result }}"
+          echo "- E2E Tests: $E2E_RESULT (PR-only)"
