@@ -1,4 +1,4 @@
-import { defineConfig, devices } from '@playwright/test';
+import { defineConfig, devices } from "@playwright/test";
 
 /**
  * Playwright Configuration for Registration Form Testing
@@ -14,10 +14,10 @@ import { defineConfig, devices } from '@playwright/test';
 
 export default defineConfig({
   // Test directory (default for E2E tests)
-  testDir: './tests',
+  testDir: "./tests",
 
   // Ignore Jest test files in helpers directory
-  testIgnore: '**/helpers/__tests__/**',
+  testIgnore: "**/helpers/__tests__/**",
 
   // Maximum time one test can run
   // Increased to 60s to accommodate slower WebKit tests with multiple user registrations
@@ -25,7 +25,7 @@ export default defineConfig({
 
   // Expect timeout for assertions
   expect: {
-    timeout: 5000
+    timeout: 5000,
   },
 
   // Run tests in files in parallel
@@ -44,35 +44,35 @@ export default defineConfig({
 
   // Reporter to use
   reporter: [
-    ['html'],
-    ['list'],
-    ['json', { outputFile: 'test-results/results.json' }]
+    ["html"],
+    ["list"],
+    ["json", { outputFile: "test-results/results.json" }],
   ],
 
   // Output folders for test artifacts
-  outputDir: 'test-results/artifacts', // Videos, screenshots, traces
+  outputDir: "test-results/artifacts", // Videos, screenshots, traces
 
   // Shared settings for all the projects below
   use: {
     // Base URL to use in actions like `await page.goto('/')`
-    baseURL: 'http://localhost:3002',
+    baseURL: "http://localhost:3002",
 
     // Collect trace when retrying the failed test
-    trace: 'on-first-retry',
+    trace: "on-first-retry",
 
     // Screenshot settings
     // 'on' = always capture, 'only-on-failure' = only when test fails
     screenshot: {
-      mode: 'only-on-failure',
-      fullPage: true // Capture entire page, not just viewport
+      mode: "only-on-failure",
+      fullPage: true, // Capture entire page, not just viewport
     },
 
     // Video recording settings
     // 'on' = always record, 'retain-on-failure' = keep only failed tests
     // 'off' = disable video recording
     video: {
-      mode: 'retain-on-failure',
-      size: { width: 1280, height: 720 } // Video resolution (HD)
+      mode: "retain-on-failure",
+      size: { width: 1280, height: 720 }, // Video resolution (HD)
     },
 
     // Browser viewport (matches video size)
@@ -83,43 +83,48 @@ export default defineConfig({
   projects: [
     // API Tests - No browser needed, using request context
     {
-      name: 'api-tests',
-      testDir: './tests/api',
+      name: "api-tests",
+      testDir: "./tests/api",
       use: {
-        baseURL: 'http://localhost:8081',
+        baseURL: "http://localhost:8081",
         extraHTTPHeaders: {
-          'Accept': 'application/json',
+          Accept: "application/json",
         },
       },
     },
 
     // E2E Browser Tests
     {
-      name: 'chromium',
-      testDir: './tests/e2e',
-      use: { ...devices['Desktop Chrome'] },
+      name: "chromium",
+      testDir: "./tests/e2e",
+      testIgnore: ["**/demo-*"],
+      use: { ...devices["Desktop Chrome"] },
     },
 
     {
-      name: 'firefox',
-      testDir: './tests/e2e',
-      use: { ...devices['Desktop Firefox'] },
+      name: "firefox",
+      testDir: "./tests/e2e",
+      use: { ...devices["Desktop Firefox"] },
     },
 
     /* LinkedIn video recording - slower, realistic user pace */
     {
-      name: 'linkedin',
-      testDir: './tests/e2e',
-      testMatch: '**/ux-story-journey.spec.ts',
-      testIgnore: ['**/ux-confirmations.spec.ts', '**/ux-empty-states.spec.ts', '**/ux-validation.spec.ts'],
+      name: "linkedin",
+      testDir: "./tests/e2e",
+      testMatch: "**/ux-story-journey.spec.ts",
+      testIgnore: [
+        "**/ux-confirmations.spec.ts",
+        "**/ux-empty-states.spec.ts",
+        "**/ux-validation.spec.ts",
+      ],
       use: {
-        ...devices['Desktop Chrome'],
+        ...devices["Desktop Chrome"],
         // Slow down actions for realistic video (100ms delay between actions)
         launchOptions: {
           slowMo: 100,
         },
         // Always record video for linkedin project
-        video: 'on',
+        video: "on",
       },
     },
 
