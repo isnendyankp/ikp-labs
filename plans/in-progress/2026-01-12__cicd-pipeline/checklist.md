@@ -355,11 +355,12 @@ Project has significant test coverage NOT yet in CI:
 
 ---
 
-### Task 4.2: Add E2E Tests to CI (60 min)
+### Task 4.2: Add E2E Tests to CI ⏳ IN PROGRESS
 **Estimated Time**: 60 minutes
 **Complexity**: High (needs full stack: FE + BE + DB)
+**Status**: IN PROGRESS - CI job added, awaiting PR trigger verification
 
-**Test Files** (16 specs in `tests/e2e/`, Playwright project `chromium`):
+**Test Files** (17 specs in `tests/e2e/`, Playwright project `chromium`):
 - `auth-flow.spec.ts`, `login.spec.ts`, `registration.spec.ts`
 - `gallery.spec.ts`, `gallery-sorting.spec.ts`, `gallery-mobile-ux.spec.ts`
 - `desktop-viewport.spec.ts`, `landing-page.spec.ts`
@@ -367,6 +368,12 @@ Project has significant test coverage NOT yet in CI:
 - `profile.spec.ts`, `profile-picture.spec.ts`
 - `ux-confirmations.spec.ts`, `ux-empty-states.spec.ts`, `ux-validation.spec.ts`
 - `ux-story-journey.spec.ts`, `ux-story-journey-existing-user.spec.ts`
+- ~~`demo-screenshot-capture.spec.ts`~~ (excluded via `testIgnore`)
+- ~~`demo-video-recording.spec.ts`~~ (excluded via `testIgnore`)
+
+**Local Test Results** (Feb 21, 2026):
+- ✅ 135 passed, 4 skipped, 0 failed (24.4 min with 3 workers)
+- CI will use 1 worker with 2 retries (playwright.config.ts CI settings)
 
 **Infrastructure Required**:
 - Everything from Task 4.1 (PostgreSQL + backend)
@@ -375,23 +382,31 @@ Project has significant test coverage NOT yet in CI:
 - Native Linux binaries (SWC, lightningcss, oxide, unrs-resolver)
 
 **Steps**:
-1. [ ] Add `e2e-tests` job to `ci.yml`
-2. [ ] Reuse PostgreSQL + backend setup from API tests job
-3. [ ] Build frontend with `npm run build:frontend`
-4. [ ] Start frontend in background (`npm run start --workspace=frontend`)
-5. [ ] Wait for both services (backend:8081 + frontend:3002)
-6. [ ] Install Playwright browsers (`npx playwright install --with-deps chromium`)
-7. [ ] Run E2E tests: `npx playwright test --project=chromium`
-8. [ ] Upload Playwright HTML report + screenshots/traces as artifact
-9. [ ] Configure to run **only on PR to main** (not every push)
-10. [ ] **COMMIT**: `ci: add E2E tests to CI pipeline`
+1. [x] Exclude demo specs from chromium project (`testIgnore: ['**/demo-*']`)
+   - **COMMIT**: `1fa30fc` - test: exclude demo E2E specs from chromium project
+2. [x] Add `e2e-tests` job to `ci.yml` with PR-only trigger
+3. [x] Configure full stack: PostgreSQL + Backend + Frontend
+4. [x] Install Playwright Chromium + run E2E tests
+5. [x] Upload Playwright HTML report + screenshots/traces as artifact
+6. [x] Update CI Summary to handle E2E conditionally (skipped OK on push)
+7. [x] Update workflow diagram to include E2E Tests
+   - **COMMIT**: `2ea8eda` - ci: add E2E tests job to CI pipeline (PR-only trigger)
+8. [x] Add timeout (45min), CI env, debug logging step
+   - **COMMIT**: `7e248e2` - ci: add timeout, debug logging, and CI env to e2e-tests job
+9. [x] Upload server logs as artifact on failure
+   - **COMMIT**: `2aeda11` - ci: upload server logs as artifact on E2E test failure
+10. [ ] Verify CI passes on push (E2E skipped)
+11. [ ] Create test PR to verify E2E trigger works
+12. [ ] Fix any CI-specific E2E failures / mark as fixme
 
 **Acceptance Criteria**:
-- [ ] Frontend + Backend both running before E2E starts
-- [ ] Playwright runs in headless Chromium
-- [ ] All 16 E2E specs execute (or known flaky ones documented)
-- [ ] Screenshots/traces uploaded on failure
-- [ ] Job triggers only on `pull_request` to main
+- [x] Frontend + Backend both running before E2E starts
+- [x] Playwright runs in headless Chromium
+- [ ] All 17 E2E specs execute in CI (or known flaky ones documented)
+- [x] Screenshots/traces uploaded on failure
+- [x] Server logs uploaded on failure
+- [x] Job triggers only on `pull_request` to main
+- [ ] CI Summary handles E2E skipped (push) vs pass/fail (PR)
 
 ---
 
