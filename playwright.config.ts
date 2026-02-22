@@ -20,8 +20,9 @@ export default defineConfig({
   testIgnore: "**/helpers/__tests__/**",
 
   // Maximum time one test can run
-  // Increased to 60s to accommodate slower WebKit tests with multiple user registrations
-  timeout: 60 * 1000,
+  // CI: 120s to accommodate slower GitHub Actions runners
+  // Local: 60s is sufficient
+  timeout: process.env.CI ? 120 * 1000 : 60 * 1000,
 
   // Expect timeout for assertions
   expect: {
@@ -34,8 +35,8 @@ export default defineConfig({
   // Fail the build on CI if you accidentally left test.only in the source code
   forbidOnly: !!process.env.CI,
 
-  // Retry on CI only
-  retries: process.env.CI ? 2 : 0,
+  // Retry on CI only (1 retry to save time, each retry adds ~test duration)
+  retries: process.env.CI ? 1 : 0,
 
   // Opt out of parallel tests on CI
   // Reduced to 3 workers locally to prevent resource contention (was: undefined = ~5)
@@ -97,7 +98,7 @@ export default defineConfig({
     {
       name: "chromium",
       testDir: "./tests/e2e",
-      testIgnore: ["**/demo-*"],
+      testIgnore: ["**/demo-*", "**/helpers/__tests__/**"],
       use: { ...devices["Desktop Chrome"] },
     },
 
