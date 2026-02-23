@@ -108,6 +108,73 @@ cd backend/ikp-labs-api
 
 ---
 
+## Branch Protection Rules
+
+Branch protection ensures code quality by requiring CI checks to pass before merging to `main`.
+
+### Recommended Settings
+
+Configure these rules in **GitHub Settings → Branches → Branch protection rules**:
+
+| Rule | Recommended | Purpose |
+|------|-------------|---------|
+| **Require pull request before merging** | ✅ Yes | Prevents direct pushes to `main` |
+| **Require status checks to pass** | ✅ Yes | CI must be green before merge |
+| **Require branches to be up to date** | ✅ Yes | Ensures latest code is tested |
+| **Require approvals** | ❌ Optional | For team projects only |
+| **Dismiss stale reviews** | ❌ Optional | For team projects only |
+
+### Required Status Checks
+
+When enabling "Require status checks to pass", select these jobs:
+
+```
+✅ frontend-lint
+✅ frontend-tests
+✅ frontend-build
+✅ backend-tests
+✅ api-tests
+✅ e2e-tests (PR only)
+✅ ci-summary
+```
+
+### Setup Steps
+
+1. Go to **Repository Settings → Branches**
+2. Click **Add branch protection rule**
+3. Branch name pattern: `main`
+4. Enable:
+   - ✅ Require a pull request before merging
+   - ✅ Require status checks to pass before merging
+   - ✅ Require branches to be up to date before merging
+5. Search and select all required status checks listed above
+6. Click **Create** or **Save changes**
+
+### Testing Branch Protection
+
+```bash
+# This will be blocked if branch protection is enabled
+git checkout main
+git commit --allow-empty -m "test"
+git push origin main
+# ❌ Error: protected branch hook declined
+
+# Correct workflow
+git checkout -b feature/test-branch-protection
+git commit --allow-empty -m "test: verify branch protection"
+git push origin feature/test-branch-protection
+# Create PR → CI runs → Merge when green ✅
+```
+
+### Benefits
+
+- 🛡️ **Prevents broken code** from reaching `main`
+- 🔍 **Forces code review** through PR process
+- ✅ **Ensures CI passes** before merge
+- 📊 **Maintains clean history** with PR-based workflow
+
+---
+
 ## Troubleshooting
 
 ### CI Fails: ESLint/Prettier
