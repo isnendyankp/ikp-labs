@@ -328,12 +328,25 @@ cd backend/ikp-labs-api
 
 ## Contributing
 
-This is a personal learning project. While I'm not actively seeking contributions, feel free to:
+Contributions are welcome! Please read the [Contributing Guidelines](CONTRIBUTING.md) for details on:
 
-- **Fork** and learn from the code
-- **Report issues** if you find bugs
-- **Ask questions** via GitHub Issues
-- **Share** your own learning journey
+- 📋 Pull Request process and requirements
+- ✅ Required CI checks (all must pass before merge)
+- 🌿 Branch naming conventions
+- 📝 Commit message guidelines
+- 🧪 Testing requirements
+- 🎨 Code style guidelines
+
+### Quick Contribution Workflow
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/your-feature`
+3. Make your changes and ensure all tests pass locally
+4. Commit using conventional commits: `feat: add new feature`
+5. Push and create a Pull Request
+6. Wait for CI checks to pass (all 7 jobs must be green)
+
+**Full guidelines**: [CONTRIBUTING.md](CONTRIBUTING.md)
 
 ---
 
