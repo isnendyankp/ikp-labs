@@ -78,7 +78,6 @@ All Pull Requests **must**:
    - ✅ Frontend Build (Next.js production)
    - ✅ Backend Tests (298+ tests)
    - ✅ API Tests (Playwright)
-   - ✅ E2E Tests (Playwright + Chromium)
 
 2. **Have a clear description** explaining:
    - What changes were made
@@ -103,11 +102,12 @@ Pull Request Trigger:
 ├── Frontend Build (1m 30s)
 ├── Backend Tests (50s)
 ├── API Tests (2m)
-├── E2E Tests (7m 45s) ← Only on PR
 └── CI Summary (gate)
+
+Total Duration: ~3 minutes
 ```
 
-**Note**: E2E tests only run on Pull Requests, not on direct pushes to `main`.
+**Note**: E2E tests run on a schedule (6 AM & 6 PM WIB) instead of on every PR. This makes PR workflow faster while maintaining regular E2E health checks. See [CI/CD Workflow Strategy](docs/explanation/ci-cd-workflow-strategy.md) for details.
 
 ### Merge Criteria
 
