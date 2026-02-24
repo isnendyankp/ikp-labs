@@ -8,7 +8,7 @@ When configuring branch protection rules in GitHub Settings, you need to select 
 
 ## Required Status Checks List
 
-### Core CI Jobs (Always Run)
+### Required CI Jobs
 
 These jobs run on **every push** and **every PR**:
 
@@ -21,13 +21,17 @@ These jobs run on **every push** and **every PR**:
 | `api-tests` | API Tests | ~2m | Playwright API testing (100+ tests) |
 | `ci-summary` | CI Summary | ~5s | Final gate that checks all jobs passed |
 
-### PR-Only Jobs
+**Total Duration**: ~3 minutes
 
-These jobs **only run on Pull Requests**, not on direct pushes:
+### E2E Tests (Scheduled, Not Required for PR)
 
-| Status Check Name | Job | Duration | Description |
-|-------------------|-----|----------|-------------|
-| `e2e-tests` | E2E Tests | ~7m 45s | Playwright E2E tests with full stack (PostgreSQL + Spring Boot + Next.js + Chromium) |
+E2E tests run on a **schedule** (6 AM & 6 PM WIB) instead of on every PR:
+
+| Workflow | Schedule | Duration | Description |
+|----------|----------|----------|-------------|
+| `scheduled-e2e.yml` | 6 AM & 6 PM WIB | ~7-8m | Playwright E2E tests with full stack (PostgreSQL + Spring Boot + Next.js + Chromium) |
+
+**Note**: E2E tests are **not required** for PR merge. See [CI/CD Workflow Strategy](../explanation/ci-cd-workflow-strategy.md) for rationale.
 
 ## Configuration in GitHub
 
@@ -44,9 +48,10 @@ These jobs **only run on Pull Requests**, not on direct pushes:
    - `frontend-build`
    - `backend-tests`
    - `api-tests`
-   - `e2e-tests`
    - `ci-summary`
 7. Click **Save changes**
+
+**Note**: Do NOT add `e2e-tests` to required checks. E2E tests run on schedule, not on PR.
 
 ### Visual Reference
 
@@ -61,7 +66,6 @@ Branch Protection Rule for 'main'
 │     ├─ ✅ frontend-build
 │     ├─ ✅ backend-tests
 │     ├─ ✅ api-tests
-│     ├─ ✅ e2e-tests
 │     └─ ✅ ci-summary
 └─ ❌ Require approvals (optional for solo projects)
 ```
@@ -75,7 +79,6 @@ Branch Protection Rule for 'main'
 | **frontend-build** | Confirms TypeScript compiles and Next.js builds successfully |
 | **backend-tests** | Validates API endpoints and business logic |
 | **api-tests** | Ensures REST API contracts are maintained |
-| **e2e-tests** | Verifies critical user flows work end-to-end |
 | **ci-summary** | Final gate ensuring all jobs completed successfully |
 
 ## Workflow Behavior
