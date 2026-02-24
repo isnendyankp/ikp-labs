@@ -62,6 +62,52 @@ The GitHub Actions CI workflow (`.github/workflows/ci.yml`) runs automatically o
 
 ---
 
+## Scheduled E2E Tests
+
+E2E tests run on a **schedule** (twice daily) instead of on every PR to keep PR workflow fast.
+
+### Schedule
+
+- **6:00 AM WIB** (23:00 UTC previous day)
+- **6:00 PM WIB** (11:00 AM UTC)
+
+### Why Scheduled?
+
+**Benefits**:
+- ✅ Faster PR workflow (~3 min vs 7-8 min)
+- ✅ Cost-effective CI minutes usage
+- ✅ Regular health monitoring of `main` branch
+- ✅ Better developer experience
+
+**Trade-offs**:
+- ⚠️ Bugs may reach `main` before E2E detects them
+- ⚠️ E2E failures discovered after merge (not before)
+
+### Viewing Scheduled E2E Results
+
+1. Go to **Repository → Actions**
+2. Select **"Scheduled E2E Tests"** workflow
+3. View latest run results
+
+### Manual Trigger
+
+You can manually trigger E2E tests:
+
+```bash
+# Via GitHub CLI
+gh workflow run scheduled-e2e.yml
+
+# Or via GitHub UI:
+# Actions → Scheduled E2E Tests → Run workflow
+```
+
+### Strategy Details
+
+For a complete explanation of the E2E testing strategy, see:
+- [CI/CD Workflow Strategy](../explanation/ci-cd-workflow-strategy.md)
+
+---
+
 ## Pre-commit Hooks
 
 Pre-commit hooks run automatically before each commit using Husky + lint-staged:
