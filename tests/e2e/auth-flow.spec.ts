@@ -57,11 +57,9 @@ test.describe("Authentication Flow - Complete User Journey", () => {
   });
 
   /**
-   * Test 1: Registration → Auto Redirect to Home
+   * Test 1: Registration → Auto Redirect to Gallery
    */
-  test("Should register and redirect to home page", async ({ page }) => {
-    // FIXME: Tests expect redirect to /home but app redirects to /gallery after registration
-    test.fixme();
+  test("Should register and redirect to gallery page", async ({ page }) => {
     const testData = {
       fullName: "Auth Flow Test User",
       email: generateUniqueEmail(),
@@ -81,22 +79,14 @@ test.describe("Authentication Flow - Complete User Journey", () => {
     // Submit form
     await page.click('button[type="submit"]');
 
-    // Wait for redirect to /home
-    await page.waitForURL("/home", { timeout: 5000 });
+    // Wait for redirect to /gallery
+    await page.waitForURL("/gallery", { timeout: 5000 });
 
-    // Verify on home page
-    expect(page.url()).toContain("/home");
+    // Verify on gallery page
+    expect(page.url()).toContain("/gallery");
 
-    // Verify welcome message
-    await expect(page.locator("h2")).toContainText(
-      `Welcome, ${testData.fullName}!`,
-    );
-
-    // Verify user email displayed
-    await expect(page.locator("text=" + testData.email)).toBeVisible();
-
-    // Verify logout button exists
-    await expect(page.locator('button:has-text("Logout")')).toBeVisible();
+    // Verify gallery page title
+    await expect(page.locator("h1")).toContainText("Photo Gallery");
 
     // Verify token saved in localStorage
     const token = await page.evaluate(() => localStorage.getItem("authToken"));
@@ -105,15 +95,13 @@ test.describe("Authentication Flow - Complete User Journey", () => {
     // Track user for cleanup
     createdUsers.push(testData.email);
 
-    console.log("✅ Test 1: Registration → Home redirect successful");
+    console.log("✅ Test 1: Registration → Gallery redirect successful");
   });
 
   /**
-   * Test 2: Login → Redirect to Home
+   * Test 2: Login → Redirect to Gallery
    */
-  test("Should login and redirect to home page", async ({ page }) => {
-    // FIXME: Tests expect redirect to /home but app redirects to /gallery after login
-    test.fixme();
+  test("Should login and redirect to gallery page", async ({ page }) => {
     // Create a test user first
     const testUser = await createTestUser(page);
 
@@ -127,20 +115,20 @@ test.describe("Authentication Flow - Complete User Journey", () => {
     // Submit form
     await page.click('button[type="submit"]');
 
-    // Wait for redirect to /home
-    await page.waitForURL("/home", { timeout: 5000 });
+    // Wait for redirect to /gallery
+    await page.waitForURL("/gallery", { timeout: 5000 });
 
-    // Verify on home page
-    expect(page.url()).toContain("/home");
+    // Verify on gallery page
+    expect(page.url()).toContain("/gallery");
 
-    // Verify welcome message appears
-    await expect(page.locator("h2")).toContainText("Welcome");
+    // Verify gallery page title
+    await expect(page.locator("h1")).toContainText("Photo Gallery");
 
     // Verify token saved
     const token = await page.evaluate(() => localStorage.getItem("authToken"));
     expect(token).toBeTruthy();
 
-    console.log("✅ Test 2: Login → Home redirect successful");
+    console.log("✅ Test 2: Login → Gallery redirect successful");
   });
 
   /**
