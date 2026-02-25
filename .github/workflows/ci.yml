@@ -354,7 +354,7 @@ jobs:
   # ===========================================
   # Summary Job - All checks must pass
   # ===========================================
-  ci-success:
+  ci-summary:
     name: CI Summary
     runs-on: ubuntu-latest
     needs: [frontend-lint, frontend-tests, frontend-build, backend-tests, api-tests]
