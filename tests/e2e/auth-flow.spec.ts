@@ -39,7 +39,7 @@ test.describe("Authentication Flow - Complete User Journey", () => {
     await page.fill('input[name="password"]', testUser.password);
     await page.fill('input[name="confirmPassword"]', testUser.confirmPassword);
     await page.click('button[type="submit"]');
-    await page.waitForURL("/home", { timeout: 5000 });
+    await page.waitForURL("/gallery", { timeout: 5000 });
 
     // Clear localStorage to prepare for login test
     await page.evaluate(() => localStorage.clear());
