@@ -1047,12 +1047,38 @@ Project has significant test coverage NOT yet in CI:
 
 **Acceptance Criteria**:
 - [ ] PR merged with rebase (preserves all commits)
-- [ ] Local main updated
-- [ ] Checklist updated
+- [x] Local main updated
+- [x] Checklist updated
 
 ---
 
 ## Recent Progress Updates (February 24-26, 2026)
+
+### February 26, 2026: E2E Test Fixes (Redirect & Auth Issues)
+**PR**: #5
+**Branch**: `fix/e2e-tests-fixme-60-tests`
+
+**What was done**:
+- **PR #5**: Fixed 29 E2E tests marked as fixme (redirect mismatch & fake JWT issues)
+  - Fixed `profile-picture.spec.ts` (14 tests): Updated helper to expect `/gallery` redirect
+  - Fixed `registration.spec.ts` (4 tests): Dynamic user creation + `/gallery` redirect
+  - Fixed `profile.spec.ts` (10 tests): Replaced fake JWT with real authentication
+  - Fixed `login.spec.ts` (1 test): Dynamic user creation + `/gallery` redirect
+  - **Merged**: Feb 26, 2026 (Rebase and Merge) - 7 commits
+
+**Total GitHub Activity**: 7 commits (6 feature commits + 1 empty commit for CI re-trigger)
+
+**Key Fix**: 
+- Root cause: Branch protection status check names used kebab-case (`frontend-build`) but CI sends Title Case (`Frontend Build`)
+- Solution: Updated branch protection settings to match exact CI job names
+- All 29 tests now pass in CI environment
+
+**Remaining fixme tests (64)**: Different root causes requiring infrastructure changes:
+- 33 tests: Photo upload timeout (infrastructure issue)
+- 15 tests: Sort dropdown selector issues
+- 16 tests: Pre-seeded data dependencies
+
+---
 
 ### February 24-25, 2026: Scheduled E2E Workflow + Auth Redirect Fix
 **PRs**: #2, #3, #4
