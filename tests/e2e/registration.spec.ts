@@ -43,8 +43,6 @@ test.describe("Registration Flow - End-to-End Tests", () => {
   test("Test 1: Should register successfully with valid data", async ({
     page,
   }) => {
-    // FIXME: waitForURL expects /(login|dashboard|profile)/ but app redirects to /gallery in CI
-    test.fixme();
     console.log("🧪 Test 1: Registration with Valid Data");
 
     const uniqueEmail = generateUniqueEmail();
@@ -87,8 +85,8 @@ test.describe("Registration Flow - End-to-End Tests", () => {
     expect(token).toBeTruthy();
     expect(token).toBe(responseData.token);
 
-    // Verify redirect occurred (to login or dashboard)
-    await page.waitForURL(/\/(login|dashboard|profile)/, { timeout: 5000 });
+    // Verify redirect occurred (to gallery)
+    await page.waitForURL("/gallery", { timeout: 5000 });
 
     console.log("✅ Test 1: PASSED");
     console.log(
@@ -108,14 +106,34 @@ test.describe("Registration Flow - End-to-End Tests", () => {
   test("Test 2: Should reject duplicate email registration", async ({
     page,
   }) => {
-    // FIXME: Expects testuser123@example.com to already exist but CI has fresh database
-    test.fixme();
     console.log("🧪 Test 2: Duplicate Email Registration");
 
-    const duplicateEmail = "testuser123@example.com"; // Existing user from login tests
+    // STEP 1: Create a user first
+    const uniqueEmail = generateUniqueEmail();
+    const firstUser = {
+      fullName: "First Test User",
+      email: uniqueEmail,
+      password: "SecurePass123!",
+      confirmPassword: "SecurePass123!",
+    };
+
+    await page.fill('input[name="name"]', firstUser.fullName);
+    await page.fill('input[name="email"]', firstUser.email);
+    await page.fill('input[name="password"]', firstUser.password);
+    await page.fill('input[name="confirmPassword"]', firstUser.confirmPassword);
+    await page.click('button[type="submit"]');
+
+    // Wait for successful registration
+    await page.waitForURL("/gallery", { timeout: 5000 });
+    createdUsers.push(firstUser.email);
+    console.log("  ✓ First user created:", firstUser.email);
+
+    // STEP 2: Go back to registration and try duplicate email
+    await page.goto("/register");
+
     const testData = {
       fullName: "Duplicate Test User",
-      email: duplicateEmail,
+      email: uniqueEmail, // Same email as first user
       password: "SecurePass123!",
       confirmPassword: "SecurePass123!",
     };
@@ -144,9 +162,9 @@ test.describe("Registration Flow - End-to-End Tests", () => {
     expect(responseData.success).toBe(false);
     expect(responseData.message).toContain("already exists");
 
-    // Verify no token saved
+    // Verify no new token saved (still has old token from first registration)
     const token = await page.evaluate(() => localStorage.getItem("authToken"));
-    expect(token).toBeNull();
+    expect(token).toBeTruthy(); // Old token still exists
 
     // Verify still on registration page (no redirect)
     expect(page.url()).toContain("/register");
@@ -335,8 +353,6 @@ test.describe("Registration Flow - End-to-End Tests", () => {
   test("Test 7: Should show loading state during registration", async ({
     page,
   }) => {
-    // FIXME: Registration succeeds but subsequent assertions may fail due to redirect mismatch in CI
-    test.fixme();
     console.log("🧪 Test 7: Loading State Verification");
 
     const testData = {
@@ -385,8 +401,6 @@ test.describe("Registration Flow - End-to-End Tests", () => {
    * Expected: No CORS errors in console
    */
   test("Test 8: Should not have CORS errors", async ({ page }) => {
-    // FIXME: Registration succeeds but test user cleanup may fail in CI environment
-    test.fixme();
     console.log("🧪 Test 8: CORS Configuration Verification");
 
     const consoleErrors: string[] = [];
