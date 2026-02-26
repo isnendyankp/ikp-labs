@@ -881,6 +881,206 @@ Project has significant test coverage NOT yet in CI:
 
 ---
 
+## Phase 10: E2E Test Fixes (3-4 hours) 🔄 IN PROGRESS
+
+### Overview
+**Date Started**: February 26, 2026
+**Branch**: `fix/e2e-tests-fixme-60-tests`
+**Goal**: Fix 60 out of 93 E2E tests marked as `test.fixme()` by addressing redirect and authentication issues
+
+**Investigation Results** (Feb 26, 2026):
+- Total fixme tests: 93
+- Fixable: 60 tests (redirect mismatch + fake JWT issues)
+- Cannot fix: 33 tests (upload timeout - infrastructure issue)
+
+**Breakdown by Category**:
+1. **Redirect Mismatch** (~46 tests) - Helper functions expect `/home` but app redirects to `/gallery`
+   - `profile-picture.spec.ts`: 14 tests
+   - `registration.spec.ts`: 4 tests
+   - `gallery-sorting.spec.ts`: 15 tests
+   - `desktop-viewport.spec.ts`: 2 tests
+   - `login.spec.ts`: 1 test
+   - `ux-story-journey.spec.ts`: 1 test
+   - `ux-story-journey-existing-user.spec.ts`: 1 test
+   - `ux-confirmations.spec.ts`: 8 tests
+
+2. **Fake JWT Token** (10 tests) - `profile.spec.ts` uses fake tokens that don't map to real users
+
+3. **Test Data Dependency** (4 tests) - `registration.spec.ts` expects pre-seeded data
+
+**Upload Timeout Tests** (33 tests - SKIPPED):
+- `gallery.spec.ts`: 16 tests
+- `photo-favorites.spec.ts`: 9 tests
+- `photo-likes.spec.ts`: 8 tests
+- Reason: Photo upload too slow in CI (~2.2min each) - infrastructure issue, not test logic
+
+---
+
+### Task 10.1: Fix profile-picture.spec.ts Helper Function 🔄 IN PROGRESS
+**Estimated Time**: 30 minutes
+**Tests to Fix**: 14
+
+**Root Cause**: `createAuthenticatedUser()` helper expects redirect to `/home` but app redirects to `/gallery`
+
+**Steps**:
+1. [🔄] Read current helper implementation
+2. [ ] Update `createAuthenticatedUser()` to expect `/gallery` redirect
+3. [ ] Remove all `test.fixme()` calls from 14 tests
+4. [ ] Test locally with `npx playwright test profile-picture.spec.ts`
+5. [ ] **COMMIT**: "fix: update profile-picture helper to expect /gallery redirect"
+
+**Acceptance Criteria**:
+- [ ] Helper function redirects to `/gallery`
+- [ ] All 14 tests pass locally
+- [ ] No `test.fixme()` remaining in file
+
+---
+
+### Task 10.2: Fix registration.spec.ts Redirect Expectations
+**Estimated Time**: 20 minutes
+**Tests to Fix**: 4
+
+**Root Cause**: Tests expect redirect to `/login`, `/dashboard`, or `/profile` but app redirects to `/gallery`
+
+**Steps**:
+1. [ ] Update Test 1: Change redirect expectation to `/gallery`
+2. [ ] Update Test 2: Remove hardcoded user dependency
+3. [ ] Update Test 7: Fix redirect expectation
+4. [ ] Update Test 8: Fix redirect expectation
+5. [ ] Test locally
+6. [ ] **COMMIT**: "fix: update registration tests to expect /gallery redirect"
+
+**Acceptance Criteria**:
+- [ ] All 4 tests pass locally
+- [ ] No hardcoded user dependencies
+
+---
+
+### Task 10.3: Fix profile.spec.ts to Use Real Authentication
+**Estimated Time**: 40 minutes
+**Tests to Fix**: 10
+
+**Root Cause**: Tests use `createFakeJwtToken()` which doesn't map to real user in database
+
+**Steps**:
+1. [ ] Replace `createFakeJwtToken()` with real user creation
+2. [ ] Update all 10 tests to use authenticated user
+3. [ ] Remove `test.fixme()` calls
+4. [ ] Test locally
+5. [ ] **COMMIT**: "fix: replace fake JWT with real auth in profile tests"
+
+**Acceptance Criteria**:
+- [ ] All 10 tests use real authentication
+- [ ] All tests pass locally
+- [ ] No fake JWT usage
+
+---
+
+### Task 10.4: Fix Other Test Files with Redirect Issues
+**Estimated Time**: 60 minutes
+**Tests to Fix**: ~36
+
+**Files**:
+- `gallery-sorting.spec.ts`: 15 tests
+- `ux-confirmations.spec.ts`: 8 tests
+- `desktop-viewport.spec.ts`: 2 tests
+- `login.spec.ts`: 1 test
+- `ux-story-journey.spec.ts`: 1 test
+- `ux-story-journey-existing-user.spec.ts`: 1 test
+- `gallery-mobile-ux.spec.ts`: 3 tests
+- `ux-empty-states.spec.ts`: 5 tests
+
+**Steps**:
+1. [ ] Fix gallery-sorting.spec.ts (15 tests)
+2. [ ] Fix ux-confirmations.spec.ts (8 tests)
+3. [ ] Fix remaining smaller files
+4. [ ] Test each file locally after fix
+5. [ ] **COMMITS**: Multiple commits (1 per file for GitHub activity)
+
+**Acceptance Criteria**:
+- [ ] All 36 tests pass locally
+- [ ] Multiple commits for GitHub activity
+
+---
+
+### Task 10.5: Run Full E2E Test Suite Locally
+**Estimated Time**: 30 minutes
+
+**Steps**:
+1. [ ] Run full E2E suite: `npm run test:e2e`
+2. [ ] Verify 60 fixed tests now pass
+3. [ ] Verify 33 upload timeout tests still marked fixme (expected)
+4. [ ] Document results
+5. [ ] **COMMIT**: "docs: update E2E test results after fixes"
+
+**Acceptance Criteria**:
+- [ ] 60+ tests pass (previously fixme)
+- [ ] 33 upload tests still fixme (expected)
+- [ ] 0 unexpected failures
+
+---
+
+### Task 10.6: Push Branch and Create PR
+**Estimated Time**: 15 minutes
+
+**Steps**:
+1. [ ] Push branch to remote
+2. [ ] Create PR with detailed description
+3. [ ] Wait for CI checks to pass
+4. [ ] **PR Title**: "fix: resolve 60 E2E test fixme issues (redirect & auth)"
+
+**Acceptance Criteria**:
+- [ ] PR created successfully
+- [ ] CI checks pass
+- [ ] PR description lists all fixes
+
+---
+
+### Task 10.7: Merge PR and Update Main
+**Estimated Time**: 10 minutes
+
+**Steps**:
+1. [ ] Merge PR using **Rebase and Merge**
+2. [ ] Delete feature branch
+3. [ ] Update local main: `git checkout main && git pull origin main`
+4. [ ] Update this checklist with completion status
+
+**Acceptance Criteria**:
+- [ ] PR merged with rebase (preserves all commits)
+- [ ] Local main updated
+- [ ] Checklist updated
+
+---
+
+## Recent Progress Updates (February 24-26, 2026)
+
+### February 24-25, 2026: Scheduled E2E Workflow + Auth Redirect Fix
+**PRs**: #2, #3, #4
+**Branch**: `feature/scheduled-e2e-workflow`, `fix/auth-redirect-to-gallery`, `fix/ci-summary-job-name`
+
+**What was done**:
+1. **PR #2**: Moved E2E tests from PR-triggered to scheduled workflow (6 AM & 6 PM WIB)
+   - Created `.github/workflows/scheduled-e2e.yml`
+   - Updated `.github/workflows/ci.yml` (removed E2E job, 6 jobs now)
+   - Updated documentation (CONTRIBUTING.md, cicd-setup.md, branch-protection-status-checks.md)
+   - **Merged**: Feb 24, 2026 (Squash and Merge)
+
+2. **PR #4**: Fixed CI job name mismatch (ROOT CAUSE of merge blocking)
+   - Renamed `ci-success` → `ci-summary` to match branch protection
+   - **Merged**: Feb 25, 2026 (Rebase and Merge) - 1 commit
+
+3. **PR #3**: Fixed auth E2E tests redirect to `/gallery`
+   - Updated `auth-flow.spec.ts` Tests 1-2 to expect `/gallery`
+   - Updated `createTestUser()` helper
+   - Removed obsolete Tests 3-8 (depended on `/home` route)
+   - **Merged**: Feb 25, 2026 (Rebase and Merge) - 3 commits
+
+**Total GitHub Activity**: 4 commits (1 from PR #4 + 3 from PR #3)
+
+**Key Fix**: Job ID mismatch was causing all PRs to show "waiting for status to be reported" even when CI passed. This is now permanently resolved.
+
+---
+
 ## CI/CD Bug Fixes History (February 2026)
 
 ### Issue: Cross-Platform Native Binaries
