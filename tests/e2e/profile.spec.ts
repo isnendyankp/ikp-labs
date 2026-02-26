@@ -1,5 +1,5 @@
-import { test, expect } from "@playwright/test";
-import { createFakeJwtToken } from "./helpers/auth-helpers";
+import { test, expect, Page } from "@playwright/test";
+import { cleanupTestUser } from "./helpers/gallery-helpers";
 
 /**
  * Profile Page E2E Tests
@@ -8,21 +8,58 @@ import { createFakeJwtToken } from "./helpers/auth-helpers";
  * Tests profile display, picture management, and responsive layout.
  */
 
+// Track created users for cleanup
+const createdUsers: string[] = [];
+
+/**
+ * Generate unique email for test users
+ */
+function generateUniqueEmail(): string {
+  const timestamp = Date.now();
+  const random = Math.floor(Math.random() * 10000);
+  return `profile.test.${timestamp}.${random}@example.com`;
+}
+
+/**
+ * Create authenticated user and navigate to profile page
+ */
+async function createAuthenticatedUser(page: Page) {
+  const testUser = {
+    fullName: "Profile Test User",
+    email: generateUniqueEmail(),
+    password: "SecurePass123!",
+    confirmPassword: "SecurePass123!",
+  };
+
+  // Register
+  await page.goto("/register");
+  await page.fill('input[name="name"]', testUser.fullName);
+  await page.fill('input[name="email"]', testUser.email);
+  await page.fill('input[name="password"]', testUser.password);
+  await page.fill('input[name="confirmPassword"]', testUser.confirmPassword);
+  await page.click('button[type="submit"]');
+
+  // Wait for redirect to gallery
+  await page.waitForURL("/gallery", { timeout: 5000 });
+
+  // Track user for cleanup
+  createdUsers.push(testUser.email);
+
+  // Navigate to profile page
+  await page.goto("/myprofile");
+
+  return { page, user: testUser };
+}
+
 test.describe("Profile Page - Desktop View (1280x720)", () => {
   test.use({ viewport: { width: 1280, height: 720 } });
 
   test.beforeEach(async ({ page }) => {
-    // Set auth token BEFORE page load
-    const fakeToken = createFakeJwtToken();
-    await page.addInitScript((token) => {
-      localStorage.setItem("authToken", token);
-    }, fakeToken);
-    await page.goto("/myprofile");
+    // Create authenticated user and navigate to profile
+    await createAuthenticatedUser(page);
   });
 
   test("Should display profile page correctly on desktop", async ({ page }) => {
-    // FIXME: createFakeJwtToken doesn't map to real user in CI DB, profile content won't render
-    test.fixme();
     console.log("🧪 Test: Profile page on desktop (1280x720)");
 
     // Verify page heading
@@ -56,8 +93,6 @@ test.describe("Profile Page - Desktop View (1280x720)", () => {
   test("Should display profile in 2-column layout on desktop", async ({
     page,
   }) => {
-    // FIXME: createFakeJwtToken doesn't map to real user in CI DB, profile content won't render
-    test.fixme();
     console.log("🧪 Test: Profile page 2-column layout on desktop");
 
     // Verify main content area
@@ -80,8 +115,6 @@ test.describe("Profile Page - Desktop View (1280x720)", () => {
   test("Should toggle change picture section when button clicked", async ({
     page,
   }) => {
-    // FIXME: createFakeJwtToken doesn't map to real user in CI DB, profile content won't render
-    test.fixme();
     console.log("🧪 Test: Change picture toggle on desktop");
 
     // Click "Change Picture" button
@@ -123,8 +156,6 @@ test.describe("Profile Page - Desktop View (1280x720)", () => {
   });
 
   test("Should logout when clicking Logout button", async ({ page }) => {
-    // FIXME: createFakeJwtToken doesn't map to real user in CI DB, Logout button won't render
-    test.fixme();
     console.log("🧪 Test: Logout from profile page");
 
     // Click Logout button
@@ -161,17 +192,11 @@ test.describe("Profile Page - Mobile View (375x667)", () => {
   test.use({ viewport: { width: 375, height: 667 } });
 
   test.beforeEach(async ({ page }) => {
-    // Set auth token BEFORE page load
-    const fakeToken = createFakeJwtToken();
-    await page.addInitScript((token) => {
-      localStorage.setItem("authToken", token);
-    }, fakeToken);
-    await page.goto("/myprofile");
+    // Create authenticated user and navigate to profile
+    await createAuthenticatedUser(page);
   });
 
   test("Should display profile page correctly on mobile", async ({ page }) => {
-    // FIXME: createFakeJwtToken doesn't map to real user in CI DB, profile content won't render
-    test.fixme();
     console.log("🧪 Test: Profile page on mobile (375x667)");
 
     // Verify page heading
@@ -200,8 +225,6 @@ test.describe("Profile Page - Mobile View (375x667)", () => {
   test("Should display profile in 1-column layout on mobile", async ({
     page,
   }) => {
-    // FIXME: createFakeJwtToken doesn't map to real user in CI DB, profile content won't render
-    test.fixme();
     console.log("🧪 Test: Profile page 1-column layout on mobile");
 
     // Verify mobile layout (stacked vertically)
@@ -222,8 +245,6 @@ test.describe("Profile Page - Mobile View (375x667)", () => {
   });
 
   test("Should have touch-friendly buttons on mobile", async ({ page }) => {
-    // FIXME: createFakeJwtToken doesn't map to real user in CI DB, buttons won't render
-    test.fixme();
     console.log("🧪 Test: Touch-friendly buttons on mobile");
 
     // Check that main buttons are at least 44x44 pixels
@@ -265,17 +286,11 @@ test.describe("Profile Page - Full HD (1920x1080)", () => {
   test.use({ viewport: { width: 1920, height: 1080 } });
 
   test.beforeEach(async ({ page }) => {
-    // Set auth token BEFORE page load
-    const fakeToken = createFakeJwtToken();
-    await page.addInitScript((token) => {
-      localStorage.setItem("authToken", token);
-    }, fakeToken);
-    await page.goto("/myprofile");
+    // Create authenticated user and navigate to profile
+    await createAuthenticatedUser(page);
   });
 
   test("Should display profile page correctly on Full HD", async ({ page }) => {
-    // FIXME: createFakeJwtToken doesn't map to real user in CI DB, profile content won't render
-    test.fixme();
     console.log("🧪 Test: Profile page on Full HD (1920x1080)");
 
     // Verify all main elements
@@ -296,8 +311,6 @@ test.describe("Profile Page - Full HD (1920x1080)", () => {
   test("Should display profile picture and info side by side on Full HD", async ({
     page,
   }) => {
-    // FIXME: createFakeJwtToken doesn't map to real user in CI DB, profile content won't render
-    test.fixme();
     console.log("🧪 Test: Profile layout on Full HD");
 
     // Verify 2-column layout on larger screens
@@ -337,12 +350,8 @@ test.describe("Profile Page - Authentication", () => {
   }) => {
     console.log("🧪 Test: Profile page loading state");
 
-    // Set auth token
-    const fakeToken = createFakeJwtToken();
-    await page.addInitScript((token) => {
-      localStorage.setItem("authToken", token);
-    }, fakeToken);
-    await page.goto("/myprofile");
+    // Create authenticated user and navigate to profile
+    await createAuthenticatedUser(page);
 
     // Page should load successfully
     await expect(
@@ -357,18 +366,12 @@ test.describe("Profile Page - Navigation Links", () => {
   test.use({ viewport: { width: 1280, height: 720 } });
 
   test.beforeEach(async ({ page }) => {
-    const fakeToken = createFakeJwtToken();
-    await page.addInitScript((token) => {
-      localStorage.setItem("authToken", token);
-    }, fakeToken);
+    // Create authenticated user and navigate to profile
+    await createAuthenticatedUser(page);
   });
 
   test("Should have Back to Gallery link", async ({ page }) => {
-    // FIXME: createFakeJwtToken doesn't map to real user in CI DB, navigation elements may not render
-    test.fixme();
     console.log("🧪 Test: Back to Gallery link");
-
-    await page.goto("/myprofile");
 
     // Verify "Back to Gallery" link exists
     const backLink = page.getByRole("link", { name: "Back to Gallery" });
@@ -399,4 +402,13 @@ test.describe("Profile Page - Navigation Links", () => {
 
     console.log("✅ Test: Navigate via Back link - PASSED");
   });
+});
+
+// Cleanup hook - Delete all test users after tests complete
+test.afterAll(async ({ request }) => {
+  console.log(`\n🧹 Starting cleanup of ${createdUsers.length} test users...`);
+  for (const email of createdUsers) {
+    await cleanupTestUser(request, email);
+  }
+  console.log(`✅ Cleanup complete! Database is clean.\n`);
 });
