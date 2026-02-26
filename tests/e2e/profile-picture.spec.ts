@@ -60,8 +60,8 @@ async function createAuthenticatedUser(page: Page) {
   await page.fill('input[name="confirmPassword"]', testUser.confirmPassword);
   await page.click('button[type="submit"]');
 
-  // Wait for redirect to home
-  await page.waitForURL("/home", { timeout: 5000 });
+  // Wait for redirect to gallery
+  await page.waitForURL("/gallery", { timeout: 5000 });
 
   // Track user for cleanup
   createdUsers.push(testUser.email);
@@ -177,15 +177,13 @@ test.describe("Profile Picture E2E Tests - Desktop View (1280x720)", () => {
   // ===========================================================================
 
   test("Should upload JPEG profile picture successfully", async ({ page }) => {
-    // FIXME: createAuthenticatedUser waits for /home but app redirects to /gallery in CI
-    test.fixme();
     console.log("🧪 Test 1: Upload JPEG profile picture");
 
     // Create authenticated user
     const { user } = await createAuthenticatedUser(page);
 
-    // Verify we're on home page
-    expect(page.url()).toContain("/home");
+    // Verify we're on gallery page
+    expect(page.url()).toContain("/gallery");
 
     // Upload valid JPEG
     await uploadProfilePicture(page, "valid-profile.jpg");
@@ -207,8 +205,6 @@ test.describe("Profile Picture E2E Tests - Desktop View (1280x720)", () => {
   // ===========================================================================
 
   test("Should upload PNG profile picture successfully", async ({ page }) => {
-    // FIXME: createAuthenticatedUser waits for /home but app redirects to /gallery in CI
-    test.fixme();
     console.log("🧪 Test 2: Upload PNG profile picture");
 
     // Create authenticated user
@@ -234,8 +230,6 @@ test.describe("Profile Picture E2E Tests - Desktop View (1280x720)", () => {
   // ===========================================================================
 
   test("Should delete profile picture successfully", async ({ page }) => {
-    // FIXME: createAuthenticatedUser waits for /home but app redirects to /gallery in CI
-    test.fixme();
     console.log("🧪 Test 3: Delete profile picture");
 
     // Create authenticated user and upload picture first
@@ -271,8 +265,6 @@ test.describe("Profile Picture E2E Tests - Desktop View (1280x720)", () => {
   test("Complete flow: Register → Login → Upload → Delete → Logout", async ({
     page,
   }) => {
-    // FIXME: waitForURL('/home') fails because app redirects to /gallery in CI
-    test.fixme();
     console.log("🧪 Test 4: Complete end-to-end flow");
 
     // STEP 1: Register
@@ -289,7 +281,7 @@ test.describe("Profile Picture E2E Tests - Desktop View (1280x720)", () => {
     await page.fill('input[name="password"]', testUser.password);
     await page.fill('input[name="confirmPassword"]', testUser.confirmPassword);
     await page.click('button[type="submit"]');
-    await page.waitForURL("/home", { timeout: 5000 });
+    await page.waitForURL("/gallery", { timeout: 5000 });
     console.log("  ✓ Registration successful");
 
     // Track user for cleanup
@@ -332,8 +324,6 @@ test.describe("Profile Picture E2E Tests - Desktop View (1280x720)", () => {
   test("Should handle multiple upload and delete operations", async ({
     page,
   }) => {
-    // FIXME: createAuthenticatedUser waits for /home but app redirects to /gallery in CI
-    test.fixme();
     console.log("🧪 Test 5: Multiple upload/delete cycles");
 
     const { user } = await createAuthenticatedUser(page);
@@ -376,8 +366,6 @@ test.describe("Profile Picture E2E Tests - Desktop View (1280x720)", () => {
   test("Should persist profile picture after page refresh", async ({
     page,
   }) => {
-    // FIXME: createAuthenticatedUser waits for /home but app redirects to /gallery in CI
-    test.fixme();
     console.log("🧪 Test 6: Profile picture persistence");
 
     await createAuthenticatedUser(page);
@@ -404,8 +392,6 @@ test.describe("Profile Picture E2E Tests - Desktop View (1280x720)", () => {
   // ===========================================================================
 
   test("Should reject file larger than 5MB", async ({ page }) => {
-    // FIXME: createAuthenticatedUser waits for /home but app redirects to /gallery in CI
-    test.fixme();
     console.log("🧪 Test 7: File size validation");
 
     await createAuthenticatedUser(page);
@@ -441,8 +427,6 @@ test.describe("Profile Picture E2E Tests - Desktop View (1280x720)", () => {
   // ===========================================================================
 
   test("Should reject non-image file", async ({ page }) => {
-    // FIXME: createAuthenticatedUser waits for /home but app redirects to /gallery in CI
-    test.fixme();
     console.log("🧪 Test 8: File type validation");
 
     await createAuthenticatedUser(page);
@@ -480,8 +464,6 @@ test.describe("Profile Picture E2E Tests - Desktop View (1280x720)", () => {
   test("Should replace existing profile picture with new one", async ({
     page,
   }) => {
-    // FIXME: createAuthenticatedUser waits for /home but app redirects to /gallery in CI
-    test.fixme();
     console.log("🧪 Test 9: Picture replacement");
 
     await createAuthenticatedUser(page);
@@ -517,8 +499,6 @@ test.describe("Profile Picture E2E Tests - Desktop View (1280x720)", () => {
   test("Should prevent unauthenticated user from uploading", async ({
     page,
   }) => {
-    // FIXME: /home redirect behavior differs in CI (app may redirect to /gallery instead of /login)
-    test.fixme();
     console.log("🧪 Test 10: Authentication requirement");
 
     // Try to access home without authentication
@@ -564,15 +544,13 @@ test.describe("Profile Picture E2E Tests - Mobile View (375x667)", () => {
   test("Should upload profile picture successfully on mobile", async ({
     page,
   }) => {
-    // FIXME: createAuthenticatedUser waits for /home but app redirects to /gallery in CI
-    test.fixme();
     console.log("🧪 Mobile Test 1: Upload profile picture");
 
     // Create authenticated user
     const { user } = await createAuthenticatedUser(page);
 
-    // Verify we're on home page
-    expect(page.url()).toContain("/home");
+    // Verify we're on gallery page
+    expect(page.url()).toContain("/gallery");
 
     // Upload valid JPEG on mobile
     await uploadProfilePicture(page, "valid-profile.jpg");
@@ -595,8 +573,6 @@ test.describe("Profile Picture E2E Tests - Mobile View (375x667)", () => {
   test("Should delete profile picture successfully on mobile", async ({
     page,
   }) => {
-    // FIXME: createAuthenticatedUser waits for /home but app redirects to /gallery in CI
-    test.fixme();
     console.log("🧪 Mobile Test 2: Delete profile picture");
 
     // Create authenticated user and upload picture first
@@ -631,8 +607,6 @@ test.describe("Profile Picture E2E Tests - Mobile View (375x667)", () => {
   // ===========================================================================
 
   test("Should have touch-friendly buttons on mobile", async ({ page }) => {
-    // FIXME: createAuthenticatedUser waits for /home but app redirects to /gallery in CI
-    test.fixme();
     console.log("🧪 Mobile Test 3: Touch-friendly buttons");
 
     const { user } = await createAuthenticatedUser(page);
@@ -667,8 +641,6 @@ test.describe("Profile Picture E2E Tests - Mobile View (375x667)", () => {
   // ===========================================================================
 
   test("Complete mobile flow: Register → Upload → Delete", async ({ page }) => {
-    // FIXME: waitForURL('/home') fails because app redirects to /gallery in CI
-    test.fixme();
     console.log("🧪 Mobile Test 4: Complete mobile flow");
 
     // STEP 1: Register
@@ -685,7 +657,7 @@ test.describe("Profile Picture E2E Tests - Mobile View (375x667)", () => {
     await page.fill('input[name="password"]', testUser.password);
     await page.fill('input[name="confirmPassword"]', testUser.confirmPassword);
     await page.click('button[type="submit"]');
-    await page.waitForURL("/home", { timeout: 5000 });
+    await page.waitForURL("/gallery", { timeout: 5000 });
     console.log("  ✓ Registration successful");
 
     // Track user for cleanup
