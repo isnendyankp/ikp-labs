@@ -25,16 +25,35 @@ test.describe("Login Flow - End-to-End Tests", () => {
   test("Test Case 1: Should login successfully with valid credentials", async ({
     page,
   }) => {
-    // FIXME: Uses pre-seeded testUsers.validUser which may not exist in CI database, causing timeout
-    test.fixme();
     console.log("🧪 Test Case 1: Login with Valid Credentials");
 
-    // Navigate to login page
+    // STEP 1: Create a user first
+    const testUser = {
+      fullName: "Login Test User",
+      email: `login.test.${Date.now()}@example.com`,
+      password: "SecurePass123!",
+      confirmPassword: "SecurePass123!",
+    };
+
+    await page.goto("/register");
+    await page.fill('input[name="name"]', testUser.fullName);
+    await page.fill('input[name="email"]', testUser.email);
+    await page.fill('input[name="password"]', testUser.password);
+    await page.fill('input[name="confirmPassword"]', testUser.confirmPassword);
+    await page.click('button[type="submit"]');
+    await page.waitForURL("/gallery", { timeout: 5000 });
+    console.log("  ✓ User created:", testUser.email);
+
+    // STEP 2: Logout
+    await page.evaluate(() => localStorage.clear());
+    console.log("  ✓ Logged out");
+
+    // STEP 3: Login with created user
     await page.goto("/login");
 
     // Fill login form with valid credentials
-    await page.fill('input[name="email"]', testUsers.validUser.email);
-    await page.fill('input[name="password"]', testUsers.validUser.password);
+    await page.fill('input[name="email"]', testUser.email);
+    await page.fill('input[name="password"]', testUser.password);
 
     // Setup network listener to catch login response
     const responsePromise = page.waitForResponse(
@@ -52,19 +71,16 @@ test.describe("Login Flow - End-to-End Tests", () => {
     // Verify response contains expected data
     expect(responseData.success).toBe(true);
     expect(responseData.token).toBeTruthy();
-    expect(responseData.email).toBe(testUsers.validUser.email);
-    expect(responseData.fullName).toBeTruthy();
+    expect(responseData.email).toBe(testUser.email);
+    expect(responseData.fullName).toBe(testUser.fullName);
 
     // Verify token is saved to localStorage
     const token = await page.evaluate(() => localStorage.getItem("authToken"));
     expect(token).toBeTruthy();
     expect(token).toBe(responseData.token);
 
-    // Verify success message appears (adjust selector based on your UI)
-    // await expect(page.locator('text=Welcome back')).toBeVisible({ timeout: 5000 });
-
-    // Wait for redirect (adjust based on your actual redirect logic)
-    await page.waitForURL(/\/(register|dashboard|profile)/, { timeout: 5000 });
+    // Wait for redirect to gallery
+    await page.waitForURL("/gallery", { timeout: 5000 });
 
     console.log("✅ Test Case 1: PASSED");
   });
