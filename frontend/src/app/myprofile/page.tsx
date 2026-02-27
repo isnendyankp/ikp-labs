@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { getUserFromToken, isAuthenticated } from "../../lib/auth";
 import { getCurrentProfilePicture } from "../../services/profileService";
 import LogoutButton from "../../components/LogoutButton";
@@ -107,8 +108,8 @@ export default function HomePage() {
       <header className="bg-white shadow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           {/* Back to Gallery Link */}
-          <button
-            onClick={() => router.push("/gallery")}
+          <Link
+            href="/gallery"
             className="inline-flex items-center text-indigo-600 hover:text-indigo-800 font-medium mb-4 transition-colors"
           >
             <svg
@@ -125,7 +126,7 @@ export default function HomePage() {
               />
             </svg>
             Back to Gallery
-          </button>
+          </Link>
 
           {/* Header Title and Logout */}
           <div className="flex justify-between items-center">
@@ -140,7 +141,7 @@ export default function HomePage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Column - Profile Picture */}
           <div className="lg:col-span-1">
-            <div className="bg-white rounded-lg shadow p-6">
+            <section className="bg-white rounded-lg shadow p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">
                 Profile Picture
               </h3>
@@ -159,7 +160,7 @@ export default function HomePage() {
               <div className="mt-6">
                 <button
                   onClick={() => setShowUploadSection(!showUploadSection)}
-                  className="w-full py-2 px-4 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
+                  className="w-full py-3 px-4 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
                 >
                   {showUploadSection ? "Hide Upload" : "Change Picture"}
                 </button>
@@ -177,7 +178,7 @@ export default function HomePage() {
                   />
                 </div>
               )}
-            </div>
+            </section>
           </div>
 
           {/* Right Column - User Information */}
@@ -188,29 +189,34 @@ export default function HomePage() {
                 Welcome, {user.fullName}!
               </h2>
 
-              {/* User Information */}
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Full Name
-                  </label>
-                  <p className="text-lg text-gray-900">{user.fullName}</p>
-                </div>
+              {/* User Information Section */}
+              <section>
+                <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                  User Information
+                </h3>
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Full Name
+                    </label>
+                    <p className="text-lg text-gray-900">{user.fullName}</p>
+                  </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Email Address
-                  </label>
-                  <p className="text-lg text-gray-900">{user.email}</p>
-                </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      Email Address
+                    </label>
+                    <p className="text-lg text-gray-900">{user.email}</p>
+                  </div>
 
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-1">
-                    User ID
-                  </label>
-                  <p className="text-lg text-gray-900">{user.id}</p>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 mb-1">
+                      User ID
+                    </label>
+                    <p className="text-lg text-gray-900">{user.id}</p>
+                  </div>
                 </div>
-              </div>
+              </section>
 
               {/* Quick Actions */}
               <div className="mt-8">
