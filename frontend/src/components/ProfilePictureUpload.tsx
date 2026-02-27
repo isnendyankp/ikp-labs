@@ -183,13 +183,13 @@ export default function ProfilePictureUpload({
   };
 
   return (
-    <div className="w-full max-w-md mx-auto space-y-4">
+    <div className="w-full max-w-sm sm:max-w-md mx-auto space-y-4">
       {/* Drag & Drop Area */}
       <div
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
-        className={`border-2 border-dashed rounded-lg p-8 text-center transition-colors ${
+        className={`border-2 border-dashed rounded-lg p-4 sm:p-8 text-center transition-colors ${
           isDragging
             ? "border-blue-500 bg-blue-50"
             : "border-gray-300 bg-gray-50 hover:border-gray-400"
@@ -273,7 +273,7 @@ export default function ProfilePictureUpload({
           <button
             onClick={handleUpload}
             disabled={isUploading}
-            className={`flex-1 py-2 px-4 rounded-lg font-medium transition-colors ${
+            className={`flex-1 py-3 px-4 rounded-lg font-medium transition-colors ${
               isUploading
                 ? "bg-gray-400 text-gray-600 cursor-not-allowed"
                 : "bg-blue-600 text-white hover:bg-blue-700"
@@ -285,7 +285,7 @@ export default function ProfilePictureUpload({
           <button
             onClick={handleCancel}
             disabled={isUploading}
-            className="py-2 px-4 rounded-lg font-medium border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+            className="py-3 px-4 rounded-lg font-medium border border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
           >
             Cancel
           </button>
