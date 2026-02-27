@@ -375,11 +375,7 @@ test.describe("Profile Page - Navigation Links", () => {
 
     // Verify "Back to Gallery" link exists
     const backLink = page.getByRole("link", { name: "Back to Gallery" });
-    // Note: This might be a button or link depending on implementation
-    const navigationElement = page
-      .locator("text=Back to Gallery, text=Go to My Gallery")
-      .first();
-    await expect(navigationElement).toBeVisible();
+    await expect(backLink).toBeVisible();
 
     console.log("✅ Test: Back to Gallery link - PASSED");
   });
