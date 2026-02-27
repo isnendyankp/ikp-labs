@@ -188,9 +188,7 @@ test.describe("Registration Flow - End-to-End Tests", () => {
    * Reference: TESTING_STEP_5.3.md - Test 3
    * Expected: Frontend validation error, no API call
    */
-  test.skip("Test 3: Should show error for password mismatch", async ({
-    page,
-  }) => {
+  test("Test 3: Should show error for password mismatch", async ({ page }) => {
     console.log("🧪 Test 3: Password Mismatch Validation");
 
     const testData = {
@@ -306,7 +304,7 @@ test.describe("Registration Flow - End-to-End Tests", () => {
    *
    * Expected: Weak passwords rejected
    */
-  test.skip("Test 6: Should validate password strength", async ({ page }) => {
+  test("Test 6: Should validate password strength", async ({ page }) => {
     console.log("🧪 Test 6: Password Strength Validation");
 
     const testData = {
