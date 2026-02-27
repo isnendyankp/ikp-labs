@@ -1052,7 +1052,43 @@ Project has significant test coverage NOT yet in CI:
 
 ---
 
-## Recent Progress Updates (February 24-26, 2026)
+### Task 10.8: Fix Actual E2E Test Failures (Post-Mortem from PR #5)
+**Estimated Time**: 3-4 hours
+**Branch**: `fix/e2e-tests-actual-fixes`
+
+**Context**: 
+PR #5 claimed to fix 29 E2E tests, but scheduled E2E workflow revealed **24 tests still FAILING**. Root cause: Tests were not run locally before committing (skipped Step 4 of implementation workflow).
+
+**Failed Tests Breakdown**:
+- `profile-picture.spec.ts`: 14 tests FAILED (UI rendering issues - upload form not visible)
+- `profile.spec.ts`: 9 tests FAILED (selector issues, button size, logout redirect)
+- `registration.spec.ts`: 1 test FAILED (Test 2 timeout - duplicate email test)
+
+**Steps**:
+1. [ ] Investigate `profile-picture.spec.ts` failures (upload form visibility)
+2. [ ] Investigate `profile.spec.ts` failures (selectors, touch-friendly buttons, logout redirect)
+3. [ ] Investigate `registration.spec.ts` Test 2 timeout
+4. [ ] **CRITICAL**: Run `npx playwright test` locally to verify fixes
+5. [ ] Fix issues one file at a time
+6. [ ] Test each fix locally before committing
+7. [ ] Commit fixes in multiple logical commits (GitHub activity)
+8. [ ] Push to branch and create PR
+9. [ ] Wait for CI checks to pass
+10. [ ] Merge with **Rebase and Merge**
+11. [ ] Update main branch
+
+**Acceptance Criteria**:
+- [ ] All 24 previously failing tests now pass locally
+- [ ] All tests pass in scheduled E2E workflow
+- [ ] Multiple commits for GitHub activity
+- [ ] Proper testing workflow followed (no skip Step 4)
+
+**Lesson Learned**: 
+Always run tests locally before committing. CI is not a substitute for local testing.
+
+---
+
+## Recent Progress Updates (February 24-27, 2026)
 
 ### February 26, 2026: E2E Test Fixes (Redirect & Auth Issues)
 **PR**: #5
