@@ -123,16 +123,17 @@ test.describe("Profile Page - Desktop View (1280x720)", () => {
     });
     await changePictureButton.click();
 
-    // Verify upload section appears
-    await expect(page.getByText("Choose a new profile picture")).toBeVisible();
+    // Verify upload section appears (check for file input text)
+    await expect(page.getByText("Click to select file")).toBeVisible();
 
-    // Click button again to close
-    await changePictureButton.click();
+    // Click "Hide Upload" button to close (button text changes after opening)
+    const hideUploadButton = page.getByRole("button", {
+      name: "Hide Upload",
+    });
+    await hideUploadButton.click();
 
     // Verify upload section is hidden
-    await expect(
-      page.getByText("Choose a new profile picture"),
-    ).not.toBeVisible();
+    await expect(page.getByText("Click to select file")).not.toBeVisible();
 
     console.log("✅ Test: Change picture toggle - PASSED");
   });
