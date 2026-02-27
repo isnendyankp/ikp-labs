@@ -628,6 +628,12 @@ test.describe("Profile Picture E2E Tests - Mobile View (375x667)", () => {
     await changePictureButton.click();
     await page.waitForTimeout(800);
 
+    // Select a file to make Upload Picture button appear
+    const fixturePath = path.join(__dirname, "../fixtures/valid-profile.jpg");
+    const fileInput = page.locator('input[type="file"]');
+    await fileInput.setInputFiles(fixturePath);
+    await page.waitForTimeout(500);
+
     // Check that upload button is at least 44x44 pixels (iOS touch target)
     const uploadButton = page.locator('button:has-text("Upload Picture")');
     const box = await uploadButton.boundingBox();
