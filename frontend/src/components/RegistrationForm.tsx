@@ -248,7 +248,9 @@ export default function RegistrationForm() {
                 required
               />
               {errors.name && (
-                <p className="mt-1 text-sm text-red-600">{errors.name}</p>
+                <p className="mt-1 text-sm text-red-600" role="alert">
+                  {errors.name}
+                </p>
               )}
               <p className="mt-1 text-xs text-gray-500">Min. 2 characters</p>
             </div>
@@ -272,7 +274,9 @@ export default function RegistrationForm() {
                 required
               />
               {errors.email && (
-                <p className="mt-1 text-sm text-red-600">{errors.email}</p>
+                <p className="mt-1 text-sm text-red-600" role="alert">
+                  {errors.email}
+                </p>
               )}
             </div>
 
@@ -343,7 +347,9 @@ export default function RegistrationForm() {
                 </Tooltip>
               </div>
               {errors.password && (
-                <p className="mt-1 text-sm text-red-600">{errors.password}</p>
+                <p className="mt-1 text-sm text-red-600" role="alert">
+                  {errors.password}
+                </p>
               )}
             </div>
 
@@ -418,7 +424,7 @@ export default function RegistrationForm() {
                 </Tooltip>
               </div>
               {errors.confirmPassword && (
-                <p className="mt-1 text-sm text-red-600">
+                <p className="mt-1 text-sm text-red-600" role="alert">
                   {errors.confirmPassword}
                 </p>
               )}
