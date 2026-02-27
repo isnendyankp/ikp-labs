@@ -128,7 +128,11 @@ test.describe("Registration Flow - End-to-End Tests", () => {
     createdUsers.push(firstUser.email);
     console.log("  ✓ First user created:", firstUser.email);
 
-    // STEP 2: Go back to registration and try duplicate email
+    // STEP 2: Logout (clear auth token) before testing duplicate email
+    await page.evaluate(() => localStorage.clear());
+    console.log("  ✓ Logged out (cleared auth token)");
+
+    // Go back to registration and try duplicate email
     await page.goto("/register");
 
     const testData = {

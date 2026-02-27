@@ -162,9 +162,9 @@ test.describe("Profile Page - Desktop View (1280x720)", () => {
     const logoutButton = page.getByRole("button", { name: "Logout" });
     await logoutButton.click();
 
-    // Verify redirect to landing page
-    await page.waitForURL("/", { timeout: 5000 });
-    expect(page.url()).toContain("/");
+    // Verify redirect to login page
+    await page.waitForURL("/login", { timeout: 5000 });
+    expect(page.url()).toContain("/login");
 
     // Verify auth token is removed
     const authToken = await page.evaluate(() =>

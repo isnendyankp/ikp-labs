@@ -63,6 +63,10 @@ async function createAuthenticatedUser(page: Page) {
   // Wait for redirect to gallery
   await page.waitForURL("/gallery", { timeout: 5000 });
 
+  // Navigate to profile page (where profile picture upload is available)
+  await page.goto("/myprofile");
+  await page.waitForLoadState("networkidle");
+
   // Track user for cleanup
   createdUsers.push(testUser.email);
 
