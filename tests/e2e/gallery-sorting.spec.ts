@@ -431,8 +431,8 @@ test.describe("Gallery Sorting Feature", () => {
       await expect(dropdownMenu).toHaveClass(/border/);
       await expect(dropdownMenu).toHaveClass(/border-gray-200/);
       await expect(dropdownMenu).toHaveClass(/rounded-lg/);
-      await expect(dropdownMenu).toHaveClass(/shadow-lg/);
-      await expect(dropdownMenu).toHaveClass(/z-50/);
+      await expect(dropdownMenu).toHaveClass(/shadow-xl/);
+      await expect(dropdownMenu).toHaveClass(/z-\[100\]/);
 
       console.log("✅ SORT-010: Dropdown has correct Tailwind styling");
     });
