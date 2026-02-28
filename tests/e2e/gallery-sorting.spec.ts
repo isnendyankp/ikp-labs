@@ -47,8 +47,6 @@ test.describe("Gallery Sorting Feature", () => {
     test("SORT-001: should display sort dropdown on main gallery page", async ({
       page,
     }) => {
-      // FIXME: Sort dropdown not found on /gallery page in CI (works locally)
-      test.fixme();
       // GIVEN: User is registered and logged in
       const { user } = await createAuthenticatedGalleryUser(page);
       createdUsers.push(user.email); // Track for cleanup
@@ -58,7 +56,9 @@ test.describe("Gallery Sorting Feature", () => {
       await page.waitForTimeout(1000); // Wait for page load
 
       // THEN: Sort dropdown is visible
-      const sortDropdown = page.locator('button[aria-label="Sort photos"]');
+      const sortDropdown = page
+        .locator('button[aria-label="Sort photos"]')
+        .first();
       await expect(sortDropdown).toBeVisible({ timeout: 5000 });
 
       // AND: Default sort option is "Newest First"
@@ -86,7 +86,9 @@ test.describe("Gallery Sorting Feature", () => {
       await page.waitForTimeout(1000); // Wait for page load
 
       // THEN: Sort dropdown is visible
-      const sortDropdown = page.locator('button[aria-label="Sort photos"]');
+      const sortDropdown = page
+        .locator('button[aria-label="Sort photos"]')
+        .first();
       await expect(sortDropdown).toBeVisible({ timeout: 5000 });
 
       // AND: Default sort option is "Newest First"
@@ -110,7 +112,9 @@ test.describe("Gallery Sorting Feature", () => {
       await page.waitForTimeout(1000); // Wait for page load
 
       // THEN: Sort dropdown is visible
-      const sortDropdown = page.locator('button[aria-label="Sort photos"]');
+      const sortDropdown = page
+        .locator('button[aria-label="Sort photos"]')
+        .first();
       await expect(sortDropdown).toBeVisible({ timeout: 5000 });
 
       // AND: Default sort option is "Newest First"
@@ -128,7 +132,6 @@ test.describe("Gallery Sorting Feature", () => {
       page,
     }) => {
       // FIXME: Sort dropdown not found on /gallery page in CI (works locally)
-      test.fixme();
       // GIVEN: User is registered and logged in
       const { user } = await createAuthenticatedGalleryUser(page);
       createdUsers.push(user.email); // Track for cleanup
@@ -137,13 +140,16 @@ test.describe("Gallery Sorting Feature", () => {
       await page.goto("/gallery");
       await page.waitForTimeout(1000);
 
-      // WHEN: User clicks on sort dropdown button
-      const sortDropdown = page.locator('button[aria-label="Sort photos"]');
+      // WHEN: User clicks on sort dropdown button (desktop version)
+      const sortDropdown = page
+        .locator('button[aria-label="Sort photos"]')
+        .first();
+      await expect(sortDropdown).toBeVisible({ timeout: 10000 });
       await sortDropdown.click();
-      await page.waitForTimeout(300); // Wait for dropdown animation
+      await page.waitForTimeout(500); // Wait for dropdown animation
 
       // THEN: Dropdown menu is visible
-      const dropdownMenu = page.locator("div.absolute.top-full.left-0.mt-2");
+      const dropdownMenu = page.locator("div.absolute.top-full").first();
       await expect(dropdownMenu).toBeVisible();
 
       // AND: Dropdown chevron rotates (has rotate-180 class)
@@ -157,7 +163,6 @@ test.describe("Gallery Sorting Feature", () => {
       page,
     }) => {
       // FIXME: Sort dropdown not found on /gallery page in CI (works locally)
-      test.fixme();
       // GIVEN: User is registered and logged in
       const { user } = await createAuthenticatedGalleryUser(page);
       createdUsers.push(user.email); // Track for cleanup
@@ -167,7 +172,9 @@ test.describe("Gallery Sorting Feature", () => {
       await page.waitForTimeout(1000);
 
       // WHEN: User opens sort dropdown
-      const sortDropdown = page.locator('button[aria-label="Sort photos"]');
+      const sortDropdown = page
+        .locator('button[aria-label="Sort photos"]')
+        .first();
       await sortDropdown.click();
       await page.waitForTimeout(300);
 
@@ -216,7 +223,6 @@ test.describe("Gallery Sorting Feature", () => {
       page,
     }) => {
       // FIXME: Sort dropdown not found on /gallery page in CI (works locally)
-      test.fixme();
       // GIVEN: User is registered and logged in
       const { user } = await createAuthenticatedGalleryUser(page);
       createdUsers.push(user.email); // Track for cleanup
@@ -226,7 +232,9 @@ test.describe("Gallery Sorting Feature", () => {
       await page.waitForTimeout(1000);
 
       // WHEN: User opens sort dropdown
-      const sortDropdown = page.locator('button[aria-label="Sort photos"]');
+      const sortDropdown = page
+        .locator('button[aria-label="Sort photos"]')
+        .first();
       await sortDropdown.click();
       await page.waitForTimeout(300);
 
@@ -255,7 +263,6 @@ test.describe("Gallery Sorting Feature", () => {
       page,
     }) => {
       // FIXME: Sort dropdown not found on /gallery page in CI (works locally)
-      test.fixme();
       // GIVEN: User is registered and logged in
       const { user } = await createAuthenticatedGalleryUser(page);
       createdUsers.push(user.email); // Track for cleanup
@@ -265,7 +272,9 @@ test.describe("Gallery Sorting Feature", () => {
       await page.waitForTimeout(1000);
 
       // AND: User has opened the sort dropdown
-      const sortDropdown = page.locator('button[aria-label="Sort photos"]');
+      const sortDropdown = page
+        .locator('button[aria-label="Sort photos"]')
+        .first();
       await sortDropdown.click();
       await page.waitForTimeout(300);
 
@@ -291,7 +300,6 @@ test.describe("Gallery Sorting Feature", () => {
       page,
     }) => {
       // FIXME: Sort dropdown not found on /gallery page in CI (works locally)
-      test.fixme();
       // GIVEN: User is registered and logged in
       const { user } = await createAuthenticatedGalleryUser(page);
       createdUsers.push(user.email); // Track for cleanup
@@ -301,7 +309,9 @@ test.describe("Gallery Sorting Feature", () => {
       await page.waitForTimeout(1000);
 
       // AND: User has opened the sort dropdown
-      const sortDropdown = page.locator('button[aria-label="Sort photos"]');
+      const sortDropdown = page
+        .locator('button[aria-label="Sort photos"]')
+        .first();
       await sortDropdown.click();
       await page.waitForTimeout(300);
 
@@ -336,7 +346,6 @@ test.describe("Gallery Sorting Feature", () => {
       page,
     }) => {
       // FIXME: Sort dropdown not found on /gallery page in CI (works locally)
-      test.fixme();
       // GIVEN: User is registered and logged in
       const { user } = await createAuthenticatedGalleryUser(page);
       createdUsers.push(user.email); // Track for cleanup
@@ -346,7 +355,9 @@ test.describe("Gallery Sorting Feature", () => {
       await page.waitForTimeout(1000);
 
       // WHEN: User changes sort to "Oldest First" on main gallery
-      const sortDropdown = page.locator('button[aria-label="Sort photos"]');
+      const sortDropdown = page
+        .locator('button[aria-label="Sort photos"]')
+        .first();
       await sortDropdown.click();
       await page.waitForTimeout(300);
       await page.locator('button:has-text("Oldest First")').click();
@@ -387,7 +398,6 @@ test.describe("Gallery Sorting Feature", () => {
       page,
     }) => {
       // FIXME: Sort dropdown not found on /gallery page in CI (works locally)
-      test.fixme();
       // GIVEN: User is registered and logged in
       const { user } = await createAuthenticatedGalleryUser(page);
       createdUsers.push(user.email); // Track for cleanup
@@ -397,7 +407,9 @@ test.describe("Gallery Sorting Feature", () => {
       await page.waitForTimeout(1000);
 
       // WHEN: User views the sort dropdown button
-      const sortDropdown = page.locator('button[aria-label="Sort photos"]');
+      const sortDropdown = page
+        .locator('button[aria-label="Sort photos"]')
+        .first();
 
       // THEN: Dropdown button has correct base styling
       await expect(sortDropdown).toHaveClass(/bg-white/);
@@ -429,7 +441,6 @@ test.describe("Gallery Sorting Feature", () => {
       page,
     }) => {
       // FIXME: Sort dropdown not found on /gallery page in CI (works locally)
-      test.fixme();
       // GIVEN: User is registered and logged in
       const { user } = await createAuthenticatedGalleryUser(page);
       createdUsers.push(user.email); // Track for cleanup
@@ -439,7 +450,9 @@ test.describe("Gallery Sorting Feature", () => {
       await page.waitForTimeout(1000);
 
       // AND: User has opened the sort dropdown
-      const sortDropdown = page.locator('button[aria-label="Sort photos"]');
+      const sortDropdown = page
+        .locator('button[aria-label="Sort photos"]')
+        .first();
       await sortDropdown.click();
       await page.waitForTimeout(300);
 
@@ -459,7 +472,6 @@ test.describe("Gallery Sorting Feature", () => {
       page,
     }) => {
       // FIXME: Sort dropdown not found on /gallery page in CI (works locally)
-      test.fixme();
       // GIVEN: User is registered and logged in
       const { user } = await createAuthenticatedGalleryUser(page);
       createdUsers.push(user.email); // Track for cleanup
@@ -469,7 +481,9 @@ test.describe("Gallery Sorting Feature", () => {
       await page.waitForTimeout(1000);
 
       // WHEN: User focuses on sort dropdown button
-      const sortDropdown = page.locator('button[aria-label="Sort photos"]');
+      const sortDropdown = page
+        .locator('button[aria-label="Sort photos"]')
+        .first();
       await sortDropdown.focus();
 
       // THEN: Dropdown button should have aria-label attribute
@@ -546,7 +560,6 @@ test.describe("Gallery Sorting Feature", () => {
 
     test("SORT-014: should sort photos by oldest first", async ({ page }) => {
       // FIXME: Sort assertion fails in CI environment (works locally)
-      test.fixme();
       // GIVEN: User is registered and logged in
       const { user } = await createAuthenticatedGalleryUser(page);
       createdUsers.push(user.email); // Track for cleanup
@@ -581,7 +594,9 @@ test.describe("Gallery Sorting Feature", () => {
       await page.waitForTimeout(3000); // Wait for photos to load
 
       // AND: User selects "Oldest First" sort option
-      const sortDropdown = page.locator('button[aria-label="Sort photos"]');
+      const sortDropdown = page
+        .locator('button[aria-label="Sort photos"]')
+        .first();
       await sortDropdown.click();
       await page.waitForTimeout(300);
 
@@ -602,7 +617,6 @@ test.describe("Gallery Sorting Feature", () => {
 
     test("SORT-015: should sort photos by most liked", async ({ page }) => {
       // FIXME: Sort assertion fails in CI environment (works locally)
-      test.fixme();
       // GIVEN: User is registered and logged in
       const { user } = await createAuthenticatedGalleryUser(page);
       createdUsers.push(user.email); // Track for cleanup
@@ -644,7 +658,9 @@ test.describe("Gallery Sorting Feature", () => {
       await page.waitForTimeout(2000); // Wait for filter to apply and photos to load
 
       // AND: User selects "Most Liked" sort option
-      const sortDropdown = page.locator('button[aria-label="Sort photos"]');
+      const sortDropdown = page
+        .locator('button[aria-label="Sort photos"]')
+        .first();
       await sortDropdown.click();
       await page.waitForTimeout(300);
 
@@ -672,7 +688,6 @@ test.describe("Gallery Sorting Feature", () => {
 
     test("SORT-016: should sort photos by most favorited", async ({ page }) => {
       // FIXME: Sort assertion fails in CI environment (works locally)
-      test.fixme();
       // GIVEN: User is registered and logged in
       const { user } = await createAuthenticatedGalleryUser(page);
       createdUsers.push(user.email); // Track for cleanup
@@ -703,7 +718,9 @@ test.describe("Gallery Sorting Feature", () => {
       await page.waitForTimeout(3000); // Wait for photos to load
 
       // AND: User selects "Most Favorited" sort option
-      const sortDropdown = page.locator('button[aria-label="Sort photos"]');
+      const sortDropdown = page
+        .locator('button[aria-label="Sort photos"]')
+        .first();
       await sortDropdown.click();
       await page.waitForTimeout(300);
 
@@ -739,7 +756,6 @@ test.describe("Gallery Sorting Feature", () => {
       page,
     }) => {
       // FIXME: Sort URL persistence fails in CI environment (works locally)
-      test.fixme();
       // GIVEN: User is registered and logged in
       const { user } = await createAuthenticatedGalleryUser(page);
       createdUsers.push(user.email); // Track for cleanup
@@ -758,7 +774,9 @@ test.describe("Gallery Sorting Feature", () => {
       await page.waitForTimeout(2000);
 
       // WHEN: User selects "Oldest First" sort option
-      const sortDropdown = page.locator('button[aria-label="Sort photos"]');
+      const sortDropdown = page
+        .locator('button[aria-label="Sort photos"]')
+        .first();
       await sortDropdown.click();
       await page.waitForTimeout(300);
 
@@ -869,7 +887,9 @@ test.describe("Gallery Sorting Feature", () => {
       await page.waitForTimeout(3000); // Wait for photos to load
 
       // THEN: Sort dropdown shows "Oldest First"
-      const sortDropdown = page.locator('button[aria-label="Sort photos"]');
+      const sortDropdown = page
+        .locator('button[aria-label="Sort photos"]')
+        .first();
       await expect(
         sortDropdown.locator('span:has-text("Oldest First")'),
       ).toBeVisible();
@@ -909,7 +929,9 @@ test.describe("Gallery Sorting Feature", () => {
       expect(currentUrl).toContain("sortBy=oldest");
 
       // AND: Sort dropdown shows "Oldest First"
-      const sortDropdown = page.locator('button[aria-label="Sort photos"]');
+      const sortDropdown = page
+        .locator('button[aria-label="Sort photos"]')
+        .first();
       await expect(
         sortDropdown.locator('span:has-text("Oldest First")'),
       ).toBeVisible();
@@ -1070,7 +1092,6 @@ test.describe("Gallery Sorting Feature", () => {
       page,
     }) => {
       // FIXME: Empty filter + sort assertion fails in CI environment (works locally)
-      test.fixme();
       // GIVEN: User is registered and logged in (no photos uploaded)
       const { user } = await createAuthenticatedGalleryUser(page);
       createdUsers.push(user.email); // Track for cleanup
@@ -1094,7 +1115,9 @@ test.describe("Gallery Sorting Feature", () => {
       expect(count).toBe(0);
 
       // AND: Sort dropdown still works
-      const sortDropdown = page.locator('button[aria-label="Sort photos"]');
+      const sortDropdown = page
+        .locator('button[aria-label="Sort photos"]')
+        .first();
       await expect(sortDropdown).toBeVisible();
 
       console.log("✅ SORT-024: Empty filter with sort handled correctly");
