@@ -58,7 +58,7 @@ test.describe("Gallery Sorting Feature", () => {
       // THEN: Sort dropdown is visible
       const sortDropdown = page
         .locator('button[aria-label="Sort photos"]')
-        .first();
+        .last();
       await expect(sortDropdown).toBeVisible({ timeout: 5000 });
 
       // AND: Default sort option is "Newest First"
@@ -88,7 +88,7 @@ test.describe("Gallery Sorting Feature", () => {
       // THEN: Sort dropdown is visible
       const sortDropdown = page
         .locator('button[aria-label="Sort photos"]')
-        .first();
+        .last();
       await expect(sortDropdown).toBeVisible({ timeout: 5000 });
 
       // AND: Default sort option is "Newest First"
@@ -114,7 +114,7 @@ test.describe("Gallery Sorting Feature", () => {
       // THEN: Sort dropdown is visible
       const sortDropdown = page
         .locator('button[aria-label="Sort photos"]')
-        .first();
+        .last();
       await expect(sortDropdown).toBeVisible({ timeout: 5000 });
 
       // AND: Default sort option is "Newest First"
@@ -143,13 +143,13 @@ test.describe("Gallery Sorting Feature", () => {
       // WHEN: User clicks on sort dropdown button (desktop version)
       const sortDropdown = page
         .locator('button[aria-label="Sort photos"]')
-        .first();
+        .last();
       await expect(sortDropdown).toBeVisible({ timeout: 10000 });
       await sortDropdown.click();
       await page.waitForTimeout(500); // Wait for dropdown animation
 
       // THEN: Dropdown menu is visible
-      const dropdownMenu = page.locator("div.absolute.top-full").first();
+      const dropdownMenu = page.locator("div.absolute.top-full").last();
       await expect(dropdownMenu).toBeVisible();
 
       // AND: Dropdown chevron rotates (has rotate-180 class)
@@ -174,7 +174,7 @@ test.describe("Gallery Sorting Feature", () => {
       // WHEN: User opens sort dropdown
       const sortDropdown = page
         .locator('button[aria-label="Sort photos"]')
-        .first();
+        .last();
       await sortDropdown.click();
       await page.waitForTimeout(300);
 
@@ -234,7 +234,7 @@ test.describe("Gallery Sorting Feature", () => {
       // WHEN: User opens sort dropdown
       const sortDropdown = page
         .locator('button[aria-label="Sort photos"]')
-        .first();
+        .last();
       await sortDropdown.click();
       await page.waitForTimeout(300);
 
@@ -274,7 +274,7 @@ test.describe("Gallery Sorting Feature", () => {
       // AND: User has opened the sort dropdown
       const sortDropdown = page
         .locator('button[aria-label="Sort photos"]')
-        .first();
+        .last();
       await sortDropdown.click();
       await page.waitForTimeout(300);
 
@@ -311,7 +311,7 @@ test.describe("Gallery Sorting Feature", () => {
       // AND: User has opened the sort dropdown
       const sortDropdown = page
         .locator('button[aria-label="Sort photos"]')
-        .first();
+        .last();
       await sortDropdown.click();
       await page.waitForTimeout(300);
 
@@ -357,7 +357,7 @@ test.describe("Gallery Sorting Feature", () => {
       // WHEN: User changes sort to "Oldest First" on main gallery
       const sortDropdown = page
         .locator('button[aria-label="Sort photos"]')
-        .first();
+        .last();
       await sortDropdown.click();
       await page.waitForTimeout(300);
       await page.locator('button:has-text("Oldest First")').click();
@@ -409,7 +409,7 @@ test.describe("Gallery Sorting Feature", () => {
       // WHEN: User views the sort dropdown button
       const sortDropdown = page
         .locator('button[aria-label="Sort photos"]')
-        .first();
+        .last();
 
       // THEN: Dropdown button has correct base styling
       await expect(sortDropdown).toHaveClass(/bg-white/);
@@ -452,7 +452,7 @@ test.describe("Gallery Sorting Feature", () => {
       // AND: User has opened the sort dropdown
       const sortDropdown = page
         .locator('button[aria-label="Sort photos"]')
-        .first();
+        .last();
       await sortDropdown.click();
       await page.waitForTimeout(300);
 
@@ -483,7 +483,7 @@ test.describe("Gallery Sorting Feature", () => {
       // WHEN: User focuses on sort dropdown button
       const sortDropdown = page
         .locator('button[aria-label="Sort photos"]')
-        .first();
+        .last();
       await sortDropdown.focus();
 
       // THEN: Dropdown button should have aria-label attribute
@@ -596,7 +596,7 @@ test.describe("Gallery Sorting Feature", () => {
       // AND: User selects "Oldest First" sort option
       const sortDropdown = page
         .locator('button[aria-label="Sort photos"]')
-        .first();
+        .last();
       await sortDropdown.click();
       await page.waitForTimeout(300);
 
@@ -660,7 +660,7 @@ test.describe("Gallery Sorting Feature", () => {
       // AND: User selects "Most Liked" sort option
       const sortDropdown = page
         .locator('button[aria-label="Sort photos"]')
-        .first();
+        .last();
       await sortDropdown.click();
       await page.waitForTimeout(300);
 
@@ -720,7 +720,7 @@ test.describe("Gallery Sorting Feature", () => {
       // AND: User selects "Most Favorited" sort option
       const sortDropdown = page
         .locator('button[aria-label="Sort photos"]')
-        .first();
+        .last();
       await sortDropdown.click();
       await page.waitForTimeout(300);
 
@@ -776,7 +776,7 @@ test.describe("Gallery Sorting Feature", () => {
       // WHEN: User selects "Oldest First" sort option
       const sortDropdown = page
         .locator('button[aria-label="Sort photos"]')
-        .first();
+        .last();
       await sortDropdown.click();
       await page.waitForTimeout(300);
 
@@ -889,7 +889,7 @@ test.describe("Gallery Sorting Feature", () => {
       // THEN: Sort dropdown shows "Oldest First"
       const sortDropdown = page
         .locator('button[aria-label="Sort photos"]')
-        .first();
+        .last();
       await expect(
         sortDropdown.locator('span:has-text("Oldest First")'),
       ).toBeVisible();
@@ -931,7 +931,7 @@ test.describe("Gallery Sorting Feature", () => {
       // AND: Sort dropdown shows "Oldest First"
       const sortDropdown = page
         .locator('button[aria-label="Sort photos"]')
-        .first();
+        .last();
       await expect(
         sortDropdown.locator('span:has-text("Oldest First")'),
       ).toBeVisible();
@@ -1117,7 +1117,7 @@ test.describe("Gallery Sorting Feature", () => {
       // AND: Sort dropdown still works
       const sortDropdown = page
         .locator('button[aria-label="Sort photos"]')
-        .first();
+        .last();
       await expect(sortDropdown).toBeVisible();
 
       console.log("✅ SORT-024: Empty filter with sort handled correctly");
