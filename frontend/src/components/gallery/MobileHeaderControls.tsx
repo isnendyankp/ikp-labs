@@ -73,13 +73,25 @@ export function MobileHeaderControls({
     setIsSortOpen(false);
   };
 
+  // Handle filter button click with stopPropagation to prevent race condition
+  const handleFilterButtonClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsFilterOpen(!isFilterOpen);
+  };
+
+  // Handle sort button click with stopPropagation to prevent race condition
+  const handleSortButtonClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsSortOpen(!isSortOpen);
+  };
+
   return (
     <div className="flex items-center gap-1 sm:hidden">
       {/* Filter Icon Button with Dropdown */}
       <div className="relative">
         {/* Filter Icon Button */}
         <button
-          onClick={() => setIsFilterOpen(!isFilterOpen)}
+          onClick={handleFilterButtonClick}
           aria-label="Filter photos"
           aria-haspopup="true"
           aria-expanded={isFilterOpen}
@@ -101,7 +113,7 @@ export function MobileHeaderControls({
       <div className="relative">
         {/* Sort Icon Button */}
         <button
-          onClick={() => setIsSortOpen(!isSortOpen)}
+          onClick={handleSortButtonClick}
           aria-label="Sort photos"
           aria-haspopup="true"
           aria-expanded={isSortOpen}
