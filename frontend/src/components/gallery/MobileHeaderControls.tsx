@@ -26,7 +26,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Filter, Settings2 } from "lucide-react";
 import { FilterDropdown, type FilterOption } from "@/components/FilterDropdown";
 import { SortByDropdown, type SortByOption } from "@/components/SortByDropdown";
@@ -61,6 +61,10 @@ export function MobileHeaderControls({
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isSortOpen, setIsSortOpen] = useState(false);
 
+  // Refs for button elements (passed to dropdowns to ignore clicks)
+  const filterButtonRef = useRef<HTMLButtonElement>(null);
+  const sortButtonRef = useRef<HTMLButtonElement>(null);
+
   // Handle filter selection
   const handleFilterChange = (filter: FilterOption) => {
     onFilterChange(filter);
@@ -73,15 +77,13 @@ export function MobileHeaderControls({
     setIsSortOpen(false);
   };
 
-  // Handle filter button click with stopPropagation to prevent race condition
-  const handleFilterButtonClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  // Handle filter button click
+  const handleFilterButtonClick = () => {
     setIsFilterOpen(!isFilterOpen);
   };
 
-  // Handle sort button click with stopPropagation to prevent race condition
-  const handleSortButtonClick = (e: React.MouseEvent) => {
-    e.stopPropagation();
+  // Handle sort button click
+  const handleSortButtonClick = () => {
     setIsSortOpen(!isSortOpen);
   };
 
@@ -91,6 +93,7 @@ export function MobileHeaderControls({
       <div className="relative">
         {/* Filter Icon Button */}
         <button
+          ref={filterButtonRef}
           onClick={handleFilterButtonClick}
           aria-label="Filter photos"
           aria-haspopup="true"
@@ -106,6 +109,7 @@ export function MobileHeaderControls({
           variant="compact"
           isOpen={isFilterOpen}
           onOpenChange={setIsFilterOpen}
+          triggerRef={filterButtonRef}
         />
       </div>
 
@@ -113,6 +117,7 @@ export function MobileHeaderControls({
       <div className="relative">
         {/* Sort Icon Button */}
         <button
+          ref={sortButtonRef}
           onClick={handleSortButtonClick}
           aria-label="Sort photos"
           aria-haspopup="true"
@@ -128,6 +133,7 @@ export function MobileHeaderControls({
           variant="compact"
           isOpen={isSortOpen}
           onOpenChange={setIsSortOpen}
+          triggerRef={sortButtonRef}
         />
       </div>
     </div>
