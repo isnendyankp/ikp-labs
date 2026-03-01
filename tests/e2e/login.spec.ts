@@ -1,19 +1,41 @@
 import { test, expect } from "@playwright/test";
 import { testUsers, apiEndpoints } from "../fixtures/test-users";
+import { cleanupTestUser } from "./helpers/gallery-helpers";
 
 /**
  * Login Flow E2E Tests
  *
  * Test suite for login functionality based on TESTING_STEP_5.4.md
  * These tests automate the manual test cases documented in backend/docs/
+ *
+ * Cleanup Strategy: Always Delete
+ * - All test users are automatically deleted after test suite completes
+ * - Uses cleanupTestUser() helper with /api/test-admin/users endpoint
+ * - Runs in afterAll hook regardless of test pass/fail status
  */
 
 test.describe("Login Flow - End-to-End Tests", () => {
+  // Track created users for cleanup
+  const createdUsers: string[] = [];
+
   // Before each test, ensure we're starting fresh
   test.beforeEach(async ({ page }) => {
     // Clear localStorage before each test
     await page.goto("/login");
     await page.evaluate(() => localStorage.clear());
+  });
+
+  // AUTO DELETE: Cleanup all test users after suite completes
+  test.afterAll(async ({ request }) => {
+    console.log(
+      `\n🧹 Starting cleanup of ${createdUsers.length} test users...`,
+    );
+
+    for (const email of createdUsers) {
+      await cleanupTestUser(request, email);
+    }
+
+    console.log(`✅ Cleanup complete! Database is clean.\n`);
   });
 
   /**
@@ -43,6 +65,9 @@ test.describe("Login Flow - End-to-End Tests", () => {
     await page.click('button[type="submit"]');
     await page.waitForURL("/gallery", { timeout: 5000 });
     console.log("  ✓ User created:", testUser.email);
+
+    // Track for cleanup
+    createdUsers.push(testUser.email);
 
     // STEP 2: Logout
     await page.evaluate(() => localStorage.clear());
