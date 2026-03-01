@@ -36,6 +36,12 @@ interface FilterDropdownProps {
    * Callback when open state changes (for controlled mode)
    */
   onOpenChange?: (open: boolean) => void;
+  /**
+   * Reference to the trigger button (optional).
+   * Used to ignore clicks on the trigger button in handleClickOutside.
+   * This prevents race condition between button toggle and outside click handler.
+   */
+  triggerRef?: React.RefObject<HTMLButtonElement | null>;
 }
 
 interface FilterConfig {
@@ -57,6 +63,7 @@ export default function FilterDropdown({
   variant = "default",
   isOpen: controlledIsOpen,
   onOpenChange,
+  triggerRef,
 }: FilterDropdownProps) {
   // Use controlled state if provided, otherwise use internal state
   const [internalIsOpen, setInternalIsOpen] = useState(false);
@@ -72,6 +79,11 @@ export default function FilterDropdown({
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
+      // Ignore clicks on the trigger button (let button handle toggle)
+      if (triggerRef?.current?.contains(event.target as Node)) {
+        return;
+      }
+
       if (
         dropdownRef.current &&
         !dropdownRef.current.contains(event.target as Node)
@@ -91,7 +103,7 @@ export default function FilterDropdown({
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, [isOpen, controlledIsOpen, onOpenChange]);
+  }, [isOpen, controlledIsOpen, onOpenChange, triggerRef]);
 
   // Close dropdown on Escape key
   useEffect(() => {
