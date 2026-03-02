@@ -24,14 +24,13 @@ test.describe("Form Validation UX", () => {
     await page.waitForTimeout(100);
 
     // Check for error message
-    const emailField = page.locator('input[name="email"]').locator("..");
+    // Email input structure: input -> border div -> FormField container (has error message)
+    const emailField = page.locator('input[name="email"]').locator("..").locator("..");
     const errorMessage = emailField.locator("p.text-red-600");
     await expect(errorMessage).toContainText("email");
   });
 
   test("should show password validation error on blur", async ({ page }) => {
-    // FIXME: p.text-red-600 selector doesn't match actual validation UI in CI
-    test.fixme();
     // Enter short password
     await page.fill('input[name="email"]', "test@example.com");
     await page.fill('input[name="password"]', "short");
@@ -43,7 +42,8 @@ test.describe("Form Validation UX", () => {
     await page.waitForTimeout(100);
 
     // Check for error message
-    const passwordField = page.locator('input[name="password"]').locator("..");
+    // Password input structure: input -> relative div -> border div -> FormField container (has error message)
+    const passwordField = page.locator('input[name="password"]').locator("..").locator("..").locator("..");
     const errorMessage = passwordField.locator("p.text-red-600");
     await expect(errorMessage).toContainText("8 characters");
   });
@@ -59,14 +59,13 @@ test.describe("Form Validation UX", () => {
     await page.waitForTimeout(100);
 
     // Check for success message (green text with checkmark)
-    const emailField = page.locator('input[name="email"]').locator("..");
+    // Email input structure: input -> border div -> FormField container (has success message)
+    const emailField = page.locator('input[name="email"]').locator("..").locator("..");
     const successMessage = emailField.locator("p.text-green-600");
     await expect(successMessage).toContainText("Looks good!");
   });
 
   test("should show valid message for strong password", async ({ page }) => {
-    // FIXME: p.text-green-600 selector doesn't match actual validation UI in CI
-    test.fixme();
     // Enter strong password
     await page.fill('input[name="password"]', "StrongPass123!");
 
@@ -77,7 +76,8 @@ test.describe("Form Validation UX", () => {
     await page.waitForTimeout(100);
 
     // Check for success message (green text with checkmark)
-    const passwordField = page.locator('input[name="password"]').locator("..");
+    // Password input structure: input -> relative div -> border div -> FormField container (has success message)
+    const passwordField = page.locator('input[name="password"]').locator("..").locator("..").locator("..");
     const successMessage = passwordField.locator("p.text-green-600");
     await expect(successMessage).toContainText("Looks good!");
   });
@@ -91,7 +91,8 @@ test.describe("Form Validation UX", () => {
     await page.waitForTimeout(100);
 
     // Verify error is shown
-    const emailField = page.locator('input[name="email"]').locator("..");
+    // Email input structure: input -> border div -> FormField container (has error message)
+    const emailField = page.locator('input[name="email"]').locator("..").locator("..");
     const errorMessage = emailField.locator("p.text-red-600");
     await expect(errorMessage).toContainText("email");
 
@@ -129,15 +130,14 @@ test.describe("Form Validation UX", () => {
     await page.waitForTimeout(200);
 
     // Check that no error message is shown yet
-    const emailField = page.locator('input[name="email"]').locator("..");
+    // Email input structure: input -> border div -> FormField container (has error message)
+    const emailField = page.locator('input[name="email"]').locator("..").locator("..");
     const errorMessage = emailField.locator("p.text-red-600");
     const isErrorVisible = await errorMessage.isVisible().catch(() => false);
     expect(isErrorVisible).toBeFalsy();
   });
 
   test("should validate both fields on submit", async ({ page }) => {
-    // FIXME: p.text-red-600 selector doesn't match actual validation UI in CI
-    test.fixme();
     // Fill form with invalid data
     await page.fill('input[name="email"]', "invalid-email");
     await page.fill('input[name="password"]', "short");
@@ -149,13 +149,18 @@ test.describe("Form Validation UX", () => {
     await page.waitForTimeout(200);
 
     // Both fields should show errors
-    const emailField = page.locator('input[name="email"]').locator("..");
+    // Email input structure: input -> border div -> FormField container (has error message)
+    const emailField = page.locator('input[name="email"]').locator("..").locator("..");
     const emailError = emailField.locator("p.text-red-600");
     await expect(emailError).toContainText("email");
 
-    const passwordField = page.locator('input[name="password"]').locator("..");
+    // Password input structure: input -> relative div -> border div -> FormField container (has error message)
+    const passwordField = page.locator('input[name="password"]').locator("..").locator("..").locator("..");
     const passwordError = passwordField.locator("p.text-red-600");
-    await expect(passwordError).toContainText("8 characters");
+    // Password "short" fails multiple validations - check for any password-related error
+    await expect(passwordError).toBeVisible();
+    const errorText = await passwordError.textContent();
+    expect(errorText).toMatch(/(8|character|lowercase|uppercase|number|special)/i);
   });
 
   test("should show required indicator on labels", async ({ page }) => {
@@ -180,12 +185,14 @@ test.describe("Form Validation UX", () => {
     await page.waitForTimeout(500);
 
     // Check that no inline validation errors are shown
-    const emailField = page.locator('input[name="email"]').locator("..");
+    // Email input structure: input -> border div -> FormField container (has error message)
+    const emailField = page.locator('input[name="email"]').locator("..").locator("..");
     const emailError = emailField.locator("p.text-red-600");
     const isEmailErrorVisible = await emailError.isVisible().catch(() => false);
     expect(isEmailErrorVisible).toBeFalsy();
 
-    const passwordField = page.locator('input[name="password"]').locator("..");
+    // Password input structure: input -> relative div -> border div -> FormField container (has error message)
+    const passwordField = page.locator('input[name="password"]').locator("..").locator("..").locator("..");
     const passwordError = passwordField.locator("p.text-red-600");
     const isPasswordErrorVisible = await passwordError
       .isVisible()
@@ -228,7 +235,8 @@ test.describe("Form Validation UX", () => {
     await page.waitForTimeout(100);
 
     // Check for error icon (SVG)
-    const emailField = page.locator('input[name="email"]').locator("..");
+    // Email input structure: input -> border div -> FormField container (has error message with icon)
+    const emailField = page.locator('input[name="email"]').locator("..").locator("..");
     const errorIcon = emailField.locator("p.text-red-600 svg");
     await expect(errorIcon).toBeVisible();
   });
@@ -242,7 +250,8 @@ test.describe("Form Validation UX", () => {
     await page.waitForTimeout(100);
 
     // Check for success icon (SVG)
-    const emailField = page.locator('input[name="email"]').locator("..");
+    // Email input structure: input -> border div -> FormField container (has success message with icon)
+    const emailField = page.locator('input[name="email"]').locator("..").locator("..");
     const successIcon = emailField.locator("p.text-green-600 svg");
     await expect(successIcon).toBeVisible();
   });
@@ -534,9 +543,6 @@ test.describe("Phase 7: Password Complexity Validation (Test 6)", () => {
     await page.click('button[type="submit"]');
     await page.waitForTimeout(500);
 
-    // Check for multiple error messages (all requirements)
-    const passwordField = page.locator('input[name="password"]').locator("..");
-
     // Look for error messages - they should mention:
     // - 8 characters
     // - uppercase letter
@@ -569,11 +575,10 @@ test.describe("Phase 7: Password Complexity Validation (Test 6)", () => {
     await page.click('button[type="submit"]');
     await page.waitForTimeout(500);
 
-    // Should show success message, no error
-    const passwordField = page.locator('input[name="password"]').locator("..");
-    const errorMessages = await passwordField.locator("p.text-red-600").all();
+    // Should show no errors - check the entire page for red error messages
+    const errorElements = await page.locator("p.text-red-600").all();
 
-    expect(errorMessages.length).toBe(0);
+    expect(errorElements.length).toBe(0);
   });
 
   test("login page - should validate password complexity", async ({ page }) => {
