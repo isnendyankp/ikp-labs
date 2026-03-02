@@ -107,7 +107,8 @@ test("should show email validation error on blur", async ({ page }) => {
 **Note**: Other tests in the file still have `test.fixme()` from Part 3 (selector mismatch issue) - those will be addressed in a separate PR.
 
 ## Commits Created
-_Pending implementation_
+1. `61b07e9` - docs: add plan for E2E page.blur() API fix (Part 2)
+2. `7f844b4` - fix(e2e): replace page.blur() with locator.blur() in 5 tests
 
 ## Notes
 - This is Part 2 of 6 parts for fixing 58 skipped E2E tests
