@@ -13,14 +13,12 @@ test.describe("Form Validation UX", () => {
   });
 
   test("should show email validation error on blur", async ({ page }) => {
-    // FIXME: page.blur() is not a valid Playwright API - should be locator.blur()
-    test.fixme();
     // Enter invalid email
     await page.fill('input[name="email"]', "invalid-email");
     await page.fill('input[name="password"]', "TestPass123!");
 
     // Blur the email field to trigger validation
-    await page.blur('input[name="email"]');
+    await page.locator('input[name="email"]').blur();
 
     // Wait for validation message
     await page.waitForTimeout(100);
@@ -51,13 +49,11 @@ test.describe("Form Validation UX", () => {
   });
 
   test("should show valid message for correct email", async ({ page }) => {
-    // FIXME: page.blur() is not a valid Playwright API - should be locator.blur()
-    test.fixme();
     // Enter valid email
     await page.fill('input[name="email"]', "test@example.com");
 
     // Blur the email field to trigger validation
-    await page.blur('input[name="email"]');
+    await page.locator('input[name="email"]').blur();
 
     // Wait for validation message
     await page.waitForTimeout(100);
@@ -87,11 +83,9 @@ test.describe("Form Validation UX", () => {
   });
 
   test("should clear error when user starts typing", async ({ page }) => {
-    // FIXME: page.blur() is not a valid Playwright API - should be locator.blur()
-    test.fixme();
     // Enter invalid email and blur to show error
     await page.fill('input[name="email"]', "invalid-email");
-    await page.blur('input[name="email"]');
+    await page.locator('input[name="email"]').blur();
 
     // Wait for validation
     await page.waitForTimeout(100);
@@ -226,11 +220,9 @@ test.describe("Form Validation UX", () => {
   });
 
   test("should show error icon with error message", async ({ page }) => {
-    // FIXME: page.blur() is not a valid Playwright API - should be locator.blur()
-    test.fixme();
     // Enter invalid email
     await page.fill('input[name="email"]', "invalid-email");
-    await page.blur('input[name="email"]');
+    await page.locator('input[name="email"]').blur();
 
     // Wait for validation
     await page.waitForTimeout(100);
@@ -242,11 +234,9 @@ test.describe("Form Validation UX", () => {
   });
 
   test("should show success icon with valid message", async ({ page }) => {
-    // FIXME: page.blur() is not a valid Playwright API - should be locator.blur()
-    test.fixme();
     // Enter valid email
     await page.fill('input[name="email"]', "test@example.com");
-    await page.blur('input[name="email"]');
+    await page.locator('input[name="email"]').blur();
 
     // Wait for validation
     await page.waitForTimeout(100);
