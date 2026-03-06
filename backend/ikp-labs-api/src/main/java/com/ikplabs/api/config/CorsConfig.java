@@ -55,14 +55,19 @@ public class CorsConfig {
 
         // === ALLOWED ORIGINS ===
         // Frontend yang diizinkan akses ke backend
-        // Step 5.1: Configure untuk frontend port 3001, 3000, 3003, 3004, dan 3005
+        // Development: localhost ports
+        // Production: kameravue.com domain
         configuration.setAllowedOrigins(Arrays.asList(
+            // Development origins
             "http://localhost:3002",     // Frontend development server (IKP-Labs custom port)
             "http://127.0.0.1:3001",     // Alternative localhost format
             "http://localhost:3000",     // Standard React port (for other projects)
             "http://localhost:3003",     // Auto-assigned port by Next.js (current)
             "http://localhost:3004",     // Auto-assigned port by Next.js
-            "http://localhost:3005"      // Auto-assigned port by Next.js
+            "http://localhost:3005",     // Auto-assigned port by Next.js
+            // Production origins
+            "https://kameravue.com",     // Production frontend
+            "https://www.kameravue.com"  // Production frontend (www subdomain)
         ));
 
         // === ALLOWED METHODS ===
