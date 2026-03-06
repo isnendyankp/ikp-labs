@@ -15,7 +15,8 @@
     "test:coverage": "jest --coverage",
     "test:cucumber": "TS_NODE_PROJECT=../tests/gherkin/tsconfig.json cucumber-js ../tests/gherkin/features --require-module ts-node/register --require ../tests/gherkin/steps/**/*.ts",
     "test:all": "npm run test && cd .. && npx playwright test",
-    "prepare": "husky"
+    "prepare": "husky",
+    "setup:linux": "npm install lightningcss-linux-x64-gnu@1.31.1 @tailwindcss/oxide-linux-x64-gnu@4.1.12 && cp node_modules/lightningcss-linux-x64-gnu/lightningcss.linux-x64-gnu.node node_modules/lightningcss/node/ && cp node_modules/@tailwindcss/oxide-linux-x64-gnu/tailwindcss-oxide.linux-x64-gnu.node node_modules/@tailwindcss/oxide/"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
