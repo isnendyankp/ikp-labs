@@ -18,11 +18,13 @@ A complete full-stack learning project featuring photo gallery, authentication, 
 
 ## Status
 
-**Current Phase**: Production-ready core features
-**Latest**: Photo Likes feature (18/18 E2E tests passing)
-**Demo**: Running locally on `localhost:3002` (frontend) and `localhost:8081` (backend)
+**Current Phase**: Production Deployed ✅
+**Latest**: Production deployment on DigitalOcean VPS with SSL
+**Live Demo**: [kameravue.com](https://kameravue.com)
 
-⚠️ **Note**: This is a learning/portfolio project. Not intended for production deployment without additional security hardening.
+### Environments
+- **Production**: [kameravue.com](https://kameravue.com) (Frontend) | [api.kameravue.com](https://api.kameravue.com) (Backend)
+- **Development**: `localhost:3002` (frontend) and `localhost:8081` (backend)
 
 ---
 
@@ -46,7 +48,8 @@ IKP Labs is my personal learning laboratory for full-stack development. It's a p
 - Document everything (for future me and others)
 
 **Key Differentiators:**
-- 119 total tests (40 integration, 31 API, 48 E2E)
+- **Production Deployed** on DigitalOcean VPS with SSL certificates
+- 512 total tests (40 integration, 31 API, 48 E2E, 393 unit)
 - 100% E2E test pass rate
 - Industry-standard project structure
 - Comprehensive documentation following Diátaxis framework
@@ -103,6 +106,48 @@ Social feature allowing users to like/unlike photos with real-time counter updat
 - **API Testing**: Playwright API
 - **Integration**: JUnit 5 + Spring Boot Test
 - **BDD**: Gherkin specifications
+
+### Production Infrastructure
+- **Hosting**: DigitalOcean Droplet (Ubuntu 24.04)
+- **Domain**: kameravue.com (Namecheap)
+- **Reverse Proxy**: Nginx with SSL (Let's Encrypt)
+- **Process Manager**: PM2
+- **Database**: PostgreSQL 16
+
+---
+
+## Production Deployment
+
+This project is deployed on a DigitalOcean VPS with full SSL encryption.
+
+### Live URLs
+- **Frontend**: [https://kameravue.com](https://kameravue.com)
+- **Backend API**: [https://api.kameravue.com](https://api.kameravue.com)
+
+### Infrastructure Overview
+- **Server**: DigitalOcean Droplet (1GB RAM, 1 vCPU, 25GB SSD)
+- **OS**: Ubuntu 24.04 LTS
+- **Web Server**: Nginx (reverse proxy with SSL)
+- **SSL Certificates**: Let's Encrypt via Certbot
+- **Process Manager**: PM2 (auto-restart on crash/reboot)
+- **Database**: PostgreSQL 16
+
+### Deployment Commands
+
+**For Linux VPS** (one-time setup after clone):
+```bash
+cd frontend
+npm run setup:linux  # Install native Linux binaries
+npm run build
+```
+
+**Useful PM2 Commands**:
+```bash
+pm2 list              # View all processes
+pm2 logs [name]       # View logs
+pm2 restart [name]    # Restart process
+pm2 save              # Save process list
+```
 
 ---
 
@@ -359,12 +404,13 @@ Copyright © 2026 Isnendy Ankp. All rights reserved.
 This project ("IKP Labs" / "Kameravue") is a **portfolio project** created for
 educational and demonstration purposes to showcase full-stack development skills.
 
+**Live at**: [kameravue.com](https://kameravue.com)
+
 This is:
 - ✅ A learning project to demonstrate web development skills
 - ✅ A portfolio piece for job applications
 - ✅ Open-source for others to learn from
-- ❌ NOT a commercial product
-- ❌ NOT intended for production use without modifications
+- ✅ Deployed to production with real SSL certificates
 
 ### Usage Guidelines
 
