@@ -133,3 +133,7 @@ README.md.backup
 generated-reports/*.md
 !generated-reports/README.md
 !generated-reports/.gitkeep
+
+# Deployment - Personal notes and server info
+# Contains sensitive server information (IP, credentials placeholders)
+deployment/
