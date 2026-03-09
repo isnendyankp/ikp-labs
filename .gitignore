@@ -137,3 +137,7 @@ generated-reports/*.md
 # Deployment - Personal notes and server info
 # Contains sensitive server information (IP, credentials placeholders)
 deployment/
+
+# Deployment Scripts - Local & VPS automation
+# Scripts tidak perlu di repository, hanya ada di lokal dan VPS
+scripts/
