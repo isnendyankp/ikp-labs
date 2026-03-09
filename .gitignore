@@ -141,3 +141,7 @@ deployment/
 # Deployment Scripts - Local & VPS automation
 # Scripts tidak perlu di repository, hanya ada di lokal dan VPS
 scripts/
+
+# Personal Workflow Template
+# Template alur kerja pribadi, tidak perlu di repository
+.workflow-template.md
