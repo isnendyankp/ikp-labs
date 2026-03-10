@@ -2,11 +2,11 @@
  * Gallery Page - Photo Gallery List View
  *
  * Features:
- * - Display user's photos in grid layout
- * - Filter: My Photos vs Public Photos
+ * - Display photos in grid layout (public access for "all" filter)
+ * - Filter: All, My Photos, Liked, Favorited
  * - Pagination controls
- * - Upload button
- * - Authentication check
+ * - Upload button (requires authentication)
+ * - Soft gate: Non-authenticated users can view but must login for interactions
  * - Responsive design
  * - Scroll position restoration when returning from photo detail
  */
@@ -15,7 +15,7 @@
 
 import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { isAuthenticated, getUserFromToken, logout } from "../../lib/auth";
+import { logout } from "../../lib/auth";
 import { GalleryPhoto, AuthUser } from "../../types/api";
 import { getUserPhotos, getPublicPhotos } from "../../services/galleryService";
 import { getLikedPhotos } from "../../services/photoLikeService";
@@ -44,28 +44,13 @@ function GalleryPageContent() {
   const pageParam = parseInt(searchParams.get("page") || "1", 10);
   const sortByParam = (searchParams.get("sortBy") as SortByOption) || "newest";
 
-  const [user, setUser] = useState<AuthUser | null>(null);
+  const [user, _setUser] = useState<AuthUser | null>(null);
   const [photos, setPhotos] = useState<GalleryPhoto[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentFilter, setCurrentFilter] = useState<FilterOption>(filterParam);
   const [currentPage, setCurrentPage] = useState(pageParam - 1); // Convert to 0-indexed
   const [currentSort, setCurrentSort] = useState<SortByOption>(sortByParam);
   const [totalPages, setTotalPages] = useState(1);
-
-  useEffect(() => {
-    // Check authentication
-    if (!isAuthenticated()) {
-      router.push("/login");
-      return;
-    }
-
-    const userInfo = getUserFromToken();
-    if (userInfo) {
-      setUser(userInfo);
-    } else {
-      router.push("/login");
-    }
-  }, [router]);
 
   // Sync state with URL params
   useEffect(() => {
@@ -74,13 +59,11 @@ function GalleryPageContent() {
     setCurrentSort(sortByParam);
   }, [filterParam, pageParam, sortByParam]);
 
-  // Fetch photos when user, page, filter, or sort changes
+  // Fetch photos when page, filter, or sort changes
   useEffect(() => {
-    if (user) {
-      fetchPhotos();
-    }
+    fetchPhotos();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [user, currentPage, currentFilter, currentSort]);
+  }, [currentPage, currentFilter, currentSort]);
 
   // Restore scroll position after photos are loaded
   useEffect(() => {
@@ -99,18 +82,29 @@ function GalleryPageContent() {
   ]);
 
   const fetchPhotos = async () => {
-    if (!user) return;
-
     setLoading(true);
 
     try {
       let response;
 
+      // For authenticated-only filters, check if user is logged in
+      if (
+        ["my-photos", "liked", "favorited"].includes(currentFilter) &&
+        !user
+      ) {
+        // Redirect to login for authenticated-only filters
+        router.push(
+          `/login?returnUrl=${encodeURIComponent(`/gallery?filter=${currentFilter}`)}`,
+        );
+        setLoading(false);
+        return;
+      }
+
       // Fetch based on current filter (with sorting)
       switch (currentFilter) {
         case "my-photos":
           response = await getUserPhotos(
-            user.id,
+            user!.id,
             currentPage,
             PHOTOS_PER_PAGE,
             currentSort,
@@ -195,9 +189,8 @@ function GalleryPageContent() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
-  if (!user) {
-    return null; // Redirecting to login
-  }
+  // Determine if user can access upload/features
+  // const canUpload = !!user;
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -212,11 +205,13 @@ function GalleryPageContent() {
                 Photo Gallery
               </h1>
               <p className="text-sm text-gray-600 mt-1 hidden sm:block">
-                Manage and share your photos
+                {user
+                  ? "Manage and share your photos"
+                  : "Explore beautiful photos from our community"}
               </p>
             </div>
 
-            {/* Right: Icons */}
+            {/* Right: Icons - Different for authenticated vs non-authenticated */}
             <div className="flex items-center gap-2 sm:gap-4">
               {/* Mobile Header Controls (filter/sort icons) - Only on mobile */}
               <MobileHeaderControls
@@ -226,39 +221,62 @@ function GalleryPageContent() {
                 onSortChange={handleSortChange}
               />
 
-              {/* Profile icon - Mobile only */}
-              <button
-                onClick={() => router.push("/myprofile")}
-                aria-label="My Profile"
-                className="sm:hidden p-3 hover:bg-gray-100 rounded-lg active:scale-95 transition-transform focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-              >
-                <User className="w-5 h-5 text-gray-700" strokeWidth={2} />
-              </button>
+              {user ? (
+                <>
+                  {/* Profile icon - Mobile only */}
+                  <button
+                    onClick={() => router.push("/myprofile")}
+                    aria-label="My Profile"
+                    className="sm:hidden p-3 hover:bg-gray-100 rounded-lg active:scale-95 transition-transform focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  >
+                    <User className="w-5 h-5 text-gray-700" strokeWidth={2} />
+                  </button>
 
-              {/* Logout icon - Mobile only */}
-              <button
-                onClick={() => {
-                  logout();
-                  router.push("/login");
-                }}
-                aria-label="Logout"
-                className="sm:hidden p-3 hover:bg-gray-100 rounded-lg active:scale-95 transition-transform focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
-              >
-                <LogOut className="w-5 h-5 text-gray-700" strokeWidth={2} />
-              </button>
+                  {/* Logout icon - Mobile only */}
+                  <button
+                    onClick={() => {
+                      logout();
+                      router.push("/login");
+                    }}
+                    aria-label="Logout"
+                    className="sm:hidden p-3 hover:bg-gray-100 rounded-lg active:scale-95 transition-transform focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  >
+                    <LogOut className="w-5 h-5 text-gray-700" strokeWidth={2} />
+                  </button>
 
-              {/* Profile text button - Desktop only */}
-              <button
-                onClick={() => router.push("/myprofile")}
-                className="hidden sm:block px-4 py-2 text-gray-700 hover:text-gray-900 font-medium"
-              >
-                My Profile
-              </button>
+                  {/* Profile text button - Desktop only */}
+                  <button
+                    onClick={() => router.push("/myprofile")}
+                    className="hidden sm:block px-4 py-2 text-gray-700 hover:text-gray-900 font-medium"
+                  >
+                    My Profile
+                  </button>
 
-              {/* Logout button component - Desktop only */}
-              <div className="hidden sm:block">
-                <LogoutButton />
-              </div>
+                  {/* Logout button component - Desktop only */}
+                  <div className="hidden sm:block">
+                    <LogoutButton />
+                  </div>
+                </>
+              ) : (
+                <>
+                  {/* Login button - Mobile only */}
+                  <button
+                    onClick={() => router.push("/login?returnUrl=/gallery")}
+                    className="sm:hidden p-3 hover:bg-gray-100 rounded-lg active:scale-95 transition-transform focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                    aria-label="Login"
+                  >
+                    <User className="w-5 h-5 text-gray-700" strokeWidth={2} />
+                  </button>
+
+                  {/* Login text button - Desktop only */}
+                  <button
+                    onClick={() => router.push("/login?returnUrl=/gallery")}
+                    className="hidden sm:block px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 font-medium"
+                  >
+                    Sign In
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -300,8 +318,8 @@ function GalleryPageContent() {
         )}
       </main>
 
-      {/* FAB Upload Button - Always visible */}
-      <FABUpload />
+      {/* FAB Upload Button - Only for authenticated users */}
+      {user && <FABUpload />}
 
       {/* Back to Top Button - Shows after scrolling */}
       <BackToTop position="left" />
