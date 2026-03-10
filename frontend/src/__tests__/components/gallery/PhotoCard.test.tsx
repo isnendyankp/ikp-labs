@@ -37,10 +37,11 @@ jest.mock("@/hooks/useScrollRestoration", () => ({
 // Mock auth module to control user state
 jest.mock("../../../lib/auth", () => ({
   getUserFromToken: jest.fn(),
+  isAuthenticated: jest.fn(),
 }));
 
 // Import the mocked auth module
-import { getUserFromToken } from "../../../lib/auth";
+import { getUserFromToken, isAuthenticated } from "../../../lib/auth";
 
 // Custom render function with providers
 function renderWithProviders(ui: React.ReactElement) {
@@ -70,8 +71,9 @@ function createTestPhoto(overrides: Partial<GalleryPhoto> = {}): GalleryPhoto {
 describe("PhotoCard", () => {
   beforeEach(() => {
     jest.clearAllMocks();
-    // Default: no user logged in
-    getUserFromToken.mockReturnValue(null);
+    // Default: user is authenticated
+    getUserFromToken.mockReturnValue({ id: 1, email: "test@example.com" });
+    isAuthenticated.mockReturnValue(true);
     // Default search params
     mockGet.mockImplementation((param: string) => {
       const params: Record<string, string> = {
@@ -241,7 +243,7 @@ describe("PhotoCard", () => {
   // ============================================
 
   describe("Navigation", () => {
-    it("should navigate to photo detail when card is clicked", async () => {
+    it("should navigate to photo detail when card is clicked (authenticated user)", async () => {
       const user = userEvent.setup();
       const photo = createTestPhoto({ id: 42 });
       renderWithProviders(<PhotoCard photo={photo} />);
@@ -251,6 +253,25 @@ describe("PhotoCard", () => {
       if (card) {
         await user.click(card);
         expect(mockPush).toHaveBeenCalledWith("/gallery/42");
+      }
+    });
+
+    it("should redirect to login when card is clicked (non-authenticated user)", async () => {
+      // Override: user is NOT authenticated
+      isAuthenticated.mockReturnValue(false);
+      getUserFromToken.mockReturnValue(null);
+
+      const user = userEvent.setup();
+      const photo = createTestPhoto({ id: 42 });
+      renderWithProviders(<PhotoCard photo={photo} />);
+
+      // Click on the card (the main container)
+      const card = screen.getByRole("img").closest("div.group");
+      if (card) {
+        await user.click(card);
+        expect(mockPush).toHaveBeenCalledWith(
+          "/login?returnUrl=%2Fgallery%2F42",
+        );
       }
     });
 
