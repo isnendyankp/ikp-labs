@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { z } from "zod";
 import Link from "next/link";
 import { useToast } from "@/context/ToastContext";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { loginUser } from "../services/api";
 import { LoginRequest, LoginFormData } from "../types/api";
 import { isAuthenticated } from "../lib/auth";
@@ -29,7 +29,11 @@ const loginSchema = z.object({
 
 export default function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
   const toast = useToast();
+
+  // Get return URL from query params (for redirect after login)
+  const returnUrl = searchParams.get("returnUrl") || "/myprofile";
 
   // Google OAuth feature flag - controlled by environment variable
   const GOOGLE_OAUTH_ENABLED =
@@ -48,12 +52,13 @@ export default function LoginForm() {
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [isValid, setIsValid] = useState<Record<string, boolean>>({});
 
-  // Redirect to gallery if already authenticated
+  // Redirect if already authenticated
   useEffect(() => {
     if (isAuthenticated()) {
-      router.push("/gallery");
+      // Use returnUrl if available, otherwise default to /myprofile
+      router.push(returnUrl);
     }
-  }, [router]);
+  }, [router, returnUrl]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type, checked } = e.target;
@@ -134,8 +139,8 @@ export default function LoginForm() {
         });
 
         // Token already saved by loginUser() in api.ts
-        // Redirect to gallery page
-        router.push("/gallery");
+        // Redirect to returnUrl or default to /myprofile
+        router.push(returnUrl);
       } else if (response.error) {
         console.error("❌ Login failed:", response.error);
 
