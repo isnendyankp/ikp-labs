@@ -39,11 +39,17 @@ export default function LandingPage() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Scroll to section handler
-  const scrollToSection = (sectionId: string) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+  // Navigate handler - supports both internal section scrolling and page navigation
+  const handleNavigate = (path: string) => {
+    // If path starts with "/", it's a page navigation
+    if (path.startsWith("/")) {
+      router.push(path);
+    } else {
+      // Otherwise, scroll to section within the page
+      const element = document.getElementById(path);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
     }
   };
 
@@ -54,7 +60,7 @@ export default function LandingPage() {
 
   // Learn More handler - scroll to features
   const handleLearnMore = () => {
-    scrollToSection("features");
+    handleNavigate("features");
   };
 
   // Show skeleton loading state
@@ -76,7 +82,7 @@ export default function LandingPage() {
   return (
     <div className="min-h-screen bg-white">
       {/* Fixed Navbar */}
-      <Navbar onNavigate={scrollToSection} />
+      <Navbar onNavigate={handleNavigate} />
 
       {/* Main Content */}
       <main>
@@ -236,7 +242,7 @@ export default function LandingPage() {
       </main>
 
       {/* Footer */}
-      <Footer onNavigate={scrollToSection} />
+      <Footer onNavigate={handleNavigate} />
 
       {/* Back to Top Button */}
       <BackToTop />
