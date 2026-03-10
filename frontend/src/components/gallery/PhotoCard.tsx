@@ -7,11 +7,11 @@
  * - Photo preview dengan aspect ratio 1:1
  * - Title & description display
  * - Public/Private badge
- * - Click to view detail
+ * - Click to view detail (soft gate for non-authenticated users)
  * - Responsive design
  * - Hover effects
- * - Like button (public appreciation)
- * - Favorite button (private bookmarks)
+ * - Like button (public appreciation) - requires auth
+ * - Favorite button (private bookmarks) - requires auth
  * - Scroll position preservation before navigation
  * - Lazy loading for off-screen images (loading="lazy")
  * - Async decoding for non-blocking image load (decoding="async")
@@ -21,7 +21,7 @@
 
 import { GalleryPhoto } from "../../types/api";
 import { getPhotoUrl } from "../../services/galleryService";
-import { getUserFromToken } from "../../lib/auth";
+import { getUserFromToken, isAuthenticated } from "../../lib/auth";
 import { useRouter, useSearchParams } from "next/navigation";
 import LikeButton from "../LikeButton";
 import FavoriteButton from "../FavoriteButton";
@@ -59,6 +59,13 @@ export default function PhotoCard({
       | "mostFavorited") || "newest";
 
   const handleClick = () => {
+    // If not authenticated, redirect to login with return URL
+    if (!isAuthenticated()) {
+      const returnUrl = encodeURIComponent(`/gallery/${photo.id}`);
+      router.push(`/login?returnUrl=${returnUrl}`);
+      return;
+    }
+
     // Save scroll position before navigating to photo detail
     saveScrollPosition(filter, page, sort, photo.id.toString());
     // Navigate to photo detail page
