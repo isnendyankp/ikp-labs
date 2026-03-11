@@ -15,7 +15,7 @@
 
 import { Suspense, useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { logout } from "../../lib/auth";
+import { logout, getUserFromToken } from "../../lib/auth";
 import { GalleryPhoto, AuthUser } from "../../types/api";
 import { getUserPhotos, getPublicPhotos } from "../../services/galleryService";
 import { getLikedPhotos } from "../../services/photoLikeService";
@@ -44,13 +44,21 @@ function GalleryPageContent() {
   const pageParam = parseInt(searchParams.get("page") || "1", 10);
   const sortByParam = (searchParams.get("sortBy") as SortByOption) || "newest";
 
-  const [user, _setUser] = useState<AuthUser | null>(null);
+  const [user, setUser] = useState<AuthUser | null>(null);
   const [photos, setPhotos] = useState<GalleryPhoto[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentFilter, setCurrentFilter] = useState<FilterOption>(filterParam);
   const [currentPage, setCurrentPage] = useState(pageParam - 1); // Convert to 0-indexed
   const [currentSort, setCurrentSort] = useState<SortByOption>(sortByParam);
   const [totalPages, setTotalPages] = useState(1);
+
+  // Initialize user from token on mount
+  useEffect(() => {
+    const userData = getUserFromToken();
+    if (userData) {
+      setUser(userData);
+    }
+  }, []);
 
   // Sync state with URL params
   useEffect(() => {
@@ -59,11 +67,11 @@ function GalleryPageContent() {
     setCurrentSort(sortByParam);
   }, [filterParam, pageParam, sortByParam]);
 
-  // Fetch photos when page, filter, or sort changes
+  // Fetch photos when page, filter, sort, or user changes
   useEffect(() => {
     fetchPhotos();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentPage, currentFilter, currentSort]);
+  }, [currentPage, currentFilter, currentSort, user]);
 
   // Restore scroll position after photos are loaded
   useEffect(() => {
