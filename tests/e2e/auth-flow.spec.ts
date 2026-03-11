@@ -96,9 +96,9 @@ test.describe("Authentication Flow - Complete User Journey", () => {
   });
 
   /**
-   * Test 2: Login → Redirect to Gallery
+   * Test 2: Login → Redirect to Profile (default after login)
    */
-  test("Should login and redirect to gallery page", async ({ page }) => {
+  test("Should login and redirect to profile page", async ({ page }) => {
     // Create a test user first
     const testUser = await createTestUser(page);
 
@@ -112,20 +112,20 @@ test.describe("Authentication Flow - Complete User Journey", () => {
     // Submit form
     await page.click('button[type="submit"]');
 
-    // Wait for redirect to /gallery
-    await page.waitForURL("/gallery", { timeout: 5000 });
+    // Wait for redirect to /myprofile (default redirect after login)
+    await page.waitForURL("/myprofile", { timeout: 5000 });
 
-    // Verify on gallery page
-    expect(page.url()).toContain("/gallery");
+    // Verify on profile page
+    expect(page.url()).toContain("/myprofile");
 
-    // Verify gallery page title
-    await expect(page.locator("h1")).toContainText("Photo Gallery");
+    // Verify profile page title
+    await expect(page.locator("h1")).toContainText("My Profile");
 
     // Verify token saved
     const token = await page.evaluate(() => localStorage.getItem("authToken"));
     expect(token).toBeTruthy();
 
-    console.log("✅ Test 2: Login → Gallery redirect successful");
+    console.log("✅ Test 2: Login → Profile redirect successful");
   });
 
   // Cleanup hook - Delete all test users after tests complete
