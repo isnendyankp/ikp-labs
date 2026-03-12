@@ -46,7 +46,7 @@ function GalleryPageContent() {
 
   // Initialize user synchronously from token (lazy initialization)
   // This prevents race condition where fetchPhotos runs before user is set
-  const [user, setUser] = useState<AuthUser | null>(() => getUserFromToken());
+  const [user] = useState<AuthUser | null>(() => getUserFromToken());
   const [photos, setPhotos] = useState<GalleryPhoto[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentFilter, setCurrentFilter] = useState<FilterOption>(filterParam);
