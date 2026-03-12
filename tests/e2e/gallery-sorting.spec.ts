@@ -539,7 +539,7 @@ test.describe("Gallery Sorting Feature", () => {
 
       // WHEN: User navigates to "My Photos" view with URL parameters
       await page.goto("/gallery?filter=my-photos", {
-        waitUntil: "networkidle",
+        waitUntil: "load",
       });
       await page.waitForTimeout(3000); // Wait for photos to load
 
@@ -589,7 +589,7 @@ test.describe("Gallery Sorting Feature", () => {
 
       // WHEN: User navigates to My Photos view with URL parameters
       await page.goto("/gallery?filter=my-photos", {
-        waitUntil: "networkidle",
+        waitUntil: "load",
       });
       await page.waitForTimeout(3000); // Wait for photos to load
 
@@ -713,7 +713,7 @@ test.describe("Gallery Sorting Feature", () => {
 
       // WHEN: User navigates to My Photos view with URL parameters
       await page.goto("/gallery?filter=my-photos", {
-        waitUntil: "networkidle",
+        waitUntil: "load",
       });
       await page.waitForTimeout(3000); // Wait for photos to load
 
@@ -769,7 +769,7 @@ test.describe("Gallery Sorting Feature", () => {
 
       // AND: User is on My Photos view
       await page.goto("/gallery?filter=my-photos", {
-        waitUntil: "networkidle",
+        waitUntil: "load",
       });
       await page.waitForTimeout(2000);
 
@@ -819,7 +819,7 @@ test.describe("Gallery Sorting Feature", () => {
 
       // AND: User navigates to My Photos with oldest sort
       await page.goto("/gallery?filter=my-photos&sortBy=oldest", {
-        waitUntil: "networkidle",
+        waitUntil: "load",
       });
       await page.waitForTimeout(2000);
 
@@ -832,8 +832,9 @@ test.describe("Gallery Sorting Feature", () => {
       ).toBeVisible();
 
       // WHEN: User refreshes the page
-      await page.reload({ waitUntil: "networkidle" });
-      await page.waitForTimeout(2000);
+      await page.reload({ waitUntil: "domcontentloaded" });
+      await page.waitForSelector("h3", { timeout: 15000 });
+      await page.waitForTimeout(1000);
 
       // THEN: Sort should still be "Oldest First"
       const sortDropdownAfter = page.locator(
@@ -882,7 +883,7 @@ test.describe("Gallery Sorting Feature", () => {
 
       // WHEN: User directly navigates to URL with sortBy=oldest
       await page.goto("/gallery?filter=my-photos&sortBy=oldest", {
-        waitUntil: "networkidle",
+        waitUntil: "load",
       });
       await page.waitForTimeout(3000); // Wait for photos to load
 
@@ -919,7 +920,7 @@ test.describe("Gallery Sorting Feature", () => {
 
       // WHEN: User navigates to URL with both filter and sortBy parameters
       await page.goto("/gallery?filter=my-photos&sortBy=oldest", {
-        waitUntil: "networkidle",
+        waitUntil: "load",
       });
       await page.waitForTimeout(3000);
 
@@ -973,7 +974,7 @@ test.describe("Gallery Sorting Feature", () => {
 
       // WHEN: User navigates to All Photos with oldest sort
       await page.goto("/gallery?filter=all&sortBy=oldest", {
-        waitUntil: "networkidle",
+        waitUntil: "load",
       });
       await page.waitForTimeout(3000);
 
@@ -1016,7 +1017,7 @@ test.describe("Gallery Sorting Feature", () => {
 
       // WHEN: User navigates to Public Photos with newest sort
       await page.goto("/gallery?filter=public&sortBy=newest", {
-        waitUntil: "networkidle",
+        waitUntil: "load",
       });
       await page.waitForTimeout(3000);
 
@@ -1067,7 +1068,7 @@ test.describe("Gallery Sorting Feature", () => {
 
       // TEST 1: Oldest sort
       await page.goto("/gallery?filter=my-photos&sortBy=oldest", {
-        waitUntil: "networkidle",
+        waitUntil: "load",
       });
       await page.waitForTimeout(3000);
 
@@ -1076,7 +1077,7 @@ test.describe("Gallery Sorting Feature", () => {
 
       // TEST 2: Newest sort
       await page.goto("/gallery?filter=my-photos&sortBy=newest", {
-        waitUntil: "networkidle",
+        waitUntil: "load",
       });
       await page.waitForTimeout(3000);
 
@@ -1098,7 +1099,7 @@ test.describe("Gallery Sorting Feature", () => {
 
       // WHEN: User navigates to My Photos with sort (but has no photos)
       await page.goto("/gallery?filter=my-photos&sortBy=oldest", {
-        waitUntil: "networkidle",
+        waitUntil: "load",
       });
       await page.waitForTimeout(2000);
 

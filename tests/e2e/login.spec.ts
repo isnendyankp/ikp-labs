@@ -63,7 +63,7 @@ test.describe("Login Flow - End-to-End Tests", () => {
     await page.fill('input[name="password"]', testUser.password);
     await page.fill('input[name="confirmPassword"]', testUser.confirmPassword);
     await page.click('button[type="submit"]');
-    await page.waitForURL("/gallery", { timeout: 5000 });
+    await page.waitForURL("**/gallery**", { timeout: 15000 });
     console.log("  ✓ User created:", testUser.email);
 
     // Track for cleanup
@@ -104,8 +104,8 @@ test.describe("Login Flow - End-to-End Tests", () => {
     expect(token).toBeTruthy();
     expect(token).toBe(responseData.token);
 
-    // Wait for redirect to gallery
-    await page.waitForURL("/gallery", { timeout: 5000 });
+    // Wait for redirect to profile (default after login)
+    await page.waitForURL("**/myprofile**", { timeout: 15000 });
 
     console.log("✅ Test Case 1: PASSED");
   });

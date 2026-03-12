@@ -641,7 +641,7 @@ test.describe("Mobile UX Improvements", () => {
       await page.locator("div.z-\\[100\\]").getByText("My Photos").click();
 
       // THEN: Page loads without errors
-      await page.waitForLoadState("networkidle");
+      await page.waitForLoadState("domcontentloaded");
       const title = await page.title();
       expect(title).toContain("Kameravue");
 
@@ -711,7 +711,7 @@ test.describe("Mobile UX Improvements", () => {
         // WHEN: Navigating back to gallery
         await page.goBack();
         // Wait for page to load and scroll restoration to happen
-        await page.waitForLoadState("networkidle");
+        await page.waitForLoadState("domcontentloaded");
         await page.waitForTimeout(2000);
 
         // THEN: Scroll position is restored (not at top)
