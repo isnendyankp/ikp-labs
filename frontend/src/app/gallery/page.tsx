@@ -44,21 +44,15 @@ function GalleryPageContent() {
   const pageParam = parseInt(searchParams.get("page") || "1", 10);
   const sortByParam = (searchParams.get("sortBy") as SortByOption) || "newest";
 
-  const [user, setUser] = useState<AuthUser | null>(null);
+  // Initialize user synchronously from token (lazy initialization)
+  // This prevents race condition where fetchPhotos runs before user is set
+  const [user, setUser] = useState<AuthUser | null>(() => getUserFromToken());
   const [photos, setPhotos] = useState<GalleryPhoto[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentFilter, setCurrentFilter] = useState<FilterOption>(filterParam);
   const [currentPage, setCurrentPage] = useState(pageParam - 1); // Convert to 0-indexed
   const [currentSort, setCurrentSort] = useState<SortByOption>(sortByParam);
   const [totalPages, setTotalPages] = useState(1);
-
-  // Initialize user from token on mount
-  useEffect(() => {
-    const userData = getUserFromToken();
-    if (userData) {
-      setUser(userData);
-    }
-  }, []);
 
   // Sync state with URL params
   useEffect(() => {
