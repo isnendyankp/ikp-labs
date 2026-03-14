@@ -1,10 +1,10 @@
 # Feature Roadmap & Recommendations for IKP Labs
 
 **Purpose:** Strategic roadmap for next feature implementations and learning progression
-**Last Updated:** December 8, 2024
+**Last Updated:** March 14, 2026
 **Status:** 📋 Planning & Review
 **Audience:** Developers, stakeholders, recruiters
-**Project Phase:** Post-Gallery Implementation (Phase 7 Complete)
+**Project Phase:** Post-Likes/Favorites Implementation (Phase 8 Complete)
 
 ---
 
@@ -31,9 +31,9 @@ IKP Labs has evolved from a simple registration form into a **comprehensive full
 - ✅ **91 Unit Tests** with 100% pass rate (JUnit 5 + Mockito)
 - ✅ **70+ E2E Tests** across Chromium + Firefox (Playwright)
 - ✅ **91% Code Coverage** (JaCoCo)
-- ✅ **8 REST API Endpoints** for Gallery feature
-- ✅ **Complete CRUD Operations** across 2 major features
-- ✅ **~60-70% of Core Full-Stack Concepts** mastered
+- ✅ **15+ REST API Endpoints** for Gallery + Likes/Favorites features
+- ✅ **Complete CRUD Operations** across 3 major features
+- ✅ **~70-80% of Core Full-Stack Concepts** mastered
 
 ### What's Next?
 
@@ -116,25 +116,27 @@ Each feature is designed to teach **new full-stack engineering concepts** not ye
 
 ---
 
-#### Phase 6-7: Photo Gallery (Latest)
+#### Phase 6-7: Photo Gallery
 **Completed:** Full-featured photo gallery with CRUD operations
 
 **Features:**
 - ✅ Upload photos with drag & drop interface
 - ✅ View modes: "My Photos" vs "Public Photos"
+- ✅ **Public Gallery Access** - Gallery accessible without login (soft gate)
+- ✅ **Gallery Sorting** - Sort by newest, oldest, mostLiked, mostFavorited
 - ✅ Photo detail view with metadata display
 - ✅ Edit photo metadata (title, description, privacy)
 - ✅ Delete photos with confirmation modal
 - ✅ Privacy controls (Public/Private toggle)
-- ✅ Pagination (12 photos per page)
+- ✅ Pagination (25 photos per page)
 - ✅ Responsive grid (1-4 columns based on screen size)
 - ✅ Owner-based authorization (edit/delete only own photos)
 - ✅ File validation (JPG, PNG, GIF, WebP up to 5MB)
 
 **8 REST API Endpoints:**
 1. `POST /api/gallery/upload` - Upload photo
-2. `GET /api/gallery/my-photos` - Get user's photos (paginated)
-3. `GET /api/gallery/public` - Get all public photos (paginated)
+2. `GET /api/gallery/my-photos` - Get user's photos (paginated, sortable)
+3. `GET /api/gallery/public` - Get all public photos (paginated, sortable)
 4. `GET /api/gallery/user/{userId}/public` - Get user's public photos
 5. `GET /api/gallery/photo/{photoId}` - Get photo details
 6. `PUT /api/gallery/photo/{photoId}` - Update photo metadata
@@ -150,6 +152,40 @@ Each feature is designed to teach **new full-stack engineering concepts** not ye
 - Strategic browser coverage (Chromium + Firefox = 75% of users)
 - Video/screenshot capture on failures
 - Conditional cleanup (pass = delete artifacts, fail = preserve for debugging)
+
+---
+
+#### Phase 8: Social Engagement (Latest)
+**Completed:** Photo Likes & Favorites system
+
+**Features:**
+- ✅ Like/unlike photos with single click
+- ✅ Favorite/unfavorite photos (bookmark system)
+- ✅ View count of likes per photo
+- ✅ View all liked photos (Liked Photos page)
+- ✅ View all favorited photos (Favorites page)
+- ✅ Optimistic UI updates (instant feedback)
+- ✅ Prevent duplicate likes (database constraint)
+- ✅ Sorting support for liked/favorited photos
+
+**7 REST API Endpoints:**
+1. `POST /api/gallery/photo/{photoId}/like` - Like a photo
+2. `DELETE /api/gallery/photo/{photoId}/like` - Unlike a photo
+3. `GET /api/gallery/liked-photos` - Get all liked photos (paginated, sortable)
+4. `POST /api/gallery/photo/{photoId}/favorite` - Favorite a photo
+5. `DELETE /api/gallery/photo/{photoId}/favorite` - Unfavorite a photo
+6. `GET /api/gallery/favorited-photos` - Get all favorited photos (paginated, sortable)
+7. `POST /api/gallery/photo/{photoId}/favorite-toggle` - Toggle favorite status
+
+**Database Tables:**
+- `photo_likes` (id, photo_id, user_id, created_at) - UNIQUE(photo_id, user_id)
+- `photo_favorites` (id, photo_id, user_id, created_at) - UNIQUE(photo_id, user_id)
+- **Relationship:** Many-to-Many between users and photos
+
+**Testing Achievement:**
+- Unit tests for LikeService, FavoriteService
+- E2E tests for like/unlike, favorite/unfavorite flows
+- Edge case coverage (duplicate prevention, authorization)
 
 ---
 
@@ -225,6 +261,7 @@ CREATE TABLE gallery_photos (
 
 #### 6. Privacy & Security
 - Public/Private access control
+- **Soft gate authentication** (public gallery with enhanced features for authenticated users)
 - Input validation (client + server)
 - SQL injection prevention (JPA parameterized queries)
 - XSS prevention basics
@@ -243,6 +280,13 @@ CREATE TABLE gallery_photos (
 - Error handling with user-friendly messages
 - Form validation (client + server)
 - Accessibility basics (semantic HTML, ARIA labels)
+
+#### 9. Social Interaction (NEW!)
+- Toggle state management (like/unlike, favorite/unfavorite)
+- Optimistic UI updates with rollback on failure
+- Composite unique constraints (prevent duplicate interactions)
+- Paginated social feeds (liked photos, favorites)
+- Real-time count updates
 
 ---
 
@@ -314,90 +358,20 @@ These features build on existing CRUD knowledge while introducing social interac
 
 ---
 
-#### Feature 1.1: Photo Likes & Favorites ❤️
+#### ~~Feature 1.1: Photo Likes & Favorites~~ ✅ **IMPLEMENTED**
 
-**Problem Statement:**
-Users can upload and view photos but have no way to express appreciation or bookmark photos for later viewing. This limits engagement and doesn't provide feedback to photo owners about which content resonates.
+> **Status:** COMPLETED (March 2026)
+> **Implementation:** See Phase 8: Social Engagement above
 
-**Proposed Solution:**
-Implement a dual system: **Likes** (public appreciation) and **Favorites** (private bookmarks).
+This feature has been successfully implemented with:
+- Like/unlike functionality
+- Favorite/unfavorite functionality
+- Paginated liked/favorited photos pages
+- Gallery sorting by likes/favorites
+- Optimistic UI updates
+- Composite unique constraints
 
-**Features:**
-- ✅ Like/unlike photos with single click
-- ✅ View count of likes per photo
-- ✅ View all photos you've liked (Liked Photos page)
-- ✅ Favorite/unfavorite photos (bookmark system)
-- ✅ View all favorited photos (Favorites page)
-- ✅ Optimistic UI updates (instant feedback)
-- ✅ Prevent duplicate likes (database constraint)
-
-**Technical Breakdown:**
-
-**Backend:**
-- New entities: `PhotoLike`, `PhotoFavorite`
-- New repositories: `PhotoLikeRepository`, `PhotoFavoriteRepository`
-- New endpoints:
-  - `POST /api/gallery/photo/{photoId}/like` - Like a photo
-  - `DELETE /api/gallery/photo/{photoId}/like` - Unlike a photo
-  - `GET /api/gallery/liked-photos` - Get all liked photos (paginated)
-  - `POST /api/gallery/photo/{photoId}/favorite` - Favorite a photo
-  - `DELETE /api/gallery/photo/{photoId}/favorite` - Unfavorite a photo
-  - `GET /api/gallery/favorites` - Get all favorited photos (paginated)
-- Database: `photo_likes` and `photo_favorites` tables with composite unique constraints
-
-**Frontend:**
-- New components: `LikeButton`, `FavoriteButton`, `LikedPhotosPage`, `FavoritesPage`
-- State management: Optimistic updates with rollback on failure
-- UI updates: Real-time like count updates
-
-**Testing:**
-- Unit tests: 12 new tests (LikeService, FavoriteService)
-- E2E tests: 10 scenarios (like/unlike, favorite/unfavorite, view pages)
-- Edge cases: Duplicate likes, invalid photo IDs, unauthorized access
-
-**Database Schema:**
-```sql
-CREATE TABLE photo_likes (
-    id BIGSERIAL PRIMARY KEY,
-    photo_id BIGINT NOT NULL,
-    user_id BIGINT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (photo_id) REFERENCES gallery_photos(id) ON DELETE CASCADE,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    UNIQUE (photo_id, user_id) -- Prevent duplicate likes
-);
-
-CREATE TABLE photo_favorites (
-    id BIGSERIAL PRIMARY KEY,
-    photo_id BIGINT NOT NULL,
-    user_id BIGINT NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (photo_id) REFERENCES gallery_photos(id) ON DELETE CASCADE,
-    FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
-    UNIQUE (photo_id, user_id) -- Prevent duplicate favorites
-);
-```
-
-**Success Criteria:**
-- ✅ Users can like/unlike any public photo
-- ✅ Like count updates in real-time
-- ✅ No duplicate likes in database
-- ✅ Favorited photos persist across sessions
-- ✅ 100% test coverage for new features
-
-**Effort Estimate:**
-- **Complexity:** Medium
-- **Time:** 1-2 weeks
-- **Dependencies:** None (can start immediately)
-
-**Learning Outcomes:**
-- ⭐ Toggle state management patterns
-- ⭐ Optimistic UI updates with rollback
-- ⭐ Database composite unique constraints
-- ⭐ Social interaction patterns
-- ⭐ Rate limiting considerations (prevent spam likes)
-
-**Priority:** 🔥 **HIGH** - Quick win, immediate user value, foundation for social features
+**Next Step:** Consider Feature 1.2 (Comments) or Feature 1.3 (Search)
 
 ---
 
@@ -1676,6 +1650,6 @@ This is a living document. Update it as you learn and grow. Each completed featu
 
 ---
 
-**Last Updated:** December 8, 2024
+**Last Updated:** March 14, 2026
 **Status:** 📋 Planning & Review
-**Next Review:** December 22, 2024 (or after completing first new feature)
+**Next Review:** March 28, 2026 (or after completing next feature)
