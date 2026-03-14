@@ -316,7 +316,7 @@ Enforced by backend validation:
 Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzA1MzE0NjAwLCJleHAiOjE3MDUzMTgyMDB9.signature
 ```
 
-**Token Expiration**: 1 hour (configurable in `application.properties`)
+**Token Expiration**: 24 hours (configurable in `application.properties` via `jwt.expiration`)
 
 **Frontend Storage**: Store token in `localStorage`:
 ```javascript
@@ -335,12 +335,21 @@ fetch('/api/protected-endpoint', {
 ## CORS Configuration
 
 CORS is configured to allow requests from:
-- `http://localhost:3000`
-- `http://localhost:3002`
-- `http://localhost:3005`
 
-Allowed methods: `GET`, `POST`, `PUT`, `DELETE`
-Allowed headers: `*`
+**Development:**
+- `http://localhost:3000` - Standard React port
+- `http://localhost:3001` - Alternative localhost
+- `http://localhost:3002` - IKP-Labs custom port
+- `http://localhost:3003` - Auto-assigned by Next.js
+- `http://localhost:3004` - Auto-assigned by Next.js
+- `http://localhost:3005` - Auto-assigned by Next.js
+
+**Production:**
+- `https://kameravue.com`
+- `https://www.kameravue.com`
+
+Allowed methods: `GET`, `POST`, `PUT`, `DELETE`, `OPTIONS`
+Allowed headers: `Authorization`, `Content-Type`, `Accept`, `Origin`, `X-Requested-With`
 
 ## Rate Limiting
 
