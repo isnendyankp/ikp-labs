@@ -9,7 +9,7 @@
 - **Styling**: Tailwind CSS
 - **State Management**: React Hooks + Context
 - **HTTP Client**: Fetch API
-- **Testing**: Jest + React Testing Library
+- **Testing**: Jest + React Testing Library + Playwright (E2E)
 
 ## Project Structure
 
@@ -17,17 +17,23 @@
 frontend/
 ├── src/
 │   ├── app/                    # Next.js App Router pages
+│   │   ├── (auth)/            # Auth-related pages (login, register)
+│   │   ├── gallery/           # Gallery pages
+│   │   ├── my-photos/         # User's photo management
+│   │   ├── liked/             # Liked photos
+│   │   ├── favorites/         # Favorited photos
+│   │   └── profile/           # User profile
 │   ├── components/             # React components
 │   │   ├── gallery/           # Gallery-specific components
-│   │   └── ui/                # Reusable UI components
+│   │   ├── ui/                # Reusable UI components
+│   │   ├── skeletons/         # Loading skeleton components
+│   │   └── layout/            # Layout components (Header, Footer, Navbar)
 │   ├── contexts/              # React Context providers
 │   ├── hooks/                 # Custom React hooks
 │   ├── lib/                   # Utilities and helpers
+│   ├── services/              # API service layer
 │   └── __tests__/             # Unit tests
-│       ├── components/        # Component tests
-│       ├── context/           # Context tests
-│       ├── hooks/             # Hook tests
-│       └── lib/               # Utility tests
+├── tests/                      # E2E tests (Playwright)
 ├── public/                    # Static assets
 ├── docs/                      # Frontend documentation
 ├── jest.config.js             # Jest configuration
@@ -98,7 +104,7 @@ npm run test:ci
 | **UI Elements**     | 98      | Dropdowns, Pagination, Dialogs        |
 | **Hooks**           | 30      | useClickOutside, useScrollRestoration |
 | **Context**         | -       | ToastContext                          |
-| **Total**           | **393** | All passing                           |
+| **Total**           | **394** | All passing (19 test suites)          |
 
 ### Test Structure
 
@@ -183,22 +189,52 @@ renderWithProviders(<MyComponent />);
 
 ### Authentication
 
-- JWT-based authentication
-- Protected routes
-- Token persistence in localStorage
+- JWT-based authentication with token persistence
+- Protected routes with middleware
+- Login/Register with form validation
+- Password strength indicator
+- Return URL support for post-login redirect
 
 ### Photo Gallery
 
-- Photo upload with drag & drop
-- Privacy controls (public/private)
-- Like/favorite functionality
-- Pagination
+- **Photo Upload**: Drag & drop, file selection, image preview
+- **Privacy Controls**: Public/private photo visibility
+- **Gallery Sorting**: Sort by newest, oldest, most liked, most favorited
+- **Pagination**: Efficient photo browsing
+- **Public Gallery**: Accessible without authentication (soft gate for actions)
 
-### Profile Management
+### Photo Interactions
 
-- Profile picture upload
-- Real-time preview
-- Avatar fallback
+- **Like System**: Like/unlike photos with optimistic UI
+- **Favorites System**: Save photos to personal favorites
+- **My Photos**: Manage personal photo collection
+- **Photo Deletion**: With confirmation dialog
+
+### User Profile
+
+- Profile picture upload with real-time preview
+- Avatar fallback for users without profile picture
+- User settings management
+
+### UX Components
+
+- **Toast Notifications**: Success, error, info, warning types
+- **Loading States**: Skeleton screens, button spinners
+- **Confirmation Dialogs**: For destructive actions
+- **Empty States**: Helpful messages and CTAs
+- **Form Validation**: Real-time validation with error messages
+
+### Mobile Experience
+
+- Responsive design for all screen sizes
+- Mobile-friendly navigation with dropdown menu
+- Touch-optimized interactions
+
+### Landing Page
+
+- Hero section with feature highlights
+- Public gallery preview
+- Call-to-action sections
 
 ## Environment Variables
 
@@ -218,10 +254,21 @@ npm run lint         # Run ESLint
 npm test             # Run unit tests
 npm run test:watch   # Run tests in watch mode
 npm run test:coverage # Run tests with coverage
+npm run test:e2e     # Run E2E tests (Playwright)
 ```
+
+## Production
+
+- **Production URL**: https://ikp-labs.my.id
+- **API Base URL**: Configured via `NEXT_PUBLIC_API_URL` environment variable
 
 ## Related Documentation
 
-- [Frontend Plan](docs/FRONTEND_PLAN.md)
-- [UX Components](docs/UX_COMPONENTS.md)
-- [Main README](../README.md)
+- [Frontend Plan](docs/FRONTEND_PLAN.md) - Testing & integration plan
+- [UX Components](docs/UX_COMPONENTS.md) - UX component documentation
+- [Main README](../README.md) - Project overview
+- [Plans](../plans/README.md) - Implementation plans & feature tracking
+
+---
+
+**Last Updated**: March 2026
