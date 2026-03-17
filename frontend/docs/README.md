@@ -1,75 +1,71 @@
-# 📚 Frontend Documentation
+# Frontend Documentation
 
-This folder contains all frontend-related documentation for the Registration Form project.
+This folder contains all frontend-related documentation for the IKP Labs photo gallery application.
 
-## 📁 Contents
+## Contents
 
-### Planning Documents
+### Core Documentation
 
-- **[FRONTEND_PLAN.md](FRONTEND_PLAN.md)** - Complete frontend testing and integration plan
-- **[UX_COMPONENTS.md](UX_COMPONENTS.md)** - UX components documentation and usage guide
+| Document                                       | Description                             |
+| ---------------------------------------------- | --------------------------------------- |
+| [FRONTEND_PLAN.md](FRONTEND_PLAN.md)           | Testing & integration plan (auth flows) |
+| [UX_COMPONENTS.md](UX_COMPONENTS.md)           | UX component documentation & usage      |
+| [UX_TESTING_SUMMARY.md](UX_TESTING_SUMMARY.md) | E2E testing summary for UX features     |
 
-## 🔗 Related Documentation
+## Implemented Features
 
-- [Backend Documentation](../../backend/docs/) - Backend API development and testing docs
-- [Project README](../../README.md) - Main project documentation
+### Authentication & Authorization
 
-## 📝 Document Purpose
+- JWT-based authentication
+- Login/Register flows
+- Protected routes with middleware
+- Return URL support
 
-### FRONTEND_PLAN.md
+### Photo Gallery
 
-Complete testing and integration plan for frontend including:
+- Photo upload with drag & drop
+- Gallery with sorting (newest, oldest, most liked, most favorited)
+- Pagination
+- Public gallery access (soft gate for actions)
 
-- Manual E2E testing guide
-- Automated testing with Playwright MCP (planned)
-- Frontend-backend integration testing
-- Error handling validation
-- User experience testing
-- All test cases with step-by-step instructions
+### Photo Interactions
 
-## 🎯 Testing Phases
+- Like/unlike photos
+- Add/remove favorites
+- Photo deletion with confirmation
 
-### Phase 1: Manual E2E Testing (Current)
+### User Profile
 
-- ✅ Registration flow (completed)
-- 🔄 Login flow (in progress - see Test Case 1.4)
-- ⏳ Protected routes testing (pending)
-- ⏳ Token expiration handling (pending)
-- ⏳ Logout flow (pending)
+- Profile picture upload
+- Avatar fallback system
 
-### Phase 2: Playwright MCP Automated Testing (Planned)
+### UX Components
 
-- Setup Playwright MCP
-- Create automated test suites
-- CI/CD integration
-- Performance & accessibility testing
+- Toast notifications (success, error, info, warning)
+- Loading states & skeletons
+- Confirmation dialogs
+- Empty states with CTAs
+- Form validation
 
-### Phase 3: Documentation & Best Practices (Planned)
+### Mobile Experience
 
-- Testing documentation
-- Test data management
-- Video recording & screenshots
+- Responsive design
+- Mobile navigation dropdown
+- Touch-optimized interactions
 
-### Phase 4: UX Improvements (Completed)
+## Testing Status
 
-- ✅ Toast Notification System
-- ✅ Loading States
-- ✅ Confirmation Dialogs
-- ✅ Empty States
-- ✅ Form Validation UX
-- ✅ Micro-interactions
+| Type       | Status      | Count      |
+| ---------- | ----------- | ---------- |
+| Unit Tests | Passing     | 394 tests  |
+| E2E Tests  | Implemented | Playwright |
 
-See [UX_COMPONENTS.md](UX_COMPONENTS.md) for detailed documentation.
+## Related Documentation
 
-## 🧪 Current Testing Status
-
-Refer to [FRONTEND_PLAN.md](FRONTEND_PLAN.md) for:
-
-- ✅ Completed test cases
-- ⏳ Pending test cases
-- 📊 Test status summary
-- 🎯 Success metrics
+- [Backend Documentation](../../backend/docs/) - Backend API docs
+- [Plans](../../plans/README.md) - Implementation plans & tracking
+- [Project README](../../README.md) - Project overview
 
 ---
 
-**Last Updated:** 2025-01-16
+**Last Updated:** March 2026
