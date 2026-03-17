@@ -1,6 +1,41 @@
-# 🎨 Registration Form Frontend - Testing & Integration Plan
+# Frontend Testing & Integration Plan
 
-## 📋 Project Overview
+> **Note**: This document contains historical testing plans. For current feature documentation, see [README.md](README.md).
+
+## Current Status Summary (March 2026)
+
+### Completed Features
+
+| Feature           | Status    | Notes                       |
+| ----------------- | --------- | --------------------------- |
+| Registration Flow | Completed | With validation             |
+| Login Flow        | Completed | JWT authentication          |
+| Protected Routes  | Completed | Middleware-based            |
+| Photo Gallery     | Completed | Upload, sorting, pagination |
+| Photo Likes       | Completed | Optimistic UI               |
+| Photo Favorites   | Completed | Optimistic UI               |
+| Profile Pictures  | Completed | With preview                |
+| Public Gallery    | Completed | Soft gate for actions       |
+| Mobile UX         | Completed | Responsive design           |
+| Landing Page      | Completed | Hero section                |
+| E2E Tests         | Completed | Playwright                  |
+| Unit Tests        | Completed | 394 tests passing           |
+
+### In Progress
+
+- CI/CD Pipeline (see `plans/in-progress/`)
+
+---
+
+## Historical Documentation
+
+Below is the original testing plan documentation.
+
+---
+
+# Registration Form Frontend - Testing & Integration Plan
+
+## Project Overview
 
 Frontend testing dan integration plan untuk Registration Form menggunakan **React/Next.js** yang terintegrasi dengan backend Spring Boot API.
 
