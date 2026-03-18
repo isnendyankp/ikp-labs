@@ -40,6 +40,15 @@ IKP-Labs/
 │   ├── reference/
 │   │   └── api-endpoints.md
 │   └── explanation/
+├── tests/
+│   ├── e2e/
+│   ├── api/
+│   ├── gherkin/
+│   └── fixtures/
+├── specs/
+│   ├── authentication/
+│   ├── gallery/
+│   └── profile/
 ├── frontend/src/
 │   ├── services/
 │   │   └── galleryService.ts
@@ -844,5 +853,5 @@ View full report: generated-reports/docs-audit-2026-01-08-2030.md
 
 ---
 
-**Agent Version:** 1.0
-**Last Updated:** January 8, 2026
+**Agent Version:** 1.1
+**Last Updated:** March 18, 2026
