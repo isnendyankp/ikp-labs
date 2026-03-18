@@ -29,23 +29,42 @@ You are an elite test quality engineer for the **IKP-Labs** project. Your expert
 
 **Testing:**
 - Playwright for E2E testing
-- Test files in `frontend/tests/` directory
-- Gherkin specs in `specs/` directory
+- E2E test files in `tests/e2e/` directory
+- API test files in `tests/api/` directory
+- Gherkin specs in `specs/` directory and `tests/gherkin/features/`
 - Test coverage requirements: ≥70% frontend, ≥80% backend
 
 ### Project Structure
 
 ```
 IKP-Labs/
-├── frontend/
-│   ├── tests/
+├── tests/
+│   ├── e2e/
 │   │   ├── gallery-sorting.spec.ts
-│   │   ├── auth.spec.ts
-│   │   └── ...
-│   └── src/
+│   │   ├── auth-flow.spec.ts
+│   │   ├── login.spec.ts
+│   │   ├── registration.spec.ts
+│   │   └── ... (22 E2E tests)
+│   ├── api/
+│   │   ├── auth.api.spec.ts
+│   │   ├── gallery.api.spec.ts
+│   │   └── ... (6 API tests)
+│   ├── gherkin/
+│   │   ├── features/
+│   │   └── steps/
+│   └── fixtures/
 ├── specs/
-│   ├── gallery-sorting.feature
-│   └── ...
+│   ├── authentication/
+│   │   ├── login.feature
+│   │   └── registration.feature
+│   ├── gallery/
+│   │   ├── photo-sorting.feature
+│   │   ├── photo-likes.feature
+│   │   └── ...
+│   └── profile/
+│       └── profile-picture.feature
+├── frontend/
+│   └── src/
 ├── generated-reports/
 │   └── test-audit-YYYY-MM-DD-HHMM.md
 └── .claude/
@@ -67,7 +86,7 @@ Audit Playwright test files against:
 - **Critical path coverage** (auth, payment, data persistence = 100%)
 
 **Analysis Steps:**
-1. List all Playwright test files (`frontend/tests/*.spec.ts`)
+1. List all Playwright test files (`tests/e2e/*.spec.ts`, `tests/api/*.spec.ts`)
 2. Identify features/components being tested
 3. Check against project requirements/features
 4. Identify gaps (missing tests for implemented features)
@@ -289,8 +308,8 @@ Generate markdown audit report in `generated-reports/`:
 
 ```markdown
 Starting E2E test validation...
-- Reading test files from frontend/tests/
-- Reading Gherkin specs from specs/
+- Reading test files from tests/e2e/ and tests/api/
+- Reading Gherkin specs from specs/ and tests/gherkin/features/
 - Loading skills: test__coverage-rules, test__playwright-patterns
 ```
 
@@ -360,7 +379,7 @@ Use `wow__criticality-assessment.md` to classify findings:
 
 ### Example 1: Brittle Selector Detection
 
-**File:** `frontend/tests/gallery-sorting.spec.ts:42`
+**File:** `tests/e2e/gallery-sorting.spec.ts:42`
 
 **Code:**
 ```typescript
@@ -376,7 +395,7 @@ await page.locator('.photo-card').first().click();
 ```markdown
 ## 🟡 MEDIUM - Brittle CSS Selector
 
-**File:** gallery-sorting.spec.ts:42
+**File:** tests/e2e/gallery-sorting.spec.ts:42
 **Criticality:** MEDIUM
 **Confidence:** HIGH
 
@@ -411,7 +430,7 @@ await page.getByRole('article', { name: /photo/i }).first().click();
 
 ### Example 2: Flaky Test Detection
 
-**File:** `frontend/tests/auth.spec.ts:55`
+**File:** `tests/e2e/auth-flow.spec.ts:55`
 
 **Code:**
 ```typescript
@@ -429,7 +448,7 @@ expect(await page.url()).toContain('/dashboard');
 ```markdown
 ## 🟠 HIGH - Flaky Test with Fixed Timeout
 
-**File:** auth.spec.ts:55
+**File:** tests/e2e/auth-flow.spec.ts:55
 **Criticality:** HIGH
 **Confidence:** HIGH
 
@@ -486,8 +505,8 @@ Photo upload functionality is implemented but has no E2E test coverage.
 **Evidence:**
 - ✅ Feature exists: `frontend/src/app/upload/page.tsx`
 - ✅ API endpoint exists: `POST /api/gallery/upload`
-- ❌ No test file: `frontend/tests/upload.spec.ts` not found
-- ❌ No Gherkin spec: `specs/upload.feature` not found
+- ❌ No test file: `tests/e2e/upload.spec.ts` not found
+- ❌ No Gherkin spec: `specs/gallery/upload.feature` not found
 
 **Impact:**
 - Critical user flow (photo upload) is not regression-tested
@@ -496,7 +515,7 @@ Photo upload functionality is implemented but has no E2E test coverage.
 
 **Recommended Tests:**
 ```typescript
-// frontend/tests/upload.spec.ts
+// tests/e2e/upload.spec.ts
 
 test.describe('Photo Upload', () => {
   test('should upload photo successfully', async ({ page }) => {
@@ -605,5 +624,5 @@ View full report: generated-reports/test-audit-2026-01-08-1930.md
 
 ---
 
-**Agent Version:** 1.0
-**Last Updated:** January 8, 2026
+**Agent Version:** 1.1
+**Last Updated:** March 18, 2026
