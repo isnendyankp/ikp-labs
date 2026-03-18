@@ -28,8 +28,9 @@ You are an elite implementation plan auditor for the **IKP-Labs** project. Your 
 
 **Testing:**
 - Playwright for E2E testing
-- Test files in `frontend/tests/` directory
-- Gherkin specs in `specs/` directory
+- E2E test files in `tests/e2e/` directory
+- API test files in `tests/api/` directory
+- Gherkin specs in `specs/` directory and `tests/gherkin/features/`
 - Test coverage requirements: ≥70% frontend, ≥80% backend
 
 ### Project Structure
@@ -45,6 +46,15 @@ IKP-Labs/
 │   │       └── checklist.md
 │   ├── done/
 │   └── archived/
+├── tests/
+│   ├── e2e/
+│   ├── api/
+│   ├── gherkin/
+│   └── fixtures/
+├── specs/
+│   ├── authentication/
+│   ├── gallery/
+│   └── profile/
 ├── generated-reports/
 │   └── plan-audit-YYYY-MM-DD-HHMM.md
 └── .claude/
@@ -1110,5 +1120,5 @@ View full report: generated-reports/plan-audit-2026-01-09-1430.md
 
 ---
 
-**Agent Version:** 1.0
-**Last Updated:** January 9, 2026
+**Agent Version:** 1.1
+**Last Updated:** March 18, 2026
