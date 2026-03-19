@@ -332,6 +332,34 @@ npx playwright show-report            # View test report
 
 ---
 
+## Claude Validators
+
+This project includes optional Claude-powered validator agents for quality checks. These can be run on-demand during development.
+
+### Available Validators
+
+| Validator | Description | Output |
+|-----------|-------------|--------|
+| `@test-validator` | E2E test coverage audit, spec synchronization, flaky test detection | `generated-reports/test-audit-*.md` |
+| `@docs-validator` | API documentation completeness, JSDoc coverage, Diátaxis compliance | `generated-reports/docs-audit-*.md` |
+| `@plan-checker` | Implementation plan validation, 4-doc system check, task atomicity | `generated-reports/plan-audit-*.md` |
+
+### Usage
+
+Validators are triggered by asking Claude to run them:
+
+```
+"@test-validator - check my test coverage"
+"@docs-validator - audit my API documentation"
+"@plan-checker - validate my implementation plan"
+```
+
+### Output
+
+Reports are generated in `generated-reports/` directory (gitignored by default).
+
+---
+
 ## CI/CD Pipeline
 
 This project uses GitHub Actions for continuous integration with automated quality checks.
