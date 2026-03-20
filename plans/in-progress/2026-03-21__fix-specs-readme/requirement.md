@@ -11,7 +11,9 @@
 
 ### AC-2: Update Total Scenarios
 - Current total: 66
-- Fixed total: **64** (setelah koreksi 3 files di atas)
+- Fixed total: **63** (setelah koreksi 3 files di atas)
+
+> Note: Correct calculation is 5+4+9+10+19+16 = 63
 
 ### AC-3: No Other Changes
 - Tidak mengubah struktur dokumentasi

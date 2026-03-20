@@ -26,7 +26,7 @@ specs/
 └── README.md                  # This file
 ```
 
-**Total Coverage:** 64 scenarios across 6 feature files
+**Total Coverage:** 63 scenarios across 6 feature files
 
 ## Gherkin Format
 
@@ -64,7 +64,7 @@ Each Gherkin scenario aligns with existing Playwright E2E tests:
 | `gallery/photo-management.feature`    | `tests/e2e/gallery.spec.ts` (planned) | Photo CRUD tests   | 19 |
 | `gallery/photo-privacy.feature`       | `tests/e2e/gallery.spec.ts` (planned) | Privacy tests      | 16 |
 
-**Total:** 64 scenarios ready for E2E test implementation
+**Total:** 63 scenarios ready for E2E test implementation
 
 ## Writing Guidelines
 

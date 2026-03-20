@@ -31,7 +31,9 @@ Update counts di Playwright alignment table untuk 3 files yang berubah.
 ## Calculation
 - Old total: 66
 - Changes: -1 (registration) -1 (upload) -1 (privacy) = -3
-- New total: 66 - 3 = **64**
+- New total: 66 - 3 = **63**
+
+> Correct calculation: 5+4+9+10+19+16 = 63
 
 ## Risk Assessment
 - **Risk Level:** Low
