@@ -22,11 +22,15 @@ specs/
 ├── gallery/
 │   ├── photo-upload.feature    # Photo upload scenarios (10 scenarios)
 │   ├── photo-management.feature # Photo CRUD scenarios (19 scenarios)
-│   └── photo-privacy.feature  # Privacy control scenarios (16 scenarios)
-└── README.md                  # This file
+│   ├── photo-privacy.feature   # Privacy control scenarios (16 scenarios)
+│   ├── photo-likes.feature     # Photo likes scenarios (15 scenarios)
+│   └── photo-sorting.feature   # Photo sorting scenarios (28 scenarios)
+├── profile/
+│   └── profile-picture.feature # Profile picture scenarios (15 scenarios)
+└── README.md                   # This file
 ```
 
-**Total Coverage:** 63 scenarios across 6 feature files
+**Total Coverage:** 121 scenarios across 9 feature files
 
 ## Gherkin Format
 
@@ -60,11 +64,14 @@ Each Gherkin scenario aligns with existing Playwright E2E tests:
 | `authentication/registration.feature` | `tests/e2e/registration.spec.ts` | Registration flow tests | 5 |
 | `authentication/login.feature`        | `tests/e2e/login.spec.ts`        | Login flow tests        | 4 |
 | `authentication/home-page.feature`    | `tests/e2e/auth-flow.spec.ts`    | Protected pages         | 9 |
-| `gallery/photo-upload.feature`        | `tests/e2e/gallery.spec.ts` (planned) | Photo upload tests | 10 |
-| `gallery/photo-management.feature`    | `tests/e2e/gallery.spec.ts` (planned) | Photo CRUD tests   | 19 |
-| `gallery/photo-privacy.feature`       | `tests/e2e/gallery.spec.ts` (planned) | Privacy tests      | 16 |
+| `gallery/photo-upload.feature`        | `tests/e2e/gallery.spec.ts` | Photo upload tests | 10 |
+| `gallery/photo-management.feature`    | `tests/e2e/gallery.spec.ts` | Photo CRUD tests   | 19 |
+| `gallery/photo-privacy.feature`       | `tests/e2e/gallery.spec.ts` | Privacy tests      | 16 |
+| `gallery/photo-likes.feature`         | `tests/e2e/photo-likes.spec.ts` | Photo likes tests  | 15 |
+| `gallery/photo-sorting.feature`       | `tests/e2e/gallery-sorting.spec.ts` | Photo sorting tests | 28 |
+| `profile/profile-picture.feature`     | `tests/e2e/profile-picture.spec.ts` | Profile picture tests | 15 |
 
-**Total:** 63 scenarios ready for E2E test implementation
+**Total:** 121 scenarios across 9 feature files
 
 ## Writing Guidelines
 
