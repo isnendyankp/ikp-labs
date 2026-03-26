@@ -16,7 +16,11 @@
     "dev": "npm run dev:frontend",
     "build": "npm run build:frontend",
     "install:all": "npm install && npm install --workspace=registration-form-frontend",
-    "prepare": "husky"
+    "prepare": "husky",
+    "nx": "nx",
+    "nx:build": "nx run-many -t build --all",
+    "nx:test": "nx run-many -t test --all",
+    "nx:graph": "nx graph"
   },
   "lint-staged": {
     "frontend/**/*.{js,jsx,ts,tsx}": [
@@ -34,6 +38,8 @@
     "@playwright/mcp": "^0.0.45"
   },
   "devDependencies": {
-    "lint-staged": "^16.2.7"
+    "@nx/workspace": "^22.6.1",
+    "lint-staged": "^16.2.7",
+    "nx": "^22.6.1"
   }
 }

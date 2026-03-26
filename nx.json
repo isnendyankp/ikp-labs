@@ -1,0 +1,35 @@
+{
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "extends": "nx/presets/npm.json",
+  "npmScope": "ikp-labs",
+  "tasksRunnerOptions": {
+    "default": {
+      "runner": "nx/tasks-runners/default",
+      "options": {
+        "cacheableOperations": ["build", "test", "lint", "e2e"]
+      }
+    }
+  },
+  "targetDefaults": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["{projectRoot}/dist", "{projectRoot}/build", "{projectRoot}/target"]
+    },
+    "dev": {
+      "cache": false,
+      "continuous": true
+    },
+    "serve": {
+      "cache": false,
+      "continuous": true
+    },
+    "test": {
+      "outputs": ["{projectRoot}/coverage", "{projectRoot}/target/surefire-reports"]
+    }
+  },
+  "namedInputs": {
+    "default": ["{projectRoot}/**/*", "sharedGlobals"],
+    "production": ["default", "!{projectRoot}/**/*.spec.ts", "!{projectRoot}/**/*.test.ts", "!{projectRoot}/test/**/*"]
+  },
+  "nxCloudId": null
+}
