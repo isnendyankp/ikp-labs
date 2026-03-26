@@ -17,35 +17,35 @@
 - [x] Write README.md (overview & scope)
 - [x] Write requirement.md (requirements & acceptance criteria)
 - [x] Write technical-design.md (technical approach)
-- [ ] Write checklist.md (this file)
-- [ ] Commit plan files
-- [ ] Push to origin
-- [ ] Create PR
-- [ ] Merge PR with `gh pr merge --rebase --delete-branch`
-- [ ] Update local main
+- [x] Write checklist.md (this file)
+- [x] Commit plan files
+- [x] Push to origin
+- [x] Create PR
+- [x] Merge PR with `gh pr merge --rebase --delete-branch`
+- [x] Update local main
 
 ### Acceptance Criteria Phase 0
-- [ ] Plan files created dan committed
-- [ ] PR merged ke main
-- [ ] Plan siap diimplementasi di hari berikutnya
+- [x] Plan files created dan committed
+- [x] PR merged ke main
+- [x] Plan siap diimplementasi di hari berikutnya
 
 ---
 
 ## Phase 1: Setup Nx Workspace
 
 ### Branch Setup
-- [ ] Create work branch `chore/nx-workspace-setup` from main
+- [x] Create work branch `chore/nx-workspace-setup` from main
 
 ### Implementation
-- [ ] Install Nx dependencies
+- [x] Install Nx dependencies
   ```bash
   npm install -D nx @nx/workspace @nx/next @nx/jest @nx/linter
   ```
-- [ ] Create `nx.json` configuration
-- [ ] Create `workspace.json` (or individual `project.json` files)
-- [ ] Create `apps/` folder
-- [ ] Create `libs/` folder
-- [ ] Update root `package.json` scripts:
+- [x] Create `nx.json` configuration
+- [x] Create `workspace.json` (or individual `project.json` files)
+- [x] Create `apps/` folder
+- [x] Create `libs/` folder
+- [x] Update root `package.json` scripts:
   ```json
   {
     "scripts": {
@@ -56,12 +56,12 @@
     }
   }
   ```
-- [ ] Add `.nx/cache` to `.gitignore`
-- [ ] Test: `npx nx graph`
+- [x] Add `.nx/cache` to `.gitignore`
+- [x] Test: `npx nx graph`
 
 ### Verification
-- [ ] `npx nx graph` displays graph (even if empty)
-- [ ] No errors in `nx.json`
+- [x] `npx nx graph` displays graph (even if empty)
+- [x] No errors in `nx.json`
 - [ ] All existing tests still pass
 
 ### Finalization
