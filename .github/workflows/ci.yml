@@ -78,7 +78,7 @@ jobs:
 
       - name: Install native binaries for Linux
         run: |
-          cd frontend
+          cd apps/kameravue-fe
           npm install @next/swc-linux-x64-gnu @next/swc-linux-x64-musl \
             @unrs/resolver-binding-linux-x64-gnu \
             lightningcss-linux-x64-gnu \
@@ -86,11 +86,11 @@ jobs:
             --no-save --force || true
 
       - name: Run ESLint
-        working-directory: frontend
+        working-directory: apps/kameravue-fe
         run: npm run lint:check
 
       - name: Check Prettier formatting
-        working-directory: frontend
+        working-directory: apps/kameravue-fe
         run: npm run format:check
 
   # ===========================================
@@ -115,7 +115,7 @@ jobs:
 
       - name: Install native binaries for Linux
         run: |
-          cd frontend
+          cd apps/kameravue-fe
           npm install @next/swc-linux-x64-gnu @next/swc-linux-x64-musl \
             @unrs/resolver-binding-linux-x64-gnu \
             lightningcss-linux-x64-gnu \
@@ -123,7 +123,7 @@ jobs:
             --no-save --force || true
 
       - name: Run frontend unit tests
-        working-directory: frontend
+        working-directory: apps/kameravue-fe
         run: npx jest --watchAll=false --coverage
 
       - name: Upload coverage report
@@ -133,7 +133,7 @@ jobs:
           name: frontend-coverage
           path: |
             coverage/
-            frontend/coverage/
+            apps/kameravue-fe/coverage/
           retention-days: 7
           if-no-files-found: warn
 
@@ -141,7 +141,7 @@ jobs:
         run: |
           echo "## Frontend Coverage Report" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
-          if [ -f coverage/lcov.info ] || [ -f frontend/coverage/lcov.info ]; then
+          if [ -f coverage/lcov.info ] || [ -f apps/kameravue-fe/coverage/lcov.info ]; then
             echo "✅ Jest coverage report generated successfully" >> $GITHUB_STEP_SUMMARY
             echo "" >> $GITHUB_STEP_SUMMARY
             echo "📊 Coverage report uploaded as artifact" >> $GITHUB_STEP_SUMMARY
@@ -174,7 +174,7 @@ jobs:
 
       - name: Install native binaries for Linux
         run: |
-          cd frontend
+          cd apps/kameravue-fe
           npm install @next/swc-linux-x64-gnu @next/swc-linux-x64-musl \
             @unrs/resolver-binding-linux-x64-gnu \
             lightningcss-linux-x64-gnu \
@@ -182,7 +182,7 @@ jobs:
             --no-save --force || true
 
       - name: Build frontend
-        run: npm run build:frontend
+        run: npx nx build kameravue-fe
 
   # ===========================================
   # Backend Tests (JUnit + JaCoCo Coverage)
