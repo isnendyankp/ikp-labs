@@ -1,0 +1,45 @@
+{
+  "name": "kameravue-fe",
+  "sourceRoot": "apps/kameravue-fe/src",
+  "projectType": "application",
+  "targets": {
+    "dev": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm run dev",
+        "cwd": "apps/kameravue-fe"
+      }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm run build",
+        "cwd": "apps/kameravue-fe"
+      },
+      "outputs": ["{projectRoot}/.next", "{projectRoot}/out"]
+    },
+    "start": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm run start",
+        "cwd": "apps/kameravue-fe"
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm run test",
+        "cwd": "apps/kameravue-fe"
+      },
+      "outputs": ["{projectRoot}/coverage"]
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm run lint:check",
+        "cwd": "apps/kameravue-fe"
+      }
+    }
+  },
+  "tags": ["type:app", "platform:nextjs", "domain:kameravue"]
+}
