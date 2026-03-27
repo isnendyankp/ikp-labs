@@ -16,7 +16,7 @@
 
 # testing
 /coverage
-frontend/coverage/
+apps/kameravue-fe/coverage/
 /test-results/
 /playwright-report/
 /tests/e2e/reports/

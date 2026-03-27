@@ -4,7 +4,7 @@
   "description": "Registration Form Template - Frontend and Backend",
   "private": true,
   "workspaces": [
-    "frontend",
+    "apps/kameravue-fe",
     "backend"
   ],
   "scripts": {
@@ -23,11 +23,11 @@
     "nx:graph": "nx graph"
   },
   "lint-staged": {
-    "frontend/**/*.{js,jsx,ts,tsx}": [
+    "apps/kameravue-fe/**/*.{js,jsx,ts,tsx}": [
       "npx eslint --fix",
       "npx prettier --write"
     ],
-    "frontend/**/*.{json,md,css}": [
+    "apps/kameravue-fe/**/*.{json,md,css}": [
       "npx prettier --write"
     ]
   },
