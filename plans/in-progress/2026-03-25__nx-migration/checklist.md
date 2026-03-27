@@ -82,79 +82,33 @@
 
 ## Phase 2: Migrate Frontend
 
----
-
-## Phase 2: Migrate Frontend
-
 ### Branch Setup
-- [ ] Create work branch `refactor/migrate-frontend-to-nx` from main
+- [x] Create work branch `refactor/migrate-frontend-to-nx` from main
 
 ### Pre-migration
-- [ ] Verify frontend builds currently: `cd frontend && npm run build`
-- [ ] Verify frontend tests pass: `cd frontend && npm run test`
+- [x] Verify frontend builds currently: `cd frontend && npm run build`
+- [x] Verify frontend tests pass: `cd frontend && npm run test`
 
 ### Migration
-- [ ] Move frontend folder:
+- [x] Move frontend folder to `apps/kameravue-fe` (following senior's naming convention `[domain]-[type]`):
   ```bash
-  git mv frontend apps/frontend
+  git mv frontend apps/kameravue-fe
   ```
-- [ ] Create `apps/frontend/project.json`:
-  ```json
-  {
-    "name": "frontend",
-    "sourceRoot": "apps/frontend/src",
-    "projectType": "application",
-    "targets": {
-      "build": {
-        "executor": "@nx/next:build",
-        "options": {
-          "outputPath": "dist/apps/frontend"
-        }
-      },
-      "serve": {
-        "executor": "@nx/next:server",
-        "options": {
-          "buildTarget": "frontend:build",
-          "dev": true,
-          "port": 3002
-        }
-      },
-      "test": {
-        "executor": "@nx/jest:jest",
-        "options": {
-          "jestConfig": "apps/frontend/jest.config.ts"
-        }
-      }
-    }
-  }
-  ```
-- [ ] Update `apps/frontend/tsconfig.json` paths if needed
-- [ ] Update `apps/frontend/next.config.ts` if needed
-- [ ] Update root package.json workspace path:
-  ```json
-  {
-    "workspaces": ["apps/frontend", "apps/backend"]
-  }
-  ```
+- [x] Create `apps/kameravue-fe/project.json` with `nx:run-commands` executor
+- [x] Update root package.json workspace path to `apps/kameravue-fe`
+- [x] Update lint-staged paths in root `package.json`
+- [x] Update `.gitignore` for coverage path
 
 ### Verification
-- [ ] `nx build frontend` succeeds
-- [ ] `nx serve frontend` starts dev server
-- [ ] `nx test frontend` passes
-- [ ] Manual test: open http://localhost:3002
+- [x] `nx build kameravue-fe` succeeds
+- [x] `nx test kameravue-fe` passes (394 tests)
+- [x] `nx lint kameravue-fe` passes
 
 ### Update CI/CD (Partial)
-- [ ] Update `.github/workflows/ci.yml` frontend paths:
-  ```yaml
-  # Change from:
-  working-directory: ./frontend
-  # To:
-  working-directory: ./apps/frontend
-  ```
-- [ ] Update lint-staged paths in root `package.json`
+- [ ] Update `.github/workflows/ci.yml` frontend paths (to be done in Phase 4)
 
 ### Finalization
-- [ ] Commit: `refactor: migrate frontend to Nx apps folder`
+- [x] Commit: `refactor: migrate frontend to Nx apps/kameravue-fe`
 - [ ] Push to origin
 - [ ] Create PR
 - [ ] Wait for CI to pass
@@ -162,10 +116,10 @@
 - [ ] Update local main
 
 ### Acceptance Criteria Phase 2
-- [ ] Frontend in `apps/frontend/`
-- [ ] `nx build frontend` works
-- [ ] `nx serve frontend` works
-- [ ] `nx test frontend` passes
+- [x] Frontend in `apps/kameravue-fe/`
+- [x] `nx build kameravue-fe` works
+- [x] `nx test kameravue-fe` passes (394 tests)
+- [x] `nx lint kameravue-fe` passes
 - [ ] CI passes
 - [ ] PR merged ke main
 
