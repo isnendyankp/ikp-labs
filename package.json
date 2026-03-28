@@ -5,7 +5,7 @@
   "private": true,
   "workspaces": [
     "apps/kameravue-fe",
-    "backend"
+    "apps/kameravue-be"
   ],
   "scripts": {
     "dev:frontend": "npm run dev --workspace=registration-form-frontend",

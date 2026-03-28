@@ -213,7 +213,7 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Run backend tests with coverage
-        working-directory: backend/ikp-labs-api
+        working-directory: apps/kameravue-be/ikp-labs-api
         # Tests use H2 in-memory database (configured in application-test.properties)
         # Test exclusions configured in pom.xml surefire plugin
         # TODO: Fix pre-existing failing tests and remove exclusions from pom.xml
@@ -224,7 +224,7 @@ jobs:
         if: always()
         with:
           name: backend-test-results
-          path: backend/ikp-labs-api/target/surefire-reports/
+          path: apps/kameravue-be/ikp-labs-api/target/surefire-reports/
           retention-days: 7
 
       - name: Upload coverage report
@@ -232,11 +232,11 @@ jobs:
         if: always()
         with:
           name: backend-coverage
-          path: backend/ikp-labs-api/target/site/jacoco/
+          path: apps/kameravue-be/ikp-labs-api/target/site/jacoco/
           retention-days: 7
 
       - name: Coverage Summary
-        working-directory: backend/ikp-labs-api
+        working-directory: apps/kameravue-be/ikp-labs-api
         run: |
           echo "## Backend Coverage Report" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
@@ -292,11 +292,11 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Build backend (skip tests)
-        working-directory: backend/ikp-labs-api
+        working-directory: apps/kameravue-be/ikp-labs-api
         run: mvn package -DskipTests -B
 
       - name: Start Spring Boot backend
-        working-directory: backend/ikp-labs-api
+        working-directory: apps/kameravue-be/ikp-labs-api
         run: |
           nohup java -jar target/*.jar \
             --spring.datasource.url=jdbc:postgresql://localhost:5432/registrationform_db \

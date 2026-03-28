@@ -105,91 +105,91 @@
 - [x] `nx lint kameravue-fe` passes
 
 ### Update CI/CD (Partial)
-- [ ] Update `.github/workflows/ci.yml` frontend paths (to be done in Phase 4)
+- [x] Update `.github/workflows/ci.yml` frontend paths (done in PR #43)
 
 ### Finalization
 - [x] Commit: `refactor: migrate frontend to Nx apps/kameravue-fe`
-- [ ] Push to origin
-- [ ] Create PR
-- [ ] Wait for CI to pass
-- [ ] Merge PR with `gh pr merge --rebase --delete-branch`
-- [ ] Update local main
+- [x] Push to origin
+- [x] Create PR #43
+- [x] Wait for CI to pass
+- [x] Merge PR with `gh pr merge --rebase --delete-branch`
+- [x] Update local main
 
 ### Acceptance Criteria Phase 2
 - [x] Frontend in `apps/kameravue-fe/`
 - [x] `nx build kameravue-fe` works
 - [x] `nx test kameravue-fe` passes (394 tests)
 - [x] `nx lint kameravue-fe` passes
-- [ ] CI passes
-- [ ] PR merged ke main
+- [x] CI passes
+- [x] PR #43 merged ke main
 
 ---
 
 ## Phase 3: Migrate Backend
 
 ### Branch Setup
-- [ ] Create work branch `refactor/migrate-backend-to-nx` from main
+- [x] Create work branch `refactor/migrate-backend-to-nx` from main
 
 ### Pre-migration
-- [ ] Verify backend builds currently: `cd backend/ikp-labs-api && ./mvnw package`
-- [ ] Verify backend tests pass: `cd backend/ikp-labs-api && ./mvnw test`
+- [x] Verify backend builds currently: `cd backend/ikp-labs-api && ./mvnw package`
+- [x] Verify backend tests pass: `cd backend/ikp-labs-api && ./mvnw test`
 
 ### Migration
-- [ ] Move backend folder:
+- [x] Move backend folder (following senior's naming convention `[domain]-[type]`):
   ```bash
-  git mv backend apps/backend
+  git mv backend apps/kameravue-be
   ```
-- [ ] Create `apps/backend/project.json`:
+- [x] Create `apps/kameravue-be/project.json`:
   ```json
   {
-    "name": "backend",
-    "sourceRoot": "apps/backend/ikp-labs-api/src",
+    "name": "kameravue-be",
+    "sourceRoot": "apps/kameravue-be/ikp-labs-api/src",
     "projectType": "application",
     "targets": {
       "build": {
         "executor": "nx:run-commands",
         "options": {
-          "command": "cd apps/backend/ikp-labs-api && ./mvnw package -DskipTests",
+          "command": "cd apps/kameravue-be/ikp-labs-api && ./mvnw package -DskipTests",
           "cwd": "."
         }
       },
       "serve": {
         "executor": "nx:run-commands",
         "options": {
-          "command": "cd apps/backend/ikp-labs-api && ./mvnw spring-boot:run",
+          "command": "cd apps/kameravue-be/ikp-labs-api && ./mvnw spring-boot:run",
           "cwd": "."
         }
       },
       "test": {
         "executor": "nx:run-commands",
         "options": {
-          "command": "cd apps/backend/ikp-labs-api && ./mvnw test",
+          "command": "cd apps/kameravue-be/ikp-labs-api && ./mvnw test",
           "cwd": "."
         }
       }
     }
   }
   ```
-- [ ] Update root package.json workspace path
-- [ ] Verify `apps/backend/ikp-labs-api/pom.xml` unchanged
+- [x] Update root package.json workspace path
+- [x] Verify `apps/kameravue-be/ikp-labs-api/pom.xml` unchanged
 
 ### Verification
-- [ ] `nx build backend` succeeds
-- [ ] `nx serve backend` starts Spring Boot
-- [ ] `nx test backend` passes
+- [ ] `nx build kameravue-be` succeeds (will be verified by CI)
+- [ ] `nx serve kameravue-be` starts Spring Boot
+- [ ] `nx test kameravue-be` passes (will be verified by CI)
 - [ ] Manual test: verify API at http://localhost:8081
 
 ### Update CI/CD (Partial)
-- [ ] Update `.github/workflows/ci.yml` backend paths:
+- [x] Update `.github/workflows/ci.yml` backend paths:
   ```yaml
   # Change from:
   working-directory: ./backend/ikp-labs-api
   # To:
-  working-directory: ./apps/backend/ikp-labs-api
+  working-directory: ./apps/kameravue-be/ikp-labs-api
   ```
 
 ### Finalization
-- [ ] Commit: `refactor: migrate backend to Nx apps folder`
+- [ ] Commit: `refactor: migrate backend to Nx apps/kameravue-be`
 - [ ] Push to origin
 - [ ] Create PR
 - [ ] Wait for CI to pass
@@ -197,10 +197,10 @@
 - [ ] Update local main
 
 ### Acceptance Criteria Phase 3
-- [ ] Backend in `apps/backend/`
-- [ ] `nx build backend` works
-- [ ] `nx serve backend` works
-- [ ] `nx test backend` passes
+- [x] Backend in `apps/kameravue-be/`
+- [ ] `nx build kameravue-be` works (will be verified by CI)
+- [ ] `nx serve kameravue-be` works
+- [ ] `nx test kameravue-be` passes (will be verified by CI)
 - [ ] CI passes
 - [ ] PR merged ke main
 
@@ -226,21 +226,21 @@
   # Change path from:
   FRONTEND_PATH="frontend"
   # To:
-  FRONTEND_PATH="apps/frontend"
+  FRONTEND_PATH="apps/kameravue-fe"
   ```
 - [ ] Update `scripts/deploy-backend.sh`:
   ```bash
   # Change path from:
   BACKEND_PATH="backend/ikp-labs-api"
   # To:
-  BACKEND_PATH="apps/backend/ikp-labs-api"
+  BACKEND_PATH="apps/kameravue-be/ikp-labs-api"
   ```
 - [ ] Update `scripts/deploy-all.sh` if exists
 
 ### PM2 Configuration (if exists)
 - [ ] Update `ecosystem.config.js` paths:
   ```javascript
-  cwd: './apps/frontend'  // instead of './frontend'
+  cwd: './apps/kameravue-fe'  // instead of './frontend'
   ```
 
 ### Playwright Config
