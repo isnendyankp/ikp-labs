@@ -174,10 +174,10 @@
 - [x] Verify `apps/kameravue-be/ikp-labs-api/pom.xml` unchanged
 
 ### Verification
-- [ ] `nx build kameravue-be` succeeds (will be verified by CI)
-- [ ] `nx serve kameravue-be` starts Spring Boot
-- [ ] `nx test kameravue-be` passes (will be verified by CI)
-- [ ] Manual test: verify API at http://localhost:8081
+- [x] `nx build kameravue-be` succeeds (verified by CI)
+- [ ] `nx serve kameravue-be` starts Spring Boot (to be tested locally)
+- [x] `nx test kameravue-be` passes (verified by CI)
+- [ ] Manual test: verify API at http://localhost:8081 (to be tested locally)
 
 ### Update CI/CD (Partial)
 - [x] Update `.github/workflows/ci.yml` backend paths:
@@ -189,20 +189,20 @@
   ```
 
 ### Finalization
-- [ ] Commit: `refactor: migrate backend to Nx apps/kameravue-be`
-- [ ] Push to origin
-- [ ] Create PR
-- [ ] Wait for CI to pass
-- [ ] Merge PR with `gh pr merge --rebase --delete-branch`
-- [ ] Update local main
+- [x] Commit: `refactor: migrate backend to Nx apps/kameravue-be`
+- [x] Push to origin
+- [x] Create PR #45
+- [x] Wait for CI to pass (6/6 checks passed)
+- [x] Merge PR with `gh pr merge --rebase --delete-branch`
+- [x] Update local main
 
 ### Acceptance Criteria Phase 3
 - [x] Backend in `apps/kameravue-be/`
-- [ ] `nx build kameravue-be` works (will be verified by CI)
-- [ ] `nx serve kameravue-be` works
-- [ ] `nx test kameravue-be` passes (will be verified by CI)
-- [ ] CI passes
-- [ ] PR merged ke main
+- [x] `nx build kameravue-be` works (verified by CI)
+- [ ] `nx serve kameravue-be` works (to be tested locally)
+- [x] `nx test kameravue-be` passes (verified by CI)
+- [x] CI passes
+- [x] PR #45 merged ke main
 
 ---
 
