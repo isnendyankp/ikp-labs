@@ -1,0 +1,28 @@
+{
+  "name": "kameravue-be",
+  "sourceRoot": "apps/kameravue-be/ikp-labs-api/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "cd apps/kameravue-be/ikp-labs-api && ./mvnw package -DskipTests",
+        "cwd": "."
+      }
+    },
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "cd apps/kameravue-be/ikp-labs-api && ./mvnw spring-boot:run",
+        "cwd": "."
+      }
+    },
+    "test": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "cd apps/kameravue-be/ikp-labs-api && ./mvnw test",
+        "cwd": "."
+      }
+    }
+  }
+}

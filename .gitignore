@@ -64,6 +64,7 @@ next-env.d.ts
 
 # Java/Maven
 backend/*/target/
+apps/kameravue-be/*/target/
 *.class
 *.jar
 *.war
@@ -102,8 +103,19 @@ backend/ikp-labs-api/uploads/profiles/*
 backend/ikp-labs-api/uploads/gallery/*
 !backend/ikp-labs-api/uploads/gallery/.gitkeep
 
+apps/kameravue-be/ikp-labs-api/uploads/*
+!apps/kameravue-be/ikp-labs-api/uploads/.gitkeep
+!apps/kameravue-be/ikp-labs-api/uploads/profiles/
+apps/kameravue-be/ikp-labs-api/uploads/profiles/*
+!apps/kameravue-be/ikp-labs-api/uploads/profiles/.gitkeep
+!apps/kameravue-be/ikp-labs-api/uploads/gallery/
+apps/kameravue-be/ikp-labs-api/uploads/gallery/*
+!apps/kameravue-be/ikp-labs-api/uploads/gallery/.gitkeep
+
 backend/uploads/*
 !backend/uploads/.gitkeep
+apps/kameravue-be/uploads/*
+!apps/kameravue-be/uploads/.gitkeep
 uploads/*
 !uploads/.gitkeep
 
