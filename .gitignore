@@ -27,6 +27,11 @@ apps/kameravue-fe/coverage/
 /out/
 frontend/.next/
 frontend/out/
+apps/kameravue-fe/.next/
+apps/kameravue-fe/out/
+
+# Next.js static export
+static/
 
 # production
 /build
