@@ -119,7 +119,7 @@ jobs:
 
       - name: Install native binaries for Linux
         run: |
-          cd frontend
+          cd apps/kameravue-fe
           npm install @next/swc-linux-x64-gnu @next/swc-linux-x64-musl \
             @unrs/resolver-binding-linux-x64-gnu \
             lightningcss-linux-x64-gnu \
@@ -127,11 +127,11 @@ jobs:
             --no-save --force || true
 
       - name: Build frontend
-        run: npm run build:frontend
+        run: npx nx build kameravue-fe
 
       - name: Start frontend
         run: |
-          cd frontend
+          cd apps/kameravue-fe
           nohup npx next start -p 3002 > /tmp/nextjs.log 2>&1 &
 
       - name: Wait for frontend health check

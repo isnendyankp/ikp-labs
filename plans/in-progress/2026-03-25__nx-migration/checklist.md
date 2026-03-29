@@ -216,7 +216,10 @@
   - [x] ~~Use `nx` commands instead of manual cd~~ (skipped - direct mvn commands work fine)
   - [x] ~~Add Nx cache setup~~ (skipped - optional optimization, not needed)
   - [x] Update all path references (done in Phase 3)
-- [x] Update `.github/workflows/scheduled-e2e.yml` path references (done in Phase 3)
+- [x] Update `.github/workflows/scheduled-e2e.yml` path references
+  - [x] Change `cd frontend` to `cd apps/kameravue-fe`
+  - [x] Change `npm run build:frontend` to `npx nx build kameravue-fe`
+  - [x] Verified all path references updated (Mar 29, 2026)
 - [x] ~~Test CI locally~~ (skipped - verified by CI in Phase 3)
 
 ### Deployment Script Updates
