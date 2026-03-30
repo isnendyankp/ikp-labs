@@ -87,6 +87,7 @@ Social feature allowing users to like/unlike photos with real-time counter updat
 ## Tech Stack
 
 ### Frontend
+### Frontend
 - **Framework**: Next.js 15 (React 19)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
@@ -113,6 +114,51 @@ Social feature allowing users to like/unlike photos with real-time counter updat
 - **Reverse Proxy**: Nginx with SSL (Let's Encrypt)
 - **Process Manager**: PM2
 - **Database**: PostgreSQL 16
+
+---
+
+## Nx Monorepo
+
+This project uses **Nx monorepo** for managing multiple applications and shared libraries in a single repository.
+
+### Benefits
+
+- **Better Developer Experience**: Unified commands for all apps (`nx serve`, `nx build`, `nx test`)
+- **Affected Commands**: Run commands only on changed projects (`nx affected -t build`)
+- **Dependency Graph**: Visualize project structure (`nx graph`)
+- **Future Scalability**: Easy to add new apps (mobile, admin dashboard) in the future
+- **Shared Libraries**: Reusable code via `libs/` directory
+
+### Common Nx Commands
+
+```bash
+# Start all services (quick)
+nx run-many -t dev
+
+# Or start specific services
+nx serve kameravue-fe     # Frontend
+nx serve kameravue-be     # Backend
+
+# Build all apps
+nx run-many -t build
+
+# Test all apps
+nx run-many -t test
+
+# Lint all apps
+nx run-many -t lint
+
+# View dependency graph
+nx graph
+
+# Build only affected projects by code changes
+nx affected -t build
+
+# Test only affected projects
+nx affected -t test
+```
+
+**Full Nx Migration Guide**: [plans/done/2026-03-25__nx-migration/](plans/done/2026-03-25__nx-migration/)
 
 ---
 
@@ -175,7 +221,11 @@ createdb registration_form_db
 
 ### 3. Start Backend
 ```bash
-cd backend/ikp-labs-api
+# Using Nx (recommended)
+nx serve kameravue-be
+
+# Or using traditional approach
+cd apps/kameravue-be/ikp-labs-api
 ./mvnw spring-boot:run
 
 # Backend runs on http://localhost:8081
@@ -183,8 +233,11 @@ cd backend/ikp-labs-api
 
 ### 4. Start Frontend
 ```bash
-cd frontend
-npm install
+# Using Nx (recommended)
+nx serve kameravue-fe
+
+# Or using traditional approach
+cd apps/kameravue-fe
 npm run dev
 
 # Frontend runs on http://localhost:3002
@@ -192,12 +245,14 @@ npm run dev
 
 ### 5. Run Tests (Optional)
 ```bash
-# E2E Tests
-npx playwright test
+# E2E Tests (using Nx)
+npx nx run kameravue-fe:e2e
 
-# Integration Tests
-cd backend/ikp-labs-api
-./mvnw test
+# Backend Integration Tests (using Nx)
+npx nx test kameravue-be
+
+# Or using traditional approach
+cd apps/kameravue-be/ikp-labs-api && ./mvnw test
 ```
 
 **Default URLs:**
@@ -269,18 +324,24 @@ This project follows the [Diátaxis](https://diataxis.fr/) documentation framewo
 
 ## Project Structure
 
-High-level organization:
+[![Nx](https://img.shields.io/badge/Monorepo-Nx-9f001-blue)](https://nx.dev/)
+
+This project uses **Nx monorepo** for managing multiple applications and shared libraries in a single repository.
+
+### High-level Organization
 
 ```
 ikp-labs/
-├── frontend/              # Next.js application
-├── backend/              # Spring Boot API
-│   └── ikp-labs-api/
-├── tests/                # E2E and API tests
+├── apps/
+│   ├── kameravue-fe/         # Next.js application (Frontend)
+│   └── kameravue-be/         # Spring Boot application (Backend)
+│       └── ikp-labs-api/
+├── libs/                     # Shared libraries (future)
+├── tests/                    # E2E and API tests
 │   ├── e2e/             # Playwright E2E tests
 │   └── api/             # Playwright API tests
-├── docs/                # Documentation (Diátaxis)
-└── plans/               # Project planning
+├── docs/                    # Documentation (Diátaxis)
+└── plans/                 # Project planning
 ```
 
 **📁 Complete structure**: [docs/reference/project-structure.md](docs/reference/project-structure.md)
@@ -291,38 +352,70 @@ ikp-labs/
 
 ### Running in Development
 
-**Frontend:**
+**Using Nx (recommended):**
 ```bash
-cd frontend
-npm run dev
+# Start backend
+nx serve kameravue-be
+
+# Start frontend (in new terminal)
+nx serve kameravue-fe
+
+# Or run both simultaneously
+nx run-many -t dev
 ```
 
-**Backend:**
+**Using Traditional approach:**
 ```bash
-cd backend/ikp-labs-api
+# Backend
+cd apps/kameravue-be/ikp-labs-api
 ./mvnw spring-boot:run
+
+# Frontend
+cd apps/kameravue-fe
+npm run dev
 ```
 
 **Tests:**
 ```bash
-# E2E (ensure backend & frontend are running)
+# E2E Tests (ensure backend & frontend are running)
 npx playwright test
 
-# Integration
-cd backend/ikp-labs-api
+# Backend Integration
+cd apps/kameravue-be/ikp-labs-api
 ./mvnw test
 ```
 
-### Key Development Commands
-
+### Nx Commands (Quick Reference)
 ```bash
-# Frontend
+# Build all apps
+nx run-many -t build
+
+# Test all apps
+nx run-many -t test
+
+# Lint all apps
+nx run-many -t lint
+
+# View dependency graph
+nx graph
+
+# Build only affected projects by code changes
+nx affected -t build
+
+# Test only affected projects
+nx affected -t test
+```
+
+### Key Development Commands (Traditional)
+```bash
+# Frontend (from apps/kameravue-fe/)
 npm run build          # Production build
 npm run lint          # ESLint check
+npm run test           # Run unit tests
 
-# Backend
+# Backend (from apps/kameravue-be/ikp-labs-api/)
 ./mvnw clean install  # Build JAR
-./mvnw test          # Run tests
+./mvnw test              # Run tests
 
 # Testing
 npx playwright test --ui              # UI mode
