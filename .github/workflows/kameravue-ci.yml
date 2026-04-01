@@ -1,6 +1,7 @@
-# CI Workflow - Automated Testing and Quality Checks
+# Kameravue CI - Automated Testing and Quality Checks
 #
-# This workflow runs on every push and pull request to ensure code quality.
+# This workflow runs on every push and pull request to ensure code quality
+# for the Kameravue application.
 # It performs:
 # - Frontend linting (ESLint + Prettier)
 # - Frontend unit tests (Jest) with coverage
@@ -9,7 +10,7 @@
 # - API tests (Playwright against running backend + PostgreSQL)
 #
 # Note: E2E tests moved to scheduled workflow (6 AM & 6 PM WIB)
-# See: .github/workflows/scheduled-e2e.yml
+# See: .github/workflows/kameravue-scheduled-e2e.yml
 #
 # Workflow Structure:
 # ┌─────────────────────────────────────────────────────────────────┐
@@ -38,7 +39,7 @@
 # Duration: ~3 minutes (faster without E2E)
 #
 
-name: CI
+name: Kameravue CI
 
 on:
   push:
@@ -60,7 +61,7 @@ jobs:
   # Frontend Lint (ESLint + Prettier)
   # ===========================================
   frontend-lint:
-    name: Frontend Lint
+    name: Kameravue Frontend Lint
     runs-on: ubuntu-latest
 
     steps:
@@ -97,7 +98,7 @@ jobs:
   # Frontend Unit Tests (Jest + Coverage)
   # ===========================================
   frontend-tests:
-    name: Frontend Tests
+    name: Kameravue Frontend Tests
     runs-on: ubuntu-latest
 
     steps:
@@ -155,7 +156,7 @@ jobs:
   # Frontend Build (TypeScript + Next.js)
   # ===========================================
   frontend-build:
-    name: Frontend Build
+    name: Kameravue Frontend Build
     runs-on: ubuntu-latest
     needs: [frontend-lint, frontend-tests]
 
@@ -190,7 +191,7 @@ jobs:
   # PostgreSQL service not needed for unit tests
   # ===========================================
   backend-tests:
-    name: Backend Tests
+    name: Kameravue Backend Tests
     runs-on: ubuntu-latest
 
     steps:
@@ -253,7 +254,7 @@ jobs:
   # Tests real API endpoints against running backend
   # ===========================================
   api-tests:
-    name: API Tests
+    name: Kameravue API Tests
     runs-on: ubuntu-latest
 
     services:
@@ -347,7 +348,7 @@ jobs:
   # ===========================================
   # E2E Tests - MOVED TO SCHEDULED WORKFLOW
   # E2E tests now run on a schedule (6 AM & 6 PM WIB) instead of on every PR
-  # See: .github/workflows/scheduled-e2e.yml
+  # See: .github/workflows/kameravue-scheduled-e2e.yml
   # Rationale: Faster PR workflow, cost-effective CI usage
   # ===========================================
 
@@ -355,7 +356,7 @@ jobs:
   # Summary Job - All checks must pass
   # ===========================================
   ci-summary:
-    name: CI Summary
+    name: Kameravue CI Summary
     runs-on: ubuntu-latest
     needs: [frontend-lint, frontend-tests, frontend-build, backend-tests, api-tests]
     if: always()
@@ -386,4 +387,4 @@ jobs:
           echo "- API Tests: ${{ needs.api-tests.result }}"
           echo ""
           echo "Note: E2E tests run on schedule (6 AM & 6 PM WIB)"
-          echo "See: .github/workflows/scheduled-e2e.yml"
+          echo "See: .github/workflows/kameravue-scheduled-e2e.yml"
