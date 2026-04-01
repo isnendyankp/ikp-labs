@@ -1,7 +1,7 @@
-# Scheduled E2E Tests - Automated Health Checks
+# Kameravue Scheduled E2E Tests - Automated Health Checks
 #
-# This workflow runs E2E tests on a schedule (twice daily) to detect regressions
-# and ensure the application remains stable over time.
+# This workflow runs E2E tests on a schedule (twice daily) for the Kameravue
+# application to detect regressions and ensure it remains stable over time.
 #
 # Schedule:
 # - 6:00 AM WIB (23:00 UTC previous day)
@@ -18,7 +18,7 @@
 # - E2E failures discovered after merge (not before)
 # - Requires monitoring and quick response to failures
 
-name: Scheduled E2E Tests
+name: Kameravue Scheduled E2E Tests
 
 on:
   schedule:
@@ -36,7 +36,7 @@ env:
 
 jobs:
   e2e-tests:
-    name: E2E Tests (Scheduled)
+    name: Kameravue E2E Tests (Scheduled)
     runs-on: ubuntu-latest
     timeout-minutes: 60
 
