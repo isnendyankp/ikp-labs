@@ -1,161 +1,72 @@
 # Gherkin Specifications
 
-This directory contains Gherkin feature files that describe the behavior of the Registration Form application from a user's perspective.
+Centralized Gherkin feature files (source of truth) for IKP-Labs test scenarios.
 
-## Purpose
-
-These specifications serve as **living documentation** that:
-
-- Describe user scenarios in plain language
-- Align with automated Playwright E2E tests
-- Provide clear acceptance criteria for features
-- Enable collaboration between technical and non-technical stakeholders
-
-## Directory Structure
+## Structure
 
 ```
 specs/
-├── authentication/
-│   ├── registration.feature   # User registration scenarios (5 scenarios)
-│   ├── login.feature           # User login scenarios (4 scenarios)
-│   └── home-page.feature      # Protected page scenarios (9 scenarios)
-├── gallery/
-│   ├── photo-upload.feature    # Photo upload scenarios (10 scenarios)
-│   ├── photo-management.feature # Photo CRUD scenarios (19 scenarios)
-│   ├── photo-privacy.feature   # Privacy control scenarios (16 scenarios)
-│   ├── photo-likes.feature     # Photo likes scenarios (15 scenarios)
-│   └── photo-sorting.feature   # Photo sorting scenarios (28 scenarios)
-├── profile/
-│   └── profile-picture.feature # Profile picture scenarios (15 scenarios)
-└── README.md                   # This file
+├── authentication/     # Login, registration, auth flows
+├── gallery/           # Photo upload, management, likes, privacy, sorting
+└── profile/           # User profile features
 ```
 
-**Total Coverage:** 121 scenarios across 9 feature files
+## Feature Files
 
-## Gherkin Format
+### Authentication
+- `login.feature` - User login scenarios (77 lines, 13 scenarios)
+- `registration.feature` - User registration scenarios (67 lines, 11 scenarios)
+- `home-page.feature` - Home page navigation and display
 
-All specifications follow the **Gherkin syntax**:
+### Gallery
+- `photo-upload.feature` - Photo upload functionality
+- `photo-management.feature` - Photo CRUD operations
+- `photo-likes.feature` - Photo likes feature
+- `photo-privacy.feature` - Photo privacy settings
+- `photo-sorting.feature` - Photo sorting and filtering (325 lines)
 
-- **Feature**: High-level description of functionality
-- **Background**: Common preconditions for all scenarios
-- **Scenario**: Individual test case
-- **Given/When/Then**: Steps that describe behavior
+### Profile
+- `profile-picture.feature` - Profile picture upload and management
 
-### Example
+## Usage
+
+These Gherkin specs are imported by test implementations:
+
+- **Frontend E2E** (future): `apps/kameravue-fe-e2e/steps/` - Step definitions for browser tests
+- **Backend E2E** (future): `apps/kameravue-be-e2e/` - API contract tests
+- **Current**: `tests/gherkin/steps/` - Existing step definitions
+
+## Principles
+
+1. **Single Source of Truth**: All feature files live here, not in test folders
+2. **Domain Organization**: Organized by business domain (auth, gallery, profile)
+3. **Reusable**: Same specs can be used by multiple test implementations
+4. **Separation of Concerns**: Specs (what to test) separate from implementation (how to test)
+
+## Gherkin Syntax
 
 ```gherkin
-Feature: User Registration
-  As a new user
-  I want to register for an account
-  So that I can access the application
+Feature: User Login
+  As a user
+  I want to log in to the application
+  So that I can access my personalized dashboard
 
-  Scenario: Successful registration
-    Given the user is on the registration page
-    When the user submits valid registration data
-    Then the user should be registered successfully
+  Scenario: Successful login with valid credentials
+    Given I am on the login page
+    When I fill in the email field with "john.doe@example.com"
+    And I fill in the password field with "SecurePass123"
+    And I click the "Sign In" button
+    Then I should see a login success message
 ```
-
-## Alignment with Playwright Tests
-
-Each Gherkin scenario aligns with existing Playwright E2E tests:
-
-| Feature File               | Playwright Test File           | Description              | Scenarios |
-| -------------------------- | ------------------------------ | ------------------------ | --------- |
-| `authentication/registration.feature` | `tests/e2e/registration.spec.ts` | Registration flow tests | 5 |
-| `authentication/login.feature`        | `tests/e2e/login.spec.ts`        | Login flow tests        | 4 |
-| `authentication/home-page.feature`    | `tests/e2e/auth-flow.spec.ts`    | Protected pages         | 9 |
-| `gallery/photo-upload.feature`        | `tests/e2e/gallery.spec.ts` | Photo upload tests | 10 |
-| `gallery/photo-management.feature`    | `tests/e2e/gallery.spec.ts` | Photo CRUD tests   | 19 |
-| `gallery/photo-privacy.feature`       | `tests/e2e/gallery.spec.ts` | Privacy tests      | 16 |
-| `gallery/photo-likes.feature`         | `tests/e2e/photo-likes.spec.ts` | Photo likes tests  | 15 |
-| `gallery/photo-sorting.feature`       | `tests/e2e/gallery-sorting.spec.ts` | Photo sorting tests | 28 |
-| `profile/profile-picture.feature`     | `tests/e2e/profile-picture.spec.ts` | Profile picture tests | 15 |
-
-**Total:** 121 scenarios across 9 feature files
-
-## Writing Guidelines
-
-### The 1-1-1 Rule
-
-Each scenario must have:
-
-- **1 Given** (precondition)
-- **1 When** (action)
-- **1 Then** (expected result)
-
-### Focus on User Behavior
-
-Write scenarios from the **user's perspective**, not technical implementation:
-
-✅ **Good**: "When the user submits the registration form"
-❌ **Bad**: "When POST request is sent to /api/auth/register"
-
-### Use Business Language
-
-Avoid technical jargon and implementation details:
-
-✅ **Good**: "the user should see an error message"
-❌ **Bad**: "the API should return HTTP 400 status code"
-
-## How to Use
-
-### Reading Specifications
-
-1. Browse feature files to understand application behavior
-2. Read scenarios to see specific use cases
-3. Check examples in Scenario Outlines for data variations
-
-### Creating New Specifications
-
-Use the `gherkin-spec-writer` agent to create or update specs:
-
-```bash
-# In Claude Code
-"Create Gherkin specifications for password reset feature"
-```
-
-The agent will:
-
-- Follow the 1-1-1 rule
-- Align with existing tests
-- Use proper Gherkin syntax
-- Place files in correct directory
-
-### Updating Existing Specifications
-
-When application behavior changes:
-
-1. Update the corresponding feature file
-2. Ensure alignment with updated Playwright tests
-3. Maintain the 1-1-1 rule
-
-## Testing with MCP Playwright
-
-These specifications complement Playwright testing:
-
-1. **Specs** describe **what** behavior is expected
-2. **Playwright tests** verify **that** behavior works
-3. **MCP Playwright** allows interactive browser testing
-
-### Example Workflow
-
-1. Read specification: `specs/authentication/registration.feature`
-2. Run automated test: `npx playwright test tests/e2e/registration.spec.ts`
-3. Debug with MCP: Use Claude to run interactive browser tests
 
 ## Related Documentation
 
-- [Playwright E2E Tests](../tests/README.md) - Automated testing documentation
-- [Gherkin Reference](https://cucumber.io/docs/gherkin/reference/) - Official Gherkin syntax
-- [BDD Best Practices](https://cucumber.io/docs/bdd/) - Behavior-Driven Development guide
+- [Gherkin Testing Guide](../tests/gherkin/README.md) - How to write and run Gherkin tests
+- [E2E Testing](../tests/e2e/) - End-to-end test implementation
+- [API Testing](../tests/api/) - API contract test implementation
 
-## Contributing
+---
 
-When adding new features:
-
-1. Write Gherkin specification first (spec-driven development)
-2. Create or update Playwright tests to match
-3. Implement the feature
-4. Verify tests pass
-
-This ensures features are well-documented and testable from the start.
+**Last Updated**: April 8, 2026
+**Total Feature Files**: 11
+**Total Scenarios**: 100+
