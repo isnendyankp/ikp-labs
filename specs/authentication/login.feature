@@ -1,29 +1,78 @@
 Feature: User Login
   As a registered user
   I want to login to my account
-  So that I can access my personalized dashboard
+  So that I can access the application
 
   Background:
-    Given the user is on the login page
+    Given I am on the login page
 
-  # Aligns with: tests/e2e/login.spec.ts - Test Case 1
-  Scenario: Successful login with valid credentials
-    Given the user has valid credentials
-    When the user submits the login form
-    Then the user should be logged in with a JWT token
+  Scenario: Successful user login with valid credentials
+    When I fill in the email field with "john.doe@example.com"
+    And I fill in the password field with "SecurePass123"
+    And I click the "Sign In" button
+    Then I should see a login success message
 
-  # Aligns with: tests/e2e/login.spec.ts - Test Case 2
-  Scenario: Login rejected for invalid password
-    Given the user has a registered account
-    When the user submits login form with incorrect password
-    Then the login should be rejected with invalid credentials error
+  Scenario: Login fails with empty required fields
+    When I click the "Sign In" button
+    Then I should see validation errors for empty login fields
+    And I should see "Please enter a valid email address"
+    And I should see "Password must be at least 8 characters long"
 
-  # Aligns with: tests/e2e/login.spec.ts - Test Case 3
-  Scenario: Login rejected for non-existent email
-    When the user submits login form with non-existent email
-    Then the login should be rejected with invalid credentials error
+  Scenario: Login fails with invalid email format
+    When I fill in the email field with "invalid-email"
+    And I fill in the password field with "SecurePass123"
+    And I click the "Sign In" button
+    Then I should see "Please enter a valid email address"
 
-  # Aligns with: tests/e2e/login.spec.ts - Test Case 10
-  Scenario: Login API requests work without CORS errors
-    When the user submits the login form
-    Then no CORS errors should appear in the browser console
+  Scenario: Login fails with short password
+    When I fill in the email field with "john.doe@example.com"
+    And I fill in the password field with "123"
+    And I click the "Sign In" button
+    Then I should see "Password must be at least 8 characters long"
+
+  Scenario: Remember me checkbox functionality
+    When I fill in the email field with "john.doe@example.com"
+    And I fill in the password field with "SecurePass123"
+    And I check the "Remember me" checkbox
+    And I click the "Sign In" button
+    Then I should see a login success message
+    And the remember me checkbox should be checked
+
+  Scenario: Clicking Google Sign-in button
+    When I click the "Sign in with Google" button
+    Then the Google signin handler should be called
+
+  Scenario: Password visibility toggle functionality
+    When I fill in the password field with "mypassword"
+    Then the password should be hidden by default
+    When I click the password visibility toggle button
+    Then the password should be visible
+    When I click the password visibility toggle button again
+    Then the password should be hidden again
+
+  Scenario: Form fields clear errors when user starts typing
+    When I click the "Sign In" button
+    Then I should see validation errors for empty login fields
+    When I start typing in the email field
+    Then the email field error should disappear
+
+  Scenario: Navigation to registration page
+    When I click the "Sign up" link
+    Then I should be redirected to the registration page
+
+  Scenario: Form is responsive on mobile devices
+    Given I am using a mobile device
+    When I view the login page
+    Then the hero section should be hidden
+    And the form should take full width
+
+  Scenario: Form validation provides visual feedback
+    When I click the "Sign In" button
+    Then form fields with errors should have red borders
+    When I fill in the email field with "test@example.com"
+    Then the email field should have normal border styling
+
+  Scenario: Forgot password link functionality
+    Then I should see the "Forgot your password?" link
+    When I click the "Forgot your password?" link
+    Then the forgot password handler should be called
