@@ -33,6 +33,21 @@
       },
       "outputs": ["{projectRoot}/coverage"]
     },
+    "test:watch": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm run test:watch",
+        "cwd": "apps/kameravue-fe"
+      }
+    },
+    "test:coverage": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm run test:coverage",
+        "cwd": "apps/kameravue-fe"
+      },
+      "outputs": ["{projectRoot}/coverage"]
+    },
     "lint": {
       "executor": "nx:run-commands",
       "options": {
