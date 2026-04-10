@@ -6,14 +6,25 @@
     "default": {
       "runner": "nx/tasks-runners/default",
       "options": {
-        "cacheableOperations": ["build", "test", "lint", "e2e"]
+        "cacheableOperations": [
+          "build",
+          "test",
+          "lint",
+          "e2e"
+        ]
       }
     }
   },
   "targetDefaults": {
     "build": {
-      "dependsOn": ["^build"],
-      "outputs": ["{projectRoot}/dist", "{projectRoot}/build", "{projectRoot}/target"]
+      "dependsOn": [
+        "^build"
+      ],
+      "outputs": [
+        "{projectRoot}/dist",
+        "{projectRoot}/build",
+        "{projectRoot}/target"
+      ]
     },
     "dev": {
       "cache": false,
@@ -24,12 +35,30 @@
       "continuous": true
     },
     "test": {
-      "outputs": ["{projectRoot}/coverage", "{projectRoot}/target/surefire-reports"]
+      "outputs": [
+        "{projectRoot}/coverage",
+        "{projectRoot}/target/surefire-reports"
+      ]
+    },
+    "e2e": {
+      "outputs": [
+        "{projectRoot}/test-results",
+        "{projectRoot}/playwright-report"
+      ]
     }
   },
   "namedInputs": {
-    "default": ["{projectRoot}/**/*", "sharedGlobals"],
-    "production": ["default", "!{projectRoot}/**/*.spec.ts", "!{projectRoot}/**/*.test.ts", "!{projectRoot}/test/**/*"]
+    "default": [
+      "{projectRoot}/**/*",
+      "sharedGlobals"
+    ],
+    "production": [
+      "default",
+      "!{projectRoot}/**/*.spec.ts",
+      "!{projectRoot}/**/*.test.ts",
+      "!{projectRoot}/test/**/*"
+    ]
   },
-  "nxCloudId": null
+  "nxCloudId": null,
+  "analytics": false
 }
