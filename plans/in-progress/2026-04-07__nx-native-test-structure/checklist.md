@@ -129,71 +129,75 @@
 - [x] Push to origin
 
 ### PR & Merge
+- [x] Create PR #55
+- [x] Wait for CI to pass (all 6 checks ✅)
+- [x] Merge PR with rebase
+- [x] Update local main
+- [x] Branch deleted
+
+### Acceptance Criteria Phase 2
+- [x] Frontend unit tests co-located in `apps/kameravue-fe/src/__tests__/`
+- [x] Jest config exists and working
+- [x] Nx targets configured (test, test:watch, test:coverage)
+- [x] PR #55 merged ke main
+- [x] CI passes (1m 39s)
+- [x] GitHub activity: +1 green square 🟩
+
+---
+
+## Phase 3: Create Frontend E2E App ✅ COMPLETE
+
+### Branch Setup
+- [x] Create work branch `feat/create-frontend-e2e-app` from main
+
+### Folder Structure
+- [x] Create `apps/kameravue-fe-e2e/`
+- [x] Create `apps/kameravue-fe-e2e/tests/`
+- [x] Create `apps/kameravue-fe-e2e/steps/`
+- [x] Create `apps/kameravue-fe-e2e/fixtures/`
+- [ ] Create `apps/kameravue-fe-e2e/test-results/` (gitignored)
+- [ ] Create `apps/kameravue-fe-e2e/playwright-report/` (gitignored)
+
+### Configuration Files
+- [x] Create `apps/kameravue-fe-e2e/project.json` (with e2e, e2e:ui, e2e:headed, e2e:debug targets)
+- [x] Create `apps/kameravue-fe-e2e/playwright.config.ts`
+- [x] Create `apps/kameravue-fe-e2e/tsconfig.json`
+- [x] Create `apps/kameravue-fe-e2e/.gitignore`
+- [x] Moved `tests/e2e/README.md` → `apps/kameravue-fe-e2e/README.md`
+
+### Move E2E Tests
+- [x] Move `tests/e2e/*.spec.ts` → `apps/kameravue-fe-e2e/tests/` (22 test files)
+- [x] Move `tests/e2e/helpers/` → `apps/kameravue-fe-e2e/helpers/`
+
+### Move Gherkin Steps
+- [x] Move `tests/gherkin/steps/*.ts` → `apps/kameravue-fe-e2e/steps/` (4 step files)
+
+### Move Fixtures
+- [x] Copy `tests/fixtures/*` → `apps/kameravue-fe-e2e/fixtures/`
+
+### Update Nx Configuration
+- [x] Update `nx.json` - add e2e targetDefaults with outputs
+
+### Commit & Push
+- [x] Add all files to git
+- [ ] Commit changes
+- [ ] Push to origin
+
+### PR & Merge
 - [ ] Create PR
 - [ ] Wait for CI to pass
 - [ ] Merge PR with rebase
 - [ ] Update local main
 - [ ] Branch deleted
 
-### Acceptance Criteria Phase 2
-- [x] Frontend unit tests co-located in `apps/kameravue-fe/src/__tests__/`
-- [x] Jest config exists and working
-- [x] Nx targets configured (test, test:watch, test:coverage)
+### Acceptance Criteria Phase 3
+- [x] `apps/kameravue-fe-e2e/` created with complete structure
+- [x] 22 E2E test files moved
+- [x] 4 Gherkin step files moved
+- [x] Fixtures copied
+- [x] Nx configuration updated
 - [ ] PR merged ke main
 - [ ] CI passes
-
----
-
-## Phase 3: Create Frontend E2E App
-
-### Folder Structure
-- [ ] Create `apps/kameravue-fe-e2e/`
-- [ ] Create `apps/kameravue-fe-e2e/tests/`
-- [ ] Create `apps/kameravue-fe-e2e/steps/`
-- [ ] Create `apps/kameravue-fe-e2e/fixtures/`
-- [ ] Create `apps/kameravue-fe-e2e/test-results/` (gitignored)
-- [ ] Create `apps/kameravue-fe-e2e/playwright-report/` (gitignored)
-
-### Configuration Files
-- [ ] Create `apps/kameravue-fe-e2e/project.json`
-- [ ] Create `apps/kameravue-fe-e2e/playwright.config.ts`
-- [ ] Create `apps/kameravue-fe-e2e/tsconfig.json`
-- [ ] Create `apps/kameravue-fe-e2e/.gitignore`
-- [ ] Create `apps/kameravue-fe-e2e/README.md`
-
-### Move E2E Tests
-- [ ] Move `tests/e2e/*.spec.ts` → `apps/kameravue-fe-e2e/tests/`
-- [ ] Move `tests/e2e/demo-*` (if needed)
-- [ ] Move `tests/e2e/helpers/` (if exists)
-
-### Move Gherkin Steps
-- [ ] Move `tests/gherkin/steps/login.steps.ts` → `apps/kameravue-fe-e2e/steps/`
-- [ ] Move `tests/gherkin/steps/registration.steps.ts` → `apps/kameravue-fe-e2e/steps/`
-- [ ] Move `tests/gherkin/steps/photo-sorting.steps.ts` → `apps/kameravue-fe-e2e/steps/`
-- [ ] Move other step files
-
-### Move Fixtures
-- [ ] Move `tests/fixtures/*` → `apps/kameravue-fe-e2e/fixtures/`
-
-### Update Import Paths
-- [ ] Update step files to import from `../../../../specs/`
-- [ ] Update test files if they reference fixtures
-- [ ] Update any relative paths
-
-### Verification
-- [ ] Run `nx e2e kameravue-fe-e2e` (may fail if servers not running)
-- [ ] Start backend: `nx serve kameravue-be`
-- [ ] Start frontend: `nx dev kameravue-fe`
-- [ ] Run `nx e2e kameravue-fe-e2e` again
-- [ ] Verify all E2E tests pass
-- [ ] Check test artifacts in `apps/kameravue-fe-e2e/test-results/`
-- [ ] Check HTML report in `apps/kameravue-fe-e2e/playwright-report/`
-
-### Git & PR
-- [ ] Commit changes: "feat: create kameravue-fe-e2e app for frontend E2E tests"
-- [ ] Push to branch `feat/test-migration-phase3-frontend-e2e-app`
-- [ ] Create PR
-- [ ] Merge PR ke main
 
 ---
 
