@@ -1,0 +1,30 @@
+{
+  "name": "kameravue-be-e2e",
+  "sourceRoot": "apps/kameravue-be-e2e",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "playwright test --project=api-tests",
+        "cwd": "apps/kameravue-be-e2e"
+      }
+    },
+    "e2e:ui": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "playwright test --project=api-tests --ui",
+        "cwd": "apps/kameravue-be-e2e"
+      }
+    },
+    "e2e:debug": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "playwright test --project=api-tests --debug",
+        "cwd": "apps/kameravue-be-e2e"
+      }
+    }
+  },
+  "implicitDependencies": ["kameravue-be"],
+  "tags": ["type:e2e", "scope:kameravue", "platform:playwright", "test:api"]
+}
