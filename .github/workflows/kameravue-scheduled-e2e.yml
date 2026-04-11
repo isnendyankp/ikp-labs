@@ -181,7 +181,7 @@ jobs:
       - name: Run E2E tests
         env:
           CI: true
-        run: npx playwright test --project=chromium
+        run: npx nx e2e kameravue-fe-e2e
 
       - name: Upload E2E test results
         uses: actions/upload-artifact@v4
@@ -189,8 +189,8 @@ jobs:
         with:
           name: e2e-test-results-${{ github.run_number }}
           path: |
-            test-results/
-            playwright-report/
+            apps/kameravue-fe-e2e/test-results/
+            apps/kameravue-fe-e2e/playwright-report/
           retention-days: 7
 
       - name: Upload test report
