@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
-import { ApiClient } from "./helpers/api-client";
-import { AuthHelper } from "./helpers/auth-helper";
+import { ApiClient } from "../../helpers/api-client";
+import { AuthHelper } from "../../helpers/auth-helper";
 
 /**
  * Protected API Endpoint Tests

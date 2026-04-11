@@ -1,12 +1,12 @@
 import { test, expect } from "@playwright/test";
-import { ApiClient } from "./helpers/api-client";
-import { AuthHelper } from "./helpers/auth-helper";
+import { ApiClient } from "../../helpers/api-client";
+import { AuthHelper } from "../../helpers/auth-helper";
 import {
   generateUniqueEmail,
   generateRandomFullName,
   generateValidPassword,
   generateRegistrationData,
-} from "./helpers/test-data";
+} from "../../helpers/test-data";
 
 /**
  * Authentication API Tests
