@@ -333,8 +333,7 @@ jobs:
         run: npm ci
 
       - name: Run API tests
-        run: npx playwright test --project=api-tests
-        working-directory: apps/kameravue-be-e2e
+        run: npx nx e2e kameravue-be-e2e
 
       - name: Upload API test results
         uses: actions/upload-artifact@v4
