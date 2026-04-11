@@ -52,6 +52,11 @@
       "{projectRoot}/**/*",
       "sharedGlobals"
     ],
+    "sharedGlobals": [
+      "{workspaceRoot}/nx.json",
+      "{workspaceRoot}/package.json",
+      "{workspaceRoot}/tsconfig.base.json"
+    ],
     "production": [
       "default",
       "!{projectRoot}/**/*.spec.ts",
