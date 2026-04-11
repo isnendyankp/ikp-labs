@@ -1,4 +1,4 @@
-import { APIRequestContext } from '@playwright/test';
+import { APIRequestContext } from "@playwright/test";
 
 /**
  * ApiClient - HTTP request wrapper for backend API testing
@@ -16,7 +16,7 @@ export class ApiClient {
   private baseURL: string;
 
   constructor(private request: APIRequestContext) {
-    this.baseURL = 'http://localhost:8081';
+    this.baseURL = "http://localhost:8081";
   }
 
   /**
@@ -24,11 +24,11 @@ export class ApiClient {
    */
   async post(endpoint: string, data: any, token?: string) {
     const headers: Record<string, string> = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     };
 
     if (token) {
-      headers['Authorization'] = `Bearer ${token}`;
+      headers["Authorization"] = `Bearer ${token}`;
     }
 
     const response = await this.request.post(`${this.baseURL}${endpoint}`, {
@@ -48,11 +48,11 @@ export class ApiClient {
    */
   async get(endpoint: string, token?: string) {
     const headers: Record<string, string> = {
-      'Accept': 'application/json',
+      Accept: "application/json",
     };
 
     if (token) {
-      headers['Authorization'] = `Bearer ${token}`;
+      headers["Authorization"] = `Bearer ${token}`;
     }
 
     const response = await this.request.get(`${this.baseURL}${endpoint}`, {
@@ -71,11 +71,11 @@ export class ApiClient {
    */
   async put(endpoint: string, data: any, token?: string) {
     const headers: Record<string, string> = {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     };
 
     if (token) {
-      headers['Authorization'] = `Bearer ${token}`;
+      headers["Authorization"] = `Bearer ${token}`;
     }
 
     const response = await this.request.put(`${this.baseURL}${endpoint}`, {
@@ -95,11 +95,11 @@ export class ApiClient {
    */
   async delete(endpoint: string, token?: string) {
     const headers: Record<string, string> = {
-      'Accept': 'application/json',
+      Accept: "application/json",
     };
 
     if (token) {
-      headers['Authorization'] = `Bearer ${token}`;
+      headers["Authorization"] = `Bearer ${token}`;
     }
 
     const response = await this.request.delete(`${this.baseURL}${endpoint}`, {
@@ -126,28 +126,33 @@ export class ApiClient {
    * }, token);
    * ```
    */
-  async postMultipart(endpoint: string, formData: Record<string, string>, token?: string) {
-    const fs = require('fs');
-    const path = require('path');
+  async postMultipart(
+    endpoint: string,
+    formData: Record<string, string>,
+    token?: string,
+  ) {
+    const fs = require("fs");
+    const path = require("path");
 
     const headers: Record<string, string> = {};
 
     if (token) {
-      headers['Authorization'] = `Bearer ${token}`;
+      headers["Authorization"] = `Bearer ${token}`;
     }
 
     // Build multipart form data
     const multipart: any = {};
 
     for (const [key, value] of Object.entries(formData)) {
-      if (key === 'file') {
+      if (key === "file") {
         // Handle file upload
-        const filePath = path.resolve(value);
+        // Resolve path relative to the helpers directory
+        const filePath = path.resolve(__dirname, "..", value);
         if (fs.existsSync(filePath)) {
           multipart[key] = {
             name: path.basename(filePath),
             mimeType: this.getMimeType(filePath),
-            buffer: fs.readFileSync(filePath)
+            buffer: fs.readFileSync(filePath),
           };
         }
       } else {
@@ -172,15 +177,15 @@ export class ApiClient {
    * Get MIME type based on file extension
    */
   private getMimeType(filePath: string): string {
-    const ext = filePath.toLowerCase().split('.').pop();
+    const ext = filePath.toLowerCase().split(".").pop();
     const mimeTypes: Record<string, string> = {
-      'jpg': 'image/jpeg',
-      'jpeg': 'image/jpeg',
-      'png': 'image/png',
-      'gif': 'image/gif',
-      'pdf': 'application/pdf',
-      'txt': 'text/plain'
+      jpg: "image/jpeg",
+      jpeg: "image/jpeg",
+      png: "image/png",
+      gif: "image/gif",
+      pdf: "application/pdf",
+      txt: "text/plain",
     };
-    return mimeTypes[ext || ''] || 'application/octet-stream';
+    return mimeTypes[ext || ""] || "application/octet-stream";
   }
 }
