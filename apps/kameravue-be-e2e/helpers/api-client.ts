@@ -140,6 +140,9 @@ export class ApiClient {
       headers["Authorization"] = `Bearer ${token}`;
     }
 
+    // DO NOT set Content-Type for multipart - Playwright handles it automatically
+    // Setting it manually will break the boundary parameter
+
     // Build multipart form data
     const multipart: any = {};
 
@@ -174,9 +177,17 @@ export class ApiClient {
       multipart,
     });
 
+    const body = await response.json().catch(() => ({}));
+
+    // Debug: log error responses
+    if (response.status() >= 400) {
+      console.log(`[API Error] ${endpoint} - Status: ${response.status()}`);
+      console.log("[API Error] Response body:", JSON.stringify(body, null, 2));
+    }
+
     return {
       status: response.status(),
-      body: await response.json().catch(() => ({})),
+      body,
       headers: response.headers(),
     };
   }
