@@ -89,7 +89,7 @@ test.describe('Photo Likes API', () => {
     const response = await client.postMultipart(
       '/api/gallery/upload',
       {
-        file: './tests/fixtures/images/test-photo.jpg',
+        file: 'fixtures/images/test-photo.jpg',
         title: `Test Photo ${Date.now()}`,
         description: 'Photo for like testing',
         isPublic: 'true' // Must be public to be likeable
@@ -200,7 +200,7 @@ test.describe('Photo Likes API', () => {
     const photoResponse = await client.postMultipart(
       '/api/gallery/upload',
       {
-        file: './tests/fixtures/images/test-photo.jpg',
+        file: 'fixtures/images/test-photo.jpg',
         title: 'My Own Photo',
         isPublic: 'true'
       },

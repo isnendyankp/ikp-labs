@@ -58,7 +58,7 @@ test.describe("Gallery Photo API", () => {
       const response = await client.postMultipart(
         "/api/gallery/upload",
         {
-          file: "../../fixtures/images/test-photo.jpg",
+          file: "fixtures/images/test-photo.jpg",
           title: "Sunset Beach",
           description: "Beautiful sunset at the beach",
           isPublic: "false",
@@ -85,7 +85,7 @@ test.describe("Gallery Photo API", () => {
       const response = await client.postMultipart(
         "/api/gallery/upload",
         {
-          file: "../../fixtures/images/test-photo.png",
+          file: "fixtures/images/test-photo.png",
           title: "Minimal Photo",
         },
         token,
@@ -108,7 +108,7 @@ test.describe("Gallery Photo API", () => {
       const response = await client.postMultipart(
         "/api/gallery/upload",
         {
-          file: "../../fixtures/images/test-photo.jpg",
+          file: "fixtures/images/test-photo.jpg",
           title: "Public Photo",
           isPublic: "true",
         },
@@ -129,7 +129,7 @@ test.describe("Gallery Photo API", () => {
       const response = await client.postMultipart(
         "/api/gallery/upload",
         {
-          file: "../../fixtures/images/test-photo.jpg",
+          file: "fixtures/images/test-photo.jpg",
           title: "Unauthorized Upload",
         },
         // No token provided
@@ -148,12 +148,12 @@ test.describe("Gallery Photo API", () => {
       // Upload 2 photos first
       await client.postMultipart(
         "/api/gallery/upload",
-        { file: "../../fixtures/images/test-photo.jpg", title: "Photo 1" },
+        { file: "fixtures/images/test-photo.jpg", title: "Photo 1" },
         token,
       );
       await client.postMultipart(
         "/api/gallery/upload",
-        { file: "../../fixtures/images/test-photo.png", title: "Photo 2" },
+        { file: "fixtures/images/test-photo.png", title: "Photo 2" },
         token,
       );
 
@@ -229,7 +229,7 @@ test.describe("Gallery Photo API", () => {
         await client.postMultipart(
           "/api/gallery/upload",
           {
-            file: "../../fixtures/images/test-photo.jpg",
+            file: "fixtures/images/test-photo.jpg",
             title: `Pagination Test Photo ${i}`,
             isPublic: "false",
           },
@@ -278,7 +278,7 @@ test.describe("Gallery Photo API", () => {
           await client.postMultipart(
             "/api/gallery/upload",
             {
-              file: "../../fixtures/images/test-photo.jpg",
+              file: "fixtures/images/test-photo.jpg",
               title: `Page1 Test Photo ${i}`,
               isPublic: "false",
             },
@@ -320,7 +320,7 @@ test.describe("Gallery Photo API", () => {
         await client.postMultipart(
           "/api/gallery/upload",
           {
-            file: "../../fixtures/images/test-photo.jpg",
+            file: "fixtures/images/test-photo.jpg",
             title: `Public Photo ${i}`,
             isPublic: "true",
           },
@@ -363,7 +363,7 @@ test.describe("Gallery Photo API", () => {
         await client.postMultipart(
           "/api/gallery/upload",
           {
-            file: "../../fixtures/images/test-photo.jpg",
+            file: "fixtures/images/test-photo.jpg",
             title: `Public Test ${i}`,
             isPublic: "true",
           },
@@ -376,7 +376,7 @@ test.describe("Gallery Photo API", () => {
         await client.postMultipart(
           "/api/gallery/upload",
           {
-            file: "../../fixtures/images/test-photo.jpg",
+            file: "fixtures/images/test-photo.jpg",
             title: `Private Test ${i}`,
             isPublic: "false",
           },
@@ -426,7 +426,7 @@ test.describe("Gallery Photo API", () => {
       await clientA.postMultipart(
         "/api/gallery/upload",
         {
-          file: "../../fixtures/images/test-photo.jpg",
+          file: "fixtures/images/test-photo.jpg",
           title: "User A Public Photo 1",
           isPublic: "true",
         },
@@ -436,7 +436,7 @@ test.describe("Gallery Photo API", () => {
       await clientA.postMultipart(
         "/api/gallery/upload",
         {
-          file: "../../fixtures/images/test-photo.jpg",
+          file: "fixtures/images/test-photo.jpg",
           title: "User A Public Photo 2",
           isPublic: "true",
         },
@@ -455,7 +455,7 @@ test.describe("Gallery Photo API", () => {
       await clientB.postMultipart(
         "/api/gallery/upload",
         {
-          file: "../../fixtures/images/test-photo.jpg",
+          file: "fixtures/images/test-photo.jpg",
           title: "User B Public Photo 1",
           isPublic: "true",
         },
@@ -465,7 +465,7 @@ test.describe("Gallery Photo API", () => {
       await clientB.postMultipart(
         "/api/gallery/upload",
         {
-          file: "../../fixtures/images/test-photo.jpg",
+          file: "fixtures/images/test-photo.jpg",
           title: "User B Public Photo 2",
           isPublic: "true",
         },
@@ -475,7 +475,7 @@ test.describe("Gallery Photo API", () => {
       await clientB.postMultipart(
         "/api/gallery/upload",
         {
-          file: "../../fixtures/images/test-photo.jpg",
+          file: "fixtures/images/test-photo.jpg",
           title: "User B Public Photo 3",
           isPublic: "true",
         },
@@ -515,7 +515,7 @@ test.describe("Gallery Photo API", () => {
       const uploadResponse = await clientA.postMultipart(
         "/api/gallery/upload",
         {
-          file: "../../fixtures/images/test-photo.jpg",
+          file: "fixtures/images/test-photo.jpg",
           title: "Public Beach Photo",
           description: "Beautiful public beach",
           isPublic: "true",
@@ -559,7 +559,7 @@ test.describe("Gallery Photo API", () => {
       const uploadResponse = await client.postMultipart(
         "/api/gallery/upload",
         {
-          file: "../../fixtures/images/test-photo.jpg",
+          file: "fixtures/images/test-photo.jpg",
           title: "Private Family Photo",
           description: "My private family photo",
           isPublic: "false",
@@ -588,7 +588,7 @@ test.describe("Gallery Photo API", () => {
       const uploadResponse = await clientA.postMultipart(
         "/api/gallery/upload",
         {
-          file: "../../fixtures/images/test-photo.jpg",
+          file: "fixtures/images/test-photo.jpg",
           title: "Private Secret Photo",
           isPublic: "false",
         },
@@ -632,7 +632,7 @@ test.describe("Gallery Photo API", () => {
       const uploadResponse = await client.postMultipart(
         "/api/gallery/upload",
         {
-          file: "../../fixtures/images/test-photo.jpg",
+          file: "fixtures/images/test-photo.jpg",
           title: "Complete Metadata Test",
           description: "Testing all fields",
           isPublic: "true",
@@ -680,7 +680,7 @@ test.describe("Gallery Photo API", () => {
       const uploadResponse = await client.postMultipart(
         "/api/gallery/upload",
         {
-          file: "../../fixtures/images/test-photo.jpg",
+          file: "fixtures/images/test-photo.jpg",
           title: "Original Title",
           description: "Original Description",
           isPublic: "false",
@@ -717,7 +717,7 @@ test.describe("Gallery Photo API", () => {
       const uploadResponse = await client.postMultipart(
         "/api/gallery/upload",
         {
-          file: "../../fixtures/images/test-photo.jpg",
+          file: "fixtures/images/test-photo.jpg",
           title: "Original Title",
           description: "Original Description",
           isPublic: "true",
@@ -752,7 +752,7 @@ test.describe("Gallery Photo API", () => {
       const uploadResponse = await client.postMultipart(
         "/api/gallery/upload",
         {
-          file: "../../fixtures/images/test-photo.jpg",
+          file: "fixtures/images/test-photo.jpg",
           title: "Test Photo",
           description: "Test Description",
           isPublic: "false",
@@ -785,7 +785,7 @@ test.describe("Gallery Photo API", () => {
       const uploadResponse = await client.postMultipart(
         "/api/gallery/upload",
         {
-          file: "../../fixtures/images/test-photo.jpg",
+          file: "fixtures/images/test-photo.jpg",
           title: "Original Title",
           description: "Original Description",
           isPublic: "false",
@@ -827,7 +827,7 @@ test.describe("Gallery Photo API", () => {
       const uploadResponse = await clientA.postMultipart(
         "/api/gallery/upload",
         {
-          file: "../../fixtures/images/test-photo.jpg",
+          file: "fixtures/images/test-photo.jpg",
           title: "User A Photo",
           isPublic: "false",
         },
@@ -871,7 +871,7 @@ test.describe("Gallery Photo API", () => {
       const uploadResponse = await client.postMultipart(
         "/api/gallery/upload",
         {
-          file: "../../fixtures/images/test-photo.jpg",
+          file: "fixtures/images/test-photo.jpg",
           title: "Test Photo",
           isPublic: "false",
         },
@@ -919,7 +919,7 @@ test.describe("Gallery Photo API", () => {
       const uploadResponse = await client.postMultipart(
         "/api/gallery/upload",
         {
-          file: "../../fixtures/images/test-photo.jpg",
+          file: "fixtures/images/test-photo.jpg",
           title: "Valid Title",
           isPublic: "false",
         },
@@ -954,7 +954,7 @@ test.describe("Gallery Photo API", () => {
       const uploadResponse = await client.postMultipart(
         "/api/gallery/upload",
         {
-          file: "../../fixtures/images/test-photo.jpg",
+          file: "fixtures/images/test-photo.jpg",
           title: "Test Photo",
           description: "Valid description",
           isPublic: "false",
@@ -990,7 +990,7 @@ test.describe("Gallery Photo API", () => {
       const uploadResponse = await client.postMultipart(
         "/api/gallery/upload",
         {
-          file: "../../fixtures/images/test-photo.jpg",
+          file: "fixtures/images/test-photo.jpg",
           title: "Original Title",
           description: "Original Description",
           isPublic: "false",
@@ -1027,7 +1027,7 @@ test.describe("Gallery Photo API", () => {
       const uploadResponse = await client.postMultipart(
         "/api/gallery/upload",
         {
-          file: "../../fixtures/images/test-photo.jpg",
+          file: "fixtures/images/test-photo.jpg",
           title: "Photo to Delete",
           description: "This will be deleted",
           isPublic: "false",
@@ -1072,7 +1072,7 @@ test.describe("Gallery Photo API", () => {
       const uploadResponse = await clientA.postMultipart(
         "/api/gallery/upload",
         {
-          file: "../../fixtures/images/test-photo.jpg",
+          file: "fixtures/images/test-photo.jpg",
           title: "User A Photo - Cannot Delete",
           isPublic: "false",
         },
@@ -1133,7 +1133,7 @@ test.describe("Gallery Photo API", () => {
         const uploadResponse = await client.postMultipart(
           "/api/gallery/upload",
           {
-            file: "../../fixtures/images/test-photo.jpg",
+            file: "fixtures/images/test-photo.jpg",
             title: `Delete Test Photo ${i}`,
             isPublic: "false",
           },
@@ -1195,7 +1195,7 @@ test.describe("Gallery Photo API", () => {
           await client.postMultipart(
             "/api/gallery/upload",
             {
-              file: "../../fixtures/images/test-photo.jpg",
+              file: "fixtures/images/test-photo.jpg",
               title: `Newest Test ${i}`,
               isPublic: "true",
             },
@@ -1234,7 +1234,7 @@ test.describe("Gallery Photo API", () => {
           await client.postMultipart(
             "/api/gallery/upload",
             {
-              file: "../../fixtures/images/test-photo.jpg",
+              file: "fixtures/images/test-photo.jpg",
               title: `Oldest Test ${i}`,
               isPublic: "true",
             },
@@ -1375,7 +1375,7 @@ test.describe("Gallery Photo API", () => {
           await client.postMultipart(
             "/api/gallery/upload",
             {
-              file: "../../fixtures/images/test-photo.jpg",
+              file: "fixtures/images/test-photo.jpg",
               title: `My Photo ${i}`,
               isPublic: "false",
             },
@@ -1489,7 +1489,7 @@ test.describe("Gallery Photo API", () => {
           await client.postMultipart(
             "/api/gallery/upload",
             {
-              file: "../../fixtures/images/test-photo.jpg",
+              file: "fixtures/images/test-photo.jpg",
               title: `Pagination Test ${i}`,
               isPublic: "true",
             },
@@ -1571,7 +1571,7 @@ test.describe("Gallery Photo API", () => {
         const uploadResponse = await client.postMultipart(
           "/api/gallery/upload",
           {
-            file: "../../fixtures/images/test-photo.jpg",
+            file: "fixtures/images/test-photo.jpg",
             title: "Integrity Test Photo",
             isPublic: "true",
           },
