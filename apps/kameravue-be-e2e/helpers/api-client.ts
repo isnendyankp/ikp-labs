@@ -143,18 +143,26 @@ export class ApiClient {
     // Build multipart form data
     const multipart: any = {};
 
+    // Root of kameravue-be-e2e app (parent of helpers/)
+    // __dirname is always apps/kameravue-be-e2e/helpers/, regardless of where Nx runs from
+    const appRoot = path.resolve(__dirname, "..");
+
     for (const [key, value] of Object.entries(formData)) {
       if (key === "file") {
         // Handle file upload
-        // Resolve path relative to the helpers directory
-        const filePath = path.resolve(__dirname, "..", value);
-        if (fs.existsSync(filePath)) {
-          multipart[key] = {
-            name: path.basename(filePath),
-            mimeType: this.getMimeType(filePath),
-            buffer: fs.readFileSync(filePath),
-          };
+        // Resolve from appRoot: fixtures/images/test-photo.jpg -> apps/kameravue-be-e2e/fixtures/images/test-photo.jpg
+        const filePath = path.resolve(appRoot, value);
+        if (!fs.existsSync(filePath)) {
+          throw new Error(
+            `Fixture file not found: ${filePath}\n(resolved from appRoot: ${appRoot})`,
+          );
         }
+
+        multipart[key] = {
+          name: path.basename(filePath),
+          mimeType: this.getMimeType(filePath),
+          buffer: fs.readFileSync(filePath),
+        };
       } else {
         // Handle regular form fields
         multipart[key] = value;
