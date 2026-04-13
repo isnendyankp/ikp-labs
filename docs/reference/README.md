@@ -8,6 +8,11 @@ Reference documentation provides dry, factual information about the system. It d
 
 ## Available Reference Documentation
 
+### Implementation Summary
+[implementation-summary.md](implementation-summary.md)
+
+Project implementation status, completed features, technical stack, and overall project summary.
+
 ### Claude Agents
 [claude-agents.md](claude-agents.md)
 

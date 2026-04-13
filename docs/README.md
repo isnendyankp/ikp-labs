@@ -14,6 +14,7 @@ Welcome to the IKP Labs documentation. This documentation follows the [Diátaxis
 ### [How-To Guides](how-to/)
 **Problem-solving** - Practical guides for specific tasks.
 
+- [Setup Claude Code](how-to/setup-claude-code.md) - How to setup and migrate Claude Code from z.ai to subscription
 - [Use Claude Validators](how-to/use-claude-validators.md) - How to use validator agents
 - [Create Implementation Plans](how-to/create-implementation-plans.md) - How to create structured 4-document plans
 - [Run E2E Tests](how-to/run-e2e-tests.md) - How to run end-to-end tests
@@ -23,6 +24,7 @@ Browse the [how-to](how-to/) directory for all available guides.
 ### [Reference](reference/)
 **Information-oriented** - Technical specifications and API documentation.
 
+- [Implementation Summary](reference/implementation-summary.md) - Project implementation status and summary
 - [Claude Agents](reference/claude-agents.md) - Complete agent reference
 - [API Endpoints](reference/api-endpoints.md)
 - [Database Schema](reference/database-schema.md)
