@@ -15,6 +15,7 @@ How-to guides are goal-oriented directions that help you solve a specific proble
 
 ### Development & Testing
 
+- [Setup Claude Code](./setup-claude-code.md) - How to setup and migrate Claude Code from z.ai to subscription
 - [Use Claude Validators](./use-claude-validators.md) - How to use validator agents to check tests, documentation, and plans
 - [Run E2E Tests](./run-e2e-tests.md) - How to run end-to-end tests with Playwright
 - [API Testing](./api-testing.md) - How to test API endpoints
