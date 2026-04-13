@@ -28,6 +28,7 @@ Explanation documentation clarifies and illuminates a topic. It broadens your un
 
 - **[Video & Screenshot Guide](video-screenshot-guide.md)** - Why and how we capture videos and screenshots in tests
 - **[README Video Screenshot](README-VIDEO-SCREENSHOT.md)** - Detailed explanation of video/screenshot tooling
+- **[RTK Token Savings](rtk-token-savings.md)** - How RTK reduces token consumption when Claude Code runs shell commands
 
 ---
 

@@ -13,6 +13,11 @@ Reference documentation provides dry, factual information about the system. It d
 
 Project implementation status, completed features, technical stack, and overall project summary.
 
+### RTK Commands
+[rtk-commands.md](rtk-commands.md)
+
+Complete reference for all RTK CLI commands including analytics, debugging tools, and hook-based command savings breakdown.
+
 ### Claude Agents
 [claude-agents.md](claude-agents.md)
 

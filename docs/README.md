@@ -15,6 +15,7 @@ Welcome to the IKP Labs documentation. This documentation follows the [Diátaxis
 **Problem-solving** - Practical guides for specific tasks.
 
 - [Setup Claude Code](how-to/setup-claude-code.md) - How to setup and migrate Claude Code from z.ai to subscription
+- [Setup RTK](how-to/setup-rtk.md) - How to install and configure RTK for token savings with Claude Code
 - [Use Claude Validators](how-to/use-claude-validators.md) - How to use validator agents
 - [Create Implementation Plans](how-to/create-implementation-plans.md) - How to create structured 4-document plans
 - [Run E2E Tests](how-to/run-e2e-tests.md) - How to run end-to-end tests
@@ -26,6 +27,7 @@ Browse the [how-to](how-to/) directory for all available guides.
 
 - [Implementation Summary](reference/implementation-summary.md) - Project implementation status and summary
 - [Claude Agents](reference/claude-agents.md) - Complete agent reference
+- [RTK Commands](reference/rtk-commands.md) - Complete RTK command reference for token savings
 - [API Endpoints](reference/api-endpoints.md)
 - [Database Schema](reference/database-schema.md)
 - [Testing Commands](reference/testing-commands.md)
@@ -40,6 +42,7 @@ Browse the [how-to](how-to/) directory for all available guides.
 - [Unit Test Java Guide](explanation/unit-test-java-guide.md)
 - [Repository Test Explanation (Pemula)](explanation/repository-test-explanation-pemula.md)
 - [Video & Screenshot Guide](explanation/video-screenshot-guide.md)
+- [RTK Token Savings](explanation/rtk-token-savings.md) - How RTK reduces token consumption in Claude Code
 
 ### [Journals](journals/)
 **Time-based** - Development logs, progress tracking, and checklists.
