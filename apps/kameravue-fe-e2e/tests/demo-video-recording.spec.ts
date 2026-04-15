@@ -20,7 +20,7 @@
  */
 
 import { test, expect } from '@playwright/test';
-import { cleanupTestUser } from './helpers/gallery-helpers';
+import { cleanupTestUser } from '../helpers/gallery-helpers';
 
 // Force video recording for this entire test suite
 test.describe('Demo: Complete User Journey with Video Recording', {

@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { apiEndpoints } from "../fixtures/test-users";
-import { cleanupTestUser } from "./helpers/gallery-helpers";
+import { cleanupTestUser } from '../helpers/gallery-helpers";
 
 /**
  * Registration Flow E2E Tests

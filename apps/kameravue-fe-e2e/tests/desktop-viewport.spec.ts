@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { createFakeJwtToken } from "./helpers/auth-helpers";
+import { createFakeJwtToken } from '../helpers/auth-helpers";
 
 /**
  * Desktop Viewport E2E Tests

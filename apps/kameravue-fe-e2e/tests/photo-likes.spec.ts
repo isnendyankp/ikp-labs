@@ -18,7 +18,7 @@ import {
   viewPublicPhotos,
   openPhotoDetail,
   cleanupTestUser,
-} from "./helpers/gallery-helpers";
+} from '../helpers/gallery-helpers";
 
 test.describe("Photo Likes Feature", () => {
   // Track all created users for cleanup
