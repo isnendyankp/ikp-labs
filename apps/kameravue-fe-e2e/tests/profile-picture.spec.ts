@@ -1,6 +1,6 @@
 import { test, expect, Page } from "@playwright/test";
 import path from "path";
-import { cleanupTestUser } from "./helpers/gallery-helpers";
+import { cleanupTestUser } from '../helpers/gallery-helpers";
 
 /**
  * Profile Picture E2E Tests

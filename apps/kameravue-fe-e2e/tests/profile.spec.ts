@@ -1,5 +1,5 @@
 import { test, expect, Page } from "@playwright/test";
-import { cleanupTestUser } from "./helpers/gallery-helpers";
+import { cleanupTestUser } from '../helpers/gallery-helpers";
 
 /**
  * Profile Page E2E Tests

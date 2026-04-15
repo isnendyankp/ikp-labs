@@ -18,7 +18,7 @@ import { test, expect } from "@playwright/test";
 import {
   createAuthenticatedGalleryUser,
   cleanupTestUser,
-} from "./helpers/gallery-helpers";
+} from '../helpers/gallery-helpers";
 
 test.describe("Mobile UX Improvements", () => {
   // Track all created users for cleanup

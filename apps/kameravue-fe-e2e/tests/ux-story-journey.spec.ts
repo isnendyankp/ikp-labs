@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { cleanupTestUser } from "./helpers/gallery-helpers";
+import { cleanupTestUser } from '../helpers/gallery-helpers";
 
 /**
  * UX Story Journey - Filter State Bug Fix Demo
