@@ -141,6 +141,10 @@ uploads/*
 !apps/kameravue-be-e2e/fixtures/**/*.jpeg
 !apps/kameravue-be-e2e/fixtures/**/*.png
 !apps/kameravue-be-e2e/fixtures/**/*.gif
+!apps/kameravue-fe-e2e/fixtures/**/*.jpg
+!apps/kameravue-fe-e2e/fixtures/**/*.jpeg
+!apps/kameravue-fe-e2e/fixtures/**/*.png
+!apps/kameravue-fe-e2e/fixtures/**/*.gif
 
 # Documentation - Private/Internal folders
 docs/linkedin/
