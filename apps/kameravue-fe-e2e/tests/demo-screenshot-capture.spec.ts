@@ -169,7 +169,7 @@ test.describe('Demo: Screenshot Capture Examples', {
     });
 
     const mobilePage = await mobileContext.newPage();
-    await mobilePage.goto('http://localhost:3005/registration');
+    await mobilePage.goto('http://localhost:3002/registration');
 
     // Mobile screenshot
     await mobilePage.screenshot({
