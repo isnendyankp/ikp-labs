@@ -18,7 +18,7 @@ import {
   viewPublicPhotos,
   bulkUploadPhotosViaAPI,
   cleanupTestUser,
-} from '../helpers/gallery-helpers";
+} from '../helpers/gallery-helpers';
 
 test.describe("Gallery Sorting Feature", () => {
   // Track all created users for cleanup

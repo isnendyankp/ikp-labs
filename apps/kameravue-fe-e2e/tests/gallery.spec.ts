@@ -26,7 +26,7 @@ import {
   cancelDelete,
   bulkUploadPhotosViaAPI,
   cleanupTestUser,
-} from '../helpers/gallery-helpers";
+} from '../helpers/gallery-helpers';
 
 test.describe("Gallery Photo Management", () => {
   // Track all created users for cleanup
