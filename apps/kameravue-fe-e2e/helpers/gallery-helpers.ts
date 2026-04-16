@@ -73,7 +73,7 @@ export async function uploadGalleryPhoto(
     isPublic?: boolean;
   }
 ) {
-  const fixturePath = path.join(__dirname, '../../fixtures/images', fixtureName);
+  const fixturePath = path.join(__dirname, '../fixtures/images', fixtureName);
 
   // Navigate to upload page
   await page.goto('/gallery/upload');
@@ -190,7 +190,7 @@ export async function uploadGalleryPhotoExpectError(
   fixtureName: string,
   expectedError: string
 ) {
-  const fixturePath = path.join(__dirname, '../../fixtures/images', fixtureName);
+  const fixturePath = path.join(__dirname, '../fixtures/images', fixtureName);
 
   // Navigate to upload page
   await page.goto('/gallery/upload');
@@ -401,7 +401,7 @@ export async function bulkUploadPhotosViaAPI(
     throw new Error('No auth token found - user must be logged in');
   }
 
-  const fixturePath = path.join(__dirname, '../../fixtures/images/test-photo.jpg');
+  const fixturePath = path.join(__dirname, '../fixtures/images/test-photo.jpg');
   const fileBuffer = await fs.promises.readFile(fixturePath);
   const blob = new Blob([fileBuffer], { type: 'image/jpeg' });
 
