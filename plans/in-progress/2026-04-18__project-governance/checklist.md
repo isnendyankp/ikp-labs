@@ -5,59 +5,51 @@
 ## Phase 1: Foundation (Layer 1-3)
 
 ### Branch Setup
-- [ ] Create work branch `docs/project-governance-foundation` from main
-  ```bash
-  git checkout main
-  git pull origin main
-  git checkout -b docs/project-governance-foundation
-  ```
+- [x] Create work branch `docs/project-governance-foundation` from main
 
 ### Create Governance Folder
-- [ ] Create `governance/` directory at repo root
+- [x] Create `governance/` directory at repo root
 
 ### governance/README.md
-- [ ] Create `governance/README.md`
-- [ ] Include one-sentence project governance summary
-- [ ] List all governance documents with one-line descriptions
-- [ ] Include brief 6-layer model overview (3-5 lines)
-- [ ] Add pointer to `docs/explanation/governance.md` for full explanation
+- [x] Create `governance/README.md`
+- [x] Include one-sentence project governance summary
+- [x] List all governance documents with one-line descriptions
+- [x] Include brief 6-layer model overview (3-5 lines)
+- [x] Add pointer to `docs/explanation/governance.md` for full explanation
 
 ### governance/vision.md
-- [ ] Create `governance/vision.md`
-- [ ] Write "Project Purpose" section — why IKP-Labs exists
-- [ ] Write "Target Users" section — who uses the system specifically
-- [ ] Write "What Success Looks Like" section — observable outcomes
-- [ ] Write "Long-Term Goals" section — mature project vision
+- [x] Create `governance/vision.md`
+- [x] Write "Project Purpose" section — why IKP-Labs exists
+- [x] Write "Target Users" section — who uses the system specifically
+- [x] Write "What Success Looks Like" section — observable outcomes
+- [x] Write "Long-Term Goals" section — mature project vision
 
 ### governance/principles.md
-- [ ] Create `governance/principles.md`
-- [ ] Write Principle 1: Test-First Confidence (statement, rationale, examples)
-- [ ] Write Principle 2: Explicit Over Implicit (statement, rationale, examples)
-- [ ] Write Principle 3: Incremental Change (statement, rationale, examples)
-- [ ] Write Principle 4: Documentation as Code (statement, rationale, examples)
-- [ ] Write Principle 5: DX Consistency (statement, rationale, examples)
-- [ ] Write Principle 6: Separation of Concerns (statement, rationale, examples)
-- [ ] Write Principle 7: Security by Default (statement, rationale, examples)
+- [x] Create `governance/principles.md`
+- [x] Write Principle 1: Test-First Confidence (statement, rationale, examples)
+- [x] Write Principle 2: Explicit Over Implicit (statement, rationale, examples)
+- [x] Write Principle 3: Incremental Change (statement, rationale, examples)
+- [x] Write Principle 4: Documentation as Code (statement, rationale, examples)
+- [x] Write Principle 5: DX Consistency (statement, rationale, examples)
+- [x] Write Principle 6: Separation of Concerns (statement, rationale, examples)
+- [x] Write Principle 7: Security by Default (statement, rationale, examples)
 
 ### governance/conventions.md
-- [ ] Create `governance/conventions.md`
-- [ ] Write commit message format section (types, rules, examples)
-- [ ] Write branch naming section (pattern, all allowed types, examples)
-- [ ] Write PR format section (title max length, body template)
-- [ ] Write TypeScript conventions section (file naming, component naming, hook naming, type naming, constant naming, API function naming)
-- [ ] Write Java conventions section (class, method, package, DTO, annotation patterns)
-- [ ] Write file and folder naming section (app folders, spec files, plan folders, doc files)
+- [x] Create `governance/conventions.md`
+- [x] Write commit message format section (types, rules, examples)
+- [x] Write branch naming section (pattern, all allowed types, examples)
+- [x] Write PR format section (title max length, body template)
+- [x] Write TypeScript conventions section (file naming, component naming, hook naming, type naming, constant naming, API function naming)
+- [x] Write Java conventions section (class, method, package, DTO, annotation patterns)
+- [x] Write file and folder naming section (app folders, spec files, plan folders, doc files)
 
 ### Commit Phase 1
-- [ ] Stage and commit governance folder:
-  ```
-  docs: add governance foundation (vision, principles, conventions)
-  ```
-- [ ] Push to branch
+- [x] Stage and commit governance folder
+- [x] Push to branch
 
 ### PR Phase 1
-- [ ] Create PR with title `docs: add governance foundation (Layer 1-3)`
-- [ ] PR body lists all 4 governance files created
+- [x] Create PR with title `docs: add governance foundation (Layer 1-3)`
+- [x] PR body lists all 4 governance files created
 - [ ] Wait for CI to pass
 - [ ] Merge PR with rebase: `gh pr merge --rebase --delete-branch`
 - [ ] Update local main: `git checkout main && git pull origin main`
