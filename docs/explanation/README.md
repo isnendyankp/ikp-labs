@@ -30,6 +30,10 @@ Explanation documentation clarifies and illuminates a topic. It broadens your un
 - **[README Video Screenshot](README-VIDEO-SCREENSHOT.md)** - Detailed explanation of video/screenshot tooling
 - **[RTK Token Savings](rtk-token-savings.md)** - How RTK reduces token consumption when Claude Code runs shell commands
 
+### Governance
+
+- **[Governance Model](governance.md)** - How IKP-Labs governs itself: the 6-layer model, why each layer exists, and how layers interact
+
 ---
 
 **Note**:

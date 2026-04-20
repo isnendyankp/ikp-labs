@@ -59,43 +59,34 @@
 ## Phase 2: Integration
 
 ### Branch Setup
-- [ ] Create work branch `docs/project-governance-integration` from main
-  ```bash
-  git checkout main
-  git pull origin main
-  git checkout -b docs/project-governance-integration
-  ```
+- [x] Create work branch `docs/project-governance-integration` from main
 
 ### Update .workflow-template.md
-- [ ] Open `.workflow-template.md` and read current content
-- [ ] Add "Governance Reference" table section after the Quick Reference table and before the Full Workflow section
-- [ ] Table maps decision questions to governance document file paths
-- [ ] Update step "2. Check/Create Plan" to reference `governance/conventions.md` for plan naming
-- [ ] Verify no existing content was modified beyond the two additions
+- [x] Open `.workflow-template.md` and read current content
+- [x] Add "Governance Reference" table section before Quick Reference table
+- [x] Table maps decision questions to governance document file paths
+- [x] Verify no existing content was modified beyond the addition
 
 ### Create docs/explanation/governance.md
-- [ ] Create `docs/explanation/governance.md`
-- [ ] Write "Why Governance?" section — problems governance solves
-- [ ] Write "The 6-Layer Model" section with ASCII diagram showing layer hierarchy
-- [ ] Write individual section for each layer (1-6) explaining what it contains and why
-- [ ] Write "How Layers Interact" section — escalation and override rules
-- [ ] Write "For AI Agents" section — brief pointer to `governance/ai-agent-guidelines.md`
+- [x] Create `docs/explanation/governance.md`
+- [x] Write "Why Governance?" section — problems governance solves
+- [x] Write "The 6-Layer Model" section with ASCII diagram showing layer hierarchy
+- [x] Write individual section for each layer (1-6) explaining what it contains and why
+- [x] Write "How Layers Interact" section — escalation and override rules
+- [x] Write "For AI Agents" section — brief pointer to `governance/ai-agent-guidelines.md`
 
 ### Update docs/explanation/README.md
-- [ ] Open `docs/explanation/README.md` and read current content
-- [ ] Add entry for `governance.md` under a "Governance" heading or in an appropriate existing section
-- [ ] Entry includes link and one-line description
+- [x] Open `docs/explanation/README.md` and read current content
+- [x] Add entry for `governance.md` under "Governance" heading
+- [x] Entry includes link and one-line description
 
 ### Commit Phase 2
-- [ ] Stage and commit all Phase 2 changes:
-  ```
-  docs: integrate governance into workflow and explanation docs
-  ```
-- [ ] Push to branch
+- [x] Stage and commit all Phase 2 changes
+- [x] Push to branch
 
 ### PR Phase 2
-- [ ] Create PR with title `docs: integrate governance into workflow and explanation docs`
-- [ ] PR body lists `.workflow-template.md`, `docs/explanation/governance.md`, `docs/explanation/README.md`
+- [x] Create PR with title `docs: integrate governance into workflow and explanation docs`
+- [x] PR body lists all changed files
 - [ ] Wait for CI to pass
 - [ ] Merge PR with rebase: `gh pr merge --rebase --delete-branch`
 - [ ] Update local main: `git checkout main && git pull origin main`
