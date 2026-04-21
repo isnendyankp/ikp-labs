@@ -50,9 +50,9 @@
 ### PR Phase 1
 - [x] Create PR with title `docs: add governance foundation (Layer 1-3)`
 - [x] PR body lists all 4 governance files created
-- [ ] Wait for CI to pass
-- [ ] Merge PR with rebase: `gh pr merge --rebase --delete-branch`
-- [ ] Update local main: `git checkout main && git pull origin main`
+- [x] Wait for CI to pass
+- [x] Merge PR with rebase: `gh pr merge --rebase --delete-branch`
+- [x] Update local main: `git checkout main && git pull origin main`
 
 ---
 
@@ -87,9 +87,9 @@
 ### PR Phase 2
 - [x] Create PR with title `docs: integrate governance into workflow and explanation docs`
 - [x] PR body lists all changed files
-- [ ] Wait for CI to pass
-- [ ] Merge PR with rebase: `gh pr merge --rebase --delete-branch`
-- [ ] Update local main: `git checkout main && git pull origin main`
+- [x] Wait for CI to pass
+- [x] Merge PR with rebase: `gh pr merge --rebase --delete-branch`
+- [x] Update local main: `git checkout main && git pull origin main`
 
 ---
 
@@ -120,16 +120,16 @@
 ### PR Phase 3
 - [x] Create PR #71 with title `docs: add AI agent governance guidelines`
 - [x] PR body describes the new `ai-agent-guidelines.md` and the `governance/README.md` update
-- [ ] Wait for CI to pass
-- [ ] Merge PR with rebase: `gh pr merge --rebase --delete-branch`
-- [ ] Update local main: `git checkout main && git pull origin main`
+- [x] Wait for CI to pass
+- [x] Merge PR with rebase: `gh pr merge --rebase --delete-branch`
+- [x] Update local main: `git checkout main && git pull origin main`
 
 ---
 
 ## Completion
 
 ### Move Plan to Done
-- [ ] All 3 phases merged to main
+- [x] All 3 phases merged to main
 - [ ] Move plan folder:
   ```bash
   git checkout -b docs/close-governance-plan
@@ -155,4 +155,4 @@
 ---
 
 **Created**: April 18, 2026
-**Status**: Not Started
+**Status**: Complete — April 21, 2026
