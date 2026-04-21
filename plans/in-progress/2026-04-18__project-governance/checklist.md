@@ -96,38 +96,30 @@
 ## Phase 3: AI Agent Governance
 
 ### Branch Setup
-- [ ] Create work branch `docs/project-governance-ai-agent` from main
-  ```bash
-  git checkout main
-  git pull origin main
-  git checkout -b docs/project-governance-ai-agent
-  ```
+- [x] Create work branch `docs/project-governance-ai-agent` from main
 
 ### governance/ai-agent-guidelines.md
-- [ ] Create `governance/ai-agent-guidelines.md`
-- [ ] Write "Purpose" section — why these guidelines exist
-- [ ] Write "Governance Consultation Order" section — layers 1-6 priority list
-- [ ] Write "Decision Types and Which Layer Applies" section — mapping of decision categories to layers
-- [ ] Write "Handling Ambiguity" section — what to do when governance is unclear
-- [ ] Write "What AI Agents Should NOT Do" section — explicit prohibitions
-- [ ] Write "Plan Creation Protocol" section — all rules for creating plans
-- [ ] Write "Code Change Protocol" section — conventions to follow when writing code
-- [ ] Write "Documentation Protocol" section — conventions for creating docs
+- [x] Create `governance/ai-agent-guidelines.md`
+- [x] Write "Purpose" section — why these guidelines exist
+- [x] Write "Governance Consultation Order" section — layers 1-6 priority list
+- [x] Write "Decision Types and Which Layer Applies" section — mapping of decision categories to layers
+- [x] Write "Handling Ambiguity" section — what to do when governance is unclear
+- [x] Write "What AI Agents Should NOT Do" section — explicit prohibitions
+- [x] Write "Plan Creation Protocol" section — all rules for creating plans
+- [x] Write "Code Change Protocol" section — conventions to follow when writing code
+- [x] Write "Documentation Protocol" section — conventions for creating docs
 
 ### Update governance/README.md
-- [ ] Open `governance/README.md` and read current content
-- [ ] Add entry for `ai-agent-guidelines.md` to the document list
+- [x] Open `governance/README.md` and read current content
+- [x] Add entry for `ai-agent-guidelines.md` to the document list
 
 ### Commit Phase 3
-- [ ] Stage and commit all Phase 3 changes:
-  ```
-  docs: add AI agent governance guidelines
-  ```
-- [ ] Push to branch
+- [x] Stage and commit all Phase 3 changes
+- [x] Push to branch
 
 ### PR Phase 3
-- [ ] Create PR with title `docs: add AI agent governance guidelines`
-- [ ] PR body describes the new `ai-agent-guidelines.md` and the `governance/README.md` update
+- [x] Create PR #71 with title `docs: add AI agent governance guidelines`
+- [x] PR body describes the new `ai-agent-guidelines.md` and the `governance/README.md` update
 - [ ] Wait for CI to pass
 - [ ] Merge PR with rebase: `gh pr merge --rebase --delete-branch`
 - [ ] Update local main: `git checkout main && git pull origin main`
