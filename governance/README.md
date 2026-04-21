@@ -11,7 +11,7 @@ IKP-Labs governance defines **why** this project exists, **what values** guide i
 | [`vision.md`](vision.md) | Layer 1 | Why IKP-Labs exists and what it aims to achieve |
 | [`principles.md`](principles.md) | Layer 2 | Core values that guide every decision |
 | [`conventions.md`](conventions.md) | Layer 3 | Naming, format, and structural standards |
-| [`ai-agent-guidelines.md`](ai-agent-guidelines.md) | Layer 3.5 | How AI agents (Claude) should use governance |
+| [`ai-agent-guidelines.md`](ai-agent-guidelines.md) | Layer 3.5 | How AI agents (Claude) should consult governance and follow protocols |
 
 ---
 
