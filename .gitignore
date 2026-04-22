@@ -19,6 +19,9 @@
 apps/kameravue-fe/coverage/
 apps/*/test-results/
 apps/*/playwright-report/
+test-results/
+playwright-report/
+tests/gherkin/reports/
 
 # next.js
 /.next/
