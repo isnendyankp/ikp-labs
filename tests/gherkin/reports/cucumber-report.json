@@ -1,0 +1,5821 @@
+[
+  {
+    "description": "  As a registered user\n  I want to login to my account\n  So that I can access the application",
+    "elements": [
+      {
+        "description": "",
+        "id": "user-login;successful-user-login-with-valid-credentials",
+        "keyword": "Scenario",
+        "line": 9,
+        "name": "Successful user login with valid credentials",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 433543916
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "I am on the login page",
+            "match": {
+              "location": "../tests/gherkin/steps/login.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 714424125
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 10,
+            "name": "I fill in the email field with \"john.doe@example.com\"",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:44"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 68843875
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 11,
+            "name": "I fill in the password field with \"SecurePass123\"",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:48"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 35975750
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 12,
+            "name": "I click the \"Sign In\" button",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:52"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 55592208
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 13,
+            "name": "I should see a login success message",
+            "match": {
+              "location": "../tests/gherkin/steps/login.steps.ts:38"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 454832
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 15995583
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-login;login-fails-with-empty-required-fields",
+        "keyword": "Scenario",
+        "line": 15,
+        "name": "Login fails with empty required fields",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 130495332
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "I am on the login page",
+            "match": {
+              "location": "../tests/gherkin/steps/login.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 657846000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 16,
+            "name": "I click the \"Sign In\" button",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:52"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 33796082
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 17,
+            "name": "I should see validation errors for empty login fields",
+            "match": {
+              "location": "../tests/gherkin/steps/login.steps.ts:46"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 34602541
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 18,
+            "name": "I should see \"Please enter a valid email address\"",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:57"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1337625
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 19,
+            "name": "I should see \"Password must be at least 8 characters long\"",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:57"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1076332
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 13967249
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-login;login-fails-with-invalid-email-format",
+        "keyword": "Scenario",
+        "line": 21,
+        "name": "Login fails with invalid email format",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 102376166
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "I am on the login page",
+            "match": {
+              "location": "../tests/gherkin/steps/login.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 640614042
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 22,
+            "name": "I fill in the email field with \"invalid-email\"",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:44"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 41919499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 23,
+            "name": "I fill in the password field with \"SecurePass123\"",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:48"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 36523874
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 24,
+            "name": "I click the \"Sign In\" button",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:52"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 38697333
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 25,
+            "name": "I should see \"Please enter a valid email address\"",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:57"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1972457
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 13882125
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-login;login-fails-with-short-password",
+        "keyword": "Scenario",
+        "line": 27,
+        "name": "Login fails with short password",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 123040250
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "I am on the login page",
+            "match": {
+              "location": "../tests/gherkin/steps/login.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 683649666
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 28,
+            "name": "I fill in the email field with \"john.doe@example.com\"",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:44"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 42647874
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 29,
+            "name": "I fill in the password field with \"123\"",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:48"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 35595749
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 30,
+            "name": "I click the \"Sign In\" button",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:52"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 28351500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 31,
+            "name": "I should see \"Password must be at least 8 characters long\"",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:57"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1622209
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 12782959
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-login;remember-me-checkbox-functionality",
+        "keyword": "Scenario",
+        "line": 33,
+        "name": "Remember me checkbox functionality",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 130495541
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "I am on the login page",
+            "match": {
+              "location": "../tests/gherkin/steps/login.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 637382791
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 34,
+            "name": "I fill in the email field with \"john.doe@example.com\"",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:44"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 21957542
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 35,
+            "name": "I fill in the password field with \"SecurePass123\"",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:48"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 36791959
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 36,
+            "name": "I check the \"Remember me\" checkbox",
+            "match": {
+              "location": "../tests/gherkin/steps/login.steps.ts:12"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 42121208
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 37,
+            "name": "I click the \"Sign In\" button",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:52"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 33784791
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 38,
+            "name": "I should see a login success message",
+            "match": {
+              "location": "../tests/gherkin/steps/login.steps.ts:38"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 298207
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 39,
+            "name": "the remember me checkbox should be checked",
+            "match": {
+              "location": "../tests/gherkin/steps/login.steps.ts:51"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1686750
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 12128292
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-login;clicking-google-sign-in-button",
+        "keyword": "Scenario",
+        "line": 41,
+        "name": "Clicking Google Sign-in button",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 130113292
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "I am on the login page",
+            "match": {
+              "location": "../tests/gherkin/steps/login.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 636329166
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 42,
+            "name": "I click the \"Sign in with Google\" button",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:52"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 38442250
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 43,
+            "name": "the Google signin handler should be called",
+            "match": {
+              "location": "../tests/gherkin/steps/login.steps.ts:55"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 263707
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 9048208
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-login;password-visibility-toggle-functionality",
+        "keyword": "Scenario",
+        "line": 45,
+        "name": "Password visibility toggle functionality",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 124381083
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "I am on the login page",
+            "match": {
+              "location": "../tests/gherkin/steps/login.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 638914375
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 46,
+            "name": "I fill in the password field with \"mypassword\"",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:48"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 80665458
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 47,
+            "name": "the password should be hidden by default",
+            "match": {
+              "location": "../tests/gherkin/steps/login.steps.ts:62"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2215709
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 48,
+            "name": "I click the password visibility toggle button",
+            "match": {
+              "location": "../tests/gherkin/steps/login.steps.ts:28"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 40650874
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 49,
+            "name": "the password should be visible",
+            "match": {
+              "location": "../tests/gherkin/steps/login.steps.ts:67"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1457374
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 50,
+            "name": "I click the password visibility toggle button again",
+            "match": {
+              "location": "../tests/gherkin/steps/login.steps.ts:28"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 26648833
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 51,
+            "name": "the password should be hidden again",
+            "match": {
+              "location": "../tests/gherkin/steps/login.steps.ts:72"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1460041
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 11318707
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-login;form-fields-clear-errors-when-user-starts-typing",
+        "keyword": "Scenario",
+        "line": 53,
+        "name": "Form fields clear errors when user starts typing",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 126773250
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "I am on the login page",
+            "match": {
+              "location": "../tests/gherkin/steps/login.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 638540915
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 54,
+            "name": "I click the \"Sign In\" button",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:52"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 87574166
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 55,
+            "name": "I should see validation errors for empty login fields",
+            "match": {
+              "location": "../tests/gherkin/steps/login.steps.ts:46"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3039708
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 56,
+            "name": "I start typing in the email field",
+            "match": {
+              "location": "../tests/gherkin/steps/login.steps.ts:24"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4527667
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 57,
+            "name": "the email field error should disappear",
+            "match": {
+              "location": "../tests/gherkin/steps/login.steps.ts:77"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1136458
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 9597999
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-login;navigation-to-registration-page",
+        "keyword": "Scenario",
+        "line": 59,
+        "name": "Navigation to registration page",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 112858374
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "I am on the login page",
+            "match": {
+              "location": "../tests/gherkin/steps/login.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 638869500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 60,
+            "name": "I click the \"Sign up\" link",
+            "match": {
+              "location": "../tests/gherkin/steps/login.steps.ts:16"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 39406208
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 61,
+            "name": "I should be redirected to the registration page",
+            "match": {
+              "location": "../tests/gherkin/steps/login.steps.ts:81"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 105915917
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 13168916
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-login;form-is-responsive-on-mobile-devices",
+        "keyword": "Scenario",
+        "line": 63,
+        "name": "Form is responsive on mobile devices",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 133427208
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "I am on the login page",
+            "match": {
+              "location": "../tests/gherkin/steps/login.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 639101916
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 64,
+            "name": "I am using a mobile device",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:34"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 75929791
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 65,
+            "name": "I view the login page",
+            "match": {
+              "location": "../tests/gherkin/steps/login.steps.ts:32"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 636344084
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 66,
+            "name": "the hero section should be hidden",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:62"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 26322167
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 67,
+            "name": "the form should take full width",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:72"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 19990750
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 17961417
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-login;form-validation-provides-visual-feedback",
+        "keyword": "Scenario",
+        "line": 69,
+        "name": "Form validation provides visual feedback",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 124504542
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "I am on the login page",
+            "match": {
+              "location": "../tests/gherkin/steps/login.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 632923875
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 70,
+            "name": "I click the \"Sign In\" button",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:52"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 36266459
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 71,
+            "name": "form fields with errors should have red borders",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:83"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 514486041
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 72,
+            "name": "I fill in the email field with \"test@example.com\"",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:44"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 15418125
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 73,
+            "name": "the email field should have normal border styling",
+            "match": {
+              "location": "../tests/gherkin/steps/login.steps.ts:85"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3563666
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 17294749
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-login;forgot-password-link-functionality",
+        "keyword": "Scenario",
+        "line": 75,
+        "name": "Forgot password link functionality",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 131099666
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "I am on the login page",
+            "match": {
+              "location": "../tests/gherkin/steps/login.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 632403249
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 76,
+            "name": "I should see the \"Forgot your password?\" link",
+            "match": {
+              "location": "../tests/gherkin/steps/login.steps.ts:90"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 19060916
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 77,
+            "name": "I click the \"Forgot your password?\" link",
+            "match": {
+              "location": "../tests/gherkin/steps/login.steps.ts:16"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 30592209
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 78,
+            "name": "the forgot password handler should be called",
+            "match": {
+              "location": "../tests/gherkin/steps/login.steps.ts:94"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1705916
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 10561125
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      }
+    ],
+    "id": "user-login",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "User Login",
+    "tags": [],
+    "uri": "../tests/gherkin/features/login.feature"
+  },
+  {
+    "description": "  As a registered user\n  I want to sort photos in the gallery by different criteria\n  So that I can find and view photos in my preferred order (newest, oldest, most liked, most favorited)",
+    "elements": [
+      {
+        "description": "",
+        "id": "gallery-photo-sorting;sort-dropdown-displays-correctly-on-all-gallery-pages",
+        "keyword": "Scenario",
+        "line": 13,
+        "name": "Sort dropdown displays correctly on all gallery pages",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 127485333
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the user is authenticated with a valid JWT token",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 719459166
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "there are multiple photos available in the gallery with varying metadata",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 500983207
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 14,
+            "name": "the user is on any gallery page (All Photos, My Photos, Public Photos, Liked Photos, Favorited Photos)",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:47"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1228449833
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 15,
+            "name": "the page loads",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:165"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1003795582
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 16,
+            "name": "the sort dropdown should be visible above the photo grid",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:213"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 9052916
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 17,
+            "name": "the sort dropdown should display the current sort option",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:223"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2665375
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 18,
+            "name": "the sort dropdown should have 4 options: \"Newest\", \"Oldest\", \"Most Liked\", \"Most Favorited\"",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:232"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 652676666
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 33462584
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gallery-photo-sorting;sort-photos-by-newest-first",
+        "keyword": "Scenario",
+        "line": 24,
+        "name": "Sort photos by newest first",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 153879207
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the user is authenticated with a valid JWT token",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 663972041
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "there are multiple photos available in the gallery with varying metadata",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 502371250
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 25,
+            "name": "the user is on the All Photos gallery page",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:52"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1242094417
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 26,
+            "name": "photos exist with different creation dates",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:106"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 103098374
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 27,
+            "name": "the user selects \"Newest\" from the sort dropdown",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:169"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 875422500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 28,
+            "name": "the photos should be displayed with the most recently created photos first",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:254"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 895667
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 29,
+            "name": "the photos should be ordered by creation date descending",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:260"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 471459
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 30,
+            "name": "the sort dropdown should show \"Newest\" as selected",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:272"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 5986750
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 18564207
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gallery-photo-sorting;sort-photos-by-oldest-first",
+        "keyword": "Scenario",
+        "line": 36,
+        "name": "Sort photos by oldest first",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 143226500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the user is authenticated with a valid JWT token",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 672877832
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "there are multiple photos available in the gallery with varying metadata",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 502214374
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 37,
+            "name": "the user is on the All Photos gallery page",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:52"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1260489041
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 38,
+            "name": "photos exist with different creation dates",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:106"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 104000374
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 39,
+            "name": "the user selects \"Oldest\" from the sort dropdown",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:169"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 876479125
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 40,
+            "name": "the photos should be displayed with the oldest created photos first",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:278"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 985042
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 41,
+            "name": "the photos should be ordered by creation date ascending",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:266"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 715083
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 42,
+            "name": "the sort dropdown should show \"Oldest\" as selected",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:272"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 7096333
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 17675084
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gallery-photo-sorting;sort-photos-by-most-liked",
+        "keyword": "Scenario",
+        "line": 47,
+        "name": "Sort photos by most liked",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 138228957
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the user is authenticated with a valid JWT token",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 673105999
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "there are multiple photos available in the gallery with varying metadata",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 500998541
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 48,
+            "name": "the user is on the All Photos gallery page",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:52"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1230234249
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 49,
+            "name": "photos exist with different like counts",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:111"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 102456125
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 50,
+            "name": "the user selects \"Most Liked\" from the sort dropdown",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:169"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 874569749
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 51,
+            "name": "the photos should be displayed with the highest like count first",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:283"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 402208
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 52,
+            "name": "the photos should be ordered by like count descending",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:288"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 108082
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 53,
+            "name": "photos with equal like counts should be ordered by newest creation date",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:293"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 101882166
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 54,
+            "name": "the sort dropdown should show \"Most Liked\" as selected",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:272"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 7981124
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 26455666
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gallery-photo-sorting;sort-photos-by-most-favorited",
+        "keyword": "Scenario",
+        "line": 59,
+        "name": "Sort photos by most favorited",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 134564709
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the user is authenticated with a valid JWT token",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 644587290
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "there are multiple photos available in the gallery with varying metadata",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 501631000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 60,
+            "name": "the user is on the All Photos gallery page",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:52"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1246471166
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 61,
+            "name": "photos exist with different favorite counts",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:116"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 101954249
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 62,
+            "name": "the user selects \"Most Favorited\" from the sort dropdown",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:169"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 871676707
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 63,
+            "name": "the photos should be displayed with the highest favorite count first",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:298"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 223915
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 64,
+            "name": "the photos should be ordered by favorite count descending",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:303"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 93917
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 65,
+            "name": "photos with equal favorite counts should be ordered by newest creation date",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:308"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 101050458
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 66,
+            "name": "the sort dropdown should show \"Most Favorited\" as selected",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:272"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2218417
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 11693916
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gallery-photo-sorting;sort-preference-persists-in-url",
+        "keyword": "Scenario",
+        "line": 71,
+        "name": "Sort preference persists in URL",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 138202375
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the user is authenticated with a valid JWT token",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 664591167
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "there are multiple photos available in the gallery with varying metadata",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 501209999
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 72,
+            "name": "the user is on the All Photos gallery page",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:52"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1223806292
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 73,
+            "name": "the user selects \"Most Liked\" from the sort dropdown",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:169"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 874730541
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 74,
+            "name": "the URL should update to include \"sortBy=mostLiked\" parameter",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:313"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 551875
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 75,
+            "name": "the browser address bar should show the updated URL",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:318"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 102629290
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 76,
+            "name": "the user copies the URL and opens it in a new tab",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:200"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1223942917
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 77,
+            "name": "the gallery should load with \"Most Liked\" sort applied",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:323"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 314749
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 78,
+            "name": "the sort dropdown should show \"Most Liked\" as selected",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:272"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 8281750
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 13133957
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gallery-photo-sorting;sort-preference-persists-after-page-refresh",
+        "keyword": "Scenario",
+        "line": 82,
+        "name": "Sort preference persists after page refresh",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 126222207
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the user is authenticated with a valid JWT token",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 666670790
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "there are multiple photos available in the gallery with varying metadata",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 501433291
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 83,
+            "name": "the user has selected \"Oldest\" from the sort dropdown",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:141"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 902875249
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 84,
+            "name": "the URL contains \"sortBy=oldest\" parameter",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 85,
+            "name": "the user refreshes the page",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:185"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 86,
+            "name": "the photos should still be sorted by oldest first",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:342"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 87,
+            "name": "the sort dropdown should show \"Oldest\" as selected",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:272"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 88,
+            "name": "the URL should still contain \"sortBy=oldest\" parameter",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:347"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 17295540
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gallery-photo-sorting;default-sort-is-newest-when-no-sortby-parameter",
+        "keyword": "Scenario",
+        "line": 93,
+        "name": "Default sort is newest when no sortBy parameter",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 138820375
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the user is authenticated with a valid JWT token",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 650916207
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "there are multiple photos available in the gallery with varying metadata",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 501077375
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 94,
+            "name": "the user navigates to the gallery page without a sortBy parameter",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:77"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1231281540
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 95,
+            "name": "the page loads",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:165"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1004103917
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 96,
+            "name": "the photos should be sorted by newest first (default)",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:352"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1485707
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 97,
+            "name": "the sort dropdown should show \"Newest\" as selected",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:272"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 20984083
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 98,
+            "name": "the URL should not contain a sortBy parameter (implicit default)",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:358"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 504166
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 16704458
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gallery-photo-sorting;sort-works-on-my-photos-page",
+        "keyword": "Scenario",
+        "line": 102,
+        "name": "Sort works on My Photos page",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 139526749
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the user is authenticated with a valid JWT token",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 661663292
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "there are multiple photos available in the gallery with varying metadata",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 501131042
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 103,
+            "name": "the user is on the My Photos page",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:57"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1242119500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 104,
+            "name": "the user has uploaded multiple photos",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:121"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 104391999
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 105,
+            "name": "the user selects \"Oldest\" from the sort dropdown",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:169"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 852731290
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 106,
+            "name": "the photos should be sorted by oldest first",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 107,
+            "name": "only the user's own photos should be displayed",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:363"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 108,
+            "name": "the URL should contain \"sortBy=oldest\" parameter",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 20163541
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gallery-photo-sorting;sort-works-on-public-photos-page",
+        "keyword": "Scenario",
+        "line": 112,
+        "name": "Sort works on Public Photos page",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 143356833
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the user is authenticated with a valid JWT token",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 670600459
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "there are multiple photos available in the gallery with varying metadata",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 499905665
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 113,
+            "name": "the user is on the Public Photos page",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:62"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1241750041
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 114,
+            "name": "there are public photos from multiple users",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:126"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 103576042
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 115,
+            "name": "the user selects \"Most Favorited\" from the sort dropdown",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:169"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 872199625
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 116,
+            "name": "the photos should be sorted by favorite count descending",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:389"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1290707
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 117,
+            "name": "only public photos should be displayed",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:369"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1194917
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 118,
+            "name": "the URL should contain \"sortBy=mostFavorited\" parameter",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 29188165
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gallery-photo-sorting;sort-works-on-liked-photos-page",
+        "keyword": "Scenario",
+        "line": 123,
+        "name": "Sort works on Liked Photos page",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 156722292
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the user is authenticated with a valid JWT token",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 656224500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "there are multiple photos available in the gallery with varying metadata",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 501255583
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 124,
+            "name": "the user is on the Liked Photos page",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:67"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1241617833
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 125,
+            "name": "the user has liked multiple photos",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:131"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 102146207
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 126,
+            "name": "the user selects \"Most Liked\" from the sort dropdown",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:169"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 874912499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 127,
+            "name": "the photos should be sorted by like count descending",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:384"
+            },
+            "result": {
+              "status": "failed",
+              "duration": 3472792,
+              "error_message": "Error: expect(received).toContain(expected) // indexOf\n\nExpected substring: \"sortBy=mostLiked\"\nReceived string:    \"http://localhost:3002/myprofile/liked-photos\"\n    at Proxy.<anonymous> (/Users/isnendyankp/Desktop/Programmer/Belajar/Project/Template/IKP-Labs/node_modules/playwright/lib/matchers/expect.js:221:24)\n    at World.<anonymous> (/Users/isnendyankp/Desktop/Programmer/Belajar/Project/Template/IKP-Labs/tests/gherkin/steps/photo-sorting.steps.ts:386:15)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 128,
+            "name": "only photos the user has liked should be displayed",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:374"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 129,
+            "name": "the URL should contain \"sortBy=mostLiked\" parameter",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 22648832
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gallery-photo-sorting;sort-works-on-favorited-photos-page",
+        "keyword": "Scenario",
+        "line": 134,
+        "name": "Sort works on Favorited Photos page",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 138833916
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the user is authenticated with a valid JWT token",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 668817166
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "there are multiple photos available in the gallery with varying metadata",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 501077749
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 135,
+            "name": "the user is on the Favorited Photos page",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:72"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1254877208
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 136,
+            "name": "the user has favorited multiple photos",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:136"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 102134249
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 137,
+            "name": "the user selects \"Newest\" from the sort dropdown",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:169"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 871980624
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 138,
+            "name": "the photos should be sorted by creation date descending",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 139,
+            "name": "only photos the user has favorited should be displayed",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:379"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 140,
+            "name": "the URL should contain \"sortBy=newest\" parameter",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 14764000
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gallery-photo-sorting;sort-works-with-filter=all",
+        "keyword": "Scenario",
+        "line": 145,
+        "name": "Sort works with filter=all",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 140788874
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the user is authenticated with a valid JWT token",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 679211250
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "there are multiple photos available in the gallery with varying metadata",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 502206875
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 146,
+            "name": "the user is on the gallery page with \"All Photos\" filter selected",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:82"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1241346833
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 147,
+            "name": "the user selects \"Oldest\" from the sort dropdown",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:169"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 883568541
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 148,
+            "name": "the URL should contain both \"filter=all\" and \"sortBy=oldest\" parameters",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:394"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 364375
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 149,
+            "name": "all public photos should be displayed",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:400"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 101707
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 150,
+            "name": "the photos should be sorted by oldest first",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 151,
+            "name": "the sort dropdown should show \"Oldest\" as selected",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:272"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 152,
+            "name": "the All Photos filter button should be highlighted",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 13745792
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gallery-photo-sorting;sort-works-with-filter=my-photos",
+        "keyword": "Scenario",
+        "line": 156,
+        "name": "Sort works with filter=my-photos",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 130484417
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the user is authenticated with a valid JWT token",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 674033999
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "there are multiple photos available in the gallery with varying metadata",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 500816458
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 157,
+            "name": "the user is on the gallery page with \"My Photos\" filter selected",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:82"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1256187582
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 158,
+            "name": "the user selects \"Most Liked\" from the sort dropdown",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:169"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 871137042
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 159,
+            "name": "the URL should contain both \"filter=my-photos\" and \"sortBy=mostLiked\" parameters",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:394"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1021541
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 160,
+            "name": "only the user's photos should be displayed",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 161,
+            "name": "the photos should be sorted by like count descending",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:384"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 162,
+            "name": "the sort dropdown should show \"Most Liked\" as selected",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:272"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 163,
+            "name": "the My Photos filter button should be highlighted",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 26930000
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gallery-photo-sorting;sort-works-with-filter=public",
+        "keyword": "Scenario",
+        "line": 167,
+        "name": "Sort works with filter=public",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 146361959
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the user is authenticated with a valid JWT token",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 661208917
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "there are multiple photos available in the gallery with varying metadata",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 502027374
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 168,
+            "name": "the user is on the gallery page with \"Public Photos\" filter selected",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:82"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1247153375
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 169,
+            "name": "the user selects \"Most Favorited\" from the sort dropdown",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:169"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 850944417
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 170,
+            "name": "the URL should contain both \"filter=public\" and \"sortBy=mostFavorited\" parameters",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:394"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 743415
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 171,
+            "name": "only public photos should be displayed",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:369"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 221875
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 172,
+            "name": "the photos should be sorted by favorite count descending",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:389"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 177000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 173,
+            "name": "the sort dropdown should show \"Most Favorited\" as selected",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:272"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4758375
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 174,
+            "name": "the Public Photos filter button should be highlighted",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 17331375
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gallery-photo-sorting;sort-works-with-filter=liked",
+        "keyword": "Scenario",
+        "line": 178,
+        "name": "Sort works with filter=liked",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 151027833
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the user is authenticated with a valid JWT token",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 654624874
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "there are multiple photos available in the gallery with varying metadata",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 501497709
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 179,
+            "name": "the user is on the gallery page with \"Liked Photos\" filter selected",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:82"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1251350374
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 180,
+            "name": "the user selects \"Newest\" from the sort dropdown",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:169"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 884441916
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 181,
+            "name": "the URL should contain both \"filter=liked\" and \"sortBy=newest\" parameters",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:394"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1836624
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 182,
+            "name": "only photos the user has liked should be displayed",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:374"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 673792
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 183,
+            "name": "the photos should be sorted by creation date descending",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 184,
+            "name": "the sort dropdown should show \"Newest\" as selected",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:272"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 185,
+            "name": "the Liked Photos filter button should be highlighted",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 29099000
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gallery-photo-sorting;sort-works-with-filter=favorited",
+        "keyword": "Scenario",
+        "line": 189,
+        "name": "Sort works with filter=favorited",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 141624040
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the user is authenticated with a valid JWT token",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 653145416
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "there are multiple photos available in the gallery with varying metadata",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 501158624
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 190,
+            "name": "the user is on the gallery page with \"Favorited Photos\" filter selected",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:82"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1226078874
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 191,
+            "name": "the user selects \"Oldest\" from the sort dropdown",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:169"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 882966125
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 192,
+            "name": "the URL should contain both \"filter=favorited\" and \"sortBy=oldest\" parameters",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:394"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1040666
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 193,
+            "name": "only photos the user has favorited should be displayed",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:379"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 561417
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 194,
+            "name": "the photos should be sorted by creation date ascending",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 195,
+            "name": "the sort dropdown should show \"Oldest\" as selected",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:272"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 196,
+            "name": "the Favorited Photos filter button should be highlighted",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 22015666
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gallery-photo-sorting;changing-filter-preserves-sort-preference",
+        "keyword": "Scenario",
+        "line": 200,
+        "name": "Changing filter preserves sort preference",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 142351750
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the user is authenticated with a valid JWT token",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 649111957
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "there are multiple photos available in the gallery with varying metadata",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 501954832
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 201,
+            "name": "the user is on the gallery page with \"sortBy=mostLiked\" selected",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:151"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1236249208
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 202,
+            "name": "the user is viewing \"All Photos\" filter",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:156"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 102705042
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 203,
+            "name": "the user clicks the \"My Photos\" filter button",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:179"
+            },
+            "result": {
+              "status": "failed",
+              "duration": 30006241708,
+              "error_message": "locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator('button:has-text(\"My Photos\")').first()\n\n    at World.<anonymous> (/Users/isnendyankp/Desktop/Programmer/Belajar/Project/Template/IKP-Labs/tests/gherkin/steps/photo-sorting.steps.ts:181:22)"
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 204,
+            "name": "the URL should update to \"filter=my-photos&sortBy=mostLiked\"",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:420"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 205,
+            "name": "only the user's photos should be displayed",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 206,
+            "name": "the photos should still be sorted by most liked",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:425"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 207,
+            "name": "the sort dropdown should still show \"Most Liked\" as selected",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:430"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 24419125
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gallery-photo-sorting;changing-sort-preserves-filter-preference",
+        "keyword": "Scenario",
+        "line": 211,
+        "name": "Changing sort preserves filter preference",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 151211040
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the user is authenticated with a valid JWT token",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 668177666
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "there are multiple photos available in the gallery with varying metadata",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 500889874
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 212,
+            "name": "the user is on the gallery page with \"filter=public\" selected",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:151"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1238116458
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 213,
+            "name": "the sort dropdown shows \"Newest\" as selected",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 214,
+            "name": "the user selects \"Oldest\" from the sort dropdown",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:169"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 215,
+            "name": "the URL should update to \"filter=public&sortBy=oldest\"",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:420"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 216,
+            "name": "only public photos should be displayed",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:369"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 217,
+            "name": "the photos should be sorted by oldest first",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 218,
+            "name": "the Public Photos filter button should still be highlighted",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 22765457
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gallery-photo-sorting;sort-dropdown-appears-even-when-no-photos-exist",
+        "keyword": "Scenario",
+        "line": 222,
+        "name": "Sort dropdown appears even when no photos exist",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 173331916
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the user is authenticated with a valid JWT token",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 684396000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "there are multiple photos available in the gallery with varying metadata",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 502058958
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 223,
+            "name": "the user is on a gallery page with no photos (empty state)",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:96"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1238220207
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 224,
+            "name": "the page loads",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:165"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1001482625
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 225,
+            "name": "the sort dropdown should still be visible",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:218"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 16120458
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 226,
+            "name": "the sort dropdown should show the selected sort option",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:450"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2098540
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 227,
+            "name": "an empty state message should be displayed below the dropdown",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:455"
+            },
+            "result": {
+              "status": "failed",
+              "duration": 5002838582,
+              "error_message": "Error: expect(locator).toBeVisible() failed\n\nLocator: locator('text=/No photos|haven\\'t uploaded|No results/i').first()\nExpected: visible\nTimeout: 5000ms\nError: element(s) not found\n\nCall log:\n  - Expect \"to.be.visible\" with timeout 5000ms\n  - waiting for locator('text=/No photos|haven\\'t uploaded|No results/i').first()\n\n    at Proxy.<anonymous> (/Users/isnendyankp/Desktop/Programmer/Belajar/Project/Template/IKP-Labs/node_modules/playwright/lib/matchers/expect.js:221:24)\n    at World.<anonymous> (/Users/isnendyankp/Desktop/Programmer/Belajar/Project/Template/IKP-Labs/tests/gherkin/steps/photo-sorting.steps.ts:458:30)"
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 16410042
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gallery-photo-sorting;photos-with-equal-like-counts-are-sorted-by-newest-creation-date",
+        "keyword": "Scenario",
+        "line": 232,
+        "name": "Photos with equal like counts are sorted by newest creation date",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 147059374
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the user is authenticated with a valid JWT token",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 677713208
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "there are multiple photos available in the gallery with varying metadata",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 501608541
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 233,
+            "name": "there are 3 photos all with 5 likes",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:475"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 101971749
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 234,
+            "name": "Photo A was created at 2025-01-01",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 235,
+            "name": "Photo B was created at 2025-01-02",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 236,
+            "name": "Photo C was created at 2025-01-03",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 237,
+            "name": "the user selects \"Most Liked\" from the sort dropdown",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:169"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 238,
+            "name": "the photos should be displayed in order: Photo C, Photo B, Photo A",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 239,
+            "name": "the like count should be the same for all 3 photos",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 240,
+            "name": "the secondary sort should be by newest creation date",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 19316666
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gallery-photo-sorting;photos-with-equal-favorite-counts-are-sorted-by-newest-creation-date",
+        "keyword": "Scenario",
+        "line": 245,
+        "name": "Photos with equal favorite counts are sorted by newest creation date",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 141561000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the user is authenticated with a valid JWT token",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 642987708
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "there are multiple photos available in the gallery with varying metadata",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 501775750
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 246,
+            "name": "there are 3 photos all with 10 favorites",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:480"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 102588666
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 247,
+            "name": "Photo X was created at 2025-01-01 10:00",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 248,
+            "name": "Photo Y was created at 2025-01-01 11:00",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 249,
+            "name": "Photo Z was created at 2025-01-01 12:00",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 250,
+            "name": "the user selects \"Most Favorited\" from the sort dropdown",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:169"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 251,
+            "name": "the photos should be displayed in order: Photo Z, Photo Y, Photo X",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 252,
+            "name": "the favorite count should be the same for all 3 photos",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 253,
+            "name": "the secondary sort should be by newest creation date",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 21811874
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gallery-photo-sorting;browser-back-button-restores-previous-sort-state",
+        "keyword": "Scenario",
+        "line": 258,
+        "name": "Browser back button restores previous sort state",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 143864000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the user is authenticated with a valid JWT token",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 660453542
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "there are multiple photos available in the gallery with varying metadata",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 501661208
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 259,
+            "name": "the user is on the gallery page with \"sortBy=newest\" selected",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:151"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1242603667
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 260,
+            "name": "the user selects \"Oldest\" from the sort dropdown",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:169"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 852957458
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 261,
+            "name": "the URL should update to \"sortBy=oldest\"",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:420"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 563540
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 262,
+            "name": "the user clicks the browser back button",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:190"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1007536791
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 263,
+            "name": "the URL should return to \"sortBy=newest\"",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:461"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 890041
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 264,
+            "name": "the photos should be sorted by newest first",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:466"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 441167
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 265,
+            "name": "the sort dropdown should show \"Newest\" as selected",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:272"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 5328458
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 18553791
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gallery-photo-sorting;browser-forward-button-restores-next-sort-state",
+        "keyword": "Scenario",
+        "line": 269,
+        "name": "Browser forward button restores next sort state",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 153545958
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the user is authenticated with a valid JWT token",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 660574957
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "there are multiple photos available in the gallery with varying metadata",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 501446958
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 270,
+            "name": "the user is on the gallery page with \"sortBy=newest\" selected",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:151"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1255299041
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 271,
+            "name": "the user has changed sort to \"sortBy=oldest\"",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 272,
+            "name": "the user has clicked the browser back button (now at \"sortBy=newest\")",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 273,
+            "name": "the user clicks the browser forward button",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:195"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 274,
+            "name": "the URL should return to \"sortBy=oldest\"",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:461"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 275,
+            "name": "the photos should be sorted by oldest first",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 276,
+            "name": "the sort dropdown should show \"Oldest\" as selected",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:272"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 22059792
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gallery-photo-sorting;sorting-uses-optimized-queries-to-prevent-n+1-problems",
+        "keyword": "Scenario",
+        "line": 281,
+        "name": "Sorting uses optimized queries to prevent N+1 problems",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 142378875
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the user is authenticated with a valid JWT token",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 670377542
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "there are multiple photos available in the gallery with varying metadata",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 501796374
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 282,
+            "name": "there are 100 photos in the gallery",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 283,
+            "name": "the user selects \"Most Liked\" from the sort dropdown",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:169"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 284,
+            "name": "the backend should use a single optimized query with JOINs",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:489"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 285,
+            "name": "the query should fetch photos with like counts in one database round trip",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:494"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 286,
+            "name": "the page should load within acceptable performance limits (under 1 second)",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:499"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 287,
+            "name": "no N+1 query issues should occur",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:504"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 19246083
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gallery-photo-sorting;invalid-sortby-parameter-defaults-to-newest",
+        "keyword": "Scenario",
+        "line": 291,
+        "name": "Invalid sortBy parameter defaults to newest",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 138361875
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the user is authenticated with a valid JWT token",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 658103208
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "there are multiple photos available in the gallery with varying metadata",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 501581458
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 292,
+            "name": "the user manually edits the URL to \"sortBy=invalidOption\"",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 293,
+            "name": "the page loads",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:165"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 294,
+            "name": "the backend should default to \"newest\" sort",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:509"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 295,
+            "name": "the photos should be sorted by newest first",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:466"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 296,
+            "name": "the sort dropdown should show \"Newest\" as selected",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:272"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 297,
+            "name": "no error should be displayed to the user",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:517"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 24799874
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gallery-photo-sorting;sort-dropdown-is-accessible-via-keyboard",
+        "keyword": "Scenario",
+        "line": 301,
+        "name": "Sort dropdown is accessible via keyboard",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 140923791
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the user is authenticated with a valid JWT token",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 645768791
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "there are multiple photos available in the gallery with varying metadata",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 500290458
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 302,
+            "name": "the user is on the gallery page",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 303,
+            "name": "the user tabs to the sort dropdown using the keyboard",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 304,
+            "name": "the dropdown should receive focus",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 305,
+            "name": "the user presses Enter or Space",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 306,
+            "name": "the dropdown should open and show all 4 options",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 307,
+            "name": "the user navigates options with arrow keys",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 308,
+            "name": "the user should be able to select any option",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 309,
+            "name": "the user presses Enter",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 310,
+            "name": "the selected sort should be applied",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 311,
+            "name": "the photos should re-sort accordingly",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 14007958
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "gallery-photo-sorting;sort-dropdown-works-correctly-on-mobile-devices",
+        "keyword": "Scenario",
+        "line": 315,
+        "name": "Sort dropdown works correctly on mobile devices",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 126810958
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "the user is authenticated with a valid JWT token",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:9"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 659903707
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 8,
+            "name": "there are multiple photos available in the gallery with varying metadata",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:37"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 501463416
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 316,
+            "name": "the user is on a mobile device (viewport width < 768px)",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 317,
+            "name": "the user is on the gallery page",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 318,
+            "name": "the page loads",
+            "match": {
+              "location": "../tests/gherkin/steps/photo-sorting.steps.ts:165"
+            },
+            "result": {
+              "status": "skipped",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 319,
+            "name": "the sort dropdown should be visible and properly sized",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 320,
+            "name": "the user taps the sort dropdown",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 321,
+            "name": "the dropdown should open with all 4 options visible",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 322,
+            "name": "the user taps an option",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 323,
+            "name": "the sort should be applied",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 324,
+            "name": "the dropdown should close",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 325,
+            "name": "the photos should re-sort accordingly",
+            "result": {
+              "status": "undefined",
+              "duration": 0
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 28308458
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      }
+    ],
+    "id": "gallery-photo-sorting",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "Gallery Photo Sorting",
+    "tags": [],
+    "uri": "../tests/gherkin/features/photo-sorting.feature"
+  },
+  {
+    "description": "  As a new user\n  I want to register an account\n  So that I can access the application",
+    "elements": [
+      {
+        "description": "",
+        "id": "user-registration;successful-user-registration-with-valid-data",
+        "keyword": "Scenario",
+        "line": 9,
+        "name": "Successful user registration with valid data",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 144161791
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "I am on the registration page",
+            "match": {
+              "location": "../tests/gherkin/steps/registration.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 635759332
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 10,
+            "name": "I fill in the name field with \"John Doe\"",
+            "match": {
+              "location": "../tests/gherkin/steps/registration.steps.ts:12"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 30230292
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 11,
+            "name": "I fill in the email field with \"john.doe@example.com\"",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:44"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4864459
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 12,
+            "name": "I fill in the password field with \"SecurePass123\"",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:48"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 42438750
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 13,
+            "name": "I fill in the confirm password field with \"SecurePass123\"",
+            "match": {
+              "location": "../tests/gherkin/steps/registration.steps.ts:16"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4071834
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 14,
+            "name": "I click the \"Create Account\" button",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:52"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 39460707
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 15,
+            "name": "I should see a success message",
+            "match": {
+              "location": "../tests/gherkin/steps/registration.steps.ts:25"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 356459
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 8993916
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-registration;registration-fails-with-empty-required-fields",
+        "keyword": "Scenario",
+        "line": 17,
+        "name": "Registration fails with empty required fields",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 116506374
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "I am on the registration page",
+            "match": {
+              "location": "../tests/gherkin/steps/registration.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 632142416
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 18,
+            "name": "I click the \"Create Account\" button",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:52"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 46740875
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 19,
+            "name": "I should see validation errors for empty fields",
+            "match": {
+              "location": "../tests/gherkin/steps/registration.steps.ts:33"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 40652333
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 20,
+            "name": "I should see \"Name must be at least 2 characters long\"",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:57"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 970291
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 21,
+            "name": "I should see \"Please enter a valid email address\"",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:57"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 795000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 22,
+            "name": "I should see \"Password must be at least 8 characters long\"",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:57"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 775874
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 11301959
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-registration;registration-fails-with-invalid-email-format",
+        "keyword": "Scenario",
+        "line": 24,
+        "name": "Registration fails with invalid email format",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 109545958
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "I am on the registration page",
+            "match": {
+              "location": "../tests/gherkin/steps/registration.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 633622334
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 25,
+            "name": "I fill in the name field with \"John Doe\"",
+            "match": {
+              "location": "../tests/gherkin/steps/registration.steps.ts:12"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 45178165
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 26,
+            "name": "I fill in the email field with \"invalid-email\"",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:44"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 5019624
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 27,
+            "name": "I fill in the password field with \"SecurePass123\"",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:48"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 43424250
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 28,
+            "name": "I fill in the confirm password field with \"SecurePass123\"",
+            "match": {
+              "location": "../tests/gherkin/steps/registration.steps.ts:16"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3973167
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 29,
+            "name": "I click the \"Create Account\" button",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:52"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 29277124
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 30,
+            "name": "I should see \"Please enter a valid email address\"",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:57"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 2219749
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 8648042
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-registration;registration-fails-with-short-password",
+        "keyword": "Scenario",
+        "line": 32,
+        "name": "Registration fails with short password",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 112713416
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "I am on the registration page",
+            "match": {
+              "location": "../tests/gherkin/steps/registration.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 631575417
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 33,
+            "name": "I fill in the name field with \"John Doe\"",
+            "match": {
+              "location": "../tests/gherkin/steps/registration.steps.ts:12"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 45065208
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 34,
+            "name": "I fill in the email field with \"john.doe@example.com\"",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:44"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 5101249
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 35,
+            "name": "I fill in the password field with \"123\"",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:48"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 42983500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 36,
+            "name": "I fill in the confirm password field with \"123\"",
+            "match": {
+              "location": "../tests/gherkin/steps/registration.steps.ts:16"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4059334
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 37,
+            "name": "I click the \"Create Account\" button",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:52"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 29625915
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 38,
+            "name": "I should see \"Password must be at least 8 characters long\"",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:57"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1599708
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 8554833
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-registration;registration-fails-when-passwords-don't-match",
+        "keyword": "Scenario",
+        "line": 40,
+        "name": "Registration fails when passwords don't match",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 113590083
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "I am on the registration page",
+            "match": {
+              "location": "../tests/gherkin/steps/registration.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 637344875
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 41,
+            "name": "I fill in the name field with \"John Doe\"",
+            "match": {
+              "location": "../tests/gherkin/steps/registration.steps.ts:12"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 45754500
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 42,
+            "name": "I fill in the email field with \"john.doe@example.com\"",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:44"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 5480958
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 43,
+            "name": "I fill in the password field with \"SecurePass123\"",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:48"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 39973499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 44,
+            "name": "I fill in the confirm password field with \"DifferentPass456\"",
+            "match": {
+              "location": "../tests/gherkin/steps/registration.steps.ts:16"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3862958
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 45,
+            "name": "I click the \"Create Account\" button",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:52"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 39498167
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 46,
+            "name": "I should see \"Passwords don't match\"",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:57"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1550208
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 8630707
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-registration;clicking-google-sign-up-button",
+        "keyword": "Scenario",
+        "line": 48,
+        "name": "Clicking Google Sign-up button",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 119490000
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "I am on the registration page",
+            "match": {
+              "location": "../tests/gherkin/steps/registration.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 632827499
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 49,
+            "name": "I click the \"Sign up with Google\" button",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:52"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 43024417
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 50,
+            "name": "the Google signup handler should be called",
+            "match": {
+              "location": "../tests/gherkin/steps/registration.steps.ts:39"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 257500
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 9283957
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-registration;form-fields-clear-errors-when-user-starts-typing",
+        "keyword": "Scenario",
+        "line": 52,
+        "name": "Form fields clear errors when user starts typing",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 127892584
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "I am on the registration page",
+            "match": {
+              "location": "../tests/gherkin/steps/registration.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 635907041
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 53,
+            "name": "I click the \"Create Account\" button",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:52"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 43646082
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 54,
+            "name": "I should see validation errors for empty fields",
+            "match": {
+              "location": "../tests/gherkin/steps/registration.steps.ts:33"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 41468125
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 55,
+            "name": "I start typing in the name field",
+            "match": {
+              "location": "../tests/gherkin/steps/registration.steps.ts:20"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 4953458
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 56,
+            "name": "the name field error should disappear",
+            "match": {
+              "location": "../tests/gherkin/steps/registration.steps.ts:46"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 1196792
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 11677624
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-registration;form-is-responsive-on-mobile-devices",
+        "keyword": "Scenario",
+        "line": 58,
+        "name": "Form is responsive on mobile devices",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 113326208
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "I am on the registration page",
+            "match": {
+              "location": "../tests/gherkin/steps/registration.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 631532833
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 59,
+            "name": "I am using a mobile device",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:34"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 74799208
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 60,
+            "name": "I view the registration page",
+            "match": {
+              "location": "../tests/gherkin/steps/registration.steps.ts:55"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 634675875
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 61,
+            "name": "the hero section should be hidden",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:62"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 25901458
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "And ",
+            "line": 62,
+            "name": "the form should take full width",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:72"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 15206082
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 13115166
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      },
+      {
+        "description": "",
+        "id": "user-registration;form-validation-provides-visual-feedback",
+        "keyword": "Scenario",
+        "line": 64,
+        "name": "Form validation provides visual feedback",
+        "steps": [
+          {
+            "keyword": "Before",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 133302583
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Given ",
+            "line": 7,
+            "name": "I am on the registration page",
+            "match": {
+              "location": "../tests/gherkin/steps/registration.steps.ts:6"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 630337749
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 65,
+            "name": "I click the \"Create Account\" button",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:52"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 49134332
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 66,
+            "name": "form fields with errors should have red borders",
+            "match": {
+              "location": "../tests/gherkin/steps/common.steps.ts:83"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 509480666
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "When ",
+            "line": 67,
+            "name": "I fill in the name field with \"John\"",
+            "match": {
+              "location": "../tests/gherkin/steps/registration.steps.ts:12"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 10689249
+            }
+          },
+          {
+            "arguments": [],
+            "keyword": "Then ",
+            "line": 68,
+            "name": "the name field should have normal border styling",
+            "match": {
+              "location": "../tests/gherkin/steps/registration.steps.ts:50"
+            },
+            "result": {
+              "status": "passed",
+              "duration": 3545083
+            }
+          },
+          {
+            "keyword": "After",
+            "hidden": true,
+            "result": {
+              "status": "passed",
+              "duration": 13859667
+            }
+          }
+        ],
+        "tags": [],
+        "type": "scenario"
+      }
+    ],
+    "id": "user-registration",
+    "line": 1,
+    "keyword": "Feature",
+    "name": "User Registration",
+    "tags": [],
+    "uri": "../tests/gherkin/features/registration.feature"
+  }
+]
