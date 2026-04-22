@@ -42,11 +42,11 @@ Thank you for your interest in contributing to IKP Labs! This document provides 
    # Backend tests
    cd backend && mvn test
    
-   # Frontend tests
-   cd frontend && npm test
+   # Frontend unit tests
+   npx nx test kameravue-fe
    
    # E2E tests (optional for small changes)
-   cd frontend && npm run test:e2e
+   npx nx e2e kameravue-fe-e2e
    ```
 
 4. **Commit your changes** using conventional commits
@@ -212,14 +212,14 @@ If hooks fail, fix the issues and commit again.
 
 - **Playwright API Testing**
   - Test REST API contracts
-  - Run: `npm run test:api`
+  - Run: `npx nx e2e kameravue-be-e2e`
 
 ### E2E Tests
 
 - **Playwright E2E**
   - Test critical user flows
-  - Run: `npm run test:e2e`
-  - **Note**: Many E2E tests are marked as `fixme()` for CI optimization
+  - Run: `npx nx e2e kameravue-fe-e2e`
+  - **Note**: Many E2E tests are marked with `@demo` tag and skipped in CI
 
 ### Test Naming
 

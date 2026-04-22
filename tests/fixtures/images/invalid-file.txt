@@ -1,2 +1,0 @@
-This is a plain text file, not an image.
-It should be rejected by the file upload validation.

@@ -17,10 +17,8 @@
 # testing
 /coverage
 apps/kameravue-fe/coverage/
-/test-results/
-/playwright-report/
-/tests/e2e/reports/
-/tests/gherkin/reports/
+apps/*/test-results/
+apps/*/playwright-report/
 
 # next.js
 /.next/
@@ -77,19 +75,8 @@ apps/kameravue-be/*/target/
 .classpath
 
 # Playwright
-test-results/
-!test-results/artifacts/
-test-results/artifacts/*
-!test-results/artifacts/videos/
-!test-results/artifacts/screenshots/
-test-results/artifacts/videos/*
-test-results/artifacts/screenshots/*
-playwright-report/
 playwright/.cache/
 *.spec.ts.bak
-
-# Test artifacts
-playwright-report/
 
 # Uploaded Files - JANGAN commit file upload user!
 # File foto hanya ada di server local, tidak masuk Git repository
@@ -129,14 +116,6 @@ uploads/*
 *.svg
 
 # Exception: Allow test fixture images (for E2E and API testing)
-!tests/fixtures/*.jpg
-!tests/fixtures/*.jpeg
-!tests/fixtures/*.png
-!tests/fixtures/*.gif
-!tests/fixtures/**/*.jpg
-!tests/fixtures/**/*.jpeg
-!tests/fixtures/**/*.png
-!tests/fixtures/**/*.gif
 !apps/kameravue-be-e2e/fixtures/**/*.jpg
 !apps/kameravue-be-e2e/fixtures/**/*.jpeg
 !apps/kameravue-be-e2e/fixtures/**/*.png
