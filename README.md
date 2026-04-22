@@ -245,14 +245,14 @@ npm run dev
 
 ### 5. Run Tests (Optional)
 ```bash
-# E2E Tests (using Nx)
-npx nx run kameravue-fe:e2e
+# Frontend E2E Tests
+npx nx e2e kameravue-fe-e2e
 
-# Backend Integration Tests (using Nx)
+# Backend API Tests
+npx nx e2e kameravue-be-e2e
+
+# Backend Integration Tests
 npx nx test kameravue-be
-
-# Or using traditional approach
-cd apps/kameravue-be/ikp-labs-api && ./mvnw test
 ```
 
 **Default URLs:**
