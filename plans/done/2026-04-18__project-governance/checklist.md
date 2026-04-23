@@ -130,7 +130,7 @@
 
 ### Move Plan to Done
 - [x] All 3 phases merged to main
-- [ ] Move plan folder:
+- [x] Move plan folder:
   ```bash
   git checkout -b docs/close-governance-plan
   git mv plans/in-progress/2026-04-18__project-governance plans/done/2026-04-18__project-governance
@@ -141,16 +141,16 @@
   ```
 
 ### Final Verification
-- [ ] `governance/` folder exists at repo root with 5 files
-- [ ] `governance/vision.md` answers why the project exists
-- [ ] `governance/principles.md` has at least 5 principles with examples
-- [ ] `governance/conventions.md` covers commits, branches, PRs, TypeScript, Java, file naming
-- [ ] `governance/ai-agent-guidelines.md` specifies consultation order and decision protocols
-- [ ] `.workflow-template.md` has governance reference table
-- [ ] `docs/explanation/governance.md` exists and explains all 6 layers
-- [ ] `docs/explanation/README.md` links to `governance.md`
-- [ ] No app source code was modified
-- [ ] CI passes on all 3 merged PRs
+- [x] `governance/` folder exists at repo root with 5 files
+- [x] `governance/vision.md` answers why the project exists
+- [x] `governance/principles.md` has at least 5 principles with examples
+- [x] `governance/conventions.md` covers commits, branches, PRs, TypeScript, Java, file naming
+- [x] `governance/ai-agent-guidelines.md` specifies consultation order and decision protocols
+- [x] `.workflow-template.md` has governance reference table
+- [x] `docs/explanation/governance.md` exists and explains all 6 layers
+- [x] `docs/explanation/README.md` links to `governance.md`
+- [x] No app source code was modified
+- [x] CI passes on all 3 merged PRs
 
 ---
 
