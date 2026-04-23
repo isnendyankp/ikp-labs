@@ -352,7 +352,7 @@
 - [x] CI pipeline fully green
 - [x] Scheduled E2E test verified (Mar 29, 11:08 UTC - SUCCESS)
 - [x] ~~Production deployed successfully~~ (N/A - code restructuring only, no prod changes needed)
-- [ ] Move this plan to `plans/done/`
+- [x] Move this plan to `plans/done/`
 
 ---
 
