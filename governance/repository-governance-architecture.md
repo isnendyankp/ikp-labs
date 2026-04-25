@@ -1,6 +1,7 @@
 # Governance Model
 
-> **Note**: Canonical path is now `governance/repository-governance-architecture.md`. This file is kept here for Diátaxis docs structure continuity.
+> **Canonical path**: `governance/repository-governance-architecture.md`
+> See also: `docs/explanation/governance.md` (alias, kept for Diátaxis docs structure)
 
 Understanding-oriented explanation of how IKP-Labs governs itself — why governance exists, how the 6-layer model works, and how layers interact.
 

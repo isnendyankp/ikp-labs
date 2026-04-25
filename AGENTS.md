@@ -23,14 +23,14 @@ Before making any significant decision, consult governance in this order:
 
 | Priority | Document | Question it answers |
 |----------|----------|---------------------|
-| 1 | `governance/vision.md` | Does this change serve the project's purpose? |
-| 2 | `governance/principles.md` | Does this approach align with project values? |
-| 3 | `governance/conventions.md` | Does this follow naming and format standards? |
-| 4 | `.workflow-template.md` | Does this follow the development workflow? |
+| 1 | `governance/vision/ikp-labs.md` | Does this change serve the project's purpose? |
+| 2 | `governance/principles/general.md` | Does this approach align with project values? |
+| 3 | `governance/conventions/development.md` | Does this follow naming and format standards? |
+| 4 | `governance/development/workflow/implementation.md` | Does this follow the development workflow? |
 | 5 | `plans/README.md` | Does this plan follow the plan structure? |
 | 6 | Active plan `checklist.md` | What is the current task and its acceptance criteria? |
 
-See `docs/explanation/governance.md` for the full 6-layer governance model.
+See `governance/repository-governance-architecture.md` for the full 6-layer governance model.
 
 ---
 
@@ -150,11 +150,11 @@ See `generated-reports/README.md` for full report format spec.
 ## Related Documentation
 
 - **`CLAUDE.md`** — Claude Code configuration and session guidance
-- **`governance/ai-agent-guidelines.md`** — Full agent decision protocol
-- **`governance/conventions.md`** — Naming, commit, branch, PR conventions
-- **`.workflow-template.md`** — Step-by-step development workflow
+- **`governance/development/agents/ai-agent-guidelines.md`** — Full agent decision protocol
+- **`governance/conventions/development.md`** — Naming, commit, branch, PR conventions
+- **`governance/development/workflow/implementation.md`** — Step-by-step development workflow (canonical)
 - **`generated-reports/README.md`** — Audit report format reference
 
 ---
 
-**Last Updated**: 2026-04-24
+**Last Updated**: 2026-04-25

@@ -18,10 +18,10 @@ Before making any significant decision, consult governance in this order:
 
 | Priority | Document | Question it answers |
 |----------|----------|---------------------|
-| 1 | `governance/vision.md` | Does this change serve the project's purpose? |
-| 2 | `governance/principles.md` | Does this approach align with project values? |
-| 3 | `governance/conventions.md` | Does this follow naming and format standards? |
-| 4 | `.workflow-template.md` | Does this follow the development workflow? |
+| 1 | `governance/vision/ikp-labs.md` | Does this change serve the project's purpose? |
+| 2 | `governance/principles/general.md` | Does this approach align with project values? |
+| 3 | `governance/conventions/development.md` | Does this follow naming and format standards? |
+| 4 | `governance/development/workflow/implementation.md` | Does this follow the development workflow? |
 | 5 | `plans/README.md` | Does this plan follow the plan structure? |
 | 6 | Active plan `checklist.md` | What is the current task and its acceptance criteria? |
 
@@ -110,7 +110,7 @@ When writing or modifying code:
 ### Before writing
 1. Read the active plan's `checklist.md` — confirm which task is in scope
 2. Read files that will be modified — never edit blindly
-3. Check `governance/conventions.md` for naming rules that apply
+3. Check `governance/conventions/development.md` for naming rules that apply
 
 ### TypeScript
 - File names: PascalCase for components, camelCase for hooks/utils
@@ -124,13 +124,13 @@ When writing or modifying code:
 - DTOs use `Request` and `Response` suffixes
 
 ### Commits
-- Format: `<type>: <description>` (see `governance/conventions.md`)
+- Format: `<type>: <description>` (see `governance/conventions/development.md`)
 - One concern per commit — do not bundle unrelated changes
 - Max 72 characters on the first line
 - Present tense, lowercase description
 
 ### Branches
-- Format: `<type>/<short-description>` (see `governance/conventions.md`)
+- Format: `<type>/<short-description>` (see `governance/conventions/development.md`)
 - Derived from the task, not the date
 - One branch per concern
 

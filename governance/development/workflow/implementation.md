@@ -1,6 +1,7 @@
 # Implementation Workflow Template
 
-> **Note**: Canonical path is now `governance/development/workflow/implementation.md`. This file is kept at repo root for quick access.
+> **Canonical path**: `governance/development/workflow/implementation.md`
+> See also: `.workflow-template.md` at repo root (alias, kept for quick access)
 
 > Template alur implementasi untuk IKP Labs project
 
@@ -15,7 +16,7 @@ Before starting any work, consult the governance layer relevant to your decision
 | Why does this project exist? | `governance/vision/ikp-labs.md` |
 | Which approach aligns with project values? | `governance/principles/general.md` |
 | What naming/format should I use? | `governance/conventions/development.md` |
-| How should I structure this workflow? | `governance/development/workflow/implementation.md` |
+| How should I structure this workflow? | `governance/development/workflow/implementation.md` (this file) |
 | How should I structure a plan? | `plans/README.md` |
 
 See `governance/repository-governance-architecture.md` for the full 6-layer governance model.
