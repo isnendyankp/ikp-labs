@@ -322,6 +322,25 @@ This project follows the [Diátaxis](https://diataxis.fr/) documentation framewo
 
 ---
 
+## Governance
+
+This project uses a **6-layer governance model** to keep decisions consistent across sessions — whether made by a human or an AI agent.
+
+| Layer | File | Purpose |
+|-------|------|---------|
+| 1 | [`governance/vision/ikp-labs.md`](governance/vision/ikp-labs.md) | Why this project exists |
+| 2 | [`governance/principles/general.md`](governance/principles/general.md) | Values that guide decisions |
+| 3 | [`governance/conventions/development.md`](governance/conventions/development.md) | Naming, commit, branch, PR standards |
+| 4 | [`governance/development/workflow/implementation.md`](governance/development/workflow/implementation.md) | Step-by-step development workflow |
+| 5 | [`governance/development/agents/ai-agent-guidelines.md`](governance/development/agents/ai-agent-guidelines.md) | AI agent decision protocols |
+| 6 | [`plans/`](plans/) | Active work tracking |
+
+Higher layers override lower ones. When in doubt, escalate up.
+
+**📋 Full governance overview**: [`governance/README.md`](governance/README.md)
+
+---
+
 ## Project Structure
 
 [![Nx](https://img.shields.io/badge/Monorepo-Nx-9f001-blue)](https://nx.dev/)
