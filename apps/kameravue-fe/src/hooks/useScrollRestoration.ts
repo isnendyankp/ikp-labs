@@ -22,10 +22,10 @@
  * ```
  */
 
-import { useCallback } from "react";
+import { useCallback } from 'react';
 
-export type FilterOption = "all" | "my-photos" | "liked" | "favorited";
-export type SortByOption = "newest" | "oldest" | "mostLiked" | "mostFavorited";
+export type FilterOption = 'all' | 'my-photos' | 'liked' | 'favorited';
+export type SortByOption = 'newest' | 'oldest' | 'mostLiked' | 'mostFavorited';
 
 interface ScrollPositionData {
   scrollY: number;
@@ -33,7 +33,7 @@ interface ScrollPositionData {
   photoId?: string;
 }
 
-const STORAGE_PREFIX = "gallery-scroll-position";
+const STORAGE_PREFIX = 'gallery-scroll-position';
 const EXPIRATION_MS = 30 * 60 * 1000; // 30 minutes
 
 /**
@@ -43,7 +43,7 @@ const EXPIRATION_MS = 30 * 60 * 1000; // 30 minutes
 function getStorageKey(
   filter: FilterOption,
   page: number,
-  sort: SortByOption,
+  sort: SortByOption
 ): string {
   return `${STORAGE_PREFIX}-${filter}-${page}-${sort}`;
 }
@@ -65,9 +65,9 @@ export function useScrollRestoration() {
       filter: FilterOption,
       page: number,
       sort: SortByOption,
-      photoId?: string,
+      photoId?: string
     ) => {
-      if (typeof window === "undefined") return;
+      if (typeof window === 'undefined') return;
 
       try {
         const key = getStorageKey(filter, page, sort);
@@ -78,10 +78,10 @@ export function useScrollRestoration() {
         };
         sessionStorage.setItem(key, JSON.stringify(data));
       } catch (error) {
-        console.warn("Failed to save scroll position:", error);
+        console.warn('Failed to save scroll position:', error);
       }
     },
-    [],
+    []
   );
 
   /**
@@ -97,7 +97,7 @@ export function useScrollRestoration() {
    */
   const restoreScrollPosition = useCallback(
     (filter: FilterOption, page: number, sort: SortByOption): boolean => {
-      if (typeof window === "undefined") return false;
+      if (typeof window === 'undefined') return false;
 
       try {
         const key = getStorageKey(filter, page, sort);
@@ -118,7 +118,7 @@ export function useScrollRestoration() {
         // Restore scroll position
         window.scrollTo({
           top: data.scrollY,
-          behavior: "instant", // Use instant to avoid animation
+          behavior: 'instant', // Use instant to avoid animation
         });
 
         // Clean up after restoration
@@ -126,11 +126,11 @@ export function useScrollRestoration() {
 
         return true;
       } catch (error) {
-        console.warn("Failed to restore scroll position:", error);
+        console.warn('Failed to restore scroll position:', error);
         return false;
       }
     },
-    [],
+    []
   );
 
   /**
@@ -139,16 +139,16 @@ export function useScrollRestoration() {
    */
   const clearScrollPosition = useCallback(
     (filter: FilterOption, page: number, sort: SortByOption) => {
-      if (typeof window === "undefined") return;
+      if (typeof window === 'undefined') return;
 
       try {
         const key = getStorageKey(filter, page, sort);
         sessionStorage.removeItem(key);
       } catch (error) {
-        console.warn("Failed to clear scroll position:", error);
+        console.warn('Failed to clear scroll position:', error);
       }
     },
-    [],
+    []
   );
 
   /**
@@ -156,7 +156,7 @@ export function useScrollRestoration() {
    * Useful for cleanup or logout
    */
   const clearAllScrollPositions = useCallback(() => {
-    if (typeof window === "undefined") return;
+    if (typeof window === 'undefined') return;
 
     try {
       const keys = Object.keys(sessionStorage);
@@ -166,7 +166,7 @@ export function useScrollRestoration() {
         }
       });
     } catch (error) {
-      console.warn("Failed to clear scroll positions:", error);
+      console.warn('Failed to clear scroll positions:', error);
     }
   }, []);
 

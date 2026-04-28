@@ -1,22 +1,22 @@
-"use client";
+'use client';
 
-import { Suspense, useEffect } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import LoginForm from "@/components/LoginForm";
-import { isAuthenticated } from "@/lib/auth";
+import { Suspense, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import LoginForm from '@/components/LoginForm';
+import { isAuthenticated } from '@/lib/auth';
 
 function LoginContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const returnUrl = searchParams.get("returnUrl") || "/myprofile";
+  const returnUrl = searchParams.get('returnUrl') || '/myprofile';
 
   // Redirect authenticated users to their destination
   useEffect(() => {
     if (isAuthenticated()) {
       // Validate returnUrl is a local path (prevent open redirect attacks)
-      if (returnUrl && !returnUrl.startsWith("/")) {
-        console.warn("Invalid returnUrl detected, using default");
-        router.push("/myprofile");
+      if (returnUrl && !returnUrl.startsWith('/')) {
+        console.warn('Invalid returnUrl detected, using default');
+        router.push('/myprofile');
         return;
       }
       router.push(returnUrl);

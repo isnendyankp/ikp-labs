@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 /**
  * FavoriteButton Component - Star button untuk favorite/unfavorite photos
@@ -39,18 +39,18 @@
  * />
  */
 
-import React from "react";
-import { StarIcon as StarOutline } from "@heroicons/react/24/outline";
-import { StarIcon as StarSolid } from "@heroicons/react/24/solid";
-import photoFavoriteService from "../services/photoFavoriteService";
-import ActionButton from "./ActionButton";
+import React from 'react';
+import { StarIcon as StarOutline } from '@heroicons/react/24/outline';
+import { StarIcon as StarSolid } from '@heroicons/react/24/solid';
+import photoFavoriteService from '../services/photoFavoriteService';
+import ActionButton from './ActionButton';
 
 // === TYPE DEFINITIONS ===
 
 interface FavoriteButtonProps {
   photoId: number;
   initialIsFavorited?: boolean;
-  size?: "small" | "medium" | "large";
+  size?: 'small' | 'medium' | 'large';
   className?: string;
   onFavoriteChange?: (photoId: number) => void;
 }
@@ -60,8 +60,8 @@ interface FavoriteButtonProps {
 export default function FavoriteButton({
   photoId,
   initialIsFavorited = false,
-  size = "medium",
-  className = "",
+  size = 'medium',
+  className = '',
   onFavoriteChange,
 }: FavoriteButtonProps) {
   return (

@@ -1,29 +1,29 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { z } from "zod";
-import Link from "next/link";
-import { useToast } from "@/context/ToastContext";
-import { useRouter, useSearchParams } from "next/navigation";
-import { loginUser } from "../services/api";
-import { LoginRequest, LoginFormData } from "../types/api";
-import { isAuthenticated } from "../lib/auth";
-import { FormField } from "./ui/FormField";
+import { useState, useEffect } from 'react';
+import { z } from 'zod';
+import Link from 'next/link';
+import { useToast } from '@/context/ToastContext';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { loginUser } from '../services/api';
+import { LoginRequest, LoginFormData } from '../types/api';
+import { isAuthenticated } from '../lib/auth';
+import { FormField } from './ui/FormField';
 
 const loginSchema = z.object({
-  email: z.string().email("Please enter a valid email address"),
+  email: z.string().email('Please enter a valid email address'),
   password: z
     .string()
-    .min(8, "At least 8 characters")
+    .min(8, 'At least 8 characters')
     .refine((val) => /[a-z]/.test(val), {
-      message: "One lowercase letter (a-z)",
+      message: 'One lowercase letter (a-z)',
     })
     .refine((val) => /[A-Z]/.test(val), {
-      message: "One uppercase letter (A-Z)",
+      message: 'One uppercase letter (A-Z)',
     })
-    .refine((val) => /[0-9]/.test(val), { message: "One number (0-9)" })
+    .refine((val) => /[0-9]/.test(val), { message: 'One number (0-9)' })
     .refine((val) => /[@$!%*?&]/.test(val), {
-      message: "One special character (@$!%*?&)",
+      message: 'One special character (@$!%*?&)',
     }),
 });
 
@@ -33,22 +33,22 @@ export default function LoginForm() {
   const toast = useToast();
 
   // Get return URL from query params (for redirect after login)
-  const returnUrl = searchParams.get("returnUrl") || "/myprofile";
+  const returnUrl = searchParams.get('returnUrl') || '/myprofile';
 
   // Google OAuth feature flag - controlled by environment variable
   const GOOGLE_OAUTH_ENABLED =
-    process.env.NEXT_PUBLIC_GOOGLE_OAUTH_ENABLED === "true";
+    process.env.NEXT_PUBLIC_GOOGLE_OAUTH_ENABLED === 'true';
 
   const [formData, setFormData] = useState<LoginFormData>({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
     rememberMe: false,
   });
 
   const [showPassword, setShowPassword] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isLoading, setIsLoading] = useState(false);
-  const [apiError, setApiError] = useState<string>("");
+  const [apiError, setApiError] = useState<string>('');
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [isValid, setIsValid] = useState<Record<string, boolean>>({});
 
@@ -64,14 +64,14 @@ export default function LoginForm() {
     const { name, value, type, checked } = e.target;
     setFormData({
       ...formData,
-      [name]: type === "checkbox" ? checked : value,
+      [name]: type === 'checkbox' ? checked : value,
     });
 
     // Clear error for this field when user starts typing
     if (errors[name]) {
       setErrors({
         ...errors,
-        [name]: "",
+        [name]: '',
       });
     }
   };
@@ -85,11 +85,11 @@ export default function LoginForm() {
       fieldSchema.parse({ [name]: value });
 
       // Field is valid
-      setErrors((prev) => ({ ...prev, [name]: "" }));
+      setErrors((prev) => ({ ...prev, [name]: '' }));
       setIsValid((prev) => ({ ...prev, [name]: true }));
     } catch (error) {
       if (error instanceof z.ZodError) {
-        const errorMsg = error.issues[0]?.message || "Invalid value";
+        const errorMsg = error.issues[0]?.message || 'Invalid value';
         setErrors((prev) => ({ ...prev, [name]: errorMsg }));
         setIsValid((prev) => ({ ...prev, [name]: false }));
       }
@@ -111,7 +111,7 @@ export default function LoginForm() {
 
     // Clear previous errors
     setErrors({});
-    setApiError("");
+    setApiError('');
 
     try {
       // Validate form data using Zod schema (excluding rememberMe from validation)
@@ -126,13 +126,13 @@ export default function LoginForm() {
         password: formData.password,
       };
 
-      console.log("🚀 Submitting login:", { email: loginData.email });
+      console.log('🚀 Submitting login:', { email: loginData.email });
 
       // Call backend API
       const response = await loginUser(loginData);
 
       if (response.data?.success && response.data.token) {
-        console.log("✅ Login successful:", {
+        console.log('✅ Login successful:', {
           userId: response.data.userId,
           email: response.data.email,
           fullName: response.data.fullName,
@@ -142,25 +142,25 @@ export default function LoginForm() {
         // Redirect to returnUrl or default to /myprofile
         router.push(returnUrl);
       } else if (response.error) {
-        console.error("❌ Login failed:", response.error);
+        console.error('❌ Login failed:', response.error);
 
         // Handle specific error cases
         if (response.status === 401) {
-          setApiError("Invalid email or password. Please try again.");
+          setApiError('Invalid email or password. Please try again.');
         } else if (response.error.fieldErrors) {
           // Handle field-specific errors from backend
           setErrors(response.error.fieldErrors);
         } else {
           // General API error
           setApiError(
-            response.error.message || "Login failed. Please try again.",
+            response.error.message || 'Login failed. Please try again.'
           );
         }
       } else if (response.data && !response.data.success) {
         // Backend returned success: false
         setApiError(
           response.data.message ||
-            "Login failed. Please check your credentials.",
+            'Login failed. Please check your credentials.'
         );
       }
     } catch (error) {
@@ -174,8 +174,8 @@ export default function LoginForm() {
         });
         setErrors(newErrors);
       } else {
-        console.error("❌ Unexpected error:", error);
-        setApiError("An unexpected error occurred. Please try again.");
+        console.error('❌ Unexpected error:', error);
+        setApiError('An unexpected error occurred. Please try again.');
       }
     } finally {
       setIsLoading(false);
@@ -184,8 +184,8 @@ export default function LoginForm() {
 
   const handleGoogleSignin = () => {
     toast.showInfo(
-      "Google OAuth authentication is planned for future development. " +
-        "This is a learning project - currently only email/password authentication is available.",
+      'Google OAuth authentication is planned for future development. ' +
+        'This is a learning project - currently only email/password authentication is available.'
     );
   };
 
@@ -257,7 +257,7 @@ export default function LoginForm() {
             <FormField
               id="email"
               label="Email"
-              error={touched.email ? errors.email : ""}
+              error={touched.email ? errors.email : ''}
               isValid={isValid.email}
               required
             >
@@ -278,13 +278,13 @@ export default function LoginForm() {
             <FormField
               id="password"
               label="Password"
-              error={touched.password ? errors.password : ""}
+              error={touched.password ? errors.password : ''}
               isValid={isValid.password}
               required
             >
               <div className="relative">
                 <input
-                  type={showPassword ? "text" : "password"}
+                  type={showPassword ? 'text' : 'password'}
                   id="password"
                   name="password"
                   placeholder="Enter your password here"
@@ -299,7 +299,7 @@ export default function LoginForm() {
                   data-testid="password-toggle-button"
                   className="absolute inset-y-0 right-0 flex items-center px-2 text-gray-400 hover:text-gray-600"
                   onClick={() => setShowPassword(!showPassword)}
-                  title={showPassword ? "Hide password" : "Show password"}
+                  title={showPassword ? 'Hide password' : 'Show password'}
                 >
                   {showPassword ? (
                     <svg
@@ -366,8 +366,8 @@ export default function LoginForm() {
               disabled={isLoading}
               className={`w-full py-3 px-4 rounded-lg font-medium transition-colors mt-8 ${
                 isLoading
-                  ? "bg-gray-400 text-gray-600 cursor-not-allowed"
-                  : "bg-black text-white hover:bg-gray-800"
+                  ? 'bg-gray-400 text-gray-600 cursor-not-allowed'
+                  : 'bg-black text-white hover:bg-gray-800'
               }`}
             >
               {isLoading ? (
@@ -395,7 +395,7 @@ export default function LoginForm() {
                   Signing In...
                 </div>
               ) : (
-                "Sign In"
+                'Sign In'
               )}
             </button>
 
@@ -431,7 +431,7 @@ export default function LoginForm() {
 
           {/* Sign Up Link */}
           <p className="mt-6 text-center text-gray-600">
-            Don&apos;t have an account?{" "}
+            Don&apos;t have an account?{' '}
             <Link
               href="/register"
               className="text-blue-600 hover:text-blue-500 font-medium"

@@ -12,20 +12,20 @@
  * - Upload progress indicator
  */
 
-"use client";
+'use client';
 
-import { useState, useRef, ChangeEvent, DragEvent } from "react";
-import { uploadPhoto } from "../../services/galleryService";
-import { useRouter } from "next/navigation";
-import { useToast } from "@/context/ToastContext";
+import { useState, useRef, ChangeEvent, DragEvent } from 'react';
+import { uploadPhoto } from '../../services/galleryService';
+import { useRouter } from 'next/navigation';
+import { useToast } from '@/context/ToastContext';
 
 const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
 const ALLOWED_TYPES = [
-  "image/jpeg",
-  "image/jpg",
-  "image/png",
-  "image/gif",
-  "image/webp",
+  'image/jpeg',
+  'image/jpg',
+  'image/png',
+  'image/gif',
+  'image/webp',
 ];
 
 export default function PhotoUploadForm() {
@@ -35,8 +35,8 @@ export default function PhotoUploadForm() {
 
   const [file, setFile] = useState<File | null>(null);
   const [preview, setPreview] = useState<string | null>(null);
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
   const [isPublic, setIsPublic] = useState(false);
   const [uploading, setUploading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -69,14 +69,14 @@ export default function PhotoUploadForm() {
     // Check file type
     if (!ALLOWED_TYPES.includes(selectedFile.type)) {
       setError(
-        "Only image files (JPEG, PNG, GIF, WebP) are allowed. Maximum file size is 5MB.",
+        'Only image files (JPEG, PNG, GIF, WebP) are allowed. Maximum file size is 5MB.'
       );
       return;
     }
 
     // Check file size
     if (selectedFile.size > MAX_FILE_SIZE) {
-      setError("File size must be less than 5MB");
+      setError('File size must be less than 5MB');
       return;
     }
 
@@ -94,7 +94,7 @@ export default function PhotoUploadForm() {
     e.preventDefault();
 
     if (!file) {
-      setError("Please select a file");
+      setError('Please select a file');
       return;
     }
 
@@ -105,13 +105,13 @@ export default function PhotoUploadForm() {
       const response = await uploadPhoto(file, title, description, isPublic);
 
       if (response.data) {
-        showSuccess("Photo uploaded successfully!");
-        router.push("/gallery");
+        showSuccess('Photo uploaded successfully!');
+        router.push('/gallery');
       } else if (response.error) {
         setError(response.error.message);
       }
     } catch (_err) {
-      setError("Upload failed. Please try again.");
+      setError('Upload failed. Please try again.');
     } finally {
       setUploading(false);
     }
@@ -121,12 +121,12 @@ export default function PhotoUploadForm() {
   const handleClear = () => {
     setFile(null);
     setPreview(null);
-    setTitle("");
-    setDescription("");
+    setTitle('');
+    setDescription('');
     setIsPublic(false);
     setError(null);
     if (fileInputRef.current) {
-      fileInputRef.current.value = "";
+      fileInputRef.current.value = '';
     }
   };
 
@@ -248,12 +248,12 @@ export default function PhotoUploadForm() {
             flex-1 py-3 px-6 rounded-lg font-medium transition-colors
             ${
               !file || uploading
-                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-                : "bg-blue-600 text-white hover:bg-blue-700"
+                ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+                : 'bg-blue-600 text-white hover:bg-blue-700'
             }
           `}
         >
-          {uploading ? "Uploading..." : "Upload Photo"}
+          {uploading ? 'Uploading...' : 'Upload Photo'}
         </button>
 
         <button
@@ -267,7 +267,7 @@ export default function PhotoUploadForm() {
 
         <button
           type="button"
-          onClick={() => router.push("/gallery")}
+          onClick={() => router.push('/gallery')}
           disabled={uploading}
           className="px-6 py-3 border border-gray-300 rounded-lg font-medium text-gray-700 hover:bg-gray-50 transition-colors"
         >

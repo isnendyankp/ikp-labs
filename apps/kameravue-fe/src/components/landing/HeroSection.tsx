@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import type { HeroSectionProps } from "./landing.types";
+import Image from 'next/image';
+import type { HeroSectionProps } from './landing.types';
 
 /**
  * HeroSection Component
@@ -20,7 +20,7 @@ export function HeroSection({ onGetStarted, onLearnMore }: HeroSectionProps) {
           <div className="text-center lg:text-left space-y-8">
             {/* Headline */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 leading-tight">
-              Your perfect moments,{" "}
+              Your perfect moments,{' '}
               <span className="text-black">beautifully captured</span> and
               shared with the world
             </h1>

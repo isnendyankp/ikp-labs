@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 /**
  * Toast Context
@@ -13,13 +13,13 @@ import {
   useState,
   useCallback,
   ReactNode,
-} from "react";
+} from 'react';
 import {
   Toast,
   ToastConfig,
   DEFAULT_DURATIONS,
   MAX_VISIBLE_TOASTS,
-} from "@/types/toast";
+} from '@/types/toast';
 
 /**
  * Toast Context Interface
@@ -136,7 +136,7 @@ export function ToastProvider({ children }: ToastProviderProps) {
         removeToast(id);
       }, toastDuration);
     },
-    [removeToast],
+    [removeToast]
   );
 
   /**
@@ -144,30 +144,30 @@ export function ToastProvider({ children }: ToastProviderProps) {
    */
   const showSuccess = useCallback(
     (message: string, duration?: number) => {
-      showToast({ message, type: "success", duration });
+      showToast({ message, type: 'success', duration });
     },
-    [showToast],
+    [showToast]
   );
 
   const showError = useCallback(
     (message: string, duration?: number) => {
-      showToast({ message, type: "error", duration });
+      showToast({ message, type: 'error', duration });
     },
-    [showToast],
+    [showToast]
   );
 
   const showWarning = useCallback(
     (message: string, duration?: number) => {
-      showToast({ message, type: "warning", duration });
+      showToast({ message, type: 'warning', duration });
     },
-    [showToast],
+    [showToast]
   );
 
   const showInfo = useCallback(
     (message: string, duration?: number) => {
-      showToast({ message, type: "info", duration });
+      showToast({ message, type: 'info', duration });
     },
-    [showToast],
+    [showToast]
   );
 
   const contextValue: ToastContextValue = {
@@ -201,7 +201,7 @@ export function useToast() {
 
   if (!context) {
     throw new Error(
-      "useToast must be used within a ToastProvider. Wrap your app with <ToastProvider>.",
+      'useToast must be used within a ToastProvider. Wrap your app with <ToastProvider>.'
     );
   }
 

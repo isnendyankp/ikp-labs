@@ -11,12 +11,12 @@
  * - Support both like and favorite callbacks
  */
 
-"use client";
+'use client';
 
-import { GalleryPhoto } from "../../types/api";
-import PhotoCard from "./PhotoCard";
-import { GalleryGridSkeleton } from "../skeletons/GalleryGridSkeleton";
-import { EmptyState } from "../ui/EmptyState";
+import { GalleryPhoto } from '../../types/api';
+import PhotoCard from './PhotoCard';
+import { GalleryGridSkeleton } from '../skeletons/GalleryGridSkeleton';
+import { EmptyState } from '../ui/EmptyState';
 
 interface PhotoGridProps {
   photos: GalleryPhoto[];
@@ -32,8 +32,8 @@ interface PhotoGridProps {
 export default function PhotoGrid({
   photos,
   loading = false,
-  emptyMessage = "No photos found",
-  emptyIcon = "📷",
+  emptyMessage = 'No photos found',
+  emptyIcon = '📷',
   actionText,
   onAction,
   onLikeChange,

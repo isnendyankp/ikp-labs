@@ -11,26 +11,26 @@
  * - Scroll position restoration when returning from photo detail
  */
 
-"use client";
+'use client';
 
-import { Suspense, useEffect, useState } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import { logout, getUserFromToken } from "../../lib/auth";
-import { GalleryPhoto, AuthUser } from "../../types/api";
-import { getUserPhotos, getPublicPhotos } from "../../services/galleryService";
-import { getLikedPhotos } from "../../services/photoLikeService";
-import { getFavoritedPhotos } from "../../services/photoFavoriteService";
-import PhotoGrid from "../../components/gallery/PhotoGrid";
-import Pagination from "../../components/gallery/Pagination";
-import LogoutButton from "../../components/LogoutButton";
-import { type FilterOption } from "../../components/FilterDropdown";
-import { type SortByOption } from "../../components/SortByDropdown";
-import { MobileHeaderControls } from "../../components/gallery/MobileHeaderControls";
-import { FABUpload } from "../../components/gallery/FABUpload";
-import { StickyActionBar } from "../../components/gallery/StickyActionBar";
-import { BackToTop } from "../../components/landing/BackToTop";
-import { User, LogOut } from "lucide-react";
-import { useScrollRestoration } from "@/hooks/useScrollRestoration";
+import { Suspense, useEffect, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { logout, getUserFromToken } from '../../lib/auth';
+import { GalleryPhoto, AuthUser } from '../../types/api';
+import { getUserPhotos, getPublicPhotos } from '../../services/galleryService';
+import { getLikedPhotos } from '../../services/photoLikeService';
+import { getFavoritedPhotos } from '../../services/photoFavoriteService';
+import PhotoGrid from '../../components/gallery/PhotoGrid';
+import Pagination from '../../components/gallery/Pagination';
+import LogoutButton from '../../components/LogoutButton';
+import { type FilterOption } from '../../components/FilterDropdown';
+import { type SortByOption } from '../../components/SortByDropdown';
+import { MobileHeaderControls } from '../../components/gallery/MobileHeaderControls';
+import { FABUpload } from '../../components/gallery/FABUpload';
+import { StickyActionBar } from '../../components/gallery/StickyActionBar';
+import { BackToTop } from '../../components/landing/BackToTop';
+import { User, LogOut } from 'lucide-react';
+import { useScrollRestoration } from '@/hooks/useScrollRestoration';
 
 const PHOTOS_PER_PAGE = 12;
 
@@ -40,9 +40,9 @@ function GalleryPageContent() {
   const { restoreScrollPosition } = useScrollRestoration();
 
   // Read filter, page, and sortBy from URL query params
-  const filterParam = (searchParams.get("filter") as FilterOption) || "all";
-  const pageParam = parseInt(searchParams.get("page") || "1", 10);
-  const sortByParam = (searchParams.get("sortBy") as SortByOption) || "newest";
+  const filterParam = (searchParams.get('filter') as FilterOption) || 'all';
+  const pageParam = parseInt(searchParams.get('page') || '1', 10);
+  const sortByParam = (searchParams.get('sortBy') as SortByOption) || 'newest';
 
   // Initialize user synchronously from token (lazy initialization)
   // This prevents race condition where fetchPhotos runs before user is set
@@ -91,12 +91,12 @@ function GalleryPageContent() {
 
       // For authenticated-only filters, check if user is logged in
       if (
-        ["my-photos", "liked", "favorited"].includes(currentFilter) &&
+        ['my-photos', 'liked', 'favorited'].includes(currentFilter) &&
         !user
       ) {
         // Redirect to login for authenticated-only filters
         router.push(
-          `/login?returnUrl=${encodeURIComponent(`/gallery?filter=${currentFilter}`)}`,
+          `/login?returnUrl=${encodeURIComponent(`/gallery?filter=${currentFilter}`)}`
         );
         setLoading(false);
         return;
@@ -104,40 +104,40 @@ function GalleryPageContent() {
 
       // Fetch based on current filter (with sorting)
       switch (currentFilter) {
-        case "my-photos":
+        case 'my-photos':
           response = await getUserPhotos(
             user!.id,
             currentPage,
             PHOTOS_PER_PAGE,
-            currentSort,
+            currentSort
           );
           break;
-        case "all":
+        case 'all':
           response = await getPublicPhotos(
             currentPage,
             PHOTOS_PER_PAGE,
-            currentSort,
+            currentSort
           );
           break;
-        case "liked":
+        case 'liked':
           response = await getLikedPhotos(
             currentPage,
             PHOTOS_PER_PAGE,
-            currentSort,
+            currentSort
           );
           break;
-        case "favorited":
+        case 'favorited':
           response = await getFavoritedPhotos(
             currentPage,
             PHOTOS_PER_PAGE,
-            currentSort,
+            currentSort
           );
           break;
         default:
           response = await getPublicPhotos(
             currentPage,
             PHOTOS_PER_PAGE,
-            currentSort,
+            currentSort
           );
       }
 
@@ -145,18 +145,18 @@ function GalleryPageContent() {
         // Backend returns GalleryListResponse with photos array AND pagination metadata
         setPhotos(response.data.photos || []);
         setTotalPages(response.data.totalPages || 1);
-        console.log("📄 Pagination:", {
+        console.log('📄 Pagination:', {
           currentPage: response.data.currentPage,
           totalPages: response.data.totalPages,
           photosCount: response.data.photos?.length || 0,
         });
       } else if (response.error) {
-        console.error("Failed to fetch photos:", response.error);
+        console.error('Failed to fetch photos:', response.error);
         setPhotos([]);
         setTotalPages(1);
       }
     } catch (error) {
-      console.error("Error fetching photos:", error);
+      console.error('Error fetching photos:', error);
       setPhotos([]);
       setTotalPages(1);
     } finally {
@@ -167,28 +167,28 @@ function GalleryPageContent() {
   const handlePageChange = (page: number) => {
     const newPage = page + 1; // Convert to 1-indexed for URL
     const params = new URLSearchParams();
-    params.set("filter", currentFilter);
-    params.set("page", newPage.toString());
-    params.set("sortBy", currentSort);
+    params.set('filter', currentFilter);
+    params.set('page', newPage.toString());
+    params.set('sortBy', currentSort);
     router.push(`/gallery?${params.toString()}`);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleFilterChange = (filter: FilterOption) => {
     const params = new URLSearchParams();
-    params.set("filter", filter);
-    params.set("page", "1"); // Reset to page 1 when filter changes
-    params.set("sortBy", currentSort); // Keep current sort
+    params.set('filter', filter);
+    params.set('page', '1'); // Reset to page 1 when filter changes
+    params.set('sortBy', currentSort); // Keep current sort
     router.push(`/gallery?${params.toString()}`);
   };
 
   const handleSortChange = (sort: SortByOption) => {
     const params = new URLSearchParams();
-    params.set("filter", currentFilter);
-    params.set("page", "1"); // Reset to page 1 when sort changes
-    params.set("sortBy", sort);
+    params.set('filter', currentFilter);
+    params.set('page', '1'); // Reset to page 1 when sort changes
+    params.set('sortBy', sort);
     router.push(`/gallery?${params.toString()}`);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   // Determine if user can access upload/features
@@ -208,8 +208,8 @@ function GalleryPageContent() {
               </h1>
               <p className="text-sm text-gray-600 mt-1 hidden sm:block">
                 {user
-                  ? "Manage and share your photos"
-                  : "Explore beautiful photos from our community"}
+                  ? 'Manage and share your photos'
+                  : 'Explore beautiful photos from our community'}
               </p>
             </div>
 
@@ -227,7 +227,7 @@ function GalleryPageContent() {
                 <>
                   {/* Profile icon - Mobile only */}
                   <button
-                    onClick={() => router.push("/myprofile")}
+                    onClick={() => router.push('/myprofile')}
                     aria-label="My Profile"
                     className="sm:hidden p-3 hover:bg-gray-100 rounded-lg active:scale-95 transition-transform focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                   >
@@ -238,7 +238,7 @@ function GalleryPageContent() {
                   <button
                     onClick={() => {
                       logout();
-                      router.push("/login");
+                      router.push('/login');
                     }}
                     aria-label="Logout"
                     className="sm:hidden p-3 hover:bg-gray-100 rounded-lg active:scale-95 transition-transform focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
@@ -248,7 +248,7 @@ function GalleryPageContent() {
 
                   {/* Profile text button - Desktop only */}
                   <button
-                    onClick={() => router.push("/myprofile")}
+                    onClick={() => router.push('/myprofile')}
                     className="hidden sm:block px-4 py-2 text-gray-700 hover:text-gray-900 font-medium"
                   >
                     My Profile
@@ -263,7 +263,7 @@ function GalleryPageContent() {
                 <>
                   {/* Login button - Mobile only */}
                   <button
-                    onClick={() => router.push("/login?returnUrl=/gallery")}
+                    onClick={() => router.push('/login?returnUrl=/gallery')}
                     className="sm:hidden p-3 hover:bg-gray-100 rounded-lg active:scale-95 transition-transform focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
                     aria-label="Login"
                   >
@@ -272,7 +272,7 @@ function GalleryPageContent() {
 
                   {/* Login text button - Desktop only */}
                   <button
-                    onClick={() => router.push("/login?returnUrl=/gallery")}
+                    onClick={() => router.push('/login?returnUrl=/gallery')}
                     className="hidden sm:block px-4 py-2 bg-black text-white rounded-lg hover:bg-gray-800 font-medium"
                   >
                     Sign In
@@ -299,13 +299,13 @@ function GalleryPageContent() {
           photos={photos}
           loading={loading}
           emptyMessage={
-            currentFilter === "my-photos"
-              ? "No photos yet. Upload your first photo!"
-              : currentFilter === "liked"
+            currentFilter === 'my-photos'
+              ? 'No photos yet. Upload your first photo!'
+              : currentFilter === 'liked'
                 ? "You haven't liked any photos yet. Explore the gallery!"
-                : currentFilter === "favorited"
+                : currentFilter === 'favorited'
                   ? "You haven't favorited any photos yet."
-                  : "No public photos available"
+                  : 'No public photos available'
           }
         />
 

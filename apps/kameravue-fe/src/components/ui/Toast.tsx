@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 /**
  * Toast Component
@@ -7,10 +7,10 @@
  * Displays different types of notifications (success, error, warning, info).
  */
 
-import { useEffect, useState } from "react";
-import type { Toast as ToastType } from "@/types/toast";
-import { TOAST_ICONS } from "@/types/toast";
-import "./Toast.css";
+import { useEffect, useState } from 'react';
+import type { Toast as ToastType } from '@/types/toast';
+import { TOAST_ICONS } from '@/types/toast';
+import './Toast.css';
 
 /**
  * Toast Component Props
@@ -78,12 +78,12 @@ export function Toast({ toast, onClose }: ToastProps) {
    * Get CSS classes based on toast type
    */
   const getTypeClasses = (): string => {
-    const baseClasses = "toast-item";
+    const baseClasses = 'toast-item';
     const typeClasses = {
-      success: "toast-success",
-      error: "toast-error",
-      warning: "toast-warning",
-      info: "toast-info",
+      success: 'toast-success',
+      error: 'toast-error',
+      warning: 'toast-warning',
+      info: 'toast-info',
     };
     return `${baseClasses} ${typeClasses[toast.type]}`;
   };
@@ -92,20 +92,20 @@ export function Toast({ toast, onClose }: ToastProps) {
     if (isExiting) {
       return {
         opacity: 0,
-        transform: "translateX(100%)",
+        transform: 'translateX(100%)',
         transition: `all ${ANIMATION_DURATION}ms ease-in-out`,
       };
     }
     if (isVisible) {
       return {
         opacity: 1,
-        transform: "translateX(0)",
+        transform: 'translateX(0)',
         transition: `all ${ANIMATION_DURATION}ms ease-in-out`,
       };
     }
     return {
       opacity: 0,
-      transform: "translateX(100%)",
+      transform: 'translateX(100%)',
       transition: `all ${ANIMATION_DURATION}ms ease-in-out`,
     };
   };

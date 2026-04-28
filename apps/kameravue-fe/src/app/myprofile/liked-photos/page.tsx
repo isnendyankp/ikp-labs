@@ -12,19 +12,19 @@
  * Route: /myprofile/liked-photos
  */
 
-"use client";
+'use client';
 
-import { useEffect, useState, useCallback } from "react";
-import { useRouter } from "next/navigation";
-import { isAuthenticated, getUserFromToken } from "../../../lib/auth";
-import { GalleryPhoto, AuthUser } from "../../../types/api";
-import { getLikedPhotos } from "../../../services/photoLikeService";
-import PhotoGrid from "../../../components/gallery/PhotoGrid";
-import Pagination from "../../../components/gallery/Pagination";
-import LogoutButton from "../../../components/LogoutButton";
+import { useEffect, useState, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
+import { isAuthenticated, getUserFromToken } from '../../../lib/auth';
+import { GalleryPhoto, AuthUser } from '../../../types/api';
+import { getLikedPhotos } from '../../../services/photoLikeService';
+import PhotoGrid from '../../../components/gallery/PhotoGrid';
+import Pagination from '../../../components/gallery/Pagination';
+import LogoutButton from '../../../components/LogoutButton';
 import SortByDropdown, {
   SortByOption,
-} from "../../../components/SortByDropdown";
+} from '../../../components/SortByDropdown';
 
 const PHOTOS_PER_PAGE = 12;
 
@@ -35,13 +35,13 @@ export default function LikedPhotosPage() {
   const [photos, setPhotos] = useState<GalleryPhoto[]>([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(0);
-  const [currentSort, setCurrentSort] = useState<SortByOption>("newest");
+  const [currentSort, setCurrentSort] = useState<SortByOption>('newest');
   const [totalPages, setTotalPages] = useState(1);
 
   useEffect(() => {
     // Check authentication
     if (!isAuthenticated()) {
-      router.push("/login");
+      router.push('/login');
       return;
     }
 
@@ -49,7 +49,7 @@ export default function LikedPhotosPage() {
     if (userInfo) {
       setUser(userInfo);
     } else {
-      router.push("/login");
+      router.push('/login');
     }
   }, [router]);
 
@@ -63,26 +63,26 @@ export default function LikedPhotosPage() {
       const response = await getLikedPhotos(
         currentPage,
         PHOTOS_PER_PAGE,
-        currentSort,
+        currentSort
       );
 
       if (response.data) {
         // Backend returns GalleryListResponse with photos array AND pagination metadata
         setPhotos(response.data.photos || []);
         setTotalPages(response.data.totalPages || 1);
-        console.log("❤️ Liked photos fetched:", {
+        console.log('❤️ Liked photos fetched:', {
           count: response.data.photos?.length || 0,
           currentPage: response.data.currentPage,
           totalPages: response.data.totalPages,
           totalItems: response.data.totalItems,
         });
       } else if (response.error) {
-        console.error("Failed to fetch liked photos:", response.error);
+        console.error('Failed to fetch liked photos:', response.error);
         setPhotos([]);
         setTotalPages(1);
       }
     } catch (error) {
-      console.error("Error fetching liked photos:", error);
+      console.error('Error fetching liked photos:', error);
       setPhotos([]);
       setTotalPages(1);
     } finally {
@@ -99,13 +99,13 @@ export default function LikedPhotosPage() {
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   const handleSortChange = (sort: SortByOption) => {
     setCurrentSort(sort);
     setCurrentPage(0); // Reset to page 1 when sort changes
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   if (!user) {
@@ -129,19 +129,19 @@ export default function LikedPhotosPage() {
             </div>
             <div className="flex items-center gap-4">
               <button
-                onClick={() => router.push("/gallery")}
+                onClick={() => router.push('/gallery')}
                 className="px-4 py-2 text-gray-700 hover:text-gray-900 font-medium"
               >
                 Gallery
               </button>
               <button
-                onClick={() => router.push("/myprofile/favorited-photos")}
+                onClick={() => router.push('/myprofile/favorited-photos')}
                 className="px-4 py-2 text-yellow-600 hover:text-yellow-700 font-medium"
               >
                 ⭐ Favorited Photos
               </button>
               <button
-                onClick={() => router.push("/myprofile")}
+                onClick={() => router.push('/myprofile')}
                 className="px-4 py-2 text-gray-700 hover:text-gray-900 font-medium"
               >
                 My Profile
@@ -168,7 +168,7 @@ export default function LikedPhotosPage() {
             <p className="text-sm text-pink-800">
               <span className="font-semibold">
                 Total {photos.length} liked photo
-                {photos.length !== 1 ? "s" : ""} on this page
+                {photos.length !== 1 ? 's' : ''} on this page
               </span>
               {totalPages > 1 && ` (Page ${currentPage + 1} of ${totalPages})`}
             </p>
@@ -182,13 +182,13 @@ export default function LikedPhotosPage() {
           emptyIcon="❤️"
           emptyMessage="You haven't liked any photos yet. Explore the gallery and like some photos!"
           actionText="Go to Gallery"
-          onAction={() => router.push("/gallery")}
+          onAction={() => router.push('/gallery')}
           onLikeChange={(photoId) => {
             // Optimistic update: Immediately remove photo from state
             // This gives instant feedback without waiting for API refetch
-            console.log("📸 Removing photo from Liked Photos page:", photoId);
+            console.log('📸 Removing photo from Liked Photos page:', photoId);
             setPhotos((prevPhotos) =>
-              prevPhotos.filter((p) => p.id !== photoId),
+              prevPhotos.filter((p) => p.id !== photoId)
             );
           }}
         />

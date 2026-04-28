@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import type { CTASectionProps } from "./landing.types";
+import type { CTASectionProps } from './landing.types';
 
 /**
  * CTASection Component

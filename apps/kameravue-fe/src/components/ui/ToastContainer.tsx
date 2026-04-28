@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 /**
  * Toast Container Component
@@ -7,9 +7,9 @@
  * Positioned at top-right of the screen by default.
  */
 
-import { useToast } from "@/context/ToastContext";
-import { Toast } from "./Toast";
-import "./ToastContainer.css";
+import { useToast } from '@/context/ToastContext';
+import { Toast } from './Toast';
+import './ToastContainer.css';
 
 /**
  * Toast Container Component

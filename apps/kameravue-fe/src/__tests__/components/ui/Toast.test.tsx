@@ -10,15 +10,15 @@ import {
   fireEvent,
   waitFor,
   act,
-} from "@testing-library/react";
-import { Toast } from "../../../components/ui/Toast";
-import { Toast as ToastType } from "@/types/toast";
+} from '@testing-library/react';
+import { Toast } from '../../../components/ui/Toast';
+import { Toast as ToastType } from '@/types/toast';
 
-describe("Toast Component", () => {
+describe('Toast Component', () => {
   const mockToast: ToastType = {
-    id: "1",
-    type: "success",
-    message: "Test success message",
+    id: '1',
+    type: 'success',
+    message: 'Test success message',
     duration: 4000,
     createdAt: Date.now(),
   };
@@ -38,39 +38,39 @@ describe("Toast Component", () => {
     jest.useRealTimers();
   });
 
-  it("renders toast with correct message and icon", () => {
+  it('renders toast with correct message and icon', () => {
     render(<Toast toast={mockToast} onClose={mockOnClose} />);
 
-    expect(screen.getByText("Test success message")).toBeInTheDocument();
-    expect(screen.getByText("✅")).toBeInTheDocument();
+    expect(screen.getByText('Test success message')).toBeInTheDocument();
+    expect(screen.getByText('✅')).toBeInTheDocument();
   });
 
-  it("renders different toast types with correct icons", () => {
+  it('renders different toast types with correct icons', () => {
     const { rerender } = render(
-      <Toast toast={{ ...mockToast, type: "success" }} onClose={mockOnClose} />,
+      <Toast toast={{ ...mockToast, type: 'success' }} onClose={mockOnClose} />
     );
-    expect(screen.getByText("✅")).toBeInTheDocument();
+    expect(screen.getByText('✅')).toBeInTheDocument();
 
     rerender(
-      <Toast toast={{ ...mockToast, type: "error" }} onClose={mockOnClose} />,
+      <Toast toast={{ ...mockToast, type: 'error' }} onClose={mockOnClose} />
     );
-    expect(screen.getByText("❌")).toBeInTheDocument();
+    expect(screen.getByText('❌')).toBeInTheDocument();
 
     rerender(
-      <Toast toast={{ ...mockToast, type: "warning" }} onClose={mockOnClose} />,
+      <Toast toast={{ ...mockToast, type: 'warning' }} onClose={mockOnClose} />
     );
-    expect(screen.getByText("⚠️")).toBeInTheDocument();
+    expect(screen.getByText('⚠️')).toBeInTheDocument();
 
     rerender(
-      <Toast toast={{ ...mockToast, type: "info" }} onClose={mockOnClose} />,
+      <Toast toast={{ ...mockToast, type: 'info' }} onClose={mockOnClose} />
     );
-    expect(screen.getByText("ℹ️")).toBeInTheDocument();
+    expect(screen.getByText('ℹ️')).toBeInTheDocument();
   });
 
-  it("calls onClose when close button is clicked", async () => {
+  it('calls onClose when close button is clicked', async () => {
     render(<Toast toast={mockToast} onClose={mockOnClose} />);
 
-    const closeButton = screen.getByLabelText("Close notification");
+    const closeButton = screen.getByLabelText('Close notification');
     fireEvent.click(closeButton);
 
     // Wait for animation duration - wrap in act()
@@ -79,11 +79,11 @@ describe("Toast Component", () => {
     });
 
     await waitFor(() => {
-      expect(mockOnClose).toHaveBeenCalledWith("1");
+      expect(mockOnClose).toHaveBeenCalledWith('1');
     });
   });
 
-  it("auto-dismisses after duration", async () => {
+  it('auto-dismisses after duration', async () => {
     render(<Toast toast={mockToast} onClose={mockOnClose} />);
 
     // Fast forward time - wrap in act()
@@ -92,14 +92,14 @@ describe("Toast Component", () => {
     });
 
     await waitFor(() => {
-      expect(mockOnClose).toHaveBeenCalledWith("1");
+      expect(mockOnClose).toHaveBeenCalledWith('1');
     });
   });
 
-  it("has correct accessibility attributes", () => {
+  it('has correct accessibility attributes', () => {
     render(<Toast toast={mockToast} onClose={mockOnClose} />);
 
-    const toast = screen.getByRole("alert");
-    expect(toast).toHaveAttribute("aria-live", "polite");
+    const toast = screen.getByRole('alert');
+    expect(toast).toHaveAttribute('aria-live', 'polite');
   });
 });

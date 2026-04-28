@@ -1,47 +1,47 @@
-"use client";
+'use client';
 
-import { useState, ReactNode } from "react";
+import { useState, ReactNode } from 'react';
 
 interface TooltipProps {
   text: string;
   children: ReactNode;
-  position?: "top" | "bottom" | "left" | "right";
+  position?: 'top' | 'bottom' | 'left' | 'right';
 }
 
 export default function Tooltip({
   text,
   children,
-  position = "top",
+  position = 'top',
 }: TooltipProps) {
   const [isVisible, setIsVisible] = useState(false);
 
   const getPositionClasses = () => {
     switch (position) {
-      case "top":
-        return "bottom-full left-1/2 transform -translate-x-1/2 mb-2";
-      case "bottom":
-        return "top-full left-1/2 transform -translate-x-1/2 mt-2";
-      case "left":
-        return "right-full top-1/2 transform -translate-y-1/2 mr-2";
-      case "right":
-        return "left-full top-1/2 transform -translate-y-1/2 ml-2";
+      case 'top':
+        return 'bottom-full left-1/2 transform -translate-x-1/2 mb-2';
+      case 'bottom':
+        return 'top-full left-1/2 transform -translate-x-1/2 mt-2';
+      case 'left':
+        return 'right-full top-1/2 transform -translate-y-1/2 mr-2';
+      case 'right':
+        return 'left-full top-1/2 transform -translate-y-1/2 ml-2';
       default:
-        return "bottom-full left-1/2 transform -translate-x-1/2 mb-2";
+        return 'bottom-full left-1/2 transform -translate-x-1/2 mb-2';
     }
   };
 
   const getArrowClasses = () => {
     switch (position) {
-      case "top":
-        return "top-full left-1/2 transform -translate-x-1/2 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-gray-800";
-      case "bottom":
-        return "bottom-full left-1/2 transform -translate-x-1/2 border-l-4 border-r-4 border-b-4 border-l-transparent border-r-transparent border-b-gray-800";
-      case "left":
-        return "left-full top-1/2 transform -translate-y-1/2 border-t-4 border-b-4 border-l-4 border-t-transparent border-b-transparent border-l-gray-800";
-      case "right":
-        return "right-full top-1/2 transform -translate-y-1/2 border-t-4 border-b-4 border-r-4 border-t-transparent border-b-transparent border-r-gray-800";
+      case 'top':
+        return 'top-full left-1/2 transform -translate-x-1/2 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-gray-800';
+      case 'bottom':
+        return 'bottom-full left-1/2 transform -translate-x-1/2 border-l-4 border-r-4 border-b-4 border-l-transparent border-r-transparent border-b-gray-800';
+      case 'left':
+        return 'left-full top-1/2 transform -translate-y-1/2 border-t-4 border-b-4 border-l-4 border-t-transparent border-b-transparent border-l-gray-800';
+      case 'right':
+        return 'right-full top-1/2 transform -translate-y-1/2 border-t-4 border-b-4 border-r-4 border-t-transparent border-b-transparent border-r-gray-800';
       default:
-        return "top-full left-1/2 transform -translate-x-1/2 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-gray-800";
+        return 'top-full left-1/2 transform -translate-x-1/2 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-gray-800';
     }
   };
 

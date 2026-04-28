@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 /**
  * FormField Component
@@ -13,7 +13,7 @@
  * - Support for any input component as children
  */
 
-import { ReactNode } from "react";
+import { ReactNode } from 'react';
 
 export interface FormFieldProps {
   /** Field label text */
@@ -38,14 +38,14 @@ export function FormField({
   isValid = false,
   required = false,
   id,
-  className = "",
+  className = '',
   children,
 }: FormFieldProps) {
   // Determine border color based on validation state
   const getBorderColor = () => {
-    if (error) return "border-red-500 focus-within:border-red-500";
-    if (isValid) return "border-green-500 focus-within:border-green-500";
-    return "border-gray-300 focus-within:border-blue-500";
+    if (error) return 'border-red-500 focus-within:border-red-500';
+    if (isValid) return 'border-green-500 focus-within:border-green-500';
+    return 'border-gray-300 focus-within:border-blue-500';
   };
 
   return (

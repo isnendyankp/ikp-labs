@@ -1,25 +1,25 @@
-import "@testing-library/jest-dom";
-import { TextEncoder, TextDecoder } from "util";
+import '@testing-library/jest-dom';
+import { TextEncoder, TextDecoder } from 'util';
 
 // Polyfill for TextEncoder/TextDecoder
 global.TextEncoder = TextEncoder;
 global.TextDecoder = TextDecoder;
 
 // Mock next/navigation (App Router)
-jest.mock("next/navigation", () => ({
+jest.mock('next/navigation', () => ({
   useRouter() {
     return {
       push: jest.fn(),
       replace: jest.fn(),
       prefetch: jest.fn(),
       back: jest.fn(),
-      pathname: "/",
+      pathname: '/',
       query: {},
-      asPath: "/",
+      asPath: '/',
     };
   },
   usePathname() {
-    return "/";
+    return '/';
   },
   useSearchParams() {
     return new URLSearchParams();
@@ -27,17 +27,17 @@ jest.mock("next/navigation", () => ({
 }));
 
 // Mock next/router (Pages Router - backward compatibility)
-jest.mock("next/router", () => ({
+jest.mock('next/router', () => ({
   useRouter() {
     return {
       push: jest.fn(),
       replace: jest.fn(),
       prefetch: jest.fn(),
       back: jest.fn(),
-      pathname: "/",
+      pathname: '/',
       query: {},
-      asPath: "/",
-      route: "/",
+      asPath: '/',
+      route: '/',
       events: {
         on: jest.fn(),
         off: jest.fn(),
@@ -48,7 +48,7 @@ jest.mock("next/router", () => ({
 }));
 
 // Mock next/link
-jest.mock("next/link", () => ({
+jest.mock('next/link', () => ({
   __esModule: true,
   default: ({ children, href }) => {
     return <a href={href}>{children}</a>;
@@ -56,7 +56,7 @@ jest.mock("next/link", () => ({
 }));
 
 // Mock next/image
-jest.mock("next/image", () => ({
+jest.mock('next/image', () => ({
   __esModule: true,
   default: ({ src, alt, ...props }) => {
     // Use regular img tag in tests
@@ -76,7 +76,7 @@ global.IntersectionObserver = class IntersectionObserver {
 };
 
 // Mock window.matchMedia
-Object.defineProperty(window, "matchMedia", {
+Object.defineProperty(window, 'matchMedia', {
   writable: true,
   value: (query) => ({
     matches: false,

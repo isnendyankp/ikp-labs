@@ -36,9 +36,9 @@
  * @see {@link https://github.com/isnendyankp/ikp-labs} - Project Repository
  */
 
-"use client";
+'use client';
 
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from 'react';
 
 /**
  * Available sort options for gallery photos.
@@ -50,7 +50,7 @@ import { useState, useRef, useEffect } from "react";
  * - `mostLiked`: Sort by like count (highest first, then by newest)
  * - `mostFavorited`: Sort by favorite count (highest first, then by newest)
  */
-export type SortByOption = "newest" | "oldest" | "mostLiked" | "mostFavorited";
+export type SortByOption = 'newest' | 'oldest' | 'mostLiked' | 'mostFavorited';
 
 /**
  * Props for the SortByDropdown component.
@@ -70,7 +70,7 @@ interface SortByDropdownProps {
    * - "default": Shows dropdown button trigger (desktop)
    * - "compact": Hides button, shows only menu items (mobile icon mode)
    */
-  variant?: "default" | "compact";
+  variant?: 'default' | 'compact';
   /**
    * Controlled open state (optional). If provided, component becomes controlled.
    * When not provided, component manages its own internal state.
@@ -102,28 +102,28 @@ const SORT_OPTIONS: Array<{
   description: string;
 }> = [
   {
-    value: "newest",
-    label: "Newest First",
-    icon: "🆕",
-    description: "Most recently uploaded",
+    value: 'newest',
+    label: 'Newest First',
+    icon: '🆕',
+    description: 'Most recently uploaded',
   },
   {
-    value: "oldest",
-    label: "Oldest First",
-    icon: "📅",
-    description: "Oldest uploads first",
+    value: 'oldest',
+    label: 'Oldest First',
+    icon: '📅',
+    description: 'Oldest uploads first',
   },
   {
-    value: "mostLiked",
-    label: "Most Liked",
-    icon: "❤️",
-    description: "Sorted by likes count",
+    value: 'mostLiked',
+    label: 'Most Liked',
+    icon: '❤️',
+    description: 'Sorted by likes count',
   },
   {
-    value: "mostFavorited",
-    label: "Most Favorited",
-    icon: "⭐",
-    description: "Sorted by favorites count",
+    value: 'mostFavorited',
+    label: 'Most Favorited',
+    icon: '⭐',
+    description: 'Sorted by favorites count',
   },
 ];
 
@@ -147,7 +147,7 @@ const SORT_OPTIONS: Array<{
 export default function SortByDropdown({
   currentSort,
   onSortChange,
-  variant = "default",
+  variant = 'default',
   isOpen: controlledIsOpen,
   onOpenChange,
   triggerRef,
@@ -183,11 +183,11 @@ export default function SortByDropdown({
     }
 
     if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener('mousedown', handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isOpen, controlledIsOpen, onOpenChange, triggerRef]);
 
@@ -212,7 +212,7 @@ export default function SortByDropdown({
   return (
     <div className="relative" ref={dropdownRef}>
       {/* Dropdown Button - Hidden in compact mode */}
-      {variant === "default" && (
+      {variant === 'default' && (
         <button
           onClick={toggleDropdown}
           className="flex items-center gap-2 px-4 py-2 bg-white border border-gray-300 rounded-lg hover:bg-gray-50 transition-colors shadow-sm min-w-[200px]"
@@ -224,7 +224,7 @@ export default function SortByDropdown({
             {currentOption.label}
           </span>
           <svg
-            className={`w-4 h-4 text-gray-500 transition-transform ${isOpen ? "rotate-180" : ""}`}
+            className={`w-4 h-4 text-gray-500 transition-transform ${isOpen ? 'rotate-180' : ''}`}
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
@@ -242,7 +242,7 @@ export default function SortByDropdown({
       {/* Dropdown Menu - Only visible when open */}
       {isOpen && (
         <div
-          className={`absolute top-full mt-2 ${variant === "compact" ? "w-48 right-0 sm:right-auto sm:left-0" : "w-full left-0"} bg-white border border-gray-200 rounded-lg shadow-xl z-[100] overflow-hidden`}
+          className={`absolute top-full mt-2 ${variant === 'compact' ? 'w-48 right-0 sm:right-auto sm:left-0' : 'w-full left-0'} bg-white border border-gray-200 rounded-lg shadow-xl z-[100] overflow-hidden`}
         >
           <div className="py-1">
             {SORT_OPTIONS.map((option) => (
@@ -250,7 +250,7 @@ export default function SortByDropdown({
                 key={option.value}
                 onClick={() => handleSortSelect(option.value)}
                 className={`w-full px-4 py-3 text-left hover:bg-gray-50 transition-colors ${
-                  currentSort === option.value ? "bg-blue-50" : ""
+                  currentSort === option.value ? 'bg-blue-50' : ''
                 }`}
               >
                 <div className="flex items-start gap-3">
@@ -260,8 +260,8 @@ export default function SortByDropdown({
                       <span
                         className={`font-medium ${
                           currentSort === option.value
-                            ? "text-blue-700"
-                            : "text-gray-900"
+                            ? 'text-blue-700'
+                            : 'text-gray-900'
                         }`}
                       >
                         {option.label}

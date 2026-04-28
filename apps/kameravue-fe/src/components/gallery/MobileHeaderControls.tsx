@@ -24,12 +24,12 @@
  * ```
  */
 
-"use client";
+'use client';
 
-import { useState, useRef } from "react";
-import { Filter, Settings2 } from "lucide-react";
-import { FilterDropdown, type FilterOption } from "@/components/FilterDropdown";
-import { SortByDropdown, type SortByOption } from "@/components/SortByDropdown";
+import { useState, useRef } from 'react';
+import { Filter, Settings2 } from 'lucide-react';
+import { FilterDropdown, type FilterOption } from '@/components/FilterDropdown';
+import { SortByDropdown, type SortByOption } from '@/components/SortByDropdown';
 
 interface MobileHeaderControlsProps {
   /** Currently selected filter option */

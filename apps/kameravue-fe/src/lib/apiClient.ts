@@ -12,8 +12,8 @@
 // === CONFIGURATION ===
 
 // Use environment variable for production, fallback to localhost for development
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8081";
-const TOKEN_KEY = "authToken";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8081';
+const TOKEN_KEY = 'authToken';
 
 // === TOKEN MANAGEMENT ===
 
@@ -23,7 +23,7 @@ const TOKEN_KEY = "authToken";
  * @returns JWT token string or null if not found
  */
 export function getToken(): string | null {
-  if (typeof window !== "undefined") {
+  if (typeof window !== 'undefined') {
     return localStorage.getItem(TOKEN_KEY);
   }
   return null;
@@ -35,7 +35,7 @@ export function getToken(): string | null {
  * @param token - JWT token string from backend
  */
 export function saveToken(token: string): void {
-  if (typeof window !== "undefined") {
+  if (typeof window !== 'undefined') {
     localStorage.setItem(TOKEN_KEY, token);
   }
 }
@@ -44,7 +44,7 @@ export function saveToken(token: string): void {
  * Remove JWT token from localStorage (logout)
  */
 export function removeToken(): void {
-  if (typeof window !== "undefined") {
+  if (typeof window !== 'undefined') {
     localStorage.removeItem(TOKEN_KEY);
   }
 }
@@ -59,14 +59,14 @@ export function removeToken(): void {
  */
 export function createHeaders(includeAuth = false): HeadersInit {
   const headers: HeadersInit = {
-    "Content-Type": "application/json",
-    Accept: "application/json",
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
   };
 
   if (includeAuth) {
     const token = getToken();
     if (token) {
-      headers["Authorization"] = `Bearer ${token}`;
+      headers['Authorization'] = `Bearer ${token}`;
     }
   }
 
@@ -94,11 +94,11 @@ export function createAuthHeaders(): HeadersInit {
  */
 export async function fetchWithAuth(
   url: string,
-  options: RequestInit = {},
+  options: RequestInit = {}
 ): Promise<Response> {
   return fetch(`${API_BASE_URL}${url}`, {
     ...options,
-    credentials: "include", // Important for CORS
+    credentials: 'include', // Important for CORS
     headers: {
       ...createHeaders(true),
       ...options.headers,
@@ -115,11 +115,11 @@ export async function fetchWithAuth(
  */
 export async function fetchWithoutAuth(
   url: string,
-  options: RequestInit = {},
+  options: RequestInit = {}
 ): Promise<Response> {
   return fetch(`${API_BASE_URL}${url}`, {
     ...options,
-    credentials: "include",
+    credentials: 'include',
     headers: {
       ...createHeaders(false),
       ...options.headers,
@@ -137,12 +137,12 @@ export async function fetchWithoutAuth(
  */
 export function createFormDataHeaders(): HeadersInit {
   const headers: HeadersInit = {
-    Accept: "application/json",
+    Accept: 'application/json',
   };
 
   const token = getToken();
   if (token) {
-    headers["Authorization"] = `Bearer ${token}`;
+    headers['Authorization'] = `Bearer ${token}`;
   }
 
   return headers;

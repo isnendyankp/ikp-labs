@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 /**
  * LikeButton Component - Heart button untuk like/unlike photos
@@ -25,11 +25,11 @@
  * />
  */
 
-import React from "react";
-import { HeartIcon as HeartOutline } from "@heroicons/react/24/outline";
-import { HeartIcon as HeartSolid } from "@heroicons/react/24/solid";
-import photoLikeService from "../services/photoLikeService";
-import ActionButton from "./ActionButton";
+import React from 'react';
+import { HeartIcon as HeartOutline } from '@heroicons/react/24/outline';
+import { HeartIcon as HeartSolid } from '@heroicons/react/24/solid';
+import photoLikeService from '../services/photoLikeService';
+import ActionButton from './ActionButton';
 
 // === TYPE DEFINITIONS ===
 
@@ -37,7 +37,7 @@ interface LikeButtonProps {
   photoId: number;
   initialIsLiked?: boolean;
   initialLikeCount?: number;
-  size?: "small" | "medium" | "large";
+  size?: 'small' | 'medium' | 'large';
   className?: string;
   onLikeChange?: (photoId: number) => void;
   isOwnPhoto?: boolean; // Disable like button for own photos
@@ -49,8 +49,8 @@ export default function LikeButton({
   photoId,
   initialIsLiked = false,
   initialLikeCount = 0,
-  size = "medium",
-  className = "",
+  size = 'medium',
+  className = '',
   onLikeChange,
   isOwnPhoto = false,
 }: LikeButtonProps) {
@@ -74,7 +74,7 @@ export default function LikeButton({
       inactiveLabel="Like photo"
       size={size}
       className={className}
-      countLabel={(count) => `${count} ${count === 1 ? "like" : "likes"}`}
+      countLabel={(count) => `${count} ${count === 1 ? 'like' : 'likes'}`}
       shouldDisable={() => isOwnPhoto}
       disabledLabel="You cannot like your own photo"
       onChange={onLikeChange}

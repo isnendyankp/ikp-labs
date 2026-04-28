@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 /**
  * Gallery Grid Skeleton Component
@@ -7,7 +7,7 @@
  * Renders 12 PhotoCardSkeletons in a responsive grid layout.
  */
 
-import { PhotoCardSkeleton } from "./PhotoCardSkeleton";
+import { PhotoCardSkeleton } from './PhotoCardSkeleton';
 
 export function GalleryGridSkeleton() {
   return (

@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import type { FeatureCardProps } from "./landing.types";
+import type { FeatureCardProps } from './landing.types';
 
 /**
  * FeatureCard Component

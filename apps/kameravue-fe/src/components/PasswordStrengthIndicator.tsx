@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 /**
  * PasswordStrengthIndicator Component
@@ -17,7 +17,7 @@
  * - Strong: 12+ characters with high complexity
  */
 
-import { useMemo } from "react";
+import { useMemo } from 'react';
 
 export interface PasswordStrengthIndicatorProps {
   /** Password string to analyze */
@@ -26,7 +26,7 @@ export interface PasswordStrengthIndicatorProps {
   className?: string;
 }
 
-type StrengthLevel = "weak" | "medium" | "strong";
+type StrengthLevel = 'weak' | 'medium' | 'strong';
 
 interface StrengthResult {
   level: StrengthLevel;
@@ -37,7 +37,7 @@ interface StrengthResult {
 
 export function PasswordStrengthIndicator({
   password,
-  className = "",
+  className = '',
 }: PasswordStrengthIndicatorProps) {
   const strength: StrengthResult | null = useMemo(() => {
     if (!password) return null;
@@ -60,17 +60,17 @@ export function PasswordStrengthIndicator({
     let color: string;
 
     if (score < 50) {
-      level = "weak";
-      label = "Weak";
-      color = "bg-red-500";
+      level = 'weak';
+      label = 'Weak';
+      color = 'bg-red-500';
     } else if (score < 75) {
-      level = "medium";
-      label = "Medium";
-      color = "bg-yellow-500";
+      level = 'medium';
+      label = 'Medium';
+      color = 'bg-yellow-500';
     } else {
-      level = "strong";
-      label = "Strong";
-      color = "bg-green-500";
+      level = 'strong';
+      label = 'Strong';
+      color = 'bg-green-500';
     }
 
     return { level, score, label, color };
@@ -117,7 +117,7 @@ export function PasswordStrengthIndicator({
         {password.length >= 12 && !/[^a-zA-Z0-9]/.test(password) && (
           <p className="text-yellow-600">• Add special characters (!@#$%^&*)</p>
         )}
-        {strength.level === "strong" && (
+        {strength.level === 'strong' && (
           <p className="text-green-600">✓ Great password! Very secure.</p>
         )}
       </div>

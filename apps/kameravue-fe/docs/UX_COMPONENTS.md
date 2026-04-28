@@ -35,17 +35,17 @@ This document describes all the UX improvement components implemented in the fro
 ### Usage
 
 ```tsx
-import { useToast } from "@/context/ToastContext";
+import { useToast } from '@/context/ToastContext';
 
 function MyComponent() {
   const { showSuccess, showError, showInfo, showWarning } = useToast();
 
   const handleSuccess = () => {
-    showSuccess("Operation completed successfully!");
+    showSuccess('Operation completed successfully!');
   };
 
   const handleError = () => {
-    showError("Something went wrong. Please try again.");
+    showError('Something went wrong. Please try again.');
   };
 
   return <button onClick={handleSuccess}>Show Success Toast</button>;
@@ -87,12 +87,12 @@ function MyComponent() {
 ### Usage
 
 ```tsx
-import { Button } from "@/components/ui/Button";
+import { Button } from '@/components/ui/Button';
 
 function SubmitButton({ isLoading, onSubmit }) {
   return (
     <Button loading={isLoading} onClick={onSubmit}>
-      {isLoading ? "Submitting..." : "Submit"}
+      {isLoading ? 'Submitting...' : 'Submit'}
     </Button>
   );
 }
@@ -129,18 +129,18 @@ function SubmitButton({ isLoading, onSubmit }) {
 ### Usage
 
 ```tsx
-import { useConfirmDialog } from "@/hooks/useConfirmDialog";
+import { useConfirmDialog } from '@/hooks/useConfirmDialog';
 
 function DeleteButton({ onDelete }) {
   const { confirm, ConfirmDialogComponent } = useConfirmDialog();
 
   const handleClick = async () => {
     const result = await confirm({
-      title: "Delete Photo",
+      title: 'Delete Photo',
       message:
-        "Are you sure you want to delete this photo? This action cannot be undone.",
-      confirmText: "Delete",
-      cancelText: "Cancel",
+        'Are you sure you want to delete this photo? This action cannot be undone.',
+      confirmText: 'Delete',
+      cancelText: 'Cancel',
     });
 
     if (result) {
@@ -187,7 +187,7 @@ function DeleteButton({ onDelete }) {
 ### Usage
 
 ```tsx
-import { EmptyState } from "@/components/ui/EmptyState";
+import { EmptyState } from '@/components/ui/EmptyState';
 
 function MyPhotos() {
   const { photos, loading } = usePhotos();
@@ -200,7 +200,7 @@ function MyPhotos() {
         title="No photos yet"
         message="Upload your first photo to get started!"
         actionText="Upload Photo"
-        onAction={() => router.push("/upload")}
+        onAction={() => router.push('/upload')}
       />
     );
   }
@@ -241,11 +241,11 @@ function MyPhotos() {
 ### Usage
 
 ```tsx
-import { FormField } from "@/components/ui/FormField";
+import { FormField } from '@/components/ui/FormField';
 
 function MyForm() {
-  const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
+  const [email, setEmail] = useState('');
+  const [error, setError] = useState('');
   const [isValid, setIsValid] = useState(false);
   const [touched, setTouched] = useState(false);
 
@@ -254,10 +254,10 @@ function MyForm() {
     // Validate email
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
-      setError("Please enter a valid email");
+      setError('Please enter a valid email');
       setIsValid(false);
     } else {
-      setError("");
+      setError('');
       setIsValid(true);
     }
   };
@@ -266,7 +266,7 @@ function MyForm() {
     <FormField
       id="email"
       label="Email"
-      error={touched ? error : ""}
+      error={touched ? error : ''}
       isValid={isValid}
       required
     >

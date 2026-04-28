@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import type { FooterProps } from "./landing.types";
+import type { FooterProps } from './landing.types';
 
 /**
  * Footer Component
@@ -42,7 +42,7 @@ export function Footer({ onNavigate }: FooterProps) {
               <ul className="space-y-3">
                 <li>
                   <button
-                    onClick={() => handleNavigate("features")}
+                    onClick={() => handleNavigate('features')}
                     className="text-gray-600 hover:text-black text-sm transition-colors"
                   >
                     Features
@@ -50,7 +50,7 @@ export function Footer({ onNavigate }: FooterProps) {
                 </li>
                 <li>
                   <button
-                    onClick={() => handleNavigate("/gallery")}
+                    onClick={() => handleNavigate('/gallery')}
                     className="text-gray-600 hover:text-black text-sm transition-colors"
                   >
                     Gallery
@@ -67,7 +67,7 @@ export function Footer({ onNavigate }: FooterProps) {
               <ul className="space-y-3">
                 <li>
                   <button
-                    onClick={() => handleNavigate("about")}
+                    onClick={() => handleNavigate('about')}
                     className="text-gray-600 hover:text-black text-sm transition-colors"
                   >
                     About Us
@@ -158,10 +158,10 @@ export function Footer({ onNavigate }: FooterProps) {
               © {currentYear} Kameravue. All rights reserved.
             </p>
             <p className="text-gray-600 text-sm">
-              Made with{" "}
+              Made with{' '}
               <span className="text-red-500" role="img" aria-label="heart">
                 ❤️
-              </span>{" "}
+              </span>{' '}
               for beautiful moments
             </p>
           </div>

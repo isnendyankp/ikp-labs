@@ -22,10 +22,10 @@
  * ```
  */
 
-"use client";
+'use client';
 
-import { FilterDropdown, type FilterOption } from "@/components/FilterDropdown";
-import { SortByDropdown, type SortByOption } from "@/components/SortByDropdown";
+import { FilterDropdown, type FilterOption } from '@/components/FilterDropdown';
+import { SortByDropdown, type SortByOption } from '@/components/SortByDropdown';
 
 interface StickyActionBarProps {
   /** Currently selected filter option */

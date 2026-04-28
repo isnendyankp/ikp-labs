@@ -365,22 +365,22 @@ npx playwright install
 // tests/fixtures/test-users.ts
 export const testUsers = {
   validUser: {
-    email: "testuser123@example.com",
-    password: "TestPass123!",
+    email: 'testuser123@example.com',
+    password: 'TestPass123!',
   },
   invalidPassword: {
-    email: "testuser123@example.com",
-    password: "WrongPassword123!",
+    email: 'testuser123@example.com',
+    password: 'WrongPassword123!',
   },
   nonExistentUser: {
-    email: "nonexistent@example.com",
-    password: "TestPass123!",
+    email: 'nonexistent@example.com',
+    password: 'TestPass123!',
   },
 };
 
 export const apiEndpoints = {
-  register: "http://localhost:8081/api/auth/register",
-  login: "http://localhost:8081/api/auth/login",
+  register: 'http://localhost:8081/api/auth/register',
+  login: 'http://localhost:8081/api/auth/login',
 };
 ```
 
@@ -442,21 +442,21 @@ export const apiEndpoints = {
 **Test Cases:**
 
 ```typescript
-describe("Protected Routes", () => {
-  test("should redirect to login if not authenticated", async ({ page }) => {
+describe('Protected Routes', () => {
+  test('should redirect to login if not authenticated', async ({ page }) => {
     // Clear localStorage
     // Try access /dashboard
     // Assert redirect to /login
   });
 
-  test("should access protected route when authenticated", async ({ page }) => {
+  test('should access protected route when authenticated', async ({ page }) => {
     // Login first
     // Navigate to /dashboard
     // Assert page loads successfully
     // Assert user data displayed
   });
 
-  test("should redirect to login on token expiration", async ({ page }) => {
+  test('should redirect to login on token expiration', async ({ page }) => {
     // Login with short-lived token
     // Wait for expiration
     // Try access protected route
@@ -476,15 +476,15 @@ describe("Protected Routes", () => {
 **Test Cases:**
 
 ```typescript
-describe("Logout Flow", () => {
-  test("should logout and clear token", async ({ page }) => {
+describe('Logout Flow', () => {
+  test('should logout and clear token', async ({ page }) => {
     // Login first
     // Click logout button
     // Assert token removed from localStorage
     // Assert redirect to home/login
   });
 
-  test("should not access protected routes after logout", async ({ page }) => {
+  test('should not access protected routes after logout', async ({ page }) => {
     // Login first
     // Logout
     // Try access /dashboard
@@ -504,21 +504,21 @@ describe("Logout Flow", () => {
 **Test Cases:**
 
 ```typescript
-describe("Error Handling", () => {
-  test("should handle network errors gracefully", async ({ page }) => {
+describe('Error Handling', () => {
+  test('should handle network errors gracefully', async ({ page }) => {
     // Mock network failure
     // Try submit form
     // Assert user-friendly error message
     // Assert form still usable (not stuck)
   });
 
-  test("should handle server errors (500)", async ({ page }) => {
+  test('should handle server errors (500)', async ({ page }) => {
     // Mock server error response
     // Submit form
     // Assert error message displayed
   });
 
-  test("should handle CORS errors", async ({ page }) => {
+  test('should handle CORS errors', async ({ page }) => {
     // Test CORS configuration
     // Verify no CORS errors in console
   });
@@ -536,22 +536,22 @@ describe("Error Handling", () => {
 **Test Cases:**
 
 ```typescript
-describe("Performance & Accessibility", () => {
-  test("should load registration page within 2 seconds", async ({ page }) => {
+describe('Performance & Accessibility', () => {
+  test('should load registration page within 2 seconds', async ({ page }) => {
     const startTime = Date.now();
-    await page.goto("http://localhost:3002/register");
+    await page.goto('http://localhost:3002/register');
     const loadTime = Date.now() - startTime;
     expect(loadTime).toBeLessThan(2000);
   });
 
-  test("should pass accessibility checks", async ({ page }) => {
+  test('should pass accessibility checks', async ({ page }) => {
     // Use @axe-core/playwright
-    await page.goto("http://localhost:3002/register");
+    await page.goto('http://localhost:3002/register');
     const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
     expect(accessibilityScanResults.violations).toEqual([]);
   });
 
-  test("should be keyboard navigable", async ({ page }) => {
+  test('should be keyboard navigable', async ({ page }) => {
     // Test Tab navigation through form
     // Test Enter to submit
   });
@@ -590,7 +590,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "18"
+          node-version: '18'
       - name: Install dependencies
         run: npm ci
       - name: Install Playwright browsers
@@ -677,9 +677,9 @@ npm run test:db:cleanup  # Clean test data
 // playwright.config.ts
 export default defineConfig({
   use: {
-    screenshot: "only-on-failure",
-    video: "retain-on-failure",
-    trace: "on-first-retry",
+    screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
+    trace: 'on-first-retry',
   },
 });
 ```
