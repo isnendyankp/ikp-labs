@@ -1,0 +1,29 @@
+# Dependencies
+node_modules/
+
+# Build output
+.next/
+out/
+build/
+dist/
+
+# Nx cache
+.nx/cache/
+
+# Test artifacts
+coverage/
+test-results/
+playwright-report/
+generated-reports/
+
+# Java build output
+apps/kameravue-be/**/target/
+
+# Lock files
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# Static assets
+static/
+uploads/
