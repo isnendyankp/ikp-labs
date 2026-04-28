@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 import {
   deleteProfilePicture,
   getProfilePictureUrl,
-} from "../services/profileService";
-import { ProfilePictureResponse } from "../types/api";
+} from '../services/profileService';
+import { ProfilePictureResponse } from '../types/api';
 
 /**
  * ProfilePicture Component
@@ -38,7 +38,7 @@ import { ProfilePictureResponse } from "../types/api";
 interface ProfilePictureProps {
   pictureUrl?: string | null;
   userName?: string;
-  size?: "sm" | "md" | "lg" | "xl";
+  size?: 'sm' | 'md' | 'lg' | 'xl';
   showDeleteButton?: boolean;
   onDeleteSuccess?: (response: ProfilePictureResponse) => void;
   onDeleteError?: (error: string) => void;
@@ -46,8 +46,8 @@ interface ProfilePictureProps {
 
 export default function ProfilePicture({
   pictureUrl,
-  userName = "User",
-  size = "md",
+  userName = 'User',
+  size = 'md',
   showDeleteButton = false,
   onDeleteSuccess,
   onDeleteError,
@@ -68,16 +68,16 @@ export default function ProfilePicture({
    */
   const getSizeClasses = () => {
     switch (size) {
-      case "sm":
-        return "w-12 h-12 text-sm";
-      case "md":
-        return "w-24 h-24 text-xl";
-      case "lg":
-        return "w-32 h-32 text-2xl";
-      case "xl":
-        return "w-48 h-48 text-4xl";
+      case 'sm':
+        return 'w-12 h-12 text-sm';
+      case 'md':
+        return 'w-24 h-24 text-xl';
+      case 'lg':
+        return 'w-32 h-32 text-2xl';
+      case 'xl':
+        return 'w-48 h-48 text-4xl';
       default:
-        return "w-24 h-24 text-xl";
+        return 'w-24 h-24 text-xl';
     }
   };
 
@@ -85,7 +85,7 @@ export default function ProfilePicture({
    * Get user initials from full name
    */
   const getUserInitials = (name: string): string => {
-    const parts = name.trim().split(" ");
+    const parts = name.trim().split(' ');
     if (parts.length >= 2) {
       return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
     }
@@ -98,7 +98,7 @@ export default function ProfilePicture({
   const handleDelete = async () => {
     // Confirm before delete
     const confirmed = window.confirm(
-      "Are you sure you want to delete your profile picture?",
+      'Are you sure you want to delete your profile picture?'
     );
     if (!confirmed) {
       return;
@@ -111,7 +111,7 @@ export default function ProfilePicture({
       const response = await deleteProfilePicture();
 
       if (response.data) {
-        console.log("✅ Picture deleted successfully:", response.data);
+        console.log('✅ Picture deleted successfully:', response.data);
 
         // Update local state
         setCurrentPictureUrl(null);
@@ -121,7 +121,7 @@ export default function ProfilePicture({
           onDeleteSuccess(response.data);
         }
       } else if (response.error) {
-        const errorMessage = response.error.message || "Delete failed";
+        const errorMessage = response.error.message || 'Delete failed';
         setError(errorMessage);
 
         if (onDeleteError) {
@@ -129,7 +129,7 @@ export default function ProfilePicture({
         }
       }
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : "Delete failed";
+      const errorMessage = err instanceof Error ? err.message : 'Delete failed';
       setError(errorMessage);
 
       if (onDeleteError) {
@@ -157,7 +157,7 @@ export default function ProfilePicture({
             className={`${sizeClasses} rounded-full object-cover border-4 border-white shadow-lg`}
             onError={(_e) => {
               // Fallback if image fails to load
-              console.error("Failed to load image:", fullPictureUrl);
+              console.error('Failed to load image:', fullPictureUrl);
               setCurrentPictureUrl(null);
             }}
           />
@@ -192,11 +192,11 @@ export default function ProfilePicture({
           disabled={isDeleting}
           className={`py-1 px-3 text-sm rounded-lg font-medium transition-colors ${
             isDeleting
-              ? "bg-gray-400 text-gray-600 cursor-not-allowed"
-              : "bg-red-600 text-white hover:bg-red-700"
+              ? 'bg-gray-400 text-gray-600 cursor-not-allowed'
+              : 'bg-red-600 text-white hover:bg-red-700'
           }`}
         >
-          {isDeleting ? "Deleting..." : "Delete Picture"}
+          {isDeleting ? 'Deleting...' : 'Delete Picture'}
         </button>
       )}
 

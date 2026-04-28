@@ -20,11 +20,11 @@
  * ```
  */
 
-import { useEffect, RefObject } from "react";
+import { useEffect, RefObject } from 'react';
 
 export function useClickOutside(
   ref: RefObject<HTMLElement>,
-  callback: () => void,
+  callback: () => void
 ): void {
   useEffect(() => {
     /**
@@ -39,11 +39,11 @@ export function useClickOutside(
     };
 
     // Add event listener for mousedown
-    document.addEventListener("mousedown", handleClick);
+    document.addEventListener('mousedown', handleClick);
 
     // Clean up: remove event listener when component unmounts
     return () => {
-      document.removeEventListener("mousedown", handleClick);
+      document.removeEventListener('mousedown', handleClick);
     };
   }, [ref, callback]);
 }

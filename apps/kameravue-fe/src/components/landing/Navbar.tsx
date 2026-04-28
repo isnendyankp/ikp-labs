@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { isAuthenticated } from "@/lib/auth";
-import type { NavbarProps } from "./landing.types";
+import { useState, useEffect } from 'react';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { isAuthenticated } from '@/lib/auth';
+import type { NavbarProps } from './landing.types';
 
 /**
  * Navbar Component
@@ -30,8 +30,8 @@ export function Navbar({ onNavigate }: NavbarProps) {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 10);
     };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   // Navigation handlers
@@ -41,17 +41,17 @@ export function Navbar({ onNavigate }: NavbarProps) {
   };
 
   const handleLogin = () => {
-    router.push("/login");
+    router.push('/login');
     setIsMobileMenuOpen(false);
   };
 
   const handleGetStarted = () => {
-    router.push("/register");
+    router.push('/register');
     setIsMobileMenuOpen(false);
   };
 
   const handleGallery = () => {
-    router.push("/gallery");
+    router.push('/gallery');
     setIsMobileMenuOpen(false);
   };
 
@@ -59,8 +59,8 @@ export function Navbar({ onNavigate }: NavbarProps) {
     <nav
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? "bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm"
-          : "bg-white/80 backdrop-blur-sm"
+          ? 'bg-white/95 backdrop-blur-sm border-b border-gray-100 shadow-sm'
+          : 'bg-white/80 backdrop-blur-sm'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -76,13 +76,13 @@ export function Navbar({ onNavigate }: NavbarProps) {
           <div className="hidden lg:flex items-center space-x-8">
             {/* Nav Links */}
             <button
-              onClick={() => handleNavigate("features")}
+              onClick={() => handleNavigate('features')}
               className="text-gray-600 hover:text-black font-medium transition-colors"
             >
               Features
             </button>
             <button
-              onClick={() => handleNavigate("about")}
+              onClick={() => handleNavigate('about')}
               className="text-gray-600 hover:text-black font-medium transition-colors"
             >
               About
@@ -169,13 +169,13 @@ export function Navbar({ onNavigate }: NavbarProps) {
         <div className="lg:hidden bg-white border-t border-gray-100">
           <div className="px-4 pt-2 pb-4 space-y-1">
             <button
-              onClick={() => handleNavigate("features")}
+              onClick={() => handleNavigate('features')}
               className="block w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:text-black hover:bg-gray-50 rounded-md"
             >
               Features
             </button>
             <button
-              onClick={() => handleNavigate("about")}
+              onClick={() => handleNavigate('about')}
               className="block w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:text-black hover:bg-gray-50 rounded-md"
             >
               About

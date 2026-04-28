@@ -1,6 +1,6 @@
-"use client";
+'use client';
 
-import type { AboutSectionProps } from "./landing.types";
+import type { AboutSectionProps } from './landing.types';
 
 /**
  * AboutSection Component

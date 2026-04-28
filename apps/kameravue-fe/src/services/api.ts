@@ -16,24 +16,24 @@ import {
   LoginResponse,
   ApiResponse,
   ApiError,
-} from "../types/api";
+} from '../types/api';
 import {
   getToken,
   saveToken,
   removeToken,
   createAuthHeaders,
-} from "../lib/apiClient";
+} from '../lib/apiClient';
 
 // === CONFIGURATION ===
 
 // Use environment variable for production, fallback to localhost for development
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8081";
+const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:8081';
 
 // === CONSTANTS ===
 
 const DEFAULT_HEADERS: HeadersInit = {
-  "Content-Type": "application/json",
-  Accept: "application/json",
+  'Content-Type': 'application/json',
+  Accept: 'application/json',
 };
 
 /**
@@ -41,12 +41,12 @@ const DEFAULT_HEADERS: HeadersInit = {
  */
 async function apiRequest<T>(
   url: string,
-  options: RequestInit = {},
+  options: RequestInit = {}
 ): Promise<ApiResponse<T>> {
   try {
     const response = await fetch(`${API_BASE_URL}${url}`, {
       ...options,
-      credentials: "include", // Important for CORS with cookies/auth
+      credentials: 'include', // Important for CORS with cookies/auth
       headers: {
         ...DEFAULT_HEADERS,
         ...options.headers,
@@ -60,7 +60,7 @@ async function apiRequest<T>(
       data = JSON.parse(responseText);
     } catch {
       // If response is not JSON, treat as error
-      throw new Error("Invalid response format");
+      throw new Error('Invalid response format');
     }
 
     if (response.ok) {
@@ -75,12 +75,12 @@ async function apiRequest<T>(
       };
     }
   } catch (error) {
-    console.error("API Request failed:", error);
+    console.error('API Request failed:', error);
     return {
       error: {
         message:
-          error instanceof Error ? error.message : "Network error occurred",
-        errorCode: "NETWORK_ERROR",
+          error instanceof Error ? error.message : 'Network error occurred',
+        errorCode: 'NETWORK_ERROR',
       },
       status: 0,
     };
@@ -96,23 +96,23 @@ async function apiRequest<T>(
  * Returns LoginResponse with JWT token so user can login immediately
  */
 export async function registerUser(
-  userData: UserRegistrationRequest,
+  userData: UserRegistrationRequest
 ): Promise<ApiResponse<LoginResponse>> {
-  console.log("🚀 Registering user:", {
+  console.log('🚀 Registering user:', {
     email: userData.email,
     fullName: userData.fullName,
   });
 
-  const response = await apiRequest<LoginResponse>("/api/auth/register", {
-    method: "POST",
+  const response = await apiRequest<LoginResponse>('/api/auth/register', {
+    method: 'POST',
     body: JSON.stringify(userData),
   });
 
   if (response.data?.success && response.data.token) {
-    console.log("✅ Registration successful, saving token");
+    console.log('✅ Registration successful, saving token');
     saveToken(response.data.token);
   } else if (response.error) {
-    console.error("❌ Registration failed:", response.error);
+    console.error('❌ Registration failed:', response.error);
   }
 
   return response;
@@ -123,20 +123,20 @@ export async function registerUser(
  * POST /api/auth/login
  */
 export async function loginUser(
-  credentials: LoginRequest,
+  credentials: LoginRequest
 ): Promise<ApiResponse<LoginResponse>> {
-  console.log("🚀 Logging in user:", { email: credentials.email });
+  console.log('🚀 Logging in user:', { email: credentials.email });
 
-  const response = await apiRequest<LoginResponse>("/api/auth/login", {
-    method: "POST",
+  const response = await apiRequest<LoginResponse>('/api/auth/login', {
+    method: 'POST',
     body: JSON.stringify(credentials),
   });
 
   if (response.data?.success && response.data.token) {
-    console.log("✅ Login successful, saving token");
+    console.log('✅ Login successful, saving token');
     saveToken(response.data.token);
   } else if (response.error) {
-    console.error("❌ Login failed:", response.error);
+    console.error('❌ Login failed:', response.error);
   }
 
   return response;
@@ -146,9 +146,9 @@ export async function loginUser(
  * Logout user (client-side)
  */
 export function logoutUser(): void {
-  console.log("🚀 Logging out user");
+  console.log('🚀 Logging out user');
   removeToken();
-  console.log("✅ Token removed");
+  console.log('✅ Token removed');
 }
 
 /**
@@ -174,16 +174,16 @@ export function getAuthToken(): string | null {
  * GET /api/users/{id}
  */
 export async function getUserProfile(
-  userId: number,
+  userId: number
 ): Promise<ApiResponse<UserRegistrationResponse>> {
-  console.log("🚀 Getting user profile:", userId);
+  console.log('🚀 Getting user profile:', userId);
 
   const token = getToken();
   if (!token) {
     return {
       error: {
-        message: "No authentication token found",
-        errorCode: "UNAUTHORIZED",
+        message: 'No authentication token found',
+        errorCode: 'UNAUTHORIZED',
       },
       status: 401,
     };
@@ -192,15 +192,15 @@ export async function getUserProfile(
   const response = await apiRequest<UserRegistrationResponse>(
     `/api/users/${userId}`,
     {
-      method: "GET",
+      method: 'GET',
       headers: createAuthHeaders(),
-    },
+    }
   );
 
   if (response.data) {
-    console.log("✅ Profile retrieved:", response.data);
+    console.log('✅ Profile retrieved:', response.data);
   } else if (response.error) {
-    console.error("❌ Profile retrieval failed:", response.error);
+    console.error('❌ Profile retrieval failed:', response.error);
 
     // If token is invalid, remove it
     if (response.status === 401 || response.status === 403) {

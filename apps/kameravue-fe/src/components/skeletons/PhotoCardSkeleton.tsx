@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 /**
  * PhotoCard Skeleton Component

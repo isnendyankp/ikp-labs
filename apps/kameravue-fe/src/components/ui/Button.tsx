@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 /**
  * Button Component
@@ -13,15 +13,15 @@
  * - Full width option
  */
 
-import { ButtonHTMLAttributes, forwardRef } from "react";
+import { ButtonHTMLAttributes, forwardRef } from 'react';
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /** Loading state */
   loading?: boolean;
   /** Button variant */
-  variant?: "primary" | "secondary" | "danger";
+  variant?: 'primary' | 'secondary' | 'danger';
   /** Button size */
-  size?: "small" | "medium" | "large";
+  size?: 'small' | 'medium' | 'large';
   /** Full width */
   fullWidth?: boolean;
   /** Children content */
@@ -32,41 +32,41 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (
     {
       loading = false,
-      variant = "primary",
-      size = "medium",
+      variant = 'primary',
+      size = 'medium',
       fullWidth = false,
       disabled,
       children,
-      className = "",
+      className = '',
       ...props
     },
-    ref,
+    ref
   ) => {
     // Variant styles
     const variantStyles = {
       primary: loading
-        ? "bg-gray-400 text-gray-600 cursor-not-allowed"
-        : "bg-black text-white hover:bg-gray-800",
+        ? 'bg-gray-400 text-gray-600 cursor-not-allowed'
+        : 'bg-black text-white hover:bg-gray-800',
       secondary: loading
-        ? "bg-gray-300 text-gray-500 cursor-not-allowed"
-        : "bg-white border-2 border-gray-300 text-gray-700 hover:bg-gray-50",
+        ? 'bg-gray-300 text-gray-500 cursor-not-allowed'
+        : 'bg-white border-2 border-gray-300 text-gray-700 hover:bg-gray-50',
       danger: loading
-        ? "bg-gray-400 text-gray-600 cursor-not-allowed"
-        : "bg-red-600 text-white hover:bg-red-700",
+        ? 'bg-gray-400 text-gray-600 cursor-not-allowed'
+        : 'bg-red-600 text-white hover:bg-red-700',
     };
 
     // Size styles
     const sizeStyles = {
-      small: "py-2 px-4 text-sm",
-      medium: "py-3 px-4 text-base",
-      large: "py-4 px-6 text-lg",
+      small: 'py-2 px-4 text-sm',
+      medium: 'py-3 px-4 text-base',
+      large: 'py-4 px-6 text-lg',
     };
 
     // Base styles
-    const baseStyles = "rounded-lg font-medium transition-colors duration-200";
+    const baseStyles = 'rounded-lg font-medium transition-colors duration-200';
 
     // Width styles
-    const widthStyles = fullWidth ? "w-full" : "";
+    const widthStyles = fullWidth ? 'w-full' : '';
 
     // Combined styles
     const buttonStyles = `
@@ -113,7 +113,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         )}
       </button>
     );
-  },
+  }
 );
 
-Button.displayName = "Button";
+Button.displayName = 'Button';

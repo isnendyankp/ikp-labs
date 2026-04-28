@@ -1,16 +1,16 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import { getUserFromToken, isAuthenticated } from "../../lib/auth";
-import { getCurrentProfilePicture } from "../../services/profileService";
-import LogoutButton from "../../components/LogoutButton";
-import ProfilePicture from "../../components/ProfilePicture";
-import ProfilePictureUpload from "../../components/ProfilePictureUpload";
-import { AuthUser, ProfilePictureResponse } from "../../types/api";
-import { useToast } from "@/context/ToastContext";
-import { ProfileSkeleton } from "../../components/skeletons/ProfileSkeleton";
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { getUserFromToken, isAuthenticated } from '../../lib/auth';
+import { getCurrentProfilePicture } from '../../services/profileService';
+import LogoutButton from '../../components/LogoutButton';
+import ProfilePicture from '../../components/ProfilePicture';
+import ProfilePictureUpload from '../../components/ProfilePictureUpload';
+import { AuthUser, ProfilePictureResponse } from '../../types/api';
+import { useToast } from '@/context/ToastContext';
+import { ProfileSkeleton } from '../../components/skeletons/ProfileSkeleton';
 
 /**
  * My Profile Page Component
@@ -34,7 +34,7 @@ export default function HomePage() {
   const [user, setUser] = useState<AuthUser | null>(null);
   const [loading, setLoading] = useState(true);
   const [profilePictureUrl, setProfilePictureUrl] = useState<string | null>(
-    null,
+    null
   );
   const [showUploadSection, setShowUploadSection] = useState(false);
 
@@ -42,7 +42,7 @@ export default function HomePage() {
     // Check authentication on component mount
     if (!isAuthenticated()) {
       // Not authenticated - redirect to login
-      router.push("/login");
+      router.push('/login');
       return;
     }
 
@@ -55,7 +55,7 @@ export default function HomePage() {
       fetchProfilePicture();
     } else {
       // Token exists but can't decode - redirect to login
-      router.push("/login");
+      router.push('/login');
     }
 
     setLoading(false);
@@ -71,7 +71,7 @@ export default function HomePage() {
         setProfilePictureUrl(response.data.pictureUrl);
       }
     } catch (error) {
-      console.error("Failed to fetch profile picture:", error);
+      console.error('Failed to fetch profile picture:', error);
     }
   };
 
@@ -89,7 +89,7 @@ export default function HomePage() {
    * Handle successful upload
    */
   const handleUploadSuccess = (response: ProfilePictureResponse) => {
-    console.log("✅ Upload successful:", response);
+    console.log('✅ Upload successful:', response);
     setProfilePictureUrl(response.pictureUrl);
     setShowUploadSection(false);
   };
@@ -98,7 +98,7 @@ export default function HomePage() {
    * Handle successful delete
    */
   const handleDeleteSuccess = (response: ProfilePictureResponse) => {
-    console.log("✅ Delete successful:", response);
+    console.log('✅ Delete successful:', response);
     setProfilePictureUrl(null);
   };
 
@@ -153,7 +153,7 @@ export default function HomePage() {
                 size="xl"
                 showDeleteButton={true}
                 onDeleteSuccess={handleDeleteSuccess}
-                onDeleteError={(error) => showError("Delete failed: " + error)}
+                onDeleteError={(error) => showError('Delete failed: ' + error)}
               />
 
               {/* Upload Toggle Button */}
@@ -162,7 +162,7 @@ export default function HomePage() {
                   onClick={() => setShowUploadSection(!showUploadSection)}
                   className="w-full py-3 px-4 bg-blue-600 text-white rounded-lg font-medium hover:bg-blue-700 transition-colors"
                 >
-                  {showUploadSection ? "Hide Upload" : "Change Picture"}
+                  {showUploadSection ? 'Hide Upload' : 'Change Picture'}
                 </button>
               </div>
 
@@ -173,7 +173,7 @@ export default function HomePage() {
                     currentPictureUrl={profilePictureUrl}
                     onUploadSuccess={handleUploadSuccess}
                     onUploadError={(error) =>
-                      showError("Upload failed: " + error)
+                      showError('Upload failed: ' + error)
                     }
                   />
                 </div>
@@ -224,7 +224,7 @@ export default function HomePage() {
                   Quick Actions
                 </h3>
                 <button
-                  onClick={() => router.push("/gallery")}
+                  onClick={() => router.push('/gallery')}
                   className="w-full py-3 px-6 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition-colors shadow-md flex items-center justify-center gap-2"
                 >
                   <span>📸</span>

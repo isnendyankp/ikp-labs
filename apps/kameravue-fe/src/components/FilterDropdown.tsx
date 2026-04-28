@@ -12,11 +12,11 @@
  * - Consistent styling with app design
  */
 
-"use client";
+'use client';
 
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from 'react';
 
-export type FilterOption = "all" | "my-photos" | "liked" | "favorited";
+export type FilterOption = 'all' | 'my-photos' | 'liked' | 'favorited';
 
 interface FilterDropdownProps {
   currentFilter: FilterOption;
@@ -26,7 +26,7 @@ interface FilterDropdownProps {
    * - "default": Shows dropdown button trigger (desktop)
    * - "compact": Hides button, shows only menu items (mobile icon mode)
    */
-  variant?: "default" | "compact";
+  variant?: 'default' | 'compact';
   /**
    * Controlled open state (optional). If provided, component becomes controlled.
    * When not provided, component manages its own internal state.
@@ -51,16 +51,16 @@ interface FilterConfig {
 }
 
 const FILTER_OPTIONS: FilterConfig[] = [
-  { value: "all", label: "All Photos", icon: "🌐" },
-  { value: "my-photos", label: "My Photos", icon: "📸" },
-  { value: "liked", label: "My Liked Photos", icon: "❤️" },
-  { value: "favorited", label: "My Favorited Photos", icon: "⭐" },
+  { value: 'all', label: 'All Photos', icon: '🌐' },
+  { value: 'my-photos', label: 'My Photos', icon: '📸' },
+  { value: 'liked', label: 'My Liked Photos', icon: '❤️' },
+  { value: 'favorited', label: 'My Favorited Photos', icon: '⭐' },
 ];
 
 export default function FilterDropdown({
   currentFilter,
   onFilterChange,
-  variant = "default",
+  variant = 'default',
   isOpen: controlledIsOpen,
   onOpenChange,
   triggerRef,
@@ -97,18 +97,18 @@ export default function FilterDropdown({
     };
 
     if (isOpen) {
-      document.addEventListener("mousedown", handleClickOutside);
+      document.addEventListener('mousedown', handleClickOutside);
     }
 
     return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [isOpen, controlledIsOpen, onOpenChange, triggerRef]);
 
   // Close dropdown on Escape key
   useEffect(() => {
     const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
+      if (event.key === 'Escape') {
         if (controlledIsOpen !== undefined) {
           onOpenChange?.(false);
         } else {
@@ -118,11 +118,11 @@ export default function FilterDropdown({
     };
 
     if (isOpen) {
-      document.addEventListener("keydown", handleEscape);
+      document.addEventListener('keydown', handleEscape);
     }
 
     return () => {
-      document.removeEventListener("keydown", handleEscape);
+      document.removeEventListener('keydown', handleEscape);
     };
   }, [isOpen, controlledIsOpen, onOpenChange]);
 
@@ -147,7 +147,7 @@ export default function FilterDropdown({
   return (
     <div className="relative" ref={dropdownRef}>
       {/* Dropdown Button - Hidden in compact mode */}
-      {variant === "default" && (
+      {variant === 'default' && (
         <button
           onClick={toggleDropdown}
           className="flex items-center gap-2 px-4 py-2 bg-white border-2 border-gray-300 rounded-lg font-medium text-gray-700 hover:border-gray-400 transition-colors shadow-sm"
@@ -158,7 +158,7 @@ export default function FilterDropdown({
           <span>{currentFilterConfig.label}</span>
           <svg
             className={`w-4 h-4 transition-transform ${
-              isOpen ? "rotate-180" : ""
+              isOpen ? 'rotate-180' : ''
             }`}
             fill="none"
             stroke="currentColor"
@@ -177,7 +177,7 @@ export default function FilterDropdown({
       {/* Dropdown Menu - Only visible when open */}
       {isOpen && (
         <div
-          className={`absolute top-full mt-2 ${variant === "compact" ? "w-48 right-0 sm:right-auto sm:left-0" : "w-56 left-0"} bg-white border border-gray-200 rounded-lg shadow-xl z-[100]`}
+          className={`absolute top-full mt-2 ${variant === 'compact' ? 'w-48 right-0 sm:right-auto sm:left-0' : 'w-56 left-0'} bg-white border border-gray-200 rounded-lg shadow-xl z-[100]`}
         >
           <div className="py-1">
             {FILTER_OPTIONS.map((option) => (
@@ -188,8 +188,8 @@ export default function FilterDropdown({
                   w-full flex items-center gap-3 px-4 py-3 text-left transition-colors
                   ${
                     currentFilter === option.value
-                      ? "bg-blue-50 text-blue-700 font-medium"
-                      : "text-gray-700 hover:bg-gray-50"
+                      ? 'bg-blue-50 text-blue-700 font-medium'
+                      : 'text-gray-700 hover:bg-gray-50'
                   }
                 `}
               >

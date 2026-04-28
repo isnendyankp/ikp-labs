@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 /**
  * ActionButton Component - Reusable button with optimistic update pattern
@@ -36,9 +36,9 @@
  * />
  */
 
-import React, { useState, useEffect } from "react";
-import { useToast } from "@/context/ToastContext";
-import { IconButton } from "./ui/IconButton";
+import React, { useState, useEffect } from 'react';
+import { useToast } from '@/context/ToastContext';
+import { IconButton } from './ui/IconButton';
 
 // === TYPE DEFINITIONS ===
 
@@ -57,7 +57,7 @@ interface ActionButtonProps {
   // Display props
   activeLabel: string;
   inactiveLabel: string;
-  size?: "small" | "medium" | "large";
+  size?: 'small' | 'medium' | 'large';
   className?: string;
 
   // Optional count display
@@ -87,8 +87,8 @@ export default function ActionButton({
   apiCall,
   activeLabel,
   inactiveLabel,
-  size = "medium",
-  className = "",
+  size = 'medium',
+  className = '',
   initialCount = 0,
   countLabel,
   showCountOnlyWhenActive = false,
@@ -167,33 +167,33 @@ export default function ActionButton({
       // Check for errors
       if (response.error) {
         // Rollback on error
-        console.error("❌ Action failed, rolling back:", response.error);
+        console.error('❌ Action failed, rolling back:', response.error);
         setIsActive(previousIsActive);
         if (countLabel !== undefined) {
           setCount(previousCount);
         }
 
         // Show error toast
-        showError(response.error.message || "Failed to update");
+        showError(response.error.message || 'Failed to update');
       } else {
         // Success - optimistic update was correct
-        console.log("✅ Action successful");
+        console.log('✅ Action successful');
 
         // Notify parent component of the change
         if (onChange) {
-          console.log("🔄 Calling onChange callback with photoId:", photoId);
+          console.log('🔄 Calling onChange callback with photoId:', photoId);
           onChange(photoId);
         }
       }
     } catch (error) {
       // Rollback on exception
-      console.error("❌ Exception during action, rolling back:", error);
+      console.error('❌ Exception during action, rolling back:', error);
       setIsActive(previousIsActive);
       if (countLabel !== undefined) {
         setCount(previousCount);
       }
 
-      showError("An error occurred. Please try again.");
+      showError('An error occurred. Please try again.');
     } finally {
       setIsLoading(false);
     }

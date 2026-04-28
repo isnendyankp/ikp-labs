@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 /**
  * Upload Progress Bar Component
@@ -7,7 +7,7 @@
  * Shows percentage and animates from 0-100%.
  */
 
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react';
 
 interface UploadProgressBarProps {
   /** Current progress percentage (0-100) */
@@ -37,17 +37,17 @@ export function UploadProgressBar({ progress }: UploadProgressBarProps) {
   }, [progress, displayProgress]);
 
   const getBarColor = () => {
-    if (isComplete) return "bg-green-500";
-    if (progress < 30) return "bg-blue-500";
-    if (progress < 70) return "bg-yellow-500";
-    return "bg-orange-500";
+    if (isComplete) return 'bg-green-500';
+    if (progress < 30) return 'bg-blue-500';
+    if (progress < 70) return 'bg-yellow-500';
+    return 'bg-orange-500';
   };
 
   return (
     <div className="w-full">
       <div className="flex justify-between items-center mb-2">
         <span className="text-sm font-medium text-gray-700">
-          {isComplete ? "Upload complete!" : "Uploading..."}
+          {isComplete ? 'Upload complete!' : 'Uploading...'}
         </span>
         <span className="text-sm font-medium text-gray-700">
           {Math.round(displayProgress)}%

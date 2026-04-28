@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 /**
  * Providers Component
@@ -7,8 +7,8 @@
  * This component is used in the root layout to provide global state.
  */
 
-import { ToastProvider } from "@/context/ToastContext";
-import { ToastContainer } from "@/components/ui/ToastContainer";
+import { ToastProvider } from '@/context/ToastContext';
+import { ToastContainer } from '@/components/ui/ToastContainer';
 
 /**
  * Providers Props

@@ -1,7 +1,7 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import type { BackToTopProps } from "./landing.types";
+import { useState, useEffect } from 'react';
+import type { BackToTopProps } from './landing.types';
 
 /**
  * BackToTop Component
@@ -15,7 +15,7 @@ import type { BackToTopProps } from "./landing.types";
  */
 export function BackToTop({
   showAt = 400,
-  position = "right",
+  position = 'right',
 }: BackToTopProps) {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -26,20 +26,20 @@ export function BackToTop({
     };
 
     // Add scroll event listener
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener('scroll', handleScroll);
 
     // Check initial scroll position
     handleScroll();
 
     // Cleanup on unmount
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
   }, [showAt]);
 
   // Scroll to top smoothly
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: "smooth",
+      behavior: 'smooth',
     });
   };
 
@@ -52,7 +52,7 @@ export function BackToTop({
     <button
       onClick={scrollToTop}
       aria-label="Scroll to top"
-      className={`fixed bottom-8 ${position === "left" ? "left-8" : "right-8"} z-50 bg-black text-white w-12 h-12 rounded-full flex items-center justify-center hover:scale-110 hover:brightness-110 shadow-lg hover:shadow-xl transition-all duration-300`}
+      className={`fixed bottom-8 ${position === 'left' ? 'left-8' : 'right-8'} z-50 bg-black text-white w-12 h-12 rounded-full flex items-center justify-center hover:scale-110 hover:brightness-110 shadow-lg hover:shadow-xl transition-all duration-300`}
     >
       <svg
         xmlns="http://www.w3.org/2000/svg"

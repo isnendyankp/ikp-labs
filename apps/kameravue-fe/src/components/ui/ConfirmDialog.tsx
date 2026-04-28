@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 /**
  * ConfirmDialog Component
@@ -14,7 +14,7 @@
  * - Customizable buttons
  */
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 
 export interface ConfirmDialogProps {
   /** Whether dialog is open */
@@ -32,7 +32,7 @@ export interface ConfirmDialogProps {
   /** Cancel button text (default: "Cancel") */
   cancelText?: string;
   /** Dialog variant (default: "danger") */
-  variant?: "danger" | "warning" | "info";
+  variant?: 'danger' | 'warning' | 'info';
 }
 
 export function ConfirmDialog({
@@ -41,9 +41,9 @@ export function ConfirmDialog({
   message,
   onConfirm,
   onCancel,
-  confirmText = "Confirm",
-  cancelText = "Cancel",
-  variant = "danger",
+  confirmText = 'Confirm',
+  cancelText = 'Cancel',
+  variant = 'danger',
 }: ConfirmDialogProps) {
   const dialogRef = useRef<HTMLDivElement>(null);
   const confirmButtonRef = useRef<HTMLButtonElement>(null);
@@ -57,13 +57,13 @@ export function ConfirmDialog({
 
     // Handle tab key for focus trap
     const handleTabKey = (e: KeyboardEvent) => {
-      if (e.key !== "Tab") return;
+      if (e.key !== 'Tab') return;
 
       const dialog = dialogRef.current;
       if (!dialog) return;
 
       const focusableElements = dialog.querySelectorAll(
-        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])',
+        'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
       );
       const firstElement = focusableElements[0] as HTMLElement;
       const lastElement = focusableElements[
@@ -87,21 +87,21 @@ export function ConfirmDialog({
 
     // Handle ESC key
     const handleEscapeKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
+      if (e.key === 'Escape') {
         onCancel();
       }
     };
 
-    document.addEventListener("keydown", handleTabKey);
-    document.addEventListener("keydown", handleEscapeKey);
+    document.addEventListener('keydown', handleTabKey);
+    document.addEventListener('keydown', handleEscapeKey);
 
     // Prevent body scroll when dialog is open
-    document.body.style.overflow = "hidden";
+    document.body.style.overflow = 'hidden';
 
     return () => {
-      document.removeEventListener("keydown", handleTabKey);
-      document.removeEventListener("keydown", handleEscapeKey);
-      document.body.style.overflow = "unset";
+      document.removeEventListener('keydown', handleTabKey);
+      document.removeEventListener('keydown', handleEscapeKey);
+      document.body.style.overflow = 'unset';
     };
   }, [isOpen, onCancel]);
 
@@ -111,16 +111,16 @@ export function ConfirmDialog({
   // Variant styles
   const variantStyles = {
     danger: {
-      confirm: "bg-red-600 hover:bg-red-700 text-white",
-      icon: "⚠️",
+      confirm: 'bg-red-600 hover:bg-red-700 text-white',
+      icon: '⚠️',
     },
     warning: {
-      confirm: "bg-yellow-600 hover:bg-yellow-700 text-white",
-      icon: "⚠️",
+      confirm: 'bg-yellow-600 hover:bg-yellow-700 text-white',
+      icon: '⚠️',
     },
     info: {
-      confirm: "bg-blue-600 hover:bg-blue-700 text-white",
-      icon: "ℹ️",
+      confirm: 'bg-blue-600 hover:bg-blue-700 text-white',
+      icon: 'ℹ️',
     },
   };
 

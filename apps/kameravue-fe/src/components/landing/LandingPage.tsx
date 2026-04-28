@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { Navbar } from "./Navbar";
-import { HeroSection } from "./HeroSection";
-import { FeaturesSection } from "./FeaturesSection";
-import { AboutSection } from "./AboutSection";
-import { CTASection } from "./CTASection";
-import { Footer } from "./Footer";
-import { BackToTop } from "./BackToTop";
-import { useRouter } from "next/navigation";
+import { useEffect, useState } from 'react';
+import { Navbar } from './Navbar';
+import { HeroSection } from './HeroSection';
+import { FeaturesSection } from './FeaturesSection';
+import { AboutSection } from './AboutSection';
+import { CTASection } from './CTASection';
+import { Footer } from './Footer';
+import { BackToTop } from './BackToTop';
+import { useRouter } from 'next/navigation';
 import {
   NavbarSkeleton,
   HeroSkeleton,
@@ -16,7 +16,7 @@ import {
   AboutSkeleton,
   CTASectionSkeleton,
   FooterSkeleton,
-} from "../skeletons/LandingPageSkeleton";
+} from '../skeletons/LandingPageSkeleton';
 
 /**
  * LandingPage Component
@@ -42,25 +42,25 @@ export default function LandingPage() {
   // Navigate handler - supports both internal section scrolling and page navigation
   const handleNavigate = (path: string) => {
     // If path starts with "/", it's a page navigation
-    if (path.startsWith("/")) {
+    if (path.startsWith('/')) {
       router.push(path);
     } else {
       // Otherwise, scroll to section within the page
       const element = document.getElementById(path);
       if (element) {
-        element.scrollIntoView({ behavior: "smooth" });
+        element.scrollIntoView({ behavior: 'smooth' });
       }
     }
   };
 
   // Get Started handler - navigate to register for new users
   const handleGetStarted = () => {
-    router.push("/register");
+    router.push('/register');
   };
 
   // Learn More handler - scroll to features
   const handleLearnMore = () => {
-    handleNavigate("features");
+    handleNavigate('features');
   };
 
   // Show skeleton loading state
@@ -113,9 +113,9 @@ export default function LandingPage() {
                     />
                   </svg>
                 ),
-                title: "Upload & Organize",
+                title: 'Upload & Organize',
                 description:
-                  "Easily upload your photos and organize them into beautiful galleries with drag-and-drop simplicity.",
+                  'Easily upload your photos and organize them into beautiful galleries with drag-and-drop simplicity.',
               },
               {
                 icon: () => (
@@ -134,9 +134,9 @@ export default function LandingPage() {
                     />
                   </svg>
                 ),
-                title: "Share Beautifully",
+                title: 'Share Beautifully',
                 description:
-                  "Share your galleries with friends, family, or the world. Control who sees what with powerful privacy settings.",
+                  'Share your galleries with friends, family, or the world. Control who sees what with powerful privacy settings.',
               },
               {
                 icon: () => (
@@ -155,9 +155,9 @@ export default function LandingPage() {
                     />
                   </svg>
                 ),
-                title: "Discover Moments",
+                title: 'Discover Moments',
                 description:
-                  "Explore stunning public galleries from photographers around the world. Get inspired by beautiful captures.",
+                  'Explore stunning public galleries from photographers around the world. Get inspired by beautiful captures.',
               },
               {
                 icon: () => (
@@ -176,9 +176,9 @@ export default function LandingPage() {
                     />
                   </svg>
                 ),
-                title: "Privacy Control",
+                title: 'Privacy Control',
                 description:
-                  "Your photos, your rules. Set your galleries to private, public, or share with specific people.",
+                  'Your photos, your rules. Set your galleries to private, public, or share with specific people.',
               },
               {
                 icon: () => (
@@ -197,9 +197,9 @@ export default function LandingPage() {
                     />
                   </svg>
                 ),
-                title: "Mobile Friendly",
+                title: 'Mobile Friendly',
                 description:
-                  "Access your galleries anywhere, anytime. Fully responsive design works perfectly on all devices.",
+                  'Access your galleries anywhere, anytime. Fully responsive design works perfectly on all devices.',
               },
               {
                 icon: () => (
@@ -218,9 +218,9 @@ export default function LandingPage() {
                     />
                   </svg>
                 ),
-                title: "Free Forever",
+                title: 'Free Forever',
                 description:
-                  "Enjoy unlimited photo uploads and galleries. No hidden fees, no premium tiers. Completely free.",
+                  'Enjoy unlimited photo uploads and galleries. No hidden fees, no premium tiers. Completely free.',
               },
             ]}
           />
@@ -230,9 +230,9 @@ export default function LandingPage() {
         <div id="about">
           <AboutSection
             stats={{
-              stat1: "Public or Private",
-              stat2: "Anonymous Favorites",
-              stat3: "100% Free Forever",
+              stat1: 'Public or Private',
+              stat2: 'Anonymous Favorites',
+              stat3: '100% Free Forever',
             }}
           />
         </div>

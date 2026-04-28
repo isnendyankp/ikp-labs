@@ -1,31 +1,31 @@
-"use client";
+'use client';
 
-import { useState, useEffect } from "react";
-import { z } from "zod";
-import Link from "next/link";
-import { useRouter } from "next/navigation";
-import Tooltip from "./Tooltip";
-import { useToast } from "@/context/ToastContext";
-import { registerUser } from "../services/api";
-import { UserRegistrationRequest, RegistrationFormData } from "../types/api";
-import { isAuthenticated } from "../lib/auth";
+import { useState, useEffect } from 'react';
+import { z } from 'zod';
+import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import Tooltip from './Tooltip';
+import { useToast } from '@/context/ToastContext';
+import { registerUser } from '../services/api';
+import { UserRegistrationRequest, RegistrationFormData } from '../types/api';
+import { isAuthenticated } from '../lib/auth';
 
 const registrationSchema = z
   .object({
-    name: z.string().min(2, "Name must be at least 2 characters long"),
-    email: z.string().email("Please enter a valid email address"),
+    name: z.string().min(2, 'Name must be at least 2 characters long'),
+    email: z.string().email('Please enter a valid email address'),
     password: z
       .string()
-      .min(8, "At least 8 characters")
-      .regex(/[a-z]/, "One lowercase letter (a-z)")
-      .regex(/[A-Z]/, "One uppercase letter (A-Z)")
-      .regex(/[0-9]/, "One number (0-9)")
-      .regex(/[@$!%*?&]/, "One special character (@$!%*?&)"),
+      .min(8, 'At least 8 characters')
+      .regex(/[a-z]/, 'One lowercase letter (a-z)')
+      .regex(/[A-Z]/, 'One uppercase letter (A-Z)')
+      .regex(/[0-9]/, 'One number (0-9)')
+      .regex(/[@$!%*?&]/, 'One special character (@$!%*?&)'),
     confirmPassword: z.string(),
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
-    path: ["confirmPassword"],
+    path: ['confirmPassword'],
   });
 
 export default function RegistrationForm() {
@@ -34,25 +34,25 @@ export default function RegistrationForm() {
 
   // Google OAuth feature flag - controlled by environment variable
   const GOOGLE_OAUTH_ENABLED =
-    process.env.NEXT_PUBLIC_GOOGLE_OAUTH_ENABLED === "true";
+    process.env.NEXT_PUBLIC_GOOGLE_OAUTH_ENABLED === 'true';
 
   const [formData, setFormData] = useState<RegistrationFormData>({
-    name: "",
-    email: "",
-    password: "",
-    confirmPassword: "",
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [apiError, setApiError] = useState<string>("");
+  const [apiError, setApiError] = useState<string>('');
 
   // Redirect to gallery if already authenticated
   useEffect(() => {
     if (isAuthenticated()) {
-      router.push("/gallery");
+      router.push('/gallery');
     }
   }, [router]);
 
@@ -67,7 +67,7 @@ export default function RegistrationForm() {
     if (errors[name]) {
       setErrors({
         ...errors,
-        [name]: "",
+        [name]: '',
       });
     }
   };
@@ -77,7 +77,7 @@ export default function RegistrationForm() {
 
     // Clear previous errors
     setErrors({});
-    setApiError("");
+    setApiError('');
 
     try {
       // Validate form data using Zod schema
@@ -92,7 +92,7 @@ export default function RegistrationForm() {
         password: formData.password,
       };
 
-      console.log("🚀 Submitting registration:", {
+      console.log('🚀 Submitting registration:', {
         email: registrationData.email,
         fullName: registrationData.fullName,
       });
@@ -101,14 +101,14 @@ export default function RegistrationForm() {
       const response = await registerUser(registrationData);
 
       if (response.data) {
-        console.log("✅ Registration successful:", response.data);
+        console.log('✅ Registration successful:', response.data);
 
         // Token already saved by registerUser() in api.ts
         // User is automatically logged in after registration
         // Redirect to gallery page
-        router.push("/gallery");
+        router.push('/gallery');
       } else if (response.error) {
-        console.error("❌ Registration failed:", response.error);
+        console.error('❌ Registration failed:', response.error);
 
         // Handle field-specific errors from backend
         if (response.error.fieldErrors) {
@@ -116,18 +116,18 @@ export default function RegistrationForm() {
           Object.entries(response.error.fieldErrors).forEach(
             ([field, message]) => {
               // Map backend field names to frontend field names
-              if (field === "fullName") {
-                backendErrors["name"] = message;
+              if (field === 'fullName') {
+                backendErrors['name'] = message;
               } else {
                 backendErrors[field] = message;
               }
-            },
+            }
           );
           setErrors(backendErrors);
         } else {
           // General API error
           setApiError(
-            response.error.message || "Registration failed. Please try again.",
+            response.error.message || 'Registration failed. Please try again.'
           );
         }
       }
@@ -140,7 +140,7 @@ export default function RegistrationForm() {
             const field = err.path[0] as string;
             // Append error message if field already has an error
             if (newErrors[field]) {
-              newErrors[field] += "; " + err.message;
+              newErrors[field] += '; ' + err.message;
             } else {
               newErrors[field] = err.message;
             }
@@ -148,8 +148,8 @@ export default function RegistrationForm() {
         });
         setErrors(newErrors);
       } else {
-        console.error("❌ Unexpected error:", error);
-        setApiError("An unexpected error occurred. Please try again.");
+        console.error('❌ Unexpected error:', error);
+        setApiError('An unexpected error occurred. Please try again.');
       }
     } finally {
       setIsLoading(false);
@@ -158,8 +158,8 @@ export default function RegistrationForm() {
 
   const handleGoogleSignup = () => {
     toast.showInfo(
-      "Google OAuth authentication is planned for future development. " +
-        "This is a learning project - currently only email/password authentication is available.",
+      'Google OAuth authentication is planned for future development. ' +
+        'This is a learning project - currently only email/password authentication is available.'
     );
   };
 
@@ -244,7 +244,7 @@ export default function RegistrationForm() {
                 placeholder="John doe"
                 value={formData.name}
                 onChange={handleChange}
-                className={`w-full border-0 border-b-2 ${errors.name ? "border-red-500" : "border-gray-300 focus:border-black"} focus:ring-0 pb-2 bg-gray-100 text-gray-900 placeholder-gray-500 focus:outline-none transition-colors`}
+                className={`w-full border-0 border-b-2 ${errors.name ? 'border-red-500' : 'border-gray-300 focus:border-black'} focus:ring-0 pb-2 bg-gray-100 text-gray-900 placeholder-gray-500 focus:outline-none transition-colors`}
                 required
               />
               {errors.name && (
@@ -270,7 +270,7 @@ export default function RegistrationForm() {
                 placeholder="Jhondoe@mail.com"
                 value={formData.email}
                 onChange={handleChange}
-                className={`w-full border-0 border-b-2 ${errors.email ? "border-red-500" : "border-gray-300 focus:border-black"} focus:ring-0 pb-2 bg-gray-100 text-gray-900 placeholder-gray-500 focus:outline-none transition-colors`}
+                className={`w-full border-0 border-b-2 ${errors.email ? 'border-red-500' : 'border-gray-300 focus:border-black'} focus:ring-0 pb-2 bg-gray-100 text-gray-900 placeholder-gray-500 focus:outline-none transition-colors`}
                 required
               />
               {errors.email && (
@@ -290,17 +290,17 @@ export default function RegistrationForm() {
               </label>
               <div className="relative">
                 <input
-                  type={showPassword ? "text" : "password"}
+                  type={showPassword ? 'text' : 'password'}
                   id="password"
                   name="password"
                   placeholder="Test1234!"
                   value={formData.password}
                   onChange={handleChange}
-                  className={`w-full border-0 border-b-2 ${errors.password ? "border-red-500" : "border-gray-300 focus:border-black"} focus:ring-0 pb-2 pr-10 bg-gray-100 text-gray-900 placeholder-gray-500 focus:outline-none transition-colors`}
+                  className={`w-full border-0 border-b-2 ${errors.password ? 'border-red-500' : 'border-gray-300 focus:border-black'} focus:ring-0 pb-2 pr-10 bg-gray-100 text-gray-900 placeholder-gray-500 focus:outline-none transition-colors`}
                   required
                 />
                 <Tooltip
-                  text={showPassword ? "Hide password" : "Show password"}
+                  text={showPassword ? 'Hide password' : 'Show password'}
                   position="top"
                 >
                   <button
@@ -363,20 +363,20 @@ export default function RegistrationForm() {
               </label>
               <div className="relative">
                 <input
-                  type={showConfirmPassword ? "text" : "password"}
+                  type={showConfirmPassword ? 'text' : 'password'}
                   id="confirmPassword"
                   name="confirmPassword"
                   placeholder="Type your password again"
                   value={formData.confirmPassword}
                   onChange={handleChange}
-                  className={`w-full border-0 border-b-2 ${errors.confirmPassword ? "border-red-500" : "border-gray-300 focus:border-black"} focus:ring-0 pb-2 pr-10 bg-gray-100 text-gray-900 placeholder-gray-500 focus:outline-none transition-colors`}
+                  className={`w-full border-0 border-b-2 ${errors.confirmPassword ? 'border-red-500' : 'border-gray-300 focus:border-black'} focus:ring-0 pb-2 pr-10 bg-gray-100 text-gray-900 placeholder-gray-500 focus:outline-none transition-colors`}
                   required
                 />
                 <Tooltip
                   text={
                     showConfirmPassword
-                      ? "Hide confirm password"
-                      : "Show confirm password"
+                      ? 'Hide confirm password'
+                      : 'Show confirm password'
                   }
                   position="top"
                 >
@@ -436,8 +436,8 @@ export default function RegistrationForm() {
               disabled={isLoading}
               className={`w-full py-3 px-4 rounded-lg font-medium transition-colors mt-8 ${
                 isLoading
-                  ? "bg-gray-400 text-gray-600 cursor-not-allowed"
-                  : "bg-black text-white hover:bg-gray-800"
+                  ? 'bg-gray-400 text-gray-600 cursor-not-allowed'
+                  : 'bg-black text-white hover:bg-gray-800'
               }`}
             >
               {isLoading ? (
@@ -465,7 +465,7 @@ export default function RegistrationForm() {
                   Creating Account...
                 </div>
               ) : (
-                "Create Account"
+                'Create Account'
               )}
             </button>
 
@@ -501,7 +501,7 @@ export default function RegistrationForm() {
 
           {/* Sign In Link */}
           <p className="mt-6 text-center text-gray-600">
-            Already have an account?{" "}
+            Already have an account?{' '}
             <Link
               href="/login"
               className="text-blue-600 hover:text-blue-500 font-medium"

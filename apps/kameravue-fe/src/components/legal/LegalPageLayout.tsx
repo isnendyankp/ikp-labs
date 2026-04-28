@@ -1,5 +1,5 @@
-import Link from "next/link";
-import type { ReactNode } from "react";
+import Link from 'next/link';
+import type { ReactNode } from 'react';
 
 /**
  * Legal Page Layout Props
@@ -41,10 +41,10 @@ export function LegalPageLayout({
 
   // Default footer links
   const defaultFooterLinks = [
-    { label: "Home", href: "/" },
-    { label: "Terms of Service", href: "/terms" },
-    { label: "Privacy Policy", href: "/privacy" },
-    { label: "Contact", href: "mailto:isnendyankp@gmail.com" },
+    { label: 'Home', href: '/' },
+    { label: 'Terms of Service', href: '/terms' },
+    { label: 'Privacy Policy', href: '/privacy' },
+    { label: 'Contact', href: 'mailto:isnendyankp@gmail.com' },
   ];
 
   const links = footerLinks || defaultFooterLinks;
@@ -92,7 +92,7 @@ export function LegalPageLayout({
             </p>
             <div className="flex items-center gap-6 text-sm flex-wrap justify-center">
               {links.map((link) =>
-                link.href.startsWith("mailto:") ? (
+                link.href.startsWith('mailto:') ? (
                   <a
                     key={link.label}
                     href={link.href}
@@ -108,7 +108,7 @@ export function LegalPageLayout({
                   >
                     {link.label}
                   </Link>
-                ),
+                )
               )}
             </div>
           </div>

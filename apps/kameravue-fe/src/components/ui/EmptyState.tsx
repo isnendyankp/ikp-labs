@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 /**
  * EmptyState Component
@@ -13,7 +13,7 @@
  * - Centered layout
  */
 
-import { ButtonHTMLAttributes, ReactNode } from "react";
+import { ButtonHTMLAttributes, ReactNode } from 'react';
 
 export interface EmptyStateProps {
   /** Icon to display (emoji or React node) */
@@ -39,7 +39,7 @@ export function EmptyState({
   actionText,
   onAction,
   actionButtonProps,
-  className = "",
+  className = '',
 }: EmptyStateProps) {
   return (
     <div
@@ -48,7 +48,7 @@ export function EmptyState({
       {/* Icon */}
       {icon && (
         <div className="text-6xl mb-4">
-          {typeof icon === "string" ? <span role="img">{icon}</span> : icon}
+          {typeof icon === 'string' ? <span role="img">{icon}</span> : icon}
         </div>
       )}
 

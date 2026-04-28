@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 /**
  * IconButton Component - Reusable icon-only button component
@@ -49,10 +49,10 @@
  * @since 2026-02-07
  */
 
-import { ButtonHTMLAttributes, ReactNode } from "react";
+import { ButtonHTMLAttributes, ReactNode } from 'react';
 
-export type IconButtonSize = "small" | "medium" | "large";
-export type IconButtonShape = "circle" | "rounded" | "square";
+export type IconButtonSize = 'small' | 'medium' | 'large';
+export type IconButtonShape = 'circle' | 'rounded' | 'square';
 
 export interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   /** Icon to display (can be component or node) */
@@ -85,20 +85,20 @@ export interface IconButtonProps extends ButtonHTMLAttributes<HTMLButtonElement>
 
 export function IconButton({
   icon,
-  size = "medium",
-  shape = "circle",
+  size = 'medium',
+  shape = 'circle',
   isActive = false,
-  activeColor = "text-blue-600",
-  inactiveColor = "text-gray-600",
-  disabledColor = "text-gray-300",
-  hoverColor = "",
-  focusRing = "focus:ring-blue-300",
+  activeColor = 'text-blue-600',
+  inactiveColor = 'text-gray-600',
+  disabledColor = 'text-gray-300',
+  hoverColor = '',
+  focusRing = 'focus:ring-blue-300',
   showHoverBg = true,
   isLoading = false,
   disabled = false,
   ariaLabel,
   title,
-  className = "",
+  className = '',
   onClick,
   ...props
 }: IconButtonProps) {
@@ -106,23 +106,23 @@ export function IconButton({
   // Same pattern as LikeButton/FavoriteButton for consistency
 
   const sizeClasses = {
-    small: "h-5 w-5",
-    medium: "h-6 w-6",
-    large: "h-8 w-8",
+    small: 'h-5 w-5',
+    medium: 'h-6 w-6',
+    large: 'h-8 w-8',
   };
 
   const buttonSizeClasses = {
-    small: "p-1 text-sm",
-    medium: "p-2 text-base",
-    large: "p-3 text-lg",
+    small: 'p-1 text-sm',
+    medium: 'p-2 text-base',
+    large: 'p-3 text-lg',
   };
 
   // === SHAPE VARIANTS ===
 
   const shapeClasses = {
-    circle: "rounded-full",
-    rounded: "rounded-lg",
-    square: "rounded-none",
+    circle: 'rounded-full',
+    rounded: 'rounded-lg',
+    square: 'rounded-none',
   };
 
   // === COLOR LOGIC ===
@@ -142,19 +142,19 @@ export function IconButton({
   // === STYLING ===
 
   const baseStyles =
-    "flex items-center justify-center transition-all duration-200";
+    'flex items-center justify-center transition-all duration-200';
   const sizeStyle = buttonSizeClasses[size];
   const shapeStyle = shapeClasses[shape];
   const colorStyle = getColorClass();
   const hoverStyle =
     hoverColor ||
-    (isActive ? "" : `hover:${activeColor.replace(/^text-/, "text-")}`);
+    (isActive ? '' : `hover:${activeColor.replace(/^text-/, 'text-')}`);
   const hoverBgStyle =
-    showHoverBg && !(disabled || isLoading) ? "hover:bg-gray-100" : "";
-  const focusStyle = "focus:outline-none focus:ring-2";
+    showHoverBg && !(disabled || isLoading) ? 'hover:bg-gray-100' : '';
+  const focusStyle = 'focus:outline-none focus:ring-2';
   const disabledStyle =
-    disabled || isLoading ? "opacity-50 cursor-not-allowed" : "cursor-pointer";
-  const loadingStyle = isLoading ? "cursor-not-allowed" : "";
+    disabled || isLoading ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer';
+  const loadingStyle = isLoading ? 'cursor-not-allowed' : '';
 
   const buttonClasses = `
     ${baseStyles}
@@ -170,7 +170,7 @@ export function IconButton({
     ${className}
   `
     .trim()
-    .replace(/\s+/g, " ");
+    .replace(/\s+/g, ' ');
 
   // === RENDER ===
 
@@ -184,7 +184,7 @@ export function IconButton({
       {...props}
     >
       {/* Clone icon and add size class */}
-      {icon != null && typeof icon === "object" && "type" in icon ? (
+      {icon != null && typeof icon === 'object' && 'type' in icon ? (
         // It's a React component, clone with className
         <icon.type {...(icon.props || {})} className={sizeClasses[size]} />
       ) : (

@@ -36,8 +36,8 @@ export default function Pagination({
           px-6 py-2 rounded-lg font-medium transition-colors
           ${
             hasPrevious && !loading
-              ? "bg-blue-600 text-white hover:bg-blue-700"
-              : "bg-gray-200 text-gray-400 cursor-not-allowed"
+              ? 'bg-blue-600 text-white hover:bg-blue-700'
+              : 'bg-gray-200 text-gray-400 cursor-not-allowed'
           }
         `}
       >
@@ -59,8 +59,8 @@ export default function Pagination({
           px-6 py-2 rounded-lg font-medium transition-colors
           ${
             hasNext && !loading
-              ? "bg-blue-600 text-white hover:bg-blue-700"
-              : "bg-gray-200 text-gray-400 cursor-not-allowed"
+              ? 'bg-blue-600 text-white hover:bg-blue-700'
+              : 'bg-gray-200 text-gray-400 cursor-not-allowed'
           }
         `}
       >

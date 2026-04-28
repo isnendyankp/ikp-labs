@@ -4,9 +4,9 @@
  * Tests for the Toast container component.
  */
 
-import { render, screen, act } from "@testing-library/react";
-import { ToastContainer } from "../../../components/ui/ToastContainer";
-import { ToastProvider, useToast } from "@/context/ToastContext";
+import { render, screen, act } from '@testing-library/react';
+import { ToastContainer } from '../../../components/ui/ToastContainer';
+import { ToastProvider, useToast } from '@/context/ToastContext';
 
 // Helper component to test ToastContainer with context
 function TestComponent() {
@@ -15,67 +15,67 @@ function TestComponent() {
   return (
     <div>
       <ToastContainer />
-      <button onClick={() => showSuccess("Test toast")}>Show Toast</button>
+      <button onClick={() => showSuccess('Test toast')}>Show Toast</button>
     </div>
   );
 }
 
-describe("ToastContainer Component", () => {
-  it("renders container even when there are no toasts", () => {
+describe('ToastContainer Component', () => {
+  it('renders container even when there are no toasts', () => {
     const { container } = render(
       <ToastProvider>
         <ToastContainer />
-      </ToastProvider>,
+      </ToastProvider>
     );
 
     // ToastContainer always renders but with empty toasts array initially
-    const toastContainer = container.querySelector(".toast-container");
+    const toastContainer = container.querySelector('.toast-container');
     expect(toastContainer).toBeInTheDocument();
 
     // No toast items should be visible initially
-    const toasts = container.querySelectorAll(".toast-item");
+    const toasts = container.querySelectorAll('.toast-item');
     expect(toasts).toHaveLength(0);
   });
 
-  it("renders toast container when toasts are present", () => {
+  it('renders toast container when toasts are present', () => {
     const { container } = render(
       <ToastProvider>
         <TestComponent />
-      </ToastProvider>,
+      </ToastProvider>
     );
 
     // Container is always present
-    const toastContainer = container.querySelector(".toast-container");
+    const toastContainer = container.querySelector('.toast-container');
     expect(toastContainer).toBeInTheDocument();
 
     // Click button to show toast
-    const button = screen.getByText("Show Toast");
+    const button = screen.getByText('Show Toast');
     act(() => {
       button.click();
     });
 
     // Now toast items should be present
-    const toasts = container.querySelectorAll(".toast-item");
+    const toasts = container.querySelectorAll('.toast-item');
     expect(toasts).toHaveLength(1);
   });
 
-  it("has correct accessibility attributes", () => {
+  it('has correct accessibility attributes', () => {
     const { container } = render(
       <ToastProvider>
         <TestComponent />
-      </ToastProvider>,
+      </ToastProvider>
     );
 
-    const button = screen.getByText("Show Toast");
+    const button = screen.getByText('Show Toast');
     button.click();
 
-    const toastContainer = container.querySelector(".toast-container");
-    expect(toastContainer).toHaveAttribute("role", "region");
-    expect(toastContainer).toHaveAttribute("aria-label", "Toast notifications");
-    expect(toastContainer).toHaveAttribute("aria-live", "polite");
+    const toastContainer = container.querySelector('.toast-container');
+    expect(toastContainer).toHaveAttribute('role', 'region');
+    expect(toastContainer).toHaveAttribute('aria-label', 'Toast notifications');
+    expect(toastContainer).toHaveAttribute('aria-live', 'polite');
   });
 
-  it("displays multiple toasts", () => {
+  it('displays multiple toasts', () => {
     function MultiToastTest() {
       const { showSuccess, showError } = useToast();
 
@@ -84,8 +84,8 @@ describe("ToastContainer Component", () => {
           <ToastContainer />
           <button
             onClick={() => {
-              showSuccess("Success toast");
-              showError("Error toast");
+              showSuccess('Success toast');
+              showError('Error toast');
             }}
           >
             Show Multiple Toasts
@@ -97,18 +97,18 @@ describe("ToastContainer Component", () => {
     const { container } = render(
       <ToastProvider>
         <MultiToastTest />
-      </ToastProvider>,
+      </ToastProvider>
     );
 
-    const button = screen.getByText("Show Multiple Toasts");
+    const button = screen.getByText('Show Multiple Toasts');
     act(() => {
       button.click();
     });
 
-    const toastContainer = container.querySelector(".toast-container");
+    const toastContainer = container.querySelector('.toast-container');
     expect(toastContainer).toBeInTheDocument();
 
-    const toasts = container.querySelectorAll(".toast-item");
+    const toasts = container.querySelectorAll('.toast-item');
     expect(toasts).toHaveLength(2);
   });
 });

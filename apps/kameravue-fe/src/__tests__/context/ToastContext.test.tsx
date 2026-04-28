@@ -4,12 +4,12 @@
  * Tests for the Toast context and useToast hook.
  */
 
-import { renderHook, act, waitFor } from "@testing-library/react";
-import { useToast } from "../../context/ToastContext";
-import { ToastProvider } from "../../context/ToastContext";
+import { renderHook, act, waitFor } from '@testing-library/react';
+import { useToast } from '../../context/ToastContext';
+import { ToastProvider } from '../../context/ToastContext';
 
-describe("ToastContext", () => {
-  it("provides toast context to children", () => {
+describe('ToastContext', () => {
+  it('provides toast context to children', () => {
     const wrapper = ({ children }: { children: React.ReactNode }) => (
       <ToastProvider>{children}</ToastProvider>
     );
@@ -17,15 +17,15 @@ describe("ToastContext", () => {
     const { result } = renderHook(() => useToast(), { wrapper });
 
     expect(result.current.toasts).toEqual([]);
-    expect(typeof result.current.showToast).toBe("function");
-    expect(typeof result.current.showSuccess).toBe("function");
-    expect(typeof result.current.showError).toBe("function");
-    expect(typeof result.current.showWarning).toBe("function");
-    expect(typeof result.current.showInfo).toBe("function");
-    expect(typeof result.current.removeToast).toBe("function");
+    expect(typeof result.current.showToast).toBe('function');
+    expect(typeof result.current.showSuccess).toBe('function');
+    expect(typeof result.current.showError).toBe('function');
+    expect(typeof result.current.showWarning).toBe('function');
+    expect(typeof result.current.showInfo).toBe('function');
+    expect(typeof result.current.removeToast).toBe('function');
   });
 
-  it("shows toast when showToast is called", () => {
+  it('shows toast when showToast is called', () => {
     const wrapper = ({ children }: { children: React.ReactNode }) => (
       <ToastProvider>{children}</ToastProvider>
     );
@@ -34,17 +34,17 @@ describe("ToastContext", () => {
 
     act(() => {
       result.current.showToast({
-        message: "Test message",
-        type: "success",
+        message: 'Test message',
+        type: 'success',
       });
     });
 
     expect(result.current.toasts).toHaveLength(1);
-    expect(result.current.toasts[0].message).toBe("Test message");
-    expect(result.current.toasts[0].type).toBe("success");
+    expect(result.current.toasts[0].message).toBe('Test message');
+    expect(result.current.toasts[0].type).toBe('success');
   });
 
-  it("shows success toast with correct defaults", () => {
+  it('shows success toast with correct defaults', () => {
     const wrapper = ({ children }: { children: React.ReactNode }) => (
       <ToastProvider>{children}</ToastProvider>
     );
@@ -52,16 +52,16 @@ describe("ToastContext", () => {
     const { result } = renderHook(() => useToast(), { wrapper });
 
     act(() => {
-      result.current.showSuccess("Success message");
+      result.current.showSuccess('Success message');
     });
 
     expect(result.current.toasts).toHaveLength(1);
-    expect(result.current.toasts[0].type).toBe("success");
-    expect(result.current.toasts[0].message).toBe("Success message");
+    expect(result.current.toasts[0].type).toBe('success');
+    expect(result.current.toasts[0].message).toBe('Success message');
     expect(result.current.toasts[0].duration).toBe(4000); // Default success duration
   });
 
-  it("shows error toast with correct defaults", () => {
+  it('shows error toast with correct defaults', () => {
     const wrapper = ({ children }: { children: React.ReactNode }) => (
       <ToastProvider>{children}</ToastProvider>
     );
@@ -69,16 +69,16 @@ describe("ToastContext", () => {
     const { result } = renderHook(() => useToast(), { wrapper });
 
     act(() => {
-      result.current.showError("Error message");
+      result.current.showError('Error message');
     });
 
     expect(result.current.toasts).toHaveLength(1);
-    expect(result.current.toasts[0].type).toBe("error");
-    expect(result.current.toasts[0].message).toBe("Error message");
+    expect(result.current.toasts[0].type).toBe('error');
+    expect(result.current.toasts[0].message).toBe('Error message');
     expect(result.current.toasts[0].duration).toBe(5000); // Default error duration
   });
 
-  it("shows warning toast with correct defaults", () => {
+  it('shows warning toast with correct defaults', () => {
     const wrapper = ({ children }: { children: React.ReactNode }) => (
       <ToastProvider>{children}</ToastProvider>
     );
@@ -86,16 +86,16 @@ describe("ToastContext", () => {
     const { result } = renderHook(() => useToast(), { wrapper });
 
     act(() => {
-      result.current.showWarning("Warning message");
+      result.current.showWarning('Warning message');
     });
 
     expect(result.current.toasts).toHaveLength(1);
-    expect(result.current.toasts[0].type).toBe("warning");
-    expect(result.current.toasts[0].message).toBe("Warning message");
+    expect(result.current.toasts[0].type).toBe('warning');
+    expect(result.current.toasts[0].message).toBe('Warning message');
     expect(result.current.toasts[0].duration).toBe(5000); // Default warning duration
   });
 
-  it("shows info toast with correct defaults", () => {
+  it('shows info toast with correct defaults', () => {
     const wrapper = ({ children }: { children: React.ReactNode }) => (
       <ToastProvider>{children}</ToastProvider>
     );
@@ -103,16 +103,16 @@ describe("ToastContext", () => {
     const { result } = renderHook(() => useToast(), { wrapper });
 
     act(() => {
-      result.current.showInfo("Info message");
+      result.current.showInfo('Info message');
     });
 
     expect(result.current.toasts).toHaveLength(1);
-    expect(result.current.toasts[0].type).toBe("info");
-    expect(result.current.toasts[0].message).toBe("Info message");
+    expect(result.current.toasts[0].type).toBe('info');
+    expect(result.current.toasts[0].message).toBe('Info message');
     expect(result.current.toasts[0].duration).toBe(4000); // Default info duration
   });
 
-  it("removes toast by id", () => {
+  it('removes toast by id', () => {
     const wrapper = ({ children }: { children: React.ReactNode }) => (
       <ToastProvider>{children}</ToastProvider>
     );
@@ -120,8 +120,8 @@ describe("ToastContext", () => {
     const { result } = renderHook(() => useToast(), { wrapper });
 
     act(() => {
-      result.current.showSuccess("First message");
-      result.current.showError("Second message");
+      result.current.showSuccess('First message');
+      result.current.showError('Second message');
     });
 
     expect(result.current.toasts).toHaveLength(2);
@@ -131,10 +131,10 @@ describe("ToastContext", () => {
     });
 
     expect(result.current.toasts).toHaveLength(1);
-    expect(result.current.toasts[0].message).toBe("Second message");
+    expect(result.current.toasts[0].message).toBe('Second message');
   });
 
-  it("enforces maximum visible toasts limit", () => {
+  it('enforces maximum visible toasts limit', () => {
     jest.useFakeTimers();
 
     const wrapper = ({ children }: { children: React.ReactNode }) => (
@@ -156,19 +156,19 @@ describe("ToastContext", () => {
     jest.useRealTimers();
   });
 
-  it("throws error when useToast is used outside provider", () => {
+  it('throws error when useToast is used outside provider', () => {
     // Suppress console.error for this test
     const consoleError = console.error;
     console.error = jest.fn();
 
     expect(() => {
       renderHook(() => useToast());
-    }).toThrow("useToast must be used within a ToastProvider");
+    }).toThrow('useToast must be used within a ToastProvider');
 
     console.error = consoleError;
   });
 
-  it("auto-dismisses toast after duration", async () => {
+  it('auto-dismisses toast after duration', async () => {
     jest.useFakeTimers();
 
     const wrapper = ({ children }: { children: React.ReactNode }) => (
@@ -178,7 +178,7 @@ describe("ToastContext", () => {
     const { result } = renderHook(() => useToast(), { wrapper });
 
     act(() => {
-      result.current.showSuccess("Auto-dismiss message");
+      result.current.showSuccess('Auto-dismiss message');
     });
 
     expect(result.current.toasts).toHaveLength(1);

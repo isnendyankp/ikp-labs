@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import { useState, useRef, ChangeEvent } from "react";
+import { useState, useRef, ChangeEvent } from 'react';
 import {
   uploadProfilePicture,
   validateImageFile,
-} from "../services/profileService";
-import { ProfilePictureResponse } from "../types/api";
+} from '../services/profileService';
+import { ProfilePictureResponse } from '../types/api';
 
 /**
  * ProfilePictureUpload Component
@@ -116,7 +116,7 @@ export default function ProfilePictureUpload({
    */
   const handleUpload = async () => {
     if (!selectedFile) {
-      setError("Please select a file first");
+      setError('Please select a file first');
       return;
     }
 
@@ -127,7 +127,7 @@ export default function ProfilePictureUpload({
       const response = await uploadProfilePicture(selectedFile);
 
       if (response.data) {
-        console.log("✅ Upload successful:", response.data);
+        console.log('✅ Upload successful:', response.data);
 
         // Call success callback
         if (onUploadSuccess) {
@@ -140,10 +140,10 @@ export default function ProfilePictureUpload({
 
         // Reset file input
         if (fileInputRef.current) {
-          fileInputRef.current.value = "";
+          fileInputRef.current.value = '';
         }
       } else if (response.error) {
-        const errorMessage = response.error.message || "Upload failed";
+        const errorMessage = response.error.message || 'Upload failed';
         setError(errorMessage);
 
         if (onUploadError) {
@@ -151,7 +151,7 @@ export default function ProfilePictureUpload({
         }
       }
     } catch (err) {
-      const errorMessage = err instanceof Error ? err.message : "Upload failed";
+      const errorMessage = err instanceof Error ? err.message : 'Upload failed';
       setError(errorMessage);
 
       if (onUploadError) {
@@ -171,7 +171,7 @@ export default function ProfilePictureUpload({
     setError(null);
 
     if (fileInputRef.current) {
-      fileInputRef.current.value = "";
+      fileInputRef.current.value = '';
     }
   };
 
@@ -191,20 +191,20 @@ export default function ProfilePictureUpload({
         onDrop={handleDrop}
         className={`border-2 border-dashed rounded-lg p-4 sm:p-8 text-center transition-colors ${
           isDragging
-            ? "border-blue-500 bg-blue-50"
-            : "border-gray-300 bg-gray-50 hover:border-gray-400"
+            ? 'border-blue-500 bg-blue-50'
+            : 'border-gray-300 bg-gray-50 hover:border-gray-400'
         }`}
       >
         {/* Preview or Current Picture */}
         {previewUrl || currentPictureUrl ? (
           <div className="mb-4">
             <img
-              src={previewUrl || currentPictureUrl || ""}
+              src={previewUrl || currentPictureUrl || ''}
               alt="Preview"
               className="w-32 h-32 mx-auto rounded-full object-cover border-4 border-white shadow-lg"
             />
             <p className="mt-2 text-sm text-gray-600">
-              {previewUrl ? "New picture preview" : "Current profile picture"}
+              {previewUrl ? 'New picture preview' : 'Current profile picture'}
             </p>
           </div>
         ) : (
@@ -275,11 +275,11 @@ export default function ProfilePictureUpload({
             disabled={isUploading}
             className={`flex-1 py-3 px-4 rounded-lg font-medium transition-colors ${
               isUploading
-                ? "bg-gray-400 text-gray-600 cursor-not-allowed"
-                : "bg-blue-600 text-white hover:bg-blue-700"
+                ? 'bg-gray-400 text-gray-600 cursor-not-allowed'
+                : 'bg-blue-600 text-white hover:bg-blue-700'
             }`}
           >
-            {isUploading ? "Uploading..." : "Upload Picture"}
+            {isUploading ? 'Uploading...' : 'Upload Picture'}
           </button>
 
           <button

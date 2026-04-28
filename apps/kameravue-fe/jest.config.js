@@ -1,21 +1,21 @@
 /* eslint-disable @typescript-eslint/no-require-imports */
-const path = require("path");
-const nextJest = require("next/jest");
+const path = require('path');
+const nextJest = require('next/jest');
 
 const createJestConfig = nextJest({
-  dir: "./",
+  dir: './',
 });
 
 const customJestConfig = {
   // Use absolute path to ensure CI resolves correctly in npm workspaces
-  setupFilesAfterEnv: [path.resolve(__dirname, "jest.setup.js")],
-  testEnvironment: "jsdom",
+  setupFilesAfterEnv: [path.resolve(__dirname, 'jest.setup.js')],
+  testEnvironment: 'jsdom',
   testPathIgnorePatterns: [
-    "<rootDir>/.next/",
-    "<rootDir>/node_modules/",
-    "<rootDir>/tests/e2e/",
+    '<rootDir>/.next/',
+    '<rootDir>/node_modules/',
+    '<rootDir>/tests/e2e/',
   ],
-  collectCoverageFrom: ["src/**/*.{js,jsx,ts,tsx}", "!src/**/*.d.ts"],
+  collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!src/**/*.d.ts'],
   // Coverage thresholds - set to current coverage level to prevent regression
   // Actual coverage: ~34% statements, ~34% branches, ~39% functions
   // Project focuses on E2E tests (48 tests) for critical path coverage
@@ -29,7 +29,7 @@ const customJestConfig = {
   },
   // Module name mapper for @/* aliases
   moduleNameMapper: {
-    "^@/(.*)$": "<rootDir>/src/$1",
+    '^@/(.*)$': '<rootDir>/src/$1',
   },
 };
 

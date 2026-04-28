@@ -23,10 +23,10 @@
  * ```
  */
 
-"use client";
+'use client';
 
-import { useRouter } from "next/navigation";
-import { Upload } from "lucide-react";
+import { useRouter } from 'next/navigation';
+import { Upload } from 'lucide-react';
 
 interface FABUploadProps {
   /** Optional custom click handler */
@@ -42,14 +42,14 @@ interface FABUploadProps {
  * Always visible on all devices for quick upload access.
  * Automatically navigates to /gallery/upload when clicked.
  */
-export function FABUpload({ onClick, className = "" }: FABUploadProps) {
+export function FABUpload({ onClick, className = '' }: FABUploadProps) {
   const router = useRouter();
 
   const handleClick = () => {
     if (onClick) {
       onClick();
     } else {
-      router.push("/gallery/upload");
+      router.push('/gallery/upload');
     }
   };
 
