@@ -1,7 +1,7 @@
 {
-  "name": "registration-form-monorepo",
+  "name": "ikp-labs",
   "version": "1.0.0",
-  "description": "Registration Form Template - Frontend and Backend",
+  "description": "IKP Labs — KameraVue photo gallery, Nx monorepo, Next.js + Spring Boot",
   "private": true,
   "workspaces": [
     "apps/kameravue-fe",
