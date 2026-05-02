@@ -15,6 +15,7 @@ How-to guides are goal-oriented directions that help you solve a specific proble
 
 ### Development & Testing
 
+- [Setup Development Environment](./setup-development-environment.md) - How to set up IKP-Labs locally from scratch (Node.js, Java, PostgreSQL, commitlint, Prettier)
 - [Setup Claude Code](./setup-claude-code.md) - How to setup and migrate Claude Code from z.ai to subscription
 - [Setup RTK](./setup-rtk.md) - How to install and configure RTK for token savings with Claude Code
 - [Use Claude Validators](./use-claude-validators.md) - How to use validator agents to check tests, documentation, and plans

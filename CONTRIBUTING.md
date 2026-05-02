@@ -19,12 +19,15 @@ Thank you for your interest in contributing to IKP Labs! This document provides 
 3. Add upstream remote: `git remote add upstream https://github.com/isnendyankp/ikp-labs.git`
 4. Install dependencies:
    ```bash
-   # Backend
-   cd backend && mvn install
-   
-   # Frontend
-   cd frontend && npm install
+   npm install
    ```
+5. Start services:
+   ```bash
+   nx serve kameravue-be   # Backend on http://localhost:8081
+   nx serve kameravue-fe   # Frontend on http://localhost:3002
+   ```
+
+For a full setup walkthrough, see [docs/how-to/setup-development-environment.md](docs/how-to/setup-development-environment.md).
 
 ## Development Workflow
 
@@ -32,28 +35,28 @@ Thank you for your interest in contributing to IKP Labs! This document provides 
    ```bash
    git checkout main
    git pull upstream main
-   git checkout -b feature/your-feature-name
+   git checkout -b feat/your-feature-name
    ```
 
 2. **Make your changes** following the code style guidelines
 
 3. **Test your changes** locally:
    ```bash
-   # Backend tests
-   cd backend && mvn test
-   
    # Frontend unit tests
    npx nx test kameravue-fe
-   
+
+   # Backend tests
+   npx nx test kameravue-be
+
    # E2E tests (optional for small changes)
    npx nx e2e kameravue-fe-e2e
    ```
 
-4. **Commit your changes** using conventional commits
+4. **Commit your changes** using conventional commits (enforced by commitlint)
 
 5. **Push to your fork**:
    ```bash
-   git push origin feature/your-feature-name
+   git push origin feat/your-feature-name
    ```
 
 6. **Create a Pull Request** to the `main` branch
@@ -64,7 +67,7 @@ Thank you for your interest in contributing to IKP Labs! This document provides 
 
 - [ ] All tests pass locally
 - [ ] Code follows the project's style guidelines
-- [ ] Pre-commit hooks pass (Husky + lint-staged)
+- [ ] Pre-commit hooks pass (Husky + lint-staged + commitlint)
 - [ ] No console errors or warnings
 - [ ] Documentation updated (if needed)
 
@@ -74,7 +77,7 @@ All Pull Requests **must**:
 
 1. **Pass all CI checks** before merge:
    - ✅ Frontend Lint (ESLint + Prettier)
-   - ✅ Frontend Unit Tests (393+ tests)
+   - ✅ Frontend Unit Tests (394+ tests)
    - ✅ Frontend Build (Next.js production)
    - ✅ Backend Tests (298+ tests)
    - ✅ API Tests (Playwright)
@@ -107,7 +110,7 @@ Pull Request Trigger:
 Total Duration: ~3 minutes
 ```
 
-**Note**: E2E tests run on a schedule (6 AM & 6 PM WIB) instead of on every PR. This makes PR workflow faster while maintaining regular E2E health checks. See [CI/CD Workflow Strategy](docs/explanation/ci-cd-workflow-strategy.md) for details.
+**Note**: E2E tests run on a schedule (6 AM & 6 PM WIB) instead of on every PR. See [CI/CD Workflow Strategy](docs/explanation/ci-cd-workflow-strategy.md) for details.
 
 ### Merge Criteria
 
@@ -120,58 +123,107 @@ A PR can be merged when:
 
 ## Branch Naming Convention
 
-Use descriptive branch names with prefixes:
+Use descriptive branch names with prefixes matching commit types:
 
 | Prefix | Purpose | Example |
 |--------|---------|---------|
-| `feature/` | New features | `feature/photo-comments` |
+| `feat/` | New features | `feat/photo-comments` |
 | `fix/` | Bug fixes | `fix/login-redirect` |
 | `test/` | Test additions/fixes | `test/gallery-e2e` |
 | `docs/` | Documentation | `docs/api-guide` |
 | `refactor/` | Code refactoring | `refactor/auth-service` |
-| `ci/` | CI/CD changes | `ci/add-deploy-job` |
+| `chore/` | Maintenance, dependencies | `chore/update-nx` |
+| `config/` | Configuration changes | `config/cors-update` |
+
+See [`governance/conventions/development.md`](governance/conventions/development.md) for full naming rules.
 
 ## Commit Message Guidelines
 
-This project follows [Conventional Commits](https://www.conventionalcommits.org/):
+This project follows [Conventional Commits](https://www.conventionalcommits.org/) and enforces them automatically via **commitlint** + **Husky**.
 
 ```
-<type>(<scope>): <description>
-
-[optional body]
-
-[optional footer]
+<type>(<optional scope>): <description>
 ```
 
-### Types
+### Rules (enforced automatically)
 
-- `feat`: New feature
-- `fix`: Bug fix
-- `test`: Adding/updating tests
-- `docs`: Documentation changes
-- `refactor`: Code refactoring
-- `ci`: CI/CD changes
-- `chore`: Maintenance tasks
+- Type must be one of the allowed types (see table below)
+- Description must be **lowercase**
+- Description cannot be empty
+- No period at end of description
+- Max 72 characters on first line
+
+### Allowed Types
+
+| Type | Use for |
+|------|---------|
+| `feat` | New feature |
+| `fix` | Bug fix |
+| `refactor` | Code change without behavior change |
+| `style` | Formatting, whitespace |
+| `docs` | Documentation only |
+| `test` | Adding or updating tests |
+| `chore` | Maintenance, dependency updates |
+| `config` | Configuration changes (CORS, env, API endpoints) |
 
 ### Examples
 
 ```bash
+# ✅ Valid
 feat(gallery): add photo comments feature
-fix(auth): resolve JWT token expiration issue
-test(e2e): add smoke tests for deployment
-docs(readme): update installation instructions
-refactor(api): extract pagination utility
-ci: add E2E tests to GitHub Actions
+fix(auth): resolve jwt token expiration issue
+docs: update setup guide
+chore: update nx to v22
+config: update cors for production
+
+# ❌ Invalid — will be rejected by commitlint
+Update stuff              # no type
+Fix: broken upload        # uppercase type
+feat: Add new feature.    # uppercase + period
 ```
+
+### What Happens if Commit is Rejected
+
+```bash
+$ git commit -m "Update stuff"
+⧗ input: Update stuff
+✖ subject may not be empty [subject-empty]
+✖ type may not be empty [type-empty]
+✖ found 2 problems, 0 warnings
+husky - commit-msg script failed (code 1)
+```
+
+Fix the message and try again.
 
 ## Code Style
 
 ### Frontend (TypeScript/React)
 
 - **Linter**: ESLint with Next.js config
-- **Formatter**: Prettier
+- **Formatter**: Prettier (config in `.prettierrc.json`)
 - **Style**: Functional components with hooks
 - **Naming**: camelCase for variables, PascalCase for components
+
+#### Prettier Config
+
+```json
+{
+  "semi": true,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "printWidth": 80,
+  "endOfLine": "lf"
+}
+```
+
+Prettier runs automatically on staged files via lint-staged. To format manually:
+
+```bash
+cd apps/kameravue-fe
+npm run format        # format all files
+npm run format:check  # check without writing
+```
 
 ### Backend (Java/Spring Boot)
 
@@ -181,12 +233,14 @@ ci: add E2E tests to GitHub Actions
 
 ### Pre-commit Hooks
 
-Pre-commit hooks will automatically:
-- Run ESLint on staged `.ts`, `.tsx`, `.js`, `.jsx` files
-- Run Prettier on staged files
-- Format code before commit
+Two hooks run automatically on every commit:
 
-If hooks fail, fix the issues and commit again.
+| Hook | Trigger | What it does |
+|------|---------|--------------|
+| `pre-commit` | Before commit | ESLint fix + Prettier format on staged files |
+| `commit-msg` | After message entered | commitlint validates message format |
+
+If either hook fails, fix the issue and commit again.
 
 ## Testing Requirements
 
@@ -195,18 +249,18 @@ If hooks fail, fix the issues and commit again.
 - **Frontend**: Jest + React Testing Library
   - Test component behavior, not implementation
   - Coverage threshold: 30%+ statements
-  - Run: `npm test`
+  - Run: `npx nx test kameravue-fe`
 
 - **Backend**: JUnit 5 + Mockito
   - Test business logic in isolation
   - Coverage threshold: 80%+ lines
-  - Run: `mvn test`
+  - Run: `npx nx test kameravue-be`
 
 ### Integration Tests
 
 - **Backend**: Spring Boot Test + H2
   - Test API endpoints with database
-  - Run: `mvn test` (included in backend tests)
+  - Run: `npx nx test kameravue-be` (included)
 
 ### API Tests
 
@@ -219,7 +273,7 @@ If hooks fail, fix the issues and commit again.
 - **Playwright E2E**
   - Test critical user flows
   - Run: `npx nx e2e kameravue-fe-e2e`
-  - **Note**: Many E2E tests are marked with `@demo` tag and skipped in CI
+  - **Note**: Tests tagged `@demo` are skipped in CI
 
 ### Test Naming
 
@@ -239,6 +293,7 @@ void shouldReturnUserWhenValidId() { ... }
 If you have questions about contributing, feel free to:
 - Open an issue for discussion
 - Check existing issues and PRs
+- Review the [Setup Guide](docs/how-to/setup-development-environment.md)
 - Review the [CI/CD Setup Guide](docs/how-to/cicd-setup.md)
 
 ---
