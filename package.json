@@ -8,19 +8,20 @@
     "apps/kameravue-be"
   ],
   "scripts": {
-    "dev:frontend": "npm run dev --workspace=registration-form-frontend",
-    "build:frontend": "npm run build --workspace=registration-form-frontend",
-    "start:frontend": "npm run start --workspace=registration-form-frontend",
-    "test:frontend": "npm run test --workspace=registration-form-frontend",
-    "lint:frontend": "npm run lint --workspace=registration-form-frontend",
-    "dev": "npm run dev:frontend",
-    "build": "npm run build:frontend",
-    "install:all": "npm install && npm install --workspace=registration-form-frontend",
+    "dev": "nx serve kameravue-fe",
+    "dev:fe": "nx serve kameravue-fe",
+    "dev:be": "nx serve kameravue-be",
+    "build": "nx run-many -t build",
+    "build:fe": "nx build kameravue-fe",
+    "build:be": "nx build kameravue-be",
+    "test": "nx run-many -t test",
+    "test:fe": "nx test kameravue-fe",
+    "test:be": "nx test kameravue-be",
+    "lint": "nx run-many -t lint",
+    "lint:fe": "nx lint kameravue-fe",
     "prepare": "husky",
     "nx": "nx",
-    "nx:build": "nx run-many -t build --all",
-    "nx:test": "nx run-many -t test --all",
-    "nx:graph": "nx graph"
+    "graph": "nx graph"
   },
   "lint-staged": {
     "apps/kameravue-fe/**/*.{js,jsx,ts,tsx}": [
