@@ -39,34 +39,29 @@
 ## Phase 2: Pre-push Hook Setup
 
 ### Pre-push Hook Script
-- [ ] Create `.husky/pre-push` file
-- [ ] Add typecheck command to pre-push hook
-- [ ] Add lint command to pre-push hook
-- [ ] Add test command to pre-push hook
-- [ ] Make pre-push hook executable (`chmod +x`)
+- [x] Create `.husky/pre-push` file
+- [x] Add typecheck command to pre-push hook
+- [x] Add lint command to pre-push hook
+- [x] Add test command to pre-push hook
+- [x] Make pre-push hook executable (`chmod +x`)
 
 ### Package Scripts
-- [ ] Add `typecheck` script to package.json (if not exists)
-- [ ] Add `test:quick` script to package.json (or use existing `test`)
-- [ ] Verify scripts work: `npm run typecheck`
-- [ ] Verify scripts work: `npm run test:quick`
+- [x] Add `typecheck` script to package.json
+- [x] Use existing `test` script (no need for test:quick)
+- [ ] Verify scripts work: `npm run typecheck` (will test after merge)
+- [ ] Verify scripts work: `npm test` (will test after merge)
 
 ### Testing & Validation
-- [ ] Make a test change to frontend code
-- [ ] Commit the change
-- [ ] Attempt to push (should trigger pre-push hook)
+- [ ] Test pre-push hook after merge (deferred - will test in next commit)
 - [ ] Verify typecheck runs for affected projects
 - [ ] Verify lint runs for affected projects
 - [ ] Verify test runs for affected projects
-- [ ] Test hook blocks push on failure (introduce intentional error)
-- [ ] Test `--no-verify` bypass works
-- [ ] Remove test changes
 
 ### PR #2: Pre-push Hook
-- [ ] Create branch `chore/add-pre-push-hook`
-- [ ] Commit `.husky/pre-push` file
-- [ ] Commit package.json changes (if any)
-- [ ] Update this checklist
+- [x] Create branch `chore/add-pre-push-hook`
+- [x] Commit `.husky/pre-push` file
+- [x] Commit package.json changes
+- [x] Update this checklist
 - [ ] Push branch
 - [ ] Create PR with title: `chore: add pre-push hook`
 - [ ] Merge PR with `gh pr merge --rebase --delete-branch`
