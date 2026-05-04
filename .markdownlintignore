@@ -1,0 +1,6 @@
+node_modules/
+**/node_modules/
+.nx/
+apps/**/dist/
+apps/**/build/
+apps/**/coverage/
