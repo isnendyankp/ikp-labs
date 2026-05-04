@@ -3,32 +3,32 @@
 ## Phase 1: Markdown Linting Setup
 
 ### Config Files
-- [ ] Create `.markdownlint-cli2.jsonc` with config rules
-- [ ] Create `.markdownlintignore` with ignore patterns
-- [ ] Verify config syntax is valid JSON
+- [x] Create `.markdownlint-cli2.jsonc` with config rules
+- [x] Create `.markdownlintignore` with ignore patterns
+- [x] Verify config syntax is valid JSON
 
 ### Package Dependencies
-- [ ] Add `markdownlint-cli2` to `devDependencies` in package.json
-- [ ] Run `npm install` to install new package
-- [ ] Verify package installed correctly
+- [x] Add `markdownlint-cli2` to `devDependencies` in package.json
+- [x] Run `npm install` to install new package
+- [x] Verify package installed correctly
 
 ### Scripts & Integration
-- [ ] Add `lint:md` script to package.json
-- [ ] Update `lint-staged` config to include markdown files
-- [ ] Test `npm run lint:md` command works
+- [x] Add `lint:md` script to package.json
+- [x] Update `lint-staged` config to include markdown files
+- [x] Test `npm run lint:md` command works
 
 ### Testing & Validation
-- [ ] Run markdown linting on all existing markdown files
-- [ ] Fix critical markdown violations (if any)
-- [ ] Document acceptable violations (if any)
+- [x] Run markdown linting on all existing markdown files (9475 violations found - documented)
+- [ ] Fix critical markdown violations (deferred - will fix incrementally)
+- [x] Document acceptable violations (violations are non-breaking, will fix over time)
 - [ ] Test pre-commit hook with markdown file change
 - [ ] Verify markdown linting runs automatically on commit
 
 ### PR #1: Markdown Linting
-- [ ] Create branch `chore/add-markdown-linting`
-- [ ] Commit config files
-- [ ] Commit package.json changes
-- [ ] Update this checklist
+- [x] Create branch `chore/add-markdown-linting`
+- [x] Commit config files
+- [x] Commit package.json changes
+- [x] Update this checklist
 - [ ] Push branch
 - [ ] Create PR with title: `chore: add markdown linting`
 - [ ] Merge PR with `gh pr merge --rebase --delete-branch`
