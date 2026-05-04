@@ -19,6 +19,7 @@
     "test:be": "nx test kameravue-be",
     "lint": "nx run-many -t lint",
     "lint:fe": "nx lint kameravue-fe",
+    "lint:md": "markdownlint-cli2 \"**/*.md\"",
     "prepare": "husky",
     "nx": "nx",
     "graph": "nx graph"
@@ -30,6 +31,9 @@
     ],
     "apps/kameravue-fe/**/*.{json,md,css}": [
       "npx prettier --write"
+    ],
+    "**/*.md": [
+      "markdownlint-cli2 --fix"
     ]
   },
   "engines": {
@@ -43,6 +47,7 @@
     "@commitlint/config-conventional": "^20.5.0",
     "@nx/workspace": "^22.6.1",
     "lint-staged": "^16.2.7",
+    "markdownlint-cli2": "^0.14.0",
     "nx": "^22.6.1"
   }
 }
