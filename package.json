@@ -20,6 +20,7 @@
     "lint": "nx run-many -t lint",
     "lint:fe": "nx lint kameravue-fe",
     "lint:md": "markdownlint-cli2 \"**/*.md\"",
+    "typecheck": "nx run-many -t typecheck",
     "prepare": "husky",
     "nx": "nx",
     "graph": "nx graph"
