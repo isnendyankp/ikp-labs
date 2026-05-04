@@ -1,0 +1,20 @@
+#!/bin/sh
+# Pre-push hook
+# Run typecheck, lint, and test for affected projects
+# This prevents pushing broken code to remote
+
+echo "🔍 Running pre-push checks..."
+
+# Typecheck
+echo "📝 Typechecking affected projects..."
+npx nx affected -t typecheck --base=origin/main || exit 1
+
+# Lint
+echo "🧹 Linting affected projects..."
+npx nx affected -t lint --base=origin/main || exit 1
+
+# Test
+echo "🧪 Running tests for affected projects..."
+npx nx affected -t test --base=origin/main || exit 1
+
+echo "✅ Pre-push checks passed!"
