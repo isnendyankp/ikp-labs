@@ -23,6 +23,7 @@ A complete full-stack learning project featuring photo gallery, authentication, 
 **Live Demo**: [kameravue.com](https://kameravue.com)
 
 ### Environments
+
 - **Production**: [kameravue.com](https://kameravue.com) (Frontend) | [api.kameravue.com](https://api.kameravue.com) (Backend)
 - **Development**: `localhost:3002` (frontend) and `localhost:8081` (backend)
 
@@ -42,12 +43,14 @@ IKP Labs is my personal learning laboratory for full-stack development. It's a p
 ### Why This Project?
 
 **Learning Goals:**
+
 - Master full-stack development (React/Next.js + Spring Boot)
 - Practice test-driven development (TDD)
 - Build production-quality code architecture
 - Document everything (for future me and others)
 
 **Key Differentiators:**
+
 - **Production Deployed** on DigitalOcean VPS with SSL certificates
 - 512 total tests (40 integration, 31 API, 48 E2E, 393 unit)
 - 100% E2E test pass rate
@@ -59,24 +62,28 @@ IKP Labs is my personal learning laboratory for full-stack development. It's a p
 ## Features
 
 ### Photo Gallery
+
 Complete photo management system with privacy controls, likes, and real-time updates.
 
 **Capabilities**: Upload, view, edit, delete, privacy settings, pagination, photo likes
 **Testing**: 40 E2E tests (100% pass rate across Chromium + Firefox)
 
 ### Authentication
+
 JWT-based authentication with protected routes and secure token management.
 
 **Capabilities**: Register, login, logout, auto-redirect, token refresh
 **Security**: BCrypt password hashing, CORS configuration, JWT validation
 
 ### User Profiles
+
 Profile management with photo upload and real-time preview.
 
 **Capabilities**: Upload profile picture, delete picture, avatar fallback
 **Validation**: Client-side and server-side file validation (5MB limit)
 
 ### Photo Likes
+
 Social feature allowing users to like/unlike photos with real-time counter updates.
 
 **Capabilities**: Like/unlike photos, view liked photos, persistent like counts
@@ -87,7 +94,7 @@ Social feature allowing users to like/unlike photos with real-time counter updat
 ## Tech Stack
 
 ### Frontend
-### Frontend
+
 - **Framework**: Next.js 15 (React 19)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
@@ -95,13 +102,15 @@ Social feature allowing users to like/unlike photos with real-time counter updat
 - **HTTP Client**: Fetch API
 
 ### Backend
+
 - **Framework**: Spring Boot 3.3.5
 - **Language**: Java 21
 - **Database**: PostgreSQL 16
 - **Security**: Spring Security + JWT
 - **Build Tool**: Maven
 
-### Testing
+### Testing Frameworks
+
 - **Unit Tests**: Jest + React Testing Library
 - **E2E**: Playwright (TypeScript)
 - **API Testing**: Playwright API
@@ -109,6 +118,7 @@ Social feature allowing users to like/unlike photos with real-time counter updat
 - **BDD**: Gherkin specifications
 
 ### Production Infrastructure
+
 - **Hosting**: DigitalOcean Droplet (Ubuntu 24.04)
 - **Domain**: kameravue.com (Namecheap)
 - **Reverse Proxy**: Nginx with SSL (Let's Encrypt)
@@ -167,10 +177,12 @@ nx affected -t test
 This project is deployed on a DigitalOcean VPS with full SSL encryption.
 
 ### Live URLs
+
 - **Frontend**: [https://kameravue.com](https://kameravue.com)
 - **Backend API**: [https://api.kameravue.com](https://api.kameravue.com)
 
 ### Infrastructure Overview
+
 - **Server**: DigitalOcean Droplet (1GB RAM, 1 vCPU, 25GB SSD)
 - **OS**: Ubuntu 24.04 LTS
 - **Web Server**: Nginx (reverse proxy with SSL)
@@ -181,6 +193,7 @@ This project is deployed on a DigitalOcean VPS with full SSL encryption.
 ### Deployment Commands
 
 **For Linux VPS** (one-time setup after clone):
+
 ```bash
 cd frontend
 npm run setup:linux  # Install native Linux binaries
@@ -188,6 +201,7 @@ npm run build
 ```
 
 **Useful PM2 Commands**:
+
 ```bash
 pm2 list              # View all processes
 pm2 logs [name]       # View logs
@@ -200,18 +214,21 @@ pm2 save              # Save process list
 ## Quick Start
 
 ### Prerequisites
+
 - Node.js 20+ and npm
 - Java 21
 - PostgreSQL 16
 - Maven 3.9+
 
 ### 1. Clone Repository
+
 ```bash
 git clone https://github.com/isnendyankp/ikp-labs.git
 cd ikp-labs
 ```
 
 ### 2. Setup Database
+
 ```bash
 # Create PostgreSQL database
 createdb registration_form_db
@@ -220,6 +237,7 @@ createdb registration_form_db
 ```
 
 ### 3. Start Backend
+
 ```bash
 # Using Nx (recommended)
 nx serve kameravue-be
@@ -232,6 +250,7 @@ cd apps/kameravue-be/ikp-labs-api
 ```
 
 ### 4. Start Frontend
+
 ```bash
 # Using Nx (recommended)
 nx serve kameravue-fe
@@ -244,6 +263,7 @@ npm run dev
 ```
 
 ### 5. Run Tests (Optional)
+
 ```bash
 # Frontend E2E Tests
 npx nx e2e kameravue-fe-e2e
@@ -256,6 +276,7 @@ npx nx test kameravue-be
 ```
 
 **Default URLs:**
+
 - Frontend: `http://localhost:3002`
 - Backend API: `http://localhost:8081`
 - API Docs: `http://localhost:8081/swagger-ui.html` (if enabled)
@@ -275,6 +296,7 @@ npx nx test kameravue-be
 | **Total** | **512 tests** | ✅ **100% pass** | - |
 
 ### Unit Test Breakdown (Frontend)
+
 - **Utilities**: 46 tests (apiClient, auth)
 - **Core Components**: 73 tests (PhotoCard, PhotoUploadForm, LoginForm, RegistrationForm)
 - **UI Elements**: 98 tests (FilterDropdown, SortByDropdown, Pagination, ConfirmDialog, EmptyState, Toast)
@@ -282,6 +304,7 @@ npx nx test kameravue-be
 - **Context**: Existing ToastContext tests
 
 ### E2E Test Breakdown
+
 - **Registration & Login**: 8 tests
 - **Auth Flow**: 4 tests
 - **Profile Picture**: 10 tests
@@ -289,7 +312,9 @@ npx nx test kameravue-be
 - **Photo Likes**: 18 tests
 
 ### Cross-Browser Testing
+
 All E2E tests verified on:
+
 - ✅ Chromium
 - ✅ Firefox
 - ⏸️ WebKit (Safari) - Skipped due to localhost restrictions
@@ -349,7 +374,7 @@ This project uses **Nx monorepo** for managing multiple applications and shared 
 
 ### High-level Organization
 
-```
+```text
 ikp-labs/
 ├── apps/
 │   ├── kameravue-fe/         # Next.js application (Frontend)
@@ -372,6 +397,7 @@ ikp-labs/
 ### Running in Development
 
 **Using Nx (recommended):**
+
 ```bash
 # Start backend
 nx serve kameravue-be
@@ -384,6 +410,7 @@ nx run-many -t dev
 ```
 
 **Using Traditional approach:**
+
 ```bash
 # Backend
 cd apps/kameravue-be/ikp-labs-api
@@ -395,6 +422,7 @@ npm run dev
 ```
 
 **Tests:**
+
 ```bash
 # E2E Tests (ensure backend & frontend are running)
 npx playwright test
@@ -405,6 +433,7 @@ cd apps/kameravue-be/ikp-labs-api
 ```
 
 ### Nx Commands (Quick Reference)
+
 ```bash
 # Build all apps
 nx run-many -t build
@@ -426,6 +455,7 @@ nx affected -t test
 ```
 
 ### Key Development Commands (Traditional)
+
 ```bash
 # Frontend (from apps/kameravue-fe/)
 npm run build          # Production build
@@ -460,7 +490,7 @@ This project includes optional Claude-powered validator agents for quality check
 
 Validators are triggered by asking Claude to run them:
 
-```
+```text
 "@test-validator - check my test coverage"
 "@docs-validator - audit my API documentation"
 "@plan-checker - validate my implementation plan"
@@ -547,6 +577,7 @@ educational and demonstration purposes to showcase full-stack development skills
 **Live at**: [kameravue.com](https://kameravue.com)
 
 This is:
+
 - ✅ A learning project to demonstrate web development skills
 - ✅ A portfolio piece for job applications
 - ✅ Open-source for others to learn from
@@ -555,11 +586,13 @@ This is:
 ### Usage Guidelines
 
 You are free to:
+
 - Use this code for learning and inspiration
 - Reference this project for your own work
 - Fork and modify for your needs
 
 Please:
+
 - Give credit where appropriate
 - Use ethically and responsibly
 - Understand this is for educational purposes
@@ -586,4 +619,4 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 
 ---
 
-**Built with ❤️ as part of my full-stack development journey**
+Built with ❤️ as part of my full-stack development journey

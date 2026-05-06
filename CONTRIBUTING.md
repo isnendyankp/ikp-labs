@@ -18,10 +18,13 @@ Thank you for your interest in contributing to IKP Labs! This document provides 
 2. Clone your fork: `git clone https://github.com/YOUR_USERNAME/ikp-labs.git`
 3. Add upstream remote: `git remote add upstream https://github.com/isnendyankp/ikp-labs.git`
 4. Install dependencies:
+
    ```bash
    npm install
    ```
+
 5. Start services:
+
    ```bash
    nx serve kameravue-be   # Backend on http://localhost:8081
    nx serve kameravue-fe   # Frontend on http://localhost:3002
@@ -32,6 +35,7 @@ For a full setup walkthrough, see [docs/how-to/setup-development-environment.md]
 ## Development Workflow
 
 1. **Create a feature branch** from `main`:
+
    ```bash
    git checkout main
    git pull upstream main
@@ -41,6 +45,7 @@ For a full setup walkthrough, see [docs/how-to/setup-development-environment.md]
 2. **Make your changes** following the code style guidelines
 
 3. **Test your changes** locally:
+
    ```bash
    # Frontend unit tests
    npx nx test kameravue-fe
@@ -55,6 +60,7 @@ For a full setup walkthrough, see [docs/how-to/setup-development-environment.md]
 4. **Commit your changes** using conventional commits (enforced by commitlint)
 
 5. **Push to your fork**:
+
    ```bash
    git push origin feat/your-feature-name
    ```
@@ -88,7 +94,8 @@ All Pull Requests **must**:
    - How to test the changes
 
 3. **Reference related issues** (if applicable):
-   ```
+
+   ```text
    Fixes #123
    Closes #456
    Related to #789
@@ -98,7 +105,7 @@ All Pull Requests **must**:
 
 When you create a PR, the following jobs will run automatically:
 
-```
+```text
 Pull Request Trigger:
 ├── Frontend Lint (1m)
 ├── Frontend Tests (1m 30s)
@@ -141,7 +148,7 @@ See [`governance/conventions/development.md`](governance/conventions/development
 
 This project follows [Conventional Commits](https://www.conventionalcommits.org/) and enforces them automatically via **commitlint** + **Husky**.
 
-```
+```text
 <type>(<optional scope>): <description>
 ```
 
@@ -291,6 +298,7 @@ void shouldReturnUserWhenValidId() { ... }
 ## Questions?
 
 If you have questions about contributing, feel free to:
+
 - Open an issue for discussion
 - Check existing issues and PRs
 - Review the [Setup Guide](docs/how-to/setup-development-environment.md)
