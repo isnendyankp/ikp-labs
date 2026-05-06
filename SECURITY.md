@@ -17,9 +17,10 @@ If you discover a security vulnerability in IKP-Labs or the live application at 
 
 ### How to Report
 
-Send an email to: **isnendyankp@gmail.com**
+Send an email to: **<isnendyankp@gmail.com>**
 
 Include:
+
 - Description of the vulnerability
 - Steps to reproduce
 - Potential impact
@@ -36,6 +37,7 @@ Include:
 ## Scope
 
 ### In Scope
+
 - Authentication bypass (JWT, session)
 - SQL injection or data exposure
 - XSS or CSRF vulnerabilities
@@ -43,6 +45,7 @@ Include:
 - Unauthorized access to private photos or user data
 
 ### Out of Scope
+
 - Issues in development environment only
 - Theoretical vulnerabilities without proof of concept
 - Social engineering attacks
@@ -62,5 +65,5 @@ This project follows **Principle 7: Security by Default** from [`governance/prin
 
 ---
 
-**Contact**: isnendyankp@gmail.com
+**Contact**: <isnendyankp@gmail.com>
 **Live App**: [kameravue.com](https://kameravue.com)

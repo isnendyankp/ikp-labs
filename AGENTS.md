@@ -64,6 +64,7 @@ Agents are organized into three families, each with a Maker and Checker:
 **Skills used**: `docs__quality-standards`, `docs__diataxis-framework`, `wow__criticality-assessment`
 
 **Docs structure** (`docs/`):
+
 - `tutorials/` — Learning-oriented, step-by-step guides
 - `how-to/` — Goal-oriented, solving a specific problem
 - `reference/` — Information-oriented, lookup tables
@@ -81,6 +82,7 @@ Agents are organized into three families, each with a Maker and Checker:
 **Skills used**: `plan__four-doc-system`, `wow__criticality-assessment`
 
 **Plan structure** (`plans/`):
+
 - `backlog/` — Planned, not yet started
 - `in-progress/` — Currently being worked on
 - `done/` — Completed and archived
@@ -99,6 +101,7 @@ Each plan folder contains: `README.md`, `requirements.md`, `technical-design.md`
 **Skills used**: `test__coverage-rules`, `test__playwright-patterns`, `wow__criticality-assessment`
 
 **Specs structure** (`specs/`):
+
 - `authentication/` — Login, registration, home page
 - `gallery/` — Photo upload, management, likes, sorting, privacy
 - `profile/` — Profile picture
