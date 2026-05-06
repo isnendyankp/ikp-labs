@@ -4,25 +4,28 @@
 
 ### PR #1: Root Files
 
-#### Preparation
-- [ ] Create branch `docs/fix-markdown-violations-root`
-- [ ] Scan violations in root files
+#### PR #1 - Preparation
 
-#### Fix Violations
-- [ ] Fix README.md violations
-- [ ] Fix ROADMAP.md violations
-- [ ] Fix SECURITY.md violations
-- [ ] Fix CONTRIBUTING.md violations
-- [ ] Fix AGENTS.md violations
-- [ ] Fix VERIFICATION_SUMMARY.md violations
+- [x] Create branch `docs/fix-markdown-violations-root`
+- [x] Scan violations in root files
 
-#### Commit Strategy
-- [ ] Commit 1: Add language tags to code blocks
-- [ ] Commit 2: Add blank lines around fences/lists
-- [ ] Commit 3: Fix heading spacing
-- [ ] Update this checklist
+#### PR #1 - Fix Violations
 
-#### PR & Merge
+- [x] Fix README.md violations
+- [x] Fix ROADMAP.md violations
+- [x] Fix SECURITY.md violations
+- [x] Fix CONTRIBUTING.md violations
+- [x] Fix AGENTS.md violations
+- [x] Fix VERIFICATION_SUMMARY.md violations
+
+#### PR #1 - Commit Strategy
+
+- [x] Commit 1: Auto-fix blank lines around fences/lists/headings
+- [x] Commit 2: Manual fix MD040/MD024/MD036 violations
+- [x] Update this checklist
+
+#### PR #1 - Merge
+
 - [ ] Push branch
 - [ ] Create PR: `docs: fix markdown violations in root files`
 - [ ] Verify CI passes
@@ -33,11 +36,13 @@
 
 ### PR #2: Governance
 
-#### Preparation
+#### PR #2 - Preparation
+
 - [ ] Create branch `docs/fix-markdown-violations-governance`
 - [ ] Scan violations in governance/
 
-#### Fix Violations
+#### PR #2 - Fix Violations
+
 - [ ] Fix governance/README.md
 - [ ] Fix governance/repository-governance-architecture.md
 - [ ] Fix governance/conventions/*.md
@@ -45,13 +50,15 @@
 - [ ] Fix governance/principles/*.md
 - [ ] Fix governance/vision/*.md
 
-#### Commit Strategy
+#### PR #2 - Commit Strategy
+
 - [ ] Commit 1: Fix violations in governance root files
 - [ ] Commit 2: Fix violations in governance/conventions
 - [ ] Commit 3: Fix violations in governance/development
 - [ ] Update this checklist
 
-#### PR & Merge
+#### PR #2 - Merge
+
 - [ ] Push branch
 - [ ] Create PR: `docs: fix markdown violations in governance`
 - [ ] Verify CI passes
@@ -64,22 +71,26 @@
 
 ### PR #3: Docs/Tutorials
 
-#### Preparation
+#### PR #3 - Preparation
+
 - [ ] Create branch `docs/fix-markdown-violations-tutorials`
 - [ ] Scan violations in docs/tutorials/
 
-#### Fix Violations
+#### PR #3 - Fix Violations
+
 - [ ] Fix all files in docs/tutorials/
 - [ ] Verify code examples still work
 - [ ] Test internal links
 
-#### Commit Strategy
+#### PR #3 - Commit Strategy
+
 - [ ] Commit 1: Add language tags to code blocks
 - [ ] Commit 2: Add blank lines around fences/lists
 - [ ] Commit 3: Fix heading spacing
 - [ ] Update this checklist
 
-#### PR & Merge
+#### PR #3 - Merge
+
 - [ ] Push branch
 - [ ] Create PR: `docs: fix markdown violations in tutorials`
 - [ ] Verify CI passes
@@ -90,22 +101,26 @@
 
 ### PR #4: Docs/How-To
 
-#### Preparation
+#### PR #4 - Preparation
+
 - [ ] Create branch `docs/fix-markdown-violations-how-to`
 - [ ] Scan violations in docs/how-to/
 
-#### Fix Violations
+#### PR #4 - Fix Violations
+
 - [ ] Fix all files in docs/how-to/
 - [ ] Verify code examples still work
 - [ ] Test internal links
 
-#### Commit Strategy
+#### PR #4 - Commit Strategy
+
 - [ ] Commit 1: Add language tags to code blocks
 - [ ] Commit 2: Add blank lines around fences/lists
 - [ ] Commit 3: Fix heading spacing
 - [ ] Update this checklist
 
-#### PR & Merge
+#### PR #4 - Merge
+
 - [ ] Push branch
 - [ ] Create PR: `docs: fix markdown violations in how-to guides`
 - [ ] Verify CI passes
@@ -118,22 +133,26 @@
 
 ### PR #5: Docs/Reference
 
-#### Preparation
+#### PR #5 - Preparation
+
 - [ ] Create branch `docs/fix-markdown-violations-reference`
 - [ ] Scan violations in docs/reference/
 
-#### Fix Violations
+#### PR #5 - Fix Violations
+
 - [ ] Fix all files in docs/reference/
 - [ ] Verify tables render correctly
 - [ ] Test internal links
 
-#### Commit Strategy
+#### PR #5 - Commit Strategy
+
 - [ ] Commit 1: Add language tags to code blocks
 - [ ] Commit 2: Add blank lines around fences/lists
 - [ ] Commit 3: Fix heading spacing
 - [ ] Update this checklist
 
-#### PR & Merge
+#### PR #5 - Merge
+
 - [ ] Push branch
 - [ ] Create PR: `docs: fix markdown violations in reference docs`
 - [ ] Verify CI passes
@@ -144,22 +163,26 @@
 
 ### PR #6: Docs/Explanation
 
-#### Preparation
+#### PR #6 - Preparation
+
 - [ ] Create branch `docs/fix-markdown-violations-explanation`
 - [ ] Scan violations in docs/explanation/
 
-#### Fix Violations
+#### PR #6 - Fix Violations
+
 - [ ] Fix all files in docs/explanation/
 - [ ] Verify diagrams/images still display
 - [ ] Test internal links
 
-#### Commit Strategy
+#### PR #6 - Commit Strategy
+
 - [ ] Commit 1: Add language tags to code blocks
 - [ ] Commit 2: Add blank lines around fences/lists
 - [ ] Commit 3: Fix heading spacing
 - [ ] Update this checklist
 
-#### PR & Merge
+#### PR #6 - Merge
+
 - [ ] Push branch
 - [ ] Create PR: `docs: fix markdown violations in explanation docs`
 - [ ] Verify CI passes
@@ -172,23 +195,27 @@
 
 ### PR #7: Plans/In-Progress
 
-#### Preparation
+#### PR #7 - Preparation
+
 - [ ] Create branch `docs/fix-markdown-violations-plans`
 - [ ] Scan violations in plans/in-progress/
 
-#### Fix Violations
+#### PR #7 - Fix Violations
+
 - [ ] Fix all README.md files in plans/in-progress/
 - [ ] Fix all requirements.md files
 - [ ] Fix all technical-design.md files
 - [ ] Fix all checklist.md files
 - [ ] Verify checkboxes still work
 
-#### Commit Strategy
+#### PR #7 - Commit Strategy
+
 - [ ] Commit 1: Fix violations in plan README files
 - [ ] Commit 2: Fix violations in requirements/technical-design
 - [ ] Update this checklist
 
-#### PR & Merge
+#### PR #7 - Merge
+
 - [ ] Push branch
 - [ ] Create PR: `docs: fix markdown violations in active plans`
 - [ ] Verify CI passes
@@ -199,21 +226,25 @@
 
 ### PR #8: Cleanup & Critical Files
 
-#### Preparation
+#### PR #8 - Preparation
+
 - [ ] Create branch `docs/fix-markdown-violations-cleanup`
 - [ ] Scan violations in remaining critical files
 
-#### Fix Violations
+#### PR #8 - Fix Violations
+
 - [ ] Fix specs/README.md
 - [ ] Fix any remaining high-priority files
 - [ ] Final verification scan
 
-#### Commit Strategy
+#### PR #8 - Commit Strategy
+
 - [ ] Commit 1: Fix violations in specs
 - [ ] Commit 2: Fix remaining critical files
 - [ ] Update this checklist
 
-#### PR & Merge
+#### PR #8 - Merge
+
 - [ ] Push branch
 - [ ] Create PR: `docs: fix markdown violations in critical files`
 - [ ] Verify CI passes
@@ -225,13 +256,15 @@
 ## Plan Closure
 
 ### Final Verification
+
 - [ ] Run `npm run lint:md` on all fixed files
-- [ ] Verify violation count reduced from 9475 to <7000
+- [ ] Verify violation count reduced from 9174 to <7000
 - [ ] Verify all high-priority files pass linting
 - [ ] Update README.md status to "Completed"
 - [ ] Add completion date to README.md
 
 ### Plan Archival
+
 - [ ] Move plan folder to `plans/done/`
 - [ ] Commit plan move: `docs(plan): move fix-markdown-violations to done`
 - [ ] Create PR for plan closure
@@ -242,24 +275,28 @@
 ## Daily Summary Checklist
 
 ### End of Day 1 (Tuesday)
+
 - [ ] 2 PRs merged (#1 Root, #2 Governance)
 - [ ] ~6 commits pushed
 - [ ] ~500 violations fixed
 - [ ] GitHub activity: 2 green squares
 
 ### End of Day 2 (Wednesday)
+
 - [ ] 2 PRs merged (#3 Tutorials, #4 How-To)
 - [ ] ~6 commits pushed
 - [ ] ~800 violations fixed
 - [ ] GitHub activity: 2 green squares
 
 ### End of Day 3 (Thursday)
+
 - [ ] 2 PRs merged (#5 Reference, #6 Explanation)
 - [ ] ~6 commits pushed
 - [ ] ~700 violations fixed
 - [ ] GitHub activity: 2 green squares
 
 ### End of Day 4 (Friday)
+
 - [ ] 2 PRs merged (#7 Plans, #8 Cleanup)
 - [ ] ~4 commits pushed
 - [ ] ~500 violations fixed
@@ -270,9 +307,9 @@
 
 ## Notes
 
-- Use `--no-verify` flag for commits if markdown linting blocks commit
 - Always review git diff before committing
+- Verify file clean: `npm run lint:md "path/to/file.md"` sebelum commit
 - Test links after fixing
 - Each PR should be small and focused
-- Update this checklist after each commit
-- Follow governance workflow: branch → commit → PR → merge → update main
+- Commit checklist bersama setiap fix (governance requirement)
+- Follow governance Meta Changes workflow: branch → commit → PR → `gh pr merge <PR_NUMBER> --rebase --delete-branch` → update main

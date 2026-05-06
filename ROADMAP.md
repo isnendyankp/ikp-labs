@@ -11,12 +11,14 @@ IKP-Labs is a full-stack learning platform built around real applications. Each 
 A full-stack photo gallery application demonstrating modern web development practices.
 
 **Apps:**
+
 - `kameravue-fe` — Next.js 15 frontend
 - `kameravue-be` — Spring Boot 3 backend
 - `kameravue-fe-e2e` — Playwright browser E2E tests
 - `kameravue-be-e2e` — Playwright API tests
 
 **Completed:**
+
 - [x] Photo gallery with full CRUD, privacy controls, likes
 - [x] JWT authentication with protected routes
 - [x] User profile management with photo upload
@@ -36,6 +38,7 @@ A full-stack photo gallery application demonstrating modern web development prac
 Second application to be added to the monorepo. Will inherit all Phase 1 governance, conventions, and CI/CD infrastructure automatically.
 
 **Goals:**
+
 - [ ] Define app concept and scope
 - [ ] Add `apps/[app-name]-fe/` and `apps/[app-name]-be/` to monorepo
 - [ ] Verify governance travels automatically to new app
@@ -50,6 +53,7 @@ Second application to be added to the monorepo. Will inherit all Phase 1 governa
 Extract reusable code shared between apps into `libs/`.
 
 **Candidates:**
+
 - Shared TypeScript types (API contracts)
 - Common UI components
 - Shared test utilities
