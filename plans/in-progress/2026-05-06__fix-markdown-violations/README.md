@@ -9,7 +9,7 @@
 
 ## Overview
 
-Fix markdown linting violations found after implementing markdown linting in PR #90. Total 9475 violations across 269 files will be fixed incrementally over 4 days, focusing on high-priority files first.
+Fix markdown linting violations found after implementing markdown linting in PR #90. Total 9174 violations across 269 files will be fixed incrementally over 4 days, focusing on high-priority files first.
 
 This work maximizes GitHub activity (green squares) by spreading fixes across multiple PRs and commits.
 
@@ -18,6 +18,7 @@ This work maximizes GitHub activity (green squares) by spreading fixes across mu
 ## Scope
 
 ### In Scope
+
 - ✅ Fix violations in root files (README.md, ROADMAP.md, etc.)
 - ✅ Fix violations in `governance/` directory
 - ✅ Fix violations in `docs/` directory (all subdirectories)
@@ -25,6 +26,7 @@ This work maximizes GitHub activity (green squares) by spreading fixes across mu
 - ✅ Fix violations in critical documentation files
 
 ### Out of Scope
+
 - ❌ `.claude/agents/` directory (70 files - defer to future work)
 - ❌ `.claude/skills/` directory (37 files - defer to future work)
 - ❌ `plans/done/` directory (50 files - defer to future work)
@@ -54,24 +56,28 @@ This work maximizes GitHub activity (green squares) by spreading fixes across mu
 ## Timeline
 
 ### Day 1 (Tuesday, May 6) — Root + Governance
+
 - **PR #1**: Fix root files (README.md, ROADMAP.md, SECURITY.md, etc.)
 - **PR #2**: Fix governance/ directory
 
 **Target**: 2 PRs, ~6 commits, ~500 violations fixed
 
 ### Day 2 (Wednesday, May 7) — Docs Part 1
+
 - **PR #3**: Fix docs/tutorials/ directory
 - **PR #4**: Fix docs/how-to/ directory
 
 **Target**: 2 PRs, ~6 commits, ~800 violations fixed
 
 ### Day 3 (Thursday, May 8) — Docs Part 2
+
 - **PR #5**: Fix docs/reference/ directory
 - **PR #6**: Fix docs/explanation/ directory
 
 **Target**: 2 PRs, ~6 commits, ~700 violations fixed
 
 ### Day 4 (Friday, May 9) — Plans + Cleanup
+
 - **PR #7**: Fix plans/in-progress/ directory
 - **PR #8**: Fix remaining critical files
 
@@ -93,13 +99,13 @@ This work maximizes GitHub activity (green squares) by spreading fixes across mu
 
 ### Success Criteria
 
-- [x] All root files pass markdown linting
-- [x] All governance files pass markdown linting
-- [x] All docs/ files pass markdown linting
-- [x] All plans/in-progress/ files pass markdown linting
-- [x] Violations reduced from 9475 to <7000
-- [x] No breaking changes to documentation content
-- [x] All PRs pass CI checks
+- [ ] All root files pass markdown linting
+- [ ] All governance files pass markdown linting
+- [ ] All docs/ files pass markdown linting
+- [ ] All plans/in-progress/ files pass markdown linting
+- [ ] Violations reduced from 9174 to <7000
+- [ ] No breaking changes to documentation content
+- [ ] All PRs pass CI checks
 
 ---
 
@@ -109,7 +115,7 @@ Based on initial scan, most common violations:
 
 | Violation | Description | Fix Strategy |
 |-----------|-------------|--------------|
-| MD040 | Fenced code blocks need language | Add language tags (```bash, ```typescript, etc.) |
+| MD040 | Fenced code blocks need language | Add language tags (```bash,```typescript, etc.) |
 | MD031 | Blank lines around fences | Add blank lines before/after code blocks |
 | MD032 | Blank lines around lists | Add blank lines before/after lists |
 | MD024 | Duplicate headings | Rename or add context to headings |
@@ -132,14 +138,17 @@ Based on initial scan, most common violations:
 
 - **Previous Plan**: `2026-05-04__add-quality-gates` (implemented markdown linting)
 - **Gap Analysis**: Comparison with `wahidyankf/ose-public` repo
+- **Follow-up Plan**: Add CI markdown gate (block PR merge if violations exist) — to be done after this plan completes
 - **Future Work**: Fix `.claude/agents/`, `.claude/skills/`, `plans/done/` (separate plan)
 
 ---
 
 ## Notes
 
+- Fix violations = **Meta Changes** (🟢) per governance workflow — no deploy needed
 - Use `npm run lint:md -- --fix` for auto-fix where safe
-- Manual review required for complex violations
+- Manual review required for complex violations (e.g., MD024 duplicate headings)
 - Each PR should be small and focused (easier to review)
-- Commit messages should be descriptive (e.g., "docs: add language tags to code blocks in tutorials")
-- Follow governance workflow: branch → commit → PR → merge
+- Commit messages: `docs: <description>` format
+- Commit plan checklist bersama setiap fix (governance requirement)
+- Follow governance workflow: branch → commit → PR → `gh pr merge --rebase --delete-branch` → update main
