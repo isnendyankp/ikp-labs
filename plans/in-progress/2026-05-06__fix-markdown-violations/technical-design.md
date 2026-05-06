@@ -2,14 +2,17 @@
 
 ## Architecture Overview
 
-This plan uses a **phased, incremental approach** to fix markdown violations:
+Fix violations = **Meta Changes** (🟢) per governance — no deploy needed.
+
+This plan uses a **phased, incremental approach**:
 
 1. **Scan** → Identify violations per folder
-2. **Fix** → Apply auto-fix + manual review
-3. **Verify** → Test locally before commit
-4. **Commit** → Multiple commits per PR (by violation type)
+2. **Fix** → Apply auto-fix + manual review for complex cases
+3. **Verify** → `npm run lint:md <file>` locally before commit
+4. **Commit** → Fix files + plan checklist together per commit
 5. **PR** → Create PR with clear description
-6. **Merge** → Rebase merge to preserve commits
+6. **Merge** → `gh pr merge <PR_NUMBER> --rebase --delete-branch`
+7. **Update main** → `git checkout main && git pull`
 
 ---
 
@@ -17,7 +20,7 @@ This plan uses a **phased, incremental approach** to fix markdown violations:
 
 ### Target Files (Priority Order)
 
-```
+```text
 Phase 1: Root Files (Day 1, PR #1)
 /
 ├── README.md
@@ -80,50 +83,26 @@ Phase 8: Cleanup (Day 4, PR #8)
 
 #### 1. MD040 - Fenced Code Language
 
-**Problem:**
-```markdown
-```
-const x = 1;
-```
-```
+**Problem:** Fenced code block missing language specifier (opening ` ``` ` with no language).
 
-**Fix:**
-```markdown
-```javascript
-const x = 1;
-```
-```
+**Fix:** Add language to opening fence — e.g., ` ```javascript `, ` ```bash `, ` ```typescript `.
 
 **Strategy:**
+
 - Auto-fix where language is obvious
 - Manual review for ambiguous cases
-- Common languages: `bash`, `typescript`, `javascript`, `json`, `markdown`, `yaml`
+- Common languages: `bash`, `typescript`, `javascript`, `json`, `markdown`, `yaml`, `text`
 
 ---
 
 #### 2. MD031 - Blank Lines Around Fences
 
-**Problem:**
-```markdown
-Some text
-```bash
-echo "hello"
-```
-More text
-```
+**Problem:** No blank line before or after a fenced code block.
 
-**Fix:**
-```markdown
-Some text
-
-```bash
-echo "hello"
-```
-
-More text
-```
+**Fix:** Add one blank line before the opening fence and after the closing fence.
 
 **Strategy:**
+
 - Auto-fix with `--fix` flag
 - Verify no content loss
 
@@ -132,6 +111,7 @@ More text
 #### 3. MD032 - Blank Lines Around Lists
 
 **Problem:**
+
 ```markdown
 Some text
 - Item 1
@@ -140,6 +120,7 @@ More text
 ```
 
 **Fix:**
+
 ```markdown
 Some text
 
@@ -150,6 +131,7 @@ More text
 ```
 
 **Strategy:**
+
 - Auto-fix with `--fix` flag
 - Verify list rendering
 
@@ -158,6 +140,7 @@ More text
 #### 4. MD024 - Duplicate Headings
 
 **Problem:**
+
 ```markdown
 ## Installation
 ...
@@ -165,6 +148,7 @@ More text
 ```
 
 **Fix:**
+
 ```markdown
 ## Installation
 ...
@@ -172,6 +156,7 @@ More text
 ```
 
 **Strategy:**
+
 - Manual review required
 - Add context to duplicate headings
 - Or restructure document
@@ -181,6 +166,7 @@ More text
 #### 5. MD022 - Blank Lines Around Headings
 
 **Problem:**
+
 ```markdown
 Some text
 ## Heading
@@ -188,6 +174,7 @@ More text
 ```
 
 **Fix:**
+
 ```markdown
 Some text
 
@@ -197,6 +184,7 @@ More text
 ```
 
 **Strategy:**
+
 - Auto-fix with `--fix` flag
 
 ---
@@ -206,7 +194,7 @@ More text
 ### Step-by-Step Process
 
 ```bash
-# 1. Create branch
+# 1. Start from latest main
 git checkout main
 git pull origin main
 git checkout -b docs/fix-markdown-violations-root
@@ -224,14 +212,17 @@ npm run lint:md -- --fix "SECURITY.md"
 # - Verify no content loss
 # - Test links
 
-# 5. Commit by violation type
+# 5. Commit fix + plan checklist together
 git add README.md
+git add plans/in-progress/2026-05-06__fix-markdown-violations/checklist.md
 git commit -m "docs: add language tags to code blocks in README"
 
 git add ROADMAP.md
+git add plans/in-progress/2026-05-06__fix-markdown-violations/checklist.md
 git commit -m "docs: add blank lines around lists in ROADMAP"
 
 git add SECURITY.md
+git add plans/in-progress/2026-05-06__fix-markdown-violations/checklist.md
 git commit -m "docs: fix heading spacing in SECURITY"
 
 # 6. Push & PR
@@ -239,10 +230,12 @@ git push -u origin docs/fix-markdown-violations-root
 gh pr create --title "docs: fix markdown violations in root files"
 
 # 7. Merge
-gh pr merge --rebase --delete-branch
+gh pr merge <PR_NUMBER> --rebase --delete-branch
 
-# 8. Update plan checklist
-# Mark tasks as done
+# 8. Update local main & cleanup
+git checkout main
+git pull origin main
+git branch -d docs/fix-markdown-violations-root
 ```
 
 ---
@@ -283,7 +276,7 @@ git commit -m "test"
 
 ### Pattern
 
-```
+```text
 docs: <violation-type> in <location>
 
 Examples:
@@ -297,7 +290,7 @@ Examples:
 
 Group commits by **violation type** within each PR:
 
-```
+```text
 PR #1: Root Files
 ├─ Commit 1: docs: add language tags to code blocks in root files
 ├─ Commit 2: docs: add blank lines around fences in root files
@@ -330,22 +323,29 @@ npm run lint:md 2>&1 | grep "\.md:" | cut -d: -f1 | sort -u
 ### Git Workflow
 
 ```bash
-# Create branch
+# 1. Start from latest main
+git checkout main
+git pull origin main
 git checkout -b docs/fix-markdown-violations-<area>
 
-# Commit with plan update
-git add <files>
+# 2. Fix violations, then commit WITH plan update
+git add <fixed-files>
 git add plans/in-progress/2026-05-06__fix-markdown-violations/checklist.md
-git commit -m "docs: <message>" --no-verify
+git commit -m "docs: <message>"
 
-# Push (will trigger pre-push hook)
+# 3. Push
 git push -u origin docs/fix-markdown-violations-<area>
 
-# Create PR
+# 4. Create PR
 gh pr create --title "docs: fix markdown violations in <area>"
 
-# Merge
-gh pr merge --rebase --delete-branch
+# 5. Merge (rebase, delete branch)
+gh pr merge <PR_NUMBER> --rebase --delete-branch
+
+# 6. Update local main
+git checkout main
+git pull origin main
+git branch -d docs/fix-markdown-violations-<area>
 ```
 
 ---
