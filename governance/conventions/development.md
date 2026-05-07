@@ -6,7 +6,7 @@ Shared standards for naming, formatting, and structure across all IKP-Labs apps.
 
 ## Commit Messages
 
-```
+```text
 <type>: <description>
 ```
 
@@ -24,6 +24,7 @@ Shared standards for naming, formatting, and structure across all IKP-Labs apps.
 | `config` | Configuration changes (CORS, env, API endpoints) |
 
 **Rules:**
+
 - Lowercase description
 - No period at the end
 - Present tense: `add feature` not `added feature`
@@ -31,7 +32,8 @@ Shared standards for naming, formatting, and structure across all IKP-Labs apps.
 - Optional scope in parentheses: `feat(gallery): add photo upload`
 
 **Examples:**
-```
+
+```text
 feat: add photo favorites feature
 fix: correct JWT token expiry check
 docs(plan): add governance implementation plan
@@ -43,7 +45,7 @@ chore: update playwright to v1.42
 
 ## Branch Naming
 
-```
+```text
 <type>/<short-description>
 ```
 
@@ -61,12 +63,14 @@ chore: update playwright to v1.42
 | `test` | Test-only changes |
 
 **Rules:**
+
 - Lowercase, kebab-case description
 - Short but descriptive (max 4-5 words)
 - Derived from the task, not the date
 
 **Examples:**
-```
+
+```text
 feat/photo-albums
 fix/login-redirect
 refactor/auth-service
@@ -82,14 +86,17 @@ test/gallery-e2e-coverage
 ## Pull Request Format
 
 **Title:**
-```
+
+```text
 <type>: short description
 ```
+
 - Max 70 characters
 - Same type vocabulary as commit messages
 - Lowercase description
 
 **Body template:**
+
 ```markdown
 ## Summary
 - Bullet point change 1
@@ -102,6 +109,7 @@ test/gallery-e2e-coverage
 ```
 
 **Rules:**
+
 - Summary: 3-5 bullet points maximum
 - Test Plan: list what was manually verified (or state "no manual testing needed — docs only")
 - No filler text, no "this PR..." preamble
@@ -122,6 +130,7 @@ test/gallery-e2e-coverage
 | API call functions | camelCase verb | `fetchPhotos`, `uploadPhoto`, `deletePhoto` |
 
 **Additional rules:**
+
 - No `any` types — use `unknown` with a type guard if the shape is truly unknown
 - Prefer `interface` for object shapes, `type` for unions and intersections
 - All exported functions have explicit return types
@@ -142,6 +151,7 @@ test/gallery-e2e-coverage
 | Test classes | PascalCase + `Test` suffix | `PhotoServiceTest` |
 
 **Additional rules:**
+
 - Controllers delegate to services — no business logic in controllers
 - Services delegate to repositories — no raw SQL in services
 - All API responses use a consistent response wrapper (if applicable)

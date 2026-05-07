@@ -26,11 +26,11 @@
 
 #### PR #1 - Merge
 
-- [ ] Push branch
-- [ ] Create PR: `docs: fix markdown violations in root files`
-- [ ] Verify CI passes
-- [ ] Merge with `gh pr merge --rebase --delete-branch`
-- [ ] Update local main
+- [x] Push branch
+- [x] Create PR: `docs: fix markdown violations in root files` (PR #94)
+- [x] Verify CI passes
+- [x] Merge with `gh pr merge --rebase --delete-branch`
+- [x] Update local main
 
 ---
 
@@ -38,24 +38,23 @@
 
 #### PR #2 - Preparation
 
-- [ ] Create branch `docs/fix-markdown-violations-governance`
-- [ ] Scan violations in governance/
+- [x] Create branch `docs/fix-markdown-violations-governance`
+- [x] Scan violations in governance/
 
 #### PR #2 - Fix Violations
 
-- [ ] Fix governance/README.md
-- [ ] Fix governance/repository-governance-architecture.md
-- [ ] Fix governance/conventions/*.md
-- [ ] Fix governance/development/**/*.md
-- [ ] Fix governance/principles/*.md
-- [ ] Fix governance/vision/*.md
+- [x] Fix governance/README.md
+- [x] Fix governance/repository-governance-architecture.md
+- [x] Fix governance/conventions/*.md
+- [x] Fix governance/development/**/*.md
+- [x] Fix governance/principles/*.md
+- [x] Fix governance/vision/*.md
 
 #### PR #2 - Commit Strategy
 
-- [ ] Commit 1: Fix violations in governance root files
-- [ ] Commit 2: Fix violations in governance/conventions
-- [ ] Commit 3: Fix violations in governance/development
-- [ ] Update this checklist
+- [x] Commit 1: Auto-fix blank lines + manual fix code block language tags
+- [x] Commit 2: Fix duplicate headings and emphasis-as-heading
+- [x] Update this checklist
 
 #### PR #2 - Merge
 
