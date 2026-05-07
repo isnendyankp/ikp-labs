@@ -58,11 +58,11 @@
 
 #### PR #2 - Merge
 
-- [ ] Push branch
-- [ ] Create PR: `docs: fix markdown violations in governance`
-- [ ] Verify CI passes
-- [ ] Merge with `gh pr merge --rebase --delete-branch`
-- [ ] Update local main
+- [x] Push branch
+- [x] Create PR: `docs: fix markdown violations in governance` (PR #95)
+- [x] Verify CI passes
+- [x] Merge with `gh pr merge --rebase --delete-branch`
+- [x] Update local main
 
 ---
 
@@ -88,11 +88,11 @@
 
 #### PR #3 - Merge
 
-- [ ] Push branch
-- [ ] Create PR: `docs: fix markdown violations in tutorials`
-- [ ] Verify CI passes
-- [ ] Merge with `gh pr merge --rebase --delete-branch`
-- [ ] Update local main
+- [x] Push branch
+- [x] Create PR: `docs: fix markdown violations in tutorials` (PR #96)
+- [x] Verify CI passes
+- [x] Merge with `gh pr merge --rebase --delete-branch`
+- [x] Update local main
 
 ---
 
@@ -100,21 +100,20 @@
 
 #### PR #4 - Preparation
 
-- [ ] Create branch `docs/fix-markdown-violations-how-to`
-- [ ] Scan violations in docs/how-to/
+- [x] Create branch `docs/fix-markdown-violations-how-to`
+- [x] Scan violations in docs/how-to/
 
 #### PR #4 - Fix Violations
 
-- [ ] Fix all files in docs/how-to/
-- [ ] Verify code examples still work
-- [ ] Test internal links
+- [x] Fix all files in docs/how-to/
+- [x] Verify code examples still work
+- [x] Test internal links
 
 #### PR #4 - Commit Strategy
 
-- [ ] Commit 1: Add language tags to code blocks
-- [ ] Commit 2: Add blank lines around fences/lists
-- [ ] Commit 3: Fix heading spacing
-- [ ] Update this checklist
+- [x] Commit 1: Fix code block language tags, MD025, MD036 violations
+- [x] Commit 2: Disable MD024 in config (matches senior repo pattern)
+- [x] Update this checklist
 
 #### PR #4 - Merge
 

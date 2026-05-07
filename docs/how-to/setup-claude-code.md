@@ -19,6 +19,7 @@ cp .clauderc.example .clauderc
 Open `.clauderc` in your editor and replace the placeholder paths:
 
 **Replace:**
+
 ```json
 "Edit(//path/to/your/IKP-Labs/**)"
 "Read(//path/to/your/home/**)"
@@ -26,6 +27,7 @@ Open `.clauderc` in your editor and replace the placeholder paths:
 ```
 
 **With your actual paths:**
+
 ```json
 "Edit(//Users/YOUR_USERNAME/path/to/IKP-Labs/**)"
 "Read(//Users/YOUR_USERNAME/**)"
@@ -33,6 +35,7 @@ Open `.clauderc` in your editor and replace the placeholder paths:
 ```
 
 **Example (macOS):**
+
 ```json
 "Edit(//Users/johndoe/projects/IKP-Labs/**)"
 "Read(//Users/johndoe/**)"
@@ -40,6 +43,7 @@ Open `.clauderc` in your editor and replace the placeholder paths:
 ```
 
 **Example (Windows):**
+
 ```json
 "Edit(//C:/Users/johndoe/projects/IKP-Labs/**)"
 "Read(//C:/Users/johndoe/**)"
@@ -124,6 +128,7 @@ Once configured, Claude Code will:
 ## 📚 Learn More
 
 For more about Claude Code configuration:
+
 - [Claude Code Documentation](https://docs.claude.com/claude-code)
 - [Permissions Reference](https://docs.claude.com/claude-code/permissions)
 
@@ -142,7 +147,7 @@ If you improve the `.clauderc.example` configuration:
 
 ---
 
-# 🔧 Troubleshooting: Migrasi dari z.ai ke Claude AI Subscription
+## 🔧 Troubleshooting: Migrasi dari z.ai ke Claude AI Subscription
 
 ## 📖 Background
 
@@ -151,16 +156,19 @@ Sebelumnya, Claude Code Extension dikonfigurasi menggunakan **z.ai API** (free t
 ## ❌ Masalah yang Terjadi
 
 ### 1. **Error 401: Token Expired**
-```
+
+```text
 401 {"error":{"message":"token expired or incorrect","type":"401"}}
 ```
 
 ### 2. **Claude Code Extension Tidak Bisa Response**
+
 - Login di web browser (`claude.ai`) berhasil
 - Extension menunjukkan sudah login dengan akun subscription
 - Tapi saat chat, tidak ada response atau stuck di "Marinating..."
 
 ### 3. **Terminal Masih Menunjukkan z.ai**
+
 ```bash
 $ claude
 Claude Code v2.1.104
@@ -172,6 +180,7 @@ glm-5.1 · Claude Max  # ❌ Masih menunjukkan glm-5.1 (z.ai)
 Konfigurasi z.ai tersimpan di **3 lokasi berbeda** dan masih aktif meskipun sudah login dengan subscription:
 
 ### 1. **File `~/.claude/settings.json`**
+
 ```json
 {
   "env": {
@@ -183,6 +192,7 @@ Konfigurasi z.ai tersimpan di **3 lokasi berbeda** dan masih aktif meskipun suda
 ```
 
 ### 2. **File `.claude/settings.json` (project-level)**
+
 ```json
 {
   "env": {
@@ -194,6 +204,7 @@ Konfigurasi z.ai tersimpan di **3 lokasi berbeda** dan masih aktif meskipun suda
 ```
 
 ### 3. **Environment Variables di `~/.zshrc`**
+
 ```bash
 export ANTHROPIC_BASE_URL="https://api.z.ai/api/anthropic"
 export ANTHROPIC_DEFAULT_SONNET_MODEL="glm-5.1"
@@ -201,6 +212,7 @@ export ZAI_API_KEY="a86c96f2b8414e04b9929939d557e854.ychKTRNBP6G7krKC"
 ```
 
 ### 4. **Cache & Session**
+
 - `~/.claude/sessions/`
 - `~/.claude/backups/`
 - `~/.claude/debug/`
@@ -210,7 +222,8 @@ export ZAI_API_KEY="a86c96f2b8414e04b9929939d557e854.ychKTRNBP6G7krKC"
 
 ### **Step 1: Bersihkan Konfigurasi z.ai dari File Settings**
 
-#### Global Settings (`~/.claude/settings.json`):
+#### Global Settings (`~/.claude/settings.json`)
+
 ```bash
 cat > ~/.claude/settings.json << 'EOF'
 {
@@ -223,7 +236,8 @@ cat > ~/.claude/settings.json << 'EOF'
 EOF
 ```
 
-#### Project Settings (`.claude/settings.json`):
+#### Project Settings (`.claude/settings.json`)
+
 ```bash
 cat > .claude/settings.json << 'EOF'
 {
@@ -247,6 +261,7 @@ EOF
 ### **Step 2: Hapus Environment Variables dari `~/.zshrc`**
 
 Edit `~/.zshrc` dan **hapus semua baris** yang berisi:
+
 ```bash
 export ANTHROPIC_BASE_URL="https://api.z.ai/api/anthropic"
 export ANTHROPIC_DEFAULT_HAIKU_MODEL="glm-4.5-air"
@@ -257,6 +272,7 @@ export PATH=/Users/isnendyankp/.opencode/bin:$PATH
 ```
 
 **Pastikan hanya tersisa:**
+
 ```bash
 export JAVA_HOME=/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home
 export PATH="/opt/homebrew/opt/postgresql@15/bin:$PATH"
@@ -312,9 +328,11 @@ rm -rf ~/Library/Application\ Support/Windsurf/CachedExtensionVSIXs/.trash/anthr
 2. **Restart Windsurf sepenuhnya** (`Cmd + Q` → buka lagi)
 3. **Buka terminal BARU**
 4. **Verifikasi environment variables sudah bersih:**
+
    ```bash
    env | grep ANTHROPIC
    ```
+
    Seharusnya **tidak ada output** (kosong)
 
 ### **Step 7: Test Claude Code**
@@ -326,6 +344,7 @@ rm -rf ~/Library/Application\ Support/Windsurf/CachedExtensionVSIXs/.trash/anthr
 ## ✅ Verifikasi Sukses
 
 ### **Cek di Terminal:**
+
 ```bash
 $ claude
 Claude Code v2.1.104
@@ -333,6 +352,7 @@ Claude Max  # ✅ Tidak ada "glm-5.1" lagi
 ```
 
 ### **Cek Account & Usage:**
+
 - Ketik `/` di panel Claude Code
 - Pilih "Account & Usage"
 - **Auth method:** Claude AI ✅
@@ -343,12 +363,14 @@ Claude Max  # ✅ Tidak ada "glm-5.1" lagi
 
 **Masalah utama:** Environment variables z.ai masih aktif di terminal yang sedang berjalan, meskipun sudah dihapus dari file konfigurasi.
 
-**Solusi kunci:** 
+**Solusi kunci:**
+
 1. Hapus semua konfigurasi z.ai dari 3 lokasi (settings.json, .zshrc, cache)
 2. **Restart Windsurf sepenuhnya**
 3. **Tutup semua terminal lama** dan buka terminal baru
 
 **Mengapa restart penting:**
+
 - Terminal yang sudah terbuka **menyimpan environment variables lama** di memory
 - Meskipun `.zshrc` sudah dibersihkan, terminal lama masih pakai variable lama
 - Hanya terminal **BARU** (setelah restart) yang akan membaca `.zshrc` yang sudah bersih
