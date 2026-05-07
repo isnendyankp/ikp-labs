@@ -73,6 +73,7 @@ When running tests with plan tracking, you'll see:
 ```
 
 **Key Symbols:**
+
 - 📋 Test started
 - 📝 User created and tracked
 - ✅ Test passed / User deleted
@@ -95,6 +96,7 @@ npx playwright show-report
 ```
 
 **Report includes:**
+
 - ✅ Test pass/fail status
 - ⏱️ Execution time per test
 - 📸 Screenshots (for UI tests)
@@ -113,11 +115,13 @@ tests/plans/
 ```
 
 **View plan status:**
+
 ```bash
 cat tests/plans/registration.plan.json
 ```
 
 **Example output:**
+
 ```json
 {
   "planName": "User Registration Testing",
@@ -283,6 +287,7 @@ jobs:
 **Problem:** Tests don't complete
 
 **Solution:**
+
 ```bash
 # Check if backend is running
 curl http://localhost:8081/api/health
@@ -297,11 +302,13 @@ mvn spring-boot:run
 **Problem:** "Failed to delete user"
 
 **Possible causes:**
+
 1. Backend not running
 2. User doesn't exist
 3. Network issues
 
 **Solution:**
+
 ```bash
 # List all test users
 curl http://localhost:8081/api/test-admin/users
@@ -315,6 +322,7 @@ curl -X DELETE http://localhost:8081/api/test-admin/cleanup/automated
 **Problem:** JSON parse error
 
 **Solution:**
+
 ```bash
 # Restore from git
 git checkout tests/plans/registration.plan.json
@@ -369,6 +377,7 @@ cp tests/plans/template.plan.json tests/plans/registration.plan.json
 ---
 
 **Related:**
+
 - [Test Plan Tracker API Reference](../../reference/testing/test-plan-tracker-api.md)
 - [Test Strategy Explanation](../../explanation/testing/test-plan-strategy.md)
 - [Project Testing Overview](../../../README.md#testing)

@@ -163,15 +163,19 @@ export default function LogoutButton() {
 ## Testing Protected Routes
 
 ### Test 1: Unauthenticated Access
+
 Try to access `/home` without logging in - you should be redirected to `/login`.
 
 ### Test 2: Authenticated Access
+
 Login successfully and you should be redirected to `/home` with your user information displayed.
 
 ### Test 3: Token Persistence
+
 Refresh the page while on `/home` - you should remain authenticated and see your information.
 
 ### Test 4: Logout
+
 Click the logout button - you should be redirected to `/login` and unable to access `/home` without logging in again.
 
 ## Common Issues

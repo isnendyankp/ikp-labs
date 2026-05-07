@@ -7,6 +7,7 @@ This guide shows you how to run automated end-to-end tests for the Registration 
 Before running tests, ensure both servers are running:
 
 **Terminal 1 - Backend Server:**
+
 ```bash
 cd backend/ikp-labs-api
 mvn spring-boot:run
@@ -15,6 +16,7 @@ mvn spring-boot:run
 Backend should be available at: `http://localhost:8081`
 
 **Terminal 2 - Frontend Server:**
+
 ```bash
 cd frontend
 npm run dev
@@ -76,6 +78,7 @@ npx playwright show-report
 ```
 
 This opens an interactive report in your browser showing:
+
 - Test results (passed/failed)
 - Screenshots on failure
 - Trace files for debugging
@@ -85,7 +88,7 @@ This opens an interactive report in your browser showing:
 
 Tests display console output during execution:
 
-```
+```text
 🧪 Test 1: Registration with Valid Data
 ✅ Test 1: PASSED
    User created: test.e2e.1234567890@example.com (ID: 42)
@@ -105,6 +108,7 @@ npx playwright test --debug
 ```
 
 This allows you to:
+
 - Step through tests line by line
 - Pause execution
 - Inspect page elements
@@ -190,6 +194,7 @@ These users must exist in the database for login tests to pass.
 **Error**: `net::ERR_CONNECTION_REFUSED` to `http://localhost:8081`
 
 **Solution**: Start the backend server:
+
 ```bash
 cd backend/ikp-labs-api
 mvn spring-boot:run
@@ -200,6 +205,7 @@ mvn spring-boot:run
 **Error**: `page.goto: net::ERR_CONNECTION_REFUSED`
 
 **Solution**: Start the frontend server:
+
 ```bash
 cd frontend
 npm run dev
@@ -210,6 +216,7 @@ npm run dev
 **Error**: Login tests fail with 401 error
 
 **Solution**: Create the test user manually or run registration test first:
+
 ```bash
 npx playwright test tests/e2e/registration.spec.ts -g "Test 1"
 ```
@@ -225,6 +232,7 @@ npx playwright test tests/e2e/registration.spec.ts -g "Test 1"
 **Error**: Port 8081 or 3001 already in use
 
 **Solution**: Stop other processes using these ports:
+
 ```bash
 # Find process using port
 lsof -i :8081

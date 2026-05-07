@@ -7,12 +7,14 @@ This guide shows you how to run automated API tests for the Registration Form ba
 API testing is a type of testing that validates the backend endpoints directly, without using a browser or UI. Instead of clicking buttons and filling forms, we send HTTP requests directly to the API and verify the responses.
 
 **Benefits of API testing:**
+
 - **Fast:** No browser overhead, tests run in milliseconds
 - **Reliable:** No UI flakiness or timing issues
 - **Focused:** Tests only the backend logic and data
 - **Coverage:** Can test edge cases that are hard to reach via UI
 
 **Difference from E2E testing:**
+
 - **E2E tests:** Test through the browser (click buttons, fill forms)
 - **API tests:** Test backend directly (send HTTP requests)
 
@@ -23,6 +25,7 @@ Both types are important and complement each other!
 Before running API tests, ensure the backend server is running:
 
 **Terminal 1 - Backend Server:**
+
 ```bash
 cd backend/ikp-labs-api
 mvn spring-boot:run
@@ -36,7 +39,7 @@ Backend should be available at: `http://localhost:8081`
 
 API tests are located in the `tests/api/` directory:
 
-```
+```text
 tests/api/
 ├── helpers/
 │   ├── api-client.ts      # HTTP request wrapper
@@ -380,12 +383,14 @@ test('should create user', async ({ request }) => {
 ### Backend Not Running
 
 **Error:**
-```
+
+```text
 Error: connect ECONNREFUSED 127.0.0.1:8081
 ```
 
 **Solution:**
 Make sure the backend server is running on port 8081:
+
 ```bash
 cd backend/ikp-labs-api
 mvn spring-boot:run
@@ -394,12 +399,15 @@ mvn spring-boot:run
 ### Database Connection Issues
 
 **Error:**
-```
+
+```text
 Could not connect to PostgreSQL database
 ```
 
 **Solution:**
+
 1. Check PostgreSQL is running:
+
    ```bash
    # macOS
    brew services list
@@ -413,13 +421,16 @@ Could not connect to PostgreSQL database
 ### Test Timeouts
 
 **Error:**
-```
+
+```text
 Test timeout of 30000ms exceeded
 ```
 
 **Solution:**
+
 1. Check if backend is responding slowly
 2. Increase timeout in test:
+
    ```typescript
    test('slow test', async ({ request }) => {
      test.setTimeout(60000); // 60 seconds
@@ -430,11 +441,13 @@ Test timeout of 30000ms exceeded
 ### JWT Token Errors
 
 **Error:**
-```
+
+```text
 401 Unauthorized
 ```
 
 **Solution:**
+
 1. Verify token is being sent in Authorization header
 2. Check token format: `Bearer <token>`
 3. Verify token is not expired
@@ -443,12 +456,14 @@ Test timeout of 30000ms exceeded
 ### Duplicate Email Errors
 
 **Error:**
-```
+
+```text
 400 Bad Request: Email already exists
 ```
 
 **Solution:**
 Use `generateUniqueEmail()` instead of hardcoded emails:
+
 ```typescript
 // ✅ Good
 const email = generateUniqueEmail();
@@ -462,12 +477,14 @@ const email = 'test@example.com';
 **Symptom:** Tests pass sometimes and fail other times
 
 **Common Causes:**
+
 1. **Test data conflicts:** Use unique test data
 2. **Race conditions:** Ensure proper async/await usage
 3. **Dirty database:** Clean up test data properly
 4. **Backend timing:** Add appropriate waits if needed
 
 **Solutions:**
+
 ```typescript
 // Use unique data
 const email = generateUniqueEmail();
