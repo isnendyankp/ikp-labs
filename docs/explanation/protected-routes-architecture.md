@@ -9,17 +9,20 @@ Protected routes are pages in a web application that require authentication to a
 ## Why Use Protected Routes?
 
 ### 1. Security
+
 Protected routes ensure that sensitive user information and functionality are only accessible to authenticated users. This prevents unauthorized access to personal data.
 
 ### 2. User Experience
+
 By automatically redirecting unauthenticated users to the login page, we create a seamless flow that guides users through the authentication process without showing error messages or broken pages.
 
 ### 3. State Management
+
 Protected routes rely on client-side token verification, which is fast and doesn't require server roundtrips for every page load. This improves performance while maintaining security.
 
 ## Architecture Overview
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────┐
 │                       User Journey                          │
 └─────────────────────────────────────────────────────────────┘
@@ -70,11 +73,13 @@ export const isAuthenticated = (): boolean => {
 ```
 
 **Why this approach?**
+
 - **Fast**: No server roundtrip needed
 - **Simple**: Boolean check for token presence
 - **Client-side**: Works in browser environment
 
 **Limitations:**
+
 - Doesn't validate token expiration
 - Doesn't check token signature
 - Trusts localStorage content
@@ -100,6 +105,7 @@ export const getUserFromToken = (): AuthUser | null => {
 ```
 
 **Why decode client-side?**
+
 - Avoids extra API calls to fetch user data
 - User info is already in the token
 - Faster page rendering
@@ -122,6 +128,7 @@ useEffect(() => {
 ```
 
 **Why useEffect?**
+
 - Runs after component mount
 - Prevents server-side rendering issues
 - Allows for loading states
@@ -139,6 +146,7 @@ useEffect(() => {
 ```
 
 **Why reverse protection?**
+
 - Better UX: Already logged-in users go straight to their content
 - Prevents confusion: No need to see login form when already authenticated
 - Maintains flow: Natural progression through the app
@@ -161,7 +169,7 @@ useEffect(() => {
 
 While client-side protection guards the UI, the real security happens on the server:
 
-```
+```text
 Client Protection:     Server Protection:
 ─────────────────     ──────────────────
 Show/Hide Pages   ←→   Verify JWT Signature
@@ -177,11 +185,13 @@ Extract User Info ←→   Validate Permissions
 ### Decision 1: localStorage vs Cookies
 
 **We chose localStorage** because:
+
 - Simple API: Easy to read/write
 - No server configuration needed
 - Works well with client-side routing
 
 **Trade-off**:
+
 - Vulnerable to XSS attacks
 - Not automatically sent with requests
 - Requires manual token handling
@@ -189,11 +199,13 @@ Extract User Info ←→   Validate Permissions
 ### Decision 2: Client-Side Token Decoding
 
 **We decode tokens on client** because:
+
 - Faster: No API call needed for user info
 - User data already in token
 - Better perceived performance
 
 **Trade-off**:
+
 - Token payload is public
 - Must not store sensitive data in token
 - Relies on server verification for security
@@ -201,11 +213,13 @@ Extract User Info ←→   Validate Permissions
 ### Decision 3: Redirect on Load vs Show Error
 
 **We redirect immediately** because:
+
 - Cleaner UX: No flash of protected content
 - Clear user flow: Direct to login
 - No confusing error messages
 
 **Trade-off**:
+
 - Users might not understand why they were redirected
 - Requires loading states to prevent flash
 - More complex state management
@@ -219,7 +233,7 @@ Extract User Info ←→   Validate Permissions
 3. Decode token → ~1ms
 4. Render page → ~50-100ms
 
-**Total: ~52-102ms to first paint**
+#### Total: ~52-102ms to first paint
 
 ### Slow Path: Unauthenticated User
 
@@ -228,7 +242,7 @@ Extract User Info ←→   Validate Permissions
 3. Redirect → ~50ms
 4. Login page loads → ~100ms
 
-**Total: ~151ms to login page**
+#### Total: ~151ms to login page
 
 ### Optimization Strategies
 
@@ -241,7 +255,7 @@ Extract User Info ←→   Validate Permissions
 
 ### Current State: Simple JWT Protection
 
-```
+```text
 Token in localStorage → Decode → Show Page
 ```
 
@@ -271,6 +285,6 @@ To add more sophisticated authentication:
 
 ## Further Reading
 
-- JWT Best Practices: https://tools.ietf.org/html/rfc8725
-- Next.js Authentication Patterns: https://nextjs.org/docs/authentication
-- localStorage Security: https://owasp.org/www-community/vulnerabilities/DOM_Based_XSS
+- JWT Best Practices: <https://tools.ietf.org/html/rfc8725>
+- Next.js Authentication Patterns: <https://nextjs.org/docs/authentication>
+- localStorage Security: <https://owasp.org/www-community/vulnerabilities/DOM_Based_XSS>

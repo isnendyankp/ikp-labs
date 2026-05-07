@@ -3,7 +3,8 @@
     "default": true,
     "MD013": false,
     "MD033": false,
-    "MD041": false
+    "MD041": false,
+    "MD051": false
   },
   "ignores": [
     "node_modules",

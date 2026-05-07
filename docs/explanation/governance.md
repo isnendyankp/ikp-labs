@@ -13,6 +13,7 @@ Without governance, a project drifts. Each contributor makes local decisions tha
 In a monorepo with multiple apps, this problem compounds. App 2 inherits nothing from App 1. A new contributor reads one app and assumes its patterns apply everywhere — but they might not.
 
 Governance solves this by making decisions **explicit and durable**:
+
 - Why does this project exist? (Vision)
 - What values guide decisions when there's no clear answer? (Principles)
 - What standards apply everywhere? (Conventions)
@@ -23,7 +24,7 @@ Governance solves this by making decisions **explicit and durable**:
 
 ## The 6-Layer Model
 
-```
+```text
 ┌─────────────────────────────────────────────────┐
 │  Layer 1  governance/vision/ikp-labs.md          │
 │           Purpose — why this project exists     │
@@ -58,6 +59,7 @@ Higher layers are more stable and rarely change. Lower layers are more operation
 Answers the most fundamental question: **why does IKP-Labs exist?**
 
 Contains:
+
 - Project purpose — the problem it solves and what it demonstrates
 - Target users — who uses the system and who reads the codebase
 - What success looks like — concrete, observable outcomes
@@ -74,6 +76,7 @@ Vision is the highest authority. If a proposed feature or decision conflicts wit
 Answers: **what values guide decisions when there's no obvious right answer?**
 
 IKP-Labs has 7 core principles:
+
 1. Test-First Confidence
 2. Explicit Over Implicit
 3. Incremental Change
@@ -93,6 +96,7 @@ Each principle has a statement, rationale, and concrete examples from the codeba
 Answers: **what standards apply across every app in the monorepo?**
 
 Covers:
+
 - Commit message format (types, rules, examples)
 - Branch naming (pattern and all allowed types)
 - Pull request format (title, body template)
@@ -127,6 +131,7 @@ Answers: **what are we building right now, and how?**
 Plans are ephemeral — they track active work and are archived when complete. Each plan lives in `plans/in-progress/` during development and moves to `plans/done/` when finished.
 
 Every plan follows the 4-document structure:
+
 - `README.md` — overview and scope
 - `requirements.md` — user stories and acceptance criteria
 - `technical-design.md` — architecture and file specifications

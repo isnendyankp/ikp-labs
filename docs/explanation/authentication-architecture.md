@@ -21,12 +21,14 @@ The Registration Form application uses a **stateless JWT (JSON Web Token) authen
 Think of JWT authentication like a modern hotel key card system:
 
 **Traditional Session-Based (Old Hotel Keys):**
+
 - Front desk keeps a record of every guest (server stores sessions)
 - When you enter your room, security calls front desk to verify (server checks session database)
 - If front desk system crashes, all keys stop working (session data lost)
 - Slow during check-in rush hour (database queries for every request)
 
 **JWT Token-Based (Modern Key Cards):**
+
 - Key card contains all guest information (JWT token contains user data)
 - Room door scans card locally, no need to call front desk (server validates token without database)
 - Card has expiration date printed on it (JWT has expiration claim)
@@ -61,7 +63,7 @@ Think of JWT authentication like a modern hotel key card system:
 
 ### Component Diagram
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────────┐
 │                          FRONTEND                                │
 │  ┌────────────────┐    ┌────────────────┐    ┌────────────────┐│
@@ -116,7 +118,7 @@ Think of JWT authentication like a modern hotel key card system:
 
 **Step-by-Step Process:**
 
-```
+```text
 User                Frontend            AuthController      AuthService         Database
  │                     │                      │                 │                  │
  │  Fill Form          │                      │                 │                  │
@@ -174,7 +176,7 @@ User                Frontend            AuthController      AuthService         
 
 **Step-by-Step Process:**
 
-```
+```text
 User                Frontend            AuthController      AuthService         Database
  │                     │                      │                 │                  │
  │  Enter Credentials  │                      │                 │                  │
@@ -225,7 +227,7 @@ User                Frontend            AuthController      AuthService         
 
 **Step-by-Step Process:**
 
-```
+```text
 User                Frontend            JWT Filter          Controller          Service
  │                     │                      │                 │                  │
  │  Click "Profile"    │                      │                 │                  │
@@ -277,11 +279,12 @@ User                Frontend            JWT Filter          Controller          
 
 A JWT consists of three parts separated by dots (`.`):
 
-```
+```text
 eyJhbGciOiJIUzUxMiJ9.eyJmdWxsTmFtZSI6IkpvaG4gRG9lIiwiZW1haWwiOiJqb2huQGV4YW1wbGUuY29tIiwic3ViIjoiam9obkBleGFtcGxlLmNvbSIsImlhdCI6MTczMDAwMDAwMCwiZXhwIjoxNzMwMDg2NDAwfQ.Jf36POk6yJI-J0kH-8SBjbCH0H8B9_P6iW4V3w8_YlQ
 ```
 
 **Parts:**
+
 1. **Header** (red): Algorithm and token type
 2. **Payload** (purple): User data and claims
 3. **Signature** (green): Cryptographic signature
@@ -289,6 +292,7 @@ eyJhbGciOiJIUzUxMiJ9.eyJmdWxsTmFtZSI6IkpvaG4gRG9lIiwiZW1haWwiOiJqb2huQGV4YW1wbGU
 ### Decoded Token Example
 
 **Header:**
+
 ```json
 {
   "alg": "HS512",
@@ -297,6 +301,7 @@ eyJhbGciOiJIUzUxMiJ9.eyJmdWxsTmFtZSI6IkpvaG4gRG9lIiwiZW1haWwiOiJqb2huQGV4YW1wbGU
 ```
 
 **Payload (Claims):**
+
 ```json
 {
   "fullName": "John Doe",
@@ -308,7 +313,8 @@ eyJhbGciOiJIUzUxMiJ9.eyJmdWxsTmFtZSI6IkpvaG4gRG9lIiwiZW1haWwiOiJqb2huQGV4YW1wbGU
 ```
 
 **Signature:**
-```
+
+```text
 HMACSHA512(
   base64UrlEncode(header) + "." + base64UrlEncode(payload),
   secret
@@ -319,11 +325,11 @@ HMACSHA512(
 
 | Claim | Type | Description | Example |
 |-------|------|-------------|---------|
-| `sub` | Standard | Subject (user identifier) | "john@example.com" |
+| `sub` | Standard | Subject (user identifier) | "<john@example.com>" |
 | `iat` | Standard | Issued At timestamp | 1730000000 |
 | `exp` | Standard | Expiration timestamp | 1730086400 |
 | `fullName` | Custom | User's full name | "John Doe" |
-| `email` | Custom | User's email address | "john@example.com" |
+| `email` | Custom | User's email address | "<john@example.com>" |
 
 ---
 
@@ -332,12 +338,14 @@ HMACSHA512(
 ### 1. Password Security
 
 **BCrypt Hashing:**
+
 - **Algorithm**: BCrypt with 12 rounds
 - **Salt**: Automatically generated per password
 - **One-Way**: Cannot reverse hash to get password
 - **Slow by Design**: Resistant to brute-force attacks
 
 **Example:**
+
 ```java
 // Plain password
 String password = "SecurePass123!";
@@ -350,6 +358,7 @@ boolean isValid = passwordEncoder.matches(password, hash); // true
 ```
 
 **Why BCrypt?**
+
 - Industry standard for password hashing
 - Configurable work factor (rounds)
 - Built-in salt prevents rainbow table attacks
@@ -358,18 +367,21 @@ boolean isValid = passwordEncoder.matches(password, hash); // true
 ### 2. Token Security
 
 **Secret Key:**
+
 - Minimum 256-bit key for HS512 algorithm
 - Stored in `application.properties` (should use environment variable in production)
 - Never exposed to clients
 - Used to sign and verify tokens
 
 **Token Expiration:**
+
 - Default: 24 hours (86400000 ms)
 - Configurable via `jwt.expiration` property
 - Prevents indefinite token reuse
 - Requires periodic re-authentication
 
 **Token Validation Checklist:**
+
 1. ✅ Signature is valid (not tampered)
 2. ✅ Token not expired (exp claim)
 3. ✅ Issuer is correct (optional)
@@ -378,6 +390,7 @@ boolean isValid = passwordEncoder.matches(password, hash); // true
 ### 3. CORS Security
 
 **Configuration:**
+
 ```java
 // Allow frontend origin
 allowedOrigins: "http://localhost:3002"
@@ -393,6 +406,7 @@ allowedHeaders: Authorization, Content-Type
 ```
 
 **Why CORS?**
+
 - Prevents unauthorized cross-origin requests
 - Protects against CSRF attacks
 - Allows controlled frontend-backend communication
@@ -400,6 +414,7 @@ allowedHeaders: Authorization, Content-Type
 ### 4. Stateless Sessions
 
 **Session Management:**
+
 ```java
 .sessionManagement(session -> session
     .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -407,6 +422,7 @@ allowedHeaders: Authorization, Content-Type
 ```
 
 **Benefits:**
+
 - No session data stored on server
 - No session fixation attacks
 - Horizontal scalability (no shared session store)
@@ -421,6 +437,7 @@ allowedHeaders: Authorization, Content-Type
 The application defines three levels of access:
 
 **1. Public Endpoints (No Authentication Required):**
+
 ```java
 .requestMatchers("/api/auth/login").permitAll()
 .requestMatchers("/api/auth/register").permitAll()
@@ -430,6 +447,7 @@ The application defines three levels of access:
 Anyone can access these without a token.
 
 **2. Authenticated Endpoints (Valid Token Required):**
+
 ```java
 .requestMatchers("/api/user/**").authenticated()
 ```
@@ -437,6 +455,7 @@ Anyone can access these without a token.
 Requires a valid JWT token in Authorization header.
 
 **3. Role-Based Endpoints (Specific Role Required):**
+
 ```java
 .requestMatchers("/api/admin/**").hasRole("ADMIN")
 ```
@@ -474,6 +493,7 @@ This allows controllers to access authenticated user information without manual 
 ### Token Errors
 
 **Invalid Token:**
+
 ```json
 {
   "success": false,
@@ -483,11 +503,13 @@ This allows controllers to access authenticated user information without manual 
 ```
 
 **Missing Token:**
+
 - Request proceeds but user is unauthenticated
 - Protected endpoints return 401 Unauthorized
 - Public endpoints still accessible
 
 **Expired Token:**
+
 ```json
 {
   "success": false,
@@ -497,6 +519,7 @@ This allows controllers to access authenticated user information without manual 
 ```
 
 **Malformed Token:**
+
 - JwtUtil throws exception
 - Filter catches and clears security context
 - Request continues as unauthenticated
@@ -549,30 +572,35 @@ DB_PASSWORD=secure_password
 ### Implementation Guidelines
 
 **1. Token Storage:**
+
 - ✅ Store in localStorage for web apps
 - ✅ Store in secure storage for mobile apps
 - ❌ Never log tokens in console
 - ❌ Never store in URL parameters
 
 **2. Token Transmission:**
+
 - ✅ Always use Authorization header
 - ✅ Use Bearer prefix: `Bearer <token>`
 - ✅ Use HTTPS in production
 - ❌ Never send token in URL query params
 
 **3. Secret Key Management:**
+
 - ✅ Use environment variables in production
 - ✅ Minimum 256-bit key for HS512
 - ✅ Rotate keys periodically
 - ❌ Never commit secrets to version control
 
 **4. Password Handling:**
+
 - ✅ Always hash with BCrypt
 - ✅ Use strong password validation
 - ✅ Never log passwords
 - ❌ Never store plain-text passwords
 
 **5. Error Messages:**
+
 - ✅ Use generic messages for auth failures
 - ✅ Log detailed errors server-side
 - ❌ Don't reveal if email exists (timing attacks)
@@ -585,22 +613,26 @@ DB_PASSWORD=secure_password
 ### Test Coverage
 
 **1. Unit Tests:**
+
 - JwtUtil token generation/validation
 - BCrypt password encoding/matching
 - AuthService business logic
 
 **2. Integration Tests:**
+
 - Full registration flow
 - Full login flow
 - Token refresh flow
 
 **3. E2E Tests (Playwright):**
+
 - User registration journey
 - User login journey
 - Protected route access
 - Token expiration handling
 
 **4. Security Tests:**
+
 - Invalid token handling
 - Expired token handling
 - Missing token handling
@@ -633,32 +665,38 @@ export const testUsers = {
 ### Planned Features
 
 **1. Role-Based Access Control (RBAC):**
+
 ```sql
 ALTER TABLE users ADD COLUMN role VARCHAR(20) DEFAULT 'USER';
 ```
 
 **2. Refresh Tokens:**
+
 - Separate short-lived access tokens (15 min)
 - Long-lived refresh tokens (7 days)
 - Refresh endpoint to get new access token
 
 **3. Email Verification:**
+
 ```sql
 ALTER TABLE users ADD COLUMN email_verified BOOLEAN DEFAULT FALSE;
 ALTER TABLE users ADD COLUMN verification_token VARCHAR(255);
 ```
 
 **4. Password Reset:**
+
 - Forgot password endpoint
 - Email-based password reset flow
 - Time-limited reset tokens
 
 **5. OAuth2 Integration:**
+
 - Google Sign-In
 - GitHub Sign-In
 - Social authentication providers
 
 **6. Multi-Factor Authentication (MFA):**
+
 - TOTP (Time-based One-Time Password)
 - SMS verification
 - Email verification codes
@@ -670,6 +708,7 @@ ALTER TABLE users ADD COLUMN verification_token VARCHAR(255);
 ### Common Issues
 
 **1. Token Not Working:**
+
 ```bash
 # Check token in browser console
 localStorage.getItem('token')
@@ -679,21 +718,25 @@ localStorage.getItem('token')
 ```
 
 **2. CORS Errors:**
-```
+
+```text
 Access to XMLHttpRequest blocked by CORS policy
 ```
 
 **Solution:** Check `CorsConfig.java` allows frontend origin:
+
 ```java
 .allowedOrigins("http://localhost:3002")
 ```
 
 **3. 401 Unauthorized on Protected Routes:**
+
 - Check token exists in localStorage
 - Verify token not expired
 - Confirm Authorization header format: `Bearer <token>`
 
 **4. BCrypt Password Not Matching:**
+
 - Ensure password encoder strength matches (12 rounds)
 - Check password string encoding (UTF-8)
 - Verify no extra whitespace in password
@@ -705,26 +748,31 @@ Access to XMLHttpRequest blocked by CORS policy
 ### Why These Choices?
 
 **1. JWT over Sessions:**
+
 - **Decision**: Use JWT for authentication
 - **Rationale**: Stateless architecture, better scalability, mobile-friendly
 - **Trade-offs**: Cannot revoke tokens before expiration (mitigated by short expiry)
 
 **2. BCrypt over Other Hash Functions:**
+
 - **Decision**: Use BCrypt with 12 rounds
 - **Rationale**: Industry standard, built-in salt, configurable work factor
 - **Trade-offs**: Slower than SHA256 (but that's a security feature)
 
 **3. localStorage for Token Storage:**
+
 - **Decision**: Store JWT in browser localStorage
 - **Rationale**: Simple, persistent across sessions, accessible to JavaScript
 - **Trade-offs**: Vulnerable to XSS attacks (mitigated by React's XSS protection)
 
 **4. Email as Primary Identifier:**
+
 - **Decision**: Use email instead of username
 - **Rationale**: More user-friendly, unique, useful for communication
 - **Trade-offs**: Harder to change (requires additional logic)
 
 **5. 24-Hour Token Expiration:**
+
 - **Decision**: Set default expiry to 24 hours
 - **Rationale**: Balance between security and UX (not too frequent re-login)
 - **Trade-offs**: Longer exposure if token stolen (planned refresh token feature)

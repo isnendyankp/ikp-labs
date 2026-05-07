@@ -22,7 +22,7 @@ These tokens cost money on paid plans and consume context window space — reduc
 
 RTK operates as a **transparent hook** inside Claude Code. The flow is:
 
-```
+```text
 Claude Code
     │
     ▼
@@ -87,5 +87,6 @@ RTK is configured globally in `~/.claude/settings.json`. This is intentional: to
 ---
 
 **See also**:
+
 - [How to Setup RTK](../how-to/setup-rtk.md)
 - [RTK Commands Reference](../reference/rtk-commands.md)

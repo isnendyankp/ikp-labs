@@ -38,6 +38,7 @@ IKP Labs has evolved from a simple registration form into a **comprehensive full
 ### What's Next?
 
 This document outlines **10 strategic feature recommendations** organized into 4 tiers:
+
 - **Tier 1:** Social Features (Likes, Comments, Search, Tags)
 - **Tier 2:** Organization & Discovery (Albums, Advanced Search)
 - **Tier 3:** Performance & Scale (Thumbnails, Caching, Real-Time)
@@ -52,6 +53,7 @@ Each feature is designed to teach **new full-stack engineering concepts** not ye
 ### Technology Stack
 
 #### Frontend
+
 - **Framework:** Next.js 15.5.0 with App Router
 - **UI Library:** React 19.1.0 with TypeScript
 - **Styling:** Tailwind CSS 4
@@ -60,6 +62,7 @@ Each feature is designed to teach **new full-stack engineering concepts** not ye
 - **Routing:** Protected routes with auth middleware
 
 #### Backend
+
 - **Framework:** Spring Boot 3.3.6
 - **Language:** Java 17+
 - **Database:** PostgreSQL with Spring Data JPA
@@ -68,6 +71,7 @@ Each feature is designed to teach **new full-stack engineering concepts** not ye
 - **Migrations:** Flyway (2 migrations: profile picture, gallery photos)
 
 #### Testing
+
 - **E2E Testing:** Playwright (Chromium + Firefox, 70+ tests)
 - **Unit Testing:** JUnit 5 + Mockito (91 tests)
 - **Coverage:** JaCoCo (91%)
@@ -77,9 +81,11 @@ Each feature is designed to teach **new full-stack engineering concepts** not ye
 ### Features Currently Implemented
 
 #### Phase 1-3: Authentication & Security
+
 **Completed:** User Registration, Login/Logout, Protected Routes
 
 **Features:**
+
 - User registration with client + server validation
 - JWT token generation and validation
 - BCrypt password hashing
@@ -88,19 +94,23 @@ Each feature is designed to teach **new full-stack engineering concepts** not ye
 - Token persistence in localStorage
 
 **Endpoints:**
+
 - `POST /api/auth/register` - User registration
 - `POST /api/auth/login` - User authentication
 - `GET /api/auth/validate` - Token validation
 
 **Database Tables:**
+
 - `users` (id, full_name, email, password, created_at, updated_at, profile_picture_url)
 
 ---
 
 #### Phase 4-5: Profile Management
+
 **Completed:** Profile Picture Upload/Delete
 
 **Features:**
+
 - Upload profile picture (JPG, PNG max 5MB)
 - Delete profile picture
 - Avatar fallback with user initials
@@ -108,18 +118,22 @@ Each feature is designed to teach **new full-stack engineering concepts** not ye
 - File validation (type, size)
 
 **Endpoints:**
+
 - `POST /api/profile/upload-picture` - Upload profile picture
 - `DELETE /api/profile/delete-picture` - Delete profile picture
 
 **Database:**
+
 - Added `profile_picture_url` column to `users` table (Flyway V1)
 
 ---
 
 #### Phase 6-7: Photo Gallery
+
 **Completed:** Full-featured photo gallery with CRUD operations
 
 **Features:**
+
 - ✅ Upload photos with drag & drop interface
 - ✅ View modes: "My Photos" vs "Public Photos"
 - ✅ **Public Gallery Access** - Gallery accessible without login (soft gate)
@@ -134,6 +148,7 @@ Each feature is designed to teach **new full-stack engineering concepts** not ye
 - ✅ File validation (JPG, PNG, GIF, WebP up to 5MB)
 
 **8 REST API Endpoints:**
+
 1. `POST /api/gallery/upload` - Upload photo
 2. `GET /api/gallery/my-photos` - Get user's photos (paginated, sortable)
 3. `GET /api/gallery/public` - Get all public photos (paginated, sortable)
@@ -144,10 +159,12 @@ Each feature is designed to teach **new full-stack engineering concepts** not ye
 8. `PUT /api/gallery/photo/{photoId}/toggle-privacy` - Toggle privacy
 
 **Database Tables:**
+
 - `gallery_photos` (id, user_id, photo_url, title, description, is_public, upload_date, updated_at)
 - **Relationship:** Many-to-One with `users` (One user has many photos)
 
 **Testing Achievement:**
+
 - 40 E2E Gallery tests with 100% pass rate
 - Strategic browser coverage (Chromium + Firefox = 75% of users)
 - Video/screenshot capture on failures
@@ -156,9 +173,11 @@ Each feature is designed to teach **new full-stack engineering concepts** not ye
 ---
 
 #### Phase 8: Social Engagement (Latest)
+
 **Completed:** Photo Likes & Favorites system
 
 **Features:**
+
 - ✅ Like/unlike photos with single click
 - ✅ Favorite/unfavorite photos (bookmark system)
 - ✅ View count of likes per photo
@@ -169,6 +188,7 @@ Each feature is designed to teach **new full-stack engineering concepts** not ye
 - ✅ Sorting support for liked/favorited photos
 
 **7 REST API Endpoints:**
+
 1. `POST /api/gallery/photo/{photoId}/like` - Like a photo
 2. `DELETE /api/gallery/photo/{photoId}/like` - Unlike a photo
 3. `GET /api/gallery/liked-photos` - Get all liked photos (paginated, sortable)
@@ -178,11 +198,13 @@ Each feature is designed to teach **new full-stack engineering concepts** not ye
 7. `POST /api/gallery/photo/{photoId}/favorite-toggle` - Toggle favorite status
 
 **Database Tables:**
+
 - `photo_likes` (id, photo_id, user_id, created_at) - UNIQUE(photo_id, user_id)
 - `photo_favorites` (id, photo_id, user_id, created_at) - UNIQUE(photo_id, user_id)
 - **Relationship:** Many-to-Many between users and photos
 
 **Testing Achievement:**
+
 - Unit tests for LikeService, FavoriteService
 - E2E tests for like/unlike, favorite/unfavorite flows
 - Edge case coverage (duplicate prevention, authorization)
@@ -218,6 +240,7 @@ CREATE TABLE gallery_photos (
 ```
 
 **Relationships:**
+
 - `users` ← (1:N) → `gallery_photos` (One user has many photos)
 
 ---
@@ -227,6 +250,7 @@ CREATE TABLE gallery_photos (
 ### Full-Stack Concepts Already Mastered ✅
 
 #### 1. Authentication & Authorization
+
 - JWT token-based authentication
 - Password hashing with BCrypt
 - Protected routes (client + server-side)
@@ -234,6 +258,7 @@ CREATE TABLE gallery_photos (
 - CORS configuration
 
 #### 2. Database Design & ORM
+
 - Entity-Relationship design (1-to-Many relationships)
 - Spring Data JPA repositories
 - Foreign keys and constraints
@@ -241,6 +266,7 @@ CREATE TABLE gallery_photos (
 - Indexing for performance
 
 #### 3. RESTful API Design
+
 - CRUD operations (Create, Read, Update, Delete)
 - HTTP status codes (200, 201, 204, 400, 401, 403, 404, 500)
 - Request/Response DTO pattern
@@ -248,18 +274,21 @@ CREATE TABLE gallery_photos (
 - Path variables and request bodies
 
 #### 4. File Management
+
 - Multipart file upload
 - File validation (type, size)
 - File storage organization
 - File deletion with cleanup
 
 #### 5. Frontend State Management
+
 - React Hooks (useState, useEffect, useRouter)
 - Client-side routing
 - Protected route implementation
 - LocalStorage for token persistence
 
 #### 6. Privacy & Security
+
 - Public/Private access control
 - **Soft gate authentication** (public gallery with enhanced features for authenticated users)
 - Input validation (client + server)
@@ -267,6 +296,7 @@ CREATE TABLE gallery_photos (
 - XSS prevention basics
 
 #### 7. Testing & Quality Assurance
+
 - Unit testing (JUnit 5 + Mockito)
 - Integration testing (Spring Boot Test)
 - E2E testing (Playwright browser automation)
@@ -275,6 +305,7 @@ CREATE TABLE gallery_photos (
 - BDD with Gherkin specifications
 
 #### 8. UI/UX Design
+
 - Responsive design (mobile-first with Tailwind CSS)
 - Loading states and spinners
 - Error handling with user-friendly messages
@@ -282,6 +313,7 @@ CREATE TABLE gallery_photos (
 - Accessibility basics (semantic HTML, ARIA labels)
 
 #### 9. Social Interaction (NEW!)
+
 - Toggle state management (like/unlike, favorite/unfavorite)
 - Optimistic UI updates with rollback on failure
 - Composite unique constraints (prevent duplicate interactions)
@@ -293,57 +325,67 @@ CREATE TABLE gallery_photos (
 ### Missing Full-Stack Concepts (Learning Opportunities) 🎯
 
 #### 1. Advanced Database Relationships
+
 - ❌ **Many-to-Many relationships** (e.g., Photo Tags)
 - ❌ **Self-referencing foreign keys** (e.g., Nested Comments)
 - ❌ **Polymorphic relationships**
 
 #### 2. Real-Time Communication
+
 - ❌ **WebSocket implementation**
 - ❌ **Server-Sent Events (SSE)**
 - ❌ **Real-time notifications**
 - ❌ **Live updates (without page refresh)**
 
 #### 3. Performance Optimization
+
 - ❌ **Distributed caching** (Redis)
 - ❌ **Database query optimization** (N+1 problem handling)
 - ❌ **CDN integration**
 - ❌ **Image optimization** (thumbnails, lazy loading)
 
 #### 4. Advanced Search & Filtering
+
 - ❌ **Full-text search** (PostgreSQL or ElasticSearch)
 - ❌ **Complex filtering** (multiple criteria)
 - ❌ **Search autocomplete**
 - ❌ **Faceted search**
 
 #### 5. External Integrations
+
 - ❌ **Email service integration** (SendGrid, Mailgun)
 - ❌ **Blob storage** (AWS S3, Cloudinary)
 - ❌ **OAuth providers** (Google, GitHub login)
 - ❌ **Payment gateways** (Stripe, PayPal)
 
 #### 6. Async Processing
+
 - ❌ **Background jobs** (Spring @Async, @Scheduled)
 - ❌ **Message queues** (RabbitMQ, Kafka)
 - ❌ **Task scheduling** (cron jobs)
 
 #### 7. API Security & Rate Limiting
+
 - ❌ **API rate limiting** (Bucket4j)
 - ❌ **Request throttling**
 - ❌ **IP-based blocking**
 
 #### 8. Monitoring & Observability
+
 - ❌ **Structured logging** (JSON format)
 - ❌ **Application Performance Monitoring** (APM)
 - ❌ **Error tracking** (Sentry)
 - ❌ **Metrics collection** (Prometheus, Grafana)
 
 #### 9. DevOps & Deployment
+
 - ❌ **Cloud deployment** (AWS, Azure, GCP)
 - ❌ **CI/CD pipelines** (GitHub Actions)
 - ❌ **Containerization** (Docker, Docker Compose)
 - ❌ **Container orchestration** (Kubernetes, ECS)
 
 #### 10. Data Visualization
+
 - ❌ **Charting libraries** (Chart.js, Recharts)
 - ❌ **Analytics dashboards**
 - ❌ **Data aggregation queries**
@@ -364,6 +406,7 @@ These features build on existing CRUD knowledge while introducing social interac
 > **Implementation:** See Phase 8: Social Engagement above
 
 This feature has been successfully implemented with:
+
 - Like/unlike functionality
 - Favorite/unfavorite functionality
 - Paginated liked/favorited photos pages
@@ -384,6 +427,7 @@ Users can view photos but cannot provide feedback, ask questions, or engage in d
 Implement a threaded comment system with nested replies, enabling rich discussions around photos.
 
 **Features:**
+
 - ✅ Add comments to any public photo
 - ✅ Reply to comments (threaded/nested comments)
 - ✅ Edit/delete own comments
@@ -395,6 +439,7 @@ Implement a threaded comment system with nested replies, enabling rich discussio
 **Technical Breakdown:**
 
 **Backend:**
+
 - New entity: `PhotoComment` with self-referencing foreign key
 - New repository: `PhotoCommentRepository`
 - New endpoints:
@@ -406,17 +451,20 @@ Implement a threaded comment system with nested replies, enabling rich discussio
 - Service layer: CommentService with recursive logic for nested comments
 
 **Frontend:**
+
 - New components: `CommentSection`, `Comment`, `CommentForm`, `ReplyButton`
 - State management: Nested comment tree structure
 - UI: Collapsible replies, indentation for threads
 - Real-time: Polling for new comments (or WebSocket for advanced)
 
 **Testing:**
+
 - Unit tests: 15 new tests (CommentService, authorization logic)
 - E2E tests: 12 scenarios (add, reply, edit, delete, moderation)
 - Edge cases: Deeply nested comments, deleted parent comments
 
 **Database Schema:**
+
 ```sql
 CREATE TABLE photo_comments (
     id BIGSERIAL PRIMARY KEY,
@@ -436,6 +484,7 @@ CREATE INDEX idx_comments_parent_id ON photo_comments(parent_comment_id);
 ```
 
 **Success Criteria:**
+
 - ✅ Users can comment on public photos
 - ✅ Nested replies work up to 5 levels deep
 - ✅ Photo owner can moderate comments
@@ -443,11 +492,13 @@ CREATE INDEX idx_comments_parent_id ON photo_comments(parent_comment_id);
 - ✅ No orphaned comments on deletion
 
 **Effort Estimate:**
+
 - **Complexity:** Medium-High
 - **Time:** 2-3 weeks
 - **Dependencies:** None (recommended: implement after Likes for better UX)
 
 **Learning Outcomes:**
+
 - ⭐⭐⭐ Self-referencing foreign keys (hierarchical data)
 - ⭐⭐⭐ Recursive queries for nested data
 - ⭐⭐ Real-time update patterns (polling or WebSocket)
@@ -467,6 +518,7 @@ As the photo gallery grows, users struggle to find specific photos. There's no s
 Implement full-text search and multi-criteria filtering to improve photo discoverability.
 
 **Features:**
+
 - ✅ Search photos by title and description
 - ✅ Filter by date range (upload date)
 - ✅ Filter by user (view specific user's public photos)
@@ -479,6 +531,7 @@ Implement full-text search and multi-criteria filtering to improve photo discove
 **Technical Breakdown:**
 
 **Backend:**
+
 - Update `GalleryRepository` with custom queries:
   - `@Query` for full-text search using PostgreSQL `ILIKE`
   - Date range filtering with `BETWEEN`
@@ -489,17 +542,20 @@ Implement full-text search and multi-criteria filtering to improve photo discove
   - `GET /api/gallery/autocomplete?query={query}` (suggest titles)
 
 **Frontend:**
+
 - New components: `SearchBar`, `FilterPanel`, `SortDropdown`
 - State management: Filter state with URL query parameters
 - UI: Real-time search with loading indicators
 - Debouncing: 300ms delay before triggering search
 
 **Testing:**
+
 - Unit tests: 10 new tests (search queries, filter combinations)
 - E2E tests: 8 scenarios (search, filter, sort, combined)
 - Performance tests: Search with 1000+ photos
 
 **Example Query:**
+
 ```java
 @Query("SELECT p FROM GalleryPhoto p WHERE " +
        "(LOWER(p.title) LIKE LOWER(CONCAT('%', :query, '%')) OR " +
@@ -515,17 +571,20 @@ Page<GalleryPhoto> searchPhotos(@Param("query") String query,
 ```
 
 **Success Criteria:**
+
 - ✅ Search returns results in <500ms for 1000+ photos
 - ✅ Filters can be combined (e.g., search + date range + user)
 - ✅ Search highlights matching text
 - ✅ URL reflects current search/filter state (shareable links)
 
 **Effort Estimate:**
+
 - **Complexity:** Medium
 - **Time:** 1-2 weeks
 - **Dependencies:** Recommended after Likes/Comments for sorting by engagement
 
 **Learning Outcomes:**
+
 - ⭐⭐⭐ Full-text search implementation
 - ⭐⭐⭐ Database query optimization
 - ⭐⭐ Debouncing for performance
@@ -545,6 +604,7 @@ Photos lack organization beyond titles and descriptions. Users cannot categorize
 Implement a tagging system with autocomplete and category management.
 
 **Features:**
+
 - ✅ Add multiple tags to photos (e.g., #sunset, #beach, #vacation)
 - ✅ Tag autocomplete (suggest existing tags as you type)
 - ✅ Browse photos by tag
@@ -556,6 +616,7 @@ Implement a tagging system with autocomplete and category management.
 **Technical Breakdown:**
 
 **Backend:**
+
 - New entities: `Tag`, `PhotoTag` (junction table), `Category`
 - **Many-to-Many relationship:** `GalleryPhoto` ↔ `PhotoTag` ↔ `Tag`
 - New repositories: `TagRepository`, `PhotoTagRepository`, `CategoryRepository`
@@ -569,15 +630,18 @@ Implement a tagging system with autocomplete and category management.
   - `PUT /api/gallery/photo/{photoId}/category` - Set photo category
 
 **Frontend:**
+
 - New components: `TagInput`, `TagCloud`, `CategorySelector`, `TagBadge`
 - State management: Tag array per photo, autocomplete results
 - UI: Tag chips with remove button, tag cloud with font sizing by popularity
 
 **Testing:**
+
 - Unit tests: 14 new tests (TagService, PhotoTagService, CategoryService)
 - E2E tests: 10 scenarios (add tags, autocomplete, browse by tag, category filtering)
 
 **Database Schema:**
+
 ```sql
 -- Tags table
 CREATE TABLE tags (
@@ -609,6 +673,7 @@ ALTER TABLE gallery_photos ADD FOREIGN KEY (category_id) REFERENCES categories(i
 ```
 
 **Success Criteria:**
+
 - ✅ Photos can have multiple tags
 - ✅ Autocomplete suggests relevant tags
 - ✅ Tag cloud shows top 20 tags
@@ -616,11 +681,13 @@ ALTER TABLE gallery_photos ADD FOREIGN KEY (category_id) REFERENCES categories(i
 - ✅ Categories are mutually exclusive per photo
 
 **Effort Estimate:**
+
 - **Complexity:** Medium-High
 - **Time:** 2-3 weeks
 - **Dependencies:** Search feature recommended first (for tag-based search)
 
 **Learning Outcomes:**
+
 - ⭐⭐⭐⭐⭐ **Many-to-Many relationships** (NEW CONCEPT!)
 - ⭐⭐⭐⭐ Junction table design
 - ⭐⭐⭐ Autocomplete implementation
@@ -646,6 +713,7 @@ Users have many photos but no way to group them into collections (e.g., "Summer 
 Implement a multi-photo album system with privacy controls and sharing capabilities.
 
 **Features:**
+
 - ✅ Create named albums (e.g., "Vacation 2024")
 - ✅ Add/remove photos from albums
 - ✅ Album cover photo selection
@@ -657,6 +725,7 @@ Implement a multi-photo album system with privacy controls and sharing capabilit
 **Technical Breakdown:**
 
 **Backend:**
+
 - New entities: `Album`, `AlbumPhoto` (junction table with ordering)
 - New relationships: User → Albums (1:N), Album ↔ Photos (M:N)
 - New endpoints:
@@ -670,15 +739,18 @@ Implement a multi-photo album system with privacy controls and sharing capabilit
   - `GET /api/gallery/albums/{albumId}/photos` - Get album photos (ordered)
 
 **Frontend:**
+
 - New components: `AlbumGrid`, `AlbumDetail`, `AlbumForm`, `PhotoReorderDnD`
 - Drag-and-drop: `react-beautiful-dnd` library
 - State management: Album state, photo order array
 
 **Testing:**
+
 - Unit tests: 16 new tests (AlbumService, authorization, ordering logic)
 - E2E tests: 12 scenarios (CRUD albums, add/remove photos, reorder, privacy)
 
 **Database Schema:**
+
 ```sql
 CREATE TABLE albums (
     id BIGSERIAL PRIMARY KEY,
@@ -705,6 +777,7 @@ CREATE TABLE album_photos (
 ```
 
 **Success Criteria:**
+
 - ✅ Albums can contain multiple photos
 - ✅ Photos can belong to multiple albums
 - ✅ Drag-and-drop reordering works smoothly
@@ -712,11 +785,13 @@ CREATE TABLE album_photos (
 - ✅ Cover photo displays correctly
 
 **Effort Estimate:**
+
 - **Complexity:** High
 - **Time:** 2-3 weeks
 - **Dependencies:** Tags feature recommended first (albums + tags = powerful organization)
 
 **Learning Outcomes:**
+
 - ⭐⭐⭐⭐ Hierarchical data organization
 - ⭐⭐⭐⭐ Drag-and-drop UI implementation
 - ⭐⭐⭐ Ordering/sequencing logic
@@ -736,6 +811,7 @@ After implementing tags and albums, search becomes more complex. Users need a un
 Enhance basic search with tag filtering, album filtering, and faceted search.
 
 **Features:**
+
 - ✅ Search across photos, tags, and albums
 - ✅ Filter by multiple tags (AND/OR logic)
 - ✅ Filter by album
@@ -747,6 +823,7 @@ Enhance basic search with tag filtering, album filtering, and faceted search.
 **Technical Breakdown:**
 
 **Backend:**
+
 - Enhanced repository queries with complex JOIN operations
 - Query builder pattern for dynamic filter combinations
 - Endpoints:
@@ -756,15 +833,18 @@ Enhance basic search with tag filtering, album filtering, and faceted search.
   - `GET /api/gallery/search/saved` - List saved searches
 
 **Frontend:**
+
 - New components: `AdvancedSearchPanel`, `FacetFilters`, `SavedSearches`
 - State management: Complex filter object with URL sync
 
 **Effort Estimate:**
+
 - **Complexity:** High
 - **Time:** 2 weeks
 - **Dependencies:** Requires Tags + Albums implemented first
 
 **Learning Outcomes:**
+
 - ⭐⭐⭐⭐ Complex database queries with multiple JOINs
 - ⭐⭐⭐ Faceted search implementation
 - ⭐⭐ Query builder patterns
@@ -789,6 +869,7 @@ Full-size images slow down page load times, waste bandwidth, and provide poor mo
 Implement automatic thumbnail generation, responsive images, and optional CDN integration.
 
 **Features:**
+
 - ✅ Auto-generate thumbnails on upload (small: 150px, medium: 400px, large: 800px)
 - ✅ Progressive image loading (blur-up effect)
 - ✅ Responsive images with `srcset` and `sizes`
@@ -800,6 +881,7 @@ Implement automatic thumbnail generation, responsive images, and optional CDN in
 **Technical Breakdown:**
 
 **Backend:**
+
 - Libraries: Thumbnailator or imgscalr for Java image processing
 - Service: `ImageProcessingService` with async processing
 - Storage: Local filesystem with `/uploads/thumbnails/` folder (or S3 buckets)
@@ -808,16 +890,19 @@ Implement automatic thumbnail generation, responsive images, and optional CDN in
   - `GET /api/gallery/photo/{photoId}/thumbnail/{size}` - Get specific thumbnail size
 
 **Frontend:**
+
 - Components: `ResponsiveImage` with srcset support
 - Lazy loading: Intersection Observer API
 - Progressive loading: BlurHash or low-quality placeholder
 
 **Testing:**
+
 - Unit tests: 8 new tests (ImageProcessingService)
 - E2E tests: 6 scenarios (upload with thumbnails, responsive loading)
 - Performance tests: Measure load time improvement
 
 **Database Schema Update:**
+
 ```sql
 ALTER TABLE gallery_photos ADD COLUMN thumbnail_small_url VARCHAR(500);
 ALTER TABLE gallery_photos ADD COLUMN thumbnail_medium_url VARCHAR(500);
@@ -825,17 +910,20 @@ ALTER TABLE gallery_photos ADD COLUMN thumbnail_large_url VARCHAR(500);
 ```
 
 **Success Criteria:**
+
 - ✅ Thumbnails generated within 2 seconds of upload
 - ✅ Page load time reduced by 50% (compared to full images)
 - ✅ Lazy loading triggers 200px before image enters viewport
 - ✅ Responsive images serve correct size based on screen
 
 **Effort Estimate:**
+
 - **Complexity:** High
 - **Time:** 2-3 weeks
 - **Dependencies:** None (can be implemented anytime)
 
 **Learning Outcomes:**
+
 - ⭐⭐⭐⭐⭐ Image manipulation libraries
 - ⭐⭐⭐⭐ Async processing (background jobs)
 - ⭐⭐⭐ CDN integration (optional: Cloudinary/AWS S3)
@@ -855,6 +943,7 @@ Database queries for public photo lists, user profiles, and tag clouds are repea
 Implement distributed caching with Redis for frequently accessed data.
 
 **Features:**
+
 - ✅ Cache public photo lists (1-hour TTL)
 - ✅ Cache user profiles (30-minute TTL)
 - ✅ Cache tag cloud (1-hour TTL)
@@ -865,20 +954,24 @@ Implement distributed caching with Redis for frequently accessed data.
 **Technical Breakdown:**
 
 **Backend:**
+
 - Dependencies: `spring-boot-starter-data-redis`
 - Configuration: Redis connection, cache manager
 - Annotations: `@Cacheable`, `@CacheEvict`, `@CachePut`
 - Service layer: Add caching to PhotoService, UserService, TagService
 
 **Infrastructure:**
+
 - Redis server (local or Redis Cloud)
 - Cache configuration: TTL, eviction policies (LRU)
 
 **Testing:**
+
 - Unit tests: 10 new tests (cache hit/miss, invalidation)
 - Performance tests: Measure query time reduction
 
 **Example Implementation:**
+
 ```java
 @Service
 public class PhotoService {
@@ -896,17 +989,20 @@ public class PhotoService {
 ```
 
 **Success Criteria:**
+
 - ✅ Cache hit rate >80% for public photos
 - ✅ Response time reduced by 60% for cached endpoints
 - ✅ Cache invalidation works correctly on updates
 - ✅ No stale data served to users
 
 **Effort Estimate:**
+
 - **Complexity:** Medium-High
 - **Time:** 1-2 weeks
 - **Dependencies:** None (but best implemented after high traffic features)
 
 **Learning Outcomes:**
+
 - ⭐⭐⭐⭐⭐ Distributed caching with Redis
 - ⭐⭐⭐⭐ Cache invalidation strategies
 - ⭐⭐⭐ TTL and eviction policies
@@ -926,6 +1022,7 @@ Users must manually refresh to see new photos, comments, or likes. This creates 
 Implement WebSocket-based real-time updates for live photo feed, comments, and notifications.
 
 **Features:**
+
 - ✅ Live photo feed (see new uploads instantly)
 - ✅ Real-time comment updates (no refresh needed)
 - ✅ Live like counter updates
@@ -936,6 +1033,7 @@ Implement WebSocket-based real-time updates for live photo feed, comments, and n
 **Technical Breakdown:**
 
 **Backend:**
+
 - Dependencies: `spring-boot-starter-websocket`
 - Protocol: STOMP over WebSocket
 - Message broker: In-memory or RabbitMQ
@@ -946,16 +1044,19 @@ Implement WebSocket-based real-time updates for live photo feed, comments, and n
   - Topic: `/topic/photo/{photoId}/likes` - Like updates
 
 **Frontend:**
+
 - Libraries: `sockjs-client`, `@stomp/stompjs`
 - Hooks: `useWebSocket` custom hook
 - State management: Real-time data updates with React state
 
 **Testing:**
+
 - Unit tests: 12 new tests (WebSocket message handlers)
 - E2E tests: 10 scenarios (WebSocket connection, message delivery)
 - Load tests: 100+ concurrent WebSocket connections
 
 **Example Implementation:**
+
 ```java
 @Controller
 public class WebSocketController {
@@ -974,6 +1075,7 @@ public class WebSocketController {
 ```
 
 **Success Criteria:**
+
 - ✅ New photos appear in feed within 1 second
 - ✅ Comments update in real-time without refresh
 - ✅ Like counter updates instantly
@@ -981,11 +1083,13 @@ public class WebSocketController {
 - ✅ Supports 100+ concurrent connections
 
 **Effort Estimate:**
+
 - **Complexity:** Very High
 - **Time:** 3-4 weeks
 - **Dependencies:** Comments and Likes features must be implemented first
 
 **Learning Outcomes:**
+
 - ⭐⭐⭐⭐⭐ WebSocket implementation
 - ⭐⭐⭐⭐⭐ Real-time bidirectional communication
 - ⭐⭐⭐⭐ STOMP protocol
@@ -1011,6 +1115,7 @@ No email verification on registration allows fake accounts. Users miss important
 Implement email service integration with verification and event-driven notifications.
 
 **Features:**
+
 - ✅ Email verification on registration (verify token)
 - ✅ Password reset via email
 - ✅ Email notifications:
@@ -1024,6 +1129,7 @@ Implement email service integration with verification and event-driven notificat
 **Technical Breakdown:**
 
 **Backend:**
+
 - Dependencies: `spring-boot-starter-mail`
 - Email service: SendGrid, Mailgun, or AWS SES
 - Async processing: `@Async` for non-blocking email sends
@@ -1035,15 +1141,18 @@ Implement email service integration with verification and event-driven notificat
   - `PUT /api/user/email-preferences` - Update notification preferences
 
 **Frontend:**
+
 - New pages: Email verification confirmation, password reset flow
 - Components: Email preferences settings panel
 
 **Testing:**
+
 - Unit tests: 14 new tests (EmailService, token validation)
 - E2E tests: 8 scenarios (registration with email, password reset)
 - Integration tests: Mock email service
 
 **Database Schema:**
+
 ```sql
 CREATE TABLE verification_tokens (
     id BIGSERIAL PRIMARY KEY,
@@ -1073,6 +1182,7 @@ ALTER TABLE users ADD COLUMN email_verified BOOLEAN DEFAULT FALSE;
 ```
 
 **Success Criteria:**
+
 - ✅ Registration sends verification email within 5 seconds
 - ✅ Email verification tokens expire after 24 hours
 - ✅ Password reset flow works end-to-end
@@ -1080,11 +1190,13 @@ ALTER TABLE users ADD COLUMN email_verified BOOLEAN DEFAULT FALSE;
 - ✅ Users can opt-out of specific notification types
 
 **Effort Estimate:**
+
 - **Complexity:** Medium-High
 - **Time:** 2-3 weeks
 - **Dependencies:** Comments and Likes features recommended first (for notifications)
 
 **Learning Outcomes:**
+
 - ⭐⭐⭐⭐⭐ Email service integration (SendGrid/Mailgun/AWS SES)
 - ⭐⭐⭐⭐ Async processing with @Async
 - ⭐⭐⭐ Token-based verification
@@ -1104,6 +1216,7 @@ Limited visibility into application behavior, errors, and performance. No way to
 Implement structured logging, error tracking, and application monitoring.
 
 **Features:**
+
 - ✅ Structured JSON logging (Logback with JSON encoder)
 - ✅ Request/response logging with correlation IDs
 - ✅ Error tracking with Sentry integration
@@ -1117,21 +1230,25 @@ Implement structured logging, error tracking, and application monitoring.
 **Technical Breakdown:**
 
 **Backend:**
+
 - Dependencies: `logstash-logback-encoder`, `sentry-spring-boot-starter`
 - Logging: Structured JSON logs with correlation IDs
 - Metrics: Micrometer + Prometheus
 - APM: New Relic, Sentry, or Datadog
 
 **Infrastructure:**
+
 - Sentry account for error tracking
 - Prometheus + Grafana for metrics (optional)
 - CloudWatch Logs (if deploying to AWS)
 
 **Testing:**
+
 - Unit tests: 8 new tests (logging interceptors)
 - Integration tests: Verify Sentry error reporting
 
 **Example Logging:**
+
 ```java
 @Slf4j
 @RestController
@@ -1158,6 +1275,7 @@ public class GalleryController {
 ```
 
 **Success Criteria:**
+
 - ✅ All requests logged with correlation IDs
 - ✅ Errors automatically reported to Sentry
 - ✅ Custom metrics visible in dashboard
@@ -1165,11 +1283,13 @@ public class GalleryController {
 - ✅ Log search works across all logs
 
 **Effort Estimate:**
+
 - **Complexity:** Medium-High
 - **Time:** 1-2 weeks
 - **Dependencies:** None (can be implemented anytime)
 
 **Learning Outcomes:**
+
 - ⭐⭐⭐⭐ Structured logging patterns
 - ⭐⭐⭐⭐ Error tracking (Sentry)
 - ⭐⭐⭐ Application Performance Monitoring
@@ -1189,6 +1309,7 @@ Application runs only locally. No automated deployment, no production environmen
 Deploy to cloud platform with automated CI/CD using GitHub Actions.
 
 **Features:**
+
 - ✅ Deploy frontend to Vercel or Netlify
 - ✅ Deploy backend to:
   - AWS Elastic Beanstalk / ECS / EC2, OR
@@ -1208,6 +1329,7 @@ Deploy to cloud platform with automated CI/CD using GitHub Actions.
 **Technical Breakdown:**
 
 **Infrastructure:**
+
 - Frontend: Vercel (free tier) - easiest option
 - Backend: Railway (free tier) or AWS Elastic Beanstalk
 - Database: Railway PostgreSQL or AWS RDS
@@ -1215,6 +1337,7 @@ Deploy to cloud platform with automated CI/CD using GitHub Actions.
 - CI/CD: GitHub Actions (free for public repos)
 
 **CI/CD Pipeline (.github/workflows/deploy.yml):**
+
 ```yaml
 name: Deploy to Production
 
@@ -1250,6 +1373,7 @@ jobs:
 ```
 
 **Configuration Changes:**
+
 - Environment variables for production
 - CORS configuration for production URLs
 - Database connection pooling
@@ -1257,10 +1381,12 @@ jobs:
 - Rate limiting for API endpoints
 
 **Testing:**
+
 - Smoke tests on production deployment
 - Health check endpoints
 
 **Success Criteria:**
+
 - ✅ Application accessible via public URL
 - ✅ HTTPS enabled (SSL certificate)
 - ✅ Database migrations run automatically
@@ -1269,11 +1395,13 @@ jobs:
 - ✅ Environment variables secured (no secrets in code)
 
 **Effort Estimate:**
+
 - **Complexity:** Very High
 - **Time:** 3-4 weeks (including learning curve)
 - **Dependencies:** All features should be complete and tested first
 
 **Learning Outcomes:**
+
 - ⭐⭐⭐⭐⭐ Cloud infrastructure (AWS/Azure/Railway)
 - ⭐⭐⭐⭐⭐ CI/CD pipeline setup (GitHub Actions)
 - ⭐⭐⭐⭐ Environment management (dev/staging/prod)
@@ -1298,6 +1426,7 @@ jobs:
 **Phase Breakdown:**
 
 #### Phase 8: Social Engagement (Weeks 1-3)
+
 - **Week 1-2:** Photo Likes & Favorites
   - Backend: PhotoLike, PhotoFavorite entities + 6 endpoints
   - Frontend: Like button, Favorites page
@@ -1307,6 +1436,7 @@ jobs:
 - **Week 3:** Deploy Likes feature, gather feedback
 
 #### Phase 9: Community Building (Weeks 4-7)
+
 - **Week 4-6:** Photo Comments System
   - Backend: PhotoComment entity (self-referencing FK) + 5 endpoints
   - Frontend: Comment section with nested replies
@@ -1316,6 +1446,7 @@ jobs:
 - **Week 7:** Polish comment UX, add moderation tools
 
 #### Phase 10: Discovery (Weeks 8-10)
+
 - **Week 8-9:** Photo Search & Filtering
   - Backend: Advanced queries with ILIKE, date filtering
   - Frontend: Search bar with debouncing, filter panel
@@ -1325,6 +1456,7 @@ jobs:
 - **Week 10:** Optimize search performance
 
 #### Phase 11: Organization (Weeks 11-14)
+
 - **Week 11-13:** Photo Tags & Categories
   - Backend: Tag + PhotoTag (M:N) + Category entities + 7 endpoints
   - Frontend: Tag input with autocomplete, tag cloud
@@ -1334,6 +1466,7 @@ jobs:
 - **Week 14:** Enhance tag-based discovery
 
 #### Phase 12: Advanced Organization (Weeks 15-18) - OPTIONAL
+
 - **Week 15-17:** Photo Albums
   - Backend: Album + AlbumPhoto entities + 8 endpoints
   - Frontend: Album grid, drag-and-drop reordering
@@ -1343,12 +1476,14 @@ jobs:
 - **Week 18:** Polish album UX, add slideshow feature
 
 **Final Result:**
+
 - ✅ Complete social photo platform
 - ✅ Likes, Comments, Tags, Search, Albums
 - ✅ ~85% of full-stack concepts mastered
 - ✅ Portfolio-ready project: "Built a social photo sharing platform with 200K+ lines of tested code"
 
 **New Concepts Learned:**
+
 - Many-to-Many relationships (Tags, Albums)
 - Self-referencing foreign keys (Comments)
 - Full-text search optimization
@@ -1368,10 +1503,12 @@ jobs:
 **Phase Breakdown:**
 
 #### Phase 8: Quick Social Features (Weeks 1-3)
+
 - **Week 1-2:** Photo Likes (foundation for engagement metrics)
 - **Week 3:** Photo Search (essential UX)
 
 #### Phase 9: Performance Optimization (Weeks 4-7)
+
 - **Week 4-6:** Image Thumbnails & Processing
   - Thumbnailator integration
   - Responsive images with srcset
@@ -1381,6 +1518,7 @@ jobs:
 - **Week 7:** Optional Cloudinary/S3 integration
 
 #### Phase 10: Caching & Scale (Weeks 8-10)
+
 - **Week 8-10:** Redis Caching Layer
   - Spring Data Redis integration
   - Cache invalidation strategies
@@ -1388,6 +1526,7 @@ jobs:
   - **Milestone:** 60% faster API responses ✅
 
 #### Phase 11: Email Integration (Weeks 11-13)
+
 - **Week 11-13:** Email Verification & Notifications
   - SendGrid/Mailgun integration
   - Async email processing
@@ -1395,6 +1534,7 @@ jobs:
   - **Milestone:** Production-ready authentication ✅
 
 #### Phase 12: Observability (Weeks 14-16)
+
 - **Week 14-16:** Logging & Monitoring
   - Structured logging with Logback
   - Sentry error tracking
@@ -1402,18 +1542,21 @@ jobs:
   - **Milestone:** Full production visibility ✅
 
 #### Phase 13: Cloud Deployment (Weeks 17-21)
+
 - **Week 17-18:** Infrastructure setup (AWS/Railway)
 - **Week 19-20:** CI/CD pipeline (GitHub Actions)
 - **Week 21:** Production deployment + monitoring
 - **Milestone:** Live application on the internet ✅
 
 **Final Result:**
+
 - ✅ Production-ready application
 - ✅ Optimized for performance and scale
 - ✅ Deployed to cloud with CI/CD
 - ✅ Portfolio-ready: "Deployed full-stack app to AWS with Redis caching, achieving 60% faster response times"
 
 **New Concepts Learned:**
+
 - Image processing (Thumbnailator)
 - Distributed caching (Redis)
 - CDN integration
@@ -1436,11 +1579,13 @@ jobs:
 **Phase Breakdown:**
 
 #### Phase 8-9: Social Foundation (Weeks 1-6)
+
 - **Week 1-2:** Photo Likes
 - **Week 3-5:** Photo Comments (without real-time first)
 - **Week 6:** Search & Filtering
 
 #### Phase 10: Real-Time Infrastructure (Weeks 7-11)
+
 - **Week 7-10:** WebSocket Implementation
   - Spring WebSocket + STOMP
   - Real-time photo feed
@@ -1451,19 +1596,23 @@ jobs:
 - **Week 11:** Add typing indicators, online users
 
 #### Phase 11: Organization (Weeks 12-15)
+
 - **Week 12-14:** Photo Tags (enhanced with real-time tag cloud)
 - **Week 15:** Advanced Search
 
 #### Phase 12: Production (Weeks 16-21)
+
 - **Week 16-18:** Email Notifications
 - **Week 19-21:** Cloud Deployment with WebSocket support
 
 **Final Result:**
+
 - ✅ Modern real-time social platform
 - ✅ WebSocket-powered live updates
 - ✅ Portfolio-ready: "Built real-time photo platform with WebSocket, supporting 100+ concurrent users"
 
 **New Concepts Learned:**
+
 - WebSocket implementation
 - STOMP protocol
 - Real-time bidirectional communication
@@ -1493,6 +1642,7 @@ jobs:
 | **Advanced Search** | Low | High | 🔷 Later | ⭐⭐⭐ | After Tags + Albums |
 
 **Legend:**
+
 - 🔥 High Priority (Do Soon)
 - 🔶 Medium Priority (Do After High)
 - 🔷 Low Priority (Nice to Have)
@@ -1504,6 +1654,7 @@ jobs:
 ### Project Success Criteria
 
 **By End of Roadmap 1 (Social Platform):**
+
 - ✅ 150+ unit tests (from current 91)
 - ✅ 100+ E2E tests (from current 70)
 - ✅ 90%+ code coverage
@@ -1513,6 +1664,7 @@ jobs:
 - ✅ Portfolio statement: "Built full-stack social photo platform with 200K+ lines of code"
 
 **By End of Roadmap 2 (Performance):**
+
 - ✅ 50%+ faster page loads (thumbnails + lazy loading)
 - ✅ 60%+ faster API responses (Redis caching)
 - ✅ 80%+ cache hit rate
@@ -1522,6 +1674,7 @@ jobs:
 - ✅ Portfolio statement: "Deployed scalable photo platform to AWS with Redis caching, achieving 60% performance improvement"
 
 **By End of Roadmap 3 (Real-Time):**
+
 - ✅ <1 second latency for real-time updates
 - ✅ Support 100+ concurrent WebSocket connections
 - ✅ Real-time comment/like updates without refresh
@@ -1530,6 +1683,7 @@ jobs:
 ### Learning Success Criteria
 
 **Full-Stack Concepts Mastery:**
+
 - ✅ Authentication & Security (already mastered)
 - ✅ CRUD Operations (already mastered)
 - ✅ File Management (already mastered)
@@ -1544,12 +1698,14 @@ jobs:
 - 🎯 CI/CD Pipelines (GitHub Actions)
 
 **Testing Mastery:**
+
 - ✅ Unit Testing (91 tests, 91% coverage - already mastered)
 - ✅ E2E Testing (70+ tests - already mastered)
 - 🎯 Load Testing (WebSocket, search performance)
 - 🎯 Integration Testing (email, external services)
 
 **Portfolio Readiness:**
+
 - ✅ Professional README with screenshots
 - ✅ Comprehensive documentation (Diataxis framework)
 - ✅ Clean code architecture (layered: Controller → Service → Repository)
@@ -1578,17 +1734,20 @@ Start with: Likes → Comments → WebSockets → Deploy
 ### Critical Decision Points
 
 **Before Starting:**
+
 1. ✅ Choose a roadmap (Social / Performance / Real-Time)
 2. ✅ Set timeline (2 months / 4 months / 6 months)
 3. ✅ Decide on deployment platform (AWS / Railway / Vercel)
 
 **During Implementation:**
+
 - Complete one feature fully (including tests) before starting next
 - Update this roadmap document with progress
 - Document learnings in weekly LinkedIn posts (existing pattern)
 - Keep test coverage above 85%
 
 **Before Deployment:**
+
 - ✅ All features tested (unit + E2E)
 - ✅ Logging & monitoring implemented
 - ✅ Email system working
@@ -1630,6 +1789,7 @@ Start with: Likes → Comments → WebSockets → Deploy
 **Update Frequency:** Every 2 weeks or after completing a major feature
 
 **What to Update:**
+
 - Mark completed features with ✅ and completion date
 - Add actual effort vs estimated effort (learning for future planning)
 - Update priority matrix based on new insights
