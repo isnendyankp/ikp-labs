@@ -72,21 +72,19 @@
 
 #### PR #3 - Preparation
 
-- [ ] Create branch `docs/fix-markdown-violations-tutorials`
-- [ ] Scan violations in docs/tutorials/
+- [x] Create branch `docs/fix-markdown-violations-tutorials`
+- [x] Scan violations in docs/tutorials/
 
 #### PR #3 - Fix Violations
 
-- [ ] Fix all files in docs/tutorials/
-- [ ] Verify code examples still work
-- [ ] Test internal links
+- [x] Fix all files in docs/tutorials/
+- [x] Verify code examples still work
+- [x] Test internal links
 
 #### PR #3 - Commit Strategy
 
-- [ ] Commit 1: Add language tags to code blocks
-- [ ] Commit 2: Add blank lines around fences/lists
-- [ ] Commit 3: Fix heading spacing
-- [ ] Update this checklist
+- [x] Commit 1: Fix code block language tags and emphasis-as-heading violations
+- [x] Update this checklist
 
 #### PR #3 - Merge
 
