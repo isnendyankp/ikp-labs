@@ -56,8 +56,9 @@ Setelah restart, Claude akan memiliki akses ke tools Playwright seperti:
 
 ### Contoh Penggunaan
 
-**Contoh 1: Test Form Registration**
-```
+#### Contoh 1: Test Form Registration
+
+```text
 User: "Bisa tolong navigate ke http://localhost:3005 dan test form registration?"
 
 Claude akan:
@@ -68,8 +69,9 @@ Claude akan:
 5. Verifikasi success message
 ```
 
-**Contoh 2: Visual Testing**
-```
+#### Contoh 2: Visual Testing
+
+```text
 User: "Ambil screenshot dari halaman profile saya"
 
 Claude akan:
@@ -78,8 +80,9 @@ Claude akan:
 3. Tampilkan screenshot untuk review
 ```
 
-**Contoh 3: Debugging**
-```
+#### Contoh 3: Debugging
+
+```text
 User: "Cek apakah button upload picture visible di halaman profile"
 
 Claude akan:
@@ -90,7 +93,7 @@ Claude akan:
 
 ## Keuntungan MCP Playwright
 
-### Dibanding E2E Test Biasa:
+### Dibanding E2E Test Biasa
 
 | **E2E Test (Playwright)** | **MCP Playwright** |
 |--------------------------|-------------------|
@@ -99,7 +102,7 @@ Claude akan:
 | Fixed test scenarios | Flexible ad-hoc testing |
 | Manual screenshot check | Auto screenshot by Claude |
 
-### Use Cases:
+### Use Cases
 
 1. **Quick Testing**: Test fitur baru tanpa menulis test script
 2. **Debugging**: Investigate bug dengan interact langsung
@@ -118,6 +121,7 @@ Claude akan:
 ### Permission Error
 
 Jika ada error permission, pastikan:
+
 ```bash
 chmod +x node_modules/@playwright/mcp/dist/index.js
 ```
@@ -125,6 +129,7 @@ chmod +x node_modules/@playwright/mcp/dist/index.js
 ### Browser Tidak Launch
 
 Pastikan Playwright browsers sudah terinstall:
+
 ```bash
 npx playwright install
 ```
