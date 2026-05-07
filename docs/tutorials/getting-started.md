@@ -17,35 +17,43 @@ Before starting, ensure you have these installed:
 ### Required Software
 
 **Node.js and npm:**
+
 - Node.js 18+ (20+ recommended)
 - npm 9+
 
 Check your versions:
+
 ```bash
 node --version  # Should be v18.0.0 or higher
 npm --version   # Should be 9.0.0 or higher
 ```
 
 **Java Development Kit (JDK):**
+
 - Java 17 or higher
 
 Check your version:
+
 ```bash
 java --version  # Should be 17 or higher
 ```
 
 **PostgreSQL:**
+
 - PostgreSQL 14+ (16+ recommended)
 
 Check if installed:
+
 ```bash
 psql --version  # Should be 14.0 or higher
 ```
 
 **Maven:**
+
 - Maven 3.6+ (for building backend)
 
 Check your version:
+
 ```bash
 mvn --version  # Should be 3.6 or higher
 ```
@@ -61,7 +69,8 @@ cd RegistrationForm
 ```
 
 You should see this structure:
-```
+
+```text
 RegistrationForm/
 ├── frontend/           # Next.js application
 ├── backend/            # Spring Boot API
@@ -80,12 +89,14 @@ npm install
 ```
 
 This installs:
+
 - Frontend dependencies (Next.js, React, Tailwind CSS)
 - Testing dependencies (Playwright)
 - Development tools (ESLint, Prettier)
 
 You should see output like:
-```
+
+```text
 added 234 packages in 45s
 ```
 
@@ -94,16 +105,19 @@ added 234 packages in 45s
 ### Create Database
 
 Open PostgreSQL terminal:
+
 ```bash
 psql -U postgres
 ```
 
 Create the database:
+
 ```sql
 CREATE DATABASE registration_form;
 ```
 
 Verify:
+
 ```sql
 \l  -- List databases
 ```
@@ -111,6 +125,7 @@ Verify:
 You should see `registration_form` in the list.
 
 Exit PostgreSQL:
+
 ```sql
 \q
 ```
@@ -121,6 +136,7 @@ The backend is already configured with default settings in:
 `backend/ikp-labs-api/src/main/resources/application.properties`
 
 Default configuration:
+
 ```properties
 spring.datasource.url=jdbc:postgresql://localhost:5432/registration_form
 spring.datasource.username=postgres
@@ -152,7 +168,8 @@ mvn spring-boot:run
 **First run** will take 2-3 minutes as Maven downloads dependencies.
 
 You'll see output like:
-```
+
+```text
   .   ____          _            __ _ _
  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
 ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
@@ -164,17 +181,20 @@ Started RegistrationFormApiApplication in 5.432 seconds
 ```
 
 **Backend is ready when you see:**
-```
+
+```text
 Tomcat started on port(s): 8081 (http)
 ```
 
 Test the backend:
+
 ```bash
 # In another terminal
 curl http://localhost:8081/api/health
 ```
 
 Expected response:
+
 ```json
 {"status": "UP"}
 ```
@@ -192,7 +212,8 @@ npm run dev
 ```
 
 You'll see:
-```
+
+```text
 ▲ Next.js 15.5.0
 - Local:        http://localhost:3002
 - Network:      http://192.168.1.x:3001
@@ -209,16 +230,19 @@ You'll see:
 Open your browser and navigate to:
 
 **Registration Page:**
-```
+
+```text
 http://localhost:3002/register
 ```
 
 You should see a beautiful registration form with:
+
 - Left side: Hero section with welcome message
 - Right side: Registration form with fields for Name, Email, Password
 
 **Login Page:**
-```
+
+```text
 http://localhost:3002/login
 ```
 
@@ -244,7 +268,8 @@ Let's create your first user:
    - JWT token is saved to browser's localStorage
 
 5. **Check the backend logs** (in backend terminal):
-   ```
+
+   ```text
    User registered successfully: test@example.com
    ```
 
@@ -275,7 +300,9 @@ Now let's login with the user you just created:
 **Error**: `Connection refused` or database errors
 
 **Solutions**:
+
 1. Check PostgreSQL is running:
+
    ```bash
    # macOS
    brew services list
@@ -286,6 +313,7 @@ Now let's login with the user you just created:
    ```
 
 2. Verify database exists:
+
    ```bash
    psql -U postgres -l | grep registration_form
    ```
@@ -297,6 +325,7 @@ Now let's login with the user you just created:
 **Error**: Port 3001 already in use
 
 **Solution**: Kill the process using port 3001:
+
 ```bash
 # Find process
 lsof -i :3001
@@ -310,6 +339,7 @@ kill -9 <PID>
 **Error**: Network error or CORS error
 
 **Solutions**:
+
 1. Verify backend is running on port 8081
 2. Check browser console for error messages
 3. Verify CORS is configured in backend (it should be by default)
@@ -319,21 +349,25 @@ kill -9 <PID>
 Congratulations! You now have a working full-stack application. 🎉
 
 **Continue learning**:
+
 - [Your First Registration Tutorial](./first-registration.md) - Deep dive into registration flow
 - [Run E2E Tests](../how-to/run-e2e-tests.md) - Run automated tests
 - [API Endpoints Reference](../reference/api-endpoints.md) - Explore backend API
 
 **Understand the system**:
+
 - [Authentication Architecture](../explanation/authentication-architecture.md) - How JWT auth works
 - [Project Architecture](../explanation/architecture.md) - System design overview
 
 **Extend the application**:
+
 - [Add New API Endpoint](../how-to/add-api-endpoint.md) - Add backend features
 - [Gherkin Specifications](../../specs/README.md) - Behavior documentation
 
 ## Summary
 
 You've successfully:
+
 - ✅ Installed all dependencies
 - ✅ Set up PostgreSQL database
 - ✅ Started backend API on port 8081

@@ -5,6 +5,7 @@ Welcome to the testing tutorial! This guide will walk you through running and wr
 ## What You'll Learn
 
 By the end of this tutorial, you will:
+
 - Understand the different types of tests in the project
 - Run E2E (End-to-End) tests with Playwright
 - Run API tests for backend endpoints
@@ -14,6 +15,7 @@ By the end of this tutorial, you will:
 ## Prerequisites
 
 Before starting this tutorial:
+
 - Complete the [Getting Started](./getting-started.md) tutorial
 - Have both backend and frontend running
 - Have Node.js installed
@@ -23,18 +25,21 @@ Before starting this tutorial:
 This project has two main types of tests:
 
 ### E2E Tests (End-to-End)
+
 - **Location**: `tests/e2e/`
 - **What they test**: Full user journeys through the browser
 - **Example**: User registers → sees home page → logs out
 - **Tool**: Playwright with real browser
 
 ### API Tests
+
 - **Location**: `tests/api/`
 - **What they test**: Backend API endpoints directly
 - **Example**: POST /api/auth/register returns JWT token
 - **Tool**: Playwright without browser
 
 **Think of it this way:**
+
 - E2E tests = Testing the whole car on the road
 - API tests = Testing individual car parts in the garage
 
@@ -51,7 +56,8 @@ npx playwright test tests/e2e/auth-flow.spec.ts --project=chromium
 ```
 
 **What you should see:**
-```
+
+```text
 Running 8 tests using 5 workers
 
 ✓ Test 1: Registration → Home redirect
@@ -67,6 +73,7 @@ Running 8 tests using 5 workers
 ```
 
 **If tests fail:**
+
 1. Check if backend is running on port 8081
 2. Check if frontend is running on port 3001
 3. Check if database is running
@@ -80,6 +87,7 @@ npx playwright test tests/e2e/auth-flow.spec.ts:33 --project=chromium --headed
 ```
 
 **What happens:**
+
 1. Chrome browser opens automatically
 2. You see the registration page load
 3. Form fills automatically
@@ -99,7 +107,8 @@ npx playwright test tests/api/ --project=api-tests
 ```
 
 **What you should see:**
-```
+
+```text
 Running 20+ tests using 5 workers
 
 ✓ POST /api/auth/register - success
@@ -114,6 +123,7 @@ Running 20+ tests using 5 workers
 ```
 
 **These tests:**
+
 - Don't open a browser
 - Call API directly
 - Run much faster than E2E tests
@@ -150,12 +160,14 @@ test.describe('My First Test', () => {
 ```
 
 **Run your test:**
+
 ```bash
 npx playwright test tests/api/my-first-test.api.spec.ts
 ```
 
 **If it passes, you see:**
-```
+
+```text
 ✓ My First Test › should check if API is alive (234ms)
 ```
 
@@ -265,7 +277,7 @@ test('should reject invalid email', async ({ request }) => {
 
 When a test fails, Playwright gives you helpful information:
 
-```
+```text
 ✗ should register a new user
 
 Error: expect(received).toBe(expected)
@@ -298,6 +310,7 @@ npx playwright show-report
 ```
 
 **This opens a browser with:**
+
 - All test results
 - Screenshots (for E2E tests)
 - Videos (for E2E tests)
@@ -306,14 +319,16 @@ npx playwright show-report
 
 ## Step 10: Best Practices
 
-### ✅ DO:
+### ✅ DO
+
 - Use unique emails for each test (add timestamp)
 - Clean up test data after tests
 - Make tests independent (can run in any order)
 - Use clear test names: "should do X when Y"
 - Test both success and error cases
 
-### ❌ DON'T:
+### ❌ DON'T
+
 - Hardcode user emails (use generators)
 - Depend on test execution order
 - Share data between tests
@@ -373,21 +388,27 @@ Now that you can run and write tests, explore:
 ## Troubleshooting
 
 ### Problem: "connect ECONNREFUSED"
+
 **Solution**: Backend not running. Start it:
+
 ```bash
 cd backend
 mvn spring-boot:run
 ```
 
 ### Problem: "page.goto: net::ERR_CONNECTION_REFUSED"
+
 **Solution**: Frontend not running. Start it:
+
 ```bash
 cd frontend
 npm run dev
 ```
 
 ### Problem: Tests timeout
+
 **Solution**: Increase timeout in test:
+
 ```typescript
 test('my slow test', async ({ request }) => {
   test.setTimeout(60000); // 60 seconds
@@ -396,7 +417,9 @@ test('my slow test', async ({ request }) => {
 ```
 
 ### Problem: "Database connection error"
+
 **Solution**: PostgreSQL not running. Start it:
+
 ```bash
 # macOS with Homebrew
 brew services start postgresql
@@ -408,6 +431,7 @@ brew services list
 ## Summary
 
 You've learned:
+
 - ✅ Different types of tests (E2E vs API)
 - ✅ How to run existing tests
 - ✅ How to write your first test
