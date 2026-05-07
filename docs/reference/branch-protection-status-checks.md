@@ -55,7 +55,7 @@ E2E tests run on a **schedule** (6 AM & 6 PM WIB) instead of on every PR:
 
 ### Visual Reference
 
-```
+```text
 Branch Protection Rule for 'main'
 ├─ ✅ Require a pull request before merging
 ├─ ✅ Require status checks to pass before merging
@@ -85,7 +85,7 @@ Branch Protection Rule for 'main'
 
 ### On Push to Feature Branch
 
-```
+```text
 git push origin feature/my-feature
 ↓
 Triggers: frontend-lint, frontend-tests, frontend-build, backend-tests, api-tests, ci-summary
@@ -95,7 +95,7 @@ Duration: ~2m 55s
 
 ### On Pull Request
 
-```
+```text
 Create PR: feature/my-feature → main
 ↓
 Triggers: ALL jobs including e2e-tests
@@ -104,7 +104,7 @@ Duration: ~7m 50s
 
 ### Merge Attempt
 
-```
+```text
 Attempt to merge PR
 ↓
 GitHub checks: Are all required status checks green?

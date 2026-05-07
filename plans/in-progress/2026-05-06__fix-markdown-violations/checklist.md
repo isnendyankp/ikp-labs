@@ -131,21 +131,19 @@
 
 #### PR #5 - Preparation
 
-- [ ] Create branch `docs/fix-markdown-violations-reference`
-- [ ] Scan violations in docs/reference/
+- [x] Create branch `docs/fix-markdown-violations-reference`
+- [x] Scan violations in docs/reference/
 
 #### PR #5 - Fix Violations
 
-- [ ] Fix all files in docs/reference/
-- [ ] Verify tables render correctly
-- [ ] Test internal links
+- [x] Fix all files in docs/reference/
+- [x] Verify tables render correctly
+- [x] Test internal links
 
 #### PR #5 - Commit Strategy
 
-- [ ] Commit 1: Add language tags to code blocks
-- [ ] Commit 2: Add blank lines around fences/lists
-- [ ] Commit 3: Fix heading spacing
-- [ ] Update this checklist
+- [x] Commit 1: Fix code block language tags, MD036, MD024 violations
+- [x] Update this checklist
 
 #### PR #5 - Merge
 

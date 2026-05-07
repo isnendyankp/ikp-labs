@@ -16,7 +16,7 @@ rtk gain
 
 **Example output:**
 
-```
+```text
 RTK Token Savings (Global Scope)
 ════════════════════════════════════════════════════════════
 
@@ -118,5 +118,6 @@ By default, `rtk gain` reports on the **global scope** (all projects). RTK does 
 ---
 
 **See also**:
+
 - [How to Setup RTK](../how-to/setup-rtk.md)
 - [Understanding RTK Token Savings](../explanation/rtk-token-savings.md)
