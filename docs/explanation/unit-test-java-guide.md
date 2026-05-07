@@ -3,12 +3,14 @@
 ## 📚 Apa itu Unit Test?
 
 ### Definisi Sederhana
+
 **Unit Test** adalah tes kecil untuk setiap bagian kecil (unit) dari program Anda.
 
 ### Analogi Mudah Dipahami
 
 #### Analogi 1: Tes Matematika
-```
+
+```text
 Test 1: 2 + 2 = 4 ✅ (benar)
 Test 2: 5 - 3 = 2 ✅ (benar)
 Test 3: 10 / 0 = ??? ❌ (error!)
@@ -17,7 +19,9 @@ Test 3: 10 / 0 = ??? ❌ (error!)
 Setiap baris di atas = **Unit Test**
 
 #### Analogi 2: Quality Control Pabrik
+
 Bayangkan pabrik mobil:
+
 - ✅ Test mesin: Nyala atau tidak?
 - ✅ Test rem: Berfungsi atau tidak?
 - ✅ Test lampu: Menyala atau tidak?
@@ -26,7 +30,9 @@ Bayangkan pabrik mobil:
 Setiap komponen di-test sendiri-sendiri = **Unit Testing**
 
 #### Analogi 3: Recipe Testing
+
 Anda bikin kue:
+
 - ✅ Test: 200g tepung + 100g gula = adonan pas?
 - ✅ Test: Panggang 180°C selama 30 menit = matang?
 - ✅ Test: Tambah garam terlalu banyak = gosong? ❌
@@ -36,30 +42,35 @@ Anda bikin kue:
 ## 🎯 Mengapa Perlu Unit Test?
 
 ### 1. **Deteksi Bug Lebih Cepat** 🐛
+
 ```java
 // Tanpa test: Bug baru ketahuan saat user pakai (TERLAMBAT!)
 // Dengan test: Bug ketahuan sebelum deploy (CEPAT!)
 ```
 
 ### 2. **Dokumentasi Hidup** 📖
+
 ```java
 // Test = dokumentasi yang selalu update
 // Orang lain baca test = tahu cara pakai code Anda
 ```
 
 ### 3. **Refactoring Aman** 🔧
+
 ```java
 // Mau ubah code? Run test dulu!
 // Kalau test pass = aman! Kalau fail = ada yang rusak!
 ```
 
 ### 4. **Confidence** 💪
+
 ```java
 // Dengan test: YAKIN code bekerja
 // Tanpa test: HARAP-HARAP CEMAS
 ```
 
 ### 5. **Hemat Waktu** ⏰
+
 ```java
 // Test otomatis = detik
 // Test manual = menit/jam
@@ -71,6 +82,7 @@ Anda bikin kue:
 ## 🧪 Anatomi Unit Test (AAA Pattern)
 
 ### Pattern AAA
+
 Setiap test mengikuti 3 langkah:
 
 ```java
@@ -155,11 +167,11 @@ void testLogin_ValidCredentials_ShouldReturnToken() {
 
 ### Apa itu Mock?
 
-**Mock = Objek palsu untuk testing**
+#### Mock: Objek palsu untuk testing
 
 ### Analogi: Test Mesin Mobil
 
-```
+```text
 Skenario: Anda mau test MESIN mobil
 
 TANPA MOCK (Test real object):
@@ -206,7 +218,7 @@ private JwtUtil jwtUtil;  // ← Token generator palsu
 
 ### File Structure
 
-```
+```text
 backend/ikp-labs-api/
 ├── src/main/java/
 │   └── com/registrationform/api/
@@ -225,17 +237,20 @@ backend/ikp-labs-api/
 File: [`AuthServiceTest.java`](../../backend/ikp-labs-api/src/test/java/com/registrationform/api/service/AuthServiceTest.java)
 
 #### Test 1: Login dengan Valid Credentials ✅
+
 ```java
 @Test
 void testLogin_ValidCredentials_ShouldReturnSuccessWithToken()
 ```
 
 **Skenario:**
-- Email: test@example.com (ada di database)
+
+- Email: <test@example.com> (ada di database)
 - Password: password123 (benar)
 - **Harapan:** Login berhasil, dapat JWT token
 
 **Test:**
+
 ```java
 // Setup mock data
 when(userRepository.findByEmail("test@example.com"))
@@ -252,45 +267,53 @@ assertEquals("test@example.com", response.getEmail());
 ```
 
 #### Test 2: Login dengan Email Tidak Terdaftar ❌
+
 ```java
 @Test
 void testLogin_EmailNotFound_ShouldThrowException()
 ```
 
 **Skenario:**
-- Email: notfound@example.com (tidak ada di database)
+
+- Email: <notfound@example.com> (tidak ada di database)
 - **Harapan:** Throw exception
 
 #### Test 3: Login dengan Password Salah ❌
+
 ```java
 @Test
 void testLogin_WrongPassword_ShouldThrowException()
 ```
 
 **Skenario:**
-- Email: test@example.com (ada)
+
+- Email: <test@example.com> (ada)
 - Password: wrongpassword (salah)
 - **Harapan:** Throw exception
 
 #### Test 4: Register User Baru ✅
+
 ```java
 @Test
 void testRegister_NewUser_ShouldSaveSuccessfully()
 ```
 
 **Skenario:**
-- Email: newuser@example.com (belum ada)
+
+- Email: <newuser@example.com> (belum ada)
 - Data lengkap dan valid
 - **Harapan:** User tersimpan di database
 
 #### Test 5: Register dengan Email Duplicate ❌
+
 ```java
 @Test
 void testRegister_DuplicateEmail_ShouldThrowException()
 ```
 
 **Skenario:**
-- Email: existing@example.com (sudah ada)
+
+- Email: <existing@example.com> (sudah ada)
 - **Harapan:** Throw exception
 
 ---
@@ -318,7 +341,7 @@ mvn install -DskipTests
 
 ### 2. Dari IDE (IntelliJ IDEA)
 
-```
+```text
 1. Buka file AuthServiceTest.java
 2. Right click di dalam file
 3. Pilih "Run 'AuthServiceTest'"
@@ -330,7 +353,7 @@ Atau:
 
 ### 3. Dari IDE (VS Code)
 
-```
+```text
 1. Install extension: "Test Runner for Java"
 2. Klik icon "Testing" di sidebar
 3. Klik ▶️ untuk run test
@@ -342,7 +365,7 @@ Atau:
 
 ### Test Berhasil (GREEN) ✅
 
-```
+```text
 -------------------------------------------------------
  T E S T S
 -------------------------------------------------------
@@ -363,7 +386,7 @@ Tests run: 5, Failures: 0, Errors: 0, Skipped: 0
 
 ### Test Gagal (RED) ❌
 
-```
+```text
 -------------------------------------------------------
  T E S T S
 -------------------------------------------------------
@@ -593,7 +616,7 @@ assertEquals(expected, actual);  // Tidak ada pesan error
 
 ## 📂 Project Structure Best Practice
 
-```
+```text
 src/
 ├── main/java/
 │   └── com/example/
@@ -614,6 +637,7 @@ src/
 ```
 
 **Aturan:**
+
 - Test file mirror structure main code
 - Nama file: `[ClassName]Test.java`
 - Package sama dengan class yang di-test
@@ -693,6 +717,7 @@ void testB() {
 ## 💡 Tips untuk Pemula
 
 ### 1. Mulai dari Test Sederhana
+
 ```java
 @Test
 void testAddition() {
@@ -701,6 +726,7 @@ void testAddition() {
 ```
 
 ### 2. Pakai @DisplayName untuk Clarity
+
 ```java
 @Test
 @DisplayName("User should login successfully with valid credentials")
@@ -710,6 +736,7 @@ void testLogin() {
 ```
 
 ### 3. Test Happy Path & Sad Path
+
 ```java
 // Happy path (berhasil)
 @Test
@@ -723,7 +750,8 @@ void testLogin_EmailNotFound_Fail()
 ```
 
 ### 4. Baca Error Message dengan Teliti
-```
+
+```text
 Expected: 4
 Actual: 5
 
@@ -731,8 +759,9 @@ Actual: 5
 ↑ Actual value dari code Anda
 ```
 
-### 5. Jangan Takut Test Gagal!
-```
+### 5. Jangan Takut Test Gagal
+
+```text
 Test FAIL = Bagus! Anda menemukan bug!
 Lebih baik ketahuan di test daripada di production!
 ```
@@ -745,7 +774,7 @@ Lebih baik ketahuan di test daripada di production!
 
 **Code Coverage** = Persentase code yang di-test
 
-```
+```text
 Total lines of code: 100
 Lines tested: 80
 Coverage: 80%
@@ -772,21 +801,25 @@ mvn clean test jacoco:report
 ## 🚀 Next Steps
 
 ### 1. Run Test yang Sudah Dibuat
+
 ```bash
 cd backend/ikp-labs-api
 mvn test -Dtest=AuthServiceTest
 ```
 
 ### 2. Buat Test Baru
+
 - Pilih class lain (UserService, FileStorageService)
 - Ikuti pattern dari AuthServiceTest
 - Test happy path & error path
 
 ### 3. Tambah Coverage
+
 - Cek code coverage
 - Target: 80%+
 
 ### 4. Learn More
+
 - JUnit 5 Documentation
 - Mockito Documentation
 - Test-Driven Development (TDD)

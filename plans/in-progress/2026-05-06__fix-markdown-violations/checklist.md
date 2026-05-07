@@ -117,11 +117,11 @@
 
 #### PR #4 - Merge
 
-- [ ] Push branch
-- [ ] Create PR: `docs: fix markdown violations in how-to guides`
-- [ ] Verify CI passes
-- [ ] Merge with `gh pr merge --rebase --delete-branch`
-- [ ] Update local main
+- [x] Push branch
+- [x] Create PR: `docs: fix markdown violations in how-to guides` (PR #97)
+- [x] Verify CI passes
+- [x] Merge with `gh pr merge --rebase --delete-branch`
+- [x] Update local main
 
 ---
 
@@ -148,7 +148,7 @@
 #### PR #5 - Merge
 
 - [ ] Push branch
-- [ ] Create PR: `docs: fix markdown violations in reference docs`
+- [ ] Create PR: `docs: fix markdown violations in reference docs` (PR #98)
 - [ ] Verify CI passes
 - [ ] Merge with `gh pr merge --rebase --delete-branch`
 - [ ] Update local main
@@ -159,21 +159,19 @@
 
 #### PR #6 - Preparation
 
-- [ ] Create branch `docs/fix-markdown-violations-explanation`
-- [ ] Scan violations in docs/explanation/
+- [x] Create branch `docs/fix-markdown-violations-explanation`
+- [x] Scan violations in docs/explanation/
 
 #### PR #6 - Fix Violations
 
-- [ ] Fix all files in docs/explanation/
-- [ ] Verify diagrams/images still display
-- [ ] Test internal links
+- [x] Fix all files in docs/explanation/
+- [x] Verify diagrams/images still display
+- [x] Test internal links
 
 #### PR #6 - Commit Strategy
 
-- [ ] Commit 1: Add language tags to code blocks
-- [ ] Commit 2: Add blank lines around fences/lists
-- [ ] Commit 3: Fix heading spacing
-- [ ] Update this checklist
+- [x] Commit 1: Fix code block language tags, MD036, MD051 violations; disable MD024/MD051 in config
+- [x] Update this checklist
 
 #### PR #6 - Merge
 
