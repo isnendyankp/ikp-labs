@@ -10,7 +10,7 @@ These commands are typed directly in the Claude Code prompt.
 
 Activate or switch to **full** mode (default intensity).
 
-```
+```text
 /caveman
 ```
 
@@ -22,7 +22,7 @@ Drops: articles, filler words, pleasantries, hedging. Fragments allowed. Technic
 
 Switch to **lite** mode — drop filler words but keep complete sentences.
 
-```
+```text
 /caveman lite
 ```
 
@@ -34,7 +34,7 @@ Use when you want cleaner responses without losing readability.
 
 Switch to **ultra** mode — extreme compression, fragments dominant, prose minimal.
 
-```
+```text
 /caveman ultra
 ```
 
@@ -46,7 +46,7 @@ Use when context window is critical and you need maximum token efficiency.
 
 Switch to **Wenyan-Lite** mode — Classical Chinese style, light intensity.
 
-```
+```text
 /caveman wenyan-lite
 ```
 
@@ -56,7 +56,7 @@ Switch to **Wenyan-Lite** mode — Classical Chinese style, light intensity.
 
 Switch to **Wenyan-Full** mode — full 文言文 style.
 
-```
+```text
 /caveman wenyan
 ```
 
@@ -66,7 +66,7 @@ Switch to **Wenyan-Full** mode — full 文言文 style.
 
 Switch to **Wenyan-Ultra** mode — ancient scholar mode, maximum classical compression.
 
-```
+```text
 /caveman wenyan-ultra
 ```
 
@@ -90,7 +90,7 @@ Skills are invoked as slash commands. They have focused, task-specific behavior 
 
 Generate a terse conventional commit message (max 256 characters).
 
-```
+```text
 /caveman-commit
 ```
 
@@ -102,7 +102,7 @@ Follows conventional commits format: `type: description`. Drops verbose summarie
 
 Review code with one-line comments (max 30 per review).
 
-```
+```text
 /caveman-review
 ```
 
@@ -114,7 +114,7 @@ Each comment is a single line. No lengthy explanations.
 
 Compress a Markdown file — approximately 46% size reduction.
 
-```
+```text
 /caveman-compress path/to/file.md
 ```
 
@@ -126,7 +126,7 @@ Removes filler prose, condenses tables, shortens headings while preserving seman
 
 Display a quick reference card with all modes and skills.
 
-```
+```text
 /caveman-help
 ```
 
@@ -182,5 +182,6 @@ Resolution order (highest to lowest priority):
 ---
 
 **See also**:
+
 - [How to Setup Caveman](../how-to/setup-caveman.md)
 - [Understanding Caveman Mode](../explanation/caveman-mode.md)

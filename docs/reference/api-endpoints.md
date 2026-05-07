@@ -4,7 +4,7 @@ Complete reference for all REST API endpoints in the Registration Form applicati
 
 ## Base URL
 
-```
+```text
 http://localhost:8081
 ```
 
@@ -19,6 +19,7 @@ Register a new user account.
 **Location**: `AuthController.java:79`
 
 **Request Body**:
+
 ```json
 {
   "fullName": "string (required)",
@@ -29,6 +30,7 @@ Register a new user account.
 ```
 
 **Success Response** (201 Created):
+
 ```json
 {
   "success": true,
@@ -42,6 +44,7 @@ Register a new user account.
 ```
 
 **Error Response** (400 Bad Request):
+
 ```json
 {
   "success": false,
@@ -51,6 +54,7 @@ Register a new user account.
 ```
 
 **Error Response** (500 Internal Server Error):
+
 ```json
 {
   "success": false,
@@ -60,6 +64,7 @@ Register a new user account.
 ```
 
 **Example**:
+
 ```bash
 curl -X POST http://localhost:8081/api/auth/register \
   -H "Content-Type: application/json" \
@@ -80,6 +85,7 @@ Authenticate user and receive JWT token.
 **Location**: `AuthController.java:123`
 
 **Request Body**:
+
 ```json
 {
   "email": "string (required, valid email format)",
@@ -88,6 +94,7 @@ Authenticate user and receive JWT token.
 ```
 
 **Success Response** (200 OK):
+
 ```json
 {
   "success": true,
@@ -102,6 +109,7 @@ Authenticate user and receive JWT token.
 ```
 
 **Error Response** (401 Unauthorized):
+
 ```json
 {
   "success": false,
@@ -111,6 +119,7 @@ Authenticate user and receive JWT token.
 ```
 
 **Error Response** (500 Internal Server Error):
+
 ```json
 {
   "success": false,
@@ -120,6 +129,7 @@ Authenticate user and receive JWT token.
 ```
 
 **Example**:
+
 ```bash
 curl -X POST http://localhost:8081/api/auth/login \
   -H "Content-Type: application/json" \
@@ -130,6 +140,7 @@ curl -X POST http://localhost:8081/api/auth/login \
 ```
 
 **Frontend Usage**:
+
 ```typescript
 const response = await fetch('http://localhost:8081/api/auth/login', {
   method: 'POST',
@@ -158,14 +169,17 @@ Refresh JWT token without requiring login.
 **Location**: `AuthController.java:159`
 
 **Query Parameters**:
+
 - `token` (required): Current JWT token
 
 **Request**:
-```
+
+```text
 POST /api/auth/refresh?token=eyJhbGciOiJIUzUxMiJ9...
 ```
 
 **Success Response** (200 OK):
+
 ```json
 {
   "success": true,
@@ -179,6 +193,7 @@ POST /api/auth/refresh?token=eyJhbGciOiJIUzUxMiJ9...
 ```
 
 **Error Response** (401 Unauthorized):
+
 ```json
 {
   "success": false,
@@ -188,6 +203,7 @@ POST /api/auth/refresh?token=eyJhbGciOiJIUzUxMiJ9...
 ```
 
 **Example**:
+
 ```bash
 curl -X POST "http://localhost:8081/api/auth/refresh?token=eyJhbGciOiJIUzUxMiJ9..."
 ```
@@ -201,15 +217,18 @@ Validate if JWT token is still valid.
 **Location**: `AuthController.java:188`
 
 **Query Parameters**:
+
 - `token` (required): JWT token to validate
 - `email` (required): Email of the user
 
 **Request**:
-```
+
+```text
 POST /api/auth/validate?token=eyJ...&email=user@example.com
 ```
 
 **Success Response** (200 OK):
+
 ```json
 {
   "success": true,
@@ -219,6 +238,7 @@ POST /api/auth/validate?token=eyJ...&email=user@example.com
 ```
 
 **Invalid Token Response** (200 OK):
+
 ```json
 {
   "success": true,
@@ -228,6 +248,7 @@ POST /api/auth/validate?token=eyJ...&email=user@example.com
 ```
 
 **Error Response** (500 Internal Server Error):
+
 ```json
 {
   "success": false,
@@ -238,6 +259,7 @@ POST /api/auth/validate?token=eyJ...&email=user@example.com
 ```
 
 **Example**:
+
 ```bash
 curl -X POST "http://localhost:8081/api/auth/validate?token=eyJ...&email=user@example.com"
 ```
@@ -251,6 +273,7 @@ Health check endpoint for authentication service.
 **Location**: `AuthController.java:220`
 
 **Response** (200 OK):
+
 ```json
 {
   "status": "UP",
@@ -261,6 +284,7 @@ Health check endpoint for authentication service.
 ```
 
 **Example**:
+
 ```bash
 curl http://localhost:8081/api/auth/health
 ```
@@ -303,6 +327,7 @@ All endpoints follow consistent error response format:
 ### Password Requirements
 
 Enforced by backend validation:
+
 - Minimum 8 characters
 - At least one uppercase letter
 - At least one lowercase letter
@@ -312,18 +337,21 @@ Enforced by backend validation:
 ### Token Handling
 
 **JWT Token Format**:
-```
+
+```text
 Bearer eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ1c2VyQGV4YW1wbGUuY29tIiwiaWF0IjoxNzA1MzE0NjAwLCJleHAiOjE3MDUzMTgyMDB9.signature
 ```
 
 **Token Expiration**: 24 hours (configurable in `application.properties` via `jwt.expiration`)
 
 **Frontend Storage**: Store token in `localStorage`:
+
 ```javascript
 localStorage.setItem('authToken', token);
 ```
 
 **Include Token in Requests**:
+
 ```javascript
 fetch('/api/protected-endpoint', {
   headers: {
@@ -337,6 +365,7 @@ fetch('/api/protected-endpoint', {
 CORS is configured to allow requests from:
 
 **Development:**
+
 - `http://localhost:3000` - Standard React port
 - `http://localhost:3001` - Alternative localhost
 - `http://localhost:3002` - IKP-Labs custom port
@@ -345,6 +374,7 @@ CORS is configured to allow requests from:
 - `http://localhost:3005` - Auto-assigned by Next.js
 
 **Production:**
+
 - `https://kameravue.com`
 - `https://www.kameravue.com`
 
@@ -354,6 +384,7 @@ Allowed headers: `Authorization`, `Content-Type`, `Accept`, `Origin`, `X-Request
 ## Rate Limiting
 
 Currently no rate limiting is implemented. Consider adding in production:
+
 - Max 5 login attempts per IP per minute
 - Max 10 registration attempts per IP per hour
 
@@ -380,6 +411,7 @@ Import collection or manually create requests:
 1. Create request: `POST http://localhost:8081/api/auth/register`
 2. Set header: `Content-Type: application/json`
 3. Set body (raw JSON):
+
    ```json
    {
      "fullName": "Test User",
@@ -388,6 +420,7 @@ Import collection or manually create requests:
      "confirmPassword": "TestPass123!"
    }
    ```
+
 4. Send request
 5. Save token from response for login tests
 
@@ -408,6 +441,7 @@ Get paginated list of public photos with optional sorting.
 **Authentication**: Required (Bearer token)
 
 **Query Parameters**:
+
 - `page` (number, optional): Page number (0-indexed), default: `0`
 - `size` (number, optional): Items per page, default: `25`
 - `sortBy` (string, optional): Sort order, default: `"newest"`
@@ -417,11 +451,13 @@ Get paginated list of public photos with optional sorting.
   - `mostFavorited`: Sort by favorite count (highest first, then by newest)
 
 **Request Headers**:
-```
+
+```text
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9...
 ```
 
 **Success Response** (200 OK):
+
 ```json
 {
   "content": [
@@ -448,6 +484,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9...
 ```
 
 **Error Response** (400 Bad Request):
+
 ```json
 {
   "error": "Invalid sortBy parameter. Allowed values: newest, oldest, mostLiked, mostFavorited"
@@ -455,6 +492,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9...
 ```
 
 **Error Response** (401 Unauthorized):
+
 ```json
 {
   "error": "Unauthorized - JWT token missing or invalid"
@@ -462,6 +500,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9...
 ```
 
 **Examples**:
+
 ```bash
 # Get first page (newest first - default)
 curl http://localhost:8081/api/gallery/public \
@@ -481,6 +520,7 @@ curl "http://localhost:8081/api/gallery/public?sortBy=mostFavorited" \
 ```
 
 **Frontend Usage**:
+
 ```typescript
 const token = localStorage.getItem('authToken');
 const response = await fetch(
@@ -507,6 +547,7 @@ Get paginated list of current user's uploaded photos with optional sorting.
 **Authentication**: Required (Bearer token)
 
 **Query Parameters**:
+
 - `page` (number, optional): Page number (0-indexed), default: `0`
 - `size` (number, optional): Items per page, default: `25`
 - `sortBy` (string, optional): Sort order, default: `"newest"`
@@ -515,6 +556,7 @@ Get paginated list of current user's uploaded photos with optional sorting.
 **Success Response**: Same format as `/api/gallery/public`
 
 **Example**:
+
 ```bash
 curl "http://localhost:8081/api/gallery/my-photos?sortBy=newest" \
   -H "Authorization: Bearer eyJ..."
@@ -531,6 +573,7 @@ Get paginated list of photos liked by current user with optional sorting.
 **Authentication**: Required (Bearer token)
 
 **Query Parameters**:
+
 - `page` (number, optional): Page number (0-indexed), default: `0`
 - `size` (number, optional): Items per page, default: `25`
 - `sortBy` (string, optional): Sort order, default: `"newest"`
@@ -539,6 +582,7 @@ Get paginated list of photos liked by current user with optional sorting.
 **Success Response**: Same format as `/api/gallery/public`
 
 **Example**:
+
 ```bash
 curl "http://localhost:8081/api/gallery/liked-photos?sortBy=mostLiked" \
   -H "Authorization: Bearer eyJ..."
@@ -555,6 +599,7 @@ Get paginated list of photos favorited by current user with optional sorting.
 **Authentication**: Required (Bearer token)
 
 **Query Parameters**:
+
 - `page` (number, optional): Page number (0-indexed), default: `0`
 - `size` (number, optional): Items per page, default: `25`
 - `sortBy` (string, optional): Sort order, default: `"newest"`
@@ -563,6 +608,7 @@ Get paginated list of photos favorited by current user with optional sorting.
 **Success Response**: Same format as `/api/gallery/public`
 
 **Example**:
+
 ```bash
 curl "http://localhost:8081/api/gallery/favorited-photos?sortBy=mostFavorited" \
   -H "Authorization: Bearer eyJ..."
@@ -586,6 +632,7 @@ curl "http://localhost:8081/api/gallery/favorited-photos?sortBy=mostFavorited" \
 ### Performance Optimization
 
 All gallery endpoints use optimized queries with:
+
 - Single database query per request (no N+1 problem)
 - LEFT JOIN for like/favorite counts
 - LEFT JOIN for user-specific flags (isLiked, isFavorited)

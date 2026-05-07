@@ -26,6 +26,7 @@ npx playwright test
 Runs all tests in the project (both E2E and API tests).
 
 **Default behavior:**
+
 - Runs in headless mode
 - Uses all configured browsers (chromium, firefox, webkit)
 - Shows list reporter
@@ -60,6 +61,7 @@ npx playwright test tests/e2e/auth-flow.spec.ts
 Runs only the authentication flow tests.
 
 **Available E2E test files:**
+
 - `auth-flow.spec.ts` - Complete authentication journey (8 tests)
 - `registration.spec.ts` - Registration form tests (if exists)
 - `login.spec.ts` - Login form tests (if exists)
@@ -81,6 +83,7 @@ npx playwright test tests/e2e/ --headed
 Opens visible browser window to watch tests execute.
 
 **Use cases:**
+
 - Debugging test failures
 - Understanding test flow
 - Demo purposes
@@ -94,6 +97,7 @@ npx playwright test --ui
 Opens Playwright UI for interactive test running.
 
 **Features:**
+
 - Step through tests
 - Inspect DOM at each step
 - Time travel debugging
@@ -121,6 +125,7 @@ npx playwright test tests/api/auth.api.spec.ts
 Runs only authentication API tests.
 
 **Available API test files:**
+
 - `auth.api.spec.ts` - Authentication endpoints
 - `users.api.spec.ts` - User management endpoints
 - `protected.api.spec.ts` - Protected endpoints with JWT
@@ -147,6 +152,7 @@ npx playwright test --grep "login"
 Runs only tests whose names match "login".
 
 **Examples:**
+
 ```bash
 # Run all login-related tests
 npx playwright test --grep "login"
@@ -175,6 +181,7 @@ npx playwright test --last-failed
 Re-runs only the tests that failed in the last run.
 
 **Useful for:**
+
 - Quick iteration on fixes
 - Debugging flaky tests
 - CI/CD pipeline optimization
@@ -225,11 +232,13 @@ npx playwright test --reporter=html
 Generates HTML report in `playwright-report/` directory.
 
 **View report:**
+
 ```bash
 npx playwright show-report
 ```
 
 Opens report in browser with:
+
 - Test results
 - Screenshots
 - Videos
@@ -253,6 +262,7 @@ npx playwright test --reporter=json
 Outputs results in JSON format.
 
 **Use cases:**
+
 - CI/CD integration
 - Custom reporting tools
 - Metrics collection
@@ -286,6 +296,7 @@ npx playwright test --debug
 Opens Playwright Inspector for step-by-step debugging.
 
 **Features:**
+
 - Pause before each action
 - Step through test
 - Explore locators
@@ -309,6 +320,7 @@ npx playwright show-trace trace.zip
 Opens trace viewer for recorded test execution.
 
 **Traces show:**
+
 - Screenshots at each step
 - DOM snapshots
 - Network requests
@@ -324,6 +336,7 @@ npx playwright test --trace on
 Records trace for all tests.
 
 **Options:**
+
 - `--trace on` - Always record
 - `--trace off` - Never record
 - `--trace on-first-retry` - Record on retry
@@ -342,6 +355,7 @@ npx playwright test --workers=1
 Runs tests sequentially (no parallelization).
 
 **Options:**
+
 - `--workers=1` - Sequential
 - `--workers=2` - 2 parallel workers
 - `--workers=50%` - Half of CPU cores
@@ -371,6 +385,7 @@ npx playwright test --retries=2
 Retries each failed test up to 2 times.
 
 **Use cases:**
+
 - Handling flaky tests
 - Network instability
 - CI/CD environments
@@ -412,6 +427,7 @@ npx playwright install
 Installs all Playwright browsers.
 
 **Install specific browser:**
+
 ```bash
 npx playwright install chromium
 npx playwright install firefox
@@ -549,6 +565,7 @@ Playwright uses standard exit codes:
 - `2` - Configuration errors
 
 **Use in CI/CD:**
+
 ```bash
 npx playwright test || echo "Tests failed with code $?"
 ```
@@ -560,6 +577,7 @@ npx playwright test || echo "Tests failed with code $?"
 ### playwright.config.ts
 
 Main configuration file defining:
+
 - Test directory
 - Timeout settings
 - Browser configurations

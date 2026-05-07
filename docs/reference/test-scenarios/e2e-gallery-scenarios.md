@@ -4,6 +4,7 @@
 
 **Total Scenarios:** 20 E2E tests
 **Priority Breakdown:**
+
 - **P0 (Critical):** 8 tests - Core functionality, must work
 - **P1 (High):** 7 tests - Important features, should work
 - **P2 (Medium):** 5 tests - Nice to have, can defer
@@ -30,6 +31,7 @@
 ## 🧪 Detailed Test Scenarios
 
 ### E2E-001: Upload Single Photo Successfully [P0]
+
 **Category:** Upload Flow
 **Day:** Day 1 (Monday)
 **Estimated Time:** 1 hour
@@ -37,6 +39,7 @@
 **Dependencies:** None (first test!)
 
 **Scenario:**
+
 ```gherkin
 Given: User is registered and logged in
 When: User navigates to /gallery/upload
@@ -54,6 +57,7 @@ And: Photo displays description "Beautiful sunset view"
 ```
 
 **Test Implementation:**
+
 ```typescript
 test('should upload single photo successfully', async ({ page }) => {
   // GIVEN: User is registered and logged in
@@ -74,6 +78,7 @@ test('should upload single photo successfully', async ({ page }) => {
 ```
 
 **Selectors:**
+
 - File input: `input[type="file"]`
 - Title input: `input[type="text"]`
 - Description textarea: `textarea`
@@ -81,6 +86,7 @@ test('should upload single photo successfully', async ({ page }) => {
 - Upload button: `button[type="submit"]:has-text("Upload Photo")`
 
 **Assertions:**
+
 - Photo card visible in grid
 - Privacy badge shows "Private"
 - Title matches input
@@ -89,6 +95,7 @@ test('should upload single photo successfully', async ({ page }) => {
 ---
 
 ### E2E-002: Upload Photo as Public [P0]
+
 **Category:** Upload Flow
 **Day:** Day 2 (Tuesday)
 **Estimated Time:** 1 hour
@@ -96,6 +103,7 @@ test('should upload single photo successfully', async ({ page }) => {
 **Dependencies:** E2E-001
 
 **Scenario:**
+
 ```gherkin
 Given: User is logged in
 When: User navigates to /gallery/upload
@@ -111,6 +119,7 @@ And: Photo accessible to all users (not owner-restricted)
 ```
 
 **Test Implementation:**
+
 ```typescript
 test('should upload photo as public', async ({ page }) => {
   const { user } = await createAuthenticatedGalleryUser(page);
@@ -132,6 +141,7 @@ test('should upload photo as public', async ({ page }) => {
 ```
 
 **Key Difference from E2E-001:**
+
 - Checkbox `input#isPublic` is checked
 - Photo appears in both My Photos AND Public Photos
 - Privacy badge shows "Public" instead of "Private"
@@ -139,6 +149,7 @@ test('should upload photo as public', async ({ page }) => {
 ---
 
 ### E2E-003: Upload Multiple Photos Sequentially [P1]
+
 **Category:** Upload Flow
 **Day:** Day 2 (Tuesday)
 **Estimated Time:** 1 hour
@@ -146,6 +157,7 @@ test('should upload photo as public', async ({ page }) => {
 **Dependencies:** E2E-001
 
 **Scenario:**
+
 ```gherkin
 Given: User is logged in
 When: User uploads photo #1 with title "First Photo"
@@ -159,6 +171,7 @@ And: Photo count shows 3 photos
 ```
 
 **Test Implementation:**
+
 ```typescript
 test('should upload multiple photos sequentially', async ({ page }) => {
   const { user } = await createAuthenticatedGalleryUser(page);
@@ -181,6 +194,7 @@ test('should upload multiple photos sequentially', async ({ page }) => {
 ```
 
 **Purpose:**
+
 - Test multiple upload flow
 - Verify no data overlap/corruption
 - Test chronological ordering
@@ -188,6 +202,7 @@ test('should upload multiple photos sequentially', async ({ page }) => {
 ---
 
 ### E2E-004: View My Photos Shows All Owned Photos [P0]
+
 **Category:** View/Navigation
 **Day:** Day 3 (Wednesday)
 **Estimated Time:** 1 hour
@@ -195,6 +210,7 @@ test('should upload multiple photos sequentially', async ({ page }) => {
 **Dependencies:** E2E-001, E2E-002
 
 **Scenario:**
+
 ```gherkin
 Given: User has uploaded 2 public photos and 3 private photos
 When: User navigates to /gallery
@@ -206,6 +222,7 @@ And: Each photo card shows: image, title, description, privacy badge, date
 ```
 
 **Test Implementation:**
+
 ```typescript
 test('should view My Photos shows all owned photos', async ({ page }) => {
   const { user } = await createAuthenticatedGalleryUser(page);
@@ -233,6 +250,7 @@ test('should view My Photos shows all owned photos', async ({ page }) => {
 ---
 
 ### E2E-005: View Public Photos Shows Only Public [P0]
+
 **Category:** View/Navigation
 **Day:** Day 3 (Wednesday)
 **Estimated Time:** 1 hour
@@ -240,6 +258,7 @@ test('should view My Photos shows all owned photos', async ({ page }) => {
 **Dependencies:** E2E-002
 
 **Scenario:**
+
 ```gherkin
 Given: User A has 2 public photos and 1 private photo
 And: User B has 3 public photos
@@ -252,6 +271,7 @@ And: No ownership restriction (all public photos visible)
 ```
 
 **Test Implementation:**
+
 ```typescript
 test('should view Public Photos shows only public', async ({ page, context }) => {
   // User A uploads 2 public + 1 private
@@ -283,6 +303,7 @@ test('should view Public Photos shows only public', async ({ page, context }) =>
 ```
 
 **Key Learning:**
+
 - Public gallery aggregates from all users
 - Privacy filtering works correctly
 - Multi-user scenario testing
@@ -290,6 +311,7 @@ test('should view Public Photos shows only public', async ({ page, context }) =>
 ---
 
 ### E2E-006: View Photo Detail Shows Complete Info [P0]
+
 **Category:** View/Navigation
 **Day:** Day 3 (Wednesday)
 **Estimated Time:** 1 hour
@@ -297,6 +319,7 @@ test('should view Public Photos shows only public', async ({ page, context }) =>
 **Dependencies:** E2E-001
 
 **Scenario:**
+
 ```gherkin
 Given: User has uploaded photo with complete metadata
 When: User clicks on photo card in gallery
@@ -312,6 +335,7 @@ And: "← Back to Gallery" button is visible
 ```
 
 **Test Implementation:**
+
 ```typescript
 test('should view photo detail shows complete info', async ({ page }) => {
   const { user } = await createAuthenticatedGalleryUser(page);
@@ -342,6 +366,7 @@ test('should view photo detail shows complete info', async ({ page }) => {
 ---
 
 ### E2E-007: Edit Photo Title and Description [P0]
+
 **Category:** Edit/Update
 **Day:** Day 4 (Thursday)
 **Estimated Time:** 1 hour
@@ -349,6 +374,7 @@ test('should view photo detail shows complete info', async ({ page }) => {
 **Dependencies:** E2E-006
 
 **Scenario:**
+
 ```gherkin
 Given: User is viewing photo detail page
 When: User clicks "Edit" button
@@ -366,6 +392,7 @@ And: Changes persist on page refresh
 ```
 
 **Test Implementation:**
+
 ```typescript
 test('should edit photo title and description', async ({ page }) => {
   const { user } = await createAuthenticatedGalleryUser(page);
@@ -403,6 +430,7 @@ test('should edit photo title and description', async ({ page }) => {
 ---
 
 ### E2E-008: Toggle Privacy from Private to Public [P1]
+
 **Category:** Edit/Update
 **Day:** Day 4 (Thursday)
 **Estimated Time:** 1 hour
@@ -410,6 +438,7 @@ test('should edit photo title and description', async ({ page }) => {
 **Dependencies:** E2E-007
 
 **Scenario:**
+
 ```gherkin
 Given: User has uploaded a private photo
 When: User opens photo detail page
@@ -424,6 +453,7 @@ And: Photo is accessible to all users (not just owner)
 ```
 
 **Test Implementation:**
+
 ```typescript
 test('should toggle privacy from private to public', async ({ page }) => {
   const { user } = await createAuthenticatedGalleryUser(page);
@@ -458,6 +488,7 @@ test('should toggle privacy from private to public', async ({ page }) => {
 ---
 
 ### E2E-009: Delete Photo with Confirmation [P0]
+
 **Category:** Delete
 **Day:** Day 4 (Thursday)
 **Estimated Time:** 1 hour
@@ -465,6 +496,7 @@ test('should toggle privacy from private to public', async ({ page }) => {
 **Dependencies:** E2E-006
 
 **Scenario:**
+
 ```gherkin
 Given: User is viewing photo detail page
 When: User clicks "Delete" button
@@ -479,6 +511,7 @@ Then: 404 Not Found page appears
 ```
 
 **Test Implementation:**
+
 ```typescript
 test('should delete photo with confirmation', async ({ page }) => {
   const { user } = await createAuthenticatedGalleryUser(page);
@@ -509,6 +542,7 @@ test('should delete photo with confirmation', async ({ page }) => {
 ```
 
 **Helper Function:**
+
 ```typescript
 async function deleteGalleryPhoto(page: Page) {
   page.once('dialog', async dialog => {
@@ -525,6 +559,7 @@ async function deleteGalleryPhoto(page: Page) {
 ---
 
 ### E2E-010: Cancel Delete Keeps Photo [P1]
+
 **Category:** Delete
 **Day:** Day 4 (Thursday)
 **Estimated Time:** 0.5 hour
@@ -532,6 +567,7 @@ async function deleteGalleryPhoto(page: Page) {
 **Dependencies:** E2E-009
 
 **Scenario:**
+
 ```gherkin
 Given: User is viewing photo detail page
 When: User clicks "Delete" button
@@ -544,6 +580,7 @@ And: Photo still appears in "My Photos" gallery
 ```
 
 **Test Implementation:**
+
 ```typescript
 test('should cancel delete keeps photo', async ({ page }) => {
   const { user } = await createAuthenticatedGalleryUser(page);
@@ -577,6 +614,7 @@ test('should cancel delete keeps photo', async ({ page }) => {
 ---
 
 ### E2E-011: Reject File Larger than 5MB [P1]
+
 **Category:** Validation
 **Day:** Day 2 (Tuesday)
 **Estimated Time:** 1 hour
@@ -584,6 +622,7 @@ test('should cancel delete keeps photo', async ({ page }) => {
 **Dependencies:** None
 
 **Scenario:**
+
 ```gherkin
 Given: User is on /gallery/upload page
 When: User selects a file larger than 5MB (large-image.jpg)
@@ -594,6 +633,7 @@ And: User remains on upload page
 ```
 
 **Test Implementation:**
+
 ```typescript
 test('should reject file larger than 5MB', async ({ page }) => {
   const { user } = await createAuthenticatedGalleryUser(page);
@@ -624,11 +664,13 @@ test('should reject file larger than 5MB', async ({ page }) => {
 ```
 
 **Test Fixture Required:**
+
 - `tests/fixtures/large-image.jpg` (>5MB file)
 
 ---
 
 ### E2E-012: Reject Non-Image File [P1]
+
 **Category:** Validation
 **Day:** Day 5 (Friday)
 **Estimated Time:** 1 hour
@@ -636,6 +678,7 @@ test('should reject file larger than 5MB', async ({ page }) => {
 **Dependencies:** None
 
 **Scenario:**
+
 ```gherkin
 Given: User is on /gallery/upload page
 When: User selects a non-image file (.txt file)
@@ -645,6 +688,7 @@ And: No photo is created
 ```
 
 **Test Implementation:**
+
 ```typescript
 test('should reject non-image file', async ({ page }) => {
   const { user } = await createAuthenticatedGalleryUser(page);
@@ -666,6 +710,7 @@ test('should reject non-image file', async ({ page }) => {
 ---
 
 ### E2E-013: Reject Invalid File Format (PDF) [P2]
+
 **Category:** Validation
 **Day:** Day 5 (Friday)
 **Estimated Time:** 0.5 hour
@@ -673,6 +718,7 @@ test('should reject non-image file', async ({ page }) => {
 **Dependencies:** E2E-012
 
 **Scenario:**
+
 ```gherkin
 Given: User is on /gallery/upload page
 When: User selects a PDF file
@@ -681,6 +727,7 @@ And: Upload is prevented
 ```
 
 **Test Implementation:**
+
 ```typescript
 test('should reject invalid file format (PDF)', async ({ page }) => {
   const { user } = await createAuthenticatedGalleryUser(page);
@@ -698,11 +745,13 @@ test('should reject invalid file format (PDF)', async ({ page }) => {
 ```
 
 **Test Fixture Required:**
+
 - `tests/fixtures/invalid-file.pdf` (create a small PDF)
 
 ---
 
 ### E2E-014: Pagination in My Photos [P1]
+
 **Category:** Pagination
 **Day:** Day 6 (Saturday)
 **Estimated Time:** 1.5 hour
@@ -710,6 +759,7 @@ test('should reject invalid file format (PDF)', async ({ page }) => {
 **Dependencies:** E2E-003
 
 **Scenario:**
+
 ```gherkin
 Given: User has uploaded 15 photos (page size = 12)
 When: User views "My Photos" tab
@@ -727,6 +777,7 @@ Then: User returns to page 1
 ```
 
 **Test Implementation:**
+
 ```typescript
 test('should paginate correctly in My Photos', async ({ page }) => {
   const { user } = await createAuthenticatedGalleryUser(page);
@@ -765,6 +816,7 @@ test('should paginate correctly in My Photos', async ({ page }) => {
 ```
 
 **Helper Function Required:**
+
 ```typescript
 async function bulkUploadPhotos(page: Page, count: number) {
   for (let i = 1; i <= count; i++) {
@@ -778,6 +830,7 @@ async function bulkUploadPhotos(page: Page, count: number) {
 ---
 
 ### E2E-015: Pagination in Public Photos [P2]
+
 **Category:** Pagination
 **Day:** Day 6 (Saturday)
 **Estimated Time:** 1.5 hour
@@ -785,6 +838,7 @@ async function bulkUploadPhotos(page: Page, count: number) {
 **Dependencies:** E2E-014
 
 **Scenario:**
+
 ```gherkin
 Given: Public gallery has 25 public photos from multiple users (page size = 12)
 When: User views "Public Photos" tab
@@ -801,6 +855,7 @@ Similar to E2E-014 but uses Public Photos tab and multiple users.
 ---
 
 ### E2E-016: Cannot Edit Other User's Photo [P1]
+
 **Category:** Authorization
 **Day:** Day 6 (Saturday)
 **Estimated Time:** 1 hour
@@ -808,6 +863,7 @@ Similar to E2E-014 but uses Public Photos tab and multiple users.
 **Dependencies:** E2E-006
 
 **Scenario:**
+
 ```gherkin
 Given: User A has uploaded a photo with id=100
 When: User B navigates to /gallery/100
@@ -818,6 +874,7 @@ And: Only owner (User A) sees action buttons
 ```
 
 **Test Implementation:**
+
 ```typescript
 test('cannot edit other user\'s photo', async ({ page, context }) => {
   // User A uploads photo
@@ -847,6 +904,7 @@ test('cannot edit other user\'s photo', async ({ page, context }) => {
 ---
 
 ### E2E-017: Cannot Delete Other User's Photo [P2]
+
 **Category:** Authorization
 **Day:** Day 6 (Saturday)
 **Estimated Time:** 1 hour
@@ -859,6 +917,7 @@ Same as E2E-016 but explicitly tests that delete action is not available.
 ---
 
 ### E2E-018: Photos Persist After Page Refresh [P1]
+
 **Category:** Persistence
 **Day:** Day 5 (Friday)
 **Estimated Time:** 1 hour
@@ -866,6 +925,7 @@ Same as E2E-016 but explicitly tests that delete action is not available.
 **Dependencies:** E2E-001
 
 **Scenario:**
+
 ```gherkin
 Given: User has uploaded 3 photos
 When: User refreshes the browser page (F5)
@@ -876,6 +936,7 @@ And: No data loss occurs
 ```
 
 **Test Implementation:**
+
 ```typescript
 test('photos persist after page refresh', async ({ page }) => {
   const { user } = await createAuthenticatedGalleryUser(page);
@@ -903,6 +964,7 @@ test('photos persist after page refresh', async ({ page }) => {
 ---
 
 ### E2E-019: Privacy Setting Persists After Refresh [P2]
+
 **Category:** Persistence
 **Day:** Day 5 (Friday)
 **Estimated Time:** 0.5 hour
@@ -910,6 +972,7 @@ test('photos persist after page refresh', async ({ page }) => {
 **Dependencies:** E2E-008, E2E-018
 
 **Scenario:**
+
 ```gherkin
 Given: User has toggled photo privacy from private to public
 When: User refreshes the page
@@ -919,6 +982,7 @@ And: Privacy setting is not reverted
 ```
 
 **Test Implementation:**
+
 ```typescript
 test('privacy setting persists after refresh', async ({ page }) => {
   const { user } = await createAuthenticatedGalleryUser(page);
@@ -946,6 +1010,7 @@ test('privacy setting persists after refresh', async ({ page }) => {
 ---
 
 ### E2E-020: Complete Gallery Flow [P0]
+
 **Category:** Complete Journey
 **Day:** Day 6 (Saturday)
 **Estimated Time:** 0.5 hour
@@ -953,6 +1018,7 @@ test('privacy setting persists after refresh', async ({ page }) => {
 **Dependencies:** All previous tests
 
 **Scenario:**
+
 ```gherkin
 Given: New user registers and logs in
 When: User uploads a private photo
@@ -967,6 +1033,7 @@ And: Complete user journey works end-to-end
 ```
 
 **Test Implementation:**
+
 ```typescript
 test('complete gallery flow - full user journey', async ({ page }) => {
   // 1. Register and login
@@ -1026,6 +1093,7 @@ test('complete gallery flow - full user journey', async ({ page }) => {
 ```
 
 **Purpose:**
+
 - End-to-end validation of all features
 - Smoke test for entire Gallery module
 - Regression test for critical path
@@ -1035,6 +1103,7 @@ test('complete gallery flow - full user journey', async ({ page }) => {
 ## 📊 Test Priority Summary
 
 ### P0 Tests (8 tests - Must Complete)
+
 1. E2E-001: Upload single photo
 2. E2E-002: Upload as public
 3. E2E-004: View My Photos
@@ -1045,6 +1114,7 @@ test('complete gallery flow - full user journey', async ({ page }) => {
 8. E2E-020: Complete journey
 
 ### P1 Tests (7 tests - Should Complete)
+
 1. E2E-003: Upload multiple
 2. E2E-008: Toggle privacy
 3. E2E-010: Cancel delete
@@ -1055,6 +1125,7 @@ test('complete gallery flow - full user journey', async ({ page }) => {
 8. E2E-018: Persist after refresh
 
 ### P2 Tests (5 tests - Nice to Have)
+
 1. E2E-013: Reject PDF
 2. E2E-015: Pagination Public
 3. E2E-017: Cannot delete others

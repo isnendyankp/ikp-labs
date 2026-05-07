@@ -62,6 +62,7 @@ CREATE UNIQUE INDEX idx_users_email ON users(email);
 **Java Class:** `com.registrationform.api.entity.User`
 
 **JPA Annotations:**
+
 - `@Entity` - Marks class as JPA entity
 - `@Table(name = "users")` - Maps to `users` table
 - `@Id` - Primary key field
@@ -69,6 +70,7 @@ CREATE UNIQUE INDEX idx_users_email ON users(email);
 - `@Column` - Column-level constraints
 
 **Lifecycle Callbacks:**
+
 - `@PrePersist` - Sets `created_at` and `updated_at` before insert
 - `@PreUpdate` - Updates `updated_at` before update
 
@@ -148,18 +150,19 @@ spring.jpa.properties.hibernate.format_sql=true
 
 ## Profile Picture Storage
 
-### Overview
+### Storage Overview
 
 Profile pictures are stored in the filesystem and referenced in the database via the `profile_picture` column.
 
 **Storage Pattern:**
+
 - **Database:** Stores relative file path (e.g., `"profiles/user-83.jpg"`)
 - **Filesystem:** Actual image files stored in `uploads/profiles/` directory
 - **Access URL:** Served via `/uploads/profiles/user-83.jpg` endpoint
 
 ### File Naming Convention
 
-```
+```text
 Pattern: user-{userId}.{extension}
 Examples:
   - user-1.jpg
@@ -168,6 +171,7 @@ Examples:
 ```
 
 **Why this pattern?**
+
 - Unique per user (one picture per user)
 - Easy to identify file owner
 - Automatic replacement when uploading new picture
@@ -176,6 +180,7 @@ Examples:
 ### Database Operations
 
 **Update profile picture on upload:**
+
 ```java
 User user = userRepository.findById(userId).orElseThrow();
 user.setProfilePicture("profiles/user-83.jpg");
@@ -183,6 +188,7 @@ userRepository.save(user);
 ```
 
 **SQL equivalent:**
+
 ```sql
 UPDATE users
 SET profile_picture = 'profiles/user-83.jpg', updated_at = NOW()
@@ -190,6 +196,7 @@ WHERE id = 83;
 ```
 
 **Delete profile picture:**
+
 ```java
 User user = userRepository.findById(userId).orElseThrow();
 user.setProfilePicture(null);
@@ -197,6 +204,7 @@ userRepository.save(user);
 ```
 
 **SQL equivalent:**
+
 ```sql
 UPDATE users
 SET profile_picture = NULL, updated_at = NOW()
@@ -204,6 +212,7 @@ WHERE id = 83;
 ```
 
 **Get users with profile pictures:**
+
 ```sql
 SELECT id, full_name, email, profile_picture
 FROM users
@@ -211,6 +220,7 @@ WHERE profile_picture IS NOT NULL;
 ```
 
 **Get users without profile pictures:**
+
 ```sql
 SELECT id, full_name, email
 FROM users
@@ -235,6 +245,7 @@ COMMENT ON COLUMN users.profile_picture IS 'Relative path to user profile pictur
 ### File Cleanup Strategy
 
 **Manual cleanup (development):**
+
 ```sql
 -- Find orphaned files (files exist but not in database)
 -- Run this query to get current file paths
@@ -245,6 +256,7 @@ SELECT profile_picture FROM users WHERE profile_picture IS NOT NULL;
 ```
 
 **Automatic cleanup (recommended):**
+
 - Before uploading new file, delete old file if exists
 - On user deletion, delete associated profile picture file
 - Periodic cleanup job to remove orphaned files
@@ -252,14 +264,17 @@ SELECT profile_picture FROM users WHERE profile_picture IS NOT NULL;
 ### Storage Size Estimation
 
 **Per user:**
+
 - Average image size: 100-500 KB
 - Maximum image size: 5 MB (enforced by application)
 
 **For 1000 users:**
+
 - Estimated: 100-500 MB storage
 - Maximum: 5 GB (if all users upload max size)
 
 **Database impact:**
+
 - Column storage: ~30 bytes per row (VARCHAR path + NULL overhead)
 - 1000 users: ~30 KB in database
 - Minimal database size impact
@@ -271,31 +286,37 @@ SELECT profile_picture FROM users WHERE profile_picture IS NOT NULL;
 ### Common Queries
 
 **Find user by email:**
+
 ```java
 Optional<User> user = userRepository.findByEmail("john@example.com");
 ```
 
 **Find user by ID:**
+
 ```java
 Optional<User> user = userRepository.findById(1L);
 ```
 
 **Check if email exists:**
+
 ```java
 boolean exists = userRepository.existsByEmail("john@example.com");
 ```
 
 **Count total users:**
+
 ```java
 long count = userRepository.count();
 ```
 
 **Get all users:**
+
 ```java
 List<User> users = userRepository.findAll();
 ```
 
 **Get user with profile picture:**
+
 ```java
 Optional<User> user = userRepository.findById(1L);
 String pictureUrl = user.map(User::getProfilePicture)
@@ -304,6 +325,7 @@ String pictureUrl = user.map(User::getProfilePicture)
 ```
 
 **Delete user:**
+
 ```java
 userRepository.deleteById(1L);
 ```
@@ -320,6 +342,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 ```
 
 **Extends:** `JpaRepository<User, Long>`
+
 - Provides CRUD operations
 - Automatic query derivation from method names
 - Pagination and sorting support
@@ -355,12 +378,14 @@ public interface UserRepository extends JpaRepository<User, Long> {
 ### PostgreSQL Installation
 
 **macOS (Homebrew):**
+
 ```bash
 brew install postgresql@14
 brew services start postgresql@14
 ```
 
 **Ubuntu/Debian:**
+
 ```bash
 sudo apt update
 sudo apt install postgresql postgresql-contrib
@@ -388,6 +413,7 @@ GRANT ALL PRIVILEGES ON DATABASE registration_form_db TO regform_user;
 JPA will auto-create tables when application starts (with `ddl-auto=update`).
 
 Or manually:
+
 ```sql
 -- Connect to database
 \c registration_form_db
@@ -466,23 +492,27 @@ SELECT id, full_name, email, profile_picture FROM users WHERE profile_picture IS
 ### Potential Additions
 
 **User Roles/Permissions:**
+
 ```sql
 ALTER TABLE users ADD COLUMN role VARCHAR(20) DEFAULT 'USER';
 ```
 
 **Email Verification:**
+
 ```sql
 ALTER TABLE users ADD COLUMN email_verified BOOLEAN DEFAULT FALSE;
 ALTER TABLE users ADD COLUMN verification_token VARCHAR(255);
 ```
 
 **Account Status:**
+
 ```sql
 ALTER TABLE users ADD COLUMN is_active BOOLEAN DEFAULT TRUE;
 ALTER TABLE users ADD COLUMN last_login TIMESTAMP;
 ```
 
 **Extended User Profile:**
+
 ```sql
 CREATE TABLE user_profiles (
     id BIGSERIAL PRIMARY KEY,
@@ -495,6 +525,7 @@ CREATE TABLE user_profiles (
 ```
 
 **Profile Picture Metadata (if needed):**
+
 ```sql
 CREATE TABLE profile_pictures (
     id BIGSERIAL PRIMARY KEY,
@@ -524,13 +555,15 @@ Note: Current implementation stores profile picture path directly in `users` tab
 ### Common Issues
 
 **Connection refused:**
-```
+
+```text
 # Check if PostgreSQL is running
 brew services list  # macOS
 sudo systemctl status postgresql  # Linux
 ```
 
 **Database doesn't exist:**
+
 ```sql
 -- List databases
 \l
@@ -540,6 +573,7 @@ CREATE DATABASE registration_form_db;
 ```
 
 **Permission denied:**
+
 ```sql
 -- Grant privileges
 GRANT ALL PRIVILEGES ON DATABASE registration_form_db TO postgres;
