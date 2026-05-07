@@ -19,7 +19,7 @@ Implementation plans are structured documents that define what you're building, 
 
 ### Document Relationships
 
-```
+```text
 README.md (Overview)
     ↓
 requirements.md (What to build)
@@ -336,21 +336,25 @@ Add ability for users to sort gallery photos by newest, oldest, most liked, or m
 ```
 
 ### Entity Relationships
+
 [Entity-relationship description]
 
 ## API Specifications
 
 ### [Endpoint Name]
+
 **Method:** GET /api/resource
 
 **Authentication:** Required
 
 **Request Parameters:**
+
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
 | param1 | string | Yes | Description |
 
 **Response:**
+
 ```json
 {
   "field": "value"
@@ -358,6 +362,7 @@ Add ability for users to sort gallery photos by newest, oldest, most liked, or m
 ```
 
 **Error Responses:**
+
 - 400 Bad Request: Invalid parameters
 - 401 Unauthorized: Not authenticated
 - 404 Not Found: Resource not found
@@ -367,6 +372,7 @@ Add ability for users to sort gallery photos by newest, oldest, most liked, or m
 ### Frontend Components
 
 #### [ComponentName]
+
 **Purpose:** [Component purpose]
 
 **Props:** [TypeScript interface]
@@ -376,27 +382,33 @@ Add ability for users to sort gallery photos by newest, oldest, most liked, or m
 ### Backend Components
 
 #### [Service/Controller Name]
+
 **Purpose:** [Component purpose]
 **Methods:** [Key methods]
 
 ## Security Considerations
+
 - [Security consideration 1]
 - [Security consideration 2]
 
 ## Error Handling Strategy
+
 - [Error handling approach]
 - [User-facing error messages]
 
 ## Testing Strategy
+
 - Unit tests: [What to test]
 - Integration tests: [What to test]
 - E2E tests: [What to test]
 
 ## Deployment Considerations
+
 - [Deployment notes]
 - [Migration requirements]
 - [Rollback plan]
-```
+
+```text
 
 **Example:**
 
@@ -406,6 +418,7 @@ Add ability for users to sort gallery photos by newest, oldest, most liked, or m
 ## Architecture Overview
 
 ```
+
 ┌─────────────────┐      ┌─────────────────┐
 │   Frontend      │      │    Backend      │
 │   (Next.js)     │      │  (Spring Boot)   │
@@ -430,7 +443,8 @@ Add ability for users to sort gallery photos by newest, oldest, most liked, or m
 │   localStorage  │
 │  (preferences)  │
 └─────────────────┘
-```
+
+```text
 
 ## Data Models
 
@@ -463,11 +477,13 @@ CREATE INDEX idx_photos_user_id ON photos(user_id);
 ## API Specifications
 
 ### Get Sorted Photos
+
 **Endpoint:** `GET /api/photos`
 
 **Authentication:** Required (JWT token)
 
 **Request Parameters:**
+
 | Parameter | Type | Required | Description | Valid Values |
 |-----------|------|----------|-------------|--------------|
 | page | integer | No | Page number (default: 1) | ≥1 |
@@ -475,12 +491,14 @@ CREATE INDEX idx_photos_user_id ON photos(user_id);
 | sort | string | No | Sort field | newest, oldest, mostLiked, mostFavorited |
 
 **Example Request:**
+
 ```http
 GET /api/photos?page=1&limit=12&sort=mostLiked
 Authorization: Bearer eyJhbGciOiJIUzI1NiIs...
 ```
 
 **Success Response (200):**
+
 ```json
 {
   "data": [
@@ -502,18 +520,22 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIs...
 ```
 
 **Error Responses:**
+
 - `400 Bad Request`: Invalid sort parameter
+
   ```json
   {
     "error": "Invalid sort parameter. Must be one of: newest, oldest, mostLiked, mostFavorited"
   }
   ```
+
 - `401 Unauthorized`: Missing or invalid token
 - `500 Internal Server Error`: Database error
 
 ### Backend Implementation
 
 **PhotoController.java:**
+
 ```java
 @GetMapping("/photos")
 public ResponseEntity<PhotoPageResponse> getPhotos(
@@ -534,6 +556,7 @@ public ResponseEntity<PhotoPageResponse> getPhotos(
 ```
 
 **PhotoService.java:**
+
 ```java
 public Page<Photo> getPhotos(int page, int limit, String sort) {
     Pageable pageable = createPageable(page, limit, sort);
@@ -557,11 +580,13 @@ private Pageable createPageable(int page, int limit, String sort) {
 ### Frontend Components
 
 #### SortDropdown
+
 **File:** `frontend/src/components/gallery/SortDropdown.tsx`
 
 **Purpose:** Allow users to select sort option
 
 **Props:**
+
 ```typescript
 interface SortDropdownProps {
   currentSort: SortOption;
@@ -572,17 +597,20 @@ type SortOption = 'newest' | 'oldest' | 'mostLiked' | 'mostFavorited';
 ```
 
 **State:**
+
 ```typescript
 const [isOpen, setIsOpen] = useState(false);
 ```
 
 **Behavior:**
+
 - Opens dropdown on click
 - Displays 4 sort options
 - Highlights current selection
 - Closes on option selection or outside click
 
 **Example Implementation:**
+
 ```typescript
 export function SortDropdown({ currentSort, onSortChange }: SortDropdownProps) {
   const options = [
@@ -612,9 +640,11 @@ export function SortDropdown({ currentSort, onSortChange }: SortDropdownProps) {
 ```
 
 #### PhotoGrid (Modified)
+
 **File:** `frontend/src/components/gallery/PhotoGrid.tsx`
 
 **Changes:**
+
 - Add `sort` state
 - Add `onSortChange` handler
 - Pass `sort` parameter to API
@@ -640,21 +670,25 @@ const handleSortChange = (newSort: SortOption) => {
 ## Security Considerations
 
 ### Input Validation
+
 - Sort parameter validated against whitelist: `[newest, oldest, mostLiked, mostFavorited]`
 - Page and limit parameters validated as integers
 - SQL injection prevented via parameterized queries
 
 ### Authorization
+
 - JWT token required for all requests
 - Users can only see their own photos (user_id filter)
 
 ### Data Privacy
+
 - No sensitive data exposed in sort queries
 - User preferences stored locally (not server-side)
 
 ## Error Handling Strategy
 
 ### Frontend Errors
+
 ```typescript
 try {
   const photos = await galleryService.getPhotos({ sort });
@@ -672,6 +706,7 @@ try {
 ```
 
 ### Backend Errors
+
 - `400 Bad Request`: Invalid parameters
 - `401 Unauthorized`: Invalid token
 - `500 Internal Server Error`: Database failure (logged)
@@ -679,16 +714,19 @@ try {
 ## Testing Strategy
 
 ### Unit Tests
+
 - `SortOption` enum validation
 - `createPageable()` sort logic
 - `isValidSort()` validation
 
 ### Integration Tests
+
 - `GET /api/photos?sort=mostLiked` returns photos sorted by likes
 - `GET /api/photos?sort=invalid` returns 400
 - Unauthenticated request returns 401
 
 ### E2E Tests
+
 ```typescript
 test('sort photos by most liked', async ({ page }) => {
   await page.goto('/gallery');
@@ -708,9 +746,11 @@ test('sort preference persists', async ({ page }) => {
 ## Deployment Considerations
 
 ### Database Migration
+
 - No schema changes required
 - Verify indexes exist: `idx_photos_created_at`, `idx_photos_like_count`, `idx_photos_favorite_count`
 - If indexes don't exist, run:
+
   ```sql
   CREATE INDEX CONCURRENTLY idx_photos_created_at ON photos(created_at DESC);
   CREATE INDEX CONCURRENTLY idx_photos_like_count ON photos(like_count DESC);
@@ -718,15 +758,18 @@ test('sort preference persists', async ({ page }) => {
   ```
 
 ### Rollback Plan
+
 - Remove sort parameter from API calls (defaults to newest)
 - Hide sort dropdown component
 - No data migration needed (no schema changes)
 
 ### Monitoring
+
 - Monitor API response time (target: <200ms p95)
 - Monitor database query performance
 - Log invalid sort parameter attempts
-```
+
+```text
 
 ---
 
@@ -1048,6 +1091,7 @@ The plan-writer agent can generate all 4 documents for you:
 ```
 
 The agent will:
+
 1. Ask clarifying questions
 2. Generate all 4 documents
 3. Ensure cross-references are correct
@@ -1073,6 +1117,7 @@ The agent will:
 | **checklist.md** | Implementation tasks | Progress tracking, task breakdown |
 
 **Key Takeaways:**
+
 - ✅ All 4 documents are required
 - ✅ Tasks must be atomic (15-60 min)
 - ✅ Acceptance criteria must be testable

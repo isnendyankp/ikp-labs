@@ -74,7 +74,7 @@ If you see a savings report (even with 0 commands), the hook is active and RTK i
 
 Once configured, RTK runs **automatically in the background** — no manual intervention required. Every Bash command Claude Code executes is transparently rewritten through RTK, which filters and compresses the output before returning it to Claude.
 
-```
+```text
 Claude Code → Bash command → rtk-rewrite.sh hook → RTK filters output → Claude receives compressed result
 ```
 
@@ -94,5 +94,6 @@ The hook is configured globally in `~/.claude/settings.json`, meaning it applies
 ---
 
 **See also**:
+
 - [RTK Commands Reference](../reference/rtk-commands.md)
 - [Understanding RTK Token Savings](../explanation/rtk-token-savings.md)

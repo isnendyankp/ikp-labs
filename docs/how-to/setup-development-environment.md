@@ -32,6 +32,7 @@ npm install
 ```
 
 This installs all root-level tools including:
+
 - **Nx** — monorepo task runner
 - **Husky** — git hooks (commitlint + lint-staged)
 - **commitlint** — commit message validation
@@ -61,6 +62,7 @@ cp apps/kameravue-be/ikp-labs-api/src/main/resources/application.properties \
 ```
 
 Update `application-local.properties` with your local database credentials:
+
 ```properties
 spring.datasource.url=jdbc:postgresql://localhost:5432/registration_form_db
 spring.datasource.username=your_username
@@ -87,6 +89,7 @@ nx serve kameravue-fe
 ```
 
 Or start both simultaneously:
+
 ```bash
 nx run-many -t dev
 ```
@@ -107,9 +110,10 @@ nx graph
 ```
 
 **Expected URLs:**
-- Frontend: http://localhost:3002
-- Backend API: http://localhost:8081
-- API Docs: http://localhost:8081/swagger-ui.html
+
+- Frontend: <http://localhost:3002>
+- Backend API: <http://localhost:8081>
+- API Docs: <http://localhost:8081/swagger-ui.html>
 
 ---
 
@@ -147,6 +151,7 @@ Prettier runs automatically on staged files before every commit. Config is in `.
 | Line endings | LF |
 
 To format manually:
+
 ```bash
 cd apps/kameravue-fe
 npm run format        # format all files
@@ -184,17 +189,20 @@ This project uses a 6-layer governance model. Before making significant decision
 ## Troubleshooting
 
 **Port already in use:**
+
 ```bash
 lsof -ti :8081 | xargs kill -9   # Kill backend port
 lsof -ti :3002 | xargs kill -9   # Kill frontend port
 ```
 
 **Husky hooks not running:**
+
 ```bash
 npm run prepare   # Re-install husky hooks
 ```
 
 **commitlint not found:**
+
 ```bash
 npm install       # Re-install dependencies
 ```

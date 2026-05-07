@@ -90,7 +90,7 @@ export CAVEMAN_DEFAULT_MODE=lite
 
 Restart Claude Code. You should see in the session startup context:
 
-```
+```text
 CAVEMAN MODE ACTIVE — level: full
 ```
 
@@ -100,7 +100,7 @@ The status bar will also show the active mode badge (e.g., `[CAVEMAN]`, `[CAVEMA
 
 Once configured, Caveman activates **automatically on every session start** — no manual commands required.
 
-```
+```text
 claude (terminal)
        │
        ▼
@@ -133,5 +133,6 @@ The hooks are configured globally in `~/.claude/settings.json`, meaning Caveman 
 ---
 
 **See also**:
+
 - [Caveman Commands Reference](../reference/caveman-commands.md)
 - [Understanding Caveman Mode](../explanation/caveman-mode.md)

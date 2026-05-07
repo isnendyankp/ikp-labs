@@ -20,7 +20,7 @@ This guide covers the **GitHub Actions CI workflow** and **pre-commit hooks** fo
 
 The GitHub Actions CI workflow (`.github/workflows/ci.yml`) runs automatically on every push and pull request:
 
-```
+```text
 ┌─────────────────────────────────────────────────────────┐
 │                    Push / PR Trigger                     │
 └─────────────────────────┬───────────────────────────────┘
@@ -74,12 +74,14 @@ E2E tests run on a **schedule** (twice daily) instead of on every PR to keep PR 
 ### Why Scheduled?
 
 **Benefits**:
+
 - ✅ Faster PR workflow (~3 min vs 7-8 min)
 - ✅ Cost-effective CI minutes usage
 - ✅ Regular health monitoring of `main` branch
 - ✅ Better developer experience
 
 **Trade-offs**:
+
 - ⚠️ Bugs may reach `main` before E2E detects them
 - ⚠️ E2E failures discovered after merge (not before)
 
@@ -104,6 +106,7 @@ gh workflow run scheduled-e2e.yml
 ### Strategy Details
 
 For a complete explanation of the E2E testing strategy, see:
+
 - [CI/CD Workflow Strategy](../explanation/ci-cd-workflow-strategy.md)
 
 ---
@@ -112,7 +115,7 @@ For a complete explanation of the E2E testing strategy, see:
 
 Pre-commit hooks run automatically before each commit using Husky + lint-staged:
 
-```
+```text
 git commit → Pre-commit Hook → lint-staged → Commit
                     ↓
               If lint fails:
@@ -174,7 +177,7 @@ Configure these rules in **GitHub Settings → Branches → Branch protection ru
 
 When enabling "Require status checks to pass", select these jobs:
 
-```
+```text
 ✅ frontend-lint
 ✅ frontend-tests
 ✅ frontend-build
