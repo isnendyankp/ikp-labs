@@ -11,6 +11,7 @@ These 7 principles guide every decision in IKP-Labs — from architecture to nam
 **Rationale**: Tests in IKP-Labs are not a formality — they are the proof that the application works. Without tests, refactors break silently and regressions reach production. The project enforces a 30% coverage threshold in `jest.config.js` as a floor, not a ceiling.
 
 **In practice**:
+
 - New features include Gherkin specs before implementation begins
 - E2E tests cover the happy path and at least one edge case for every user-facing flow
 - A PR that adds a feature without tests requires explicit justification
@@ -24,6 +25,7 @@ These 7 principles guide every decision in IKP-Labs — from architecture to nam
 **Rationale**: IKP-Labs is a learning reference. Code that is obvious to read teaches more than code that requires deep context to understand. This applies to types, naming, API paths, and configuration.
 
 **In practice**:
+
 - Named DTOs (`UploadPhotoRequest`, `PhotoResponse`) instead of raw Maps or generic objects
 - Explicit TypeScript types instead of `any`
 - Endpoint paths use full resource names (`/api/gallery/upload` not `/api/g/u`)
@@ -38,6 +40,7 @@ These 7 principles guide every decision in IKP-Labs — from architecture to nam
 **Rationale**: Large PRs are hard to review, hard to revert, and hide bugs. Small PRs give a clear history of what changed and why. The workflow enforces this through branch-per-feature and rebase merges.
 
 **In practice**:
+
 - A single PR addresses one concern (one feature, one fix, one refactor)
 - If a task requires multiple phases, each phase is a separate PR
 - "While I'm here" changes go in a separate branch, not the current PR
@@ -51,6 +54,7 @@ These 7 principles guide every decision in IKP-Labs — from architecture to nam
 **Rationale**: Documentation that lives outside the repo drifts. Documentation that is updated in a separate PR gets skipped. When docs are part of the same commit as the code, they stay accurate by default.
 
 **In practice**:
+
 - `plans/` checklist files are committed alongside code changes (see `.workflow-template.md`)
 - `docs/` files are updated in the same PR when behavior changes
 - Governance documents are treated with the same discipline as source code — reviewed, versioned, and never deleted
@@ -64,6 +68,7 @@ These 7 principles guide every decision in IKP-Labs — from architecture to nam
 **Rationale**: A monorepo's value comes from a unified developer experience. If running tests requires a different command for each app, the monorepo becomes harder to work with than separate repos.
 
 **In practice**:
+
 - All apps use `npx nx test <app>` for unit tests
 - All apps use `npx nx e2e <app>` for E2E tests
 - All apps use `npx nx build <app>` for builds
@@ -78,6 +83,7 @@ These 7 principles guide every decision in IKP-Labs — from architecture to nam
 **Rationale**: Mixed concerns create coupling. When tests live next to specs, and plans live next to permanent docs, it becomes unclear where to look for what. IKP-Labs uses clear top-level folders to enforce this separation.
 
 **In practice**:
+
 - `specs/` contains Gherkin feature files only — no implementation
 - `plans/` contains work tracking only — no permanent knowledge
 - `docs/` contains permanent documentation only — no ephemeral notes
@@ -92,6 +98,7 @@ These 7 principles guide every decision in IKP-Labs — from architecture to nam
 **Rationale**: Retrofitting security creates gaps. IKP-Labs handles real user data (photos, emails, passwords). The JWT authentication and protected routes architecture was built into the project foundation, not bolted on.
 
 **In practice**:
+
 - All endpoints that modify data require a valid JWT token
 - Password hashing uses bcrypt — never plaintext or reversible encryption
 - Environment variables store all secrets — never hardcoded in source

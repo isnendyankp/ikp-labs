@@ -2,7 +2,6 @@
 
 > **Canonical path**: `governance/development/workflow/implementation.md`
 > See also: `.workflow-template.md` at repo root (alias, kept for quick access)
-
 > Template alur implementasi untuk IKP Labs project
 
 ---
@@ -37,11 +36,13 @@ See `governance/repository-governance-architecture.md` for the full 6-layer gove
 ## Full Workflow (Code Changes)
 
 ### 0. Review & Overview
+
 - [ ] Pastikan memahami project structure
 - [ ] Cek file terkait untuk hindari DRY violation
 - [ ] Review existing code patterns
 
 ### 1. Work Branch Setup
+
 ```bash
 # Jika ada work branch existing yang relevan
 git checkout existing-work-branch
@@ -53,9 +54,11 @@ git checkout -b feature/deskripsi-fitur
 ```
 
 ### 2. Check/Create Plan
+
 - [ ] Cek folder `plans/in-progress/`
 - [ ] Jika belum ada plan, buat dengan struktur:
-  ```
+
+  ```text
   plans/in-progress/YYYY-MM-DD__nama-fitur/
   ├── README.md           # Overview & scope
   ├── requirement.md      # Requirements & acceptance criteria
@@ -64,6 +67,7 @@ git checkout -b feature/deskripsi-fitur
   ```
 
 ### 3. Implementation
+
 - [ ] Implementasi sesuai plan
 - [ ] Follow existing code patterns
 - [ ] Keep commits small & focused
@@ -71,9 +75,11 @@ git checkout -b feature/deskripsi-fitur
 ### 4. Local Testing
 
 **Prerequisite:**
+
 - [ ] Pastikan PostgreSQL sudah running di port 5432
 
 **Cek & Bersihkan Port (jika ada service yang nyangkut):**
+
 ```bash
 # Cek apakah port BE (8081) atau FE (3002) sudah digunakan
 lsof -i :8081
@@ -90,6 +96,7 @@ lsof -ti :8081 | xargs kill -9 2>/dev/null; lsof -ti :3002 | xargs kill -9 2>/de
 ```
 
 **Start Services (fresh state):**
+
 ```bash
 # Start backend
 cd backend/ikp-labs-api && ./mvnw spring-boot:run
@@ -99,23 +106,28 @@ cd frontend && npm run dev
 ```
 
 **Verify Services Ready:**
-- [ ] BE accessible di http://localhost:8081
-- [ ] FE accessible di http://localhost:3002
+
+- [ ] BE accessible di <http://localhost:8081>
+- [ ] FE accessible di <http://localhost:3002>
 
 **Run Tests:**
+
 ```bash
 npm run test           # Frontend unit tests
 ./mvnw test           # Backend tests
 npm run test:e2e      # E2E tests (optional)
 ```
+
 - [ ] All tests pass
 - [ ] Manual testing sesuai acceptance criteria
 
 ### 5. Update Plan
+
 - [ ] Update `checklist.md` dengan progress
 - [ ] Tambah notes di `technical-design.md` jika ada perubahan
 - [ ] **Commit plan files bersama code changes** (lihat step 6)
 - [ ] Jika selesai (100% checklist done):
+
   ```bash
   # Pindahkan folder ke done
   mv plans/in-progress/YYYY-MM-DD__nama-fitur plans/done/
@@ -130,6 +142,7 @@ npm run test:e2e      # E2E tests (optional)
 > **Setelah implementasi selesai dan di-merge:** Jangan lupa pindahkan plan ke `plans/done/` dan commit. Ini sering terlupa!
 
 ### 6. Commit Strategy
+>
 > Lebih banyak commit = lebih baik untuk GitHub activity
 >
 > **Plan files = bagian dari commit!** Setiap code change harus disertai update plan.
@@ -150,6 +163,7 @@ git commit -m "feat: add NewFeature API integration"
 ```
 
 **Contoh Partial Progress di checklist.md:**
+
 ```markdown
 ## Checklist
 - [x] Create NewFeature component      ← baru selesai
@@ -159,7 +173,8 @@ git commit -m "feat: add NewFeature API integration"
 ```
 
 **Commit Message Format:**
-```
+
+```text
 <type>: <description>
 
 Types:
@@ -173,11 +188,13 @@ Types:
 ```
 
 ### 7. Push to Work Branch
+
 ```bash
 git push -u origin feature/deskripsi-fitur
 ```
 
 ### 8. Create Pull Request
+
 ```bash
 gh pr create --title "feat: deskripsi singkat" --body "$(cat <<'EOF'
 ## Summary
@@ -196,11 +213,13 @@ EOF
 > ⚠️ **RECOMMENDED: Gunakan CLI (`gh`) untuk merge**
 >
 > Alasan:
+>
 > - `--delete-branch` otomatis hapus remote branch
 > - Konsisten dengan workflow
 > - Ada log history di terminal
 >
 > ❌ **Hindari merge via GitHub Web UI** karena:
+>
 > - Remote branch tidak otomatis terhapus
 > - Perlu hapus manual setelah merge
 
@@ -213,6 +232,7 @@ git push origin --delete feature/deskripsi-fitur
 ```
 
 ### 10. Update Local Main & Cleanup
+
 ```bash
 # Switch ke main dan update
 git checkout main
@@ -228,6 +248,7 @@ git branch -D feature/deskripsi-fitur
 > **Note:** Remote branch sudah otomatis terhapus saat `gh pr merge --delete-branch` di step 9.
 
 ### 11. Deploy to Production
+
 ```bash
 # Option A: Deploy all
 ./scripts/deploy-all.sh
@@ -247,6 +268,7 @@ git branch -D feature/deskripsi-fitur
 > Untuk: .gitignore, docs, comments, non-code files
 
 ### Steps (Abbreviated)
+
 1. **Branch**: `git checkout -b chore/deskripsi`
 2. **Changes**: Make minimal, focused changes
 3. **Commit**: `git commit -m "chore: deskripsi"`
@@ -263,6 +285,7 @@ git branch -D feature/deskripsi-fitur
 > Untuk: CORS, environment variables, API configs
 
 ### Steps
+
 1. **Branch**: `git checkout -b config/deskripsi`
 2. **Changes**: Update config files
 3. **Test Local**: ✅ Required - verify config works
@@ -276,7 +299,8 @@ git branch -D feature/deskripsi-fitur
 
 > Untuk: Nginx, SSL, database, PM2 configs
 
-### Steps
+### Steps (Infrastructure)
+
 1. **No Branch Needed**: Usually done directly on VPS
 2. **SSH to VPS**: `ssh nendy@170.64.130.3`
 3. **Backup First**: Always backup config files
@@ -291,6 +315,7 @@ git branch -D feature/deskripsi-fitur
 > Untuk: Critical bugs in production
 
 ### Steps (Fast Track)
+
 ```bash
 # 1. Create hotfix branch from main
 git checkout main && git pull
@@ -318,6 +343,7 @@ gh pr merge --rebase --delete-branch
 ## Checklist Summary
 
 ### Code Changes (Full)
+
 - [ ] 0. Review project context
 - [ ] 1. Setup work branch
 - [ ] 2. Check/create plan
@@ -333,6 +359,7 @@ gh pr merge --rebase --delete-branch
 - [ ] 12. Deploy to production
 
 ### Meta Changes (Simple)
+
 - [ ] 1. Branch
 - [ ] 2. Changes
 - [ ] 3. Commit
@@ -373,6 +400,7 @@ ssh nendy@170.64.130.3 "pm2 list"
 > Cleanup branch yang sudah tidak diperlukan. Lakukan secara berkala (weekly/monthly).
 
 ### Cek Branch Remote yang Sudah Merged
+
 ```bash
 # Lihat semua branch remote yang sudah merged ke main
 git fetch --all
@@ -380,18 +408,21 @@ git branch -r --merged origin/main | grep -v main
 ```
 
 ### Hapus Branch Obsolete Satu-satu
+
 ```bash
 # Hapus branch remote spesifik
 git push origin --delete feature/nama-branch
 ```
 
 ### Bulk Cleanup (Hapus Semua Merged Branch)
+
 ```bash
 # ⚠️ Hati-hati! Pastikan semua branch sudah merged sebelum run
 git branch -r --merged origin/main | grep -v main | grep -v HEAD | sed 's/origin\///' | xargs -I {} git push origin --delete {}
 ```
 
 ### Cek Local Branches yang Sudah Tidak Ada di Remote
+
 ```bash
 # Lihat local branches
 git branch

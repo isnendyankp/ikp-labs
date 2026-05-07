@@ -77,12 +77,14 @@ Do not invent new conventions to fill a gap. Surface the ambiguity and resolve i
 Follow this protocol when creating a new plan:
 
 ### When to create a plan
+
 - The task requires more than one commit, OR
 - The task touches more than two files, OR
 - The task has multiple phases or acceptance criteria
 
 ### Folder and file structure
-```
+
+```text
 plans/in-progress/YYYY-MM-DD__kebab-case-description/
 ├── README.md           # Overview, scope in/out, status
 ├── requirements.md     # User stories and acceptance criteria
@@ -91,6 +93,7 @@ plans/in-progress/YYYY-MM-DD__kebab-case-description/
 ```
 
 ### Checklist rules
+
 - Each task is atomic: completable in 15-60 minutes
 - Each task has a single checkbox (`- [ ]`)
 - Tasks are ordered: setup → implementation → verification → PR
@@ -98,6 +101,7 @@ plans/in-progress/YYYY-MM-DD__kebab-case-description/
 - Acceptance criteria are testable — no vague statements like "works correctly"
 
 ### After completion
+
 - Move the plan folder from `plans/in-progress/` to `plans/done/`
 - Use a `docs(plan):` commit type for plan-only changes
 
@@ -108,28 +112,33 @@ plans/in-progress/YYYY-MM-DD__kebab-case-description/
 When writing or modifying code:
 
 ### Before writing
+
 1. Read the active plan's `checklist.md` — confirm which task is in scope
 2. Read files that will be modified — never edit blindly
 3. Check `governance/conventions/development.md` for naming rules that apply
 
 ### TypeScript
+
 - File names: PascalCase for components, camelCase for hooks/utils
 - No `any` types — use `unknown` with type guards if shape is truly unknown
 - Prefer `interface` for object shapes, `type` for unions
 - Explicit return types on all exported functions
 
 ### Java
+
 - Controllers delegate to services — no business logic in controllers
 - Services delegate to repositories — no raw SQL in services
 - DTOs use `Request` and `Response` suffixes
 
 ### Commits
+
 - Format: `<type>: <description>` (see `governance/conventions/development.md`)
 - One concern per commit — do not bundle unrelated changes
 - Max 72 characters on the first line
 - Present tense, lowercase description
 
 ### Branches
+
 - Format: `<type>/<short-description>` (see `governance/conventions/development.md`)
 - Derived from the task, not the date
 - One branch per concern
@@ -141,6 +150,7 @@ When writing or modifying code:
 When creating or updating documentation:
 
 ### Diátaxis framework
+
 IKP-Labs docs follow the Diátaxis framework. Place new docs in the correct folder:
 
 | Folder | Type | Purpose |
@@ -151,6 +161,7 @@ IKP-Labs docs follow the Diátaxis framework. Place new docs in the correct fold
 | `docs/explanation/` | Explanation | Understanding-oriented, concepts and rationale |
 
 ### Rules
+
 - Update docs in the same PR as the code they describe (Principle 4: Documentation as Code)
 - Do not create `README.md` files unless the plan explicitly requires one
 - Use kebab-case for all doc file names

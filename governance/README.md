@@ -6,7 +6,7 @@ IKP-Labs governance defines **why** this project exists, **what values** guide i
 
 ## Structure
 
-```
+```text
 governance/
 ├── repository-governance-architecture.md  — Full 6-layer model explanation
 ├── vision/
@@ -29,7 +29,7 @@ governance/
 
 Governance in IKP-Labs follows a 6-layer hierarchy. Higher layers override lower ones.
 
-```
+```text
 Layer 1  governance/vision/ikp-labs.md              Purpose — why this project exists
 Layer 2  governance/principles/general.md            Values — what guides decisions
 Layer 3  governance/conventions/development.md       Standards — naming, format, structure
