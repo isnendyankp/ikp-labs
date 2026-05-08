@@ -13,6 +13,7 @@
 ## 🗓️ Day 1 (Monday): Foundation + First Upload Test
 
 ### ✅ Morning Tasks (Setup - 1.5 hours)
+
 - [x] Create directory: `tests/e2e/helpers/`
 - [x] Create file: `gallery-helpers.ts`
 - [x] Implement `generateGalleryTestEmail()` function
@@ -24,6 +25,7 @@
 - [x] Test helpers work correctly
 
 ### ✅ Afternoon Tasks (First Test - 1 hour)
+
 - [x] Create file: `tests/e2e/gallery.spec.ts`
 - [x] Setup test structure with describe blocks
 - [x] Add beforeEach hook for test isolation
@@ -34,12 +36,14 @@
 - [x] Verify test passes ✅ (3/3 browsers: chromium, firefox, webkit)
 
 ### 📝 Commit Checklist
+
 - [x] All files created and working
 - [x] 11 commits pushed successfully ✅ (7 initial + 4 fixes)
 - [x] Code reviewed (no console errors)
 - [x] Test verified and passing! 🎉
 
 ### 🚀 Git Commands
+
 ```bash
 git add tests/e2e/helpers/gallery-helpers.ts
 git add tests/e2e/gallery.spec.ts
@@ -54,6 +58,7 @@ git push origin main
 ```
 
 ### ✅ Day 1 Completion Criteria
+
 - [x] Helper file created with 8 functions (exceeded target!) ✅
 - [x] 1 test implemented (ready to run)
 - [x] 7 commits pushed (excellent GitHub activity!) 🎉
@@ -64,6 +69,7 @@ git push origin main
 **🎉 Day 1 STATUS: COMPLETE AND VERIFIED!**
 **Test Results:** ✅ 3/3 browsers passing (chromium, firefox, webkit)
 **Fixes Applied:**
+
 - Fixed frontend port configuration (3003)
 - Fixed CORS to allow port 3003
 - Fixed Security config for test-admin endpoints
@@ -74,6 +80,7 @@ git push origin main
 ## 🗓️ Day 2 (Tuesday): Upload Variations & Validation
 
 ### ✅ Morning Tasks (Upload Variations - 1.5 hours)
+
 - [ ] Implement **E2E-002:** Upload photo as public [P0]
 - [ ] Test E2E-002 passes
 - [ ] Implement **E2E-003:** Upload multiple photos sequentially [P1]
@@ -81,6 +88,7 @@ git push origin main
 - [ ] Test E2E-003 passes
 
 ### ✅ Afternoon Tasks (Validation - 1 hour)
+
 - [ ] Verify test fixture exists: `large-image.jpg` (>5MB)
 - [ ] Implement **E2E-011:** Reject file larger than 5MB [P1]
 - [ ] Test E2E-011 passes
@@ -88,12 +96,14 @@ git push origin main
 - [ ] Verify all 4 tests pass ✅
 
 ### 📝 Commit Checklist
+
 - [ ] 3 new tests implemented
 - [ ] All 4 tests passing
 - [ ] Helpers enhanced (if needed)
 - [ ] Ready to commit
 
 ### 🚀 Git Commands
+
 ```bash
 git add tests/e2e/gallery.spec.ts
 git add tests/e2e/helpers/gallery-helpers.ts
@@ -108,6 +118,7 @@ git push origin main
 ```
 
 ### ✅ Day 2 Completion Criteria
+
 - [ ] 3 new tests passing ✅✅✅
 - [ ] Cumulative: 4 tests total
 - [ ] Code committed and pushed
@@ -119,6 +130,7 @@ git push origin main
 ## 🗓️ Day 3 (Wednesday): View & Navigation Tests
 
 ### ✅ Morning Tasks (View Tests - 1.5 hours)
+
 - [ ] Implement **E2E-004:** View My Photos shows all owned photos [P0]
 - [ ] Create helper: `viewMyPhotos(page)`
 - [ ] Test E2E-004 passes
@@ -127,6 +139,7 @@ git push origin main
 - [ ] Test E2E-005 passes
 
 ### ✅ Afternoon Tasks (Detail Page - 1 hour)
+
 - [ ] Implement **E2E-006:** View photo detail shows complete info [P0]
 - [ ] Create helper: `openPhotoDetail(page, title)`
 - [ ] Create helper: `verifyPhotoDetail(page, expected)`
@@ -135,12 +148,14 @@ git push origin main
 - [ ] Verify all 7 tests pass ✅
 
 ### 📝 Commit Checklist
+
 - [ ] 3 new tests implemented
 - [ ] All 7 tests passing
 - [ ] View helpers created
 - [ ] Ready to commit
 
 ### 🚀 Git Commands
+
 ```bash
 git add tests/e2e/gallery.spec.ts
 git add tests/e2e/helpers/gallery-helpers.ts
@@ -155,6 +170,7 @@ git push origin main
 ```
 
 ### ✅ Day 3 Completion Criteria
+
 - [ ] 3 new tests passing ✅✅✅
 - [ ] Cumulative: 7 tests total
 - [ ] Code committed and pushed
@@ -166,6 +182,7 @@ git push origin main
 ## 🗓️ Day 4 (Thursday): Edit & Delete Operations
 
 ### ✅ Morning Tasks (Edit Tests - 1.5 hours)
+
 - [ ] Implement **E2E-007:** Edit photo title and description [P0]
 - [ ] Create helper: `editPhotoMetadata(page, updates)`
 - [ ] Test E2E-007 passes
@@ -174,6 +191,7 @@ git push origin main
 - [ ] Test E2E-008 passes
 
 ### ✅ Afternoon Tasks (Delete Tests - 1 hour)
+
 - [ ] Implement **E2E-009:** Delete photo with confirmation [P0]
 - [ ] Create helper: `deleteGalleryPhoto(page)` with dialog handling
 - [ ] Test E2E-009 passes
@@ -184,12 +202,14 @@ git push origin main
 - [ ] Verify all 11 tests pass ✅
 
 ### 📝 Commit Checklist
+
 - [ ] 4 new tests implemented
 - [ ] All 11 tests passing
 - [ ] Edit/delete helpers created
 - [ ] Ready to commit
 
 ### 🚀 Git Commands
+
 ```bash
 git add tests/e2e/gallery.spec.ts
 git add tests/e2e/helpers/gallery-helpers.ts
@@ -205,6 +225,7 @@ git push origin main
 ```
 
 ### ✅ Day 4 Completion Criteria
+
 - [ ] 4 new tests passing ✅✅✅✅
 - [ ] Cumulative: 11 tests total
 - [ ] Code committed and pushed
@@ -216,6 +237,7 @@ git push origin main
 ## 🗓️ Day 5 (Friday): Validation & Persistence
 
 ### ✅ Morning Tasks (File Validation - 1.5 hours)
+
 - [ ] Verify/create fixture: `invalid-file.pdf`
 - [ ] Verify fixture exists: `invalid-file.txt`
 - [ ] Implement **E2E-012:** Reject non-image file [P1]
@@ -224,6 +246,7 @@ git push origin main
 - [ ] Test E2E-013 passes
 
 ### ✅ Afternoon Tasks (Persistence Tests - 1 hour)
+
 - [ ] Implement **E2E-018:** Photos persist after page refresh [P1]
 - [ ] Test E2E-018 passes
 - [ ] Implement **E2E-019:** Privacy setting persists after refresh [P2]
@@ -232,12 +255,14 @@ git push origin main
 - [ ] Verify all 15 tests pass ✅
 
 ### 📝 Commit Checklist
+
 - [ ] 4 new tests implemented
 - [ ] All 15 tests passing
 - [ ] Test fixtures in place
 - [ ] Ready to commit
 
 ### 🚀 Git Commands
+
 ```bash
 git add tests/e2e/gallery.spec.ts
 git add tests/fixtures/ # If new fixtures added
@@ -253,6 +278,7 @@ git push origin main
 ```
 
 ### ✅ Day 5 Completion Criteria
+
 - [ ] 4 new tests passing ✅✅✅✅
 - [ ] Cumulative: 15 tests total
 - [ ] Code committed and pushed
@@ -264,6 +290,7 @@ git push origin main
 ## 🗓️ Day 6 (Saturday): Pagination & Authorization - FINAL DAY! 🎉
 
 ### ✅ Morning Tasks (Pagination - 2 hours)
+
 - [ ] Create helper: `bulkUploadPhotos(page, count)` for pagination setup
 - [ ] Implement **E2E-014:** Pagination in My Photos [P1]
 - [ ] Test E2E-014 passes
@@ -271,6 +298,7 @@ git push origin main
 - [ ] Test E2E-015 passes
 
 ### ✅ Afternoon Tasks (Authorization & Journey - 1.5 hours)
+
 - [ ] Create helper: `createSecondUser(page)` for multi-user tests
 - [ ] Implement **E2E-016:** Cannot edit other user's photo [P1]
 - [ ] Test E2E-016 passes
@@ -280,6 +308,7 @@ git push origin main
 - [ ] Test E2E-020 passes
 
 ### ✅ Final Verification (30 mins)
+
 - [ ] Run full test suite: `npx playwright test gallery.spec.ts`
 - [ ] Verify ALL 20 tests pass ✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅✅
 - [ ] Run 3 times to check consistency
@@ -287,12 +316,14 @@ git push origin main
 - [ ] Check execution time (should be < 10 mins)
 
 ### 📝 Commit Checklist
+
 - [ ] 5 new tests implemented
 - [ ] ALL 20 tests passing consistently
 - [ ] Multi-user helpers created
 - [ ] Ready for FINAL commit 🎉
 
 ### 🚀 Git Commands
+
 ```bash
 git add tests/e2e/gallery.spec.ts
 git add tests/e2e/helpers/gallery-helpers.ts
@@ -317,6 +348,7 @@ git push origin main
 ```
 
 ### ✅ Day 6 Completion Criteria
+
 - [ ] 5 new tests passing ✅✅✅✅✅
 - [ ] Cumulative: **20 tests total** 🎉
 - [ ] Code committed and pushed
@@ -325,9 +357,10 @@ git push origin main
 
 ---
 
-## 🎉 Week 3 COMPLETE!
+## 🎉 Week 3 COMPLETE
 
 ### ✅ Final Checklist
+
 - [ ] All 20 Gallery E2E tests passing
 - [ ] 6-day commit streak achieved
 - [ ] Total E2E tests: 50 (Registration + Login + Auth + Profile + Gallery)
@@ -336,7 +369,8 @@ git push origin main
 - [ ] Ready for LinkedIn post
 
 ### 📊 Final Metrics
-```
+
+```text
 Total Tests Implemented: 20/20 ✅
 Daily Commits: 6/6 ✅
 Test Execution Time: _____ seconds
@@ -345,6 +379,7 @@ Code Coverage: Gallery feature fully covered ✅
 ```
 
 ### 🚀 Next Steps
+
 - [ ] Prepare LinkedIn post (see Week 3 post template)
 - [ ] Take screenshots (Playwright HTML report)
 - [ ] Update portfolio/resume
@@ -355,6 +390,7 @@ Code Coverage: Gallery feature fully covered ✅
 ## 📸 LinkedIn Post Preparation
 
 ### Screenshot Checklist
+
 - [ ] Run: `npx playwright test tests/e2e/gallery.spec.ts`
 - [ ] Run: `npx playwright show-report`
 - [ ] Screenshot: HTML report showing 20/20 Gallery tests ✅
@@ -362,6 +398,7 @@ Code Coverage: Gallery feature fully covered ✅
 - [ ] Screenshot: Gallery test code (E2E-020 complete journey)
 
 ### Post Draft Checklist
+
 - [ ] Metrics: 20 tests, execution time, 0 failures
 - [ ] Comparison: E2E vs API vs Integration
 - [ ] Code snippet: Complete journey test
@@ -375,7 +412,8 @@ Code Coverage: Gallery feature fully covered ✅
 
 ## 🎯 Success Indicators
 
-### You know Week 3 is successful when:
+### You know Week 3 is successful when
+
 - ✅ All 20 tests consistently pass (run 3+ times)
 - ✅ GitHub shows 6-day green squares (Monday-Saturday)
 - ✅ Tests run in < 10 minutes
@@ -392,6 +430,7 @@ Code Coverage: Gallery feature fully covered ✅
 ## 📞 Quick Reference
 
 ### Run Tests
+
 ```bash
 # All Gallery tests
 npx playwright test tests/e2e/gallery.spec.ts
@@ -410,6 +449,7 @@ npx playwright show-report
 ```
 
 ### Check Progress
+
 ```bash
 # Count passing tests
 npx playwright test gallery.spec.ts | grep "passed"
@@ -425,6 +465,7 @@ npx playwright test gallery.spec.ts --reporter=list
 **Target:** 20 tests, 6 commits, 100% success! 🚀
 
 **Remember:**
+
 - One day at a time
 - Learn deeply, not quickly
 - Commit daily for consistency
