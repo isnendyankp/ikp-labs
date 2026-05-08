@@ -8,6 +8,7 @@
 ## 📋 Summary
 
 Successfully implemented a complete Gallery feature frontend with:
+
 - ✅ 10 new files created
 - ✅ 1 file updated
 - ✅ 10 commits pushed to GitHub
@@ -20,7 +21,9 @@ Successfully implemented a complete Gallery feature frontend with:
 ## 🗂️ Files Created
 
 ### **1. Types** (`frontend/src/types/api.ts` - updated)
+
 Added 7 TypeScript interfaces for Gallery feature:
+
 - `GalleryPhoto` - Photo entity from backend
 - `GalleryUploadRequest` - Upload request payload
 - `GalleryUpdateRequest` - Update request payload
@@ -33,7 +36,9 @@ Added 7 TypeScript interfaces for Gallery feature:
 ---
 
 ### **2. Service** (`frontend/src/services/galleryService.ts` - new)
+
 Comprehensive API service with 7 functions:
+
 - `uploadPhoto()` - Upload new photo with metadata
 - `getUserPhotos()` - Get user's photos with pagination
 - `getPublicPhotos()` - Get all public photos
@@ -43,6 +48,7 @@ Comprehensive API service with 7 functions:
 - `getPhotoUrl()` - Helper to construct photo URLs
 
 **Features:**
+
 - JWT authentication on all requests
 - FormData for file uploads
 - Error handling with typed responses
@@ -55,7 +61,9 @@ Comprehensive API service with 7 functions:
 ### **3. Components** (`frontend/src/components/gallery/`)
 
 #### **3.1 Pagination.tsx** (`329ed85`)
+
 Reusable pagination controls:
+
 - Previous/Next navigation buttons
 - Current page indicator (Page X of Y)
 - Disabled state at boundaries
@@ -63,7 +71,9 @@ Reusable pagination controls:
 - Responsive design
 
 #### **3.2 PhotoCard.tsx** (`717a047`)
+
 Individual photo card component:
+
 - Square aspect ratio (1:1) preview
 - Title and description display
 - Public/Private badge
@@ -73,7 +83,9 @@ Individual photo card component:
 - Text truncation
 
 #### **3.3 PhotoGrid.tsx** (`82d5414`)
+
 Grid layout container:
+
 - Responsive columns (1-4 based on screen size)
 - Loading state with 8 skeleton cards
 - Empty state with custom message
@@ -81,7 +93,9 @@ Grid layout container:
 - Auto-render PhotoCards
 
 #### **3.4 PhotoUploadForm.tsx** (`fcb48c1`)
+
 Complete upload form:
+
 - Drag & drop file upload
 - Click to select alternative
 - Image preview before upload
@@ -98,7 +112,9 @@ Complete upload form:
 ### **4. Pages** (`frontend/src/app/gallery/`)
 
 #### **4.1 Gallery List Page** (`/app/gallery/page.tsx` - `ebfb954`)
+
 Main gallery landing page:
+
 - Authentication check and redirect
 - View mode tabs (My Photos / Public Photos)
 - Upload Photo button
@@ -111,7 +127,9 @@ Main gallery landing page:
 **Route:** `/gallery`
 
 #### **4.2 Upload Page** (`/app/gallery/upload/page.tsx` - `ee8ba92`)
+
 Dedicated upload page:
+
 - Authentication check
 - Clean, focused layout
 - Back button to gallery
@@ -121,7 +139,9 @@ Dedicated upload page:
 **Route:** `/gallery/upload`
 
 #### **4.3 Photo Detail Page** (`/app/gallery/[id]/page.tsx` - `9ec48c2`)
+
 Individual photo management:
+
 - View full-size photo
 - Display metadata (title, description, date)
 - Public/Private badge
@@ -140,6 +160,7 @@ Individual photo management:
 ### **5. Navigation Update** (`frontend/src/app/home/page.tsx` - updated)
 
 Added "Go to My Gallery" button:
+
 - Purple button with camera emoji (📸)
 - Navigate to /gallery
 - Full-width placement
@@ -153,7 +174,8 @@ Added "Go to My Gallery" button:
 ## 🎨 Design Highlights
 
 ### **Responsive Grid**
-```
+
+```text
 Mobile (sm):    1 column
 Tablet (md):    2 columns
 Desktop (lg):   3 columns
@@ -161,6 +183,7 @@ Wide (xl):      4 columns
 ```
 
 ### **Color Scheme**
+
 - Primary (Blue): `bg-blue-600` - Upload, Edit, Save buttons
 - Success (Green): `bg-green-600` - Upload button, Public badge
 - Danger (Red): `bg-red-600` - Delete button
@@ -168,6 +191,7 @@ Wide (xl):      4 columns
 - Neutral (Gray): Loading states, Private badge
 
 ### **File Validation**
+
 - **Allowed types:** JPG, JPEG, PNG, GIF, WebP
 - **Max size:** 5MB
 - **Title:** Max 100 characters
@@ -178,6 +202,7 @@ Wide (xl):      4 columns
 ## 🔄 User Flow
 
 ### **Upload Flow**
+
 1. User clicks "Upload Photo" from gallery
 2. Navigate to `/gallery/upload`
 3. Select file (drag & drop or click)
@@ -188,6 +213,7 @@ Wide (xl):      4 columns
 8. Redirect to `/gallery` on success
 
 ### **View & Edit Flow**
+
 1. User browses gallery (`/gallery`)
 2. Switch between "My Photos" and "Public Photos"
 3. Click photo card
@@ -199,6 +225,7 @@ Wide (xl):      4 columns
 9. View mode updates
 
 ### **Delete Flow**
+
 1. User views photo detail
 2. (Owner only) Click "Delete"
 3. Confirmation dialog appears
@@ -210,6 +237,7 @@ Wide (xl):      4 columns
 ## 📊 Statistics
 
 ### **Files Created**
+
 - Types: 1 file (updated)
 - Services: 1 file
 - Components: 4 files
@@ -217,6 +245,7 @@ Wide (xl):      4 columns
 - **Total:** 9 files (8 new + 1 updated)
 
 ### **Lines of Code**
+
 - **Types:** +73 lines
 - **Service:** +365 lines
 - **Pagination:** +69 lines
@@ -230,6 +259,7 @@ Wide (xl):      4 columns
 - **Total:** ~1,513 lines
 
 ### **Commits**
+
 - 10 commits pushed
 - Average commit message: 15 lines
 - All commits include detailed explanations
@@ -239,12 +269,14 @@ Wide (xl):      4 columns
 ## ✅ Features Implemented
 
 ### **CRUD Operations**
+
 - ✅ **Create:** Upload photo with metadata
 - ✅ **Read:** View photos in grid and detail
 - ✅ **Update:** Edit title, description, privacy
 - ✅ **Delete:** Delete photo with confirmation
 
 ### **Additional Features**
+
 - ✅ Pagination (12 photos per page)
 - ✅ View mode filtering (My Photos / Public)
 - ✅ Public/Private privacy control
@@ -274,7 +306,8 @@ Wide (xl):      4 columns
 
 ## 🎯 Next Steps (Day 5)
 
-**Sunday: E2E Testing & LinkedIn Post**
+### Sunday: E2E Testing & LinkedIn updates
+
 1. Write Playwright E2E tests for Gallery
 2. Test full user journey
 3. Create LinkedIn post about project
@@ -285,9 +318,11 @@ Wide (xl):      4 columns
 ## 📝 Notes for Beginners
 
 ### **What is Gallery Feature?**
+
 Gallery = tempat untuk upload & manage foto, seperti Instagram tapi lebih simple.
 
 ### **Key Concepts Learned:**
+
 1. **TypeScript Interfaces** - Blueprint untuk data structure
 2. **API Service** - Komunikasi frontend-backend
 3. **React Components** - Building blocks UI
@@ -297,9 +332,11 @@ Gallery = tempat untuk upload & manage foto, seperti Instagram tapi lebih simple
 7. **Access Control** - Cuma owner yang bisa edit/delete
 
 ### **Why 10 Commits?**
+
 Setiap commit = 1 file selesai → GitHub activity banyak → Recruiter impressed!
 
 ### **Tech Stack:**
+
 - **Frontend:** React + Next.js 14 (App Router)
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS

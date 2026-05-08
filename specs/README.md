@@ -4,7 +4,7 @@ Centralized Gherkin feature files (source of truth) for IKP-Labs test scenarios.
 
 ## Structure
 
-```
+```text
 specs/
 ├── authentication/     # Login, registration, auth flows
 ├── gallery/           # Photo upload, management, likes, privacy, sorting
@@ -14,11 +14,13 @@ specs/
 ## Feature Files
 
 ### Authentication
+
 - `login.feature` - User login scenarios (77 lines, 13 scenarios)
 - `registration.feature` - User registration scenarios (67 lines, 11 scenarios)
 - `home-page.feature` - Home page navigation and display
 
 ### Gallery
+
 - `photo-upload.feature` - Photo upload functionality
 - `photo-management.feature` - Photo CRUD operations
 - `photo-likes.feature` - Photo likes feature
@@ -26,6 +28,7 @@ specs/
 - `photo-sorting.feature` - Photo sorting and filtering (325 lines)
 
 ### Profile
+
 - `profile-picture.feature` - Profile picture upload and management
 
 ## Usage

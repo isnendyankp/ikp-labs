@@ -17,6 +17,7 @@ This week, I completed comprehensive backend testing for the Gallery Photo featu
 ## 📊 Testing Metrics
 
 ### Day 1 (Monday, Nov 24): Unit Tests
+
 - ✅ **27 new unit tests** created
 - ✅ GalleryControllerTest: 15 tests (controller isolation with @WebMvcTest)
 - ✅ GalleryPhotoRepositoryTest: 12 tests (repository with Testcontainers PostgreSQL)
@@ -29,6 +30,7 @@ This week, I completed comprehensive backend testing for the Gallery Photo featu
 ---
 
 ### Day 2 (Tuesday, Nov 25): Integration Tests
+
 - ✅ **18 integration tests** created
 - ✅ GalleryControllerIntegrationTest with @SpringBootTest
 - ✅ Tests component wiring: Controller → Service → Repository (mocked)
@@ -41,6 +43,7 @@ This week, I completed comprehensive backend testing for the Gallery Photo featu
 ---
 
 ### Day 3-6 (Wed-Sat, Nov 26-29): API Tests
+
 - ✅ **38 API tests** created with **REAL database**
 - ✅ Gallery upload, retrieve, update, delete operations
 - ✅ Privacy control (public/private photos)
@@ -54,6 +57,7 @@ This week, I completed comprehensive backend testing for the Gallery Photo featu
 ---
 
 ### Day 7 (Sunday, Nov 30): Documentation & Final Verification
+
 - ✅ Comprehensive testing documentation
 - ✅ Test execution scripts
 - ✅ Coverage reports generated
@@ -65,31 +69,41 @@ This week, I completed comprehensive backend testing for the Gallery Photo featu
 ## 💡 Key Learnings
 
 ### 1. **Test Pyramid in Practice**
+
 Implemented proper test distribution:
+
 - **Unit Tests (48%):** Fast, isolated component testing
 - **Integration Tests (24%):** Component interaction within Spring context
 - **API Tests (28%):** Full backend with real database
 
 ### 2. **Three Levels of Testing**
+
 Learned the distinction per senior's guidance:
+
 - **Unit:** Component in isolation (mock dependencies)
 - **Integration:** Component interaction (mock external systems like DB)
 - **API:** Full backend stack (real database, real HTTP)
 
 ### 3. **Testcontainers for Repository Tests**
+
 Used singleton Testcontainers pattern for repository tests:
+
 - Real PostgreSQL in Docker
 - Production-like testing
 - Automatic cleanup
 
 ### 4. **Test Isolation & Cleanup**
+
 Implemented proper cleanup strategies:
+
 - @Transactional for unit/integration tests (auto-rollback)
 - @AfterEach cleanup for API tests (delete test data)
 - Test user pattern: `apitest*@test.com` for easy identification
 
 ### 5. **AAA Pattern Consistency**
+
 All tests follow Arrange-Act-Assert pattern:
+
 ```java
 // ARRANGE: Setup test data
 GalleryPhoto photo = createTestPhoto();
@@ -108,11 +122,13 @@ verify(repository).save(any(GalleryPhoto.class));
 ## 🛠️ Technologies Used
 
 **Backend Framework:**
+
 - Spring Boot 3.3.6
 - Java 17
 - PostgreSQL 15
 
 **Testing Frameworks:**
+
 - JUnit 5 (test framework)
 - Mockito (mocking)
 - Spring Boot Test (@SpringBootTest, @WebMvcTest, @DataJpaTest)
@@ -122,6 +138,7 @@ verify(repository).save(any(GalleryPhoto.class));
 - JaCoCo (code coverage)
 
 **Tools:**
+
 - Maven (build & test execution)
 - Git (version control - **16 commits** this week!)
 
@@ -145,6 +162,7 @@ verify(repository).save(any(GalleryPhoto.class));
 ## 📝 Test Examples
 
 ### Unit Test Example (Controller)
+
 ```java
 @WebMvcTest(GalleryController.class)
 class GalleryControllerTest {
@@ -169,6 +187,7 @@ class GalleryControllerTest {
 ```
 
 ### API Test Example (Full Backend)
+
 ```java
 @Test
 void testUploadPhoto_RealDatabase() {
@@ -196,12 +215,14 @@ void testUploadPhoto_RealDatabase() {
 ## 🎓 What's Next?
 
 **Week 2 (Dec 1-7):** E2E Testing with Playwright
+
 - Frontend-backend integration testing
 - Browser automation for Gallery UI
 - Complete user flow testing
 - Visual regression testing
 
 **Future Goals:**
+
 - CI/CD integration (GitHub Actions)
 - Performance testing (JMeter)
 - Security testing (OWASP)
@@ -211,6 +232,7 @@ void testUploadPhoto_RealDatabase() {
 ## 🙏 Acknowledgments
 
 Special thanks to my senior mentors for guidance on:
+
 - Proper test pyramid implementation
 - Distinguishing integration vs API tests
 - Test isolation patterns
@@ -229,6 +251,7 @@ Special thanks to my senior mentors for guidance on:
 ## 📸 Screenshots
 
 [Optional: Add screenshots of]
+
 - Test execution results
 - Code coverage reports
 - Test structure in IDE
@@ -238,7 +261,7 @@ Special thanks to my senior mentors for guidance on:
 
 ## #Tags
 
-#BackendDevelopment #Testing #SpringBoot #Java #PostgreSQL #JUnit #TDD #SoftwareEngineering #LearningInPublic #100DaysOfCode #DevCommunity #TestAutomation #CleanCode
+## BackendDevelopment #Testing #SpringBoot #Java #PostgreSQL #JUnit #TDD #SoftwareEngineering #LearningInPublic #100DaysOfCode #DevCommunity #TestAutomation #CleanCode
 
 ---
 
@@ -249,7 +272,7 @@ Special thanks to my senior mentors for guidance on:
 
 ---
 
-*"Testing is not about finding bugs; it's about building confidence in your code."*
+> "Testing is not about finding bugs; it's about building confidence in your code."
 
 Ready for Week 2! 🚀
 
