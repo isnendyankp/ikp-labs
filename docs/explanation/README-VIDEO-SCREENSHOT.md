@@ -3,11 +3,13 @@
 ## 🎯 Apa yang Sudah Di-Setup?
 
 ### ✅ Video Recording
+
 - Konfigurasi: HD 1280x720
 - Mode: `retain-on-failure` (hanya simpan video test yang gagal)
 - Lokasi: `test-results/artifacts/`
 
 ### ✅ Screenshot Capture
+
 - Mode: `only-on-failure` (screenshot otomatis saat test gagal)
 - Tipe: Full-page screenshot
 - Lokasi: `test-results/artifacts/screenshots/`
@@ -17,6 +19,7 @@
 ## 🚀 Cara Menjalankan Demo Test
 
 ### 1. Video Recording Test
+
 Test lengkap: **Register → Login → Upload Profile Photo**
 
 ```bash
@@ -28,12 +31,14 @@ npx playwright show-report
 ```
 
 **Apa yang Akan Direkam:**
+
 - ✅ Proses registrasi dengan upload foto
 - ✅ Login dengan kredensial yang baru dibuat
 - ✅ Upload foto profile baru setelah login
 - ⏱️ Durasi: ~35 detik
 
 ### 2. Screenshot Test
+
 Test berbagai cara mengambil screenshot:
 
 ```bash
@@ -45,6 +50,7 @@ ls test-results/artifacts/screenshots/
 ```
 
 **Apa yang Akan Di-Screenshot:**
+
 - 📸 Halaman registrasi (kosong, sebagian, lengkap, error)
 - 📸 Element spesifik (form, button, error message)
 - 📸 Viewport vs full page
@@ -55,7 +61,7 @@ ls test-results/artifacts/screenshots/
 
 ## 📁 Struktur File
 
-```
+```text
 RegistrationForm/
 ├── playwright.config.ts          # Konfigurasi video & screenshot
 ├── test-results/
@@ -112,6 +118,7 @@ open test-results/artifacts/[test-name]/video.webm
 ### Cara Mengambil Screenshot
 
 #### 1. Otomatis (Test Gagal)
+
 ```typescript
 test('my test', async ({ page }) => {
   await page.goto('/registration');
@@ -122,6 +129,7 @@ test('my test', async ({ page }) => {
 ```
 
 #### 2. Manual (Kapan Saja)
+
 ```typescript
 test('my test', async ({ page }) => {
   await page.goto('/registration');
@@ -153,6 +161,7 @@ test('my test', async ({ page }) => {
 ## 💡 Use Cases - Untuk Apa Ini?
 
 ### 1. Testing & Debugging
+
 ```bash
 # Run test, jika gagal otomatis dapat video + screenshot
 npx playwright test --project=chromium
@@ -162,6 +171,7 @@ npx playwright show-report
 ```
 
 ### 2. Portfolio & Demo
+
 ```bash
 # Buat video demo untuk recruiter
 npx playwright test demo-video-recording --project=chromium
@@ -171,6 +181,7 @@ npx playwright test demo-video-recording --project=chromium
 ```
 
 ### 3. Bug Report
+
 ```bash
 # Jalankan test yang bug
 npx playwright test registration --project=chromium
@@ -180,6 +191,7 @@ npx playwright test registration --project=chromium
 ```
 
 ### 4. Documentation
+
 ```bash
 # Screenshot berbagai state aplikasi
 npx playwright test demo-screenshot-capture --project=chromium
@@ -193,6 +205,7 @@ ls test-results/artifacts/screenshots/
 ## 📊 Contoh Skenario Real
 
 ### Skenario 1: Test Flow Lengkap
+
 **Goal:** Buktikan aplikasi bekerja end-to-end
 
 ```bash
@@ -209,6 +222,7 @@ npx playwright test demo-video-recording -g "Happy Path" --project=chromium
 ```
 
 ### Skenario 2: Debug Test yang Gagal
+
 **Problem:** Test registrasi gagal, tidak tahu kenapa
 
 ```bash
@@ -226,6 +240,7 @@ npx playwright show-report
 ```
 
 ### Skenario 3: Visual Regression Testing
+
 **Goal:** Pastikan UI tidak berubah
 
 ```bash
@@ -247,6 +262,7 @@ open test-results/artifacts/screenshots/compare-after-*.png
 ## 🎓 Tutorial Pemula
 
 ### Step 1: Jalankan Demo Video
+
 ```bash
 cd /Users/isnendyankp/Desktop/Programmer/Belajar/Project/Template/RegistrationForm
 
@@ -259,11 +275,13 @@ npx playwright test demo-video-recording --project=chromium
 ```
 
 **Hasil:**
+
 - ✅ Test selesai
 - 📹 Video tersimpan di `test-results/artifacts/`
 - 📊 Report di `playwright-report/`
 
 ### Step 2: Lihat Hasilnya
+
 ```bash
 # Buka HTML report
 npx playwright show-report
@@ -272,6 +290,7 @@ npx playwright show-report
 ```
 
 ### Step 3: Jalankan Demo Screenshot
+
 ```bash
 # Run screenshot demo
 npx playwright test demo-screenshot-capture --project=chromium
@@ -281,10 +300,12 @@ ls -la test-results/artifacts/screenshots/
 ```
 
 **Hasil:**
+
 - 📸 Multiple screenshots dengan berbagai teknik
 - 🖼️ File PNG di folder screenshots/
 
 ### Step 4: Coba Bikin Test Sendiri
+
 Edit file: `tests/e2e/demo-video-recording.spec.ts`
 
 ```typescript
@@ -305,6 +326,7 @@ test('My Custom Test with Video', async ({ page }) => {
 ```
 
 Run test Anda:
+
 ```bash
 npx playwright test demo-video-recording -g "My Custom Test" --project=chromium
 ```
@@ -316,11 +338,13 @@ npx playwright test demo-video-recording -g "My Custom Test" --project=chromium
 ### Video Tidak Muncul?
 
 **Cek:**
+
 1. Test berhasil semua? (dengan `retain-on-failure`, video dihapus jika pass)
 2. Mode video = `'off'`? (cek `playwright.config.ts`)
 3. Browser crash? (cek error log)
 
 **Solusi:**
+
 ```typescript
 // Force video untuk debugging
 test.use({ video: 'on' });
@@ -329,11 +353,13 @@ test.use({ video: 'on' });
 ### Screenshot Tidak Ada?
 
 **Cek:**
+
 1. Test pass semua? (screenshot hanya saat gagal jika mode = `only-on-failure`)
 2. Path folder ada? (buat dulu: `mkdir -p test-results/artifacts/screenshots`)
 3. Permission error? (cek write permission)
 
 **Solusi:**
+
 ```typescript
 // Screenshot manual untuk testing
 await page.screenshot({ path: 'debug.png' });
@@ -342,11 +368,13 @@ await page.screenshot({ path: 'debug.png' });
 ### File Terlalu Besar?
 
 **Video besar?**
+
 - Reduce viewport size (config: 1280x720 → 1024x768)
 - Shorten test (split jadi beberapa test kecil)
 - Use `retain-on-failure` (delete passing videos)
 
 **Screenshot besar?**
+
 ```typescript
 // Gunakan JPEG + compression
 await page.screenshot({
@@ -362,6 +390,7 @@ await page.screenshot({
 ## 📚 Dokumentasi Lengkap
 
 Untuk panduan lengkap, baca:
+
 - **[Video & Screenshot Guide](./video-screenshot-guide.md)** - Complete documentation
 - **[MCP Playwright Setup](../setup/mcp-playwright-setup.md)** - MCP configuration
 - **[E2E Testing Guide](./e2e-testing-guide.md)** - General E2E testing
@@ -418,6 +447,6 @@ rm -rf test-results/artifacts/*
 
 ---
 
-**Happy Testing! 🎉**
+Happy Testing! 🎉
 
 Last Updated: 2025-11-06

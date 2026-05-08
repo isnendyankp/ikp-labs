@@ -22,7 +22,7 @@ Multiplied across hundreds of turns in a session, verbose responses consume cont
 
 Caveman operates via two Claude Code hooks that fire automatically:
 
-```
+```text
 claude (terminal)
        │
        ▼
@@ -112,5 +112,6 @@ Both are active simultaneously. RTK reduces tokens from command output; Caveman 
 ---
 
 **See also**:
+
 - [How to Setup Caveman](../how-to/setup-caveman.md)
 - [Caveman Commands Reference](../reference/caveman-commands.md)

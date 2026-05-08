@@ -23,6 +23,7 @@ Running 50 tests...
 ```
 
 **Problems:**
+
 - Which specific tests passed/failed?
 - Is this progress toward completion?
 - Were these tests run before?
@@ -44,6 +45,7 @@ test('register user', async () => {
 ```
 
 **Problems:**
+
 - Test fails → User deleted → Can't debug in database
 - No way to inspect test data manually
 - Hard to reproduce issues
@@ -61,6 +63,7 @@ Database:
 ```
 
 **Problems:**
+
 - Database fills with junk data
 - Tests become flaky (duplicate key errors)
 - Production data mixed with test data
@@ -71,7 +74,7 @@ Database:
 
 ### Core Principles
 
-**1. Plan-Driven Testing**
+#### 1. Plan-Driven Testing
 
 Every test belongs to a **Test Plan** with clear checklist:
 
@@ -89,11 +92,12 @@ Every test belongs to a **Test Plan** with clear checklist:
 ```
 
 **Benefits:**
+
 - ✅ Clear scope: know exactly what to test
 - ✅ Progress tracking: see completion %
 - ✅ Historical record: when was test completed
 
-**2. Smart Conditional Cleanup**
+#### 2. Smart Conditional Cleanup
 
 ```javascript
 if (testPassed) {
@@ -104,11 +108,12 @@ if (testPassed) {
 ```
 
 **Benefits:**
+
 - ✅ Passing tests → Clean database
 - ✅ Failing tests → Debugging data preserved
 - ✅ Best of both worlds!
 
-**3. Test Data Tracking**
+#### 3. Test Data Tracking
 
 ```javascript
 tracker.trackUser(email, testId);
@@ -116,6 +121,7 @@ tracker.trackUser(email, testId);
 ```
 
 **Benefits:**
+
 - ✅ Know which data belongs to which test
 - ✅ Can selectively clean up
 - ✅ Debugging info readily available
@@ -126,7 +132,7 @@ tracker.trackUser(email, testId);
 
 ### Architecture Overview
 
-```
+```text
 Test Execution Flow:
 ┌─────────────────────────────────────────────────────────┐
 │  1. Load Test Plan (registration.plan.json)            │
@@ -173,16 +179,19 @@ Test Execution Flow:
 ### Components
 
 **1. Test Plan File** (`tests/plans/*.plan.json`)
+
 - Defines test cases and checklist
 - Tracks completion status
 - Stores test metadata
 
 **2. Test Tracker** (`TestPlanTracker` class)
+
 - Manages plan lifecycle
 - Tracks test data
 - Handles cleanup logic
 
 **3. Test Implementation** (Playwright test files)
+
 - Executes actual tests
 - Uses tracker for coordination
 - Reports results
@@ -210,6 +219,7 @@ test('register user', async ({ request }) => {
 ```
 
 **Problems:**
+
 - No history of test execution
 - Test fails → Data deleted → Can't debug
 - No progress tracking
@@ -254,6 +264,7 @@ test('REG-001: Register user successfully', async ({ request }) => {
 ```
 
 **Results:**
+
 ```bash
 📋 [REG-001] Starting: Register user successfully
 📝 [REG-001] Tracking user: autotest-1731238845123@example.com
@@ -270,6 +281,7 @@ test('REG-001: Register user successfully', async ({ request }) => {
 ```
 
 **Benefits:**
+
 - ✅ Clear progress tracking (25% complete)
 - ✅ Test passed → User deleted → Clean database
 - ✅ Historical record in plan file
@@ -284,12 +296,14 @@ test('REG-001: Register user successfully', async ({ request }) => {
 **Choice:** Use JSON files for test plans
 
 **Why:**
+
 - ✅ Simple: No database setup needed
 - ✅ Version control: Can track in git
 - ✅ Portable: Easy to share and review
 - ✅ Human-readable: Easy to inspect
 
 **Trade-offs:**
+
 - ⚠️ Not suitable for huge test suites (1000+ tests)
 - ⚠️ Concurrent writes might conflict
 - ⚠️ No query capabilities
@@ -303,15 +317,18 @@ test('REG-001: Register user successfully', async ({ request }) => {
 **Choice:** Conditional cleanup (delete only on pass)
 
 **Why:**
+
 - ✅ Failed tests → Data preserved for debugging
 - ✅ Passed tests → Clean database
 - ✅ Balance between automation and debuggability
 
 **Trade-offs:**
+
 - ⚠️ Need manual cleanup if many tests fail
 - ⚠️ Slightly more complex code
 
 **Mitigation:**
+
 - Provide cleanup endpoint: `/api/test-admin/cleanup/automated`
 - Log failed test data locations
 - Clear instructions in failure messages
@@ -323,14 +340,17 @@ test('REG-001: Register user successfully', async ({ request }) => {
 **Choice:** Use predictable patterns (`autotest-*`, `manual-*`)
 
 **Why:**
+
 - ✅ Easy to identify test users
 - ✅ Backend can enforce rules (only delete test users)
 - ✅ Clear separation from production users
 
 **Trade-offs:**
+
 - ⚠️ Pattern could be guessed by attackers
 
 **Mitigation:**
+
 - Test admin endpoints only available in `test` and `dev` profiles
 - Never deploy to production
 - Require email confirmation for deletions
@@ -342,12 +362,14 @@ test('REG-001: Register user successfully', async ({ request }) => {
 ### For Developers
 
 **Productivity:**
+
 - 📊 See test progress instantly
 - 🔍 Debug failures with preserved data
 - ⏱️ Save time with automatic cleanup
 - 📝 Clear test documentation in plan files
 
 **Quality:**
+
 - ✅ Consistent test execution
 - ✅ No flaky tests from database pollution
 - ✅ Historical record of test runs
@@ -358,12 +380,14 @@ test('REG-001: Register user successfully', async ({ request }) => {
 ### For QA Engineers
 
 **Testing:**
+
 - 📋 Clear test checklist to follow
 - 🎯 Know exactly what's tested vs pending
 - 📈 Track testing progress over time
 - 🔍 Preserved data for manual verification
 
 **Reporting:**
+
 - 📊 Automatic progress reports
 - 📝 Test execution history
 - ❌ Clear failure information
@@ -374,12 +398,14 @@ test('REG-001: Register user successfully', async ({ request }) => {
 ### For Team Leads
 
 **Management:**
+
 - 👀 Visibility into test progress
 - 📊 Metrics: X% tests completed
 - 🎯 Clear test coverage
 - 📈 Track improvements over time
 
 **Quality Assurance:**
+
 - ✅ Confidence in test reliability
 - 📝 Audit trail of test execution
 - 🔍 Easy to review test results
@@ -404,7 +430,7 @@ test('REG-001: Register user successfully', async ({ request }) => {
 
 ## When to Use This Approach
 
-### ✅ Good For:
+### ✅ Good For
 
 - **API Testing** - Clear pass/fail criteria
 - **E2E Testing** - Multi-step flows with data
@@ -412,7 +438,7 @@ test('REG-001: Register user successfully', async ({ request }) => {
 - **Team Collaboration** - Multiple testers need visibility
 - **CI/CD Integration** - Automated test pipelines
 
-### ❌ Not Ideal For:
+### ❌ Not Ideal For
 
 - **Exploratory Testing** - Ad-hoc, unstructured testing
 - **Performance Testing** - Different concerns (speed, load)

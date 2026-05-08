@@ -37,6 +37,7 @@ Explanation documentation clarifies and illuminates a topic. It broadens your un
 ---
 
 **Note**:
+
 - Want to learn practically? See [Tutorials](../tutorials/)
 - Need quick answers? Check [Reference](../reference/)
 - Solving specific problems? Use [How-To Guides](../how-to/)

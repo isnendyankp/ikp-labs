@@ -31,11 +31,13 @@ This approach balances **development velocity** with **quality assurance**.
 **File**: `.github/workflows/ci.yml`
 
 **Triggers**:
+
 - Every push to `main`
 - Every pull request to `main`
 
 **Jobs** (6 jobs, ~3 minutes):
-```
+
+```text
 ┌─────────────────────────────────────────────────────────────────┐
 │                     Push / PR Trigger                           │
 └────────────────────────────┬────────────────────────────────────┘
@@ -60,6 +62,7 @@ This approach balances **development velocity** with **quality assurance**.
 ```
 
 **Coverage**:
+
 - ✅ Code style and formatting
 - ✅ Unit tests (393 frontend + 298 backend)
 - ✅ Build verification
@@ -73,12 +76,14 @@ This approach balances **development velocity** with **quality assurance**.
 **File**: `.github/workflows/scheduled-e2e.yml`
 
 **Triggers**:
+
 - Cron schedule: 6:00 AM WIB (23:00 UTC previous day)
 - Cron schedule: 6:00 PM WIB (11:00 AM UTC)
 - Manual trigger via GitHub UI (`workflow_dispatch`)
 
 **Jobs** (1 job, ~7-8 minutes):
-```
+
+```text
 ┌─────────────────────────────────────────────────────────────────┐
 │              Scheduled Trigger (6 AM & 6 PM WIB)                │
 └────────────────────────────┬────────────────────────────────────┘
@@ -103,6 +108,7 @@ This approach balances **development velocity** with **quality assurance**.
 ```
 
 **Coverage**:
+
 - ✅ Critical user flows (login, registration, photo gallery)
 - ✅ Full stack integration
 - ✅ Browser compatibility (Chromium)
@@ -115,11 +121,13 @@ This approach balances **development velocity** with **quality assurance**.
 ### Why Scheduled E2E Instead of PR E2E?
 
 **Problem**: E2E tests are slow and expensive
+
 - Duration: 7-8 minutes per run
 - Resources: PostgreSQL + Spring Boot + Next.js + Chromium
 - Cost: High CI minutes usage on every PR
 
 **Solution**: Move E2E to scheduled runs
+
 - Frequency: 2x daily (6 AM & 6 PM WIB)
 - Target: `main` branch health monitoring
 - Benefit: Faster PR workflow (3 min vs 7-8 min)
@@ -127,11 +135,13 @@ This approach balances **development velocity** with **quality assurance**.
 ### Schedule Rationale
 
 **6:00 AM WIB**:
+
 - Before work hours start
 - Detect overnight regressions
 - Fresh start for the day
 
 **6:00 PM WIB**:
+
 - After typical work hours
 - Validate day's changes
 - Prepare for next day
@@ -147,6 +157,7 @@ schedule:
 ```
 
 **Time Zone Conversion**:
+
 - WIB (UTC+7) → UTC
 - 6:00 AM WIB = 23:00 UTC (day before)
 - 6:00 PM WIB = 11:00 AM UTC (same day)
@@ -158,11 +169,13 @@ schedule:
 ### Approach A: E2E on Every PR (Previous)
 
 **Pros**:
+
 - ✅ Bugs caught before merge
 - ✅ High confidence in PR quality
 - ✅ E2E acts as merge gate
 
 **Cons**:
+
 - ❌ Slow PR workflow (7-8 minutes)
 - ❌ High CI minutes cost
 - ❌ Blocks development velocity
@@ -173,6 +186,7 @@ schedule:
 ### Approach B: Scheduled E2E (Current)
 
 **Pros**:
+
 - ✅ Fast PR workflow (3 minutes)
 - ✅ Cost-effective CI usage
 - ✅ Better developer experience
@@ -180,6 +194,7 @@ schedule:
 - ✅ Suitable for solo/small team projects
 
 **Cons**:
+
 - ❌ Bugs may reach `main` before E2E detects
 - ❌ E2E failures discovered after merge
 - ❌ Requires monitoring and quick response
@@ -203,7 +218,7 @@ schedule:
 
 ## When to Use Each Approach
 
-### Use Scheduled E2E (Current) When:
+### Use Scheduled E2E (Current) When
 
 - ✅ Solo or small team project
 - ✅ Portfolio/learning project
@@ -216,7 +231,7 @@ schedule:
 
 ---
 
-### Use PR E2E When:
+### Use PR E2E When
 
 - ✅ Production application
 - ✅ Large team collaboration
@@ -244,6 +259,7 @@ on:
 ```
 
 **Benefits**:
+
 - E2E runs only for code changes
 - Skips E2E for docs/config changes
 - Balances speed and safety

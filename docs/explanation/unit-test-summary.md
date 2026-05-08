@@ -12,7 +12,7 @@
 
 ## 🎯 Test Execution Summary
 
-```
+```text
 ╔══════════════════════════════════════════════════════════╗
 ║              UNIT TEST EXECUTION RESULTS                  ║
 ╠══════════════════════════════════════════════════════════╣
@@ -56,6 +56,7 @@
 **Purpose:** Test JWT token generation, validation, and security
 
 **Test Categories:**
+
 - ✅ Token Generation (4 tests)
   - Generate valid token
   - Extract claims (email, fullName)
@@ -76,6 +77,7 @@
   - Token security properties
 
 **Key Achievements:**
+
 - All JWT security scenarios covered
 - Token expiration properly tested
 - Refresh token mechanism verified
@@ -89,6 +91,7 @@
 **Purpose:** Test user CRUD operations and business logic
 
 **Test Categories:**
+
 - ✅ Get Operations (6 tests)
   - Get user by ID (found/not found)
   - Get user by email (found/not found)
@@ -111,6 +114,7 @@
   - Validation utilities
 
 **Key Achievements:**
+
 - Complete CRUD coverage
 - Happy path + sad path testing
 - Edge cases covered
@@ -124,6 +128,7 @@
 **Purpose:** Test file upload/delete operations and validation
 
 **Test Categories:**
+
 - ✅ Valid Store Operations (4 tests)
   - PNG file save
   - JPEG file save
@@ -155,6 +160,7 @@
   - Exact 5MB limit
 
 **Key Achievements:**
+
 - Used @TempDir for isolated testing
 - MockMultipartFile for file upload simulation
 - Security testing (blocks .exe files)
@@ -168,6 +174,7 @@
 **Purpose:** Test REST API endpoints for user management
 
 **Test Categories:**
+
 - ✅ POST /api/users (2 tests)
   - Create user successfully (201 CREATED)
   - Email already exists (400 BAD_REQUEST)
@@ -207,6 +214,7 @@
   - Different email formats
 
 **Key Achievements:**
+
 - All 8 REST endpoints tested
 - HTTP status codes validated
 - DTO mapping verified
@@ -220,6 +228,7 @@
 **Purpose:** Test profile picture upload/delete REST API
 
 **Test Categories:**
+
 - ✅ POST /api/profile/upload-picture (8 tests)
   - Upload new picture (200 OK)
   - Replace existing picture
@@ -247,6 +256,7 @@
   - Other user's picture (public access)
 
 **Key Achievements:**
+
 - Authentication mocking (UserPrincipal)
 - MockMultipartFile for uploads
 - Exception handling verified
@@ -256,7 +266,7 @@
 
 ## 📈 Coverage by Layer
 
-```
+```text
 ┌─────────────────────────────────────────────────────┐
 │ CODE COVERAGE BY LAYER                              │
 ├─────────────────────────────────────────────────────┤
@@ -286,7 +296,7 @@
 
 ### Execution Speed
 
-```
+```text
 Test Suite Performance:
 ├─ JwtUtilTest:              ~0.9s  (15 tests = 60ms avg)
 ├─ UserServiceTest:          ~0.03s (17 tests = 2ms avg)
@@ -305,16 +315,19 @@ Average per test:     ~36ms
 ## 🔧 Technologies & Tools Used
 
 ### Testing Framework
+
 - **JUnit 5** - Modern testing framework with @DisplayName, @BeforeEach
 - **Mockito** - Mocking framework for dependencies (@Mock, @InjectMocks)
 - **Maven Surefire** - Test execution plugin
 
 ### Testing Patterns
+
 - **AAA Pattern** - Arrange-Act-Assert in all tests
 - **Given-When-Then** - BDD-style documentation
 - **Mock vs Real** - Strategic use of mocks vs real objects
 
 ### Special Tools
+
 - **@TempDir** - JUnit 5 temporary directory for file tests
 - **MockMultipartFile** - Spring's mock for file uploads
 - **ReflectionTestUtils** - Setting private fields in tests
@@ -325,6 +338,7 @@ Average per test:     ~36ms
 ## 🎯 Test Quality Metrics
 
 ### Code Quality
+
 - ✅ All tests follow AAA pattern
 - ✅ Clear @DisplayName for each test
 - ✅ Proper use of @Mock and @InjectMocks
@@ -332,6 +346,7 @@ Average per test:     ~36ms
 - ✅ Descriptive variable names
 
 ### Coverage Quality
+
 - ✅ All public methods tested
 - ✅ Happy paths covered
 - ✅ Error paths covered
@@ -339,12 +354,14 @@ Average per test:     ~36ms
 - ✅ Null checks included
 
 ### Documentation Quality
+
 - ✅ Comments in Indonesian for beginners
 - ✅ Explanations of what's being tested
 - ✅ Explanations of why it's being tested
 - ✅ Example usage where needed
 
 ### Execution Quality
+
 - ✅ All tests passing (100%)
 - ✅ Fast execution (<1s per test)
 - ✅ No flaky tests
@@ -356,6 +373,7 @@ Average per test:     ~36ms
 ## 🚀 Key Achievements
 
 ### Technical Achievements
+
 1. **91 comprehensive unit tests** covering critical business logic
 2. **91% overall code coverage** exceeding 80% target
 3. **100% pass rate** with zero failures or errors
@@ -363,6 +381,7 @@ Average per test:     ~36ms
 5. **Clean test isolation** using @TempDir and mocks
 
 ### Best Practices Implemented
+
 1. **AAA Pattern** consistently applied across all tests
 2. **Descriptive names** with @DisplayName annotations
 3. **Strategic mocking** - mock external dependencies only
@@ -370,6 +389,7 @@ Average per test:     ~36ms
 5. **Error handling** - sad path thoroughly tested
 
 ### Learning Outcomes
+
 1. **JUnit 5 mastery** - modern annotations and features
 2. **Mockito expertise** - @Mock, @InjectMocks, verify()
 3. **Spring Testing** - MockMultipartFile, Authentication mocking
@@ -381,22 +401,27 @@ Average per test:     ~36ms
 ## 📝 Challenges & Solutions
 
 ### Challenge 1: Test Compatibility After Source Code Changes
+
 **Problem:** AuthServiceTest failed after API changes (login/register now return LoginResponse)
 **Solution:** Paused AuthServiceTest for future rewrite, focused on completing other 5 test files
 
 ### Challenge 2: File System Testing
+
 **Problem:** Need to test file operations without creating real files
 **Solution:** Used @TempDir for temporary directories that auto-cleanup
 
 ### Challenge 3: Authentication Mocking
+
 **Problem:** ProfileController requires Spring Security Authentication object
 **Solution:** Mocked Authentication and UserPrincipal for controller tests
 
 ### Challenge 4: JWT Token Timing
+
 **Problem:** Refresh token test failed due to timestamp precision
 **Solution:** Added Thread.sleep(1000) and relaxed assertion on token difference
 
 ### Challenge 5: Exception Message Matching
+
 **Problem:** ProfileController wraps exceptions with generic messages
 **Solution:** Changed assertEquals to assertTrue().contains() for flexible matching
 
@@ -405,7 +430,8 @@ Average per test:     ~36ms
 ## 📊 Test Distribution
 
 ### By Test Type
-```
+
+```text
 Unit Tests (Pure Logic):
 ├─ JwtUtilTest:            15 tests (16.5%)
 ├─ UserServiceTest:        17 tests (18.7%)
@@ -421,7 +447,8 @@ Controller Tests (HTTP Layer):
 ```
 
 ### By Test Focus
-```
+
+```text
 Happy Path (Success):      45 tests (49.5%)
 Sad Path (Errors):         36 tests (39.6%)
 Edge Cases:                10 tests (11.0%)
@@ -432,6 +459,7 @@ Edge Cases:                10 tests (11.0%)
 ## 🎓 Lessons Learned
 
 ### What Worked Well
+
 1. **Progressive commits** - One file at a time for clean Git history
 2. **AAA pattern** - Consistent structure makes tests easy to read
 3. **Indonesian comments** - Helps beginners understand concepts
@@ -439,12 +467,14 @@ Edge Cases:                10 tests (11.0%)
 5. **@TempDir** - Clean file testing without cleanup code
 
 ### Areas for Improvement
+
 1. **Coverage tooling** - JaCoCo plugin not configured in pom.xml
 2. **AuthServiceTest** - Needs update for new API structure
 3. **Integration tests** - Could add @WebMvcTest for full HTTP testing
 4. **Performance tests** - Could add load testing for file uploads
 
 ### Best Practices Discovered
+
 1. Always use @DisplayName for clear test reports
 2. Test exceptions with assertThrows() for better error messages
 3. Use ReflectionTestUtils for setting private fields in tests
@@ -483,6 +513,7 @@ Edge Cases:                10 tests (11.0%)
 ## 🎉 Final Notes
 
 This unit testing implementation successfully achieved:
+
 - ✅ **91 comprehensive tests** with 100% pass rate
 - ✅ **91% code coverage** exceeding the 80% target
 - ✅ **Clean, maintainable tests** following industry best practices
@@ -490,6 +521,7 @@ This unit testing implementation successfully achieved:
 - ✅ **Educational value** with Indonesian comments for beginners
 
 The test suite provides a solid foundation for:
+
 - Regression testing during feature development
 - Refactoring with confidence
 - Documentation of expected behavior

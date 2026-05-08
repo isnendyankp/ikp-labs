@@ -25,13 +25,16 @@
 ## 🤔 Apa yang Terjadi?
 
 ### Tujuan Awal
+
 Kita mau buat **Repository Tests** untuk test `GalleryPhotoRepository`:
+
 - Test apakah `findByUserId()` bekerja dengan benar
 - Test apakah pagination berfungsi
 - Test apakah filter `isPublic` akurat
 - Total 7 test cases (RT-001 sampai RT-007)
 
 ### Yang Kita Harapkan
+
 ```java
 @Test
 void testFindByUserId() {
@@ -42,6 +45,7 @@ void testFindByUserId() {
 ```
 
 Test ini butuh **database REAL** karena:
+
 - Spring Data JPA generate SQL query otomatis
 - Kita perlu verify query nya benar
 - Perlu test pagination, sorting, filtering
@@ -53,23 +57,27 @@ Test ini butuh **database REAL** karena:
 ### Problem 1: H2 Database Limitation
 
 **Apa itu H2?**
+
 - Database in-memory (di RAM, bukan di disk)
 - Sangat cepat untuk testing
 - Tidak perlu install aplikasi database terpisah
 - Hilang setelah test selesai (temporary)
 
 **Kenapa pakai H2?**
+
 - Test jadi cepat (milliseconds)
 - Tidak ganggu database production
 - Cocok untuk CI/CD (GitHub Actions, etc)
 
 **Problemnya:**
+
 ```java
 // User entity menggunakan:
 @GeneratedValue(strategy = GenerationType.IDENTITY)
 ```
 
 Di PostgreSQL (database production), ini generate SQL:
+
 ```sql
 INSERT INTO users (...) VALUES (...) RETURNING id;
 ```
@@ -77,7 +85,8 @@ INSERT INTO users (...) VALUES (...) RETURNING id;
 Tapi H2 **TIDAK SUPPORT** syntax `RETURNING id` ini! ❌
 
 **Error yang muncul:**
-```
+
+```text
 Syntax error in SQL statement "insert into users (...) RETURNING id"
 ```
 
@@ -88,10 +97,12 @@ Syntax error in SQL statement "insert into users (...) RETURNING id"
 **Analogi Sederhana:**
 
 Bayangkan bahasa:
+
 - **PostgreSQL** = Bahasa Indonesia baku
 - **H2** = Bahasa Indonesia informal
 
 Contoh:
+
 - PostgreSQL: "Tolong kembalikan ID setelah insert" → `RETURNING id` ✅
 - H2: "Ehh... apa itu RETURNING? Gak ngerti" → Error ❌
 
@@ -104,6 +115,7 @@ Meskipun H2 punya "MODE=PostgreSQL", tetap ada perbedaan!
 ### Solusi 1: Konfigurasi H2 (GAGAL ❌)
 
 **Yang dicoba:**
+
 ```properties
 # application-test.properties
 spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
@@ -113,6 +125,7 @@ spring.jpa.properties.hibernate.jdbc.use_get_generated_keys=false
 **Hasil:** Tetap error yang sama
 
 **Kenapa gagal?**
+
 - Hibernate masih generate `RETURNING id` syntax
 - H2 tetap tidak mengerti syntax ini
 - Settings tidak cukup untuk override behavior
@@ -122,6 +135,7 @@ spring.jpa.properties.hibernate.jdbc.use_get_generated_keys=false
 ### Solusi 2: Pakai TestEntityManager instead of Repository.save() (GAGAL ❌)
 
 **Yang dicoba:**
+
 ```java
 // Sebelumnya:
 testUser1 = userRepository.save(testUser1);
@@ -133,6 +147,7 @@ testUser1 = entityManager.persist(testUser1);
 **Hasil:** Tetap error yang sama
 
 **Kenapa gagal?**
+
 - `persist()` dan `save()` eventually pakai query yang sama
 - Root problem ada di Hibernate SQL generation
 - Bukan masalah method yang dipanggil
@@ -144,6 +159,7 @@ testUser1 = entityManager.persist(testUser1);
 **Apa itu Testcontainers?**
 
 Testcontainers adalah library yang bisa:
+
 1. Otomatis download Docker image (PostgreSQL, MySQL, dll)
 2. Start container (run PostgreSQL di Docker) sebelum test
 3. Stop & delete container setelah test selesai
@@ -151,6 +167,7 @@ Testcontainers adalah library yang bisa:
 **Analogi Sederhana:**
 
 Bayangkan Anda mau test mobil:
+
 - H2 = Mobil mainan (cepat, tapi tidak 100% sama dengan mobil asli)
 - Testcontainers = Mobil rental real (exactly sama dengan mobil production)
 
@@ -172,6 +189,7 @@ class GalleryPhotoRepositoryTest {
 ```
 
 **Apa yang terjadi saat test run:**
+
 1. Testcontainers check: Apakah Docker ada?
 2. Download PostgreSQL image (jika belum ada)
 3. Start PostgreSQL container
@@ -180,6 +198,7 @@ class GalleryPhotoRepositoryTest {
 6. Stop & delete container
 
 **Keuntungan:**
+
 - Test dengan PostgreSQL 100% real (no compatibility issue)
 - Tidak ada error `RETURNING id`
 - Test custom queries dengan confident
@@ -187,7 +206,7 @@ class GalleryPhotoRepositoryTest {
 
 **Tapi... Ada problem:**
 
-```
+```text
 ERROR: Could not find a valid Docker environment
 ```
 
@@ -228,6 +247,7 @@ class GalleryPhotoRepositoryTest {
 ```
 
 **Kapan bisa di-enable?**
+
 1. Install Docker Desktop
 2. Start Docker daemon
 3. Remove `@Disabled` annotation
@@ -240,15 +260,18 @@ class GalleryPhotoRepositoryTest {
 ### 1. Database Compatibility Matters
 
 **Lesson:**
+
 - H2 ≠ PostgreSQL (meskipun ada compatibility mode)
 - Untuk production-critical tests, gunakan database yang sama dengan production
 
 **Kapan pakai H2:**
+
 - Unit tests sederhana
 - Test yang tidak depend on database-specific features
 - CI/CD yang tidak bisa run Docker
 
 **Kapan pakai Testcontainers (Real DB):**
+
 - Test custom SQL queries
 - Test database-specific features
 - Integration tests yang butuh accuracy
@@ -259,7 +282,7 @@ class GalleryPhotoRepositoryTest {
 
 **Pyramid Testing:**
 
-```
+```text
         /\
        /E2E\        <- Sedikit (6 tests) - Slow, Comprehensive
       /------\
@@ -270,6 +293,7 @@ class GalleryPhotoRepositoryTest {
 ```
 
 **Prioritas:**
+
 1. **Unit Tests** (MOST IMPORTANT)
    - Test business logic
    - Mock dependencies
@@ -299,11 +323,13 @@ class GalleryPhotoRepositoryTest {
 Tidak semua tests harus otomatis dari awal!
 
 **Options:**
+
 - ✅ Automated tests (ideal, tapi butuh setup)
 - ✅ Manual tests (cepat, good enough untuk start)
 - ✅ Skip temporarily (jika ROI rendah)
 
 **Yang penting:**
+
 - Dokumentasi (jelas kenapa di-skip)
 - Bisa di-enable nanti (code sudah ada)
 - Focus on high-value tests first
@@ -316,6 +342,7 @@ Tidak semua tests harus otomatis dari awal!
 Docker sangat berguna untuk development & testing!
 
 **Use cases:**
+
 - Run databases (PostgreSQL, MySQL, MongoDB)
 - Run services (Redis, Kafka, Elasticsearch)
 - Testing dengan environment yang sama persis
@@ -328,24 +355,28 @@ Install Docker untuk long-term development (very useful tool!)
 
 ## 🎯 Summary
 
-### Trouble yang Terjadi:
+### Trouble yang Terjadi
+
 1. H2 tidak support PostgreSQL `RETURNING id` syntax
 2. Testcontainers butuh Docker
 3. Docker tidak terinstall
 
-### Solusi:
+### Solusi
+
 1. Setup Testcontainers (untuk future use)
 2. Disable Repository Tests sementara (`@Disabled`)
 3. Focus on Unit Tests (lebih valuable)
 4. Repository Tests bisa di-test manual atau enable nanti setelah install Docker
 
-### Kenapa Solusi Ini Bagus:
+### Kenapa Solusi Ini Bagus
+
 - ✅ Tetap productive (lanjut ke 38+ unit tests)
 - ✅ Code Repository Tests sudah siap (tinggal enable)
 - ✅ Dokumentasi lengkap (orang lain bisa paham)
 - ✅ Pragmatic decision (fokus high-value work)
 
-### Next Steps:
+### Next Steps
+
 1. ✅ Unit Tests untuk FileStorageService (8 tests)
 2. ✅ Unit Tests untuk GalleryService (18 tests)
 3. ✅ Integration Tests untuk GalleryController (12 tests)
@@ -355,16 +386,19 @@ Install Docker untuk long-term development (very useful tool!)
 
 ## 📚 Resources untuk Belajar Lebih Lanjut
 
-### Testing:
+### Testing
+
 - [JUnit 5 Documentation](https://junit.org/junit5/docs/current/user-guide/)
 - [Mockito Tutorial](https://site.mockito.org/)
 - [Spring Boot Testing](https://spring.io/guides/gs/testing-web/)
 
-### Testcontainers:
+### Testcontainers
+
 - [Testcontainers Docs](https://www.testcontainers.org/)
 - [Testcontainers with Spring Boot](https://www.testcontainers.org/modules/databases/postgres/)
 
-### Docker:
+### Docker
+
 - [Docker Desktop](https://www.docker.com/products/docker-desktop/)
 - [Docker for Beginners](https://docker-curriculum.com/)
 
@@ -373,6 +407,7 @@ Install Docker untuk long-term development (very useful tool!)
 **Kesimpulan untuk Pemula:**
 
 Testing itu seperti cooking:
+
 - ✅ Ada resep yang ideal (Testcontainers + Docker)
 - ✅ Ada cara praktis (skip & fokus unit tests)
 - ✅ Yang penting: makanan (aplikasi) tetap enak (berfungsi)!
