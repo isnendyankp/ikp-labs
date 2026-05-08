@@ -202,17 +202,16 @@
 
 #### PR #7 - Commit Strategy
 
-- [ ] Commit 1: Fix violations in plan README files
-- [ ] Commit 2: Fix violations in requirements/technical-design
-- [ ] Update this checklist
+- [x] No fixes needed — plans already clean from previous PR commits
+- [x] Update this checklist
 
 #### PR #7 - Merge
 
-- [ ] Push branch
-- [ ] Create PR: `docs: fix markdown violations in active plans`
-- [ ] Verify CI passes
-- [ ] Merge with `gh pr merge --rebase --delete-branch`
-- [ ] Update local main
+- [x] Push branch
+- [x] Create PR: `docs: fix markdown violations in active plans` (PR #100, merged via rebase)
+- [x] Verify CI passes
+- [x] Merge with `gh pr merge --rebase --delete-branch`
+- [x] Update local main
 
 ---
 
@@ -239,9 +238,9 @@
 
 - [x] Push branch
 - [x] Create PR: `docs: fix markdown violations in critical files` (PR #101)
-- [ ] Verify CI passes
-- [ ] Merge with `gh pr merge --rebase --delete-branch`
-- [ ] Update local main
+- [x] Verify CI passes
+- [x] Merge with `gh pr merge --rebase --delete-branch`
+- [x] Update local main
 
 ---
 
@@ -252,13 +251,13 @@
 - [x] Run `npm run lint:md` on all fixed files
 - [x] Verify violation count reduced from 9174 to 6648 (< 7000) ✅
 - [x] Verify all high-priority files pass linting
-- [ ] Update README.md status to "Completed"
-- [ ] Add completion date to README.md
+- [x] Update README.md status to "Completed"
+- [x] Add completion date to README.md (2026-05-08)
 
 ### Plan Archival
 
-- [ ] Move plan folder to `plans/done/`
-- [ ] Commit plan move: `docs(plan): move fix-markdown-violations to done`
+- [x] Move plan folder to `plans/done/`
+- [x] Commit plan move: `docs(plan): move fix-markdown-violations to done`
 - [ ] Create PR for plan closure
 - [ ] Merge PR
 
