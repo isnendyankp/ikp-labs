@@ -9,39 +9,47 @@ Reference documentation provides dry, factual information about the system. It d
 ## Available Reference Documentation
 
 ### Implementation Summary
+
 [implementation-summary.md](implementation-summary.md)
 
 Project implementation status, completed features, technical stack, and overall project summary.
 
 ### RTK Commands
+
 [rtk-commands.md](rtk-commands.md)
 
 Complete reference for all RTK CLI commands including analytics, debugging tools, and hook-based command savings breakdown.
 
 ### Claude Agents
+
 [claude-agents.md](claude-agents.md)
 
 Complete reference for all Claude agents in the project, including maker agents (plan-writer, documentation-writer, gherkin-spec-writer) and validator agents (test-validator, docs-validator, plan-checker).
 
 ### API Endpoints
+
 [api-endpoints.md](api-endpoints.md)
 
 Complete API reference for all backend endpoints including request/response formats, authentication requirements, and examples.
 
 ### Database Schema
+
 [database-schema.md](database-schema.md)
 
 Database tables, columns, relationships, constraints, and indexes documentation.
 
 ### Testing Commands
+
 [testing-commands.md](testing-commands.md)
 
 Quick reference for all testing-related commands (Maven, npm, Playwright CLI).
 
 ### Test Scenarios
+
 [test-scenarios/](test-scenarios/)
 
 Detailed test scenarios in Given/When/Then format for:
+
 - E2E Gallery tests
 - Authentication flows
 - Profile management
@@ -50,6 +58,7 @@ Detailed test scenarios in Given/When/Then format for:
 ---
 
 **Note**:
+
 - Want to learn? See [Tutorials](../tutorials/)
 - Need to solve a problem? Check [How-To Guides](../how-to/)
 - Want to understand why? Read [Explanation](../explanation/)

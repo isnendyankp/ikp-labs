@@ -55,6 +55,7 @@ The gallery provides 4 sorting options to organize your photos:
 ### 3. Verify Your Selection
 
 After selecting a sort option:
+
 - The dropdown button updates to show your selection
 - Photos reload immediately in the new order
 - URL updates to include `?sortBy=` parameter
@@ -66,17 +67,20 @@ You can combine **filters** and **sorting** for powerful organization:
 
 ### Example Combinations
 
-**Scenario 1: Find your most popular uploads**
+#### Scenario 1: Find your most popular uploads
+
 1. Select filter: **My Photos**
 2. Select sort: **Most Liked**
 3. Result: Your photos sorted by like count
 
-**Scenario 2: Browse oldest liked photos**
+#### Scenario 2: Browse oldest liked photos
+
 1. Go to **Liked Photos** page
 2. Select sort: **Oldest First**
 3. Result: Photos you liked, starting with oldest
 
-**Scenario 3: Discover popular public content**
+#### Scenario 3: Discover popular public content
+
 1. Select filter: **Public Photos** (or use default "All Photos")
 2. Select sort: **Most Favorited**
 3. Result: Public photos sorted by favorites
@@ -106,7 +110,7 @@ The sort preference is saved in the URL, making it easy to share specific views:
 
 ### Example URLs
 
-```
+```text
 # Most liked photos
 https://yourapp.com/gallery?sortBy=mostLiked
 
@@ -134,37 +138,45 @@ https://yourapp.com/gallery?filter=liked&sortBy=mostFavorited
 ### 🔍 Finding Specific Photos
 
 **Looking for latest additions?**
+
 - Use **Newest First** (default)
 
 **Want to see your photo journey?**
+
 - Filter: **My Photos**
 - Sort: **Oldest First**
 
 **Discover trending content?**
+
 - Filter: **All Photos** or **Public Photos**
 - Sort: **Most Liked** or **Most Favorited**
 
 **Review photos you appreciated?**
+
 - Page: **Liked Photos**
 - Sort: **Newest First** (recent likes) or **Most Liked** (popular among others)
 
 ## Troubleshooting
 
 ### Sort dropdown not appearing?
+
 - **Solution**: Ensure you're logged in
 - **Check**: Page has loaded completely
 - **Try**: Refresh the page
 
 ### Photos not updating after sort selection?
+
 - **Solution**: Check your internet connection
 - **Try**: Refresh the page
 - **Check**: Browser console for errors
 
 ### URL doesn't include sortBy parameter?
+
 - **Note**: If using default "Newest First", sortBy is optional in URL
 - **Verify**: Other sort options should show `?sortBy=` in URL
 
 ### Pagination shows wrong page after sorting?
+
 - **Expected behavior**: Page resets to 1 when changing sort
 - **Reason**: New sort order means different content per page
 
@@ -180,6 +192,7 @@ On mobile devices:
 ## Accessibility
 
 The sort dropdown supports:
+
 - ✅ Keyboard navigation (Tab, Enter, Escape)
 - ✅ Screen readers (ARIA attributes)
 - ✅ High contrast mode
@@ -195,6 +208,7 @@ The sort dropdown supports:
 ## Next Steps
 
 Now that you know how to sort photos:
+
 1. Experiment with different sort + filter combinations
 2. Bookmark your favorite sorted views
 3. Share interesting sorted galleries with friends

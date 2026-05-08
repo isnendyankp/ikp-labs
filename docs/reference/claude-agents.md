@@ -11,7 +11,7 @@ The IKP-Labs project uses **6 specialized Claude agents** organized into two cat
 
 ### Agent Architecture
 
-```
+```text
 ┌─────────────────────────────────────────────────────────┐
 │                    Claude Agents System                  │
 ├─────────────────────────────────────────────────────────┤
@@ -54,6 +54,7 @@ The IKP-Labs project uses **6 specialized Claude agents** organized into two cat
 **Purpose:** Create and update implementation plans using the 4-document system
 
 **Usage:**
+
 ```bash
 @plan-writer create plan for [feature description]
 ```
@@ -85,10 +86,12 @@ The IKP-Labs project uses **6 specialized Claude agents** organized into two cat
    - Commit strategy
 
 **Skills Accessed:**
+
 - `plan__four-doc-system` - 4-document structure standards
 - `wow__criticality-assessment` - Issue severity classification
 
 **Example Usage:**
+
 ```bash
 User: "I need a plan for implementing password reset feature"
 
@@ -102,6 +105,7 @@ Assistant: @plan-writer
 ```
 
 **Related Documentation:**
+
 - [Create Implementation Plans](../how-to/create-implementation-plans.md)
 
 ---
@@ -113,6 +117,7 @@ Assistant: @plan-writer
 **Purpose:** Create and update documentation following the Diátaxis framework
 
 **Usage:**
+
 ```bash
 @documentation-writer create [type] doc for [feature]
 ```
@@ -144,11 +149,13 @@ Assistant: @plan-writer
    - No placeholders (TODO, TBD)
 
 **Skills Accessed:**
+
 - `docs__quality-standards` - Writing style and quality rules
 - `docs__diataxis-framework` - Documentation categorization
 - `wow__criticality-assessment` - Issue severity classification
 
 **Example Usage:**
+
 ```bash
 User: "I've implemented JWT authentication. Can you document how to use it?"
 
@@ -173,6 +180,7 @@ Or if appropriate:
 | **explanation/** | Understanding | "Authentication Architecture" |
 
 **Related Documentation:**
+
 - [Diátaxis Framework](../../.claude/skills/docs__diataxis-framework.md)
 
 ---
@@ -184,6 +192,7 @@ Or if appropriate:
 **Purpose:** Create and update Gherkin BDD specifications in the `specs/` folder
 
 **Usage:**
+
 ```bash
 @gherkin-spec-writer create scenarios for [feature]
 ```
@@ -214,11 +223,13 @@ Or if appropriate:
    - Verify test scenarios match specs
 
 **Skills Accessed:**
+
 - `test__coverage-rules` - Coverage requirements
 - `test__playwright-patterns` - Best practices
 - `wow__criticality-assessment` - Issue severity classification
 
 **Example Usage:**
+
 ```bash
 User: "I need to add authentication scenarios for the registration feature"
 
@@ -241,11 +252,13 @@ Feature: User Registration
 
 **1-1-1 Rule:**
 Each scenario should have:
+
 - **1 Given** (Initial context)
 - **1 When** (Action taken)
 - **1 Then** (Expected outcome)
 
 **Related Documentation:**
+
 - [Test Coverage Rules](../../.claude/skills/test__coverage-rules.md)
 
 ---
@@ -259,6 +272,7 @@ Each scenario should have:
 **Purpose:** Validate E2E test coverage and quality using Playwright testing best practices
 
 **Usage:**
+
 ```bash
 @test-validator
 ```
@@ -296,11 +310,13 @@ Each scenario should have:
    - Track metrics over time
 
 **Skills Accessed:**
+
 - `test__coverage-rules` - Coverage thresholds
 - `test__playwright-patterns` - Best practices
 - `wow__criticality-assessment` - Issue classification
 
 **Example Findings:**
+
 ```markdown
 ## 🟠 HIGH - Missing Test Scenario
 
@@ -319,12 +335,15 @@ test('sort photos by most favorited', async ({ page }) => {
 ```
 
 **Priority:** HIGH - Add within 1-2 days
-```
+
+```text
 
 **Report Location:**
 ```
+
 generated-reports/test-audit-YYYY-MM-DD-HHMM.md
-```
+
+```text
 
 **Related Documentation:**
 - [Use Claude Validators](../how-to/use-claude-validators.md)
@@ -383,11 +402,13 @@ generated-reports/test-audit-YYYY-MM-DD-HHMM.md
    - Track metrics over time
 
 **Skills Accessed:**
+
 - `docs__quality-standards` - Writing style and quality
 - `docs__diataxis-framework` - Categorization
 - `wow__criticality-assessment` - Issue classification
 
 **Example Findings:**
+
 ```markdown
 ## 🟠 HIGH - Undocumented API Endpoint
 
@@ -409,17 +430,20 @@ Add to docs/reference/api-endpoints.md:
   "isFavorited": true
 }
 ```
-```
+
+```text
 
 **Priority:** HIGH - Add within 1-2 days
 ```
 
 **Report Location:**
-```
+
+```text
 generated-reports/docs-audit-YYYY-MM-DD-HHMM.md
 ```
 
 **Related Documentation:**
+
 - [Use Claude Validators](../how-to/use-claude-validators.md)
 
 ---
@@ -431,6 +455,7 @@ generated-reports/docs-audit-YYYY-MM-DD-HHMM.md
 **Purpose:** Validate implementation plan completeness, task atomicity, and readiness for execution
 
 **Usage:**
+
 ```bash
 @plan-checker
 
@@ -483,10 +508,12 @@ generated-reports/docs-audit-YYYY-MM-DD-HHMM.md
    - Assess plan readiness
 
 **Skills Accessed:**
+
 - `plan__four-doc-system` - 4-document structure
 - `wow__criticality-assessment` - Issue classification
 
 **Example Findings:**
+
 ```markdown
 ## 🔴 CRITICAL - Missing Required Document
 
@@ -509,11 +536,13 @@ Create technical-design.md with sections:
 ```
 
 **Report Location:**
-```
+
+```text
 generated-reports/plan-audit-YYYY-MM-DD-HHMM.md
 ```
 
 **Plan Readiness Criteria:**
+
 - ✅ All 4 documents exist
 - ✅ All required sections present
 - ✅ ≥90% tasks atomic
@@ -522,6 +551,7 @@ generated-reports/plan-audit-YYYY-MM-DD-HHMM.md
 - ✅ <3 HIGH priority issues
 
 **Related Documentation:**
+
 - [Use Claude Validators](../how-to/use-claude-validators.md)
 - [Create Implementation Plans](../how-to/create-implementation-plans.md)
 
@@ -545,6 +575,7 @@ Skills are centralized knowledge modules that agents access via `permission.skil
 ### Skill Details
 
 For detailed information about each skill, see:
+
 - [`.claude/skills/`](../../.claude/skills/) directory
 
 ---
@@ -570,7 +601,7 @@ All validators use the same criticality assessment system:
 
 ### Decision Matrix
 
-```
+```text
                  HIGH Confidence    MEDIUM Confidence   LOW Confidence
 CRITICAL (🔴)     AUTO-FIX           ESCALATE            ESCALATE
 HIGH (🟠)        AUTO-FIX           ESCALATE            REVIEW
@@ -584,7 +615,7 @@ LOW (🟢)         AUTO-FIX           REVIEW              IGNORE
 
 The agents follow the Maker-Checker-Fixer workflow:
 
-```
+```text
 ┌─────────────────────────────────────────────────────────┐
 │              Maker-Checker-Fixer Pattern                │
 ├─────────────────────────────────────────────────────────┤
@@ -726,6 +757,7 @@ permission.skill:
 **File:** `generated-reports/test-audit-YYYY-MM-DD-HHMM.md`
 
 **Sections:**
+
 - Executive Summary
 - E2E Test Coverage
 - Spec ↔ Test Synchronization
@@ -740,6 +772,7 @@ permission.skill:
 **File:** `generated-reports/docs-audit-YYYY-MM-DD-HHMM.md`
 
 **Sections:**
+
 - Executive Summary
 - API Documentation Coverage
 - JSDoc/JavaDoc Coverage
@@ -755,6 +788,7 @@ permission.skill:
 **File:** `generated-reports/plan-audit-YYYY-MM-DD-HHMM.md`
 
 **Sections:**
+
 - Executive Summary
 - 4-Document System Validation
 - Required Sections Check
@@ -820,11 +854,13 @@ permission.skill:
 **Issue:** Agent doesn't start when tagged
 
 **Possible Causes:**
+
 1. Agent name misspelled
 2. Agent file not found
 3. Permission misconfiguration
 
 **Solution:**
+
 ```bash
 # Check agent exists
 ls .claude/agents/
@@ -843,11 +879,13 @@ grep "permission.skill" .claude/agents/agent-name.md
 **Issue:** No report file created
 
 **Possible Causes:**
+
 1. `generated-reports/` directory doesn't exist
 2. File permission issues
 3. Validator crashed mid-execution
 
 **Solution:**
+
 ```bash
 # Ensure directory exists
 mkdir -p generated-reports/
@@ -866,6 +904,7 @@ ls -la generated-reports/
 **Issue:** Validator finds overwhelming number of issues
 
 **Solution:**
+
 1. Focus on **CRITICAL** issues first
 2. Filter report by criticality: `grep "CRITICAL" report.md`
 3. Create follow-up issues for MEDIUM/LOW
@@ -877,7 +916,7 @@ ls -la generated-reports/
 
 ### Test Coverage Metrics
 
-```
+```text
 Last Month:  65% coverage
 This Month:  78% coverage (+13%)
 Target:      90% coverage
@@ -886,7 +925,7 @@ Gap:         -12%
 
 ### Documentation Metrics
 
-```
+```text
 API Endpoints:      45/50 (90%)
 JSDoc Coverage:     82% (target: 80%)
 Broken Links:       3 (down from 12)
@@ -895,7 +934,7 @@ Placeholders:       0 (down from 7)
 
 ### Plan Metrics
 
-```
+```text
 Plans Ready:        3/5 (60%)
 Plans At Risk:      1/5 (20%)
 Plans Stalled:      1/5 (20%)
@@ -907,10 +946,12 @@ Avg Task Atomicity: 88%
 ## Related Documentation
 
 ### How-To Guides
+
 - [Use Claude Validators](../how-to/use-claude-validators.md)
 - [Create Implementation Plans](../how-to/create-implementation-plans.md)
 
 ### Skills Reference
+
 - [`.claude/skills/plan__four-doc-system.md`](../../.claude/skills/plan__four-doc-system.md)
 - [`.claude/skills/docs__quality-standards.md`](../../.claude/skills/docs__quality-standards.md)
 - [`.claude/skills/docs__diataxis-framework.md`](../../.claude/skills/docs__diataxis-framework.md)
@@ -932,6 +973,7 @@ Avg Task Atomicity: 88%
 | **plan-checker** | Validator | Implementation plan | plan-audit report |
 
 **Key Takeaways:**
+
 - ✅ Use **makers** to create content
 - ✅ Use **validators** to check quality
 - ✅ Fix **CRITICAL** issues immediately

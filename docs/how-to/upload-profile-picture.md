@@ -13,6 +13,7 @@ This guide shows you how to implement profile picture upload functionality in th
 ## Overview
 
 The profile picture feature allows authenticated users to:
+
 - Upload profile pictures (JPEG, PNG, GIF)
 - View their current profile picture
 - Delete their profile picture
@@ -37,6 +38,7 @@ file.upload.directory=uploads/profiles/
 ```
 
 **What this does:**
+
 - Enables multipart file upload
 - Sets maximum file size to 5MB
 - Configures storage directory path
@@ -158,6 +160,7 @@ public class WebConfig implements WebMvcConfigurer {
 ```
 
 **What this does:**
+
 - Maps `/uploads/**` URL to `uploads/` directory
 - Example: `http://localhost:8081/uploads/profiles/user-83.jpg`
 - Enables browser caching for 1 hour
@@ -245,6 +248,7 @@ export function validateImageFile(file: File): string | null {
 ```
 
 **Key Points:**
+
 - Use `FormData` for multipart file upload
 - Don't set `Content-Type` header (browser sets it automatically with boundary)
 - Include JWT token in `Authorization` header
@@ -433,6 +437,7 @@ export default function HomePage() {
 ### Issue 1: "File is too large"
 
 **Solution:** Check backend `application.properties`:
+
 ```properties
 spring.servlet.multipart.max-file-size=5MB
 spring.servlet.multipart.max-request-size=5MB
@@ -441,6 +446,7 @@ spring.servlet.multipart.max-request-size=5MB
 ### Issue 2: "Failed to load image" (404)
 
 **Solution:** Verify:
+
 - WebConfig is properly configured
 - `uploads/` directory exists
 - File was actually saved to disk
@@ -449,6 +455,7 @@ spring.servlet.multipart.max-request-size=5MB
 ### Issue 3: "Unauthorized" (401)
 
 **Solution:** Ensure:
+
 - User is logged in
 - JWT token exists in localStorage
 - Token is included in Authorization header
@@ -457,6 +464,7 @@ spring.servlet.multipart.max-request-size=5MB
 ### Issue 4: CORS Error
 
 **Solution:** Add CORS configuration in Spring Boot:
+
 ```java
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
@@ -493,7 +501,7 @@ public class WebConfig implements WebMvcConfigurer {
 
 ## File Structure
 
-```
+```text
 backend/
 ├── src/main/java/com/registrationform/api/
 │   ├── config/

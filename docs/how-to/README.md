@@ -35,6 +35,7 @@ How-to guides are goal-oriented directions that help you solve a specific proble
 ---
 
 **Note**:
+
 - New to the project? Start with [Tutorials](../tutorials/)
 - Looking for technical specs? Check [Reference](../reference/)
 - Want to understand concepts? See [Explanation](../explanation/)

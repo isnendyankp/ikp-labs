@@ -5,6 +5,7 @@ Learn how to use Claude validator agents to automatically check your tests, docu
 ## What are Validator Agents?
 
 Validator agents are specialized Claude agents that automatically review your work and generate audit reports. They check for:
+
 - **Missing coverage** (tests, documentation, plan sections)
 - **Quality issues** (best practices violations, non-atomic tasks)
 - **Criticality assessment** (classify issues by severity)
@@ -38,6 +39,7 @@ Simply tag the validator agent in your conversation:
 ```
 
 The agent will:
+
 1. Scan relevant files
 2. Identify issues
 3. Generate a detailed report in `generated-reports/`
@@ -130,13 +132,16 @@ test('sort photos by most favorited', async ({ page }) => {
 ```
 
 **Priority:** HIGH - Add within 1-2 days
-```
+
+```text
 
 ### Report Location
 
 ```
+
 generated-reports/test-audit-YYYY-MM-DD-HHMM.md
-```
+
+```text
 
 ### Skills Used
 
@@ -228,14 +233,15 @@ Get the favorite status of a specific photo.
   "isFavorited": true
 }
 ```
-```
+
+```text
 
 **Priority:** HIGH - Add within 1-2 days
 ```
 
 ### Report Location
 
-```
+```text
 generated-reports/docs-audit-YYYY-MM-DD-HHMM.md
 ```
 
@@ -335,7 +341,7 @@ Create technical-design.md with sections:
 
 ### Report Location
 
-```
+```text
 generated-reports/plan-audit-YYYY-MM-DD-HHMM.md
 ```
 
@@ -355,6 +361,7 @@ All validators use the same criticality assessment system:
 **Response Time:** Immediate (fix before proceeding)
 
 **Examples:**
+
 - Missing required document or section
 - No acceptance criteria defined
 - Critical path not tested (100% coverage required)
@@ -369,6 +376,7 @@ All validators use the same criticality assessment system:
 **Response Time:** Urgent (1-2 days)
 
 **Examples:**
+
 - Untestable acceptance criteria
 - Missing test for important feature
 - Undocumented API endpoint
@@ -383,6 +391,7 @@ All validators use the same criticality assessment system:
 **Response Time:** Normal (1 week)
 
 **Examples:**
+
 - Non-atomic tasks (need breakdown)
 - Placeholder content in docs
 - Suboptimal test selectors
@@ -397,6 +406,7 @@ All validators use the same criticality assessment system:
 **Response Time:** Low priority (or ignore)
 
 **Examples:**
+
 - Minor formatting issues
 - Inconsistent terminology
 - Missing optional sections
@@ -416,7 +426,7 @@ Validators also assess confidence in their findings:
 
 ### Decision Matrix
 
-```
+```text
                  HIGH Confidence    MEDIUM Confidence   LOW Confidence
 CRITICAL (🔴)     AUTO-FIX           ESCALATE            ESCALATE
 HIGH (🟠)        AUTO-FIX           ESCALATE            REVIEW
@@ -575,11 +585,13 @@ echo "Validators passed!"
 **Issue:** No report file created
 
 **Possible Causes:**
+
 1. `generated-reports/` directory doesn't exist
 2. File permission issues
 3. Validator crashed mid-execution
 
 **Solution:**
+
 ```bash
 # Ensure directory exists
 mkdir -p generated-reports
@@ -598,6 +610,7 @@ ls -la generated-reports/
 **Issue:** Validator finds overwhelming number of issues
 
 **Solution:**
+
 1. Focus on **CRITICAL** issues first
 2. Filter report by criticality: `grep "CRITICAL" report.md`
 3. Create follow-up issues for MEDIUM/LOW
@@ -610,6 +623,7 @@ ls -la generated-reports/
 **Issue:** Validator reports something that's actually correct
 
 **Solution:**
+
 1. Review the finding carefully
 2. Check if it's a confidence issue (LOW/MEDIUM)
 3. Verify against the relevant skill file
@@ -624,7 +638,7 @@ Validators provide metrics over time:
 
 ### Test Coverage Trends
 
-```
+```text
 Last Month:  65% coverage
 This Month:  78% coverage (+13%)
 Target:      90% coverage
@@ -633,7 +647,7 @@ Gap:         -12%
 
 ### Documentation Completeness
 
-```
+```text
 API Endpoints:      45/50 (90%)
 JSDoc Coverage:     82% (target: 80%)
 Broken Links:       3 (down from 12)
@@ -642,7 +656,7 @@ Placeholders:       0 (down from 7)
 
 ### Plan Readiness
 
-```
+```text
 Plans Ready:        3/5 (60%)
 Plans At Risk:      1/5 (20%)
 Plans Stalled:      1/5 (20%)
@@ -668,6 +682,7 @@ Avg Task Atomicity: 88%
 | **plan-checker** | Before starting implementation | `plan-audit-*.md` |
 
 **Key Takeaways:**
+
 - ✅ Run validators before major milestones
 - ✅ Fix CRITICAL issues immediately
 - ✅ Fix HIGH issues urgently (1-2 days)
