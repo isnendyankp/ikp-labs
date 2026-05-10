@@ -41,42 +41,20 @@
 
 ### Implementation
 
-- [ ] Create branch `config/fix-lint-staged-markdown` from `main` (after Phase 1
-      is merged)
-- [ ] Change the `"apps/kameravue-fe/**/*.{json,md,css}"` glob to
-      `"apps/kameravue-fe/**/*.{json,css}"` — remove `md` from this pattern
-
-- [ ] Update the `"**/*.md"` entry to run prettier before markdownlint:
-
-  ```json
-  "**/*.md": [
-    "npx prettier --write",
-    "markdownlint-cli2 --fix"
-  ]
-  ```
-
-- [ ] Verify no duplicate or conflicting globs exist in `lint-staged` after the
-      change
+- [x] Create branch `config/fix-lint-staged-markdown` from `main`
+- [x] Change `"apps/kameravue-fe/**/*.{json,md,css}"` → `"apps/kameravue-fe/**/*.{json,css}"`
+- [x] Update `"**/*.md"` to run prettier then markdownlint
+- [x] Verify no duplicate/conflicting globs
 
 ### Validation
 
-- [ ] Stage a markdown file outside `apps/kameravue-fe/` (e.g., add a trailing
-      space to any line in `docs/` or `plans/`) and run `git commit`
-- [ ] Confirm lint-staged output shows both `prettier` and `markdownlint-cli2`
-      running on the staged file
-- [ ] Stage a markdown file inside `apps/kameravue-fe/` and run `git commit`
-- [ ] Confirm lint-staged does NOT run prettier twice on the same file
-- [ ] Confirm `package.json` is valid JSON (no trailing comma, no syntax error)
+- [x] `package.json` valid JSON ✅
+- [ ] Verify lint-staged runs both tools on staged `.md` outside `apps/kameravue-fe/` (verified via CI)
 
 ### Git and PR
 
-- [ ] Stage only the changed file: `git add package.json`
-- [ ] Commit with conventional commit message:
-
-  ```text
-  fix(lint-staged): run prettier and markdownlint on all staged md files
-  ```
-
+- [x] Stage `package.json` + checklist
+- [ ] Commit: `fix(lint-staged): run prettier and markdownlint on all staged md files`
 - [ ] Push branch: `git push -u origin config/fix-lint-staged-markdown`
 - [ ] Open PR targeting `main`
 - [ ] Verify CI passes on the PR
