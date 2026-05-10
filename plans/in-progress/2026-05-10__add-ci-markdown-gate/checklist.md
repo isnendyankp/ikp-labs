@@ -69,51 +69,25 @@
 
 ### Implementation
 
-- [ ] Create branch `ci/add-markdown-lint-job` from `main` (after Phase 2 is
-      merged)
-- [ ] Insert the section comment header before `ci-summary`:
-
-  ```yaml
-  # ===========================================
-  # Markdown Lint (markdownlint-cli2)
-  # ===========================================
-  ```
-
-- [ ] Add the `markdown-lint` job with the following structure:
-  - `name: Markdown Lint`
-  - `runs-on: ubuntu-latest`
-  - Step 1: `actions/checkout@v4` (name: "Checkout repository")
-  - Step 2: `actions/setup-node@v4` with `node-version: ${{ env.NODE_VERSION }}`
-    and `cache: 'npm'` (name: "Setup Node.js")
-  - Step 3: `run: npm ci` (name: "Install dependencies")
-  - Step 4: `run: npm run lint:md` (name: "Run markdown lint")
-
-- [ ] Confirm the job is placed between the `api-tests` job and the `ci-summary`
-      job in the file
-- [ ] Confirm the `ci-summary` job `needs` list is NOT modified in this phase
+- [x] Create branch `ci/add-markdown-lint-job` from `main`
+- [x] Insert section comment header + add `markdown-lint` job (checkout → setup-node → npm ci → lint:md)
+- [x] Confirm job placed between `api-tests` and `ci-summary`
+- [x] Confirm `ci-summary` `needs` NOT modified (observe mode)
 
 ### Validation
 
-- [ ] Inspect the YAML file and confirm `markdown-lint` job exists with the
-      correct steps
-- [ ] Confirm `ci-summary` `needs` still lists only the original 5 jobs
-- [ ] Verify YAML indentation is 2-space throughout the new block (no tabs)
+- [x] `markdown-lint` job exists at line 359 ✅
+- [x] `ci-summary` `needs` still lists original 5 jobs ✅
+- [x] YAML 2-space indentation ✅
 
 ### Git and PR
 
-- [ ] Stage only the changed file:
-      `git add .github/workflows/kameravue-ci.yml`
-- [ ] Commit with conventional commit message:
-
-  ```text
-  ci(markdown): add markdown-lint job in observe mode
-  ```
-
+- [x] Stage `kameravue-ci.yml` + checklist
+- [ ] Commit: `ci(markdown): add markdown-lint job in observe mode`
 - [ ] Push branch: `git push -u origin ci/add-markdown-lint-job`
 - [ ] Open PR targeting `main`
-- [ ] Verify the `markdown-lint` job appears in the GitHub Actions check list
-- [ ] Verify `ci-summary` passes regardless of the `markdown-lint` result
-      (not yet gating)
+- [ ] Verify `markdown-lint` job appears in GitHub Actions check list
+- [ ] Verify `ci-summary` passes regardless of `markdown-lint` result
 - [ ] Merge PR
 
 ---
