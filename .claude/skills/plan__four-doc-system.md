@@ -30,7 +30,7 @@ Every implementation plan consists of **exactly 4 markdown files**:
 
 **Plan Directory Structure:**
 
-```
+```text
 plans/
 ├── in-progress/                              # Active plans
 │   └── YYYY-MM-DD__feature-name/
@@ -53,6 +53,7 @@ plans/
 ### Purpose
 
 The **README.md** is the entry point for the plan. It provides a high-level overview that answers:
+
 - What are we building?
 - Why are we building it?
 - What's the timeline?
@@ -141,6 +142,7 @@ The **README.md** is the entry point for the plan. It provides a high-level over
 ### Best Practices
 
 **DO:**
+
 - ✅ Keep overview concise (2-3 paragraphs max)
 - ✅ Use specific user quotes for pain points
 - ✅ Define measurable success criteria
@@ -148,6 +150,7 @@ The **README.md** is the entry point for the plan. It provides a high-level over
 - ✅ Include realistic timeline with buffer
 
 **DON'T:**
+
 - ❌ Include implementation details (that's for technical-design.md)
 - ❌ List every single task (that's for checklist.md)
 - ❌ Use vague success criteria ("improve performance" → specify "reduce load time to <2s")
@@ -159,6 +162,7 @@ The **README.md** is the entry point for the plan. It provides a high-level over
 ### Purpose
 
 The **requirements.md** provides detailed functional and technical requirements. It answers:
+
 - What exactly are the requirements?
 - What are the acceptance criteria?
 - What are the edge cases?
@@ -178,10 +182,12 @@ The **requirements.md** provides detailed functional and technical requirements.
 
 **User Story**:
 ```
+
 As a [role]
 I want to [action]
 So that [benefit]
-```
+
+```text
 
 **Acceptance Criteria**:
 - [✅] Given [precondition], when [action], then [expected result]
@@ -267,6 +273,7 @@ So that [benefit]
 ### Best Practices
 
 **DO:**
+
 - ✅ Use user stories format for functional requirements
 - ✅ Define clear acceptance criteria (testable)
 - ✅ Include concrete examples with actual data
@@ -274,6 +281,7 @@ So that [benefit]
 - ✅ Map requirements to test coverage
 
 **DON'T:**
+
 - ❌ Mix functional and technical requirements (separate them)
 - ❌ Use vague criteria ("should work well" → specify "response time <200ms")
 - ❌ Forget edge cases (null, empty, max, min)
@@ -285,6 +293,7 @@ So that [benefit]
 ### Purpose
 
 The **technical-design.md** describes how the solution will be implemented. It answers:
+
 - How will this be built?
 - What's the architecture?
 - What are the implementation patterns?
@@ -300,8 +309,10 @@ The **technical-design.md** describes how the solution will be implemented. It a
 
 **System Architecture Diagram**:
 ```
+
 [ASCII art or mermaid diagram showing components]
-```
+
+```text
 
 **Components**:
 - **Component 1**: [Description and responsibility]
@@ -314,6 +325,7 @@ The **technical-design.md** describes how the solution will be implemented. It a
 ### Component Structure
 
 ```
+
 src/
 ├── components/
 │   ├── FeatureName/
@@ -325,7 +337,8 @@ src/
 │   └── featureService.ts
 └── types/
     └── feature.types.ts
-```
+
+```text
 
 ### Component Specifications
 
@@ -361,6 +374,7 @@ src/
 #### Endpoint 1: POST /api/feature
 
 **Request**:
+
 ```json
 {
   "field1": "string",
@@ -369,6 +383,7 @@ src/
 ```
 
 **Response (200 OK)**:
+
 ```json
 {
   "id": 456,
@@ -377,6 +392,7 @@ src/
 ```
 
 **Response (400 Bad Request)**:
+
 ```json
 {
   "error": "Validation failed",
@@ -385,6 +401,7 @@ src/
 ```
 
 **Implementation**:
+
 - **Controller**: `FeatureController.java`
 - **Service**: `FeatureService.java`
 - **Repository**: `FeatureRepository.java`
@@ -408,6 +425,7 @@ CREATE INDEX idx_user_id ON feature_data(user_id);
 ```
 
 **Modified Tables**:
+
 - `users` table: Add column `feature_enabled BOOLEAN DEFAULT FALSE`
 
 ---
@@ -415,7 +433,8 @@ CREATE INDEX idx_user_id ON feature_data(user_id);
 ## Data Flow
 
 **Sequence Diagram**:
-```
+
+```text
 User → Frontend → Backend → Database
   1. User clicks button
   2. Frontend sends POST /api/feature
@@ -432,6 +451,7 @@ User → Frontend → Backend → Database
 [If using Redux, Context, or other state management]
 
 **State Shape**:
+
 ```typescript
 interface FeatureState {
   data: FeatureData[];
@@ -441,6 +461,7 @@ interface FeatureState {
 ```
 
 **Actions**:
+
 - `FETCH_FEATURE_REQUEST`
 - `FETCH_FEATURE_SUCCESS`
 - `FETCH_FEATURE_FAILURE`
@@ -481,15 +502,18 @@ interface FeatureState {
 ## Testing Strategy
 
 ### Unit Tests
+
 - [ ] All service methods (≥80% coverage)
 - [ ] All React components (≥70% coverage)
 - [ ] All utility functions (100% coverage)
 
 ### Integration Tests
+
 - [ ] API endpoints (all CRUD operations)
 - [ ] Database queries (repository layer)
 
 ### E2E Tests
+
 - [ ] Happy path (user workflow end-to-end)
 - [ ] Error scenarios (validation, auth failures)
 
@@ -507,10 +531,12 @@ interface FeatureState {
 ## Rollback Plan
 
 If deployment fails:
+
 1. Revert backend to previous version (Docker tag)
 2. Revert frontend build (rollback CDN)
 3. Database: Migrations are backward compatible (no rollback needed)
-```
+
+```text
 
 ### Best Practices
 
@@ -575,12 +601,14 @@ npm run build
 ```
 
 **Dependencies**:
+
 - Requires: [Task X.Y to be completed first]
 - Blocks: [Task Z.W cannot start until this is done]
 
 ---
 
 ### Task 1.2: [Another Task] (Duration)
+
 [Repeat structure above]
 
 ---
@@ -588,6 +616,7 @@ npm run build
 ## Phase 2: [Another Phase] (Day/Time - Estimated Duration)
 
 ### Task 2.1: [Task Name] (Duration)
+
 [Repeat structure above]
 
 ---
@@ -616,7 +645,8 @@ Total Commits: [N]
 | Phase 3 | 0 | 3 | [ ] Not Started |
 
 **Last Updated**: [Date and time of last update]
-```
+
+```text
 
 ### Task Breakdown Guidelines
 
@@ -651,6 +681,7 @@ If a task is >1 hour, break it down:
 ```
 
 ✅ **Good** (Atomic):
+
 ```markdown
 ### Task 1.1: Add Sorting Dropdown UI (30 min)
 1. [ ] Create SortDropdown component
@@ -672,6 +703,7 @@ If a task is >1 hour, break it down:
 ### Best Practices
 
 **DO:**
+
 - ✅ Keep tasks atomic (15-60 min each)
 - ✅ Define clear acceptance criteria (testable)
 - ✅ Specify exact commit messages upfront
@@ -679,6 +711,7 @@ If a task is >1 hour, break it down:
 - ✅ Update progress regularly
 
 **DON'T:**
+
 - ❌ Create tasks >2 hours (break them down)
 - ❌ Use vague task names ("Fix stuff", "Update code")
 - ❌ Forget to specify commit message
@@ -693,6 +726,7 @@ If a task is >1 hour, break it down:
 **When**: At the start of a new feature/project
 
 **Steps**:
+
 1. Create directory: `plans/in-progress/YYYY-MM-DD__feature-name/`
 2. Create all 4 documents: README.md, requirements.md, technical-design.md, checklist.md
 3. Fill in all required sections (no placeholders!)
@@ -707,6 +741,7 @@ If a task is >1 hour, break it down:
 **During**: While implementing the feature
 
 **Updates**:
+
 - Mark checklist tasks as [🔄] In progress or [✅] Completed
 - Update README.md status if blocked: ⏸️ Blocked
 - Add notes/learnings to technical-design.md if design changes
@@ -721,6 +756,7 @@ If a task is >1 hour, break it down:
 **When**: All checklist tasks are ✅ Completed
 
 **Steps**:
+
 1. Verify all acceptance criteria met
 2. Update README.md:
    - Status: 🏗️ In Progress → ✅ Completed
@@ -729,6 +765,7 @@ If a task is >1 hour, break it down:
 4. Commit: `docs(plan): mark [feature-name] as completed`
 
 **Verification Checklist**:
+
 - [ ] All checklist tasks marked [✅]
 - [ ] All acceptance criteria met
 - [ ] All commits pushed to repository
@@ -742,6 +779,7 @@ If a task is >1 hour, break it down:
 **When**: Feature is cancelled/deprioritized
 
 **Steps**:
+
 1. Update README.md:
    - Status: 🏗️ In Progress → ❌ Cancelled
    - Add "Cancellation Reason" section
@@ -755,6 +793,7 @@ If a task is >1 hour, break it down:
 ### ❌ 1. Placeholder Content
 
 **Bad**:
+
 ```markdown
 ## Technical Design
 
@@ -772,6 +811,7 @@ Coming soon...
 ### ❌ 2. Missing Acceptance Criteria
 
 **Bad**:
+
 ```markdown
 ### Task 1.1: Add sorting feature
 - [ ] Implement sorting
@@ -781,6 +821,7 @@ Coming soon...
 **Why Bad**: Unclear what "done" means, no way to verify
 
 **Fix**: Add specific, measurable criteria
+
 ```markdown
 ### Task 1.1: Add sorting feature (30 min)
 **Acceptance Criteria**:
@@ -794,6 +835,7 @@ Coming soon...
 ### ❌ 3. Vague Timeline
 
 **Bad**:
+
 ```markdown
 **Target Completion**: Soon / This week / TBD
 ```
@@ -801,6 +843,7 @@ Coming soon...
 **Why Bad**: No clear deadline, hard to track progress
 
 **Fix**: Use specific dates
+
 ```markdown
 **Target Completion**: January 10, 2025 (Rabu)
 ```
@@ -810,6 +853,7 @@ Coming soon...
 ### ❌ 4. No Scope Definition
 
 **Bad**:
+
 ```markdown
 ## Overview
 Implement sorting feature
@@ -818,6 +862,7 @@ Implement sorting feature
 **Why Bad**: Unclear what's included, scope creep likely
 
 **Fix**: Explicitly define in-scope and out-of-scope
+
 ```markdown
 ### In-Scope ✅
 - Gallery page sorting (4 options)
@@ -863,6 +908,7 @@ See code
 ```
 
 **Problems**:
+
 - Placeholder content (TODO)
 - Vague requirements ("make it work")
 - No technical details
@@ -875,6 +921,7 @@ See code
 See actual example: `plans/done/2024-12-28__gallery-sorting-feature/`
 
 **Strengths**:
+
 - ✅ Complete overview with problem statement
 - ✅ Detailed requirements with user stories
 - ✅ Technical design with ASCII diagrams
@@ -889,6 +936,7 @@ See actual example: `plans/done/2024-12-28__gallery-sorting-feature/`
 Before considering a plan "complete", verify:
 
 ### README.md
+
 - [ ] **Status** line present with emoji
 - [ ] **Timeline** specified with dates
 - [ ] **Problem Statement** describes current pain points
@@ -896,12 +944,14 @@ Before considering a plan "complete", verify:
 - [ ] **Success Criteria** are measurable
 
 ### requirements.md
+
 - [ ] **Functional Requirements** use user story format
 - [ ] **Acceptance Criteria** are testable (Given/When/Then)
 - [ ] **Edge Cases** identified and documented
 - [ ] **Examples** include concrete data (not placeholders)
 
 ### technical-design.md
+
 - [ ] **Architecture Diagram** present (ASCII or mermaid)
 - [ ] **API Contracts** specify request/response format
 - [ ] **Database Schema** uses SQL DDL
@@ -909,6 +959,7 @@ Before considering a plan "complete", verify:
 - [ ] **Security** considerations documented
 
 ### checklist.md
+
 - [ ] **Tasks** are atomic (15-60 min each)
 - [ ] **Acceptance Criteria** defined for each task
 - [ ] **Commit Messages** specified in advance

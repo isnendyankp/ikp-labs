@@ -11,6 +11,7 @@
 This skill defines **comprehensive testing standards** for the IKP-Labs project. All code changes must meet minimum coverage thresholds and follow testing best practices to ensure system reliability, maintainability, and confidence in deployments.
 
 **Core Principles:**
+
 1. **Confidence** - Tests provide confidence that code works as expected
 2. **Maintainability** - Tests are easy to understand and update
 3. **Speed** - Test suite runs quickly to enable rapid feedback
@@ -20,7 +21,8 @@ This skill defines **comprehensive testing standards** for the IKP-Labs project.
 **Testing Philosophy:**
 
 We follow the **Testing Pyramid** approach:
-```
+
+```text
          /\
         /  \  E2E (Few)
        /----\
@@ -47,6 +49,7 @@ We follow the **Testing Pyramid** approach:
 | **Critical Paths** | **100%** | **100%** | **100%** | **100%** |
 
 **Critical Paths** include:
+
 - Authentication & authorization (login, JWT validation, role checks)
 - Payment processing (if applicable)
 - Data persistence (CRUD operations)
@@ -56,6 +59,7 @@ We follow the **Testing Pyramid** approach:
 ### Per-Feature Requirements
 
 When adding new features, ensure:
+
 - ✅ **All new functions/methods have unit tests** (≥80% coverage)
 - ✅ **All new API endpoints have integration tests**
 - ✅ **All new user workflows have E2E tests**
@@ -71,22 +75,26 @@ When adding new features, ensure:
 **Definition:** Tests that verify individual functions, methods, or components in isolation.
 
 **Characteristics:**
+
 - **Fast**: Run in milliseconds
 - **Isolated**: No external dependencies (DB, API, filesystem)
 - **Deterministic**: Same input → same output
 - **Focused**: Test one thing at a time
 
 **When to Write:**
+
 - ✅ Pure functions (data transformations, calculations)
 - ✅ Business logic (validation, formatting)
 - ✅ Component behavior (React component logic)
 - ✅ Utility functions (helpers, formatters)
 
 **Tools:**
+
 - **Frontend**: Jest, React Testing Library, Vitest
 - **Backend**: JUnit, Mockito, AssertJ
 
 **Example (Frontend - Jest):**
+
 ```typescript
 // File: frontend/src/utils/dateFormatter.test.ts
 
@@ -112,6 +120,7 @@ describe('formatDate', () => {
 ```
 
 **Example (Backend - JUnit):**
+
 ```java
 // File: backend/ikp-labs-api/src/test/java/com/ikplabs/gallery/service/GalleryServiceTest.java
 
@@ -159,22 +168,26 @@ class GalleryServiceTest {
 **Definition:** Tests that verify interactions between multiple components, modules, or services.
 
 **Characteristics:**
+
 - **Medium Speed**: Run in seconds
 - **Limited Scope**: Test 2-3 components together
 - **Real Dependencies**: May use real DB (in-memory or testcontainers)
 - **API-Focused**: Often test HTTP endpoints end-to-end
 
 **When to Write:**
+
 - ✅ API endpoints (REST/GraphQL)
 - ✅ Database operations (queries, transactions)
 - ✅ Service layer interactions
 - ✅ External API integrations (with mocks)
 
 **Tools:**
+
 - **Frontend**: MSW (Mock Service Worker), axios-mock-adapter
 - **Backend**: Spring Boot Test (@SpringBootTest), RestAssured, TestContainers
 
 **Example (Backend - Spring Boot):**
+
 ```java
 // File: backend/ikp-labs-api/src/test/java/com/ikplabs/gallery/controller/GalleryControllerIntegrationTest.java
 
@@ -246,22 +259,26 @@ class GalleryControllerIntegrationTest {
 **Definition:** Tests that verify complete user workflows from browser to database.
 
 **Characteristics:**
+
 - **Slow**: Run in seconds to minutes
 - **Full Stack**: Test entire application (frontend + backend + DB)
 - **User-Centric**: Simulate real user interactions
 - **Flaky Risk**: Can be flaky due to timing, animations, network
 
 **When to Write:**
+
 - ✅ Critical user journeys (registration, login, checkout)
 - ✅ Multi-page workflows (photo upload → gallery → sorting)
 - ✅ Cross-component interactions
 - ✅ UI state management
 
 **Tools:**
+
 - **Playwright** (primary for IKP-Labs)
 - Cypress, Selenium (alternatives)
 
 **Example (Playwright):**
+
 ```typescript
 // File: frontend/tests/gallery-sorting.spec.ts
 
@@ -312,6 +329,7 @@ test.describe('Gallery Photo Sorting', () => {
 ```
 
 **E2E Best Practices:**
+
 - ✅ Use **page object model** for reusable page logic
 - ✅ Use **data-testid** attributes instead of CSS selectors
 - ✅ **Wait for elements** explicitly (avoid fixed timeouts)
@@ -336,6 +354,7 @@ For IKP-Labs, aim for this distribution:
 ### What to Test (Priority)
 
 #### ✅ **ALWAYS Test:**
+
 1. **Happy Path** - Expected user flow works correctly
 2. **Error Cases** - Handles failures gracefully (null, undefined, 404, 500)
 3. **Edge Cases** - Boundary conditions (empty arrays, max values, special characters)
@@ -343,12 +362,14 @@ For IKP-Labs, aim for this distribution:
 5. **Critical Business Logic** - Payment, data integrity, compliance
 
 #### ⚠️ **Consider Testing:**
+
 - UI component rendering (snapshot tests)
 - Complex conditional logic
 - Data transformations
 - State management (Redux, Context)
 
 #### ❌ **Don't Test:**
+
 - Third-party libraries (already tested by maintainers)
 - Simple getters/setters (no logic)
 - Framework internals (React, Spring Boot)
@@ -363,6 +384,7 @@ For IKP-Labs, aim for this distribution:
 These files/directories should be excluded from coverage calculation:
 
 **Frontend:**
+
 ```javascript
 // File: frontend/jest.config.js or vitest.config.ts
 
@@ -390,6 +412,7 @@ export default {
 ```
 
 **Backend:**
+
 ```xml
 <!-- File: backend/ikp-labs-api/pom.xml -->
 
@@ -417,6 +440,7 @@ export default {
 ```
 
 **Rationale:**
+
 - **Type definitions**: No runtime logic
 - **Configuration**: Declarative code, hard to test meaningfully
 - **Entry points**: Minimal logic, mostly framework bootstrapping
@@ -430,6 +454,7 @@ export default {
 ### Running Coverage Reports
 
 **Frontend (Jest):**
+
 ```bash
 cd frontend
 npm run test:coverage
@@ -439,6 +464,7 @@ open coverage/lcov-report/index.html
 ```
 
 **Backend (Maven + JaCoCo):**
+
 ```bash
 cd backend/ikp-labs-api
 mvn clean test jacoco:report
@@ -448,6 +474,7 @@ open target/site/jacoco/index.html
 ```
 
 **Playwright (E2E Coverage):**
+
 ```bash
 cd frontend
 npm run test:e2e -- --coverage
@@ -459,24 +486,29 @@ npm run test:e2e -- --coverage
 ### Interpreting Coverage Metrics
 
 **Line Coverage:**
+
 - Measures which lines of code were executed
 - **Goal**: ≥70% frontend, ≥80% backend
 
 **Branch Coverage:**
+
 - Measures which decision branches were taken (if/else, switch, ternary)
 - **Goal**: ≥65% frontend, ≥75% backend
 - More important than line coverage for catching logic errors
 
 **Function Coverage:**
+
 - Measures which functions/methods were called
 - **Goal**: ≥70% frontend, ≥80% backend
 
 **Statement Coverage:**
+
 - Similar to line coverage but counts logical statements
 - **Goal**: ≥70% frontend, ≥80% backend
 
 **Example Coverage Report:**
-```
+
+```text
 File                    | % Stmts | % Branch | % Funcs | % Lines | Uncovered Lines
 ------------------------|---------|----------|---------|---------|------------------
 galleryService.ts       |   85.71 |    75.00 |   100.0 |   85.71 | 42-45
@@ -487,6 +519,7 @@ All files               |   78.45 |    70.12 |   82.35 |   78.45 |
 ```
 
 **Action Items from Report:**
+
 - ❌ `userController.ts` below threshold (66.67% < 70%) → Add tests for lines 23-28, 45-50
 - ✅ `authMiddleware.ts` at 100% (critical security path) → Good!
 - ⚠️ `galleryService.ts` at 85.71% but missing lines 42-45 → Review if critical
@@ -498,6 +531,7 @@ All files               |   78.45 |    70.12 |   82.35 |   78.45 |
 ### ❌ 1. Testing Implementation Details
 
 **Bad:**
+
 ```typescript
 // Testing internal state/implementation
 it('updates internal counter', () => {
@@ -508,6 +542,7 @@ it('updates internal counter', () => {
 ```
 
 **Good:**
+
 ```typescript
 // Testing user-visible behavior
 it('increments count when button clicked', () => {
@@ -527,6 +562,7 @@ it('increments count when button clicked', () => {
 ### ❌ 2. Brittle Selectors in E2E Tests
 
 **Bad:**
+
 ```typescript
 // Fragile CSS selectors
 await page.click('.css-abc123 > div:nth-child(2) > button');
@@ -534,6 +570,7 @@ await expect(page.locator('div.some-generated-class')).toBeVisible();
 ```
 
 **Good:**
+
 ```typescript
 // Semantic selectors with data-testid
 await page.click('[data-testid="submit-button"]');
@@ -547,6 +584,7 @@ await expect(page.getByRole('heading', { name: 'Success' })).toBeVisible();
 ### ❌ 3. Not Testing Error Scenarios
 
 **Bad:**
+
 ```typescript
 // Only testing happy path
 it('fetches photos successfully', async () => {
@@ -556,6 +594,7 @@ it('fetches photos successfully', async () => {
 ```
 
 **Good:**
+
 ```typescript
 // Testing both success and failure
 it('fetches photos successfully', async () => {
@@ -584,6 +623,7 @@ it('handles empty response', async () => {
 ### ❌ 4. Flaky Tests with Fixed Timeouts
 
 **Bad:**
+
 ```typescript
 // Fixed timeout - flaky on slow machines/CI
 await page.click('#submit');
@@ -592,6 +632,7 @@ expect(await page.locator('.success-message').isVisible()).toBe(true);
 ```
 
 **Good:**
+
 ```typescript
 // Wait for specific condition
 await page.click('#submit');
@@ -606,6 +647,7 @@ expect(await page.locator('.success-message')).toBeVisible();
 ### ❌ 5. Over-Mocking in Integration Tests
 
 **Bad:**
+
 ```typescript
 // Mocking everything defeats purpose of integration test
 jest.mock('../../services/galleryService');
@@ -620,6 +662,7 @@ it('API endpoint returns photos', async () => {
 ```
 
 **Good:**
+
 ```typescript
 // Use real implementations, only mock external services
 // (Use in-memory DB or testcontainers for real database)
@@ -733,6 +776,7 @@ class PhotoSortingServiceTest {
 ```
 
 **Why This is Good:**
+
 - ✅ Tests happy path (newest, most liked)
 - ✅ Tests edge case (empty list)
 - ✅ Tests error case (null/invalid sort option)
@@ -800,6 +844,7 @@ describe('GallerySortDropdown', () => {
 ```
 
 **Why This is Good:**
+
 - ✅ Tests rendering with default props
 - ✅ Tests user interaction (onChange)
 - ✅ Tests different states (disabled, loading)

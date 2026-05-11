@@ -15,7 +15,7 @@ The **Diátaxis framework** is a systematic approach to organizing technical doc
 
 **The Four Quadrants:**
 
-```
+```text
                     LEARNING              DOING
                ┌─────────────┬─────────────┐
                │             │             │
@@ -42,6 +42,7 @@ The **Diátaxis framework** is a systematic approach to organizing technical doc
 **Purpose**: Help beginners **learn** by doing a complete task
 
 **Characteristics:**
+
 - **Learning-oriented**: Designed for absolute beginners
 - **Step-by-step**: Sequential instructions (1, 2, 3...)
 - **Complete project**: User builds something working from scratch
@@ -54,11 +55,13 @@ The **Diátaxis framework** is a systematic approach to organizing technical doc
 **Location**: `docs/tutorials/`
 
 **Examples from IKP-Labs:**
+
 - `getting-started.md` - First-time setup and hello world
 - `first-photo-upload.md` - Upload your first gallery photo
 - `build-your-first-feature.md` - Add a like button step-by-step
 
 **Structure:**
+
 ```markdown
 # Tutorial Title
 
@@ -88,6 +91,7 @@ The **Diátaxis framework** is a systematic approach to organizing technical doc
 **Writing Guidelines:**
 
 ✅ **DO:**
+
 - Start from zero (assume no prior knowledge)
 - Provide ALL code, don't skip steps
 - Show expected output at each step
@@ -95,6 +99,7 @@ The **Diátaxis framework** is a systematic approach to organizing technical doc
 - Test tutorial yourself before publishing
 
 ❌ **DON'T:**
+
 - Skip "obvious" steps (not obvious to beginners!)
 - Use advanced concepts without explanation
 - Branch into alternatives ("You could also...")
@@ -142,6 +147,7 @@ Click the green **Submit** button.
 **Purpose**: Show **how to solve** a specific, real-world problem
 
 **Characteristics:**
+
 - **Goal-oriented**: User has a specific problem to solve
 - **Assumes knowledge**: User knows basics already
 - **Focused**: Solves ONE problem, not everything
@@ -154,12 +160,14 @@ Click the green **Submit** button.
 **Location**: `docs/how-to/`
 
 **Examples from IKP-Labs:**
+
 - `run-e2e-tests.md` - How to run end-to-end tests
 - `sort-gallery-photos.md` - How to use photo sorting feature
 - `configure-authentication.md` - How to set up JWT auth
 - `deploy-to-production.md` - How to deploy the application
 
 **Structure:**
+
 ```markdown
 # How to [Achieve Goal]
 
@@ -190,6 +198,7 @@ Click the green **Submit** button.
 **Writing Guidelines:**
 
 ✅ **DO:**
+
 - State the goal upfront (user knows if this is for them)
 - List prerequisites (required knowledge/tools)
 - Provide alternatives when multiple solutions exist
@@ -197,6 +206,7 @@ Click the green **Submit** button.
 - Link to related guides
 
 ❌ **DON'T:**
+
 - Teach basics (user already knows them)
 - Explain *why* at length (save for Explanation docs)
 - Cover every edge case (focus on common scenario)
@@ -248,9 +258,11 @@ curl http://localhost:8081/api/gallery/public?sortBy=mostLiked
 **Expected**: JSON array of photos sorted by like count.
 
 ## Related
+
 - [API Reference: Gallery Endpoints](../reference/api-endpoints.md)
 - [How to Like Photos](./like-photos.md)
-```
+
+```text
 
 ---
 
@@ -297,8 +309,10 @@ curl http://localhost:8081/api/gallery/public?sortBy=mostLiked
 **Returns/Response**: [What it returns]
 
 ## [Item 2]
+
 [Repeat structure]
-```
+
+```text
 
 **Writing Guidelines:**
 
@@ -372,7 +386,8 @@ Retrieve paginated list of public photos.
 **Implementation**: [GalleryController.java:45](../../backend/.../GalleryController.java#L45)
 
 **Tests**: [gallery.api.spec.ts:12](../../tests/api/gallery.api.spec.ts#L12)
-```
+
+```text
 
 ---
 
@@ -430,6 +445,7 @@ Retrieve paginated list of public photos.
 **Writing Guidelines:**
 
 ✅ **DO:**
+
 - Provide context and background
 - Discuss trade-offs openly
 - Mention alternatives considered
@@ -437,6 +453,7 @@ Retrieve paginated list of public photos.
 - Connect to broader concepts
 
 ❌ **DON'T:**
+
 - Give step-by-step instructions (use How-To)
 - List all parameters (use Reference)
 - Teach from scratch (use Tutorial)
@@ -486,22 +503,28 @@ Server doesn't store session data. Token contains all necessary information:
 ```
 
 ### 2. Self-Contained
+
 Token is cryptographically signed. Server can verify authenticity without database lookup.
 
 ### 3. Scalable
+
 Any server can validate any token. No session synchronization needed.
 
 ### 4. Mobile-Friendly
+
 Token stored in mobile app, sent with each request. No cookies needed.
 
 ## Alternatives Considered
 
 ### Sessions + Redis
+
 **Pros**:
+
 - Can revoke immediately (server controls)
 - Smaller payload size
 
 **Cons**:
+
 - Requires Redis cluster (infrastructure cost)
 - Network latency for session lookup
 - Complex multi-datacenter setup
@@ -509,11 +532,14 @@ Token stored in mobile app, sent with each request. No cookies needed.
 **Why we rejected**: Added complexity outweighed benefits for our scale.
 
 ### OAuth 2.0
+
 **Pros**:
+
 - Industry standard
 - Third-party login (Google, GitHub)
 
 **Cons**:
+
 - More complex implementation
 - Requires OAuth provider setup
 
@@ -522,17 +548,20 @@ Token stored in mobile app, sent with each request. No cookies needed.
 ## Trade-offs
 
 ### JWT Advantages
+
 ✅ Stateless (scales horizontally)
 ✅ No session store required
 ✅ Works across microservices
 ✅ Mobile-friendly
 
 ### JWT Disadvantages
+
 ❌ Cannot revoke before expiry (logout is client-side only)
 ❌ Larger payload than session ID
 ❌ Sensitive data in token (must not include secrets)
 
 ### Our Mitigation
+
 - Short expiry time (24 hours)
 - Refresh token mechanism (planned)
 - Token blacklist for critical logout (future)
@@ -548,9 +577,11 @@ Token stored in mobile app, sent with each request. No cookies needed.
 See: [How to Authenticate](../how-to/authenticate.md) for implementation details
 
 ## Related
+
 - [Security Best Practices](./security.md)
 - [API Authentication Reference](../reference/api-endpoints.md#authentication)
-```
+
+```text
 
 ---
 
@@ -559,6 +590,7 @@ See: [How to Authenticate](../how-to/authenticate.md) for implementation details
 Use this flowchart to categorize documentation:
 
 ```
+
 START: I need to write documentation
 
    ↓
@@ -584,7 +616,8 @@ Q3: Is this describing technical specifications?
 Q4: Is this explaining concepts or design decisions?
    YES → EXPLANATION
    NO  → Re-evaluate (must be one of the four!)
-```
+
+```text
 
 **Alternative Decision Questions:**
 
@@ -659,6 +692,7 @@ Step 2: Clone repository
 ### ❌ Mistake 2: Explanation in Reference
 
 **Bad**: `docs/reference/authentication.md`
+
 ```markdown
 # Authentication Reference
 
@@ -670,6 +704,7 @@ Traditional sessions require Redis...
 **Why wrong**: This is explaining *why* (Explanation), not listing facts (Reference)
 
 **Fix**:
+
 - Create `docs/explanation/authentication-strategy.md` for the "why"
 - Keep `docs/reference/api-endpoints.md#authentication` for the technical specs
 
@@ -678,6 +713,7 @@ Traditional sessions require Redis...
 ### ❌ Mistake 3: How-To as Tutorial
 
 **Bad**: `docs/tutorials/deploy-app.md`
+
 ```markdown
 # Deploy Application Tutorial
 
@@ -699,6 +735,7 @@ Step 1: Push to main branch
 ### ❌ Mistake 4: Reference with Instructions
 
 **Bad**: `docs/reference/api-endpoints.md`
+
 ```markdown
 ## POST /api/auth/login
 
@@ -711,6 +748,7 @@ The server will validate...
 **Why wrong**: Reference should be factual, not instructional
 
 **Fix**:
+
 - Reference: Just list endpoint, parameters, responses
 - How-To: Create `docs/how-to/authenticate.md` for step-by-step
 
@@ -722,7 +760,8 @@ The server will validate...
 
 If you have existing documentation not following Diátaxis:
 
-**Step 1: Audit Current Docs**
+#### Step 1: Audit Current Docs
+
 ```bash
 # List all markdown files
 find docs/ -name "*.md"
@@ -739,14 +778,16 @@ Create a spreadsheet:
 | api.md | Reference | docs/reference/api-endpoints.md | Keep |
 | deploy.md | How-To | docs/how-to/deploy-to-production.md | Move |
 
-**Step 3: Reorganize**
+#### Step 3: Reorganize
+
 ```bash
 # Move files to correct locations
 mv docs/setup.md docs/tutorials/getting-started.md
 mv docs/deploy.md docs/how-to/deploy-to-production.md
 ```
 
-**Step 4: Update Links**
+#### Step 4: Update Links
+
 ```bash
 # Find all references to moved files
 grep -r "setup.md" docs/
@@ -781,29 +822,34 @@ Update `docs/README.md` to reflect new structure:
 Before publishing categorized documentation:
 
 **Category Validation:**
+
 - [ ] File is in correct directory (`docs/tutorials/`, `how-to/`, `reference/`, `explanation/`)
 - [ ] Content matches category purpose (teaching/solving/describing/explaining)
 - [ ] Writing style matches category (step-by-step vs concise vs factual vs discursive)
 
 **Tutorial Checklist:**
+
 - [ ] Starts from zero (beginner-friendly)
 - [ ] Every step included (no gaps)
 - [ ] Expected output shown
 - [ ] Tested recently (actually works)
 
 **How-To Checklist:**
+
 - [ ] Clear goal stated upfront
 - [ ] Prerequisites listed
 - [ ] Focused on one problem
 - [ ] Troubleshooting section included
 
 **Reference Checklist:**
+
 - [ ] All parameters documented
 - [ ] Consistent format used
 - [ ] No narrative prose
 - [ ] Examples provided
 
 **Explanation Checklist:**
+
 - [ ] Context provided
 - [ ] Trade-offs discussed
 - [ ] Alternatives mentioned
@@ -820,4 +866,4 @@ Before publishing categorized documentation:
 
 **Last Updated**: January 6, 2025
 **Version**: 1.0
-**Reference**: https://diataxis.fr/
+**Reference**: <https://diataxis.fr/>

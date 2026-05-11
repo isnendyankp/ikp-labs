@@ -13,6 +13,7 @@ This skill defines **comprehensive Playwright E2E testing patterns** for the IKP
 **What is Playwright?**
 
 Playwright is a Node.js library for automating Chromium, Firefox, and WebKit browsers. It provides:
+
 - **Auto-wait**: Automatically waits for elements to be ready
 - **Multi-browser**: Test across Chrome, Firefox, Safari
 - **Fast execution**: Parallel test execution
@@ -20,6 +21,7 @@ Playwright is a Node.js library for automating Chromium, Firefox, and WebKit bro
 - **Reliable selectors**: Built-in smart retry logic
 
 **When to Use Playwright:**
+
 - ✅ Testing complete user workflows (login → navigate → action → verify)
 - ✅ Testing UI interactions (clicks, form inputs, dropdowns)
 - ✅ Testing cross-page navigation
@@ -27,12 +29,14 @@ Playwright is a Node.js library for automating Chromium, Firefox, and WebKit bro
 - ✅ Verifying data persistence (create data → refresh → verify still there)
 
 **When NOT to Use Playwright:**
+
 - ❌ Testing individual functions (use unit tests)
 - ❌ Testing API logic (use integration tests)
 - ❌ Testing every edge case (too slow, use unit tests)
 - ❌ Testing non-critical paths (focus on happy paths and critical journeys)
 
 **IKP-Labs Setup:**
+
 ```bash
 # Location: frontend/tests/
 # Config: frontend/playwright.config.ts
@@ -127,6 +131,7 @@ await page.getByText('Context menu').click({ button: 'right' });
 **Actionability Checks (Automatic):**
 
 Before performing an action, Playwright automatically verifies:
+
 - ✅ Element is visible
 - ✅ Element is stable (not animating)
 - ✅ Element receives events (not covered by another element)
@@ -189,14 +194,16 @@ await expect(page.getByText('Loaded')).toBeVisible(); // Waits until visible
 
 Playwright auto-waits for elements to be ready. Avoid manual timeouts.
 
-**❌ BAD: Fixed timeout**
+#### ❌ BAD: Fixed timeout
+
 ```typescript
 await page.click('#submit-button');
 await page.waitForTimeout(3000); // Brittle, flaky
 expect(await page.locator('.success-message').isVisible()).toBe(true);
 ```
 
-**✅ GOOD: Wait for condition**
+#### ✅ GOOD: Wait for condition
+
 ```typescript
 await page.getByRole('button', { name: 'Submit' }).click();
 await expect(page.getByText('Success')).toBeVisible(); // Auto-waits up to 5s
@@ -209,6 +216,7 @@ await expect(page.getByText('Success')).toBeVisible(); // Auto-waits up to 5s
 When semantic selectors don't work, add `data-testid` attributes.
 
 **Add to Component:**
+
 ```tsx
 // File: frontend/src/components/GalleryCard.tsx
 
@@ -223,6 +231,7 @@ export function GalleryCard({ photo }) {
 ```
 
 **Use in Test:**
+
 ```typescript
 // File: frontend/tests/gallery.spec.ts
 
@@ -237,6 +246,7 @@ await expect(page.getByTestId('photo-card').first()).toContainText('Like (1)');
 Encapsulate page logic in reusable classes to reduce duplication and improve maintainability.
 
 **Without POM (Duplication):**
+
 ```typescript
 // gallery.spec.ts
 test('login and view gallery', async ({ page }) => {
@@ -260,6 +270,7 @@ test('login and sort photos', async ({ page }) => {
 ```
 
 **With POM (Reusable):**
+
 ```typescript
 // File: frontend/tests/pages/LoginPage.ts
 
@@ -334,6 +345,7 @@ test('sort photos by most liked', async ({ page }) => {
 ```
 
 **Benefits of POM:**
+
 - ✅ **DRY**: No code duplication
 - ✅ **Maintainable**: Change once, update everywhere
 - ✅ **Readable**: Tests read like English
@@ -346,6 +358,7 @@ test('sort photos by most liked', async ({ page }) => {
 Playwright fixtures allow you to set up common state before tests.
 
 **Custom Fixture:**
+
 ```typescript
 // File: frontend/tests/fixtures.ts
 
@@ -374,6 +387,7 @@ export { expect } from '@playwright/test';
 ```
 
 **Use Fixture in Tests:**
+
 ```typescript
 // File: frontend/tests/gallery.spec.ts
 
@@ -396,6 +410,7 @@ test('view gallery as authenticated user', async ({ authenticatedPage }) => {
 Structure tests logically with grouping and setup hooks.
 
 **Good Test Organization:**
+
 ```typescript
 // File: frontend/tests/gallery-sorting.spec.ts
 
@@ -527,12 +542,14 @@ await page.waitForFunction(
 ### ❌ 1. Using Fixed Timeouts
 
 **Bad:**
+
 ```typescript
 await page.click('#submit');
 await page.waitForTimeout(2000); // Flaky!
 ```
 
 **Good:**
+
 ```typescript
 await page.getByRole('button', { name: 'Submit' }).click();
 await expect(page.getByText('Success')).toBeVisible();
@@ -543,12 +560,14 @@ await expect(page.getByText('Success')).toBeVisible();
 ### ❌ 2. Not Waiting for Navigation
 
 **Bad:**
+
 ```typescript
 await page.click('a[href="/gallery"]');
 await page.getByTestId('photo-card').count(); // Race condition!
 ```
 
 **Good:**
+
 ```typescript
 await page.click('a[href="/gallery"]');
 await page.waitForURL('**/gallery');
@@ -560,11 +579,13 @@ await expect(page.getByTestId('photo-card')).toHaveCount(12);
 ### ❌ 3. Using Brittle CSS Selectors
 
 **Bad:**
+
 ```typescript
 await page.locator('.MuiButton-root.MuiButton-containedPrimary').click();
 ```
 
 **Good:**
+
 ```typescript
 await page.getByRole('button', { name: 'Submit' }).click();
 ```
@@ -574,6 +595,7 @@ await page.getByRole('button', { name: 'Submit' }).click();
 ### ❌ 4. Not Cleaning Up Test Data
 
 **Bad:**
+
 ```typescript
 test('upload photo', async ({ page }) => {
   await uploadPhoto('test.jpg');
@@ -582,6 +604,7 @@ test('upload photo', async ({ page }) => {
 ```
 
 **Good:**
+
 ```typescript
 test('upload photo', async ({ page }) => {
   const photoId = await uploadPhoto('test.jpg');
@@ -603,12 +626,14 @@ test.afterEach(async () => {
 ### ❌ 5. Testing Implementation Details
 
 **Bad:**
+
 ```typescript
 // Testing internal React state
 await expect(page.locator('[data-state="loading"]')).toBeVisible();
 ```
 
 **Good:**
+
 ```typescript
 // Testing user-visible behavior
 await expect(page.getByText('Loading...')).toBeVisible();
@@ -619,6 +644,7 @@ await expect(page.getByText('Loading...')).toBeVisible();
 ### ❌ 6. Ignoring Flaky Tests
 
 **Bad:**
+
 ```typescript
 test('flaky test', async ({ page }) => {
   // Test fails randomly, mark as skip
@@ -627,6 +653,7 @@ test('flaky test', async ({ page }) => {
 ```
 
 **Good:**
+
 ```typescript
 test('fixed test', async ({ page }) => {
   // Identify root cause (race condition, timing issue)
@@ -655,6 +682,7 @@ export default defineConfig({
 ```
 
 Manual screenshots:
+
 ```typescript
 await page.screenshot({ path: 'screenshot.png' });
 await page.screenshot({ path: 'screenshot.png', fullPage: true });
@@ -693,6 +721,7 @@ export default defineConfig({
 ```
 
 View traces:
+
 ```bash
 npx playwright show-trace trace.zip
 ```
@@ -744,7 +773,7 @@ page.on('pageerror', err => console.log('PAGE ERROR:', err));
 
 ### Recommended Structure
 
-```
+```text
 frontend/
 ├── tests/
 │   ├── fixtures.ts              # Custom fixtures
@@ -814,12 +843,14 @@ test.describe('Gallery Photo Sorting', () => {
 ```
 
 **What's Good:**
+
 - ✅ Uses `beforeEach` for common setup
 - ✅ Tests user-visible behavior (URL, sort order)
 - ✅ Uses explicit waits (`toHaveCount` with timeout)
 - ✅ Tests persistence (reload scenario)
 
 **What Could Be Better:**
+
 - ⚠️ Login logic duplicated (should use fixture or POM)
 - ⚠️ CSS selectors (`.photo-card`) should use `data-testid`
 - ⚠️ Should extract magic strings (`'test@example.com'`)
@@ -895,6 +926,7 @@ test.describe('Gallery Photo Sorting (Improved)', () => {
 ```
 
 **Improvements:**
+
 - ✅ Login extracted to fixture (reusable)
 - ✅ Gallery logic in POM (maintainable)
 - ✅ Tests are concise and readable
@@ -915,6 +947,7 @@ test.describe('Gallery Photo Sorting (Improved)', () => {
 | **Debugging** | ✅ Trace viewer | ✅ Time travel | ⚠️ Limited |
 
 **Why IKP-Labs Uses Playwright:**
+
 - ✅ Modern, actively developed (Microsoft)
 - ✅ Fast and reliable
 - ✅ Excellent debugging tools (trace viewer)

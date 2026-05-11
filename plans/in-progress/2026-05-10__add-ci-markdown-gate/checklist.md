@@ -99,22 +99,19 @@
 
 ### Implementation
 
-- [ ] Create branch `docs/fix-md-claude-skills` from `main`
-- [ ] Run `npx markdownlint-cli2 --fix ".claude/skills/**/*.md"` to apply auto-fixes
-- [ ] Run `npx markdownlint-cli2 ".claude/skills/**/*.md"` and inspect remaining violations
-- [ ] Manually fix MD040 violations: add language identifier to fenced code blocks
-- [ ] Manually fix MD036 violations: convert emphasis-as-headings to ATX headings
-- [ ] Manually fix MD024 violations: resolve duplicate heading text
-- [ ] Re-run `npx markdownlint-cli2 ".claude/skills/**/*.md"` and confirm zero output
+- [x] Create branch `docs/fix-md-claude-skills` from `main`
+- [x] Auto-fix with `markdownlint-cli2 --fix` (296 violations fixed)
+- [x] Manually fix 49 remaining: MD040 (add `text` language) + MD036 (bold→h4)
+- [x] Verify 0 violations
 
 ### Validation
 
-- [ ] `npx markdownlint-cli2 ".claude/skills/**/*.md"` reports zero violations
-- [ ] No markdown files deleted or renamed (content fixes only)
+- [x] `markdownlint-cli2 ".claude/skills/**/*.md"` → 0 violations ✅
+- [x] No files deleted or renamed
 
 ### Git and PR
 
-- [ ] Stage all changed `.md` files under `.claude/skills/`
+- [x] Stage `.claude/skills/` + checklist
 - [ ] Commit: `docs(markdown): fix all violations in .claude/skills/`
 - [ ] Push branch: `git push -u origin docs/fix-md-claude-skills`
 - [ ] Open PR targeting `main`
