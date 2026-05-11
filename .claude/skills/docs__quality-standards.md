@@ -11,6 +11,7 @@
 This skill provides comprehensive standards for creating high-quality technical documentation. All documentation must follow the **Diátaxis framework** and adhere to consistent writing standards to ensure clarity, accuracy, and maintainability.
 
 **Core Principles:**
+
 1. **Accuracy** - All information must be factual and verified
 2. **Clarity** - Content must be easily understood by target audience
 3. **Consistency** - Follow established patterns and conventions
@@ -24,31 +25,36 @@ This skill provides comprehensive standards for creating high-quality technical 
 All documentation must be categorized into **one of four types**:
 
 ### 1. **Tutorials** (Learning-Oriented)
+
 - **Purpose**: Help beginners learn by doing
 - **Characteristics**: Step-by-step, beginner-friendly, complete working example
 - **Location**: `docs/tutorials/`
 - **Example**: "Getting Started with IKP-Labs"
 
 ### 2. **How-To Guides** (Problem-Solving)
+
 - **Purpose**: Show how to solve specific problems
 - **Characteristics**: Goal-oriented, assumes basic knowledge, focused on one task
 - **Location**: `docs/how-to/`
 - **Example**: "How to Run E2E Tests"
 
 ### 3. **Reference** (Information-Oriented)
+
 - **Purpose**: Provide technical descriptions and specifications
 - **Characteristics**: Factual, comprehensive, structured like a dictionary
 - **Location**: `docs/reference/`
 - **Example**: "API Endpoints Reference"
 
 ### 4. **Explanation** (Understanding-Oriented)
+
 - **Purpose**: Clarify and illuminate concepts
 - **Characteristics**: Discussion, context, background, alternatives
 - **Location**: `docs/explanation/`
 - **Example**: "Architecture Overview"
 
 **Decision Tree:**
-```
+
+```text
 Is it teaching?      → Tutorial
 Is it solving?       → How-To Guide
 Is it describing?    → Reference
@@ -62,12 +68,14 @@ Is it explaining?    → Explanation
 ### 1. **Voice and Tone**
 
 ✅ **DO:**
+
 - Use **active voice**: "Run the command" (not "The command should be run")
 - Use **present tense**: "The API returns..." (not "The API will return...")
 - Use **second person**: "You can configure..." (not "One can configure...")
 - Be **direct and concise**: "Click Submit" (not "You might want to consider clicking Submit")
 
 ❌ **DON'T:**
+
 - Use passive voice unless absolutely necessary
 - Use future tense ("will") unless discussing future features
 - Use first person plural ("we") in technical content
@@ -76,6 +84,7 @@ Is it explaining?    → Explanation
 **Examples:**
 
 ✅ Good:
+
 ```markdown
 ## Configure Authentication
 
@@ -86,7 +95,8 @@ npm run setup:auth
 ```
 
 The system generates a secret key and stores it in `.env`.
-```
+
+```text
 
 ❌ Bad:
 ```markdown
@@ -102,12 +112,14 @@ generate a secret key that will be stored in the .env file.
 ### 2. **Clarity and Precision**
 
 ✅ **DO:**
+
 - Define technical terms on first use
 - Use consistent terminology throughout
 - Provide context when needed
 - Break complex concepts into digestible chunks
 
 ❌ **DON'T:**
+
 - Use jargon without explanation
 - Switch between synonyms for the same concept
 - Assume reader knowledge
@@ -116,6 +128,7 @@ generate a secret key that will be stored in the .env file.
 **Examples:**
 
 ✅ Good:
+
 ```markdown
 ## JWT Tokens
 
@@ -131,6 +144,7 @@ When you log in, the API returns a JWT that must be included in subsequent reque
 ```
 
 ❌ Bad:
+
 ```markdown
 ## Tokens
 
@@ -142,6 +156,7 @@ The system uses JWTs for auth. Include the token in requests.
 ### 3. **Formatting Standards**
 
 ✅ **DO:**
+
 - Use **headings** hierarchically (H1 → H2 → H3)
 - Use **code blocks** with language tags (```typescript)
 - Use **tables** for structured data
@@ -150,6 +165,7 @@ The system uses JWTs for auth. Include the token in requests.
 - Use **italic** for emphasis (sparingly)
 
 ❌ **DON'T:**
+
 - Skip heading levels (H1 → H3)
 - Use inline code without backticks
 - Use ALL CAPS for emphasis
@@ -158,6 +174,7 @@ The system uses JWTs for auth. Include the token in requests.
 **Example:**
 
 ✅ Good:
+
 ```markdown
 ## API Endpoints
 
@@ -175,6 +192,7 @@ The system uses JWTs for auth. Include the token in requests.
 ```
 
 ❌ Bad:
+
 ```markdown
 API Endpoints
 Authentication
@@ -190,12 +208,14 @@ Response: JWT token
 ### 1. **Real Code Only**
 
 ✅ **DO:**
+
 - Use **actual code** from the repository
 - Include **file paths** in comments
 - Provide **working examples** that can be copy-pasted
 - Show **complete context** (imports, setup, etc.)
 
 ❌ **DON'T:**
+
 - Use fictional or placeholder code
 - Write code that doesn't actually work
 - Show incomplete snippets without context
@@ -204,6 +224,7 @@ Response: JWT token
 **Examples:**
 
 ✅ Good:
+
 ```markdown
 ## Upload Photo
 
@@ -225,12 +246,14 @@ export async function uploadPhoto(file: File): Promise<PhotoResponse> {
 ```
 
 Usage:
+
 ```typescript
 const file = document.querySelector('input[type="file"]').files[0];
 const result = await uploadPhoto(file);
 console.log('Uploaded:', result.filePath);
 ```
-```
+
+```text
 
 ❌ Bad:
 ```markdown
@@ -242,7 +265,8 @@ function upload(file) {
   return fetch('/upload', { body: file });
 }
 ```
-```
+
+```text
 
 ---
 
@@ -279,6 +303,7 @@ npm run test:e2e
 ```
 
 **If tests fail:**
+
 ```bash
 # Check if backend is running
 lsof -i :8081
@@ -287,7 +312,8 @@ lsof -i :8081
 cd ../backend/ikp-labs-api
 mvn spring-boot:run
 ```
-```
+
+```text
 
 ❌ Bad:
 ```markdown
@@ -295,7 +321,8 @@ Run tests:
 ```bash
 npm test
 ```
-```
+
+```text
 
 ---
 
@@ -323,6 +350,7 @@ The upload logic is implemented in [galleryService.ts:42-67](../../frontend/src/
 ```
 
 ❌ Bad:
+
 ```markdown
 Click [here](https://github.com/user/repo/blob/main/docs/auth.md) for auth info.
 See the code [here](link).
@@ -335,6 +363,7 @@ See the code [here](link).
 ### ❌ 1. **Placeholder Content**
 
 **Bad:**
+
 ```markdown
 ## Configuration
 
@@ -354,13 +383,15 @@ Coming soon...
 ### ❌ 2. **Outdated Information**
 
 **Bad:**
+
 ```markdown
 ## API Endpoint
 
 ```bash
 GET /api/photos  # This endpoint is deprecated, use /api/gallery instead
 ```
-```
+
+```text
 
 **Why Bad:** Confuses users, wastes time
 
@@ -387,6 +418,7 @@ This tutorial will teach you how to use our API...
 ### ❌ 4. **Missing Context**
 
 **Bad:**
+
 ```markdown
 Run `npm start` and go to the dashboard.
 ```
@@ -394,6 +426,7 @@ Run `npm start` and go to the dashboard.
 **Why Bad:** Where do I run this? What's the URL? What should I see?
 
 **Fix:**
+
 ```markdown
 From the `frontend/` directory, run:
 
@@ -401,10 +434,11 @@ From the `frontend/` directory, run:
 npm start
 ```
 
-Open browser to http://localhost:3002/dashboard
+Open browser to <http://localhost:3002/dashboard>
 
 You should see the Gallery page with photo upload button.
-```
+
+```text
 
 ---
 
@@ -418,6 +452,7 @@ Configure the JWT auth middleware with RBAC for authenticated routes.
 **Why Bad:** Assumes reader knows JWT, RBAC, middleware
 
 **Fix:**
+
 ```markdown
 Configure JWT (JSON Web Token) authentication middleware:
 
@@ -435,6 +470,7 @@ Configure JWT (JSON Web Token) authentication middleware:
 ### Example 1: How-To Guide
 
 ✅ **Excellent:**
+
 ```markdown
 # How to Sort Gallery Photos
 
@@ -487,6 +523,7 @@ Check the first photo's like count (should be highest)
 ### Example 2: API Reference
 
 ✅ **Excellent:**
+
 ```markdown
 # Gallery API Reference
 
@@ -539,7 +576,8 @@ curl -H "Authorization: Bearer <token>" \
 ```
 
 **Implementation:** [GalleryController.java:45](../../backend/ikp-labs-api/src/main/java/com/ikplabs/gallery/controller/GalleryController.java#L45)
-```
+
+```text
 
 ---
 

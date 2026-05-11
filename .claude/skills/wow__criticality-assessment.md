@@ -27,7 +27,7 @@ Criticality assessment is a **two-dimensional classification system**:
 
 **Classification Matrix:**
 
-```
+```text
          High Confidence    Medium Confidence   Low Confidence
 CRITICAL  🔴 AUTO-FIX        🔴 ESCALATE         ⚠️  ESCALATE
 HIGH      🟠 AUTO-FIX        🟠 ESCALATE         ⚠️  REVIEW
@@ -36,6 +36,7 @@ LOW       🟢 AUTO-FIX        🟢 REVIEW           ℹ️  IGNORE
 ```
 
 **Action Codes:**
+
 - 🔴 **AUTO-FIX** - Agent fixes automatically, commits with explanation
 - 🟠 **ESCALATE** - Report to developer, requires manual decision
 - 🟡 **REVIEW** - Flag for review, suggest fix
@@ -50,6 +51,7 @@ LOW       🟢 AUTO-FIX        🟢 REVIEW           ℹ️  IGNORE
 **Definition:** Issue that **blocks core functionality** or creates **security vulnerability**.
 
 **Characteristics:**
+
 - System is broken, unusable, or insecure
 - Affects all users or critical user paths
 - No workaround available
@@ -59,16 +61,19 @@ LOW       🟢 AUTO-FIX        🟢 REVIEW           ℹ️  IGNORE
 **Examples:**
 
 **Testing:**
+
 - ❌ E2E test for login fails (users can't log in)
 - ❌ Critical API endpoint has 0% test coverage (auth, payment)
 - ❌ Test suite fails to run (broken test infrastructure)
 
 **Documentation:**
+
 - ❌ API endpoint documented incorrectly (wrong request format)
 - ❌ Security instructions are missing or wrong
 - ❌ Breaking change not documented
 
 **Planning:**
+
 - ❌ Plan missing entirely for P0-Critical feature
 - ❌ All tasks blocked, no path forward
 - ❌ Plan conflicts with security requirements
@@ -84,6 +89,7 @@ LOW       🟢 AUTO-FIX        🟢 REVIEW           ℹ️  IGNORE
 **Definition:** Issue that **degrades important functionality** or **blocks development**.
 
 **Characteristics:**
+
 - Important feature is broken or unusable
 - Affects many users or common workflows
 - Workaround exists but difficult
@@ -93,16 +99,19 @@ LOW       🟢 AUTO-FIX        🟢 REVIEW           ℹ️  IGNORE
 **Examples:**
 
 **Testing:**
+
 - ⚠️ E2E test for photo upload fails (core feature broken)
 - ⚠️ High-priority feature has <50% test coverage
 - ⚠️ Flaky test fails 30% of the time
 
 **Documentation:**
+
 - ⚠️ How-to guide missing for important feature
 - ⚠️ API endpoint not documented (recent addition)
 - ⚠️ Incorrect code example that doesn't work
 
 **Planning:**
+
 - ⚠️ Plan missing acceptance criteria (unclear when "done")
 - ⚠️ Technical design has no architecture diagram
 - ⚠️ Half of checklist tasks have no time estimates
@@ -118,6 +127,7 @@ LOW       🟢 AUTO-FIX        🟢 REVIEW           ℹ️  IGNORE
 **Definition:** Issue that **reduces quality** or **creates friction** but doesn't block.
 
 **Characteristics:**
+
 - Feature works but has quality issues
 - Affects some users or edge cases
 - Workaround is easy
@@ -127,16 +137,19 @@ LOW       🟢 AUTO-FIX        🟢 REVIEW           ℹ️  IGNORE
 **Examples:**
 
 **Testing:**
+
 - ℹ️ Test coverage at 72% (target: 80%)
 - ℹ️ E2E test uses brittle CSS selector instead of data-testid
 - ℹ️ Missing edge case test (null, empty, max values)
 
 **Documentation:**
+
 - ℹ️ JSDoc comment missing for public function
 - ℹ️ Documentation uses passive voice (should be active)
 - ℹ️ Missing cross-reference to related docs
 
 **Planning:**
+
 - ℹ️ Task estimated at 90 min (should be <60 min, break down)
 - ℹ️ Plan has minor placeholder content (non-critical section)
 - ℹ️ Checklist not updated in 2 days (should update daily)
@@ -152,6 +165,7 @@ LOW       🟢 AUTO-FIX        🟢 REVIEW           ℹ️  IGNORE
 **Definition:** Issue that is **cosmetic**, **nice-to-have**, or **subjective**.
 
 **Characteristics:**
+
 - No functional impact
 - Purely stylistic or cosmetic
 - Affects very few users or rare scenarios
@@ -161,16 +175,19 @@ LOW       🟢 AUTO-FIX        🟢 REVIEW           ℹ️  IGNORE
 **Examples:**
 
 **Testing:**
+
 - 💡 Test description could be more descriptive
 - 💡 Test file not sorted alphabetically
 - 💡 Console.log left in test (non-production code)
 
 **Documentation:**
+
 - 💡 Typo in comment (doesn't affect understanding)
 - 💡 Formatting inconsistency (extra space)
 - 💡 Could use better wording (subjective)
 
 **Planning:**
+
 - 💡 Commit message uses "fix" instead of "feat" (still clear)
 - 💡 Task name could be more specific
 - 💡 Timeline could include more detail
@@ -188,6 +205,7 @@ LOW       🟢 AUTO-FIX        🟢 REVIEW           ℹ️  IGNORE
 **Definition:** **100% certain** this is a real issue with clear evidence.
 
 **Characteristics:**
+
 - Objective, measurable violation
 - No ambiguity in requirement
 - Automated check confirms issue
@@ -197,21 +215,24 @@ LOW       🟢 AUTO-FIX        🟢 REVIEW           ℹ️  IGNORE
 **Examples:**
 
 **Testing:**
-```
+
+```text
 ✅ HIGH: Test file missing for GalleryService.ts
    Evidence: File exists, no corresponding .test.ts found
    Fix: Create GalleryService.test.ts
 ```
 
 **Documentation:**
-```
+
+```text
 ✅ HIGH: API endpoint POST /api/gallery/upload not documented
    Evidence: Endpoint exists in code, not in docs/reference/api-endpoints.md
    Fix: Add endpoint documentation
 ```
 
 **Planning:**
-```
+
+```text
 ✅ HIGH: Task 1.3 missing acceptance criteria
    Evidence: Checklist shows task with no "Acceptance Criteria" section
    Fix: Add specific, measurable criteria
@@ -226,6 +247,7 @@ LOW       🟢 AUTO-FIX        🟢 REVIEW           ℹ️  IGNORE
 **Definition:** **Likely** a real issue but requires **human judgment** to confirm.
 
 **Characteristics:**
+
 - Some ambiguity in requirement
 - Context-dependent
 - May have valid exceptions
@@ -235,21 +257,24 @@ LOW       🟢 AUTO-FIX        🟢 REVIEW           ℹ️  IGNORE
 **Examples:**
 
 **Testing:**
-```
+
+```text
 ⚠️ MEDIUM: GalleryService.ts has 68% coverage (target: 80%)
    Context: Overall project at 75%, this file new, acceptable temporarily
    Action: REVIEW - May be acceptable if high-risk paths covered
 ```
 
 **Documentation:**
-```
+
+```text
 ⚠️ MEDIUM: Component lacks JSDoc comment
    Context: Simple component, self-explanatory props
    Action: REVIEW - May not need detailed docs if trivial
 ```
 
 **Planning:**
-```
+
+```text
 ⚠️ MEDIUM: Task estimated at 65 min (guideline: <60 min)
    Context: Close to threshold, may be acceptable
    Action: REVIEW - Consider breaking down, but not critical
@@ -264,6 +289,7 @@ LOW       🟢 AUTO-FIX        🟢 REVIEW           ℹ️  IGNORE
 **Definition:** **Uncertain** if this is a real issue, high false positive risk.
 
 **Characteristics:**
+
 - Highly subjective
 - Multiple interpretations valid
 - Requires domain knowledge to assess
@@ -273,21 +299,24 @@ LOW       🟢 AUTO-FIX        🟢 REVIEW           ℹ️  IGNORE
 **Examples:**
 
 **Testing:**
-```
+
+```text
 ❓ LOW: Test name "should work" is too vague
    Context: May be placeholder, or developer preference
    Action: IGNORE - Subjective, no clear violation
 ```
 
 **Documentation:**
-```
+
+```text
 ❓ LOW: Explanation could be clearer
    Context: "Clearer" is subjective, current version may be fine
    Action: IGNORE - No objective standard violated
 ```
 
 **Planning:**
-```
+
+```text
 ❓ LOW: Plan uses "we" instead of passive voice
    Context: May be acceptable in certain sections (team context)
    Action: IGNORE - Stylistic preference, not wrong
@@ -318,24 +347,28 @@ LOW       🟢 AUTO-FIX        🟢 REVIEW           ℹ️  IGNORE
 ### Action Definitions
 
 **🔴 AUTO-FIX (High Priority):**
+
 - Agent makes the fix automatically
 - Commits with detailed explanation
 - Requires high confidence + clear fix
 - Example: Add missing test file
 
 **🔴 ESCALATE (High Priority):**
+
 - Report immediately to developer
 - Requires manual decision/fix
 - Block PR or deployment if needed
 - Example: Critical test fails, security issue
 
 **🟡 REVIEW (Medium Priority):**
+
 - Flag in audit report
 - Suggest fix with rationale
 - Developer decides whether to fix
 - Example: Coverage below threshold
 
 **🟢 IGNORE (Low Priority):**
+
 - Log in debug output (not in report)
 - Track for metrics only
 - Don't notify developer
@@ -402,7 +435,7 @@ An issue should be **escalated** if it has **ANY** of these characteristics:
 
 **Examples of Issues to Escalate:**
 
-```
+```text
 🔴 ESCALATE: Login E2E test fails
    Criticality: CRITICAL (users can't log in)
    Confidence: HIGH
@@ -429,23 +462,27 @@ An issue should be **escalated** if it has **ANY** of these characteristics:
 #### Example 1: Missing Test Coverage
 
 **Finding:**
-```
+
+```text
 File: frontend/src/services/galleryService.ts
 Coverage: 45% (target: 70%)
 Missing: Error handling paths, edge cases
 ```
 
 **Assessment:**
+
 - **Criticality:** HIGH (far below threshold)
 - **Confidence:** HIGH (measured by coverage tool)
 - **Action:** 🟠 ESCALATE
 
 **Rationale:**
+
 - High confidence (objective measurement)
 - But HIGH criticality + requires dev to write meaningful tests
 - Auto-fix would create trivial tests (bad practice)
 
 **Report:**
+
 ```markdown
 ## 🟠 HIGH - Test Coverage Below Threshold
 
@@ -470,23 +507,27 @@ Add tests for error scenarios and edge cases. See test__coverage-rules.md.
 #### Example 2: Flaky Test Detected
 
 **Finding:**
-```
+
+```text
 Test: "should sort photos by most liked"
 Failure Rate: 15% (3 out of 20 runs)
 Error: "Element not visible"
 ```
 
 **Assessment:**
+
 - **Criticality:** HIGH (flaky tests break CI/CD)
 - **Confidence:** MEDIUM (intermittent, hard to reproduce)
 - **Action:** 🟠 ESCALATE
 
 **Rationale:**
+
 - Medium confidence (flakiness suggests timing issue, but root cause unclear)
 - Requires investigation to find root cause
 - Auto-fix (add wait) may mask real issue
 
 **Report:**
+
 ```markdown
 ## 🟠 HIGH - Flaky E2E Test Detected
 
@@ -512,7 +553,8 @@ await expect(page.locator('.photo-card')).toHaveCount(12);
 **Reference:** test__playwright-patterns.md - Wait Strategies
 
 **Priority:** HIGH - Flaky tests erode CI/CD confidence
-```
+
+```text
 
 ---
 
@@ -522,9 +564,11 @@ await expect(page.locator('.photo-card')).toHaveCount(12);
 
 **Finding:**
 ```
+
 Endpoint: POST /api/gallery/upload (GalleryController.java:67)
 Documentation: Not found in docs/reference/api-endpoints.md
-```
+
+```text
 
 **Assessment:**
 - **Criticality:** HIGH (undocumented public API)
@@ -556,6 +600,7 @@ file: [binary data]
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "id": 123,
@@ -565,6 +610,7 @@ file: [binary data]
 ```
 
 **Response (400 Bad Request):**
+
 ```json
 {
   "error": "File too large",
@@ -577,10 +623,12 @@ file: [binary data]
 ---
 
 ⚠️ **Auto-generated documentation - Requires review**
+
 - [ ] Add detailed description
 - [ ] Verify request/response formats
 - [ ] Add usage examples
-```
+
+```text
 
 ---
 
@@ -590,9 +638,11 @@ file: [binary data]
 
 **Finding:**
 ```
+
 Task 1.3: Implement Gallery Sorting Feature (4 hours)
 Guideline: Tasks should be 15-60 min (atomic)
-```
+
+```text
 
 **Assessment:**
 - **Criticality:** MEDIUM (quality issue, not blocker)
@@ -641,7 +691,8 @@ Guideline: Tasks should be 15-60 min (atomic)
 **Reference:** plan__four-doc-system.md - Task Breakdown Guidelines
 
 **Priority:** MEDIUM - Improve before starting implementation
-```
+
+```text
 
 ---
 
@@ -650,6 +701,7 @@ Guideline: Tasks should be 15-60 min (atomic)
 ### When to Escalate vs Fix
 
 ```
+
 ┌─────────────────────────────────────┐
 │ Issue Detected                      │
 └──────────┬──────────────────────────┘
@@ -686,7 +738,8 @@ Guideline: Tasks should be 15-60 min (atomic)
           │AUTO-FIX │ │ REVIEW │
           │(if safe)│ │        │
           └─────────┘ └────────┘
-```
+
+```text
 
 ### Escalation Report Format
 
@@ -733,6 +786,7 @@ For a healthy codebase:
 | LOW | 40-50% | ↑ Increasing (normal) |
 
 **Red Flags:**
+
 - 🚨 CRITICAL issues >10% (system unstable)
 - 🚨 HIGH issues >30% (significant quality debt)
 - 🚨 Trend increasing over time (quality degrading)
@@ -750,6 +804,7 @@ For accurate validation:
 | LOW | <5% | ↓ Minimized |
 
 **Red Flags:**
+
 - 🚨 HIGH confidence <50% (validation too subjective)
 - 🚨 LOW confidence >20% (too many false positives)
 - 🚨 Many MEDIUM confidence escalations ignored (criteria too strict)
