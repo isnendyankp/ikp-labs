@@ -5,6 +5,7 @@
 ## Overview
 
 API tests verify backend endpoints from an **external client perspective** using real HTTP requests. These tests validate:
+
 - ✅ Endpoint contracts (request/response structure)
 - ✅ Authentication & authorization
 - ✅ Error handling & status codes
@@ -49,6 +50,7 @@ npx playwright test tests/api/ --reporter=line
 ### Core Authentication
 
 **[auth.api.spec.ts](auth.api.spec.ts)** - Authentication endpoints
+
 - ✅ POST `/api/auth/register` - User registration
 - ✅ POST `/api/auth/login` - User login (returns JWT)
 - ✅ POST `/api/auth/refresh` - Token refresh
@@ -58,6 +60,7 @@ npx playwright test tests/api/ --reporter=line
 - ✅ JWT token generation
 
 **[protected.api.spec.ts](protected.api.spec.ts)** - Protected endpoints (requires JWT)
+
 - ✅ GET `/api/profile` - User profile
 - ✅ GET `/api/dashboard` - User dashboard
 - ✅ GET `/api/settings` - User settings
@@ -68,6 +71,7 @@ npx playwright test tests/api/ --reporter=line
 ### User Management
 
 **[users.api.spec.ts](users.api.spec.ts)** - User CRUD operations
+
 - ✅ GET `/api/users` - List all users
 - ✅ GET `/api/users/{id}` - Get user by ID
 - ✅ GET `/api/users/email/{email}` - Get user by email
@@ -80,6 +84,7 @@ npx playwright test tests/api/ --reporter=line
 ### Gallery & Photos
 
 **[gallery.api.spec.ts](gallery.api.spec.ts)** - Photo gallery endpoints
+
 - ✅ GET `/api/photos` - List all photos (paginated)
 - ✅ GET `/api/photos/{id}` - Get photo details
 - ✅ GET `/api/photos/user/{userId}` - Get user's photos
@@ -90,6 +95,7 @@ npx playwright test tests/api/ --reporter=line
 - ✅ File upload handling
 
 **[photo-likes.api.spec.ts](photo-likes.api.spec.ts)** - Photo likes feature
+
 - ✅ POST `/api/photos/{photoId}/like` - Like a photo
 - ✅ DELETE `/api/photos/{photoId}/like` - Unlike a photo
 - ✅ GET `/api/photos/liked` - Get user's liked photos
@@ -100,6 +106,7 @@ npx playwright test tests/api/ --reporter=line
 ### Error Handling
 
 **[error-handling.api.spec.ts](error-handling.api.spec.ts)** - Error scenarios
+
 - ✅ 400 Bad Request - Invalid data
 - ✅ 401 Unauthorized - Missing/invalid token
 - ✅ 404 Not Found - Resource doesn't exist
@@ -109,6 +116,7 @@ npx playwright test tests/api/ --reporter=line
 ### Health Check
 
 **[health.api.spec.ts](health.api.spec.ts)** - API health monitoring
+
 - ✅ GET `/api/health` - Health check endpoint
 - ✅ Response time validation
 - ✅ Uptime monitoring
@@ -118,6 +126,7 @@ npx playwright test tests/api/ --reporter=line
 **[helpers/](helpers/)** - Reusable API test utilities
 
 **[api-client.ts](helpers/api-client.ts)** - HTTP request wrapper
+
 ```typescript
 import { ApiClient } from './helpers/api-client';
 
@@ -130,7 +139,7 @@ const response = await client.get('/api/users');
 const response = await client.post('/api/auth/register', {
   fullName: 'John Doe',
   email: 'john@example.com',
-  password: 'SecurePass123!'
+  password: 'SecurePass123!',
 });
 
 // PUT request
@@ -141,6 +150,7 @@ const response = await client.delete('/api/users/123');
 ```
 
 **[auth-helper.ts](helpers/auth-helper.ts)** - Authentication utilities
+
 ```typescript
 import { AuthHelper } from './helpers/auth-helper';
 
@@ -148,11 +158,15 @@ import { AuthHelper } from './helpers/auth-helper';
 const { token, userId } = await AuthHelper.register(request, {
   fullName: 'Test User',
   email: 'test@example.com',
-  password: 'Password123!'
+  password: 'Password123!',
 });
 
 // Login existing user
-const { token } = await AuthHelper.login(request, 'test@example.com', 'Password123!');
+const { token } = await AuthHelper.login(
+  request,
+  'test@example.com',
+  'Password123!'
+);
 
 // Validate token
 const isValid = await AuthHelper.validateToken(request, token);
@@ -162,6 +176,7 @@ const headers = AuthHelper.getAuthHeaders(token);
 ```
 
 **[test-data.ts](helpers/test-data.ts)** - Test data generators
+
 ```typescript
 import { generateUniqueEmail, generateRandomName } from './helpers/test-data';
 
@@ -175,6 +190,7 @@ const name = generateRandomName();
 ```
 
 **[cleanup.ts](helpers/cleanup.ts)** - Database cleanup utilities
+
 ```typescript
 import { deleteTestUser } from './helpers/cleanup';
 
@@ -192,7 +208,6 @@ import { ApiClient } from './helpers/api-client';
 import { generateUniqueEmail } from './helpers/test-data';
 
 test.describe('My API Tests', () => {
-
   test('should create resource', async ({ request }) => {
     const client = new ApiClient(request);
     const email = generateUniqueEmail();
@@ -200,7 +215,7 @@ test.describe('My API Tests', () => {
     // Make API request
     const response = await client.post('/api/resource', {
       name: 'Test Resource',
-      email: email
+      email: email,
     });
 
     // Verify status code
@@ -211,7 +226,6 @@ test.describe('My API Tests', () => {
     expect(data.email).toBe(email);
     expect(data.id).toBeDefined();
   });
-
 });
 ```
 
@@ -229,12 +243,12 @@ test('should access protected endpoint with JWT', async ({ request }) => {
   const { token } = await AuthHelper.register(request, {
     fullName: 'Test User',
     email: generateUniqueEmail(),
-    password: 'Password123!'
+    password: 'Password123!',
   });
 
   // Step 2: Access protected endpoint
   const response = await request.get('http://localhost:8081/api/profile', {
-    headers: AuthHelper.getAuthHeaders(token)
+    headers: AuthHelper.getAuthHeaders(token),
   });
 
   // Step 3: Verify success
@@ -281,14 +295,13 @@ test('should handle user lifecycle', async ({ request }) => {
     const createResponse = await client.post('/api/users', {
       fullName: 'Test User',
       email: email,
-      password: 'Password123!'
+      password: 'Password123!',
     });
     expect(createResponse.status).toBe(201);
 
     // Test something with the user
     const getResponse = await client.get(`/api/users/email/${email}`);
     expect(getResponse.status).toBe(200);
-
   } finally {
     // Cleanup: Delete test user
     await deleteTestUser(request, email);
@@ -303,7 +316,7 @@ test('should handle user lifecycle', async ({ request }) => {
 ```typescript
 // ✅ GOOD: Test as an external client
 const response = await request.post('http://localhost:8081/api/auth/register', {
-  data: { fullName: 'Test', email: 'test@example.com', password: 'Pass123!' }
+  data: { fullName: 'Test', email: 'test@example.com', password: 'Pass123!' },
 });
 expect(response.status).toBe(201);
 
@@ -330,7 +343,7 @@ expect(response.status).toBe(200); // Data persisted in PostgreSQL
 // ✅ GOOD: Test full cycle
 const response = await client.post('/api/auth/login', {
   email: 'user@example.com',
-  password: 'Password123!'
+  password: 'Password123!',
 });
 
 expect(response.status).toBe(200);
@@ -373,24 +386,26 @@ const email = 'test@example.com'; // Causes conflicts
 
 ## 🔍 API vs Integration Tests
 
-| Aspect | API Tests | Integration Tests |
-|--------|-----------|-------------------|
-| **Location** | `/tests/api/` | `/backend/src/test/java/.../integration/` |
-| **Tool** | Playwright API | Spring Boot Test (MockMvc) |
-| **Perspective** | External client | Internal component wiring |
-| **HTTP** | Real HTTP requests | Mock HTTP (MockMvc) |
-| **Database** | ✅ Real PostgreSQL | ❌ Mocked (MockBean) |
-| **Purpose** | Contract validation | Component interaction |
-| **Run Command** | `npx playwright test tests/api/` | `mvn test` |
-| **Example** | `POST /api/auth/login` → verify JWT | UserController → UserService wiring |
+| Aspect          | API Tests                           | Integration Tests                         |
+| --------------- | ----------------------------------- | ----------------------------------------- |
+| **Location**    | `/tests/api/`                       | `/backend/src/test/java/.../integration/` |
+| **Tool**        | Playwright API                      | Spring Boot Test (MockMvc)                |
+| **Perspective** | External client                     | Internal component wiring                 |
+| **HTTP**        | Real HTTP requests                  | Mock HTTP (MockMvc)                       |
+| **Database**    | ✅ Real PostgreSQL                  | ❌ Mocked (MockBean)                      |
+| **Purpose**     | Contract validation                 | Component interaction                     |
+| **Run Command** | `npx playwright test tests/api/`    | `mvn test`                                |
+| **Example**     | `POST /api/auth/login` → verify JWT | UserController → UserService wiring       |
 
 **When to use API tests:**
+
 - Validate endpoint contracts
 - Test authentication flows
 - Verify real database persistence
 - Test from external client perspective
 
 **When to use Integration tests:**
+
 - Test Spring Boot component wiring
 - Test Controller → Service → Repository interaction
 - Mock external dependencies
@@ -433,6 +448,7 @@ console.log('Body:', await response.text());
 ### 4. Test with Postman First
 
 If API test fails:
+
 1. Try the same request in Postman
 2. Verify endpoint works manually
 3. Copy working request to test
@@ -472,6 +488,7 @@ npx playwright show-report
 **Cause:** Backend not running
 
 **Solution:**
+
 ```bash
 cd backend/ikp-labs-api
 mvn spring-boot:run
@@ -482,6 +499,7 @@ mvn spring-boot:run
 **Cause:** Test data not cleaned up from previous run
 
 **Solution:**
+
 ```typescript
 // Always use unique emails
 const email = generateUniqueEmail();
@@ -497,18 +515,19 @@ test.afterEach(async ({ request }) => {
 **Cause:** Missing or invalid JWT token
 
 **Solution:**
+
 ```typescript
 // Get valid token first
 const { token } = await AuthHelper.login(request, email, password);
 
 // Include in request
 const response = await request.get('http://localhost:8081/api/profile', {
-  headers: { 'Authorization': `Bearer ${token}` }
+  headers: { Authorization: `Bearer ${token}` },
 });
 ```
 
 ---
 
-**Happy API Testing! 🔌**
+Happy API Testing! 🔌
 
 For questions or issues, check the [main testing guide](../README.md) or refer to the [complete API testing documentation](../../docs/how-to/api-testing.md).

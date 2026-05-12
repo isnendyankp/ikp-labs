@@ -33,7 +33,7 @@ Below is the original testing plan documentation.
 
 ---
 
-# Registration Form Frontend - Testing & Integration Plan
+## Registration Form Frontend - Testing & Integration Plan
 
 ## Project Overview
 
@@ -61,7 +61,7 @@ Setelah menyelesaikan testing plan ini, Anda akan:
 
 ## 🔌 Frontend-Backend Integration Points
 
-```
+```text
 Frontend (localhost:3002)  ←→  Backend (localhost:8081)
 
 Components:
@@ -72,7 +72,7 @@ Components:
 
 ## 📊 Current Frontend Structure
 
-```
+```text
 frontend/
 ├── src/
 │   ├── app/
@@ -103,10 +103,10 @@ frontend/
 
 **Test Case:**
 
-- Open http://localhost:3002/register
+- Open <http://localhost:3002/register>
 - Fill form dengan data valid:
   - Full Name: "Test Browser User"
-  - Email: "testbrowser2025@example.com"
+  - Email: "<testbrowser2025@example.com>"
   - Password: "TestPass123!"
   - Confirm Password: "TestPass123!"
 - Submit form
@@ -130,9 +130,9 @@ frontend/
 
 **Test Case:**
 
-- Open http://localhost:3002/register
+- Open <http://localhost:3002/register>
 - Fill form dengan email yang sudah ada:
-  - Email: "testbrowser2025@example.com" (already exists)
+  - Email: "<testbrowser2025@example.com>" (already exists)
 - Submit form
 - Verify error notification appears
 - Verify form tidak reset (user data tetap ada)
@@ -180,9 +180,9 @@ frontend/
 
 **Test Case:**
 
-- Open http://localhost:3002/login
+- Open <http://localhost:3002/login>
 - Fill form dengan credentials yang benar:
-  - Email: "testbrowser2025@example.com"
+  - Email: "<testbrowser2025@example.com>"
   - Password: "TestPass123!"
 - Submit form
 - Verify success notification
@@ -205,9 +205,9 @@ frontend/
 
 **Test Case:**
 
-- Open http://localhost:3002/login
+- Open <http://localhost:3002/login>
 - Fill form dengan password salah:
-  - Email: "testbrowser2025@example.com"
+  - Email: "<testbrowser2025@example.com>"
   - Password: "WrongPassword123!"
 - Submit form
 - Verify error notification
@@ -228,7 +228,7 @@ frontend/
 **Test Case:**
 
 - Fill form dengan email yang tidak terdaftar:
-  - Email: "notexist@example.com"
+  - Email: "<notexist@example.com>"
   - Password: "AnyPassword123!"
 - Submit form
 
@@ -690,7 +690,7 @@ export default defineConfig({
 
 ## 🎯 Success Metrics
 
-### Phase 1 Success (Manual E2E Testing):
+### Phase 1 Success (Manual E2E Testing)
 
 - [x] Registration with valid data ✅
 - [x] Registration with duplicate email ✅
@@ -703,7 +703,7 @@ export default defineConfig({
 - [ ] Network error handling
 - [ ] All scenarios documented in TESTING_STEP_5.x.md
 
-### Phase 2 Success (Playwright E2E Automated):
+### Phase 2 Success (Playwright E2E Automated)
 
 - [x] Playwright installed & configured ✅
 - [x] All registration tests automated (6/8 passing, 2 skipped) ✅
@@ -713,7 +713,7 @@ export default defineConfig({
 - [ ] Tests running in CI/CD (pending)
 - [x] Test coverage > 70% (critical flows covered) ✅
 
-### Phase 3 Success (Documentation):
+### Phase 3 Success (Documentation)
 
 - [ ] Complete testing documentation
 - [ ] Test data management scripts
@@ -724,7 +724,7 @@ export default defineConfig({
 
 ## 📊 Current Test Status Summary
 
-### ✅ Completed Tests (Manual):
+### ✅ Completed Tests (Manual)
 
 | Test Scenario                  | Status    | Date       | Notes                             |
 | ------------------------------ | --------- | ---------- | --------------------------------- |
@@ -735,7 +735,7 @@ export default defineConfig({
 | Login - Invalid Password       | ✅ PASSED | 2025-10-16 | Automated E2E test                |
 | Login - Email Not Found        | ✅ PASSED | 2025-10-16 | Automated E2E test                |
 
-### ⏳ Pending Tests:
+### ⏳ Pending Tests
 
 | Test Scenario          | Status     | Priority | Depends On                      |
 | ---------------------- | ---------- | -------- | ------------------------------- |
@@ -744,7 +744,7 @@ export default defineConfig({
 | Logout Flow            | ⏳ PENDING | MEDIUM   | Logout button implementation    |
 | Network Error Handling | ⏳ PENDING | LOW      | -                               |
 
-### ✅ Automated Tests (Playwright):
+### ✅ Automated Tests (Playwright)
 
 - **Registration E2E Tests:** 6/8 passing, 2 skipped (awaiting frontend features) ✅
 - **Login E2E Tests:** 4/4 passing ✅
@@ -755,14 +755,14 @@ export default defineConfig({
 
 ## 🚨 Important Notes
 
-### 🎓 Testing Approach:
+### 🎓 Testing Approach
 
 - **Manual First:** Test manually untuk understand flow
 - **Automate Later:** Automate setelah flow stable
 - **Document Everything:** Every test case documented with expected results
 - **Think Like User:** Test dari perspektif user, bukan developer
 
-### 🔧 Testing Best Practices:
+### 🔧 Testing Best Practices
 
 - **Isolated Tests:** Each test should be independent
 - **Clean Data:** Reset database state between tests
@@ -770,7 +770,7 @@ export default defineConfig({
 - **Error Scenarios:** Test not only happy path, but also error cases
 - **Security Testing:** Test authentication, authorization, input validation
 
-### 🎯 Focus Areas:
+### 🎯 Focus Areas
 
 1. **Frontend-Backend Integration** - API calls working properly
 2. **Error Handling** - User-friendly error messages
@@ -778,7 +778,7 @@ export default defineConfig({
 4. **Security** - Token handling, protected routes
 5. **User Experience** - Smooth flow, clear feedback
 
-### 📝 Test Documentation Format:
+### 📝 Test Documentation Format
 
 ```markdown
 #### Test Case: [Name]
@@ -805,27 +805,27 @@ export default defineConfig({
 
 ## 📖 Next Steps
 
-### Immediate (Now):
+### Immediate (Now)
 
 1. **Lanjutkan Step 5.4** - Test login flow end-to-end (manual)
 2. **Document login tests** in TESTING_STEP_5.4.md
 3. **Verify all scenarios** (valid login, invalid password, email not found)
 
-### Short Term (This Week):
+### Short Term (This Week)
 
 1. Complete all Phase 1 manual tests
 2. Fix any bugs found during testing
 3. Update FRONTEND_PLAN.md with test results
 4. Commit testing documentation incrementally
 
-### Medium Term (Next Week):
+### Medium Term (Next Week)
 
 1. Research Playwright MCP setup
 2. Install and configure Playwright
 3. Create test helpers and utilities
 4. Start automating registration tests
 
-### Long Term (This Month):
+### Long Term (This Month)
 
 1. Complete all automated E2E tests
 2. Setup CI/CD with automated testing
@@ -845,7 +845,7 @@ export default defineConfig({
 
 ## 📞 Testing Checklist (Quick Reference)
 
-### Before Each Test:
+### Before Each Test
 
 - [ ] Backend server running (localhost:8081)
 - [ ] Frontend server running (localhost:3002)
@@ -853,7 +853,7 @@ export default defineConfig({
 - [ ] Browser DevTools open (Console + Network tab)
 - [ ] Clear localStorage (untuk test clean state)
 
-### During Test:
+### During Test
 
 - [ ] Fill form dengan test data
 - [ ] Submit form
@@ -862,7 +862,7 @@ export default defineConfig({
 - [ ] Verify network request/response
 - [ ] Check console for errors
 
-### After Test:
+### After Test
 
 - [ ] Verify database state (psql query)
 - [ ] Check localStorage (auth_token)

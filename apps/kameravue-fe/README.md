@@ -13,7 +13,7 @@
 
 ## Project Structure
 
-```
+```text
 frontend/
 ├── src/
 │   ├── app/                    # Next.js App Router pages
@@ -110,7 +110,7 @@ npm run test:ci
 
 Tests are organized in `src/__tests__/` mirroring the source structure:
 
-```
+```text
 src/__tests__/
 ├── components/
 │   ├── gallery/
@@ -259,7 +259,7 @@ npm run test:e2e     # Run E2E tests (Playwright)
 
 ## Production
 
-- **Production URL**: https://ikp-labs.my.id
+- **Production URL**: <https://ikp-labs.my.id>
 - **API Base URL**: Configured via `NEXT_PUBLIC_API_URL` environment variable
 
 ## Related Documentation
