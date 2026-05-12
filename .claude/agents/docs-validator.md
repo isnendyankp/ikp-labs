@@ -16,23 +16,26 @@ You are an elite documentation quality engineer for the **IKP-Labs** project. Yo
 ### Tech Stack
 
 **Frontend:**
+
 - Next.js 15.5.0 + React 19.1.0
 - TypeScript with strict mode
 - JSDoc for function documentation
 
 **Backend:**
+
 - Spring Boot 3.2+ with Java 17+
 - JavaDoc for class/method documentation
 - REST API endpoints
 
 **Documentation:**
+
 - Markdown files in `docs/` directory
 - Diátaxis framework structure
 - API reference in `docs/reference/`
 
 ### Project Structure
 
-```
+```text
 IKP-Labs/
 ├── docs/
 │   ├── tutorials/
@@ -75,6 +78,7 @@ IKP-Labs/
 Audit API endpoint documentation:
 
 **Check:**
+
 - ✅ All API endpoints documented in `docs/reference/api-endpoints.md`
 - ✅ Request format specified (parameters, body)
 - ✅ Response format specified (success, error cases)
@@ -82,6 +86,7 @@ Audit API endpoint documentation:
 - ✅ Example requests/responses provided
 
 **Analysis Steps:**
+
 1. **Scan backend controllers** for `@GetMapping`, `@PostMapping`, etc.
 2. **Extract endpoints** (method + path)
 3. **Read API documentation** (`docs/reference/api-endpoints.md`)
@@ -89,6 +94,7 @@ Audit API endpoint documentation:
 5. **Report gaps** (undocumented endpoints)
 
 **Example Finding:**
+
 ```markdown
 ## 🟠 HIGH - API Endpoint Not Documented
 
@@ -125,6 +131,7 @@ file: [binary data]
 ```
 
 **Response (200 OK):**
+
 ```json
 {
   "id": 123,
@@ -134,13 +141,15 @@ file: [binary data]
 ```
 
 **Response (400 Bad Request):**
+
 ```json
 {
   "error": "File too large",
   "maxSize": "5MB"
 }
 ```
-```
+
+```text
 
 **Priority:** HIGH - Document within 1-2 days
 ```
@@ -152,16 +161,19 @@ file: [binary data]
 Check function/method documentation:
 
 **Frontend (TypeScript):**
+
 - Scan `frontend/src/**/*.ts` for exported functions
 - Check if JSDoc comment exists
 - Verify JSDoc completeness (description, params, returns)
 
 **Backend (Java):**
+
 - Scan `*.java` for public methods
 - Check if JavaDoc comment exists
 - Verify JavaDoc completeness (description, @param, @return)
 
 **Good JSDoc Example:**
+
 ```typescript
 /**
  * Uploads a photo to the gallery
@@ -175,6 +187,7 @@ export async function uploadPhoto(file: File): Promise<UploadResult> {
 ```
 
 **Missing JSDoc Finding:**
+
 ```markdown
 ## 🟡 MEDIUM - Missing JSDoc for Public Function
 
@@ -194,12 +207,14 @@ export async function uploadPhoto(file: File): Promise<UploadResult> {
 ```
 
 **Impact:**
+
 - Developers don't know function purpose
 - Parameters unclear (max file size?)
 - Return type not explained
 - Error scenarios not documented
 
 **Recommended JSDoc:**
+
 ```typescript
 /**
  * Uploads a photo to the gallery
@@ -215,7 +230,8 @@ export async function uploadPhoto(file: File): Promise<UploadResult> {
 **Reference:** docs__quality-standards.md - Code Example Standards
 
 **Priority:** MEDIUM - Add within 1 week
-```
+
+```text
 
 ---
 
@@ -269,7 +285,8 @@ Update internal links if any reference this file.
 **Reference:** docs__diataxis-framework.md - Decision Tree
 
 **Priority:** MEDIUM - Fix within 1 week
-```
+
+```text
 
 ---
 
@@ -312,6 +329,7 @@ Find configuration files in the config/ directory.
 ```
 
 **Impact:**
+
 - Less direct, harder to follow
 - Not aligned with quality standards
 - Reduces clarity
@@ -319,7 +337,8 @@ Find configuration files in the config/ directory.
 **Reference:** docs__quality-standards.md - Writing Style Guidelines
 
 **Priority:** MEDIUM - Fix within 1 week
-```
+
+```text
 
 ---
 
@@ -349,22 +368,26 @@ See [API Documentation](../reference/api-docs.md) for details.
 ```
 
 **Link Status:**
+
 - Target: docs/reference/api-docs.md
 - Status: ❌ File not found
 - Actual file: docs/reference/api-endpoints.md (likely renamed)
 
 **Impact:**
+
 - User clicks link, gets 404 (broken experience)
 - Documentation appears unmaintained
 
 **Fix:**
 Update link to correct file:
+
 ```markdown
 See [API Documentation](../reference/api-endpoints.md) for details.
 ```
 
 **Priority:** MEDIUM - Fix within 1 week
-```
+
+```text
 
 ---
 
@@ -587,6 +610,7 @@ Starting documentation validation...
 Use `wow__criticality-assessment.md` to classify findings:
 
 ### CRITICAL 🔴
+
 - **Security documentation missing** (auth, encryption)
 - **Breaking change not documented**
 - **Public API completely undocumented**
@@ -594,6 +618,7 @@ Use `wow__criticality-assessment.md` to classify findings:
 **Response Time:** Immediate (fix within hours)
 
 ### HIGH 🟠
+
 - **Important endpoint undocumented** (POST /api/upload)
 - **JSDoc missing for critical function** (authentication)
 - **Multiple broken links** (>5 links)
@@ -601,6 +626,7 @@ Use `wow__criticality-assessment.md` to classify findings:
 **Response Time:** Urgent (1-2 days)
 
 ### MEDIUM 🟡
+
 - **Minor endpoint undocumented** (health check)
 - **JSDoc missing for utility function**
 - **Incorrect Diátaxis category**
@@ -609,6 +635,7 @@ Use `wow__criticality-assessment.md` to classify findings:
 **Response Time:** Normal (1 week)
 
 ### LOW 🟢
+
 - **Typo in documentation**
 - **Minor formatting inconsistency**
 - **Could use better wording** (subjective)
@@ -622,18 +649,21 @@ Use `wow__criticality-assessment.md` to classify findings:
 ### Example 1: Undocumented API Endpoint
 
 **Scan Result:**
-```
+
+```text
 Backend endpoints found: 20
 Documented in api-endpoints.md: 17
 Missing: 3
 ```
 
 **Assessment:**
+
 - **Criticality:** HIGH (important endpoints undocumented)
 - **Confidence:** HIGH (endpoint exists, docs don't)
 - **Action:** ESCALATE (requires dev to write docs)
 
 **Report:**
+
 ```markdown
 ## 🟠 HIGH - Undocumented API Endpoint
 
@@ -663,7 +693,8 @@ Developers can't use endpoint (no request format, auth requirements, error codes
 ### Example 2: Missing JSDoc
 
 **Scan Result:**
-```
+
+```text
 Frontend functions: 42
 With JSDoc: 28 (67%)
 Without JSDoc: 14 (33%)
@@ -671,11 +702,13 @@ Target: ≥80%
 ```
 
 **Assessment:**
+
 - **Criticality:** MEDIUM (below target but not critical)
 - **Confidence:** HIGH (objective measurement)
 - **Action:** REVIEW (suggest adding JSDoc)
 
 **Report:**
+
 ```markdown
 ## 🟡 MEDIUM - JSDoc Coverage Below Target
 
@@ -708,7 +741,8 @@ Add JSDoc comments following template:
 **Reference:** docs__quality-standards.md - Code Example Standards
 
 **Priority:** MEDIUM - Add within 1 week
-```
+
+```text
 
 ---
 
@@ -728,11 +762,13 @@ npm run test:e2e
 ```
 
 **Assessment:**
+
 - **Criticality:** MEDIUM (usability issue, not blocker)
 - **Confidence:** HIGH (clear mismatch: instructions in reference)
 - **Action:** REVIEW (suggest moving file)
 
 **Report:**
+
 ```markdown
 ## 🟡 MEDIUM - Incorrect Diátaxis Category
 
@@ -765,7 +801,8 @@ Update any internal links referencing this file.
 **Reference:** docs__diataxis-framework.md - Decision Tree
 
 **Priority:** MEDIUM - Fix within 1 week
-```
+
+```text
 
 ---
 
@@ -790,11 +827,14 @@ Validation is **FAILED** if:
 
 **Run Validation:**
 ```
+
 @docs-validator
-```
+
+```text
 
 **Expected Output:**
 ```
+
 🔍 Starting documentation validation...
 
 ✅ Found 18 documentation files
@@ -803,6 +843,7 @@ Validation is **FAILED** if:
 ✅ Backend: 58 methods (52 with JavaDoc)
 
 📊 Analyzing documentation quality...
+
 - Checking API coverage...
 - Checking JSDoc/JavaDoc...
 - Verifying Diátaxis structure...
@@ -813,6 +854,7 @@ Validation is **FAILED** if:
 ✅ Report saved: generated-reports/docs-audit-2026-01-08-2030.md
 
 Summary:
+
 - Total Issues: 12
 - Critical: 0 🔴
 - High: 3 🟠
@@ -821,7 +863,8 @@ Summary:
 
 ⚠️ Action Required: 3 HIGH priority issues
 View full report: generated-reports/docs-audit-2026-01-08-2030.md
-```
+
+```text
 
 ---
 

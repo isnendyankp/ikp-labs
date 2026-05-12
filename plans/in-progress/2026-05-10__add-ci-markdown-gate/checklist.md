@@ -127,26 +127,23 @@
 
 ### Implementation
 
-- [ ] Create branch `docs/fix-md-claude-agents` from `main`
-- [ ] Run `npx markdownlint-cli2 --fix ".claude/agents/**/*.md"` to apply auto-fixes
-- [ ] Run `npx markdownlint-cli2 ".claude/agents/**/*.md"` and inspect remaining violations
-- [ ] Manually fix MD040 violations: add language identifier to fenced code blocks
-- [ ] Manually fix MD036 violations: convert emphasis-as-headings to ATX headings
-- [ ] Manually fix MD024 violations: resolve duplicate heading text
-- [ ] Re-run `npx markdownlint-cli2 ".claude/agents/**/*.md"` and confirm zero output
+- [x] Create branch `docs/fix-md-claude-agents` from `main`
+- [x] Auto-fix (blank lines around fences/lists/headings)
+- [x] Manually fix 45 remaining MD040 violations (add `text` language)
+- [x] Verify 0 violations
 
 ### Validation
 
-- [ ] `npx markdownlint-cli2 ".claude/agents/**/*.md"` reports zero violations
-- [ ] No markdown files deleted or renamed (content fixes only)
+- [x] `markdownlint-cli2 ".claude/agents/**/*.md"` → 0 violations ✅
+- [x] No files deleted or renamed
 
 ### Git and PR
 
-- [ ] Stage all changed `.md` files under `.claude/agents/`
+- [x] Stage `.claude/agents/` + checklist
 - [ ] Commit: `docs(markdown): fix all violations in .claude/agents/`
 - [ ] Push branch: `git push -u origin docs/fix-md-claude-agents`
 - [ ] Open PR targeting `main`
-- [ ] Verify `markdown-lint` CI job passes on the PR
+- [ ] Verify CI passes
 - [ ] Merge PR
 
 ---
