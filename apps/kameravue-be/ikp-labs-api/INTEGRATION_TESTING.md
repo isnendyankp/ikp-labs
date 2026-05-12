@@ -22,21 +22,23 @@ Integration Tests adalah testing yang menguji **integrasi antar komponen** dalam
 
 ### Perbedaan dengan Unit Tests
 
-| Aspek | Unit Tests | Integration Tests |
-|-------|-----------|-------------------|
-| **Scope** | Single class/method | Multiple components |
-| **Dependencies** | Mocked/stubbed | Real (via Testcontainers) |
-| **Database** | H2 in-memory | PostgreSQL (Testcontainers) |
-| **Speed** | Very fast (< 1s) | Slower (~5-10s per test) |
-| **Purpose** | Test business logic | Test component integration |
-| **When to run** | Every build | Before merge/deploy |
+| Aspek            | Unit Tests          | Integration Tests           |
+| ---------------- | ------------------- | --------------------------- |
+| **Scope**        | Single class/method | Multiple components         |
+| **Dependencies** | Mocked/stubbed      | Real (via Testcontainers)   |
+| **Database**     | H2 in-memory        | PostgreSQL (Testcontainers) |
+| **Speed**        | Very fast (< 1s)    | Slower (~5-10s per test)    |
+| **Purpose**      | Test business logic | Test component integration  |
+| **When to run**  | Every build         | Before merge/deploy         |
 
 ### Analogi Sederhana
 
 **Unit Test** = Test mesin mobil sendirian di workshop
+
 - Cepat, terisolasi, tapi tidak tau apakah cocok dengan mobil
 
 **Integration Test** = Test mobil lengkap di test track
+
 - Lebih lambat, tapi pastikan semua bagian bekerja bersama dengan baik
 
 ---
@@ -73,11 +75,13 @@ Integration tests penting karena:
 Library Java untuk running Docker containers dalam tests.
 
 **Kenapa?**
+
 - Start PostgreSQL container otomatis
 - Isolated database untuk setiap test run
 - No manual database setup required
 
 **Contoh Penggunaan:**
+
 ```java
 @Container
 protected static final PostgreSQLContainer<?> postgresContainer =
@@ -93,12 +97,14 @@ protected static final PostgreSQLContainer<?> postgresContainer =
 Spring Test tool untuk simulate HTTP requests tanpa start real HTTP server.
 
 **Kenapa?**
+
 - Test controller endpoints
 - Verify HTTP status codes
 - Validate JSON responses
 - Faster than real HTTP server
 
 **Contoh Penggunaan:**
+
 ```java
 mockMvc.perform(post("/api/auth/login")
         .contentType(MediaType.APPLICATION_JSON)
@@ -110,6 +116,7 @@ mockMvc.perform(post("/api/auth/login")
 ### 3. Spring Boot Test
 
 Provides:
+
 - `@SpringBootTest` - Load full Spring context
 - `@AutoConfigureMockMvc` - Auto-configure MockMvc
 - `@ActiveProfiles` - Use specific configuration profile
@@ -123,11 +130,13 @@ Provides:
 Integration tests **REQUIRE** Docker untuk running PostgreSQL container.
 
 **Install Docker Desktop:**
+
 - Mac: [https://www.docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop)
 - Windows: [https://www.docker.com/products/docker-desktop](https://www.docker.com/products/docker-desktop)
 - Linux: `sudo apt-get install docker.io`
 
 **Verify Docker:**
+
 ```bash
 docker --version
 # Should show: Docker version 20.x.x or higher
@@ -139,6 +148,7 @@ docker ps
 ### 2. Maven
 
 Integration tests run via Maven:
+
 ```bash
 mvn --version
 # Should show: Apache Maven 3.8.x or higher
@@ -157,7 +167,7 @@ java -version
 
 ### File Structure
 
-```
+```text
 backend/ikp-labs-api/
 ├── src/
 │   └── test/
@@ -195,6 +205,7 @@ public abstract class BaseIntegrationTest {
 ```
 
 **Benefits:**
+
 - Testcontainers setup shared across all tests
 - PostgreSQL container created ONCE (singleton pattern)
 - Dynamic datasource configuration
@@ -207,6 +218,7 @@ public abstract class BaseIntegrationTest {
 ### 1. Start Docker Desktop
 
 Pastikan Docker Desktop running:
+
 ```bash
 docker ps
 # Harus tidak error
@@ -257,26 +269,31 @@ mvn test -Dtest="*IntegrationTest" -X
 #### 1. AuthControllerIntegrationTest (12 tests)
 
 **Registration Tests:**
+
 - ✅ Register dengan valid data returns 201 Created
 - ✅ Register dengan duplicate email returns 400
 - ✅ Register dengan invalid email returns 400
 - ✅ Register dengan missing fields returns 400
 
 **Login Tests:**
+
 - ✅ Login dengan valid credentials returns 200 OK
 - ✅ Login dengan wrong password returns 401
 - ✅ Login dengan non-existent email returns 401
 
 **Token Management Tests:**
+
 - ✅ Refresh valid token returns new token
 - ✅ Refresh invalid token returns 401
 - ✅ Validate valid token returns true
 - ✅ Validate invalid token returns false
 
 **Health Check:**
+
 - ✅ Health check returns 200 OK
 
 **Test File:**
+
 ```bash
 src/test/java/com/registrationform/api/integration/AuthControllerIntegrationTest.java
 ```
@@ -286,39 +303,48 @@ src/test/java/com/registrationform/api/integration/AuthControllerIntegrationTest
 #### 2. UserControllerIntegrationTest (17 tests)
 
 **Create User Tests:**
+
 - ✅ Create user dengan valid data returns 201
 - ✅ Reject duplicate email returns 400
 
 **Get All Users Tests:**
+
 - ✅ Get all users returns list
 - ✅ Get all users when empty returns empty list
 
 **Get User By ID Tests:**
+
 - ✅ Valid ID returns user data
 - ✅ Non-existent ID returns 404
 
 **Update User Tests:**
+
 - ✅ Valid update returns updated user
 - ✅ Non-existent ID returns 400
 - ✅ Duplicate email on update returns 400
 
 **Delete User Tests:**
+
 - ✅ Valid ID deletes user successfully
 - ✅ Non-existent ID returns 404
 
 **Get User By Email Tests:**
+
 - ✅ Valid email returns user
 - ✅ Non-existent email returns 404
 
 **Check Email Exists Tests:**
+
 - ✅ Existing email returns true
 - ✅ Non-existent email returns false
 
 **Get User Count Tests:**
+
 - ✅ Returns correct count
 - ✅ Returns 0 when empty
 
 **Test File:**
+
 ```bash
 src/test/java/com/registrationform/api/integration/UserControllerIntegrationTest.java
 ```
@@ -328,25 +354,30 @@ src/test/java/com/registrationform/api/integration/UserControllerIntegrationTest
 #### 3. UserProfileControllerIntegrationTest (11 tests)
 
 **Profile Endpoint Tests:**
+
 - ✅ Valid JWT token returns profile (200 OK)
 - ✅ No token returns 403 Forbidden
 - ✅ Invalid token returns 403
 - ✅ Missing Bearer prefix returns 403
 
 **Dashboard Endpoint Tests:**
+
 - ✅ Valid token returns dashboard data
 - ✅ No token returns 403
 - ✅ Regular user shows correct dashboard
 
 **Settings Endpoint Tests:**
+
 - ✅ Valid token returns settings
 - ✅ No token returns 403
 
 **JWT Validation Tests:**
+
 - ✅ Token contains correct user info
 - ✅ End-to-end authentication flow works
 
 **Test File:**
+
 ```bash
 src/test/java/com/registrationform/api/integration/UserProfileControllerIntegrationTest.java
 ```
@@ -358,18 +389,21 @@ src/test/java/com/registrationform/api/integration/UserProfileControllerIntegrat
 ### Step-by-Step Execution Flow
 
 1. **Maven starts test execution**
-   ```
+
+   ```text
    mvn test -Dtest="*IntegrationTest"
    ```
 
 2. **Testcontainers downloads PostgreSQL image** (first time only)
-   ```
+
+   ```text
    🐳 Pulling postgres:15 image...
    ✅ Image downloaded
    ```
 
 3. **Testcontainers starts PostgreSQL container**
-   ```
+
+   ```text
    🐳 Starting PostgreSQL container...
    📦 Container ID: abc123def456
    🌐 Exposed port: 54321 (random)
@@ -377,7 +411,8 @@ src/test/java/com/registrationform/api/integration/UserProfileControllerIntegrat
    ```
 
 4. **Spring Boot loads test context**
-   ```
+
+   ```text
    🌱 Loading Spring Boot context...
    📝 Active profile: integration
    💾 Datasource: jdbc:postgresql://localhost:54321/testdb
@@ -385,7 +420,8 @@ src/test/java/com/registrationform/api/integration/UserProfileControllerIntegrat
    ```
 
 5. **Tests execute sequentially**
-   ```
+
+   ```text
    ▶️  Running AuthControllerIntegrationTest...
        ✅ testRegister_WithValidData_ShouldReturn201
        ✅ testLogin_WithValidCredentials_ShouldReturn200
@@ -401,14 +437,16 @@ src/test/java/com/registrationform/api/integration/UserProfileControllerIntegrat
    ```
 
 6. **Testcontainers cleans up**
-   ```
+
+   ```text
    🧹 Stopping PostgreSQL container...
    🗑️  Removing container abc123def456
    ✅ Cleanup complete
    ```
 
 7. **Maven shows test summary**
-   ```
+
+   ```text
    Tests run: 40, Failures: 0, Errors: 0, Skipped: 0
 
    ✅ BUILD SUCCESS
@@ -421,6 +459,7 @@ src/test/java/com/registrationform/api/integration/UserProfileControllerIntegrat
 ### Problem: "Could not find or load main class"
 
 **Solution:**
+
 ```bash
 # Clean dan rebuild
 mvn clean compile test-compile
@@ -431,11 +470,13 @@ mvn clean compile test-compile
 ### Problem: "Docker not running"
 
 **Error:**
-```
+
+```text
 Could not start container: docker: Cannot connect to the Docker daemon
 ```
 
 **Solution:**
+
 1. Start Docker Desktop
 2. Wait until Docker is ready (whale icon in taskbar)
 3. Verify: `docker ps`
@@ -446,12 +487,14 @@ Could not start container: docker: Cannot connect to the Docker daemon
 ### Problem: "Port already in use"
 
 **Error:**
-```
+
+```text
 Address already in use: bind
 ```
 
 **Solution:**
 Testcontainers uses RANDOM ports, tapi kalau masih error:
+
 ```bash
 # Find dan kill process
 lsof -i :5432
@@ -465,17 +508,20 @@ kill -9 <PID>
 ### Problem: "Connection refused to PostgreSQL"
 
 **Error:**
-```
+
+```text
 Connection to localhost:xxxxx refused
 ```
 
 **Solution:**
+
 1. Check Docker has enough resources:
    - Docker Desktop → Preferences → Resources
    - Memory: minimum 2GB
    - CPUs: minimum 2
 
 2. Clean Docker:
+
    ```bash
    docker system prune -a
    ```
@@ -487,22 +533,27 @@ Connection to localhost:xxxxx refused
 ### Problem: "Tests are too slow"
 
 **Cause:**
+
 - Testcontainers downloads PostgreSQL image first time
 - Container startup overhead
 
 **Solutions:**
+
 1. **First time setup** (slow, normal):
+
    ```bash
    # Pre-pull image
    docker pull postgres:15
    ```
 
 2. **Reuse containers** (already enabled):
+
    ```java
    .withReuse(true)  // Already in BaseIntegrationTest
    ```
 
 3. **Run specific tests** instead of all:
+
    ```bash
    # Run only what you're working on
    mvn test -Dtest=AuthControllerIntegrationTest
@@ -513,11 +564,13 @@ Connection to localhost:xxxxx refused
 ### Problem: "Out of memory"
 
 **Error:**
-```
+
+```text
 java.lang.OutOfMemoryError: Java heap space
 ```
 
 **Solution:**
+
 ```bash
 # Increase Maven memory
 export MAVEN_OPTS="-Xmx2g"
@@ -533,6 +586,7 @@ mvn test -Dtest="*IntegrationTest"
 ### 1. Test Isolation
 
 **Always clean database before each test:**
+
 ```java
 @BeforeEach
 void setUp() {
@@ -541,6 +595,7 @@ void setUp() {
 ```
 
 **Why?**
+
 - Tests independent
 - Can run in any order
 - No data pollution
@@ -550,6 +605,7 @@ void setUp() {
 ### 2. Use Helper Methods
 
 **Don't repeat yourself:**
+
 ```java
 // ❌ BAD: Duplicate registration code in every test
 @Test
@@ -581,6 +637,7 @@ void test1() {
 ### 3. Descriptive Test Names
 
 **Use clear, descriptive names:**
+
 ```java
 // ❌ BAD
 @Test
@@ -597,6 +654,7 @@ void testLogin_WithValidCredentials_ShouldReturn200() { }
 ### 4. AAA Pattern
 
 **Arrange-Act-Assert:**
+
 ```java
 @Test
 void testExample() {
@@ -618,6 +676,7 @@ void testExample() {
 ### 5. Test Real Scenarios
 
 **Test actual user workflows:**
+
 ```java
 @Test
 @DisplayName("Full user journey: Register → Login → Access Profile")
@@ -692,6 +751,7 @@ jobs:
 ## Questions?
 
 Kalau ada pertanyaan tentang integration testing:
+
 1. Check test code comments (banyak penjelasan educational)
 2. Read Spring Boot Testing docs
 3. Check Testcontainers documentation

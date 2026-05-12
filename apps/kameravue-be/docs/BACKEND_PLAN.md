@@ -1,10 +1,13 @@
 # 🚀 Registration Form Backend - Learning Plan
 
 ## 📋 Project Overview
+
 Membuat backend API untuk Registration Form menggunakan **Java Spring Boot + PostgreSQL** yang akan terintegrasi dengan frontend React/Next.js yang sudah ada.
 
 ## 🎯 Learning Objectives
+
 Setelah menyelesaikan project ini, Anda akan memahami:
+
 1. **Spring Boot Fundamentals** - Setup project, annotations, dependency injection
 2. **REST API Development** - Controllers, HTTP methods, request/response handling
 3. **Database Integration** - PostgreSQL, JPA/Hibernate, repository pattern
@@ -13,6 +16,7 @@ Setelah menyelesaikan project ini, Anda akan memahami:
 6. **Testing & Documentation** - Unit tests, API testing dengan Postman
 
 ## 🛠️ Tech Stack
+
 - **Backend Framework:** Spring Boot 3.2+
 - **Language:** Java 17+
 - **Database:** PostgreSQL
@@ -21,6 +25,7 @@ Setelah menyelesaikan project ini, Anda akan memahami:
 - **Testing:** JUnit, Postman
 
 ## 📊 Database Schema (Basic)
+
 ```sql
 -- users table
 CREATE TABLE users (
@@ -34,7 +39,8 @@ CREATE TABLE users (
 ```
 
 ## 🔌 API Endpoints (Planned)
-```
+
+```text
 POST /api/auth/register    # Register new user
 POST /api/auth/login       # Login user
 GET  /api/user/profile     # Get user profile (protected)
@@ -44,7 +50,9 @@ PUT  /api/user/profile     # Update user profile (protected)
 ## 📚 Step-by-Step Learning Phases
 
 ### 🏗️ Phase 1: Environment Setup & Hello World ✅ COMPLETED
+
 **Goal:** Setup development environment dan buat basic Spring Boot app
+
 - [x] **Step 1.1:** Verify Java 17+ installation
 - [x] **Step 1.2:** Verify PostgreSQL installation
 - [x] **Step 1.3:** Create Spring Boot project structure
@@ -53,12 +61,14 @@ PUT  /api/user/profile     # Update user profile (protected)
 - [x] **Step 1.6:** Test basic HTTP endpoints
 - [x] **Step 1.7:** Understand project structure
 
-**Expected Output:** Server running di http://localhost:8081 dengan basic endpoints ✅
+**Expected Output:** Server running di <http://localhost:8081> dengan basic endpoints ✅
 
 ---
 
 ### 🗄️ Phase 2: Database Connection & Setup ✅ COMPLETED
+
 **Goal:** Connect ke PostgreSQL dan setup basic database operations
+
 - [x] **Step 2.1:** Create PostgreSQL database "registrationform_db"
 - [x] **Step 2.2:** Configure application.properties untuk database connection
 - [x] **Step 2.3:** Test database connection startup
@@ -71,7 +81,9 @@ PUT  /api/user/profile     # Update user profile (protected)
 ---
 
 ### 👤 Phase 3: User Management (Tanpa Security)
+
 **Goal:** Buat basic user operations (CRUD) tanpa authentication dulu
+
 - [x] **Step 3.1:** Create UserService untuk business logic ✅
 - [x] **Step 3.2:** Create UserController dengan endpoints ✅
 - [x] **Step 3.3:** Create DTOs (UserRequest, UserResponse) ✅
@@ -85,7 +97,9 @@ PUT  /api/user/profile     # Update user profile (protected)
 ---
 
 ### 🔐 Phase 4: Authentication & Security
+
 **Goal:** Add JWT authentication dan password security
+
 - [x] **Step 4.1:** Add Spring Security dependencies ✅
 - [x] **Step 4.2:** Configure password encoder (BCrypt) ✅
 - [x] **Step 4.3:** Update registration untuk hash password ✅
@@ -100,7 +114,9 @@ PUT  /api/user/profile     # Update user profile (protected)
 ---
 
 ### 🌐 Phase 5: Frontend Integration
+
 **Goal:** Connect backend dengan frontend React registration form
+
 - [x] **Step 5.1:** Configure CORS untuk frontend (port 3001) ✅
 - [x] **Step 5.2:** Update frontend untuk call backend APIs ✅
 - [x] **Step 5.3:** Test registration flow end-to-end ✅
@@ -113,7 +129,9 @@ PUT  /api/user/profile     # Update user profile (protected)
 ---
 
 ### ✅ Phase 6: Testing & Documentation
+
 **Goal:** Add proper testing dan documentation
+
 - [ ] **Step 6.1:** Write unit tests untuk services
 - [ ] **Step 6.2:** Write integration tests untuk controllers
 - [ ] **Step 6.3:** Create Postman collection
@@ -126,7 +144,8 @@ PUT  /api/user/profile     # Update user profile (protected)
 ---
 
 ## 📁 Expected Project Structure
-```
+
+```text
 backend/
 ├── src/
 │   ├── main/
@@ -162,17 +181,20 @@ backend/
 
 ## 🎯 Success Metrics
 
-### Phase 1 Success:
+### Phase 1 Success
+
 - [x] Server starts tanpa error
 - [x] GET /api/hello returns response
 - [x] Understand Spring Boot structure
 
-### Phase 2 Success:
+### Phase 2 Success
+
 - [x] Database connection berhasil
 - [x] User table ter-create
 - [x] Basic repository operations working
 
-### Phase 3 Success:
+### Phase 3 Success
+
 - [x] POST /api/users creates new user ✅
 - [x] GET /api/users/{id} returns user data ✅
 - [x] GET /api/users returns all users ✅
@@ -181,12 +203,14 @@ backend/
 - [x] GET /api/users/email/{email} finds user by email ✅
 - [ ] Input validation working (basic validation sudah ada)
 
-### Phase 4 Success:
+### Phase 4 Success
+
 - [x] POST /api/auth/register returns JWT token ✅
 - [x] POST /api/auth/login validates credentials & returns JWT ✅
 - [x] Protected endpoints require valid JWT ✅
 
-### Phase 5 Success:
+### Phase 5 Success
+
 - [x] CORS configuration allows frontend communication ✅
 - [x] Frontend registration calls backend successfully ✅
 - [x] Frontend login calls backend successfully ✅
@@ -195,26 +219,30 @@ backend/
 - [x] Registration E2E tests passing ✅
 - [x] Login E2E tests passing ✅
 
-### Phase 6 Success:
+### Phase 6 Success
+
 - [ ] All tests passing
 - [ ] Postman collection completed
 - [ ] Ready for production
 
 ## 🚨 Important Notes
 
-### 🎓 Learning Approach:
+### 🎓 Learning Approach
+
 - **Step-by-Step:** Jangan skip steps, ikuti urutan
 - **Test Each Step:** Pastikan working sebelum lanjut
 - **Understand Before Code:** Pahami konsep dulu baru coding
 - **Debugging:** Learn to read error messages
 
-### 🔧 Development Tips:
+### 🔧 Development Tips
+
 - **Start Simple:** Begin dengan basic features
 - **Incremental:** Add one feature at a time
 - **Git Commits:** Commit after each successful step
 - **Documentation:** Comment your code untuk future reference
 
-### 🎯 Focus Areas:
+### 🎯 Focus Areas
+
 1. **Understanding Spring Boot** fundamentals
 2. **Database operations** dengan JPA
 3. **API design** best practices
@@ -224,10 +252,11 @@ backend/
 ---
 
 ## 📖 Next Steps
+
 1. Mulai dengan **Phase 1** - Environment Setup
 2. Follow step-by-step, jangan rush
 3. Test setiap step dengan Postman
 4. Ask questions if stuck
 5. Document learning progress
 
-**Happy Learning! 🚀**
+Happy Learning! 🚀

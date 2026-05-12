@@ -4,7 +4,7 @@ This folder contains all unit tests for the frontend application using Jest and 
 
 ## 📁 Folder Structure
 
-```
+```text
 __tests__/
 ├── components/              # Component tests
 │   ├── LoginForm.test.tsx

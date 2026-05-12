@@ -176,7 +176,7 @@ The tests require the following test data:
 
 When all tests pass, you should see:
 
-```
+```text
 24 passed (30s)
 ```
 

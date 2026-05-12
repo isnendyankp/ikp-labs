@@ -63,6 +63,7 @@ npx playwright test tests/e2e/ --project=chromium --project=firefox --project=we
 ### Core Authentication
 
 **[login.spec.ts](login.spec.ts)** - Login flow tests
+
 - ✅ Successful login with valid credentials
 - ✅ Failed login with invalid password
 - ✅ Failed login with non-existent email
@@ -71,6 +72,7 @@ npx playwright test tests/e2e/ --project=chromium --project=firefox --project=we
 - ✅ CORS configuration
 
 **[registration.spec.ts](registration.spec.ts)** - Registration flow tests
+
 - ✅ Successful registration
 - ✅ Duplicate email validation
 - ✅ Password strength requirements
@@ -78,11 +80,13 @@ npx playwright test tests/e2e/ --project=chromium --project=firefox --project=we
 - ✅ Database persistence checks
 
 **[registration-with-tracker.spec.ts](registration-with-tracker.spec.ts)** - Registration with Test Plan Tracker
+
 - ✅ Smart test user cleanup
 - ✅ Test plan progress tracking
 - ✅ Failed test data preservation
 
 **[auth-flow.spec.ts](auth-flow.spec.ts)** - Complete authentication flow
+
 - ✅ End-to-end registration → login → logout flow
 - ✅ Session management
 - ✅ JWT token handling
@@ -90,6 +94,7 @@ npx playwright test tests/e2e/ --project=chromium --project=firefox --project=we
 ### Landing Page
 
 **[landing-page.spec.ts](landing-page.spec.ts)** - Landing page E2E tests
+
 - ✅ Navigation button tests (3 tests)
   - Hero "Get Started Free" button → `/login`
   - Navbar "Login" button → `/login`
@@ -125,6 +130,7 @@ npx playwright test tests/e2e/ --project=chromium --project=firefox --project=we
   - Authenticated: Go to Gallery button
 
 **Test Coverage:**
+
 - Desktop viewport (1280px): 100% coverage
 - Tablet viewport (768px): 100% coverage
 - Mobile viewport (375px): 100% coverage
@@ -132,12 +138,14 @@ npx playwright test tests/e2e/ --project=chromium --project=firefox --project=we
 - All interactive elements: Covered
 
 **Test Results:**
+
 - 50/50 tests passing
 - Tested on Chromium + Firefox
 
 ### Gallery & Photo Features
 
 **[gallery.spec.ts](gallery.spec.ts)** - Photo gallery tests (Week 12)
+
 - ✅ Gallery page loads with photos
 - ✅ Pagination works correctly
 - ✅ Photo detail view
@@ -147,6 +155,7 @@ npx playwright test tests/e2e/ --project=chromium --project=firefox --project=we
 - ✅ Responsive design verification
 
 **[photo-likes.spec.ts](photo-likes.spec.ts)** - Photo likes feature (Week 13)
+
 - ✅ Like/unlike other users' photos
 - ✅ Cannot like own photos
 - ✅ Like count updates correctly
@@ -156,6 +165,7 @@ npx playwright test tests/e2e/ --project=chromium --project=firefox --project=we
 - ✅ Pagination on liked photos page
 
 **[profile-picture.spec.ts](profile-picture.spec.ts)** - Profile picture tests
+
 - ✅ Upload profile picture
 - ✅ Update existing profile picture
 - ✅ Delete profile picture
@@ -163,6 +173,7 @@ npx playwright test tests/e2e/ --project=chromium --project=firefox --project=we
 - ✅ Display in navbar
 
 **[photo-favorites.spec.ts](photo-favorites.spec.ts)** - Photo favorites feature
+
 - ✅ Favorite/unfavorite other users' photos
 - ✅ Cannot favorite own photos
 - ✅ Favorite count updates correctly
@@ -171,6 +182,7 @@ npx playwright test tests/e2e/ --project=chromium --project=firefox --project=we
 - ✅ Pagination on favorited photos page
 
 **[gallery-sorting.spec.ts](gallery-sorting.spec.ts)** - Gallery sorting & filtering
+
 - ✅ Sort by newest/oldest
 - ✅ Sort by most liked/favorited
 - ✅ Filter by all/my-photos/liked/favorited
@@ -179,6 +191,7 @@ npx playwright test tests/e2e/ --project=chromium --project=firefox --project=we
 ### UX-Specific Tests
 
 **[ux-validation.spec.ts](ux-validation.spec.ts)** - Form Validation UX
+
 - ✅ Email format validation on blur
 - ✅ Password strength validation on blur
 - ✅ Success messages for valid input
@@ -189,6 +202,7 @@ npx playwright test tests/e2e/ --project=chromium --project=firefox --project=we
 - ✅ Success icons with messages
 
 **[ux-confirmations.spec.ts](ux-confirmations.spec.ts)** - Confirmation Dialogs
+
 - ✅ Delete confirmation appears before action
 - ✅ Cancel button closes dialog
 - ✅ ESC key closes dialog
@@ -198,6 +212,7 @@ npx playwright test tests/e2e/ --project=chromium --project=firefox --project=we
 - ✅ Proper ARIA attributes
 
 **[ux-empty-states.spec.ts](ux-empty-states.spec.ts)** - Empty State UX
+
 - ✅ Empty gallery shows helpful message
 - ✅ Empty liked photos with CTA
 - ✅ Empty favorited photos with CTA
@@ -206,6 +221,7 @@ npx playwright test tests/e2e/ --project=chromium --project=firefox --project=we
 - ✅ Empty state disappears when photos exist
 
 **[ux-story-journey.spec.ts](ux-story-journey.spec.ts)** - UX Story Journey (LinkedIn Demo)
+
 - ✅ Register new account
 - ✅ Gallery shows photos from ALL users
 - ✅ Change sort from "Newest First" to "Oldest First"
@@ -215,16 +231,19 @@ npx playwright test tests/e2e/ --project=chromium --project=firefox --project=we
 ### Demo & Utilities
 
 **[demo-screenshot-capture.spec.ts](demo-screenshot-capture.spec.ts)** - Screenshot testing demo
+
 - Shows how to capture screenshots during tests
 - Useful for visual regression testing
 
 **[demo-video-recording.spec.ts](demo-video-recording.spec.ts)** - Video recording demo
+
 - Shows how to record videos of test runs
 - Useful for debugging failed tests
 
 ## 📁 Helpers
 
 **[helpers/](helpers/)** - Reusable test utilities
+
 - Test data generators
 - Common page actions
 - Authentication helpers
@@ -239,7 +258,6 @@ import { test, expect } from '@playwright/test';
 import { testUsers } from '../fixtures/test-users';
 
 test.describe('My Feature Tests', () => {
-
   test.beforeEach(async ({ page }) => {
     // Setup: Navigate to the page
     await page.goto('http://localhost:3002/my-page');
@@ -263,7 +281,6 @@ test.describe('My Feature Tests', () => {
     // Cleanup: Clear localStorage, logout, etc.
     await page.evaluate(() => localStorage.clear());
   });
-
 });
 ```
 
@@ -301,8 +318,9 @@ test('User A likes User B photo', async ({ browser }) => {
     await photoCard.locator('[data-testid="like-button"]').click();
 
     // Verify like count updated
-    await expect(photoCard.locator('[data-testid="like-count"]')).toContainText('1');
-
+    await expect(photoCard.locator('[data-testid="like-count"]')).toContainText(
+      '1'
+    );
   } finally {
     await contextA.close();
     await contextB.close();
@@ -315,6 +333,7 @@ test('User A likes User B photo', async ({ browser }) => {
 ### 1. Use Reliable Selectors
 
 **Prefer `data-testid` attributes:**
+
 ```typescript
 // ✅ GOOD: Stable, semantic selector
 await page.click('[data-testid="submit-button"]');
@@ -356,7 +375,9 @@ test.afterEach(async ({ page, request }) => {
   });
 
   // Delete test data (if using Test Admin API)
-  await request.delete(`http://localhost:8081/api/test-admin/users/${testEmail}`);
+  await request.delete(
+    `http://localhost:8081/api/test-admin/users/${testEmail}`
+  );
 });
 ```
 
@@ -387,6 +408,7 @@ test('test 2', async ({ page }) => {
 ### 1. Run in Headed Mode
 
 See the browser as tests run:
+
 ```bash
 npx playwright test tests/e2e/gallery.spec.ts --headed
 ```
@@ -394,6 +416,7 @@ npx playwright test tests/e2e/gallery.spec.ts --headed
 ### 2. Use Debug Mode
 
 Step through tests line by line:
+
 ```bash
 npx playwright test tests/e2e/gallery.spec.ts --debug
 ```
@@ -428,6 +451,7 @@ test('my test', async ({ page }) => {
 ### 5. Use Playwright Inspector
 
 Opens interactive debugger:
+
 ```bash
 npx playwright test tests/e2e/gallery.spec.ts --debug
 ```
@@ -469,6 +493,7 @@ npx playwright show-trace
 **Cause:** Frontend/backend not running or wrong port
 
 **Solution:**
+
 ```bash
 # Check frontend is running on port 3002
 curl http://localhost:3002
@@ -482,6 +507,7 @@ curl http://localhost:8081/api/health
 **Cause:** Element not loaded yet or wrong selector
 
 **Solution:**
+
 ```typescript
 // Add explicit wait
 await page.waitForSelector('[data-testid="my-element"]');
@@ -495,6 +521,7 @@ await expect(page.locator('[data-testid="my-element"]')).toBeVisible();
 **Cause:** Timing issues or missing waits
 
 **Solution:**
+
 ```typescript
 // Always wait for network idle
 await page.goto('http://localhost:3002/page');
@@ -506,6 +533,6 @@ test.setTimeout(60000); // 60 seconds
 
 ---
 
-**Happy Testing! 🎭**
+Happy Testing! 🎭
 
 For questions or issues, check the [main testing guide](../README.md) or refer to [Playwright documentation](https://playwright.dev).
