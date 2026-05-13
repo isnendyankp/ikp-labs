@@ -112,11 +112,11 @@
 ### Git and PR
 
 - [x] Stage `.claude/skills/` + checklist
-- [ ] Commit: `docs(markdown): fix all violations in .claude/skills/`
-- [ ] Push branch: `git push -u origin docs/fix-md-claude-skills`
-- [ ] Open PR targeting `main`
-- [ ] Verify `markdown-lint` CI job passes on the PR
-- [ ] Merge PR
+- [x] Commit: `docs(markdown): fix all violations in .claude/skills/`
+- [x] Push branch: `git push -u origin docs/fix-md-claude-skills`
+- [x] Open PR targeting `main`
+- [x] Verify `markdown-lint` CI job passes on the PR
+- [x] Merge PR
 
 ---
 
@@ -140,11 +140,11 @@
 ### Git and PR
 
 - [x] Stage `.claude/agents/` + checklist
-- [ ] Commit: `docs(markdown): fix all violations in .claude/agents/`
-- [ ] Push branch: `git push -u origin docs/fix-md-claude-agents`
-- [ ] Open PR targeting `main`
-- [ ] Verify CI passes
-- [ ] Merge PR
+- [x] Commit: `docs(markdown): fix all violations in .claude/agents/`
+- [x] Push branch: `git push -u origin docs/fix-md-claude-agents`
+- [x] Open PR targeting `main`
+- [x] Verify CI passes
+- [x] Merge PR
 
 ---
 
@@ -155,27 +155,27 @@
 
 ### Implementation
 
-- [ ] Create branch `docs/fix-md-apps` from `main`
-- [ ] Run `npx markdownlint-cli2 --fix "apps/**/*.md"` to apply auto-fixes
-- [ ] Run `npx markdownlint-cli2 "apps/**/*.md"` and inspect remaining violations
-- [ ] Manually fix MD040 violations: add language identifier to fenced code blocks
-- [ ] Manually fix MD036 violations: convert emphasis-as-headings to ATX headings
-- [ ] Manually fix MD024 violations: resolve duplicate heading text
-- [ ] Re-run `npx markdownlint-cli2 "apps/**/*.md"` and confirm zero output
+- [x] Create branch `docs/fix-md-apps` from `main`
+- [x] Run `npx markdownlint-cli2 --fix "apps/**/*.md"` to apply auto-fixes
+- [x] Run `npx markdownlint-cli2 "apps/**/*.md"` and inspect remaining violations
+- [x] Manually fix MD040 violations: add language identifier to fenced code blocks
+- [x] Manually fix MD036 violations: convert emphasis-as-headings to ATX headings
+- [x] Manually fix MD024 violations: resolve duplicate heading text
+- [x] Re-run `npx markdownlint-cli2 "apps/**/*.md"` and confirm zero output
 
 ### Validation
 
-- [ ] `npx markdownlint-cli2 "apps/**/*.md"` reports zero violations
-- [ ] No markdown files deleted or renamed (content fixes only)
+- [x] `npx markdownlint-cli2 "apps/**/*.md"` reports zero violations
+- [x] No markdown files deleted or renamed (content fixes only)
 
 ### Git and PR
 
-- [ ] Stage all changed `.md` files under `apps/`
-- [ ] Commit: `docs(markdown): fix all violations in apps/`
-- [ ] Push branch: `git push -u origin docs/fix-md-apps`
-- [ ] Open PR targeting `main`
-- [ ] Verify `markdown-lint` CI job passes on the PR
-- [ ] Merge PR
+- [x] Stage all changed `.md` files under `apps/`
+- [x] Commit: `docs(markdown): fix all violations in apps/`
+- [x] Push branch: `git push -u origin docs/fix-md-apps`
+- [x] Open PR targeting `main`
+- [x] Verify `markdown-lint` CI job passes on the PR
+- [x] Merge PR
 
 ---
 
