@@ -186,23 +186,23 @@
 
 ### Implementation
 
-- [ ] Create branch `docs/fix-md-remaining` from `main`
-- [ ] Run `npm run lint:md` at repo root and identify which files still have violations after Phases 4-6
-- [ ] Run `npx markdownlint-cli2 --fix` on each remaining file or directory
-- [ ] Run `npm run lint:md` again and inspect remaining violations outside `plans/done/`
-- [ ] Manually fix MD040 violations: add language identifier to fenced code blocks
-- [ ] Manually fix MD036 violations: convert emphasis-as-headings to ATX headings
-- [ ] Manually fix MD024 violations: resolve duplicate heading text
-- [ ] Re-run lint scoped to the affected files and confirm zero output
+- [x] Create branch `docs/fix-md-remaining` from `main`
+- [x] Run `npm run lint:md` at repo root and identify which files still have violations after Phases 4-6
+- [x] Run `npx markdownlint-cli2 --fix` on each remaining file or directory
+- [x] Run `npm run lint:md` again and inspect remaining violations outside `plans/done/`
+- [x] Manually fix MD040 violations: add language identifier to fenced code blocks
+- [x] Manually fix MD036 violations: convert emphasis-as-headings to ATX headings
+- [x] Manually fix MD024 violations: resolve duplicate heading text
+- [x] Re-run lint scoped to the affected files and confirm zero output
 
 ### Validation
 
-- [ ] All violations outside `.claude/skills/`, `.claude/agents/`, `apps/`, and `plans/done/` are resolved
-- [ ] No markdown files deleted or renamed (content fixes only)
+- [x] All violations outside `.claude/skills/`, `.claude/agents/`, `apps/`, and `plans/done/` are resolved
+- [x] No markdown files deleted or renamed (content fixes only)
 
 ### Git and PR
 
-- [ ] Stage all changed `.md` files
+- [x] Stage all changed `.md` files
 - [ ] Commit: `docs(markdown): fix remaining misc violations outside major dirs`
 - [ ] Push branch: `git push -u origin docs/fix-md-remaining`
 - [ ] Open PR targeting `main`

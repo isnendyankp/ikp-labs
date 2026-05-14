@@ -6,7 +6,7 @@
 
 ## 📁 Directory Structure
 
-```
+```text
 plans/
 ├── README.md          # This file
 ├── ideas.md           # Quick concept snippets
@@ -20,18 +20,22 @@ plans/
 ## 🔄 Planning Workflow
 
 ### 1. **Ideas** → `ideas.md`
+
 Quick brainstorming, rough concepts not yet formalized
 
 **Format**: Simple bullet points with dates
 **Purpose**: Capture ideas before they're forgotten
 **Example**:
+
 ```markdown
 ### 2024-12-14: Photo Albums Feature
+
 - Allow users to organize photos into albums
 - Estimated: 5 days
 ```
 
 ### 2. **Backlog** → `backlog/`
+
 Ideas that have been formalized into actionable plans
 
 **Format**: `YYYY-MM-DD__project-identifier/`
@@ -39,6 +43,7 @@ Ideas that have been formalized into actionable plans
 **Status**: Planned but not started
 
 ### 3. **In Progress** → `in-progress/`
+
 Plans actively being worked on
 
 **Format**: `YYYY-MM-DD__project-identifier.md` or folder
@@ -46,6 +51,7 @@ Plans actively being worked on
 **Status**: Currently implementing
 
 ### 4. **Done** → `done/`
+
 Completed plans, archived for reference
 
 **Format**: `YYYY-MM-DD__project-identifier/`
@@ -61,11 +67,13 @@ All plans follow date-based naming:
 **Format**: `YYYY-MM-DD__project-identifier`
 
 **Examples**:
+
 - `2024-11-24__photo-gallery-feature/`
 - `2024-12-10__photo-likes-feature/`
 - `2024-12-08__e2e-gallery-tests.md`
 
 **Why Date-Based?**
+
 - Clear chronological order
 - Easy to track when projects started
 - Simple sorting by date
@@ -76,7 +84,8 @@ All plans follow date-based naming:
 ## 🗂️ Current Plans
 
 ### Done (Archived)
-```
+
+```text
 done/
 ├── 2024-11-04__unit-testing/
 │   ├── unit-test-checklist.md
@@ -96,7 +105,8 @@ done/
 ```
 
 ### In Progress
-```
+
+```text
 in-progress/
 └── 2026-02-11__frontend-unit-tests/
     ├── README.md
@@ -106,7 +116,8 @@ in-progress/
 ```
 
 ### Backlog
-```
+
+```text
 backlog/
 └── 2026-01-12__cicd-pipeline/
     ├── README.md
@@ -120,15 +131,19 @@ backlog/
 ## ✅ How to Create a New Plan
 
 ### Step 1: Add to Ideas
+
 ```markdown
 # In ideas.md
+
 ### 2024-12-15: New Feature Name
+
 - Brief description
 - Why it's valuable
 - Rough estimate
 ```
 
 ### Step 2: Move to Backlog (when ready to plan)
+
 ```bash
 mkdir -p plans/backlog/2024-12-15__new-feature/
 cd plans/backlog/2024-12-15__new-feature/
@@ -141,12 +156,14 @@ touch checklist.md
 ```
 
 ### Step 3: Move to In Progress (when starting)
+
 ```bash
 git mv plans/backlog/2024-12-15__new-feature/ \
        plans/in-progress/
 ```
 
 ### Step 4: Move to Done (when completed)
+
 ```bash
 git mv plans/in-progress/2024-12-15__new-feature/ \
        plans/done/
@@ -159,12 +176,14 @@ git mv plans/in-progress/2024-12-15__new-feature/ \
 Each plan folder typically contains:
 
 ### Required Files
+
 - **`README.md`** - Quick navigation & overview
 - **`requirements.md`** - Feature scope, user stories, success criteria
 - **`technical-design.md`** - Architecture, API design, database schema
 - **`checklist.md`** - Implementation tasks with checkboxes
 
 ### Optional Files
+
 - `test-plan.md` - Testing strategy
 - `api-spec.md` - API endpoint specifications
 - `progress-log.md` - Daily progress tracking
@@ -175,6 +194,7 @@ Each plan folder typically contains:
 ## 🎯 Best Practices
 
 ### Do ✅
+
 - Use date-based naming (`YYYY-MM-DD__project-name`)
 - Keep plans focused and scoped
 - Update status regularly (ideas → backlog → in-progress → done)
@@ -182,6 +202,7 @@ Each plan folder typically contains:
 - Reference plans in commit messages
 
 ### Don't ❌
+
 - Don't create permanent documentation here (use `docs/` instead)
 - Don't leave plans in wrong status folder
 - Don't use generic names without dates
@@ -194,6 +215,7 @@ Each plan folder typically contains:
 Plans are **temporary** - they track work in progress.
 
 For **permanent** documentation, see:
+
 - **[docs/](../docs/)** - Permanent documentation (Diátaxis framework)
   - `tutorials/` - Learning guides
   - `how-to/` - Problem-solving
@@ -202,6 +224,7 @@ For **permanent** documentation, see:
   - `journals/` - Development logs
 
 **Key Difference**:
+
 - `plans/` = Work tracking (temporary, project-focused)
 - `docs/` = Knowledge sharing (permanent, topic-focused)
 
@@ -210,6 +233,7 @@ For **permanent** documentation, see:
 ## 📊 Quick Stats
 
 **Completed Projects**: 17
+
 - Unit Testing (Nov 4, 2024)
 - Profile Picture E2E (Nov 4, 2024)
 - Photo Gallery Feature (Nov 24, 2024)
@@ -228,9 +252,11 @@ For **permanent** documentation, see:
 - DRY Violations Fix (Feb 8, 2026)
 
 **In Progress**: 1
+
 - Frontend Unit Tests (Feb 11, 2026)
 
 **Backlog**: 1
+
 - CI/CD Pipeline (Jan 12, 2026)
 
 ---
