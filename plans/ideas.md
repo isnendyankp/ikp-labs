@@ -9,6 +9,7 @@ Quick concept snippets and brainstorming notes that haven't been formalized into
 <!-- Add new ideas here with date -->
 
 ### 2026-01-13: Core UX Improvements (In Progress - Week 1)
+
 - **Toast Notifications System** - Success/Error/Warning/Info feedback
 - **Loading States** - Skeleton screens, spinners, progress bars
 - **Confirmation Dialogs** - Destructive action confirmations
@@ -18,6 +19,7 @@ Quick concept snippets and brainstorming notes that haven't been formalized into
 - Note: 6 core improvements, estimated 12-17 hours
 
 ### 2026-01-13: UX Enhancements (Backlog - Week 2+)
+
 - **Dark Mode Toggle** - Theme switcher (light/dark/auto)
 - **Image Lightbox/Preview** - Full-size image viewer with zoom
 - **Drag & Drop Upload** - Better file upload experience
@@ -28,6 +30,7 @@ Quick concept snippets and brainstorming notes that haven't been formalized into
 - **Infinite Scroll** - Replace pagination (optional)
 
 ### 2026-01-12: Future Feature Ideas (High Priority)
+
 - **Photo Comments System** - Allow users to comment on photos
 - **Photo Search & Advanced Filtering** - Search by tags, date ranges, metadata
 - **User Tagging in Photos** - Tag other users in photos (@mentions)
@@ -37,6 +40,7 @@ Quick concept snippets and brainstorming notes that haven't been formalized into
 - **Notification System** - In-app notifications for likes, comments, mentions
 
 ### 2026-01-12: Infrastructure Ideas (Medium Priority)
+
 - **Docker Containerization** - Dockerfiles for local development and deployment
 - **Redis Caching Layer** - Cache frequently accessed data
 - **API Rate Limiting** - Prevent abuse, ensure fair usage
@@ -45,12 +49,14 @@ Quick concept snippets and brainstorming notes that haven't been formalized into
 - **API Documentation with Swagger/OpenAPI** - Interactive API docs
 
 ### 2026-01-12: Testing Ideas (Low Priority)
+
 - **Visual Regression Tests** - Storybook + Chromatic for UI changes
 - **Performance Tests** - Lighthouse CI for performance tracking
 - **Accessibility Tests** - jest-axe for a11y validation
 - **Contract Testing** - Pact for API contract validation
 
 ### 2026-01-12: Nice-to-Have Features
+
 - **Photo Editing Tools** - Crop, rotate, filters
 - **Social Sharing** - Share photos to social media
 - **Photo Download** - Allow users to download photos
@@ -64,6 +70,7 @@ Quick concept snippets and brainstorming notes that haven't been formalized into
 <!-- Ideas that have been implemented or rejected -->
 
 ### ✅ Moved to Done (Formal Plans Completed)
+
 - **UX Improvements** (completed in `done/2026-01-13__ux-improvements/`)
   - Toast notifications, loading states, confirmation dialogs
   - Empty states, form validation, micro-interactions
@@ -80,6 +87,7 @@ Quick concept snippets and brainstorming notes that haven't been formalized into
   - Status: Backlog
 
 ### ✅ Implemented
+
 - **Gallery Sorting Feature** (moved to `done/2024-12-28__gallery-sorting-feature/`)
   - Completed: January 4, 2026
   - 116+ comprehensive tests
@@ -106,14 +114,17 @@ Quick concept snippets and brainstorming notes that haven't been formalized into
 **Purpose**: Quick capture of ideas before they become formal plans
 
 **Workflow**:
+
 1. Add new ideas to "Active Ideas" section with date
 2. When ready to plan → move to `backlog/` folder with full planning docs
 3. When implemented → move to "Archive" section
 4. When rejected → move to "Archive" with reason
 
 **Format**:
+
 ```markdown
 ### YYYY-MM-DD: Idea Title
+
 - Brief description
 - Why this is valuable
 - Rough estimate (if known)
