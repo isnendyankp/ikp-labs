@@ -1,6 +1,6 @@
 # Gallery-Centric Navigation Feature
 
-**Feature ID**: 2024-12-22__gallery-centric-navigation
+**Feature ID**: 2024-12-22\_\_gallery-centric-navigation
 **Status**: ✅ Completed
 **Created**: December 22, 2024
 **Completed**: December 27, 2024
@@ -13,12 +13,14 @@ This feature transforms the application's navigation structure to make the **Gal
 ## Goals
 
 ### Primary Objectives
+
 1. **Gallery as Home**: Make `/gallery` the default landing page after authentication
 2. **Unified Filter System**: Replace view toggle buttons with a comprehensive dropdown filter
 3. **Simplified Navigation**: Streamline user journey with clear, intuitive navigation paths
 4. **Profile Separation**: Distinguish between "home" (gallery) and "my profile" (user settings)
 
 ### User Experience Improvements
+
 - **Faster Time-to-Value**: Users see content immediately after login
 - **Clearer Mental Model**: Gallery = main app, Profile = user management
 - **Reduced Clicks**: Filter switching without page navigation
@@ -27,7 +29,8 @@ This feature transforms the application's navigation structure to make the **Gal
 ## Key Changes Summary
 
 ### Route Structure
-```
+
+```text
 BEFORE:
 /               → Default Next.js welcome page
 /home           → User profile (redirected after login)
@@ -44,7 +47,8 @@ AFTER:
 ```
 
 ### Navigation Components
-```
+
+```text
 BEFORE:
 Navbar: [Home] [Gallery] [Upload] [Logout]
 Gallery: [My Photos] [Public] buttons
@@ -60,7 +64,8 @@ Filter Options:
 ```
 
 ### User Flow
-```
+
+```text
 BEFORE:
 Login → /home → Click Gallery → Choose My/Public
 
@@ -71,10 +76,12 @@ Login → /gallery (All Photos view) → Use filter dropdown to switch views
 ## Features
 
 ### 1. Auto-Redirect from Root
+
 - Authenticated users: `/` → `/gallery`
 - Unauthenticated users: `/` → `/login`
 
 ### 2. Filter Dropdown System
+
 - **Position**: Below navbar, left side
 - **Type**: Dropdown select menu
 - **Default**: "All Photos" (public photos)
@@ -85,23 +92,27 @@ Login → /gallery (All Photos view) → Use filter dropdown to switch views
   - Favorited Photos (private favorites)
 
 ### 3. URL State Management
+
 - Filter state stored in URL query params
 - Example: `/gallery?filter=all`, `/gallery?filter=liked`
 - Benefits: Shareable links, browser navigation, bookmarkable views
 
 ### 4. Simplified Profile Page
+
 - Route: `/myprofile` (renamed from `/home`)
 - Content: Profile info, statistics, edit options
 - Navigation: "Back to Gallery" button
 - Sub-routes maintained for direct access
 
 ### 5. Updated Login Flow
+
 - Login success → Redirect to `/gallery` (not `/home`)
 - Consistent with gallery-as-home concept
 
 ## Technical Scope
 
 ### Frontend Changes
+
 - Route restructuring (`/home` → `/myprofile`)
 - Root page redirect logic
 - Gallery page filter implementation
@@ -110,10 +121,12 @@ Login → /gallery (All Photos view) → Use filter dropdown to switch views
 - Login redirect update
 
 ### Backend Requirements
+
 - No backend changes required
 - Existing API endpoints support all filter views
 
 ### Testing Scope
+
 - Authentication flow tests
 - Filter functionality tests
 - Navigation tests
@@ -123,6 +136,7 @@ Login → /gallery (All Photos view) → Use filter dropdown to switch views
 ## Success Criteria
 
 ### Functional
+
 - [x] Root `/` redirects based on auth status
 - [x] `/gallery` is default post-login destination
 - [x] Filter dropdown switches between 4 views
@@ -133,6 +147,7 @@ Login → /gallery (All Photos view) → Use filter dropdown to switch views
 - [x] "Back to Gallery" returns to filtered view
 
 ### User Experience
+
 - [x] No broken links after route changes
 - [x] Smooth transitions between filters
 - [x] Browser back/forward works correctly
@@ -140,6 +155,7 @@ Login → /gallery (All Photos view) → Use filter dropdown to switch views
 - [x] Clear visual indication of active filter
 
 ### Code Quality
+
 - [x] No duplicated filter logic
 - [x] Reusable FilterDropdown component
 - [x] Consistent URL parameter handling
@@ -148,11 +164,13 @@ Login → /gallery (All Photos view) → Use filter dropdown to switch views
 ## Dependencies
 
 ### Internal
+
 - Existing auth system (`lib/auth.ts`)
 - Existing API service (`services/api.ts`)
 - Current gallery components
 
 ### External
+
 - Next.js routing (`useRouter`, `useSearchParams`)
 - React hooks (`useState`, `useEffect`)
 
@@ -161,6 +179,7 @@ Login → /gallery (All Photos view) → Use filter dropdown to switch views
 **Estimated Duration**: 1 development session
 
 **Phases**:
+
 1. ✅ Planning & Documentation (Completed)
 2. ⏳ Implementation (Pending approval)
 3. ⏸️ Testing & Validation
@@ -181,15 +200,19 @@ Login → /gallery (All Photos view) → Use filter dropdown to switch views
 ## Notes
 
 ### Like vs Favorite Distinction
+
 - **Like**: Public appreciation (visible to others, shows like count)
 - **Favorite**: Private bookmark (only visible to user, no public counter)
 
 ### Filter Default Behavior
+
 - Default filter: "All Photos" (public photos)
 - Rationale: Show content discovery first, personal photos secondary
 
 ### Atomic Commit Strategy
+
 Each implementation task = 1 focused commit + push for:
+
 - Better rollback capability
 - Clear change history
 - Improved GitHub activity visibility

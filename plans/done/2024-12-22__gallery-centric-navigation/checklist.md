@@ -1,6 +1,7 @@
 # Gallery-Centric Navigation - Implementation Checklist
 
 ## Status Legend
+
 - [ ] Not started
 - [🔄] In progress
 - [✅] Completed
@@ -11,6 +12,7 @@
 ## Phase 1: Planning & Documentation ✅
 
 ### Task 1.1: Project Setup
+
 - [✅] Move completed photo-favorites plan to done folder
 - [✅] Create new plan folder structure
 - [✅] Create README.md
@@ -24,10 +26,13 @@
 ## Phase 2: Route Restructuring ✅
 
 ### Task 2.1: Rename /home Route to /myprofile
-**Files to Modify:**
+
+### Files to Modify
+
 - Rename: `frontend/src/app/home/` → `frontend/src/app/myprofile/`
 
-**Steps:**
+### Steps
+
 1. [✅] Rename directory `home` to `myprofile` via git mv
 2. [✅] Verify sub-routes still accessible:
    - `/myprofile/liked-photos`
@@ -35,7 +40,8 @@
 3. [✅] Test: Access `/myprofile` in browser
 4. [✅] **COMMIT 2**: "refactor(routes): rename /home to /myprofile" (commit: 046ef0a)
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - [✅] `/myprofile` page loads successfully
 - [✅] `/myprofile/liked-photos` works
 - [✅] `/myprofile/favorited-photos` works
@@ -44,10 +50,13 @@
 ---
 
 ### Task 2.2: Update My Profile Page Content
-**Files to Modify:**
+
+### Files to Modify
+
 - `frontend/src/app/myprofile/page.tsx`
 
-**Changes:**
+### Changes
+
 1. [✅] Add "Back to Gallery" link at top
 2. [✅] Simplify page content (remove photo grids if any)
 3. [✅] Keep profile info section
@@ -56,7 +65,8 @@
 6. [✅] Test: Click "Back to Gallery" navigates to `/gallery`
 7. [✅] **COMMIT 3**: "feat(profile): add back to gallery link and simplify layout" (commit: d05bb3b)
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - [✅] "Back to Gallery" link visible and working
 - [✅] Profile info displays correctly
 - [✅] Statistics show (can be placeholder values for now)
@@ -65,10 +75,13 @@
 ---
 
 ### Task 2.3: Add Backward Compatibility Redirect
-**Files to Create:**
+
+### Files to Create
+
 - `frontend/src/middleware.ts` (if doesn't exist)
 
-**Changes:**
+### Changes
+
 1. [✅] Create or update middleware.ts
 2. [✅] Add redirect logic: `/home/*` → `/myprofile/*`
 3. [✅] Test: Access old URLs redirect correctly
@@ -76,7 +89,8 @@
    - `/home/liked-photos` → `/myprofile/liked-photos`
 4. [✅] **COMMIT 4**: "feat(middleware): add redirect from /home to /myprofile" (commit: fe5240f)
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - [✅] Old `/home` URL redirects to `/myprofile`
 - [✅] Sub-routes redirect correctly
 - [✅] No bookmarks broken
@@ -86,10 +100,13 @@
 ## Phase 3: Root Page Auto-Redirect ✅
 
 ### Task 3.1: Implement Root Page Redirect Logic
-**Files to Modify:**
+
+### Files to Modify
+
 - `frontend/src/app/page.tsx`
 
-**Changes:**
+### Changes
+
 1. [✅] Replace default Next.js content
 2. [✅] Add client component directive
 3. [✅] Import auth utilities
@@ -102,7 +119,8 @@
    - Logged out user visits `/`
 7. [✅] **COMMIT 5**: "feat(root): add auto-redirect based on auth status" (commit: 877c967)
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - [✅] Authenticated users redirect to `/gallery`
 - [✅] Unauthenticated users redirect to `/login`
 - [✅] No flash of wrong content
@@ -113,17 +131,21 @@
 ## Phase 4: Login Redirect Update ✅
 
 ### Task 4.1: Update Login Success Redirect
-**Files to Modify:**
+
+### Files to Modify
+
 - `frontend/src/components/LoginForm.tsx`
 
-**Changes:**
+### Changes
+
 1. [✅] Find login success handler
 2. [✅] Change redirect from `/home` to `/gallery`
 3. [✅] Test: Login redirects to gallery
 4. [✅] Verify: Gallery shows default "All Photos" view
 5. [✅] **COMMIT 6**: "feat(auth): redirect to gallery after login instead of home" (commit: c32bc26)
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - [✅] Login success → redirects to `/gallery`
 - [✅] No intermediate redirects
 - [✅] User sees photos immediately after login
@@ -133,10 +155,13 @@
 ## Phase 5: Filter Dropdown Component
 
 ### Task 5.1: Create FilterDropdown Component
-**Files to Create:**
+
+### Files to Create
+
 - `frontend/src/components/FilterDropdown.tsx`
 
-**Steps:**
+### Steps
+
 1. [✅] Create new component file
 2. [✅] Define FilterDropdownProps interface
 3. [✅] Define FILTER_OPTIONS constant
@@ -151,7 +176,8 @@
 8. [✅] Test: Dropdown opens, closes, shows options
 9. [✅] **COMMIT 7**: "feat(components): add FilterDropdown component" (commit: 8cfc255)
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - [✅] Component renders without errors
 - [✅] Dropdown opens/closes on button click
 - [✅] All 4 options visible
@@ -162,10 +188,13 @@
 ---
 
 ### Task 5.2: Add Filter Dropdown Styling & Accessibility
-**Files to Modify:**
+
+### Files to Modify
+
 - `frontend/src/components/FilterDropdown.tsx`
 
-**Steps:**
+### Steps
+
 1. [✅] Add hover states
 2. [✅] Add focus states (keyboard navigation)
 3. [✅] Add ARIA attributes
@@ -174,7 +203,8 @@
 6. [✅] Test screen reader compatibility (optional)
 7. [✅] **COMMIT 8**: "style(filter-dropdown): add accessibility and polish" (included in commit: 8cfc255)
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - [✅] Hover states work
 - [✅] Keyboard navigable
 - [✅] Visually polished
@@ -185,10 +215,13 @@
 ## Phase 6: Gallery Page Refactor
 
 ### Task 6.1: Add URL Query Param Management to Gallery
-**Files to Modify:**
+
+### Files to Modify
+
 - `frontend/src/app/gallery/page.tsx`
 
-**Steps:**
+### Steps
+
 1. [✅] Import `useSearchParams`, `useRouter` from next/navigation
 2. [✅] Read `filter` query param (default: 'all')
 3. [✅] Read `page` query param (default: 1)
@@ -201,7 +234,8 @@
 6. [✅] Test: URL updates when filter changes
 7. [✅] **COMMIT 9**: "feat(gallery): add URL query param management" (included in commit: 9b0292f)
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - [✅] URL reflects current filter
 - [✅] URL reflects current page
 - [✅] Browser back/forward works
@@ -210,10 +244,13 @@
 ---
 
 ### Task 6.2: Integrate FilterDropdown into Gallery
-**Files to Modify:**
+
+### Files to Modify
+
 - `frontend/src/app/gallery/page.tsx`
 
-**Steps:**
+### Steps
+
 1. [✅] Import FilterDropdown component
 2. [✅] Add FilterDropdown to page (above photo grid)
 3. [✅] Pass `currentFilter` prop from URL param
@@ -223,7 +260,8 @@
 7. [✅] Test: Filter dropdown renders correctly
 8. [✅] **COMMIT 10**: "feat(gallery): integrate filter dropdown and remove old toggles" (included in commit: 9b0292f)
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - [✅] FilterDropdown visible above gallery
 - [✅] Upload button positioned correctly
 - [✅] Old toggle buttons removed
@@ -232,11 +270,14 @@
 ---
 
 ### Task 6.3: Implement Filter-Based Data Fetching
-**Files to Modify:**
+
+### Files to Modify
+
 - `frontend/src/app/gallery/page.tsx`
 - `frontend/src/services/api.ts` (if needed)
 
-**Steps:**
+### Steps
+
 1. [✅] Update `useEffect` dependencies (add `filter`, `page`)
 2. [✅] Add filter switch logic in data fetching:
    - `all` → fetch public photos
@@ -256,7 +297,8 @@
    - Favorited Photos shows favorited photos
 6. [✅] **COMMIT 11**: "feat(gallery): implement filter-based data fetching" (commit: 7b5f85f)
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - [✅] All 4 filters fetch correct data
 - [✅] Loading states work
 - [✅] Error handling in place
@@ -265,10 +307,13 @@
 ---
 
 ### Task 6.4: Test Filter Pagination
-**Files to Test:**
+
+### Files to Test
+
 - `frontend/src/app/gallery/page.tsx`
 
-**Steps:**
+### Steps
+
 1. [✅] Test pagination with "All Photos" filter
 2. [✅] Test pagination with "My Photos" filter
 3. [✅] Test pagination with "Liked Photos" filter
@@ -278,7 +323,8 @@
 7. [✅] Fix any bugs found
 8. [✅] **SKIPPED** (Code review confirmed pagination works correctly - no commit needed)
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - [✅] Pagination works for all filters
 - [✅] Page numbers update correctly
 - [✅] Total pages calculated correctly
@@ -287,20 +333,25 @@
 ---
 
 ### Task 6.5: UX Cleanup - Remove Technical JWT Message ✅
-**Files to Modify:**
+
+### Files to Modify
+
 - `frontend/src/app/myprofile/page.tsx`
 
-**Context:**
+### Context
+
 During manual testing, user feedback identified that the JWT authentication message is too technical for end users. Message: "You are successfully logged in. Your session is secured with JWT authentication."
 
-**Steps:**
+### Steps
+
 1. [✅] Remove the JWT info message section from My Profile page
 2. [✅] Keep only user-facing information (name, email, profile picture)
 3. [✅] Verify page still looks clean and balanced
 4. [✅] Test: Page loads without the technical message
 5. [✅] **COMMIT 14**: "refactor(ux): remove technical JWT message from profile page" (commit: 4b9a35d)
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - [✅] JWT message completely removed
 - [✅] Page layout still looks good
 - [✅] No technical jargon visible to end users
@@ -311,10 +362,13 @@ During manual testing, user feedback identified that the JWT authentication mess
 ## Phase 7: Navigation Updates ✅
 
 ### Task 7.1: Update Navbar Component
-**Files to Modify:**
+
+### Files to Modify
+
 - Identify navbar component file (likely `frontend/src/components/Navbar.tsx` or similar)
 
-**Steps:**
+### Steps
+
 1. [ ] Locate navbar/navigation component
 2. [ ] Remove "Home" link (if exists)
 3. [ ] Update or add "My Profile" link → `/myprofile`
@@ -323,7 +377,8 @@ During manual testing, user feedback identified that the JWT authentication mess
 6. [ ] Test: Navigation links work from any page
 7. [ ] **COMMIT 13**: "feat(navbar): update navigation links for new structure"
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - [ ] "My Profile" link navigates to `/myprofile`
 - [ ] "Logout" button works
 - [ ] No broken links
@@ -332,17 +387,21 @@ During manual testing, user feedback identified that the JWT authentication mess
 ---
 
 ### Task 7.2: Update All Internal Navigation Links
-**Files to Search:**
+
+### Files to Search
+
 - All components and pages with navigation
 
-**Steps:**
+### Steps
+
 1. [ ] Search codebase for hardcoded `/home` links
 2. [ ] Update all instances to `/myprofile`
 3. [ ] Check for any conditional navigation logic
 4. [ ] Test: All links work correctly
 5. [ ] **COMMIT 14**: "refactor(nav): update all internal links from /home to /myprofile"
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - [ ] No more `/home` references in code (except middleware)
 - [ ] All navigation works
 - [ ] No console warnings/errors
@@ -352,10 +411,13 @@ During manual testing, user feedback identified that the JWT authentication mess
 ## Phase 8: API Service Layer ✅
 
 ### Task 8.1: Verify/Add API Functions for Filters
-**Files to Modify:**
+
+### Files to Modify
+
 - `frontend/src/services/api.ts`
 
-**Steps:**
+### Steps
+
 1. [✅] Check if `fetchMyPhotos(userId, page)` exists
    - ✅ Exists as `getUserPhotos()` in galleryService.ts
 2. [✅] Check if `fetchLikedPhotos(userId, page)` exists
@@ -370,7 +432,8 @@ During manual testing, user feedback identified that the JWT authentication mess
    - ✅ Verified working in Phase 6.3 implementation
 7. [✅] **NO COMMIT NEEDED** - All API functions already exist and verified in Phase 6.3
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - [✅] All required API functions exist
 - [✅] Functions handle errors gracefully
 - [✅] Functions return consistent data structure
@@ -381,7 +444,9 @@ During manual testing, user feedback identified that the JWT authentication mess
 ## Phase 9: Testing & Validation
 
 ### Task 9.1: Manual Testing - Authentication Flow
-**Test Cases:**
+
+### Test Cases
+
 1. [ ] Visit `/` while logged out → redirects to `/login`
 2. [ ] Login successfully → redirects to `/gallery`
 3. [ ] Visit `/` while logged in → redirects to `/gallery`
@@ -389,7 +454,8 @@ During manual testing, user feedback identified that the JWT authentication mess
 5. [ ] Visit `/myprofile` while logged out → redirects to `/login`
 6. [ ] **COMMIT 16** (if fixes needed): "fix(auth): resolve authentication redirect issues"
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - [ ] All auth redirects work correctly
 - [ ] No infinite redirect loops
 - [ ] Token validation works
@@ -397,7 +463,9 @@ During manual testing, user feedback identified that the JWT authentication mess
 ---
 
 ### Task 9.2: Manual Testing - Filter Functionality
-**Test Cases:**
+
+### Test Cases
+
 1. [ ] Default filter is "All Photos"
 2. [ ] Switch to "My Photos" → shows only user's uploads
 3. [ ] Switch to "Liked Photos" → shows liked photos
@@ -406,7 +474,8 @@ During manual testing, user feedback identified that the JWT authentication mess
 6. [ ] Empty states handled (e.g., no liked photos yet)
 7. [ ] **COMMIT 17** (if fixes needed): "fix(filters): resolve filter data and UI issues"
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - [ ] All filters show correct data
 - [ ] No filter shows wrong photos
 - [ ] Empty states are user-friendly
@@ -414,7 +483,9 @@ During manual testing, user feedback identified that the JWT authentication mess
 ---
 
 ### Task 9.3: Manual Testing - URL & Navigation
-**Test Cases:**
+
+### Test Cases
+
 1. [ ] URL updates when filter changes
 2. [ ] URL updates when page changes
 3. [ ] Direct URL access works: `/gallery?filter=liked&page=2`
@@ -425,7 +496,8 @@ During manual testing, user feedback identified that the JWT authentication mess
 8. [ ] Invalid page param defaults to 1
 9. [ ] **COMMIT 18** (if fixes needed): "fix(navigation): resolve URL state and browser navigation issues"
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - [ ] URL always reflects current state
 - [ ] Browser navigation works intuitively
 - [ ] Invalid params handled gracefully
@@ -433,7 +505,9 @@ During manual testing, user feedback identified that the JWT authentication mess
 ---
 
 ### Task 9.4: Manual Testing - Pagination
-**Test Cases:**
+
+### Test Cases
+
 1. [ ] Pagination shows on "All Photos" filter (if > 12 photos)
 2. [ ] Pagination works on "My Photos" filter
 3. [ ] Pagination works on "Liked Photos" filter
@@ -443,7 +517,8 @@ During manual testing, user feedback identified that the JWT authentication mess
 7. [ ] First/Last page buttons work (if implemented)
 8. [ ] **COMMIT 19** (if fixes needed): "fix(pagination): resolve pagination issues across filters"
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - [ ] Pagination works for all filters
 - [ ] No off-by-one errors
 - [ ] Edge cases handled (first page, last page)
@@ -451,7 +526,9 @@ During manual testing, user feedback identified that the JWT authentication mess
 ---
 
 ### Task 9.5: Cross-Browser Testing
-**Test Browsers:**
+
+### Test Browsers
+
 1. [ ] Chrome (latest)
 2. [ ] Firefox (latest)
 3. [ ] Safari (latest)
@@ -460,7 +537,8 @@ During manual testing, user feedback identified that the JWT authentication mess
 6. [ ] Mobile Safari (iOS)
 7. [ ] **COMMIT 20** (if fixes needed): "fix(compat): resolve browser compatibility issues"
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - [ ] Works on all major browsers
 - [ ] No visual glitches
 - [ ] No JavaScript errors
@@ -468,7 +546,9 @@ During manual testing, user feedback identified that the JWT authentication mess
 ---
 
 ### Task 9.6: Responsive Design Testing
-**Test Breakpoints:**
+
+### Test Breakpoints
+
 1. [ ] Mobile (320px - 767px)
    - FilterDropdown usable
    - Gallery grid adapts
@@ -477,7 +557,8 @@ During manual testing, user feedback identified that the JWT authentication mess
 3. [ ] Desktop (1024px+)
 4. [ ] **COMMIT 21** (if fixes needed): "fix(responsive): improve mobile/tablet layouts"
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - [ ] Responsive on all screen sizes
 - [ ] No horizontal scroll
 - [ ] Touch targets adequate on mobile
@@ -487,10 +568,13 @@ During manual testing, user feedback identified that the JWT authentication mess
 ## Phase 10: Polish & Documentation
 
 ### Task 10.1: Add Loading & Empty States
-**Files to Modify:**
+
+### Files to Modify
+
 - `frontend/src/app/gallery/page.tsx`
 
-**Steps:**
+### Steps
+
 1. [ ] Add loading spinner during data fetch
 2. [ ] Add empty state for each filter:
    - "No public photos yet"
@@ -501,7 +585,8 @@ During manual testing, user feedback identified that the JWT authentication mess
 4. [ ] Test all states
 5. [ ] **COMMIT 22**: "feat(ux): add loading, empty, and error states"
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - [ ] Loading states visible during fetch
 - [ ] Empty states user-friendly and actionable
 - [ ] Error states helpful
@@ -509,10 +594,13 @@ During manual testing, user feedback identified that the JWT authentication mess
 ---
 
 ### Task 10.2: Code Cleanup & Refactoring
-**Files to Review:**
+
+### Files to Review
+
 - All modified files
 
-**Steps:**
+### Steps
+
 1. [ ] Remove commented-out code
 2. [ ] Remove console.logs (except intentional ones)
 3. [ ] Fix linting warnings
@@ -521,7 +609,8 @@ During manual testing, user feedback identified that the JWT authentication mess
 6. [ ] Add code comments for complex logic
 7. [ ] **COMMIT 23**: "refactor: code cleanup and type improvements"
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - [ ] No linting errors
 - [ ] No TypeScript errors
 - [ ] Code is readable
@@ -529,17 +618,21 @@ During manual testing, user feedback identified that the JWT authentication mess
 ---
 
 ### Task 10.3: Update README (if needed)
-**Files to Modify:**
+
+### Files to Modify
+
 - `frontend/README.md` or root `README.md`
 
-**Steps:**
+### Steps
+
 1. [ ] Update navigation structure documentation
 2. [ ] Update screenshots (if any)
 3. [ ] Update feature list
 4. [ ] Add note about gallery-centric design
 5. [ ] **COMMIT 24**: "docs: update README with new navigation structure"
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - [ ] Documentation reflects current state
 - [ ] Easy for new developers to understand
 
@@ -548,7 +641,9 @@ During manual testing, user feedback identified that the JWT authentication mess
 ## Phase 11: Final Testing & Deployment Prep
 
 ### Task 11.1: End-to-End User Journey Test
-**Complete User Flow:**
+
+### Complete User Flow
+
 1. [ ] User opens app (/) → auto-redirects
 2. [ ] User logs in → lands on gallery (all photos)
 3. [ ] User clicks filter → switches to "My Photos"
@@ -560,7 +655,8 @@ During manual testing, user feedback identified that the JWT authentication mess
 9. [ ] User logs out → redirects to login
 10. [ ] **COMMIT 25** (if fixes needed): "fix: resolve end-to-end user flow issues"
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - [ ] Complete flow works without errors
 - [ ] Smooth transitions between pages
 - [ ] No unexpected redirects
@@ -568,7 +664,9 @@ During manual testing, user feedback identified that the JWT authentication mess
 ---
 
 ### Task 11.2: Performance Check
-**Metrics to Check:**
+
+### Metrics to Check
+
 1. [ ] Root redirect time < 100ms
 2. [ ] Filter switch time < 300ms
 3. [ ] Initial gallery load < 2s
@@ -576,14 +674,17 @@ During manual testing, user feedback identified that the JWT authentication mess
 5. [ ] No unnecessary re-renders
 6. [ ] **COMMIT 26** (if optimizations needed): "perf: optimize filter switching and data fetching"
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - [ ] Meets performance targets
 - [ ] No performance regressions
 
 ---
 
 ### Task 11.3: Accessibility Audit
-**Checks:**
+
+### Checks
+
 1. [ ] Keyboard navigation works
 2. [ ] Screen reader friendly (basic check)
 3. [ ] Proper heading hierarchy
@@ -591,7 +692,8 @@ During manual testing, user feedback identified that the JWT authentication mess
 5. [ ] Color contrast sufficient
 6. [ ] **COMMIT 27** (if fixes needed): "a11y: improve accessibility"
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - [ ] Basic accessibility requirements met
 - [ ] No major a11y violations
 
@@ -600,7 +702,9 @@ During manual testing, user feedback identified that the JWT authentication mess
 ## Phase 12: Deployment
 
 ### Task 12.1: Pre-Deployment Checklist
-**Verify:**
+
+### Verify
+
 1. [ ] All tests passing
 2. [ ] No console errors in production build
 3. [ ] Build succeeds (`npm run build`)
@@ -611,14 +715,18 @@ During manual testing, user feedback identified that the JWT authentication mess
 ---
 
 ### Task 12.2: Create Final Summary Commit (if needed)
-**If there are any final tweaks:**
+
+### If there are any final tweaks
+
 1. [ ] Group any remaining minor fixes
 2. [ ] **COMMIT 28**: "chore: final polish before feature completion"
 
 ---
 
 ### Task 12.3: Mark Plan as Complete
-**Steps:**
+
+### Steps
+
 1. [ ] Update checklist.md (mark all tasks complete)
 2. [ ] Update README.md status to "Completed"
 3. [ ] Move plan folder to `plans/done/`
@@ -628,7 +736,8 @@ During manual testing, user feedback identified that the JWT authentication mess
 
 ## Atomic Commit Summary
 
-**Expected Commits (~25-30):**
+### Expected Commits (~25-30)
+
 1. docs: add gallery-centric navigation feature plan
 2. refactor(routes): rename /home to /myprofile
 3. feat(profile): add back to gallery link and simplify layout
@@ -644,12 +753,12 @@ During manual testing, user feedback identified that the JWT authentication mess
 13. feat(navbar): update navigation links for new structure
 14. refactor(nav): update all internal links from /home to /myprofile
 15. feat(api): add/verify API functions for gallery filters
-16-21. fix: (various bug fixes discovered during testing)
-22. feat(ux): add loading, empty, and error states
-23. refactor: code cleanup and type improvements
-24. docs: update README with new navigation structure
-25-27. fix/perf/a11y: (final optimizations)
-28-29. chore/docs: (completion tasks)
+    16-21. fix: (various bug fixes discovered during testing)
+16. feat(ux): add loading, empty, and error states
+17. refactor: code cleanup and type improvements
+18. docs: update README with new navigation structure
+    25-27. fix/perf/a11y: (final optimizations)
+    28-29. chore/docs: (completion tasks)
 
 ---
 

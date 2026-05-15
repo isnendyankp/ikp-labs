@@ -3,7 +3,8 @@
 ## 1. Architecture Overview
 
 ### Test Stack
-```
+
+```text
 ┌─────────────────────────────────────────────────┐
 │            Test Pyramid                         │
 ├─────────────────────────────────────────────────┤
@@ -24,6 +25,7 @@
 ```
 
 ### Test Coverage Philosophy
+
 - **E2E**: Validate user journeys (login → gallery → upload → like)
 - **Unit**: Validate component behavior (button click, form validation)
 - **Integration**: Validate backend layer interactions (deferred to next week)
@@ -33,7 +35,8 @@
 ## 2. E2E Test Architecture (Cucumber + Playwright)
 
 ### Current Structure
-```
+
+```text
 frontend/
 ├── tests/
 │   ├── gherkin/
@@ -51,19 +54,22 @@ frontend/
 ```
 
 ### Playwright Configuration
+
 **File**: `frontend/playwright.config.ts` (or similar)
 
 **Current Issue**: Hardcoded port 3000
+
 ```typescript
 // ❌ BEFORE (Incorrect)
 export default defineConfig({
   use: {
-    baseURL: 'http://localhost:3000',  // Wrong port!
+    baseURL: 'http://localhost:3000', // Wrong port!
   },
 });
 ```
 
 **Fix**:
+
 ```typescript
 // ✅ AFTER (Correct)
 export default defineConfig({
@@ -74,6 +80,7 @@ export default defineConfig({
 ```
 
 **Rationale**:
+
 - Frontend dev server runs on port 3002
 - Use environment variable for flexibility (dev, CI, staging)
 
@@ -81,70 +88,84 @@ export default defineConfig({
 
 ### Test Scenario Pattern
 
-#### Scenario 1: Port Configuration Fix
+### Scenario 1: Port Configuration Fix
 
 **Feature**: `auth.feature`
 **Failing Step**: `When I visit the login page`
 
 **Current Implementation** (Incorrect):
+
 ```typescript
 // step_definitions/auth.steps.ts
-When('I visit the login page', async function() {
-  await this.page.goto('http://localhost:3000/login');  // ❌ Wrong port!
+When('I visit the login page', async function () {
+  await this.page.goto('http://localhost:3000/login'); // ❌ Wrong port!
 });
 ```
 
 **Fix**:
+
 ```typescript
-When('I visit the login page', async function() {
+When('I visit the login page', async function () {
   // Use baseURL from Playwright config
-  await this.page.goto('/login');  // ✅ Relative URL!
+  await this.page.goto('/login'); // ✅ Relative URL!
 });
 ```
 
-**Why Relative URLs?**
+### Why Relative URLs?
+
 - Respects Playwright config `baseURL`
 - Easier to change environment (dev → staging → prod)
 - No hardcoded values
 
 ---
 
-#### Scenario 2: Validation Display Fix
+### Scenario 2: Validation Display Fix
 
 **Feature**: `registration.feature`
 **Failing Step**: `Then I should see validation error "Please enter a valid email"`
 
 **Current Implementation** (Incorrect):
+
 ```typescript
 // ❌ Expects validation immediately after input
-When('I enter email {string}', async function(email: string) {
+When('I enter email {string}', async function (email: string) {
   await this.page.fill('[name="email"]', email);
 });
 
-Then('I should see validation error {string}', async function(errorMsg: string) {
-  // This fails because validation only triggers on submit!
-  await expect(this.page.locator(`text=${errorMsg}`)).toBeVisible();
-});
+Then(
+  'I should see validation error {string}',
+  async function (errorMsg: string) {
+    // This fails because validation only triggers on submit!
+    await expect(this.page.locator(`text=${errorMsg}`)).toBeVisible();
+  }
+);
 ```
 
 **Fix**:
+
 ```typescript
 // ✅ Submit form first, then check validation
-When('I enter email {string}', async function(email: string) {
+When('I enter email {string}', async function (email: string) {
   await this.page.fill('[name="email"]', email);
 });
 
-When('I submit the form', async function() {
+When('I submit the form', async function () {
   await this.page.click('button[type="submit"]');
 });
 
-Then('I should see validation error {string}', async function(errorMsg: string) {
-  // Now validation will appear!
-  await expect(this.page.locator(`text=${errorMsg}`)).toBeVisible({ timeout: 5000 });
-});
+Then(
+  'I should see validation error {string}',
+  async function (errorMsg: string) {
+    // Now validation will appear!
+    await expect(this.page.locator(`text=${errorMsg}`)).toBeVisible({
+      timeout: 5000,
+    });
+  }
+);
 ```
 
 **Gherkin Scenario Update**:
+
 ```gherkin
 # ❌ BEFORE
 Scenario: Invalid email validation
@@ -162,38 +183,42 @@ Scenario: Invalid email validation
 
 ---
 
-#### Scenario 3: Google OAuth Mock Fix
+### Scenario 3: Google OAuth Mock Fix
 
 **Feature**: `auth.feature`
 **Failing Step**: `When I click the Google login button`
 
 **Current Implementation** (Incorrect):
+
 ```typescript
-When('I click the Google login button', async function() {
+When('I click the Google login button', async function () {
   // This selector may be outdated
-  await this.page.click('button:has-text("Sign in with Google")');  // ❌ Can't find element
+  await this.page.click('button:has-text("Sign in with Google")'); // ❌ Can't find element
 });
 ```
 
 **Investigation Steps**:
+
 1. Inspect actual UI for Google button
 2. Check if button exists in test environment
 3. Update selector to match current markup
 
 **Possible Fix 1** (Selector Update):
+
 ```typescript
-When('I click the Google login button', async function() {
+When('I click the Google login button', async function () {
   // Use data-testid for stability
-  await this.page.click('[data-testid="google-login-btn"]');  // ✅ Stable selector
+  await this.page.click('[data-testid="google-login-btn"]'); // ✅ Stable selector
 });
 ```
 
 **Possible Fix 2** (Mock Setup):
+
 ```typescript
 // If Google button requires OAuth setup, mock it
-When('I click the Google login button', async function() {
+When('I click the Google login button', async function () {
   // Mock Google OAuth response
-  await this.page.route('**/auth/google/callback', async route => {
+  await this.page.route('**/auth/google/callback', async (route) => {
     await route.fulfill({
       status: 200,
       body: JSON.stringify({ token: 'mock-jwt-token' }),
@@ -206,18 +231,19 @@ When('I click the Google login button', async function() {
 
 ---
 
-#### Scenario 4: Password Visibility Timing Fix
+### Scenario 4: Password Visibility Timing Fix
 
 **Feature**: `registration.feature`
 **Failing Step**: `Then the password should be visible`
 
 **Current Implementation** (Incorrect):
+
 ```typescript
-When('I click the password visibility toggle', async function() {
+When('I click the password visibility toggle', async function () {
   await this.page.click('[data-testid="toggle-password-visibility"]');
 });
 
-Then('the password should be visible', async function() {
+Then('the password should be visible', async function () {
   // ❌ Fails! React hasn't updated state yet
   const fieldType = await this.page.getAttribute('[name="password"]', 'type');
   expect(fieldType).toBe('text');
@@ -225,18 +251,23 @@ Then('the password should be visible', async function() {
 ```
 
 **Fix**:
+
 ```typescript
-When('I click the password visibility toggle', async function() {
+When('I click the password visibility toggle', async function () {
   await this.page.click('[data-testid="toggle-password-visibility"]');
 
   // ✅ Wait for React state update to complete
-  await this.page.waitForFunction(() => {
-    const field = document.querySelector<HTMLInputElement>('[name="password"]');
-    return field?.type === 'text';
-  }, { timeout: 2000 });
+  await this.page.waitForFunction(
+    () => {
+      const field =
+        document.querySelector<HTMLInputElement>('[name="password"]');
+      return field?.type === 'text';
+    },
+    { timeout: 2000 }
+  );
 });
 
-Then('the password should be visible', async function() {
+Then('the password should be visible', async function () {
   // Now it's guaranteed to be updated
   const fieldType = await this.page.getAttribute('[name="password"]', 'type');
   expect(fieldType).toBe('text');
@@ -244,12 +275,15 @@ Then('the password should be visible', async function() {
 ```
 
 **Alternative Fix** (waitForSelector):
+
 ```typescript
-When('I click the password visibility toggle', async function() {
+When('I click the password visibility toggle', async function () {
   await this.page.click('[data-testid="toggle-password-visibility"]');
 
   // Wait for field type to change
-  await this.page.waitForSelector('[name="password"][type="text"]', { timeout: 2000 });
+  await this.page.waitForSelector('[name="password"][type="text"]', {
+    timeout: 2000,
+  });
 });
 ```
 
@@ -258,7 +292,8 @@ When('I click the password visibility toggle', async function() {
 ## 3. Frontend Unit Test Architecture (Jest)
 
 ### Current Structure
-```
+
+```text
 frontend/src/
 ├── components/
 │   ├── LoginForm.tsx
@@ -269,18 +304,20 @@ frontend/src/
 ```
 
 ### Jest Configuration
+
 **File**: `frontend/jest.config.js`
 
 **Typical Setup**:
+
 ```javascript
 module.exports = {
-  testEnvironment: 'jsdom',  // Browser-like environment
+  testEnvironment: 'jsdom', // Browser-like environment
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
   moduleNameMapper: {
-    '\\.(css|less|scss|sass)$': 'identity-obj-proxy',  // Mock CSS
+    '\\.(css|less|scss|sass)$': 'identity-obj-proxy', // Mock CSS
   },
   transform: {
-    '^.+\\.tsx?$': 'ts-jest',  // TypeScript support
+    '^.+\\.tsx?$': 'ts-jest', // TypeScript support
   },
 };
 ```
@@ -289,9 +326,10 @@ module.exports = {
 
 ### Unit Test Pattern
 
-#### Example: LoginForm.test.tsx
+### Example: LoginForm.test.tsx
 
 **Current Test** (May Fail):
+
 ```typescript
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -326,6 +364,7 @@ describe('LoginForm', () => {
 **Common Fixes**:
 
 1. **Update Selectors**:
+
 ```typescript
 // ✅ Use flexible queries
 expect(screen.getByRole('textbox', { name: /email/i })).toBeInTheDocument();
@@ -333,12 +372,14 @@ expect(screen.getByLabelText(/password/i)).toBeInTheDocument();
 ```
 
 2. **Update Snapshots**:
+
 ```bash
 # If UI changed intentionally
 npm test -- -u  # Update snapshots
 ```
 
 3. **Mock API Calls**:
+
 ```typescript
 // Mock fetch or axios
 jest.mock('../services/api', () => ({
@@ -351,6 +392,7 @@ jest.mock('../services/api', () => ({
 ## 4. Test Data Management
 
 ### Test User Credentials
+
 ```typescript
 // tests/fixtures/testUsers.ts
 export const TEST_USERS = {
@@ -367,6 +409,7 @@ export const TEST_USERS = {
 ```
 
 ### Test Photo Data
+
 ```typescript
 // tests/fixtures/testPhotos.ts
 export const TEST_PHOTOS = {
@@ -390,30 +433,37 @@ export const TEST_PHOTOS = {
 ## 5. Wait Strategies
 
 ### ❌ Bad: Arbitrary Sleeps
+
 ```typescript
 await page.click('#submit-btn');
-await page.waitForTimeout(3000);  // ❌ Flaky! Might be too short or too long
+await page.waitForTimeout(3000); // ❌ Flaky! Might be too short or too long
 ```
 
 ### ✅ Good: Condition-Based Waits
+
 ```typescript
 await page.click('#submit-btn');
-await page.waitForSelector('.success-message', { timeout: 5000 });  // ✅ Waits for actual condition
+await page.waitForSelector('.success-message', { timeout: 5000 }); // ✅ Waits for actual condition
 ```
 
 ### ✅ Good: Network-Based Waits
+
 ```typescript
 await Promise.all([
-  page.waitForResponse(resp => resp.url().includes('/api/login')),
+  page.waitForResponse((resp) => resp.url().includes('/api/login')),
   page.click('#submit-btn'),
-]);  // ✅ Waits for API call to complete
+]); // ✅ Waits for API call to complete
 ```
 
 ### ✅ Good: State-Based Waits
+
 ```typescript
-await page.waitForFunction(() => {
-  return document.querySelector('#user-menu') !== null;
-}, { timeout: 5000 });  // ✅ Waits for React component to mount
+await page.waitForFunction(
+  () => {
+    return document.querySelector('#user-menu') !== null;
+  },
+  { timeout: 5000 }
+); // ✅ Waits for React component to mount
 ```
 
 ---
@@ -421,19 +471,26 @@ await page.waitForFunction(() => {
 ## 6. Error Handling Patterns
 
 ### E2E Test Error Handling
+
 ```typescript
-Then('I should see validation error {string}', async function(errorMsg: string) {
-  try {
-    await expect(this.page.locator(`text=${errorMsg}`)).toBeVisible({ timeout: 5000 });
-  } catch (error) {
-    // Take screenshot for debugging
-    await this.page.screenshot({ path: `test-failed-${Date.now()}.png` });
-    throw error;  // Re-throw to fail test
+Then(
+  'I should see validation error {string}',
+  async function (errorMsg: string) {
+    try {
+      await expect(this.page.locator(`text=${errorMsg}`)).toBeVisible({
+        timeout: 5000,
+      });
+    } catch (error) {
+      // Take screenshot for debugging
+      await this.page.screenshot({ path: `test-failed-${Date.now()}.png` });
+      throw error; // Re-throw to fail test
+    }
   }
-});
+);
 ```
 
 ### Unit Test Error Handling
+
 ```typescript
 it('shows error message on failed login', async () => {
   // Mock API to return error
@@ -454,6 +511,7 @@ it('shows error message on failed login', async () => {
 ## 7. Configuration Management
 
 ### Environment Variables
+
 ```bash
 # .env.test (for testing)
 BASE_URL=http://localhost:3002
@@ -462,6 +520,7 @@ PLAYWRIGHT_HEADLESS=true
 ```
 
 ### Playwright Config (Dynamic)
+
 ```typescript
 export default defineConfig({
   use: {
@@ -473,7 +532,7 @@ export default defineConfig({
     command: 'npm run dev',
     port: 3002,
     timeout: 120000,
-    reuseExistingServer: !process.env.CI,  // Faster local runs
+    reuseExistingServer: !process.env.CI, // Faster local runs
   },
 });
 ```
@@ -483,6 +542,7 @@ export default defineConfig({
 ## 8. Debugging Tools
 
 ### Playwright Debugging
+
 ```bash
 # Run with UI mode (visual debugging)
 npx playwright test --ui
@@ -496,6 +556,7 @@ npx playwright show-trace trace.zip
 ```
 
 ### Jest Debugging
+
 ```bash
 # Run specific test file
 npm test -- LoginForm.test.tsx
@@ -512,6 +573,7 @@ npm test -- -u
 ## 9. Test Organization Best Practices
 
 ### Gherkin Scenario Structure
+
 ```gherkin
 Feature: User Login
   As a registered user
@@ -540,24 +602,30 @@ Feature: User Login
 ```
 
 ### Step Definition Reusability
+
 ```typescript
 // common.steps.ts - Reusable steps
-Given('the application is running', async function() {
+Given('the application is running', async function () {
   // Check health endpoint
   const response = await fetch(`${process.env.API_BASE_URL}/actuator/health`);
   expect(response.ok).toBeTruthy();
 });
 
-When('I enter {string} into field {string}', async function(value: string, fieldName: string) {
-  await this.page.fill(`[name="${fieldName}"]`, value);
-});
+When(
+  'I enter {string} into field {string}',
+  async function (value: string, fieldName: string) {
+    await this.page.fill(`[name="${fieldName}"]`, value);
+  }
+);
 
-When('I submit the form', async function() {
+When('I submit the form', async function () {
   await this.page.click('button[type="submit"]');
 });
 
-Then('I should see text {string}', async function(text: string) {
-  await expect(this.page.locator(`text=${text}`)).toBeVisible({ timeout: 5000 });
+Then('I should see text {string}', async function (text: string) {
+  await expect(this.page.locator(`text=${text}`)).toBeVisible({
+    timeout: 5000,
+  });
 });
 ```
 
@@ -566,6 +634,7 @@ Then('I should see text {string}', async function(text: string) {
 ## 10. Implementation Checklist Summary
 
 ### E2E Fixes
+
 1. ✅ Update Playwright config port (3000 → 3002)
 2. ✅ Update step definitions to use relative URLs
 3. ✅ Add form submission before validation checks
@@ -573,12 +642,14 @@ Then('I should see text {string}', async function(text: string) {
 5. ✅ Add proper wait conditions for React state updates
 
 ### Unit Test Fixes
+
 1. ✅ Run `npm test`
 2. ✅ Update outdated snapshots
 3. ✅ Fix broken selectors (use roles, labels)
 4. ✅ Update API mocks if needed
 
 ### Documentation
+
 1. ✅ Document wait patterns
 2. ✅ Add troubleshooting guide
 3. ✅ Explain port configuration

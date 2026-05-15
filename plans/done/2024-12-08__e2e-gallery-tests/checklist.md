@@ -16,14 +16,14 @@ This document tracks the day-by-day execution and completion of the E2E Gallery 
 
 ## Timeline Summary
 
-| Day | Date | Focus | Tests Added | Cumulative | Status |
-|-----|------|-------|-------------|------------|--------|
-| **Day 1** | Dec 1 | Foundation + Infrastructure | 1 | 1 | ✅ Complete |
-| **Day 2** | Dec 2 | Upload Variations & Validation | 3 | 4 | ✅ Complete |
-| **Day 3** | Dec 3 | View & Navigation | 3 | 7 | ✅ Complete |
-| **Day 4** | Dec 4 | Edit & Delete + Bug Fix | 4 | 11 | ✅ Complete |
-| **Day 5** | Dec 5 | Validation & Persistence | 4 | 15 | ✅ Complete |
-| **Day 6** | Dec 6 | Pagination & Authorization | 5 | 20 | ✅ Complete |
+| Day       | Date  | Focus                          | Tests Added | Cumulative | Status      |
+| --------- | ----- | ------------------------------ | ----------- | ---------- | ----------- |
+| **Day 1** | Dec 1 | Foundation + Infrastructure    | 1           | 1          | ✅ Complete |
+| **Day 2** | Dec 2 | Upload Variations & Validation | 3           | 4          | ✅ Complete |
+| **Day 3** | Dec 3 | View & Navigation              | 3           | 7          | ✅ Complete |
+| **Day 4** | Dec 4 | Edit & Delete + Bug Fix        | 4           | 11         | ✅ Complete |
+| **Day 5** | Dec 5 | Validation & Persistence       | 4           | 15         | ✅ Complete |
+| **Day 6** | Dec 6 | Pagination & Authorization     | 5           | 20         | ✅ Complete |
 
 **Total:** 20 tests implemented over 6 days | **100% completion** 🎉
 
@@ -32,9 +32,11 @@ This document tracks the day-by-day execution and completion of the E2E Gallery 
 ## Day 1 (Monday, December 1): Foundation + First Test
 
 ### 🎯 Focus
+
 Infrastructure setup and first upload test
 
 ### 📋 Tasks
+
 - [x] Create helper functions file (`gallery-helpers.ts`)
 - [x] Setup test file structure (`gallery.spec.ts`)
 - [x] Implement authentication helper
@@ -43,14 +45,18 @@ Infrastructure setup and first upload test
 - [x] Write first test: E2E-001
 
 ### 📦 Deliverables
-**Tests Implemented:**
+
+### Tests Implemented
+
 - ✅ **E2E-001:** Upload single photo successfully [P0]
 
-**Files Created:**
+### Files Created
+
 - `tests/e2e/helpers/gallery-helpers.ts` (~200 lines initially)
 - `tests/e2e/gallery.spec.ts` (initial structure + 1 test)
 
-**Helpers Created:**
+### Helpers Created
+
 - `generateGalleryTestEmail()` - Unique test user emails
 - `createAuthenticatedGalleryUser()` - Register + login
 - `uploadGalleryPhoto()` - Upload via UI
@@ -58,21 +64,25 @@ Infrastructure setup and first upload test
 - `verifyPhotoPrivacy()` - Privacy badge verification
 
 ### 💻 Commits Made
+
 1. **Commit:** `feat(e2e): add Gallery E2E test infrastructure + upload test`
    - Create gallery-helpers.ts with auth & upload helpers
    - Implement E2E-001: Upload single photo test
    - Setup gallery.spec.ts test structure
 
 ### 🎓 Learning Focus
+
 - Playwright file upload mechanisms (`setInputFiles`)
 - Test helper patterns from profile-picture.spec.ts
 - Gallery upload form selectors
 - Test isolation with `beforeEach`
 
 ### ⏱️ Time Spent
+
 2-3 hours
 
 ### ✅ Results
+
 - **1 test passing** across 3 browsers
 - Infrastructure ready for rapid test addition
 
@@ -81,9 +91,11 @@ Infrastructure setup and first upload test
 ## Day 2 (Tuesday, December 2): Upload Variations & Validation
 
 ### 🎯 Focus
+
 Form validation, public/private toggle, file size validation
 
 ### 📋 Tasks
+
 - [x] Implement E2E-002: Upload photo as public
 - [x] Implement E2E-003: Upload multiple photos sequentially
 - [x] Implement E2E-011: Reject file larger than 5MB
@@ -92,18 +104,23 @@ Form validation, public/private toggle, file size validation
 - [x] Fix frontend error message alignment
 
 ### 📦 Deliverables
-**Tests Implemented:**
+
+### Tests Implemented
+
 - ✅ **E2E-002:** Upload photo as public [P0]
 - ✅ **E2E-003:** Upload multiple photos sequentially [P1]
 - ✅ **E2E-011:** Reject file larger than 5MB [P1]
 
-**Helpers Enhanced:**
+### Helpers Enhanced
+
 - `uploadGalleryPhotoExpectError()` - Validation testing helper
 
-**Fixtures Created:**
+### Fixtures Created
+
 - `large-image.jpg` (6MB) - For file size validation
 
 ### 💻 Commits Made
+
 1. `test(e2e): add E2E-002 upload photo as public` - 00e61b0
 2. `test(e2e): add E2E-003 upload multiple photos sequentially` - f9657f7
 3. `test(e2e): add helper for upload error validation` - beeffef
@@ -111,15 +128,18 @@ Form validation, public/private toggle, file size validation
 5. `fix(frontend): update file size error message for E2E test` - a93157a
 
 ### 🎓 Learning Focus
+
 - Public/private checkbox toggling
 - Multiple sequential uploads
 - File size validation testing
 - Error message assertions
 
 ### ⏱️ Time Spent
+
 2-3 hours (actual: ~2.5 hours)
 
 ### ✅ Results
+
 - **4 tests passing** (cumulative)
 - All tests passing on 3 browsers (Chromium, Firefox, WebKit)
 
@@ -128,9 +148,11 @@ Form validation, public/private toggle, file size validation
 ## Day 3 (Wednesday, December 3): View & Navigation Tests
 
 ### 🎯 Focus
+
 Gallery views, tab switching, detail page navigation
 
 ### 📋 Tasks
+
 - [x] Implement E2E-004: View My Photos tab
 - [x] Implement E2E-005: View Public Photos tab
 - [x] Implement E2E-006: View photo detail page
@@ -138,33 +160,40 @@ Gallery views, tab switching, detail page navigation
 - [x] Create detail page verification helper
 
 ### 📦 Deliverables
-**Tests Implemented:**
+
+### Tests Implemented
+
 - ✅ **E2E-004:** View My Photos shows all owned photos [P0]
 - ✅ **E2E-005:** View Public Photos shows only public [P0]
 - ✅ **E2E-006:** View photo detail page [P0]
 
-**Helpers Created:**
+### Helpers Created
+
 - `viewMyPhotos()` - Navigate to My Photos tab
 - `viewPublicPhotos()` - Navigate to Public Photos tab
 - `openPhotoDetail()` - Open photo detail page
 - `verifyPhotoDetail()` - Assert detail page content
 
 ### 💻 Commits Made
+
 1. `test(e2e): add helpers for photo detail navigation` - bf023d0
 2. `test(e2e): add E2E-004 view My Photos test` - b70916e
 3. `test(e2e): add E2E-005 view Public Photos test` - ec8834d
 4. `test(e2e): add E2E-006 view photo detail page test` - 02c93ba
 
 ### 🎓 Learning Focus
+
 - Tab navigation patterns
 - Photo grid assertions with multi-user scenarios
 - Detail page selectors (h1/h2 filter, image locators)
 - Multi-field verification (title, description, privacy)
 
 ### ⏱️ Time Spent
+
 2-3 hours (actual: ~2.5 hours)
 
 ### ✅ Results
+
 - **7 tests passing** (cumulative)
 - Run time: 21.9s for 9 test executions (3 tests × 3 browsers)
 
@@ -173,9 +202,11 @@ Gallery views, tab switching, detail page navigation
 ## Day 4 (Thursday, December 4): Edit & Delete + Critical Bug Fix
 
 ### 🎯 Focus
+
 CRUD operations, dialog handling, **state management debugging**
 
 ### 📋 Tasks
+
 - [x] Implement E2E-007: Edit photo metadata
 - [x] Implement E2E-008: Toggle privacy
 - [x] Implement E2E-009: Delete photo with confirmation
@@ -184,23 +215,28 @@ CRUD operations, dialog handling, **state management debugging**
 - [x] **Fix critical frontend bug** (state update issue)
 
 ### 📦 Deliverables
-**Tests Implemented:**
+
+### Tests Implemented
+
 - ✅ **E2E-007:** Edit photo title and description [P0]
 - ✅ **E2E-008:** Toggle privacy from private to public [P1]
 - ✅ **E2E-009:** Delete photo with confirmation [P0]
 - ✅ **E2E-010:** Cancel delete and keep photo [P1]
 
-**Helpers Created:**
+### Helpers Created
+
 - `editPhotoMetadata()` - Edit mode + save with alert handling
 - `deleteGalleryPhoto()` - Delete with confirmation
 - `cancelDelete()` - Cancel confirmation dialog
 
-**Bug Fixed:**
+### Bug Fixed
+
 - **Critical:** Frontend state update bug in `PhotoDetailPage.tsx`
 - **Root Cause:** Data structure mismatch (backend vs frontend)
 - **Impact:** Photo edits not reflecting in UI
 
 ### 💻 Commits Made
+
 1. `test(e2e): add edit/delete helper functions` - 92c0c96
 2. `test(e2e): add E2E-007 edit photo metadata test` - e1e70e1
 3. `test(e2e): add E2E-008 toggle privacy test` - 0af2e5e
@@ -215,13 +251,15 @@ CRUD operations, dialog handling, **state management debugging**
 
 **Problem:** E2E-007 and E2E-008 failing with "element not found" for updated title/privacy badge.
 
-**Investigation Process:**
+### Investigation Process
+
 1. Read backend `GalleryController.java` - confirmed returns `GalleryPhotoResponse` directly
 2. Read `GalleryPhotoResponse.java` - confirmed flat structure (not nested)
 3. Read frontend `galleryService.ts` - confirmed service returns correctly
 4. Read frontend `PhotoDetailPage.tsx` handleSave() - **FOUND BUG!**
 
-**Root Cause:**
+### Root Cause
+
 ```typescript
 // Backend sends:
 { id: 123, title: "Updated", isPublic: true, ... }
@@ -233,7 +271,8 @@ CRUD operations, dialog handling, **state management debugging**
 response.data.photo // undefined!
 ```
 
-**The Fix:**
+### The Fix
+
 ```typescript
 // BEFORE (WRONG):
 setPhoto({ ...photo, ...response.data.photo }); // merges undefined!
@@ -245,6 +284,7 @@ setPhoto({ ...response.data }); // GalleryPhotoResponse directly
 **Key Takeaway:** Always verify API contracts between backend and frontend!
 
 ### 🎓 Learning Focus
+
 - Edit mode toggling and state management
 - Form state management in React
 - Dialog handling (`page.once('dialog')`)
@@ -254,9 +294,11 @@ setPhoto({ ...response.data }); // GalleryPhotoResponse directly
 - **CRITICAL:** E2E test failure debugging
 
 ### ⏱️ Time Spent
+
 ~4 hours (including bug investigation and fixes)
 
 ### ✅ Results
+
 - **11 tests passing** (cumulative)
 - **1 critical bug fixed** (production issue discovered by E2E tests!)
 - All tests passing on 3 browsers
@@ -266,9 +308,11 @@ setPhoto({ ...response.data }); // GalleryPhotoResponse directly
 ## Day 5 (Friday, December 5): Validation & Persistence
 
 ### 🎯 Focus
+
 Edge cases, data integrity, browser refresh patterns
 
 ### 📋 Tasks
+
 - [x] Implement E2E-012: Reject non-image file
 - [x] Implement E2E-013: Reject PDF file
 - [x] Implement E2E-018: Photos persist after refresh
@@ -276,17 +320,21 @@ Edge cases, data integrity, browser refresh patterns
 - [x] Create text and PDF test fixtures
 
 ### 📦 Deliverables
-**Tests Implemented:**
+
+### Tests Implemented
+
 - ✅ **E2E-012:** Reject non-image file (text file) [P1]
 - ✅ **E2E-013:** Reject invalid file format (PDF) [P2]
 - ✅ **E2E-018:** Photos persist after page refresh [P1]
 - ✅ **E2E-019:** Privacy setting persists after refresh [P2]
 
-**Fixtures Created:**
+### Fixtures Created
+
 - `invalid-file.txt` (88 bytes) - text/plain
 - `invalid-file.pdf` (~300 bytes) - application/pdf
 
 ### 💻 Commits Made
+
 1. `test(fixtures): add invalid text file for validation testing` - 4463e7c
 2. `test(fixtures): add invalid PDF file for validation testing` - 3f75e51
 3. `test(e2e): add E2E-012 reject non-image file validation` - b9b93f4
@@ -295,30 +343,36 @@ Edge cases, data integrity, browser refresh patterns
 6. `test(e2e): add E2E-019 privacy setting persistence` - 294afc6
 
 ### 🎓 Learning Focus
+
 - File type validation patterns
 - Browser refresh testing with `page.reload()`
 - Data persistence verification (database vs frontend state)
 - Edge case handling for invalid file types
 - **CRITICAL:** Testing data integrity after browser refresh
 
-**What is Data Persistence?**
+### What is Data Persistence?
+
 Data persistence means data is **permanently saved** in database, not just browser memory.
 
-**Why Test It?**
+### Why Test It?
+
 - Ensures data saved to PostgreSQL
 - Verifies data not lost on browser refresh (F5)
 - Confirms settings are permanent
 - Real-world: user closes browser, returns next day - data should exist
 
-**How We Test:**
+### How We Test
+
 1. Upload photos (triggers database save)
 2. Refresh browser (`page.reload()`) - clears React state
 3. Verify data still appears (loaded from database)
 
 ### ⏱️ Time Spent
+
 ~2 hours
 
 ### ✅ Results
+
 - **15 tests implemented** (cumulative)
 - Tests ready for verification
 - 6 atomic commits for the day
@@ -328,9 +382,11 @@ Data persistence means data is **permanently saved** in database, not just brows
 ## Day 6 (Saturday, December 6): Pagination & Authorization
 
 ### 🎯 Focus
+
 Advanced scenarios, complete coverage, multi-user authorization
 
 ### 📋 Tasks
+
 - [x] Implement E2E-014: Pagination in My Photos
 - [x] Implement E2E-015: Pagination in Public Photos
 - [x] Implement E2E-016: Cannot edit other user's photo
@@ -339,17 +395,21 @@ Advanced scenarios, complete coverage, multi-user authorization
 - [x] Create bulk upload helper (API-based)
 
 ### 📦 Deliverables
-**Tests Implemented:**
+
+### Tests Implemented
+
 - ✅ **E2E-014:** Pagination in My Photos [P1]
 - ✅ **E2E-015:** Pagination in Public Photos [P2]
 - ✅ **E2E-016:** Cannot edit another user's photo [P1]
 - ✅ **E2E-017:** Cannot delete another user's photo [P2]
 - ✅ **E2E-020:** Complete Gallery workflow [P0]
 
-**Helpers Created:**
+### Helpers Created
+
 - `bulkUploadPhotosViaAPI()` - Fast API-based bulk upload
 
 ### 💻 Commits Made
+
 1. `test(e2e): add bulkUploadPhotosViaAPI helper for pagination` - dd0921c
 2. `test(e2e): add E2E-014 pagination in My Photos test` - 5b6135b
 3. `test(e2e): add E2E-015 pagination in Public Photos test` - d84b707
@@ -358,34 +418,39 @@ Advanced scenarios, complete coverage, multi-user authorization
 6. `test(e2e): add E2E-020 complete Gallery workflow test` - 395acfd
 
 ### 🎓 Learning Focus
+
 - Pagination logic and navigation
 - Multi-user test scenarios (User A vs User B)
 - Authorization boundary testing
 - Complete user journey patterns
 - **CRITICAL:** Direct API calls in E2E for fast test data creation
 
-**Bulk Upload via API in E2E Tests:**
+### Bulk Upload via API in E2E Tests
 
 **Problem:** Pagination tests need 15+ photos. UI upload takes ~60 seconds (slow).
 
 **Solution:** Use `fetch()` API directly from Playwright context.
 
-**How it works:**
+### How it works
+
 1. Get JWT token from localStorage (user already logged in)
 2. Read test fixture file using Node.js `fs`
 3. Create FormData with file blob
 4. POST directly to backend API with Authorization header
 5. Repeat for N photos
 
-**Performance:**
+### Performance
+
 - UI upload: ~4 seconds per photo × 15 = 60 seconds
 - API upload: ~0.5 seconds per photo × 15 = 8 seconds
 - **10x faster!** 🚀
 
 ### ⏱️ Time Spent
+
 ~3 hours
 
 ### ✅ Results
+
 - **20 tests implemented** (cumulative) 🎉
 - **100% Gallery E2E coverage achieved!**
 - All tests passing on 3 browsers
@@ -397,60 +462,64 @@ Advanced scenarios, complete coverage, multi-user authorization
 
 ### Tests by Day
 
-| Day | New Tests | Cumulative | Pass Rate |
-|-----|-----------|------------|-----------|
-| Day 1 | 1 | 1 | 100% ✅ |
-| Day 2 | 3 | 4 | 100% ✅ |
-| Day 3 | 3 | 7 | 100% ✅ |
-| Day 4 | 4 | 11 | 100% ✅ |
-| Day 5 | 4 | 15 | 100% ✅ |
-| Day 6 | 5 | 20 | 100% ✅ |
+| Day   | New Tests | Cumulative | Pass Rate |
+| ----- | --------- | ---------- | --------- |
+| Day 1 | 1         | 1          | 100% ✅   |
+| Day 2 | 3         | 4          | 100% ✅   |
+| Day 3 | 3         | 7          | 100% ✅   |
+| Day 4 | 4         | 11         | 100% ✅   |
+| Day 5 | 4         | 15         | 100% ✅   |
+| Day 6 | 5         | 20         | 100% ✅   |
 
 ### Commits by Day
 
-| Day | Commits | Type |
-|-----|---------|------|
-| Day 1 | 1 | Feature (infrastructure) |
-| Day 2 | 5 | Tests + Bug fix |
-| Day 3 | 4 | Tests + Helpers |
-| Day 4 | 9 | Tests + Critical bug fix |
-| Day 5 | 6 | Tests + Fixtures |
-| Day 6 | 6 | Tests + Helpers |
-| **Total** | **31** | **30+ atomic commits!** |
+| Day       | Commits | Type                     |
+| --------- | ------- | ------------------------ |
+| Day 1     | 1       | Feature (infrastructure) |
+| Day 2     | 5       | Tests + Bug fix          |
+| Day 3     | 4       | Tests + Helpers          |
+| Day 4     | 9       | Tests + Critical bug fix |
+| Day 5     | 6       | Tests + Fixtures         |
+| Day 6     | 6       | Tests + Helpers          |
+| **Total** | **31**  | **30+ atomic commits!**  |
 
 ### Code Growth
 
-| Metric | Day 1 | Day 6 | Growth |
-|--------|-------|-------|--------|
-| Test File LOC | ~100 | 798 | +698 |
-| Helper File LOC | ~200 | 409 | +209 |
-| Total LOC | ~300 | 1,207 | **+907** |
-| Tests | 1 | 20 | **20x** |
-| Helper Functions | 5 | 12+ | **2.4x** |
+| Metric           | Day 1 | Day 6 | Growth   |
+| ---------------- | ----- | ----- | -------- |
+| Test File LOC    | ~100  | 798   | +698     |
+| Helper File LOC  | ~200  | 409   | +209     |
+| Total LOC        | ~300  | 1,207 | **+907** |
+| Tests            | 1     | 20    | **20x**  |
+| Helper Functions | 5     | 12+   | **2.4x** |
 
 ---
 
 ## Learning Outcomes by Day
 
 ### Day 1: Foundation
+
 - ✅ Playwright file upload mechanisms
 - ✅ Test helper design patterns
 - ✅ Test isolation with beforeEach
 - ✅ Reusable authentication flow
 
 ### Day 2: Validation
+
 - ✅ Form validation testing
 - ✅ Error message assertions
 - ✅ Checkbox interaction patterns
 - ✅ Sequential operations testing
 
 ### Day 3: Navigation
+
 - ✅ Tab navigation patterns
 - ✅ Multi-user scenarios
 - ✅ Photo grid assertions
 - ✅ Detail page verification
 
 ### Day 4: State Management (BIG LEARNING!)
+
 - ✅ Dialog handling (`page.once('dialog')`)
 - ✅ Edit mode detection patterns
 - ✅ Checkbox toggle vs check
@@ -459,12 +528,14 @@ Advanced scenarios, complete coverage, multi-user authorization
 - ✅ **CRITICAL:** Root cause analysis skills
 
 ### Day 5: Data Integrity
+
 - ✅ File type validation
 - ✅ Browser refresh patterns
 - ✅ Database persistence verification
 - ✅ Edge case handling
 
 ### Day 6: Advanced Scenarios
+
 - ✅ Pagination logic testing
 - ✅ Authorization boundaries
 - ✅ Multi-user ownership testing
@@ -476,23 +547,28 @@ Advanced scenarios, complete coverage, multi-user authorization
 ## Challenges Overcome
 
 ### Challenge 1: Dialog Timing
+
 **Issue:** Alert handlers must be set BEFORE clicking button
 **Solution:** `page.once('dialog', ...)` before `page.click(...)`
 
 ### Challenge 2: Edit Mode Detection
+
 **Issue:** How to know when edit mode exits?
 **Solution:** `waitForSelector('button:has-text("Edit")')`
 
 ### Challenge 3: Checkbox Toggle
+
 **Issue:** `checkbox.check()` fails if already checked
 **Solution:** Use `checkbox.click()` for toggle behavior
 
 ### Challenge 4: Frontend State Bug (Day 4)
+
 **Issue:** Photo edits not showing in UI
 **Root Cause:** Data structure mismatch
 **Solution:** Fixed `PhotoDetailPage.tsx` state update
 
 ### Challenge 5: Pagination Performance
+
 **Issue:** Uploading 15+ photos via UI too slow
 **Solution:** `bulkUploadPhotosViaAPI()` helper (10x faster)
 
@@ -535,7 +611,8 @@ Advanced scenarios, complete coverage, multi-user authorization
 ## GitHub Activity Impact
 
 ### Contributions Graph
-```
+
+```text
 Dec 1: █ (1 commit)
 Dec 2: █████ (5 commits)
 Dec 3: ████ (4 commits)
@@ -546,7 +623,8 @@ Dec 6: ██████ (6 commits)
 
 **Total:** 31 commits over 6 consecutive days
 
-**Recruiter View:**
+### Recruiter View
+
 - ✅ Consistent daily activity
 - ✅ Professional commit messages
 - ✅ Clear progression
@@ -559,27 +637,32 @@ Dec 6: ██████ (6 commits)
 
 ### Key Talking Points for Interviews
 
-**1. Test Architecture**
+### 1. Test Architecture
+
 - Designed reusable helper function library (409 LOC)
 - 12+ helper functions used across 20 tests
 - Professional test organization
 
-**2. Bug Discovery**
+### 2. Bug Discovery
+
 - Found critical frontend bug during E2E testing
 - Root cause analysis: backend/frontend contract mismatch
 - Fixed bug with proper state management
 
-**3. Performance Optimization**
+### 3. Performance Optimization
+
 - Identified slow pagination test setup (60 seconds)
 - Implemented API-based bulk upload (8 seconds)
 - **10x performance improvement**
 
-**4. Complete Coverage**
+### 4. Complete Coverage
+
 - 20 comprehensive E2E tests
 - 100% Gallery user flow coverage
 - Upload → View → Edit → Delete lifecycle
 
-**5. Quality Assurance**
+### 5. Quality Assurance
+
 - 100% test pass rate
 - Cross-browser testing (3 browsers)
 - Stable, reliable tests (no flakiness)
@@ -617,12 +700,14 @@ Dec 6: ██████ (6 commits)
 ## Next Steps
 
 ### Immediate (Week 4)
+
 - ✅ Move plan to `done/` folder ← **CURRENT**
 - ⏭️ Prepare LinkedIn post
 - ⏭️ Add to portfolio website
 - ⏭️ Use in interview discussions
 
 ### Future Enhancements
+
 - Visual regression testing (Percy)
 - Accessibility testing (axe-core)
 - Performance testing (k6 load tests)
@@ -632,14 +717,17 @@ Dec 6: ██████ (6 commits)
 
 ## Related Documentation
 
-**Implementation:**
+### Implementation
+
 - [`tests/e2e/gallery.spec.ts`](../../tests/e2e/gallery.spec.ts) - 20 E2E tests
 - [`tests/e2e/helpers/gallery-helpers.ts`](../../tests/e2e/helpers/gallery-helpers.ts) - Helper functions
 
-**Journal:**
+### Journal
+
 - [`docs/journals/2025-12/week3-e2e-gallery-checklist.md`](../../docs/journals/2025-12/week3-e2e-gallery-checklist.md)
 
-**Plans:**
+### Plans
+
 - [Requirements](requirements.md) - Test specifications
 - [Technical Design](technical-design.md) - Implementation details
 
@@ -647,12 +735,14 @@ Dec 6: ██████ (6 commits)
 
 ## Acknowledgments
 
-**Reference Materials:**
+### Reference Materials
+
 - `tests/e2e/profile-picture.spec.ts` - Excellent patterns for file upload
 - Playwright documentation - Comprehensive testing guide
 - Senior's repo pattern - Professional plan organization
 
-**Key Learnings Applied:**
+### Key Learnings Applied
+
 - Helper function patterns from profile-picture tests
 - Dialog handling from Playwright docs
 - Plan structure from senior's open-sharia-enterprise repo
@@ -668,9 +758,9 @@ Dec 6: ██████ (6 commits)
 
 ---
 
-## 🎉 CONGRATULATIONS!
+## 🎉 CONGRATULATIONS
 
-**Week 3: E2E Gallery Tests - 100% COMPLETE!**
+### Week 3: E2E Gallery Tests - 100% COMPLETE
 
 - ✅ 20 tests implemented and passing
 - ✅ 6-day consistent execution

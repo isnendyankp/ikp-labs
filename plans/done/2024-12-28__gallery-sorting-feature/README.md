@@ -15,13 +15,15 @@ Implement a comprehensive sorting system for the Gallery page that allows users 
 ## Problem Statement
 
 Currently, the Gallery page supports filtering by photo source (All/My/Liked/Favorited) but has limited sorting capabilities:
+
 - All endpoints **only** sort by `createdAt DESC` (newest first)
 - No way to view oldest photos first
 - No way to discover popular photos (most liked)
 - No way to see trending favorited content
 - Users cannot combine filters with custom sorting
 
-**User Pain Points:**
+### User Pain Points
+
 - "I want to see my oldest photos" ❌ Not possible
 - "Show me the most popular photos I've liked" ❌ Not possible
 - "Which of my photos got the most likes?" ❌ Hard to find
@@ -32,12 +34,14 @@ Currently, the Gallery page supports filtering by photo source (All/My/Liked/Fav
 ### Two-Dropdown System
 
 **Filter Dropdown** (Existing - Enhanced)
+
 - All Photos
 - My Photos
 - Liked Photos
 - Favorited Photos
 
 **Sort Dropdown** (NEW)
+
 - Newest First ⬇️ (default)
 - Oldest First ⬆️
 - Most Liked 🔥
@@ -45,7 +49,7 @@ Currently, the Gallery page supports filtering by photo source (All/My/Liked/Fav
 
 ### User Experience
 
-```
+```text
 Gallery Page
 ┌─────────────────────────────────────────────┐
 │  Filter: [Liked Photos ▼]  Sort: [Most Liked ▼]  │
@@ -55,7 +59,8 @@ Gallery Page
 URL: /gallery?filter=liked&sortBy=mostLiked&page=1
 ```
 
-**Examples:**
+### Examples
+
 - User selects "My Photos" + "Most Liked" → See which of my photos are popular
 - User selects "Liked Photos" + "Oldest First" → See the first photos I ever liked
 - User selects "All Photos" + "Most Favorited" → Discover trending content
@@ -65,14 +70,16 @@ URL: /gallery?filter=liked&sortBy=mostLiked&page=1
 
 ### In-Scope ✅
 
-#### Backend
+### Backend
+
 - Add `sortBy` query parameter to 4 gallery endpoints
 - Support 4 sorting algorithms (newest, oldest, mostLiked, mostFavorited)
 - Optimize database queries (solve N+1 problem for counts)
 - Add validation for sortBy parameter
 - Maintain backward compatibility (default to newest)
 
-#### Frontend
+### Frontend
+
 - Create new `SortingDropdown.tsx` component
 - Enhance URL state management (`?filter=X&sortBy=Y&page=Z`)
 - Update `Gallery` page to handle filter + sort combinations
@@ -80,7 +87,8 @@ URL: /gallery?filter=liked&sortBy=mostLiked&page=1
 - Ensure mobile responsiveness
 - Add loading states and error handling
 
-#### Testing (CRITICAL)
+### Testing (CRITICAL)
+
 - **Gherkin BDD Tests**: 12-15 scenarios
 - **Playwright E2E Tests**: 15-20 browser automation tests
 - **Playwright API Tests**: 12-15 endpoint tests
@@ -89,7 +97,8 @@ URL: /gallery?filter=liked&sortBy=mostLiked&page=1
 - **Backend Integration Tests**: 5-8 full-stack tests
 - **Total**: ~62-80 comprehensive test cases
 
-#### Documentation
+### Documentation
+
 - API endpoint documentation
 - Component JSDoc comments
 - User guide section
@@ -108,6 +117,7 @@ URL: /gallery?filter=liked&sortBy=mostLiked&page=1
 ## Success Criteria
 
 ### Must Have (P0)
+
 - [ ] All 4 gallery endpoints support `sortBy` parameter
 - [ ] All 4 sorting options work correctly (newest, oldest, mostLiked, mostFavorited)
 - [ ] SortingDropdown component fully functional
@@ -118,6 +128,7 @@ URL: /gallery?filter=liked&sortBy=mostLiked&page=1
 - [ ] Error handling for invalid parameters
 
 ### Should Have (P1)
+
 - [ ] N+1 query problem solved (batch queries)
 - [ ] Loading states during fetch
 - [ ] Empty states with helpful messages
@@ -125,6 +136,7 @@ URL: /gallery?filter=liked&sortBy=mostLiked&page=1
 - [ ] SEO-friendly URLs
 
 ### Nice to Have (P2)
+
 - [ ] Animations for dropdown transitions
 - [ ] Sort direction toggle (ASC/DESC)
 - [ ] Remember last sort preference (localStorage)
@@ -140,38 +152,40 @@ URL: /gallery?filter=liked&sortBy=mostLiked&page=1
 
 ## Timeline
 
-| Phase | Duration | Tasks |
-|-------|----------|-------|
-| **Phase 1**: Backend | 2-3 hours | Repository, Service, Controller |
-| **Phase 2**: Frontend UI | 2-3 hours | SortingDropdown, Gallery updates |
-| **Phase 3**: Integration | 1-2 hours | URL state, service calls |
+| Phase                      | Duration  | Tasks                            |
+| -------------------------- | --------- | -------------------------------- |
+| **Phase 1**: Backend       | 2-3 hours | Repository, Service, Controller  |
+| **Phase 2**: Frontend UI   | 2-3 hours | SortingDropdown, Gallery updates |
+| **Phase 3**: Integration   | 1-2 hours | URL state, service calls         |
 | **Phase 4**: Gherkin Tests | 2-3 hours | BDD scenarios + step definitions |
-| **Phase 5**: E2E Tests | 2-3 hours | Playwright browser tests |
-| **Phase 6**: Unit Tests | 2-3 hours | API + Frontend + Backend |
-| **Phase 7**: Documentation | 1 hour | API docs, comments, guide |
+| **Phase 5**: E2E Tests     | 2-3 hours | Playwright browser tests         |
+| **Phase 6**: Unit Tests    | 2-3 hours | API + Frontend + Backend         |
+| **Phase 7**: Documentation | 1 hour    | API docs, comments, guide        |
 
 **Total Estimated**: 12-18 hours (can be spread over Week 1)
 
 ## Dependencies
 
 ### No Blockers
+
 - All required infrastructure exists
 - Database schema supports feature (no migrations needed)
 - Testing framework ready (Gherkin + Playwright + Jest + JUnit)
 
 ### Prerequisites
+
 - Backend server running (`mvn spring-boot:run`)
 - Frontend server running (`npm run dev`)
 - PostgreSQL database accessible
 
 ## Risks & Mitigations
 
-| Risk | Impact | Mitigation |
-|------|--------|------------|
-| N+1 query performance | HIGH | Use JOIN queries, batch COUNT |
-| Complex URL state management | MEDIUM | Use Next.js router with proper validation |
-| Test flakiness | MEDIUM | Use atomic commits, run tests 3x before merge |
-| Breaking changes to existing filters | HIGH | Maintain backward compatibility (default sortBy) |
+| Risk                                 | Impact | Mitigation                                       |
+| ------------------------------------ | ------ | ------------------------------------------------ |
+| N+1 query performance                | HIGH   | Use JOIN queries, batch COUNT                    |
+| Complex URL state management         | MEDIUM | Use Next.js router with proper validation        |
+| Test flakiness                       | MEDIUM | Use atomic commits, run tests 3x before merge    |
+| Breaking changes to existing filters | HIGH   | Maintain backward compatibility (default sortBy) |
 
 ## Related Plans
 

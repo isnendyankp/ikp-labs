@@ -24,7 +24,7 @@
 
 ### System Architecture
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────┐
 │                         Client Browser                        │
 │  ┌─────────────────────────────────────────────────────────┐ │
@@ -70,7 +70,7 @@
 
 ### Data Flow
 
-**User Action → API Call → Database Query → Response**
+### User Action → API Call → Database Query → Response
 
 1. **User selects sort option** (e.g., "Most Liked")
 2. **Frontend updates URL**: `/gallery?filter=all&sortBy=mostLiked&page=1`
@@ -88,7 +88,7 @@
 
 ### Layer Architecture
 
-```
+```text
 ┌─────────────────────────────────────────┐
 │          Controller Layer               │  ← HTTP endpoints, validation
 ├─────────────────────────────────────────┤
@@ -104,7 +104,7 @@
 
 **File**: `backend/ikp-labs-api/src/main/java/com/ikplabs/api/controller/GalleryController.java`
 
-**New/Modified Methods:**
+### New/Modified Methods
 
 ```java
 @RestController
@@ -332,7 +332,7 @@ public class GalleryService {
 
 **File**: `backend/ikp-labs-api/src/main/java/com/ikplabs/api/repository/GalleryPhotoRepository.java`
 
-**Critical: Optimized Queries to Solve N+1 Problem**
+### Critical: Optimized Queries to Solve N+1 Problem
 
 ```java
 @Repository
@@ -458,7 +458,8 @@ public interface GalleryPhotoRepository extends JpaRepository<GalleryPhoto, Long
 }
 ```
 
-**Key Points:**
+### Key Points
+
 - ✅ **Single query** instead of N+1 queries
 - ✅ **Subqueries** for COUNT aggregation
 - ✅ **LEFT JOINs** to include user interaction flags
@@ -471,7 +472,7 @@ public interface GalleryPhotoRepository extends JpaRepository<GalleryPhoto, Long
 
 ### Component Architecture
 
-```
+```text
 Gallery Page (page.tsx)
 │
 ├── FilterDropdown.tsx (Existing - Enhanced)
@@ -622,7 +623,8 @@ export default function SortingDropdown({ currentSort, onSortChange }: SortingDr
 }
 ```
 
-**Key Features:**
+### Key Features
+
 - ✅ Matches FilterDropdown visual style
 - ✅ Keyboard navigation (ESC to close)
 - ✅ Click outside to close
@@ -636,7 +638,7 @@ export default function SortingDropdown({ currentSort, onSortChange }: SortingDr
 
 **File**: `frontend/src/app/gallery/page.tsx`
 
-**Changes Required:**
+### Changes Required
 
 ```typescript
 'use client';
@@ -810,7 +812,7 @@ export default function GalleryPage() {
 
 **File**: `frontend/src/services/galleryService.ts`
 
-**Add `sortBy` parameter to all functions:**
+### Add `sortBy` parameter to all functions
 
 ```typescript
 /**
@@ -839,7 +841,10 @@ export async function getPublicPhotos(
     const listResponse = await response.json();
 
     if (response.ok) {
-      console.log('✅ Public photos fetched:', listResponse.photos?.length || 0);
+      console.log(
+        '✅ Public photos fetched:',
+        listResponse.photos?.length || 0
+      );
       return { data: listResponse, status: response.status };
     } else {
       console.error('❌ Fetch failed:', listResponse);
@@ -849,7 +854,8 @@ export async function getPublicPhotos(
     console.error('❌ Fetch error:', error);
     return {
       error: {
-        message: error instanceof Error ? error.message : 'Failed to fetch photos',
+        message:
+          error instanceof Error ? error.message : 'Failed to fetch photos',
         errorCode: 'FETCH_ERROR',
       },
       status: 0,
@@ -868,12 +874,14 @@ export async function getPublicPhotos(
 
 **Good news**: The current database schema already supports sorting by likes/favorites through JOINs and aggregations. No schema migrations needed.
 
-**Tables:**
+### Tables
+
 1. `gallery_photos` - Photo metadata
 2. `photo_likes` - User-photo like relationships
 3. `photo_favorites` - User-photo favorite relationships
 
-**Existing Indexes (Already Optimal):**
+### Existing Indexes (Already Optimal)
+
 ```sql
 -- gallery_photos indexes
 CREATE INDEX idx_gallery_user_id ON gallery_photos(user_id);
@@ -890,7 +898,8 @@ CREATE INDEX idx_photo_favorites_photo_id ON photo_favorites(photo_id);
 CREATE INDEX idx_photo_favorites_user_id ON photo_favorites(user_id);
 ```
 
-**Why No Changes?**
+### Why No Changes?
+
 - Sorting by `created_at` uses existing index
 - Sorting by like count uses JOIN with `photo_likes` (indexed on `photo_id`)
 - Sorting by favorite count uses JOIN with `photo_favorites` (indexed on `photo_id`)
@@ -902,24 +911,27 @@ CREATE INDEX idx_photo_favorites_user_id ON photo_favorites(user_id);
 
 ### Updated Endpoints
 
-#### 1. GET /api/gallery/public
+### 1. GET /api/gallery/public
 
 **Description**: Get all public photos with optional sorting
 
-**Request:**
+### Request
+
 ```http
 GET /api/gallery/public?page=0&size=12&sortBy=mostLiked
 Authorization: Bearer <jwt-token>
 ```
 
-**Query Parameters:**
-| Parameter | Type | Required | Default | Description |
-|-----------|------|----------|---------|-------------|
-| `page` | integer | No | 0 | Page number (0-indexed) |
-| `size` | integer | No | 12 | Photos per page (1-100) |
-| `sortBy` | string | No | `newest` | Sort option: `newest`, `oldest`, `mostLiked`, `mostFavorited` |
+### Query Parameters
 
-**Response 200 OK:**
+| Parameter | Type    | Required | Default  | Description                                                   |
+| --------- | ------- | -------- | -------- | ------------------------------------------------------------- |
+| `page`    | integer | No       | 0        | Page number (0-indexed)                                       |
+| `size`    | integer | No       | 12       | Photos per page (1-100)                                       |
+| `sortBy`  | string  | No       | `newest` | Sort option: `newest`, `oldest`, `mostLiked`, `mostFavorited` |
+
+### Response 200 OK
+
 ```json
 {
   "photos": [
@@ -948,27 +960,32 @@ Authorization: Bearer <jwt-token>
 }
 ```
 
-**Response 400 Bad Request:**
+### Response 400 Bad Request
+
 ```json
 {
   "error": "Invalid sortBy value. Must be one of: newest, oldest, mostLiked, mostFavorited"
 }
 ```
 
-**Response 401 Unauthorized:**
+### Response 401 Unauthorized
+
 ```json
 {
   "error": "Authentication required"
 }
 ```
 
-#### 2. GET /api/gallery/my-photos
+### 2. GET /api/gallery/my-photos
+
 (Same structure, but returns only current user's photos)
 
-#### 3. GET /api/gallery/liked-photos
+### 3. GET /api/gallery/liked-photos
+
 (Same structure, but returns only photos liked by current user)
 
-#### 4. GET /api/gallery/favorited-photos
+### 4. GET /api/gallery/favorited-photos
+
 (Same structure, but returns only photos favorited by current user)
 
 ---
@@ -977,17 +994,17 @@ Authorization: Bearer <jwt-token>
 
 ### SortingDropdown Props
 
-| Prop | Type | Required | Description |
-|------|------|----------|-------------|
-| `currentSort` | `SortOption` | Yes | Currently selected sort option |
-| `onSortChange` | `(sort: SortOption) => void` | Yes | Callback when sort selection changes |
+| Prop           | Type                         | Required | Description                          |
+| -------------- | ---------------------------- | -------- | ------------------------------------ |
+| `currentSort`  | `SortOption`                 | Yes      | Currently selected sort option       |
+| `onSortChange` | `(sort: SortOption) => void` | Yes      | Callback when sort selection changes |
 
 ### FilterDropdown Props (No Changes)
 
-| Prop | Type | Required | Description |
-|------|------|----------|-------------|
-| `currentFilter` | `FilterOption` | Yes | Currently selected filter |
-| `onFilterChange` | `(filter: FilterOption) => void` | Yes | Callback when filter changes |
+| Prop             | Type                             | Required | Description                  |
+| ---------------- | -------------------------------- | -------- | ---------------------------- |
+| `currentFilter`  | `FilterOption`                   | Yes      | Currently selected filter    |
+| `onFilterChange` | `(filter: FilterOption) => void` | Yes      | Callback when filter changes |
 
 ---
 
@@ -995,15 +1012,17 @@ Authorization: Bearer <jwt-token>
 
 ### URL as Single Source of Truth
 
-**Why URL-based state?**
+### Why URL-based state?
+
 - ✅ Shareable links
 - ✅ Browser back/forward support
 - ✅ No complex state management library needed
 - ✅ SEO-friendly
 - ✅ Works with Next.js server components
 
-**State Flow:**
-```
+### State Flow
+
+```text
 URL Query Params (/gallery?filter=liked&sortBy=newest&page=1)
     ↓ (useSearchParams)
 Component State (currentFilter, currentSortBy, currentPage)
@@ -1015,7 +1034,8 @@ Re-fetch Data (useEffect)
 Update UI
 ```
 
-**Implementation:**
+### Implementation
+
 ```typescript
 // Read from URL
 const searchParams = useSearchParams();
@@ -1042,7 +1062,7 @@ useEffect(() => {
 
 ### Test Pyramid
 
-```
+```text
         /\
        /  \
       /E2E \        ← Gherkin + Playwright E2E (15-20 tests)
@@ -1057,14 +1077,14 @@ useEffect(() => {
 
 ### Test Coverage Goals
 
-| Layer | Tool | Target Coverage | Test Count |
-|-------|------|----------------|------------|
-| **Gherkin BDD** | Cucumber | All user scenarios | 12-15 |
-| **E2E Browser** | Playwright | Critical user flows | 15-20 |
-| **API** | Playwright | All endpoints | 12-15 |
-| **Frontend Unit** | Jest | Components | 8-10 |
-| **Backend Unit** | JUnit | Service + Controller | 10-12 |
-| **Backend Integration** | Spring Test | Full stack | 5-8 |
+| Layer                   | Tool        | Target Coverage      | Test Count |
+| ----------------------- | ----------- | -------------------- | ---------- |
+| **Gherkin BDD**         | Cucumber    | All user scenarios   | 12-15      |
+| **E2E Browser**         | Playwright  | Critical user flows  | 15-20      |
+| **API**                 | Playwright  | All endpoints        | 12-15      |
+| **Frontend Unit**       | Jest        | Components           | 8-10       |
+| **Backend Unit**        | JUnit       | Service + Controller | 10-12      |
+| **Backend Integration** | Spring Test | Full stack           | 5-8        |
 
 **Total**: ~62-80 comprehensive tests
 
@@ -1074,8 +1094,9 @@ useEffect(() => {
 
 ### Problem: N+1 Query Pattern
 
-**Before (Current Implementation):**
-```
+### Before (Current Implementation)
+
+```text
 1. SELECT * FROM gallery_photos WHERE is_public = TRUE LIMIT 12;
 2. SELECT COUNT(*) FROM photo_likes WHERE photo_id = 1;
 3. SELECT COUNT(*) FROM photo_likes WHERE photo_id = 2;
@@ -1088,7 +1109,8 @@ useEffect(() => {
 Total: 25 queries per page
 ```
 
-**After (Optimized):**
+### After (Optimized)
+
 ```sql
 SELECT
     p.*,
@@ -1112,7 +1134,8 @@ LIMIT 12 OFFSET 0;
 Total: 1 query per page
 ```
 
-**Performance Gain:**
+### Performance Gain
+
 - Queries reduced from 25 → 1 (96% reduction)
 - Response time reduced from ~250ms → <100ms (60% improvement)
 - Database load reduced significantly

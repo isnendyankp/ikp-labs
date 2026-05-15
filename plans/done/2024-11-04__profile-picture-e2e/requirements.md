@@ -42,11 +42,13 @@ This document defines the requirements and specifications for E2E tests covering
 
 **Priority:** P0 (Critical)
 
-**Preconditions:**
+### Preconditions
+
 - Fresh test environment
 - Valid test fixtures available
 
-**Test Steps:**
+### Test Steps
+
 1. Register new user
 2. Login with credentials
 3. Navigate to home page
@@ -55,7 +57,8 @@ This document defines the requirements and specifications for E2E tests covering
 6. Verify success message
 7. Verify profile picture URL updated
 
-**Expected Results:**
+### Expected Results
+
 - Profile picture uploaded successfully
 - Image visible in UI
 - Success message displayed
@@ -69,10 +72,12 @@ This document defines the requirements and specifications for E2E tests covering
 
 **Priority:** P0 (Critical)
 
-**Preconditions:**
+### Preconditions
+
 - User with uploaded profile picture
 
-**Test Steps:**
+### Test Steps
+
 1. Use existing authenticated user with uploaded picture
 2. Click "Delete Picture" button
 3. Confirm deletion in dialog
@@ -80,7 +85,8 @@ This document defines the requirements and specifications for E2E tests covering
 5. Verify fallback avatar appears (initials)
 6. Verify success message
 
-**Expected Results:**
+### Expected Results
+
 - Profile picture removed
 - Fallback avatar displayed
 - Success message shown
@@ -93,10 +99,12 @@ This document defines the requirements and specifications for E2E tests covering
 
 **Priority:** P0 (Critical)
 
-**Preconditions:**
+### Preconditions
+
 - None (fresh user)
 
-**Test Steps:**
+### Test Steps
+
 1. Register new unique user
 2. Auto-redirect to home after registration
 3. Verify user info displayed
@@ -107,7 +115,8 @@ This document defines the requirements and specifications for E2E tests covering
 8. Logout successfully
 9. Verify redirected to login
 
-**Expected Results:**
+### Expected Results
+
 - Complete flow works without errors
 - All state transitions correct
 - User journey completed successfully
@@ -120,12 +129,14 @@ This document defines the requirements and specifications for E2E tests covering
 
 **Priority:** P1 (High)
 
-**Test Scenarios:**
+### Test Scenarios
+
 - File > 5MB (should fail)
 - Non-image file (should fail)
 - Unsupported format (should fail)
 
-**Expected Results:**
+### Expected Results
+
 - Error messages displayed correctly
 - Upload blocked for invalid files
 
@@ -137,13 +148,15 @@ This document defines the requirements and specifications for E2E tests covering
 
 **Priority:** P1 (High)
 
-**Test Steps:**
+### Test Steps
+
 1. Upload profile picture
 2. Refresh page
 3. Verify picture still displayed
 4. Verify no re-upload required
 
-**Expected Results:**
+### Expected Results
+
 - Picture persists after refresh
 - Data loaded from database
 
@@ -155,7 +168,8 @@ This document defines the requirements and specifications for E2E tests covering
 
 **Priority:** P2 (Medium)
 
-**Test Steps:**
+### Test Steps
+
 1. Upload picture #1
 2. Delete picture #1
 3. Upload picture #2 (different image)
@@ -163,7 +177,8 @@ This document defines the requirements and specifications for E2E tests covering
 5. Delete picture #2
 6. Verify fallback avatar
 
-**Expected Results:**
+### Expected Results
+
 - Multiple cycles work correctly
 - State managed properly
 
@@ -174,6 +189,7 @@ This document defines the requirements and specifications for E2E tests covering
 ### Required Files
 
 Create test fixtures in `tests/fixtures/`:
+
 - `valid-profile.jpg` - Small JPEG (< 1MB)
 - `valid-profile.png` - Small PNG (< 1MB)
 - `large-image.jpg` - Large image (> 5MB) for validation test
@@ -227,7 +243,8 @@ Create test fixtures in `tests/fixtures/`:
 
 ### Development Environment
 
-**Before Starting:**
+### Before Starting
+
 - Backend running on `localhost:8081`
 - Frontend running on `localhost:3005`
 - PostgreSQL database running

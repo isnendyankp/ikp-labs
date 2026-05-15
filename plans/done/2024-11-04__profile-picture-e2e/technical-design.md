@@ -17,7 +17,7 @@ This document provides technical implementation details for the Profile Picture 
 
 ### File Structure
 
-```
+```text
 tests/
 ├── e2e/
 │   ├── profile-picture.spec.ts    # E2E test file
@@ -39,30 +39,30 @@ tests/
 
 ```typescript
 // Upload button
-'input[type="file"]'
+'input[type="file"]';
 
 // Upload submit button
-'button:has-text("Upload")'
+'button:has-text("Upload")';
 
 // File input
-const fileInput = page.locator('input[type="file"]')
+const fileInput = page.locator('input[type="file"]');
 ```
 
 ### Profile Picture Display
 
 ```typescript
 // Delete button
-'button:has-text("Delete Picture")'
+'button:has-text("Delete Picture")';
 
 // Profile picture image
-'img[alt*="profile picture"]'
+'img[alt*="profile picture"]';
 
 // Avatar fallback (initials)
-'div:has-text("initials")'
+'div:has-text("initials")';
 
 // Success messages
-'text=/uploaded successfully/i'
-'text=/deleted successfully/i'
+'text=/uploaded successfully/i';
+'text=/deleted successfully/i';
 ```
 
 ---
@@ -93,11 +93,11 @@ const fileInput = page.locator('input[type="file"]')
 
 ## API Endpoints Tested
 
-| Method | Endpoint | Description |
-|--------|----------|-------------|
-| POST | `/api/profile/upload-picture` | Upload profile picture (multipart/form-data) |
-| DELETE | `/api/profile/picture` | Delete profile picture |
-| GET | `/api/profile/picture` | Get current picture |
+| Method | Endpoint                      | Description                                  |
+| ------ | ----------------------------- | -------------------------------------------- |
+| POST   | `/api/profile/upload-picture` | Upload profile picture (multipart/form-data) |
+| DELETE | `/api/profile/picture`        | Delete profile picture                       |
+| GET    | `/api/profile/picture`        | Get current picture                          |
 
 ---
 
@@ -105,19 +105,19 @@ const fileInput = page.locator('input[type="file"]')
 
 ### Upload Errors
 
-| Error | Message |
-|-------|---------|
-| File too large | "File size exceeds 5MB" |
-| Invalid format | "Only JPEG, PNG, GIF allowed" |
-| Network error | "Upload failed, try again" |
-| No file selected | Button disabled or warning |
+| Error            | Message                       |
+| ---------------- | ----------------------------- |
+| File too large   | "File size exceeds 5MB"       |
+| Invalid format   | "Only JPEG, PNG, GIF allowed" |
+| Network error    | "Upload failed, try again"    |
+| No file selected | Button disabled or warning    |
 
 ### Delete Errors
 
-| Error | Message |
-|-------|---------|
+| Error         | Message                    |
+| ------------- | -------------------------- |
 | Network error | "Delete failed, try again" |
-| User cancels | No action taken |
+| User cancels  | No action taken            |
 
 ---
 
@@ -176,13 +176,13 @@ const fileInput = page.locator('input[type="file"]')
 
 ## Timeline
 
-| Task | Estimated Time |
-|------|----------------|
-| Planning | Complete (this document) |
-| Implementation | 1-2 hours |
-| Testing & Debug | 30 minutes |
-| Documentation | 15 minutes |
-| **Total** | ~2-3 hours |
+| Task            | Estimated Time           |
+| --------------- | ------------------------ |
+| Planning        | Complete (this document) |
+| Implementation  | 1-2 hours                |
+| Testing & Debug | 30 minutes               |
+| Documentation   | 15 minutes               |
+| **Total**       | ~2-3 hours               |
 
 ---
 

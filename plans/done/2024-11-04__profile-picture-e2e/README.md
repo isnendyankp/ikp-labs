@@ -8,7 +8,8 @@
 
 ## Quick Navigation
 
-**Start Here:**
+### Start Here
+
 1. **[Requirements](requirements.md)** - Test objectives & scope
 2. **[Technical Design](technical-design.md)** - Implementation details
 3. **[Checklist](checklist.md)** - Progress tracking
@@ -19,8 +20,9 @@
 
 Comprehensive E2E tests for the complete profile picture feature flow using Playwright.
 
-**Full User Journey Flow:**
-```
+### Full User Journey Flow
+
+```text
 Register -> Login -> Home -> Upload Profile Picture -> Delete Profile Picture -> Logout
 ```
 
@@ -29,6 +31,7 @@ Register -> Login -> Home -> Upload Profile Picture -> Delete Profile Picture ->
 ## Test Coverage
 
 ### Core Test Scenarios
+
 - Profile Picture Upload Flow
 - Profile Picture Delete Flow
 - Complete End-to-End Flow
@@ -40,7 +43,8 @@ Register -> Login -> Home -> Upload Profile Picture -> Delete Profile Picture ->
 
 ## Key Metrics
 
-**Project Scope:**
+### Project Scope
+
 - **Test Scenarios:** 6 comprehensive flows
 - **Test Type:** End-to-End (E2E)
 - **Testing Tool:** Playwright
@@ -50,23 +54,25 @@ Register -> Login -> Home -> Upload Profile Picture -> Delete Profile Picture ->
 
 ## Related Documentation
 
-**Similar Test Plans:**
+### Similar Test Plans
+
 - [E2E Gallery Tests](../2024-12-08__e2e-gallery-tests/) - Gallery E2E tests
 - [Photo Gallery Feature Plan](../2024-11-24__photo-gallery-feature/) - Gallery implementation
 
-**Project Documentation:**
+### Project Documentation
+
 - [Test Plan Checklist Strategy](../../docs/explanation/testing/test-plan-checklist-strategy.md)
 
 ---
 
 ## Document Status
 
-| Document | Status | Purpose |
-|----------|--------|---------|
-| [README.md](README.md) | Complete | Navigation & overview |
-| [requirements.md](requirements.md) | Complete | Test objectives & specifications |
-| [technical-design.md](technical-design.md) | Complete | Architecture & implementation |
-| [checklist.md](checklist.md) | Complete | Progress tracking |
+| Document                                   | Status   | Purpose                          |
+| ------------------------------------------ | -------- | -------------------------------- |
+| [README.md](README.md)                     | Complete | Navigation & overview            |
+| [requirements.md](requirements.md)         | Complete | Test objectives & specifications |
+| [technical-design.md](technical-design.md) | Complete | Architecture & implementation    |
+| [checklist.md](checklist.md)               | Complete | Progress tracking                |
 
 ---
 

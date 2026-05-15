@@ -7,7 +7,7 @@
 
 ## Progress Overview
 
-```
+```text
 Day 1 (Tue): ✅✅✅✅✅✅✅✅✅✅  10/10 tasks (100%) ✅ DONE
 Day 2 (Wed): ✅✅✅✅✅✅✅✅✅✅  10/10 tasks (100%) ✅ DONE
 Day 3 (Thu): ✅✅✅✅✅✅✅✅✅✅  10/10 tasks (100%) ✅ DONE
@@ -19,7 +19,8 @@ Overall Progress: 33/50 tasks (66%)
 
 **Legend:** ⬜ Pending | 🔄 In Progress | ✅ Complete
 
-**Current Status (December 12, 2024):**
+### Current Status (December 12, 2024)
+
 - ✅ **Day 1-2 Combined:** Backend Foundation (Database + Service + Controller + API Tests)
 - ✅ **Day 3:** Backend Testing (Unit Tests + Integration Tests)
 - 🔄 **Day 4 Morning:** Frontend Core (LikeButton Component) - DONE!
@@ -27,6 +28,7 @@ Overall Progress: 33/50 tasks (66%)
 - ⏳ **Day 5:** E2E Tests + Documentation
 
 **Commits Pushed:** 7/9 total
+
 - Commit #1: ✅ Database (V5 migration + Entity + Repository)
 - Commit #2: ✅ Service + Controller (Business logic + REST API)
 - Commit #3: ✅ API Tests (8 automated tests)
@@ -38,6 +40,7 @@ Overall Progress: 33/50 tasks (66%)
 - Commit #9: ⏳ Pending (E2E Tests)
 
 **Tests Completed:** 22/32 (69%)
+
 - ✅ API Tests: 8/8 passing
 - ✅ Unit Tests: 8/8 passing
 - ✅ Integration Tests: 6/6 passing
@@ -53,7 +56,7 @@ Overall Progress: 33/50 tasks (66%)
 
 ### Morning Session (3-4 hours) ✅ COMPLETED
 
-#### Backend - Database Setup
+### Backend - Database Setup
 
 - [x] **Task 1.1:** Create Flyway migration file ✅
   - File: `backend/.../db/migration/V5__create_photo_likes.sql`
@@ -82,7 +85,8 @@ Overall Progress: 33/50 tasks (66%)
   - Verify table created in PostgreSQL
   - Verify indexes created
 
-**Commit 1:**
+### Commit 1
+
 ```bash
 git add backend/ikp-labs-api/src/main/resources/db/migration/V3__create_photo_likes.sql
 git add backend/ikp-labs-api/src/main/java/com/registrationform/api/entity/PhotoLike.java
@@ -101,7 +105,7 @@ git push
 
 ### Afternoon Session (3 hours)
 
-#### Documentation - Gherkin Specifications
+### Documentation - Gherkin Specifications
 
 - [ ] **Task 1.5:** Create Photo Likes Gherkin spec
   - File: `specs/gallery/photo-likes.feature`
@@ -117,7 +121,8 @@ git push
   - 10 scenarios (upload, delete, view, validation)
   - Align with existing implementation
 
-**Commit 2:**
+### Commit 2
+
 ```bash
 git add specs/gallery/photo-likes.feature
 git add specs/profile/profile-picture.feature
@@ -140,7 +145,8 @@ git push
 - [ ] Gherkin specs written and reviewed
 - [ ] Tomorrow's tasks previewed
 
-**Day 1 Summary:**
+### Day 1 Summary
+
 - Database: ✅ Ready
 - Entities: ✅ Created
 - Repositories: ✅ Created
@@ -157,7 +163,7 @@ git push
 
 ### Morning Session (4 hours)
 
-#### Backend - Service Layer
+### Backend - Service Layer
 
 - [ ] **Task 2.1:** Create PhotoLikeService class
   - File: `backend/.../service/PhotoLikeService.java`
@@ -185,7 +191,8 @@ git push
   - Check for compilation errors
   - Verify endpoints registered in logs
 
-**Commit 3:**
+### Commit 3
+
 ```bash
 git add backend/ikp-labs-api/src/main/java/com/registrationform/api/service/PhotoLikeService.java
 git add backend/ikp-labs-api/src/main/java/com/registrationform/api/controller/PhotoLikeController.java
@@ -203,7 +210,7 @@ git push
 
 ### Afternoon Session (3-4 hours)
 
-#### Testing - Playwright API Tests (Automated!)
+### Testing - Playwright API Tests (Automated!)
 
 - [ ] **Task 2.4:** Create Playwright API test file
   - File: `tests/api/photo-likes.api.spec.ts`
@@ -225,7 +232,8 @@ git push
   - Verify: 8/8 tests passing
   - Fix any failures
 
-**Commit 4:**
+### Commit 4
+
 ```bash
 git add tests/api/photo-likes.api.spec.ts
 git commit -m "test(api): add automated photo likes API tests (8 tests)
@@ -249,7 +257,8 @@ git push
 - [ ] All commits pushed (2 commits today)
 - [ ] Backend fully functional
 
-**Day 2 Summary:**
+### Day 2 Summary
+
 - Service: ✅ Complete
 - Controller: ✅ Complete
 - API Tests: ✅ 8/8 passing
@@ -266,7 +275,7 @@ git push
 
 ### Morning Session (3-4 hours)
 
-#### Unit Tests - PhotoLikeService
+### Unit Tests - PhotoLikeService
 
 - [ ] **Task 3.1:** Create PhotoLikeServiceTest class
   - File: `backend/.../test/.../PhotoLikeServiceTest.java`
@@ -289,7 +298,8 @@ git push
   - Verify: 8/8 tests passing
   - Check execution time (should be <100ms)
 
-**Commit 5:**
+### Commit 5
+
 ```bash
 git add backend/ikp-labs-api/src/test/java/com/registrationform/api/service/PhotoLikeServiceTest.java
 git commit -m "test(unit): add PhotoLikeService unit tests (8 tests)
@@ -307,7 +317,7 @@ git push
 
 ### Afternoon Session (3 hours)
 
-#### Integration Tests - PhotoLikeController
+### Integration Tests - PhotoLikeController
 
 - [ ] **Task 3.4:** Create PhotoLikeControllerIntegrationTest class
   - File: `backend/.../test/.../PhotoLikeControllerIntegrationTest.java`
@@ -328,7 +338,8 @@ git push
   - Verify: 6/6 tests passing
   - Verify HTTP status codes correct
 
-**Commit 6:**
+### Commit 6
+
 ```bash
 git add backend/ikp-labs-api/src/test/java/com/registrationform/api/controller/PhotoLikeControllerIntegrationTest.java
 git commit -m "test(integration): add PhotoLikeController integration tests (6 tests)
@@ -352,7 +363,8 @@ git push
 - [x] All commits pushed (2 commits today) ✅
 - [x] Run full test suite: `./mvnw test` ✅
 
-**Day 3 Summary:**
+### Day 3 Summary
+
 - Unit Tests: ✅ 8/8 passing
 - Integration Tests: ✅ 6/6 passing
 - Total Backend Tests: ✅ 14/14 (100%)
@@ -369,7 +381,7 @@ git push
 
 ### Morning Session (3-4 hours) ✅ COMPLETED
 
-#### Frontend - Core Components
+### Frontend - Core Components
 
 - [x] **Task 4.1:** Create photoLikeService.ts (API client) ✅
   - File: `frontend/src/services/photoLikeService.ts`
@@ -395,7 +407,8 @@ git push
   - Verify optimistic update works
   - Test error rollback (simulate API failure)
 
-**Commit 7:**
+### Commit 7
+
 ```bash
 git add frontend/src/services/photoLikeService.ts
 git add frontend/src/components/LikeButton.tsx
@@ -414,7 +427,7 @@ git push
 
 ### Afternoon Session (3-4 hours)
 
-#### Frontend - Pages and Integration
+### Frontend - Pages and Integration
 
 - [ ] **Task 4.4:** Update GalleryPhotoCard component
   - File: `frontend/src/components/GalleryPhotoCard.tsx`
@@ -452,7 +465,8 @@ git push
   - Verify photo removed
   - Refresh page - verify state persists
 
-**Commit 8:**
+### Commit 8
+
 ```bash
 git add frontend/src/components/GalleryPhotoCard.tsx
 git add frontend/src/app/home/photo/[id]/page.tsx
@@ -479,7 +493,8 @@ git push
 - [ ] Full UI flow tested manually
 - [ ] All commits pushed (2 commits today)
 
-**Day 4 Summary:**
+### Day 4 Summary
+
 - Components: ✅ LikeButton, LikedPhotosPage
 - Integration: ✅ Gallery + Detail pages
 - Navigation: ✅ Sidebar link added
@@ -496,7 +511,7 @@ git push
 
 ### Morning Session (4 hours)
 
-#### E2E Testing - Playwright Browser Automation
+### E2E Testing - Playwright Browser Automation
 
 - [ ] **Task 5.1:** Create photo-likes.spec.ts
   - File: `tests/e2e/photo-likes.spec.ts`
@@ -539,7 +554,8 @@ git push
   - Debug failures with `--headed` mode
   - Fix any UI timing issues
 
-**Commit 9:**
+### Commit 9
+
 ```bash
 git add tests/e2e/photo-likes.spec.ts
 git commit -m "test(e2e): add photo likes E2E tests (10 scenarios)
@@ -558,7 +574,7 @@ git push
 
 ### Afternoon Session (3-4 hours)
 
-#### Final Testing & Documentation
+### Final Testing & Documentation
 
 - [ ] **Task 5.4:** Run complete test suite
   - Backend unit: `./mvnw test -Dtest=PhotoLikeServiceTest`
@@ -584,7 +600,8 @@ git push
   - Verify all scenarios implemented
   - Update scenarios if implementation differs
 
-**Commit 10:**
+### Commit 10
+
 ```bash
 git add README.md
 git add docs/  # if any doc updates
@@ -619,7 +636,8 @@ git push
 
 - [ ] All commits pushed (2 commits today)
 
-**Day 5 Summary:**
+### Day 5 Summary
+
 - E2E Tests: ✅ 10/10 passing
 - Total Tests: ✅ 32/32 (100%)
 - Documentation: ✅ Complete
@@ -632,7 +650,7 @@ git push
 
 ### Total Commits: 10 (Atomic)
 
-```
+```text
 Day 1 (Tue): 2 commits - Database + Gherkin
 Day 2 (Wed): 2 commits - Backend APIs + API Tests
 Day 3 (Thu): 2 commits - Unit + Integration Tests
@@ -642,12 +660,12 @@ Day 5 (Sat): 2 commits - E2E Tests + Documentation
 
 ### Total Tests: 32 (100% pass rate)
 
-| Test Type | Count | File | Database |
-|-----------|-------|------|----------|
-| Unit | 8 | PhotoLikeServiceTest.java | ❌ Mock only |
-| Integration | 6 | PhotoLikeControllerIntegrationTest.java | ❌ Mock only |
-| API | 8 | photo-likes.api.spec.ts | ✅ Real PostgreSQL |
-| E2E | 10 | photo-likes.spec.ts | ✅ Real PostgreSQL |
+| Test Type   | Count | File                                    | Database           |
+| ----------- | ----- | --------------------------------------- | ------------------ |
+| Unit        | 8     | PhotoLikeServiceTest.java               | ❌ Mock only       |
+| Integration | 6     | PhotoLikeControllerIntegrationTest.java | ❌ Mock only       |
+| API         | 8     | photo-likes.api.spec.ts                 | ✅ Real PostgreSQL |
+| E2E         | 10    | photo-likes.spec.ts                     | ✅ Real PostgreSQL |
 
 ### Feature Complete Checklist
 
@@ -668,7 +686,7 @@ Day 5 (Sat): 2 commits - E2E Tests + Documentation
 
 ### LinkedIn Post Template
 
-```
+```text
 🚀 Week Achievement: Photo Likes Feature Shipped!
 
 This week, I implemented a complete social engagement system for my full-stack photo gallery application:
@@ -705,7 +723,8 @@ Mastered optimistic UI patterns - users see instant feedback while API confirms 
 #FullStackDevelopment #SpringBoot #ReactJS #NextJS #PostgreSQL #Testing #WebDevelopment #SoftwareEngineering #Playwright #TypeScript
 ```
 
-**Preparation:**
+### Preparation
+
 - [ ] Take screenshot of like button in action
 - [ ] Create GIF showing like → liked photos flow
 - [ ] Prepare code snippet (optional)
@@ -715,7 +734,8 @@ Mastered optimistic UI patterns - users see instant feedback while API confirms 
 
 ## Notes & Lessons Learned
 
-**Keep track of:**
+### Keep track of
+
 - Blockers encountered and how you solved them
 - Unexpected challenges
 - What worked well

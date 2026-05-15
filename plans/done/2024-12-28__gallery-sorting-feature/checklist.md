@@ -1,6 +1,7 @@
 # Gallery Sorting Feature - Implementation Checklist
 
 ## Status Legend
+
 - [ ] Not started
 - [🔄] In progress
 - [✅] Completed
@@ -11,6 +12,7 @@
 ## Phase 1: Planning & Documentation ✅
 
 ### Task 1.1: Create Plan Structure
+
 - [✅] Create plan folder: `plans/in-progress/2024-12-28__gallery-sorting-feature/`
 - [✅] Create README.md (overview, scope, timeline)
 - [✅] Create requirements.md (40+ detailed requirements)
@@ -19,6 +21,7 @@
 - [ ] **COMMIT 1**: "docs: add gallery sorting feature implementation plan"
 
 **Acceptance Criteria**:
+
 - [✅] All plan files created
 - [✅] Plan follows same structure as previous plans
 - [✅] Requirements and technical design are clear
@@ -29,42 +32,51 @@
 ## Phase 2: Backend Implementation (Priority 1) ✅
 
 ### Task 2.1: Add SortBy Parameter to Controller (20 min) ✅
+
 **Affected Files**: `GalleryController.java`
 **Estimated Time**: 20 minutes
 **Status**: ✅ COMPLETED (December 29, 2025)
 
 **Files Modified**:
+
 - `backend/ikp-labs-api/src/main/java/com/ikplabs/gallery/controller/GalleryController.java`
 - `backend/ikp-labs-api/src/main/java/com/ikplabs/gallery/controller/PhotoLikeController.java`
 - `backend/ikp-labs-api/src/main/java/com/ikplabs/gallery/controller/PhotoFavoriteController.java`
 
 **Steps**:
+
 1. [✅] Add sortBy parameter to 4 gallery endpoints:
    - [✅] `GET /api/gallery/public` - Public photos endpoint
    - [✅] `GET /api/gallery/my-photos` - User's own photos endpoint
    - [✅] `GET /api/gallery/liked-photos` - Liked photos endpoint
    - [✅] `GET /api/gallery/favorited-photos` - Favorited photos endpoint
 2. [✅] Add validation for sortBy parameter:
+
    ```java
    @RequestParam(required = false, defaultValue = "newest") String sortBy
    ```
+
 3. [✅] Validate sortBy values (whitelist: newest, oldest, mostLiked, mostFavorited)
 4. [✅] Return 400 Bad Request for invalid sortBy values
 5. [✅] Pass sortBy parameter to service layer
 6. [✅] Test manually with Postman/curl:
+
    ```bash
    curl "http://localhost:8081/api/gallery/public?page=0&size=25&sortBy=mostLiked"
    ```
+
 7. [✅] **COMMIT 2**: "feat(gallery): add sortBy parameter to 4 gallery endpoints" (commit 47444c2)
 8. [✅] **PUSH IMMEDIATELY** (Atomic commit push) ✅ Pushed to main
 
 **Acceptance Criteria**:
+
 - [✅] All 4 endpoints accept sortBy parameter
 - [✅] Invalid sortBy returns 400 with clear error message
 - [✅] Default sortBy is 'newest' (backward compatible)
 - [✅] No breaking changes to existing API consumers
 
 **Implementation Summary**:
+
 - Added sortBy parameter to 3 controllers (113 lines added)
 - Implemented isValidSortBy() validation helper method
 - Whitelist validation prevents SQL injection
@@ -73,17 +85,21 @@
 ---
 
 ### Task 2.2: Implement Service Layer Sorting Logic (30 min) ✅
+
 **Affected Files**: `GalleryService.java`
 **Estimated Time**: 30 minutes
 **Status**: ✅ COMPLETED (December 30, 2025)
 
 **Files Modified**:
+
 - `backend/ikp-labs-api/src/main/java/com/ikplabs/gallery/service/GalleryService.java`
 - `backend/ikp-labs-api/src/main/java/com/ikplabs/gallery/service/PhotoLikeService.java`
 - `backend/ikp-labs-api/src/main/java/com/ikplabs/gallery/service/PhotoFavoriteService.java`
 
 **Steps**:
+
 1. [✅] Create helper method `getSortOrder(String sortBy)`:
+
    ```java
    private Sort getSortOrder(String sortBy) {
        return switch (sortBy) {
@@ -97,6 +113,7 @@
        };
    }
    ```
+
 2. [✅] Update 4 service methods to use getSortOrder():
    - [✅] `getPublicPhotos(int page, int size, String sortBy, Long currentUserId)`
    - [✅] `getUserPhotos(int page, int size, String sortBy, Long currentUserId)`
@@ -108,6 +125,7 @@
 6. [✅] **PUSH IMMEDIATELY** (Atomic commit push) ✅ Pushed to main
 
 **Acceptance Criteria**:
+
 - [✅] All 4 service methods support sorting
 - [✅] Composite sorts work (mostLiked/mostFavorited use tiebreaker)
 - [✅] Default to newest if sortBy is null/invalid
@@ -116,15 +134,18 @@
 ---
 
 ### Task 2.3: Optimize Repository Queries (N+1 Problem Fix) (60 min) ✅
+
 **Affected Files**: `GalleryPhotoRepository.java`
 **Estimated Time**: 60 minutes
 **Status**: ✅ COMPLETED (December 31, 2025)
 
 **Files Modified**:
+
 - `backend/ikp-labs-api/src/main/java/com/ikplabs/gallery/repository/GalleryPhotoRepository.java`
 - `backend/ikp-labs-api/src/main/java/com/ikplabs/gallery/service/GalleryService.java`
 
 **Steps**:
+
 1. [✅] Create optimized native query for public photos sorted by likes:
    - [✅] Add LEFT JOINs for like_counts and favorite_counts
    - [✅] Add LEFT JOINs for user-specific flags (is_liked, is_favorited)
@@ -136,11 +157,13 @@
 5. [✅] Add count queries for pagination
 6. [✅] Map Object[] results to GalleryPhoto entities or DTOs
 7. [✅] Test queries in database console:
+
    ```sql
    -- Verify query returns correct results
    -- Check execution plan (EXPLAIN ANALYZE)
    -- Confirm single query (no N+1)
    ```
+
 8. [✅] Benchmark performance:
    - [✅] Before: Count total queries for 25 photos
    - [✅] After: Confirm single query per page
@@ -148,10 +171,12 @@
 10. [✅] **PUSH IMMEDIATELY** (Atomic commit push) ✅ Pushed to main
 
 **Additional Fixes**:
+
 - [✅] **COMMIT 4b**: "fix(gallery): solve N+1 problem and native SQL compatibility for liked/favorited photos" (commit 8003720)
 - [✅] **COMMIT 4c**: "fix(gallery): replace native SQL with JPQL to resolve entity mapping errors" (commit 7881db6)
 
 **Acceptance Criteria**:
+
 - [✅] All 4 endpoints use optimized queries
 - [✅] Single query per page (no N+1)
 - [✅] Query execution time < 100ms
@@ -160,6 +185,7 @@
 - [✅] Pagination works correctly
 
 **Performance Target**:
+
 - Before: 25 queries per page (1 main + 12 COUNT + 12 EXISTS)
 - After: 1 query per page
 - ✅ **Achievement**: 96% query reduction achieved
@@ -167,11 +193,13 @@
 ---
 
 ### Task 2.4: Backend Testing (60 min) ✅
+
 **Affected Files**: Backend test files
 **Estimated Time**: 60 minutes
 **Status**: ✅ COMPLETED (December 31, 2025)
 
 **Files Created/Modified**:
+
 - `backend/ikp-labs-api/src/test/java/com/ikplabs/gallery/controller/GalleryControllerTest.java`
 - `backend/ikp-labs-api/src/test/java/com/ikplabs/gallery/service/GalleryServiceTest.java`
 - `backend/ikp-labs-api/src/test/java/com/ikplabs/gallery/service/PhotoLikeServiceTest.java`
@@ -179,42 +207,28 @@
 **Steps**:
 
 **Unit Tests (Controller)**:
+
 1. [✅] Test valid sortBy parameters (newest, oldest, mostLiked, mostFavorited)
 2. [✅] Test invalid sortBy returns 400 Bad Request
 3. [✅] Test default sortBy (omitted parameter)
 4. [✅] Test pagination with sorting
 5. [✅] Test authentication/authorization
 
-**Unit Tests (Service)**:
-6. [✅] Test getSortOrder() method for all sort options
-7. [✅] Test service methods call repository with correct Sort object
-8. [✅] Test null/invalid sortBy handling
+**Unit Tests (Service)**: 6. [✅] Test getSortOrder() method for all sort options 7. [✅] Test service methods call repository with correct Sort object 8. [✅] Test null/invalid sortBy handling
 
-**Integration Tests (Repository)**:
-9. [✅] Create test data (photos with different like/favorite counts)
-10. [✅] Test newest sort (createdAt DESC)
-11. [✅] Test oldest sort (createdAt ASC)
-12. [✅] Test mostLiked sort (verify order by like count)
-13. [✅] Test mostFavorited sort (verify order by favorite count)
-14. [✅] Test composite sorts (tiebreaker scenarios)
-15. [✅] Test pagination maintains sort order
-16. [✅] Test optimized query returns correct counts
+**Integration Tests (Repository)**: 9. [✅] Create test data (photos with different like/favorite counts) 10. [✅] Test newest sort (createdAt DESC) 11. [✅] Test oldest sort (createdAt ASC) 12. [✅] Test mostLiked sort (verify order by like count) 13. [✅] Test mostFavorited sort (verify order by favorite count) 14. [✅] Test composite sorts (tiebreaker scenarios) 15. [✅] Test pagination maintains sort order 16. [✅] Test optimized query returns correct counts
 
-**Run Tests**:
-17. [✅] Run unit tests: `mvn test`
-18. [✅] Run integration tests: `mvn verify`
-19. [✅] Verify all tests pass
-20. [✅] Check test coverage (aim for > 80%)
-21. [✅] **COMMIT 5**: "test(gallery): add comprehensive unit tests for sorting feature" (commit 3b9a526)
-22. [✅] **PUSH IMMEDIATELY** (Atomic commit push) ✅ Pushed to main
+**Run Tests**: 17. [✅] Run unit tests: `mvn test` 18. [✅] Run integration tests: `mvn verify` 19. [✅] Verify all tests pass 20. [✅] Check test coverage (aim for > 80%) 21. [✅] **COMMIT 5**: "test(gallery): add comprehensive unit tests for sorting feature" (commit 3b9a526) 22. [✅] **PUSH IMMEDIATELY** (Atomic commit push) ✅ Pushed to main
 
 **Test Results**:
+
 - ✅ GalleryControllerTest: 17 tests passing
 - ✅ GalleryServiceTest: 21 tests passing
 - ✅ PhotoLikeServiceTest: 9 tests passing
 - ✅ **Total: 47 backend tests passing**
 
 **Acceptance Criteria**:
+
 - [✅] All backend unit tests pass (47/47)
 - [✅] All integration tests pass
 - [✅] Test coverage > 80% for new code
@@ -226,15 +240,19 @@
 ## Phase 3: Frontend Implementation (Priority 2) ✅
 
 ### Task 3.1: Create SortingDropdown Component (45 min) ✅
+
 **Affected Files**: New component
 **Estimated Time**: 45 minutes
 **Status**: ✅ COMPLETED (January 1, 2026)
 
 **Files Created**:
+
 - `frontend/src/components/SortByDropdown.tsx` (156 lines)
 
 **Steps**:
+
 1. [✅] Create component file with TypeScript interface:
+
    ```typescript
    export type SortOption = 'newest' | 'oldest' | 'mostLiked' | 'mostFavorited';
    interface SortingDropdownProps {
@@ -242,6 +260,7 @@
      onSortChange: (sortBy: SortOption) => void;
    }
    ```
+
 2. [✅] Define SORT_OPTIONS array with labels and icons:
    - Newest First ⬇️
    - Oldest First ⬆️
@@ -267,6 +286,7 @@
 11. [✅] **PUSH IMMEDIATELY** (Atomic commit push) ✅ Pushed to main
 
 **Acceptance Criteria**:
+
 - [✅] Component renders correctly
 - [✅] Dropdown opens/closes properly
 - [✅] Visual style matches FilterDropdown
@@ -275,28 +295,33 @@
 - [✅] No console warnings/errors
 
 **Implementation Note**:
+
 - Component named `SortByDropdown.tsx` (not SortingDropdown)
 - Combined with Task 3.3 (API service updates) in single commit
 
 ---
 
 ### Task 3.2: Update Gallery Page with Sort State (30 min) ✅
+
 **Affected Files**: `frontend/src/app/gallery/page.tsx`
 **Estimated Time**: 30 minutes
 **Status**: ✅ COMPLETED (January 1, 2026)
 
 **Files Modified**:
+
 - `frontend/src/app/gallery/page.tsx` (41 insertions, 17 deletions)
 - `frontend/src/app/myprofile/liked-photos/page.tsx`
 - `frontend/src/app/myprofile/favorited-photos/page.tsx`
 
 **Steps**:
+
 1. [✅] Import SortingDropdown component and SortOption type
 2. [✅] Add sortBy to URL query parameters:
    - [✅] Read sortBy from searchParams
    - [✅] Default to 'newest' if not present
 3. [✅] Add state: `const [currentSortBy, setCurrentSortBy] = useState<SortOption>(sortByParam);`
 4. [✅] Create handleSortChange function:
+
    ```typescript
    const handleSortChange = (newSortBy: SortOption) => {
      setCurrentSortBy(newSortBy);
@@ -304,14 +329,17 @@
      updateURL(currentFilter, newSortBy, 1);
    };
    ```
+
 5. [✅] Update updateURL function to include sortBy parameter
 6. [✅] Render SortingDropdown component in header (next to FilterDropdown):
+
    ```tsx
    <SortingDropdown
      currentSort={currentSortBy}
      onSortChange={handleSortChange}
    />
    ```
+
 7. [✅] Pass sortBy to data fetching functions:
    - [✅] getPublicPhotos(page, size, sortBy)
    - [✅] getUserPhotos(page, size, sortBy)
@@ -326,9 +354,11 @@
 11. [✅] **PUSH IMMEDIATELY** (Atomic commit push) ✅ Pushed to main
 
 **Additional Integration**:
+
 - [✅] **COMMIT 7b**: "feat(gallery): integrate sortBy dropdown in liked and favorited pages" (commit dee4e8a)
 
 **Acceptance Criteria**:
+
 - [✅] SortingDropdown appears in Gallery header
 - [✅] Sort selection updates URL (?sortBy=mostLiked)
 - [✅] Photos re-fetch when sort changes
@@ -339,30 +369,37 @@
 ---
 
 ### Task 3.3: Update Gallery Service Functions (20 min) ✅
+
 **Affected Files**: `frontend/src/services/galleryService.ts`
 **Estimated Time**: 20 minutes
 **Status**: ✅ COMPLETED (January 1, 2026)
 
 **Files Modified**:
+
 - `frontend/src/services/galleryService.ts`
 - `frontend/src/services/photoLikeService.ts`
 - `frontend/src/services/photoFavoriteService.ts`
 
 **Steps**:
+
 1. [✅] Add sortBy parameter to 4 service functions:
+
    ```typescript
    export async function getPublicPhotos(
      page: number = 0,
      size: number = 25,
      sortBy: string = 'newest'
-   ): Promise<GalleryListResponse>
+   ): Promise<GalleryListResponse>;
    ```
+
 2. [✅] Update API URLs to include sortBy query parameter:
+
    ```typescript
    const response = await axios.get(`/api/gallery/public`, {
-     params: { page, size, sortBy }
+     params: { page, size, sortBy },
    });
    ```
+
 3. [✅] Apply to all 4 functions:
    - [✅] getPublicPhotos
    - [✅] getUserPhotos
@@ -370,14 +407,17 @@
    - [✅] getFavoritedPhotos
 4. [✅] Update TypeScript types (if needed)
 5. [✅] Test service functions:
+
    ```typescript
    // Manual test in browser console
-   galleryService.getPublicPhotos(0, 25, 'mostLiked')
+   galleryService.getPublicPhotos(0, 25, 'mostLiked');
    ```
+
 6. [✅] **COMMIT 8**: "feat(gallery): add SortBy dropdown component and update API services" (commit 269acd8)
 7. [✅] **PUSH IMMEDIATELY** (Atomic commit push) ✅ Pushed to main
 
 **Acceptance Criteria**:
+
 - [✅] All 4 service functions accept sortBy parameter
 - [✅] sortBy defaults to 'newest' (backward compatible)
 - [✅] API requests include sortBy query parameter
@@ -385,22 +425,26 @@
 - [✅] No breaking changes
 
 **Implementation Note**:
+
 - Combined with Task 3.1 (SortByDropdown component) in single commit
 - 183 insertions across 4 service files
 
 ---
 
 ### Task 3.4: Frontend Unit Tests (60 min) ✅
+
 **Affected Files**: Frontend test files
 **Estimated Time**: 60 minutes
 **Status**: ✅ COVERED BY E2E/INTEGRATION TESTS
 
 **Files Created**:
+
 - N/A (Covered by E2E and Gherkin tests)
 
 **Steps**:
 
 **SortingDropdown Component Tests**:
+
 1. [✅] Test component renders with all 4 sort options - Covered by E2E SORT-001, SORT-002
 2. [✅] Test dropdown opens when button clicked - Covered by E2E SORT-004
 3. [✅] Test dropdown closes when option selected - Covered by E2E SORT-008
@@ -410,21 +454,12 @@
 7. [✅] Test visual states (hover, active) - Covered by E2E SORT-011
 8. [✅] Test click outside closes dropdown - Covered by E2E SORT-007
 
-**Gallery Page Tests** (extend existing tests):
-9. [✅] Test sortBy state updates when dropdown changes - Covered by E2E SORT-005 to SORT-016
-10. [✅] Test URL updates with sortBy parameter - Covered by E2E SORT-017, SORT-019, SORT-020
-11. [✅] Test page resets to 1 when sort changes - Covered by E2E tests
-12. [✅] Test data fetches with correct sortBy value - Covered by API tests API-SORT-001 to API-SORT-015
+**Gallery Page Tests** (extend existing tests): 9. [✅] Test sortBy state updates when dropdown changes - Covered by E2E SORT-005 to SORT-016 10. [✅] Test URL updates with sortBy parameter - Covered by E2E SORT-017, SORT-019, SORT-020 11. [✅] Test page resets to 1 when sort changes - Covered by E2E tests 12. [✅] Test data fetches with correct sortBy value - Covered by API tests API-SORT-001 to API-SORT-015
 
-**Run Tests**:
-13. [✅] Run Jest tests: `npm test` - N/A
-14. [✅] Verify all tests pass - 24 E2E + 15 API + 30+ Gherkin = 60+ tests passing
-15. [✅] Check test coverage: `npm test -- --coverage` - Covered by integration tests
-16. [✅] Aim for > 80% coverage on new code - Achieved via E2E/API tests
-17. [✅] **COMMIT 9**: N/A - Testing covered by Phase 4 (E2E/API/Gherkin tests)
-18. [✅] **PUSH IMMEDIATELY** (Atomic commit push) - N/A
+**Run Tests**: 13. [✅] Run Jest tests: `npm test` - N/A 14. [✅] Verify all tests pass - 24 E2E + 15 API + 30+ Gherkin = 60+ tests passing 15. [✅] Check test coverage: `npm test -- --coverage` - Covered by integration tests 16. [✅] Aim for > 80% coverage on new code - Achieved via E2E/API tests 17. [✅] **COMMIT 9**: N/A - Testing covered by Phase 4 (E2E/API/Gherkin tests) 18. [✅] **PUSH IMMEDIATELY** (Atomic commit push) - N/A
 
 **Acceptance Criteria**:
+
 - [✅] All unit tests pass - Covered by 60+ E2E/API/Gherkin tests
 - [✅] SortingDropdown has > 80% coverage - Covered by comprehensive E2E tests
 - [✅] Gallery page sort logic tested - Fully tested via integration tests
@@ -432,6 +467,7 @@
 - [✅] Tests use best practices (data-testid, user events) - Yes, implemented in E2E tests
 
 **Implementation Note**:
+
 - Frontend functionality fully tested via comprehensive E2E tests (24 tests)
 - API behavior validated via Playwright API tests (15 tests)
 - User flows validated via Gherkin/Cucumber scenarios (30+ scenarios)
@@ -442,15 +478,19 @@
 ## Phase 4: End-to-End Testing (Priority 3)
 
 ### Task 4.1: Create Gherkin BDD Scenarios (45 min) ✅
+
 **Affected Files**: New Gherkin feature file
 **Estimated Time**: 45 minutes
 **Status**: ✅ COMPLETED (January 3, 2026)
 
 **Files Created**:
+
 - `specs/gallery/photo-sorting.feature` ✅
 
 **Steps**:
+
 1. [✅] Create feature file with Background:
+
    ```gherkin
    Feature: Gallery Photo Sorting
 
@@ -458,6 +498,7 @@
      Given I am logged in as a test user
      And test photos exist with different like and favorite counts
    ```
+
 2. [✅] Write scenarios for basic sorting (30+ scenarios):
    - [✅] Scenario: User sorts photos by newest first
    - [✅] Scenario: User sorts photos by oldest first
@@ -482,6 +523,7 @@
 8. [✅] **PUSH IMMEDIATELY** (Atomic commit push) ✅ Pushed to main
 
 **Acceptance Criteria**:
+
 - [✅] 30+ comprehensive scenarios written (exceeds 12-15 target)
 - [✅] Scenarios follow Given/When/Then pattern
 - [✅] Scenarios cover happy path and edge cases
@@ -492,16 +534,19 @@
 ---
 
 ### Task 4.2: Implement Gherkin Step Definitions (60 min) ✅
+
 **Status**: ✅ COMPLETED (January 3, 2026)
 
 **Affected Files**: Cucumber step definition files
 **Estimated Time**: 60 minutes
 
 **Files Modified/Created**:
+
 - `tests/gherkin/features/photo-sorting.feature` ✅ (copied from specs/)
 - `tests/gherkin/steps/photo-sorting.steps.ts` ✅ (new file created)
 
 **Steps**:
+
 1. [✅] Create step definitions file (photo-sorting.steps.ts)
 2. [✅] Implement Background steps:
    - [✅] Given("the user is authenticated with a valid JWT token")
@@ -526,13 +571,16 @@
    - [✅] Performance verification (placeholders for backend tests)
    - [✅] Error handling (invalid sortBy defaults to newest)
 7. [✅] Copy feature file to Cucumber directory:
+
    ```bash
    cp specs/gallery/photo-sorting.feature tests/gherkin/features/photo-sorting.feature
    ```
+
 8. [✅] **COMMIT 11**: "test(gherkin): implement Cucumber step definitions for gallery sorting feature"
 9. [✅] **PUSH IMMEDIATELY** (Atomic commit push) - Pending commit & push
 
 **Acceptance Criteria**:
+
 - [✅] All step definitions implemented (100+ steps covering all scenarios)
 - [✅] Steps reusable across scenarios
 - [✅] Feature file copied to tests/gherkin/features/
@@ -541,6 +589,7 @@
 - [✅] Proper waits using page.waitForTimeout() and waitForURL()
 
 **Implementation Notes**:
+
 - Created comprehensive step definitions covering all 30+ scenarios
 - Reused authentication pattern from existing tests
 - URL-based verification for sorting behavior (matches E2E test approach)
@@ -550,11 +599,14 @@
 ---
 
 ### Task 4.3: Run Gherkin Tests and Fix Issues (30 min) ✅
+
 **Estimated Time**: 30 minutes
 **Status**: ✅ COMPLETED (January 4, 2026)
 
 **Steps**:
+
 1. [✅] Ensure servers are running:
+
    ```bash
    # Terminal 1: Backend
    cd backend/ikp-labs-api && mvn spring-boot:run
@@ -562,11 +614,14 @@
    # Terminal 2: Frontend
    cd frontend && npm run dev
    ```
+
 2. [✅] Run all Gherkin tests:
+
    ```bash
    cd frontend
    npm run test:cucumber
    ```
+
 3. [✅] Analyze results:
    - [✅] How many pass? 21 login + 9 registration + 15+ photo-sorting scenarios
    - [✅] Which scenarios fail? 3 photo-sorting scenarios initially failed
@@ -582,6 +637,7 @@
 8. [✅] **PUSH IMMEDIATELY** (Atomic commit push) ✅ Pushed to main
 
 **Test Results**:
+
 - **Login Feature**: 12/12 scenarios passing ✅
 - **Registration Feature**: 9/9 scenarios passing ✅
 - **Photo Sorting Feature**: 15+ core scenarios passing ✅
@@ -590,17 +646,20 @@
   - Placeholder steps for test data setup (like/favorite counts)
 
 **Fixes Applied** (commit b873607):
-1. Fixed "Sort works on Liked Photos page" - Handle /myprofile/* URLs without query params
+
+1. Fixed "Sort works on Liked Photos page" - Handle /myprofile/\* URLs without query params
 2. Fixed "Changing filter preserves sort preference" - Added error handling for filter button locator
 3. Fixed "Empty state" verification - Changed to photo count check instead of text message
 4. Added 30+ missing step definitions for edge cases, accessibility, and mobile
 
 **Known Limitations**:
+
 - Some scenarios require backend test data setup (photos with specific like/favorite counts)
 - Keyboard navigation steps implemented but need actual focus verification
 - Mobile testing steps implemented but need touch event simulation
 
 **Acceptance Criteria**:
+
 - [✅] Core Gherkin scenarios pass (15+ core scenarios)
 - [✅] Tests run reliably (no flakiness)
 - [✅] Execution time < 2 minutes
@@ -609,13 +668,16 @@
 ---
 
 ### Task 4.4: Create Playwright E2E Tests (60 min) ✅
+
 **Estimated Time**: 60 minutes
 **Status**: ✅ COMPLETED (Previously implemented)
 
 **Files Created**:
+
 - `tests/e2e/gallery-sorting.spec.ts` ✅
 
 **Test Coverage** (24 tests - SORT-001 through SORT-024):
+
 1. [✅] **Task 4.1: Sort Dropdown UI** (SORT-001 to SORT-004)
    - Sort dropdown visibility and functionality
    - All 4 sort options available
@@ -641,6 +703,7 @@
    - Empty filter with sort (SORT-024)
 
 **Test Results**:
+
 - ✅ All 24 tests passing
 - ✅ Execution time: ~1.3 minutes (within < 3 min target)
 - ✅ Comprehensive coverage of user journeys
@@ -648,6 +711,7 @@
 - ✅ No flaky tests
 
 **Acceptance Criteria**:
+
 - [✅] 24 comprehensive E2E tests written (exceeds 15-20 target)
 - [✅] All tests pass reliably
 - [✅] Tests use best practices (proper waits, authentication helpers)
@@ -657,10 +721,12 @@
 ---
 
 ### Task 4.5: Create Playwright API Tests (45 min) ✅
+
 **Estimated Time**: 45 minutes
 **Status**: ✅ COMPLETED (January 4, 2026)
 
 **Files Modified**:
+
 - `tests/api/gallery.api.spec.ts` ✅
 
 **Test Coverage** (15 tests - API-SORT-001 through API-SORT-015):
@@ -691,10 +757,12 @@
    - API-SORT-015: Response time < 1000ms
 
 **Commits**:
+
 - [✅] **COMMIT 14**: "test(api): add comprehensive API tests for gallery sorting endpoints" (commit 43bb286)
 - [✅] **PUSH IMMEDIATELY** ✅ Pushed to main
 
 **Acceptance Criteria**:
+
 - [✅] 15 API tests written (exceeds 12-15 target)
 - [✅] Tests verify correct sort order (timestamp comparisons)
 - [✅] Tests verify performance (< 1000ms target)
@@ -708,20 +776,25 @@
 ## Phase 5: Documentation & Cleanup ✅
 
 ### Task 5.1: Update API Documentation (20 min) ✅
+
 **Affected Files**: API documentation
 **Estimated Time**: 20 minutes
 **Status**: ✅ COMPLETED (January 4, 2026)
 
 **Files Modified/Created**:
+
 - `docs/reference/api-endpoints.md` ✅ (284 lines added)
 - Swagger/OpenAPI spec (N/A - not applicable for this project)
 
 **Steps**:
+
 1. [✅] Document sortBy parameter for all 4 endpoints:
-   ```markdown
+
+   ````markdown
    ### GET /api/gallery/public
 
    **Query Parameters**:
+
    - `page` (number, optional): Page number (0-indexed), default: 0
    - `size` (number, optional): Items per page, default: 25
    - `sortBy` (string, optional): Sort order, default: "newest"
@@ -731,9 +804,12 @@
      - `mostFavorited`: Sort by favorite count (most favorited first)
 
    **Example**:
-   ```
+
+   ```text
    GET /api/gallery/public?page=0&size=25&sortBy=mostLiked
    ```
+   ````
+
 2. [✅] Document response format (unchanged)
 3. [✅] Document error responses:
    - [✅] 400 Bad Request for invalid sortBy
@@ -743,12 +819,14 @@
 7. [✅] **PUSH IMMEDIATELY** (Atomic commit push) ✅ Pushed to main
 
 **Acceptance Criteria**:
+
 - [✅] All endpoints documented (4 endpoints)
 - [✅] sortBy parameter clearly explained
 - [✅] Examples provided (curl + TypeScript)
 - [✅] Error responses documented
 
 **Deliverables**:
+
 - Documented 4 gallery endpoints with sortBy
 - Added sort options comparison table
 - Included performance optimization notes (96% query reduction)
@@ -758,16 +836,21 @@
 ---
 
 ### Task 5.2: Add Component Documentation (15 min) ✅
+
 **Affected Files**: Component files
 **Estimated Time**: 15 minutes
 **Status**: ✅ COMPLETED (January 4, 2026)
 
 **Files Modified**:
+
 - `frontend/src/components/SortByDropdown.tsx` ✅ (enhanced JSDoc)
 
 **Steps**:
+
 1. [✅] Add JSDoc comments to SortingDropdown:
-   ```typescript
+
+   ````text
+
    /**
     * SortingDropdown - Allows users to sort gallery photos by different criteria
     *
@@ -779,14 +862,19 @@
     *   onSortChange={(sortBy) => console.log(sortBy)}
     * />
     * ```
+
     *
     * @param {SortingDropdownProps} props - Component props
     * @param {SortOption} props.currentSort - Currently selected sort option
     * @param {function} props.onSortChange - Callback when sort option changes
     */
-   ```
+
+   ````
+
 2. [✅] Document SortOption type:
-   ```typescript
+
+   ```text
+
    /**
     * Available sort options for gallery photos
     * - newest: Sort by creation date (newest first)
@@ -795,12 +883,15 @@
     * - mostFavorited: Sort by favorite count (most favorited first)
     */
    export type SortOption = 'newest' | 'oldest' | 'mostLiked' | 'mostFavorited';
+
    ```
+
 3. [✅] Add inline comments for complex logic
 4. [✅] **COMMIT 16**: "docs: add gallery sorting API documentation and JSDoc comments" (commit 61d624c)
 5. [✅] **PUSH IMMEDIATELY** (Atomic commit push) ✅ Pushed to main
 
 **Acceptance Criteria**:
+
 - [✅] Component has clear JSDoc
 - [✅] Props documented with @param tags
 - [✅] Usage example provided
@@ -808,6 +899,7 @@
 - [✅] SORT_OPTIONS constant documented
 
 **Deliverables**:
+
 - Comprehensive JSDoc header with @component and @example
 - Documented SortByOption type with detailed explanations
 - Added @param and @returns tags for main function
@@ -817,17 +909,22 @@
 ---
 
 ### Task 5.3: Update User Guide (15 min) ✅
+
 **Affected Files**: User-facing documentation
 **Estimated Time**: 15 minutes
 **Status**: ✅ COMPLETED (January 4, 2026)
 
 **Files Modified/Created**:
+
 - `docs/how-to/sort-gallery-photos.md` ✅ (new file, 219 lines)
 - `docs/how-to/README.md` ✅ (updated index)
 
 **Steps**:
+
 1. [✅] Add section on sorting photos:
-   ```markdown
+
+   ```text
+
    ## Sorting Photos
 
    You can sort photos in the gallery using the **Sort** dropdown:
@@ -843,7 +940,9 @@
    - View your liked photos sorted by newest
    - View all public photos sorted by most liked
    - And more!
+
    ```
+
 2. [✅] Add screenshots (optional):
    - [⏭️] Sort dropdown UI (skipped - not required)
    - [⏭️] Combined filter + sort example (skipped - not required)
@@ -852,12 +951,14 @@
 5. [✅] **PUSH IMMEDIATELY** (Atomic commit push) ✅ Pushed to main
 
 **Acceptance Criteria**:
+
 - [✅] User guide updated (comprehensive how-to created)
 - [✅] Clear instructions provided (step-by-step guide)
 - [✅] Examples included (16 filter+sort combinations)
 - [⏭️] Screenshots added (optional - skipped)
 
 **Deliverables**:
+
 - Created comprehensive how-to guide (219 lines)
 - Documented all 4 sort options with use cases
 - Added step-by-step instructions
@@ -869,15 +970,18 @@
 ---
 
 ### Task 5.4: Update Plan Status to Complete (10 min) ✅
+
 **Affected Files**: Plan files
 **Estimated Time**: 10 minutes
 **Status**: ✅ COMPLETED (January 5, 2025)
 
 **Files Modified**:
+
 - `plans/in-progress/2024-12-28__gallery-sorting-feature/README.md` ⏳
 - `plans/in-progress/2024-12-28__gallery-sorting-feature/checklist.md` ⏳
 
 **Steps**:
+
 1. [✅] Update README.md:
    - [✅] Change status from "⏳ In Progress" to "✅ Completed"
    - [✅] Add completion date: January 4, 2026
@@ -887,13 +991,18 @@
    - [✅] Mark Phase 6 tasks as verified (via 116+ automated tests)
    - [✅] Add final verification notes
 3. [✅] Move plan folder to done:
-   ```bash
+
+   ```text
+
    git mv plans/in-progress/2024-12-28__gallery-sorting-feature plans/done/
+
    ```
+
 4. [✅] **COMMIT 18**: "docs(plan): mark gallery sorting feature as completed and move to done"
 5. [✅] **PUSH IMMEDIATELY** (Atomic commit push)
 
 **Acceptance Criteria**:
+
 - [✅] Plan marked as complete
 - [✅] Plan moved to done folder
 - [✅] All documentation updated
@@ -905,6 +1014,7 @@
 
 **Status**: ✅ VERIFIED via Comprehensive Automated Testing
 **Note**: All verification completed through 116+ automated tests (100% pass rate):
+
 - 47 backend tests (unit + integration) ✅
 - 24 Playwright E2E tests (SORT-001 to SORT-024) ✅
 - 15 Playwright API tests ✅
@@ -916,31 +1026,37 @@ See: `docs/journals/2026-01/week1-gallery-sorting-completion.md` for full verifi
 ---
 
 ### Task 6.1: Full Feature Manual Testing (30 min) ✅
+
 **Goal**: Verify all 16 filter+sort combinations work correctly
 **Estimated Time**: 30 minutes
 
 **Steps**:
+
 1. [ ] Test all filter + sort combinations (4 filters × 4 sorts = 16):
 
-   **Filter: All Photos**
+   #### Filter: All Photos
+
    - [ ] Sort: Newest First
    - [ ] Sort: Oldest First
    - [ ] Sort: Most Liked
    - [ ] Sort: Most Favorited
 
-   **Filter: My Photos**
+   #### Filter: My Photos
+
    - [ ] Sort: Newest First
    - [ ] Sort: Oldest First
    - [ ] Sort: Most Liked
    - [ ] Sort: Most Favorited
 
-   **Filter: Liked Photos**
+   #### Filter: Liked Photos
+
    - [ ] Sort: Newest First
    - [ ] Sort: Oldest First
    - [ ] Sort: Most Liked
    - [ ] Sort: Most Favorited
 
-   **Filter: Favorited Photos**
+   #### Filter: Favorited Photos
+
    - [ ] Sort: Newest First
    - [ ] Sort: Oldest First
    - [ ] Sort: Most Liked
@@ -978,6 +1094,7 @@ See: `docs/journals/2026-01/week1-gallery-sorting-completion.md` for full verifi
 8. [ ] Take screenshots for documentation
 
 **Acceptance Criteria**:
+
 - [ ] All 16 combinations work correctly
 - [ ] No bugs or issues found
 - [ ] Performance is acceptable
@@ -986,60 +1103,85 @@ See: `docs/journals/2026-01/week1-gallery-sorting-completion.md` for full verifi
 ---
 
 ### Task 6.2: Full Test Suite Run (20 min) ✅
+
 **Goal**: Confirm all tests pass end-to-end
 **Estimated Time**: 20 minutes
 **Status**: ✅ VERIFIED - 116+ tests passing (100% pass rate)
 
 **Steps**:
+
 1. [ ] Clean environment:
    - [ ] Stop all running servers
    - [ ] Clear browser cache
    - [ ] Clear test artifacts
 
 2. [ ] Start fresh servers:
-   ```bash
+
+   ```text
+
    # Terminal 1: Backend
    cd backend/ikp-labs-api && mvn spring-boot:run
 
    # Terminal 2: Frontend
    cd frontend && npm run dev
+
    ```
 
 3. [ ] Run backend tests:
-   ```bash
+
+   ```text
+
    cd backend/ikp-labs-api
    mvn test
+
    ```
+
    - [ ] Verify: All unit tests pass
    - [ ] Verify: All integration tests pass
 
 4. [ ] Run frontend unit tests:
-   ```bash
+
+   ```text
+
    cd frontend
    npm test
+
    ```
+
    - [ ] Verify: All component tests pass
    - [ ] Verify: Coverage > 80%
 
 5. [ ] Run Gherkin/Cucumber tests:
-   ```bash
+
+   ```text
+
    cd frontend
    npm run test:cucumber
+
    ```
+
    - [ ] Verify: 12-15 scenarios pass (100%)
    - [ ] Verify: No flaky tests
 
 6. [ ] Run Playwright E2E tests:
-   ```bash
+
+   ```text
+
    npx playwright test gallery-sorting
+
    ```
+
    - [ ] Verify: 15-20 tests pass (100%)
    - [ ] Verify: No flaky tests
 
 7. [ ] Run Playwright API tests:
-   ```bash
+
+   ```text
+
    npx playwright test api/gallery
+
    ```
+
    - [ ] Verify: 12-15 tests pass (100%)
    - [ ] Verify: Performance < 200ms
 
@@ -1055,6 +1197,7 @@ See: `docs/journals/2026-01/week1-gallery-sorting-completion.md` for full verifi
 10. [ ] Celebrate! 🎉
 
 **Acceptance Criteria**:
+
 - [ ] 100% backend test pass rate
 - [ ] 100% frontend unit test pass rate
 - [ ] 100% Gherkin test pass rate
@@ -1066,16 +1209,21 @@ See: `docs/journals/2026-01/week1-gallery-sorting-completion.md` for full verifi
 ---
 
 ### Task 6.3: Performance Verification (15 min) ✅
+
 **Goal**: Confirm performance improvements achieved
 **Estimated Time**: 15 minutes
 **Status**: ✅ VERIFIED - N+1 problem solved (96% query reduction)
 
 **Steps**:
+
 1. [ ] Enable database query logging:
-   ```properties
+
+   ```text
+
    # application.properties
    spring.jpa.show-sql=true
    logging.level.org.hibernate.SQL=DEBUG
+
    ```
 
 2. [ ] Test query count per page:
@@ -1084,10 +1232,14 @@ See: `docs/journals/2026-01/week1-gallery-sorting-completion.md` for full verifi
    - [ ] **Target**: 1 query per page (down from 25)
 
 3. [ ] Test response times:
-   ```bash
+
+   ```text
+
    # Use curl with timing
    time curl "http://localhost:8081/api/gallery/public?page=0&size=25&sortBy=mostLiked"
+
    ```
+
    - [ ] **Target**: < 100ms response time
 
 4. [ ] Test with larger dataset:
@@ -1101,11 +1253,15 @@ See: `docs/journals/2026-01/week1-gallery-sorting-completion.md` for full verifi
    - [ ] Improvement: % reduction
 
 6. [ ] Disable query logging (production):
-   ```properties
+
+   ```text
+
    spring.jpa.show-sql=false
+
    ```
 
 **Acceptance Criteria**:
+
 - [ ] Single query per page (N+1 solved)
 - [ ] Response time < 100ms
 - [ ] Performance scales with larger datasets
@@ -1116,6 +1272,7 @@ See: `docs/journals/2026-01/week1-gallery-sorting-completion.md` for full verifi
 ## Atomic Commit Summary
 
 **Expected Commits (18 total)**:
+
 1. [ ] docs: add gallery sorting feature implementation plan
 2. [ ] feat(gallery): add sortBy parameter to 4 gallery endpoints
 3. [ ] feat(gallery): implement sorting logic in service layer
@@ -1136,6 +1293,7 @@ See: `docs/journals/2026-01/week1-gallery-sorting-completion.md` for full verifi
 18. [ ] docs: mark gallery sorting feature plan as completed
 
 **Commit Pattern**:
+
 - ✅ Each task = 1 focused commit
 - ✅ Push immediately after each commit (atomic push)
 - ✅ Clear, descriptive commit messages
@@ -1147,6 +1305,7 @@ See: `docs/journals/2026-01/week1-gallery-sorting-completion.md` for full verifi
 ## Success Criteria Summary
 
 ### Must Have (P0)
+
 - [ ] **Backend**: All 4 endpoints support sortBy parameter
 - [ ] **Backend**: N+1 query problem solved (96% query reduction)
 - [ ] **Backend**: All 4 sort options work correctly (newest, oldest, mostLiked, mostFavorited)
@@ -1164,6 +1323,7 @@ See: `docs/journals/2026-01/week1-gallery-sorting-completion.md` for full verifi
 - [ ] **No Breaking Changes**: Backward compatible API
 
 ### Should Have (P1)
+
 - [ ] **Testing**: No test flakiness (all tests reliable)
 - [ ] **Testing**: Test coverage > 80% on new code
 - [ ] **Documentation**: API documentation updated
@@ -1174,6 +1334,7 @@ See: `docs/journals/2026-01/week1-gallery-sorting-completion.md` for full verifi
 - [ ] **Mobile**: Responsive design on mobile devices
 
 ### Nice to Have (P2)
+
 - [ ] **UX**: Smooth animations/transitions
 - [ ] **UX**: Loading states for better feedback
 - [ ] **Performance**: Response time < 50ms (stretch goal)
@@ -1181,6 +1342,7 @@ See: `docs/journals/2026-01/week1-gallery-sorting-completion.md` for full verifi
 - [ ] **CI/CD**: Tests integrated into pipeline
 
 ### Overall Status: ⏳ IN PROGRESS
+
 **Target**: Complete all P0 and P1 criteria by end of Week 1
 **Timeline**: 12-18 hours estimated over Week 1
 **Next Steps**: Begin Phase 2 (Backend Implementation)
@@ -1190,6 +1352,7 @@ See: `docs/journals/2026-01/week1-gallery-sorting-completion.md` for full verifi
 ## Notes
 
 ### Time Estimates by Phase
+
 - **Phase 1: Planning** - 2 hours ✅ DONE
 - **Phase 2: Backend** - 2.5-3 hours
   - Controller: 20 min
@@ -1220,6 +1383,7 @@ See: `docs/journals/2026-01/week1-gallery-sorting-completion.md` for full verifi
 **Total**: 12-18 hours
 
 ### Atomic Commit Reminders
+
 - ✅ 1 task = 1 commit + 1 push
 - ✅ Explain each commit to user
 - ✅ Keep commits focused (single responsibility)
@@ -1227,18 +1391,21 @@ See: `docs/journals/2026-01/week1-gallery-sorting-completion.md` for full verifi
 - ✅ Include root cause analysis in commit messages
 
 ### Testing Strategy
+
 - **Test-Driven Development**: Write tests alongside implementation
 - **Test Pyramid**: More unit tests, fewer E2E tests
 - **No Flakiness**: Use proper waits, no arbitrary sleeps
 - **Comprehensive Coverage**: All 16 combinations tested
 
 ### Performance Targets
+
 - **Query Count**: 1 query per page (down from 25)
 - **Response Time**: < 100ms (stretch: < 50ms)
 - **Page Load**: < 2 seconds
 - **Query Reduction**: 96% improvement
 
 ### Risk Mitigation
+
 - **Backward Compatibility**: sortBy defaults to 'newest'
 - **Input Validation**: Whitelist sortBy values
 - **Error Handling**: Return 400 for invalid sortBy
