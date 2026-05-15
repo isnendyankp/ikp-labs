@@ -14,6 +14,7 @@ Implement comprehensive unit testing for the frontend using Jest and React Testi
 ## Problem Statement
 
 Currently, the frontend has minimal unit tests:
+
 - Only `LikeButton` and `FavoriteButton` have tests (after ActionButton refactoring)
 - Many critical components are untested (PhotoCard, LoginForm, etc.)
 - No hook testing (useAuth, useToast, etc.)
@@ -22,6 +23,7 @@ Currently, the frontend has minimal unit tests:
 - Hard to debug frontend issues
 
 **Current Testing Gaps**:
+
 - No component testing (PhotoCard, LoginForm, ProfileForm, etc.)
 - No hook testing (useAuth, useToast, custom hooks)
 - No utility function testing (validation, date formatting, etc.)
@@ -32,28 +34,31 @@ Currently, the frontend has minimal unit tests:
 ## Proposed Solution
 
 Implement a comprehensive unit testing suite using:
+
 - **Jest** - Test runner and assertion library (already installed)
 - **React Testing Library (RTL)** - Component testing utilities (already installed)
 - **@testing-library/user-event** - User interaction simulation (to be installed)
 
 ### Testing Philosophy
 
-**Unit Tests = Test Component Logic & UI, NO API, NO Mocking**
+### Unit Tests = Test Component Logic & UI, NO API, NO Mocking
 
 Components that call APIs (LoginForm, RegistrationForm, etc.):
+
 - ✅ Test: Form validation, UI interactions, state changes
 - ❌ NOT Test: API calls, network requests, response handling
 - ✅ API behavior tested in: `/tests/api` (API Tests)
 - ✅ Full flows tested in: `/tests/e2e` (E2E Tests)
 
 This keeps unit tests:
+
 - **Fast** - No network calls
 - **Deterministic** - No external dependencies
 - **Reliable** - No flaky mocks
 
 ### Testing Strategy
 
-```
+```text
                  /\
                 /  \
                /E2E \        ← Playwright (user flows)
@@ -68,12 +73,12 @@ This keeps unit tests:
 
 ### Test Coverage Targets
 
-| Component Type | Target Coverage | Priority |
-|----------------|----------------|----------|
-| UI Components | 80%+ | HIGH |
-| Custom Hooks | 85%+ | HIGH |
-| Utility Functions | 100% | HIGH |
-| Context/Providers | 80%+ | MEDIUM |
+| Component Type    | Target Coverage | Priority |
+| ----------------- | --------------- | -------- |
+| UI Components     | 80%+            | HIGH     |
+| Custom Hooks      | 85%+            | HIGH     |
+| Utility Functions | 100%            | HIGH     |
+| Context/Providers | 80%+            | MEDIUM   |
 
 **Note**: Service layer tested in `/tests/api` (API Tests with Playwright)
 
@@ -81,13 +86,15 @@ This keeps unit tests:
 
 ### In-Scope ✅
 
-#### Phase 1: Setup & Infrastructure (Priority 1)
+### Phase 1: Setup & Infrastructure (Priority 1)
+
 - Install @testing-library/user-event
 - Configure Jest for optimal testing
 - Setup test utilities and helpers
 - Configure coverage reporting
 
-#### Phase 2: Utility Tests (Priority 2)
+### Phase 2: Utility Tests (Priority 2)
+
 - Validation utilities
 - Date/time formatting utilities
 - File size formatting utilities
@@ -95,14 +102,16 @@ This keeps unit tests:
 - Type guards
 - apiClient utilities
 
-#### Phase 3: Component Tests - Core (Priority 3)
+### Phase 3: Component Tests - Core (Priority 3)
+
 - PhotoCard component (most critical)
 - LoginForm component
 - RegistrationForm component
 - ProfileForm component
 - PhotoUploadForm component
 
-#### Phase 4: Component Tests - UI Elements (Priority 4)
+### Phase 4: Component Tests - UI Elements (Priority 4)
+
 - ActionButton component (extend existing tests)
 - FilterDropdown component
 - SortByDropdown component
@@ -112,21 +121,25 @@ This keeps unit tests:
 - EmptyState component
 - FormField component
 
-#### Phase 5: Hook Tests (Priority 5)
+### Phase 5: Hook Tests (Priority 5)
+
 - useAuth hook (state management only)
 - useToast hook
 - Custom hooks (if any)
 
-#### Phase 6: Context/Provider Tests (Priority 6)
+### Phase 6: Context/Provider Tests (Priority 6)
+
 - ToastContext/Provider
 - AuthContext/Provider (if exists)
 
-#### Phase 7: Documentation (Priority 7)
+### Phase 7: Documentation (Priority 7)
+
 - Update README with testing section
 - Document coverage badges
 - Add testing examples
 
 ### Out-of-Scope ❌
+
 - E2E tests (already covered by Playwright)
 - API tests (already covered by Playwright API)
 - Backend tests (already covered by JUnit)
@@ -136,6 +149,7 @@ This keeps unit tests:
 ## Success Criteria
 
 ### Must Have (P0)
+
 - [ ] All critical components have tests
 - [ ] All custom hooks have tests
 - [ ] All utility functions have tests
@@ -144,11 +158,13 @@ This keeps unit tests:
 - [ ] Tests run in < 30 seconds
 
 ### Should Have (P1)
+
 - [ ] Context provider tests
 - [ ] Snapshot tests for critical components
 - [ ] Coverage badge in README
 
 ### Nice to Have (P2)
+
 - [ ] Visual regression tests (Storybook + Chromatic)
 - [ ] Accessibility tests (jest-axe)
 
@@ -164,39 +180,41 @@ This keeps unit tests:
 
 ## Timeline
 
-| Phase | Duration | Tasks |
-|-------|----------|-------|
-| **Phase 1**: Setup & Infrastructure | 1-2 hours | Install dependencies, configure Jest |
-| **Phase 2**: Utility Tests | 1-2 hours | Test utility functions |
-| **Phase 3**: Core Component Tests | 4-6 hours | Test critical components (PhotoCard, Forms) |
-| **Phase 4**: UI Element Tests | 2-3 hours | Test UI components |
-| **Phase 5**: Hook Tests | 2-3 hours | Test custom hooks (state only) |
-| **Phase 6**: Context Tests | 1-2 hours | Test providers |
-| **Phase 7**: Documentation | 1 hour | Update docs, add coverage badge |
+| Phase                               | Duration  | Tasks                                       |
+| ----------------------------------- | --------- | ------------------------------------------- |
+| **Phase 1**: Setup & Infrastructure | 1-2 hours | Install dependencies, configure Jest        |
+| **Phase 2**: Utility Tests          | 1-2 hours | Test utility functions                      |
+| **Phase 3**: Core Component Tests   | 4-6 hours | Test critical components (PhotoCard, Forms) |
+| **Phase 4**: UI Element Tests       | 2-3 hours | Test UI components                          |
+| **Phase 5**: Hook Tests             | 2-3 hours | Test custom hooks (state only)              |
+| **Phase 6**: Context Tests          | 1-2 hours | Test providers                              |
+| **Phase 7**: Documentation          | 1 hour    | Update docs, add coverage badge             |
 
 **Total Estimated**: 14-22 hours
 
 ## Dependencies
 
 ### No Blockers
+
 - All required infrastructure exists
 - Frontend is ready for testing
 - Jest and RTL already installed
 
 ### Prerequisites
+
 - Node.js installed ✅
 - npm/yarn available ✅
 - Frontend codebase accessible ✅
 
 ## Risks & Mitigations
 
-| Risk | Impact | Mitigation |
-|------|--------|------------|
-| API mocking complexity | MEDIUM | Use MSW for consistent mocking |
-| Component test complexity | MEDIUM | Follow RTL best practices |
-| Flaky tests | LOW | Write deterministic tests, avoid timers |
-| Low coverage | LOW | Set coverage thresholds in Jest config |
-| Slow test execution | LOW | Keep unit tests fast, save integration for E2E |
+| Risk                      | Impact | Mitigation                                     |
+| ------------------------- | ------ | ---------------------------------------------- |
+| API mocking complexity    | MEDIUM | Use MSW for consistent mocking                 |
+| Component test complexity | MEDIUM | Follow RTL best practices                      |
+| Flaky tests               | LOW    | Write deterministic tests, avoid timers        |
+| Low coverage              | LOW    | Set coverage thresholds in Jest config         |
+| Slow test execution       | LOW    | Keep unit tests fast, save integration for E2E |
 
 ## Related Plans
 

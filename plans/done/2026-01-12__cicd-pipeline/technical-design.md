@@ -377,6 +377,7 @@ jobs:
 ### Husky Setup
 
 **Installation**:
+
 ```bash
 npm install --save-dev husky lint-staged
 npx husky init
@@ -392,10 +393,10 @@ npx husky init
 
 echo "🔍 Running pre-commit checks..."
 
-# Run lint-staged
+## Run lint-staged
 npx lint-staged
 
-# Run fast TypeScript check
+## Run fast TypeScript check
 echo "📝 Running TypeScript type check..."
 cd frontend && npx tsc --noEmit
 ```
@@ -408,7 +409,7 @@ cd frontend && npx tsc --noEmit
 #!/bin/sh
 . "$(dirname "$0")/_/husky.sh"
 
-# Validate commit message format
+## Validate commit message format
 commit_regex='^(feat|fix|docs|style|refactor|test|chore)(\(.+\))?: .{1,50}'
 
 if ! grep -qE "$commit_regex" "$1"; then
@@ -427,13 +428,8 @@ fi
 ```json
 {
   "lint-staged": {
-    "*.{ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "*.{json,md,yml,yaml}": [
-      "prettier --write"
-    ]
+    "*.{ts,tsx}": ["eslint --fix", "prettier --write"],
+    "*.{json,md,yml,yaml}": ["prettier --write"]
   }
 }
 ```
@@ -522,6 +518,7 @@ fi
 **Settings**: GitHub Repository → Settings → Branches
 
 **Rules for `main` branch**:
+
 ```yaml
 Branch Protection Rules:
   - Require pull request before merging:
@@ -549,7 +546,7 @@ Branch Protection Rules:
 **File**: `README.md` (at the top)
 
 ```markdown
-# IKP-Labs
+## IKP-Labs
 
 [![CI/CD Pipeline](https://github.com/username/ikp-labs/actions/workflows/ci.yml/badge.svg)](https://github.com/username/ikp-labs/actions/workflows/ci.yml)
 [![Frontend Coverage](https://img.shields.io/badge/coverage-80%25-brightgreen)](./frontend/coverage/)
@@ -582,7 +579,7 @@ Branch Protection Rules:
   with:
     webhook: ${{ secrets.DISCORD_WEBHOOK }}
     status: ${{ job.status }}
-    title: "CI/CD Pipeline"
+    title: 'CI/CD Pipeline'
 ```
 
 ---

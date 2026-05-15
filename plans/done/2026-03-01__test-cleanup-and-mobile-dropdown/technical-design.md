@@ -20,11 +20,13 @@
 ### Bug 1: Test Photos Not Auto-Deleted
 
 **Root Cause**:
+
 - Cleanup mechanism exists in `gallery-helpers.ts` (`cleanupTestUser()`)
 - Only **11 of 21 test files** implement `afterAll` cleanup hook
 - Files without cleanup leave test users and photos in database
 
 **Note**: Only `login.spec.ts` needed cleanup. Other files without `afterAll` don't create real users:
+
 - `landing-page.spec.ts` - uses fake JWT tokens only
 - `desktop-viewport.spec.ts` - UI tests only, no user creation
 - `ux-validation.spec.ts` - UI validation tests only
@@ -34,7 +36,8 @@
 **Root Cause**: Race condition between button toggle and `handleClickOutside`
 
 **Event Flow Problem**:
-```
+
+```text
 User clicks button (2nd time):
 1. click event -> handleFilterButtonClick() -> toggle isOpen
 2. handleClickOutside() also fires
@@ -43,6 +46,7 @@ User clicks button (2nd time):
 ```
 
 **Affected Components**:
+
 - `MobileHeaderControls.tsx` (lines 82, 104)
 - `FilterDropdown.tsx` (lines 74-84)
 - `SortByDropdown.tsx` (same pattern)
@@ -56,6 +60,7 @@ User clicks button (2nd time):
 **Approach**: Add `afterAll` hook with cleanup to `login.spec.ts`
 
 **Files to Modify**:
+
 1. `tests/e2e/login.spec.ts` - Add cleanup hook
 
 ### For Mobile Dropdown
@@ -63,6 +68,7 @@ User clicks button (2nd time):
 **Approach**: Use `stopPropagation()` on button clicks
 
 **Files to Modify**:
+
 1. `frontend/src/components/gallery/MobileHeaderControls.tsx` - Add stopPropagation
 
 ---
@@ -117,6 +123,7 @@ const handleSortButtonClick = (e: React.MouseEvent) => {
 ## Testing Strategy
 
 ### Test Environment
+
 - PostgreSQL + Spring Boot + Next.js running
 - Mobile viewport (375x667 or 390x844)
 - Desktop viewport (1280x720)
@@ -136,11 +143,11 @@ const handleSortButtonClick = (e: React.MouseEvent) => {
 ### Automated Testing
 
 ```bash
-# Run login tests
+## Run login tests
 npx playwright test tests/e2e/login.spec.ts --project=chromium
 
-# Check database for leftover users
-# SELECT * FROM users WHERE email LIKE '%test%'
+## Check database for leftover users
+## SELECT * FROM users WHERE email LIKE '%test%'
 ```
 
 ---

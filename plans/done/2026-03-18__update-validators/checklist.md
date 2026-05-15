@@ -63,7 +63,7 @@
 
 ## Commit Strategy
 
-```
+```text
 1. git add .claude/agents/test-validator.md plans/in-progress/2026-03-18__update-validators/checklist.md
    → fix(agents): update test-validator path references
 

@@ -249,22 +249,22 @@
 
 ### Implementation
 
-- [ ] Create branch `docs/fix-md-plans-done-2026-early` from `main`
-- [ ] Run `npx markdownlint-cli2 --fix` scoped to Jan-Mar 2026 subdirs under `plans/done/`
-- [ ] Run lint scoped to those same subdirs and inspect remaining violations
-- [ ] Manually fix MD040 violations: add language identifier to fenced code blocks
-- [ ] Manually fix MD036 violations: convert emphasis-as-headings to ATX headings
-- [ ] Manually fix MD024 violations: resolve duplicate heading text
-- [ ] Re-run lint scoped to those subdirs and confirm zero output
+- [x] Create branch `docs/fix-md-plans-done-2026-early` from `main`
+- [x] Run `npx markdownlint-cli2 --fix` scoped to Jan-Mar 2026 subdirs under `plans/done/`
+- [x] Run lint scoped to those same subdirs and inspect remaining violations
+- [x] Manually fix MD040 violations: add language identifier to fenced code blocks
+- [x] Manually fix MD036 violations: convert emphasis-as-headings to ATX headings
+- [x] Manually fix MD024 violations: resolve duplicate heading text
+- [x] Re-run lint scoped to those subdirs and confirm zero output
 
 ### Validation
 
-- [ ] Lint scoped to Jan-Mar 2026 plan files reports zero violations
-- [ ] No markdown files deleted or renamed (content fixes only)
+- [x] Lint scoped to Jan-Mar 2026 plan files reports zero violations
+- [x] No markdown files deleted or renamed (content fixes only)
 
 ### Git and PR
 
-- [ ] Stage all changed `.md` files under Jan-Mar 2026 `plans/done/` subdirs
+- [x] Stage all changed `.md` files under Jan-Mar 2026 `plans/done/` subdirs
 - [ ] Commit: `docs(markdown): fix violations in plans/done early 2026 (Jan-Mar)`
 - [ ] Push branch: `git push -u origin docs/fix-md-plans-done-2026-early`
 - [ ] Open PR targeting `main`

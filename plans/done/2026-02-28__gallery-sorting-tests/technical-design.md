@@ -28,7 +28,7 @@ Using `.first()` selected the mobile button (first in DOM) which was hidden, cau
 
 ### Component Architecture
 
-```
+```text
 Gallery Page
 ├── MobileHeaderControls (sm:hidden on desktop)
 │   └── SortByDropdown (mobile version - hidden on desktop)
@@ -46,6 +46,7 @@ Gallery Page
 ### Approach: Use `.last()` Selector
 
 **Why This Works**:
+
 - The desktop button is last in DOM order
 - It's the visible one on desktop viewport
 - No frontend code changes needed
@@ -88,6 +89,7 @@ await expect(dropdown).toHaveClass(/z-\[100\]/);
 ## Testing Strategy
 
 ### Test Environment
+
 - Desktop viewport (1280x720) - default Playwright
 - Chromium browser
 - PostgreSQL + Spring Boot + Next.js running
@@ -95,11 +97,12 @@ await expect(dropdown).toHaveClass(/z-\[100\]/);
 ### Test Execution
 
 ```bash
-# Run gallery sorting tests
+## Run gallery sorting tests
 npx playwright test tests/e2e/gallery-sorting.spec.ts --project=chromium
 ```
 
 ### Expected Results
+
 - All 24 tests pass
 - No visual regressions
 - No breaking changes to existing functionality

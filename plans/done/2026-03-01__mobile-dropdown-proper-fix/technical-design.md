@@ -20,7 +20,8 @@
 ### Root Cause Analysis
 
 **Event Flow Problem**:
-```
+
+```text
 User clicks button (2nd time):
 1. mousedown event -> handleClickOutside() -> set isOpen = false
 2. click event -> handleFilterButtonClick() -> toggle isOpen = true
@@ -30,11 +31,13 @@ User clicks button (2nd time):
 ### Why Previous Attempt (PR #9) Failed
 
 **stopPropagation() Approach**:
+
 - Button `onClick` = `click` event
 - `handleClickOutside` = `mousedown` event
 - Different event types = stopPropagation doesn't work across them
 
 **The Fix That Didn't Work**:
+
 ```typescript
 // This doesn't work because onClick is a different event than mousedown
 const handleFilterButtonClick = (e: React.MouseEvent) => {
@@ -46,6 +49,7 @@ const handleFilterButtonClick = (e: React.MouseEvent) => {
 ### Why This Solution Works
 
 **Button Ref Check Approach**:
+
 - Check happens in `mousedown` handler (same event type as handleClickOutside)
 - No race condition between different event types
 - Clean separation: button controls open/close, outside click only closes
@@ -57,7 +61,8 @@ const handleFilterButtonClick = (e: React.MouseEvent) => {
 ### Approach: Pass Button Ref to Dropdown
 
 **Architecture**:
-```
+
+```text
 MobileHeaderControls
 ├── filterButtonRef (useRef<HTMLButtonElement>)
 ├── sortButtonRef (useRef<HTMLButtonElement>)
@@ -99,7 +104,10 @@ const FilterDropdown: React.FC<FilterDropdownProps> = ({
     }
 
     // Existing logic for outside clicks
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
       setIsOpen(false);
     }
   };
@@ -128,7 +136,10 @@ const SortByDropdown: React.FC<SortByDropdownProps> = ({
     }
 
     // Existing logic for outside clicks
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
       setIsOpen(false);
     }
   };

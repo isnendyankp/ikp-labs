@@ -1,13 +1,16 @@
 # Technical Design
 
 ## Approach
+
 Edit langsung file `specs/README.md` untuk memperbaiki scenario counts.
 
 ## Changes Required
 
 ### 1. Directory Structure Section
+
 Update scenario counts di directory structure table:
-```
+
+```text
 specs/
 ├── authentication/
 │   ├── registration.feature   # 6 → 5 scenarios
@@ -21,14 +24,17 @@ specs/
 ```
 
 ### 2. Total Coverage Line
-```
+
+```text
 **Total Coverage:** 66 scenarios → 64 scenarios
 ```
 
 ### 3. Alignment Table
+
 Update counts di Playwright alignment table untuk 3 files yang berubah.
 
 ## Calculation
+
 - Old total: 66
 - Changes: -1 (registration) -1 (upload) -1 (privacy) = -3
 - New total: 66 - 3 = **63**
@@ -36,6 +42,7 @@ Update counts di Playwright alignment table untuk 3 files yang berubah.
 > Correct calculation: 5+4+9+10+19+16 = 63
 
 ## Risk Assessment
+
 - **Risk Level:** Low
 - **Impact:** Documentation only, no code changes
 - **Rollback:** Simple git revert

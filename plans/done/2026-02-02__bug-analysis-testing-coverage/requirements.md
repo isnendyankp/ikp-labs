@@ -28,6 +28,7 @@
 Ensure both frontend and backend servers are running and properly configured before beginning any analysis.
 
 **Requirements**:
+
 1. **AR-1.1**: Backend server must be running on port 8081
 2. **AR-1.2**: Frontend server must be running on port 3002
 3. **AR-1.3**: Both services must be accessible via browser
@@ -47,7 +48,8 @@ Comprehensive analysis of landing page functionality on desktop (≥ 640px) and 
 
 **Requirements**:
 
-#### Desktop View (≥ 640px):
+### Desktop View (≥ 640px)
+
 1. **AR-2.1**: Verify "Get Started Free" button navigates to `/register` (NOT `/login`)
 2. **AR-2.2**: Verify "Login" button navigates to `/login`
 3. **AR-2.3**: Verify "Learn More" button scrolls to Features section
@@ -60,7 +62,8 @@ Comprehensive analysis of landing page functionality on desktop (≥ 640px) and 
 10. **AR-2.10**: Verify footer links work (GitHub, LinkedIn, email, Terms, Privacy)
 11. **AR-2.11**: Verify BackToTop button appears after scrolling
 
-#### Mobile View (< 640px):
+### Mobile View (< 640px)
+
 1. **AR-2.12**: Set viewport to 375x667 (iPhone SE) for testing
 2. **AR-2.13**: Verify "Get Started Free" button navigates to `/register`
 3. **AR-2.14**: Verify hamburger menu is visible on mobile
@@ -72,7 +75,8 @@ Comprehensive analysis of landing page functionality on desktop (≥ 640px) and 
 9. **AR-2.20**: Verify all buttons are touch-friendly (min 44x44px)
 10. **AR-2.21**: Verify footer is responsive and all links accessible
 
-#### Loading States:
+### Loading States
+
 1. **AR-2.22**: Verify if skeleton loading is needed for Hero section
 2. **AR-2.23**: Verify if skeleton loading is needed for Features section
 3. **AR-2.24**: Verify if skeleton loading is needed for About section
@@ -91,7 +95,8 @@ Comprehensive analysis of login page functionality on desktop and mobile viewpor
 
 **Requirements**:
 
-#### Desktop View (≥ 640px):
+### Desktop View (≥ 640px)
+
 1. **AR-3.1**: Verify email input accepts valid email format
 2. **AR-3.2**: Verify password input accepts valid password
 3. **AR-3.3**: Verify "Sign In" button submits the form
@@ -105,7 +110,8 @@ Comprehensive analysis of login page functionality on desktop and mobile viewpor
 11. **AR-3.11**: Verify left panel with hero image is visible on lg breakpoint
 12. **AR-3.12**: Verify form is centered on sm breakpoint
 
-#### Mobile View (< 640px):
+### Mobile View (< 640px)
+
 1. **AR-3.13**: Set viewport to 375x667 for testing
 2. **AR-3.14**: Verify left panel (hero image) is hidden on mobile
 3. **AR-3.15**: Verify form takes full width on mobile
@@ -113,7 +119,8 @@ Comprehensive analysis of login page functionality on desktop and mobile viewpor
 5. **AR-3.17**: Verify keyboard doesn't hide submit button on mobile
 6. **AR-3.18**: Verify all desktop functionality works on mobile
 
-#### Loading States:
+### Loading States
+
 1. **AR-3.19**: Verify loading spinner is visible
 2. **AR-3.20**: Verify button is disabled during loading
 3. **AR-3.21**: Verify "Signing In..." text appears
@@ -131,7 +138,8 @@ Comprehensive analysis of register page functionality on desktop and mobile view
 
 **Requirements**:
 
-#### Desktop View (≥ 640px):
+### Desktop View (≥ 640px)
+
 1. **AR-4.1**: Verify all required fields work correctly
 2. **AR-4.2**: Verify password strength indicator updates
 3. **AR-4.3**: Verify password confirmation must match
@@ -143,7 +151,8 @@ Comprehensive analysis of register page functionality on desktop and mobile view
 9. **AR-4.9**: Verify left panel with hero image is visible on lg breakpoint
 10. **AR-4.10**: Verify form is centered on sm breakpoint
 
-#### Mobile View (< 640px):
+### Mobile View (< 640px)
+
 1. **AR-4.11**: Set viewport to 375x667 for testing
 2. **AR-4.12**: Verify left panel (hero image) is hidden on mobile
 3. **AR-4.13**: Verify form takes full width on mobile
@@ -151,7 +160,8 @@ Comprehensive analysis of register page functionality on desktop and mobile view
 5. **AR-4.15**: Verify keyboard doesn't hide submit button on mobile
 6. **AR-4.16**: Verify all desktop functionality works on mobile
 
-#### Loading States:
+### Loading States
+
 1. **AR-4.17**: Verify loading spinner is visible
 2. **AR-4.18**: Verify button is disabled during loading
 
@@ -168,7 +178,8 @@ Comprehensive analysis of gallery page functionality on desktop and mobile viewp
 
 **Requirements**:
 
-#### Desktop View (≥ 640px):
+### Desktop View (≥ 640px)
+
 1. **AR-5.1**: Verify photo grid displays correctly (3-4 columns)
 2. **AR-5.2**: Verify StickyActionBar is visible and sticks to top when scrolling
 3. **AR-5.3**: Verify Filter dropdown works (all, my-photos, liked, favorited)
@@ -183,7 +194,8 @@ Comprehensive analysis of gallery page functionality on desktop and mobile viewp
 12. **AR-5.12**: Verify Profile and Logout buttons work
 13. **AR-5.13**: Verify no horizontal scroll appears
 
-#### Mobile View (< 640px):
+### Mobile View (< 640px)
+
 1. **AR-5.14**: Set viewport to 375x667 for testing
 2. **AR-5.15**: Verify photo grid displays correctly (1 column)
 3. **AR-5.16**: Verify StickyActionBar is hidden on mobile
@@ -194,7 +206,8 @@ Comprehensive analysis of gallery page functionality on desktop and mobile viewp
 8. **AR-5.21**: Verify Profile and Logout icons are visible
 9. **AR-5.22**: Verify all desktop functionality works on mobile
 
-#### Loading States:
+### Loading States
+
 1. **AR-5.23**: Verify skeleton cards appear during loading
 2. **AR-5.24**: Verify skeleton matches grid layout
 
@@ -211,7 +224,8 @@ Comprehensive analysis of profile page functionality on desktop and mobile viewp
 
 **Requirements**:
 
-#### Desktop View (≥ 640px):
+### Desktop View (≥ 640px)
+
 1. **AR-6.1**: Verify profile picture displays correctly
 2. **AR-6.2**: Verify "Change Picture" button toggles upload section
 3. **AR-6.3**: Verify profile picture upload works
@@ -223,14 +237,16 @@ Comprehensive analysis of profile page functionality on desktop and mobile viewp
 9. **AR-6.9**: Verify 2-column layout (info + picture)
 10. **AR-6.10**: Verify no horizontal scroll appears
 
-#### Mobile View (< 640px):
+### Mobile View (< 640px)
+
 1. **AR-6.11**: Set viewport to 375x667 for testing
 2. **AR-6.12**: Verify layout changes to 1-column on mobile
 3. **AR-6.13**: Verify profile picture is appropriately sized
 4. **AR-6.14**: Verify all buttons are touch-friendly on mobile
 5. **AR-6.15**: Verify all desktop functionality works on mobile
 
-#### Loading States:
+### Loading States
+
 1. **AR-6.16**: Verify loading spinner appears during auth check
 2. **AR-6.17**: Verify loading state during picture upload
 
@@ -247,14 +263,16 @@ Analyze and document test coverage gaps across all E2E tests.
 
 **Requirements**:
 
-#### E2E Test Coverage:
+### E2E Test Coverage
+
 1. **AR-7.1**: Review existing E2E tests
 2. **AR-7.2**: Document which features have tests
 3. **AR-7.3**: Document which features are missing tests
 4. **AR-7.4**: Document viewport coverage (mobile only vs desktop vs tablet)
 5. **AR-7.5**: Document browser coverage (Chromium, Firefox, WebKit)
 
-#### Missing E2E Tests:
+### Missing E2E Tests
+
 1. **AR-7.6**: Document desktop viewport test gaps for all pages
 2. **AR-7.7**: Document tablet viewport test gaps for all pages
 3. **AR-7.8**: Document missing direct profile page tests
@@ -276,13 +294,15 @@ Document all bugs found with severity levels and file locations.
 
 **Requirements**:
 
-#### Bug Categories:
+### Bug Categories
+
 1. **AR-8.1**: Document Critical Bugs (P0) - navigation that leads to wrong page, broken functionality that blocks user flow
 2. **AR-8.2**: Document High Priority Bugs (P1) - missing loading states, non-functional links/buttons
 3. **AR-8.3**: Document Medium Priority Bugs (P2) - missing test coverage, placeholder messages
 4. **AR-8.4**: Document Low Priority Bugs (P3) - nice-to-have improvements, cosmetic issues
 
-#### For Each Bug:
+### For Each Bug
+
 1. **AR-8.5**: Unique bug ID (BUG-001, BUG-002, etc.)
 2. **AR-8.6**: Clear description of the issue
 3. **AR-8.7**: File location with line number
@@ -301,6 +321,7 @@ Document all bugs found with severity levels and file locations.
 **So that** I can move through the application without confusion.
 
 **Acceptance Criteria**:
+
 - All buttons navigate to the correct pages
 - No broken links exist
 - Navigation works on both desktop and mobile
@@ -317,6 +338,7 @@ Document all bugs found with severity levels and file locations.
 **So that** I can use it on my phone, tablet, or computer.
 
 **Acceptance Criteria**:
+
 - All pages work on desktop (≥ 640px)
 - All pages work on mobile (< 640px)
 - No horizontal scroll appears
@@ -334,6 +356,7 @@ Document all bugs found with severity levels and file locations.
 **So that** I know the application is working and not frozen.
 
 **Acceptance Criteria**:
+
 - All pages have appropriate loading states
 - Skeleton loaders match the actual content layout
 - Loading indicators are clear and visible
@@ -350,6 +373,7 @@ Document all bugs found with severity levels and file locations.
 **So that** I can identify gaps and improve quality.
 
 **Acceptance Criteria**:
+
 - All existing tests are documented
 - Missing tests are identified
 - Viewport coverage gaps are documented
@@ -367,6 +391,7 @@ Document all bugs found with severity levels and file locations.
 **So that** I can prioritize fixes effectively.
 
 **Acceptance Criteria**:
+
 - All bugs are documented with unique IDs
 - Each bug has clear description and location
 - Severity levels are assigned consistently
@@ -379,14 +404,16 @@ Document all bugs found with severity levels and file locations.
 
 ## Acceptance Criteria
 
-### Phase 1 (Setup):
+### Phase 1 (Setup)
+
 - [ ] Backend server running on port 8081
 - [ ] Frontend server running on port 3002
 - [ ] Both services accessible
 - [ ] Browser cache cleared
 - [ ] localStorage cleared
 
-### Phase 2-6 (Page Analysis):
+### Phase 2-6 (Page Analysis)
+
 - [ ] All pages tested on desktop view (≥ 640px)
 - [ ] All pages tested on mobile view (< 640px)
 - [ ] All buttons verified to work correctly
@@ -394,13 +421,15 @@ Document all bugs found with severity levels and file locations.
 - [ ] Responsive design verified for all pages
 - [ ] Loading states verified/added where missing
 
-### Phase 7 (Test Coverage):
+### Phase 7 (Test Coverage)
+
 - [ ] Existing tests documented
 - [ ] Missing tests documented
 - [ ] Viewport coverage gaps documented
 - [ ] Browser coverage gaps documented
 
-### Phase 8 (Bug Documentation):
+### Phase 8 (Bug Documentation)
+
 - [ ] All bugs documented with severity
 - [ ] File locations provided for each bug
 - [ ] Recommendations provided for fixes
@@ -436,6 +465,7 @@ Document all bugs found with severity levels and file locations.
 The following activities are explicitly OUT OF SCOPE for this analysis:
 
 ### Code Changes
+
 - ❌ Fixing any bugs found during analysis
 - ❌ Adding missing features
 - ❌ Implementing skeleton loading states
@@ -443,24 +473,28 @@ The following activities are explicitly OUT OF SCOPE for this analysis:
 - ❌ Modifying existing code
 
 ### Performance Testing
+
 - ❌ Load testing
 - ❌ Stress testing
 - ❌ Performance profiling
 - ❌ Memory leak detection
 
 ### Security Testing
+
 - ❌ Penetration testing
 - ❌ Vulnerability scanning
 - ❌ Security audit
 - ❌ Authentication flow testing
 
 ### Accessibility Testing
+
 - ❌ WCAG compliance testing
 - ❌ Screen reader testing
 - ❌ Keyboard navigation testing
 - ❌ Color contrast testing
 
 ### Browser Testing
+
 - ❌ Testing on physical devices
 - ❌ Testing on Safari
 - ❌ Testing on IE/Edge Legacy
@@ -471,6 +505,7 @@ The following activities are explicitly OUT OF SCOPE for this analysis:
 ## Summary
 
 This requirements document defines:
+
 - **8 Analysis Requirements** (AR-1 to AR-8) covering all analysis phases
 - **5 User Stories** (US-1 to US-5) from stakeholder perspective
 - **Detailed Acceptance Criteria** for each phase
@@ -480,6 +515,7 @@ This requirements document defines:
 **Total Requirements**: 100+ analysis requirements
 
 **Success Metrics**:
+
 - All analysis requirements completed
 - All bugs documented with severity
 - Test coverage gaps identified

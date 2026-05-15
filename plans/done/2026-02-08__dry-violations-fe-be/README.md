@@ -24,11 +24,13 @@ This work was originally part of Phase 14 of the Bug Analysis & Testing Coverage
 ## Scope
 
 ### Frontend (FE)
+
 - FE-1: Authentication Token Handling (5 files, ~100 lines duplicate)
 - FE-2: Like vs Favorite Button Logic (2 files, ~140 lines similar)
 - FE-3: API Response Handling Pattern (5 files with similar patterns)
 
 ### Backend (BE)
+
 - BE-1: Pagination Logic Repetition (3 controllers, ~30 lines duplicate)
 - BE-2: SortBy Validation Logic (3 controllers, ~24 lines duplicate)
 - BE-3: Controller Response Patterns (lower priority)
@@ -41,12 +43,12 @@ This work was originally part of Phase 14 of the Bug Analysis & Testing Coverage
 
 ## Priority
 
-| Priority | Task | Impact | Est. Time |
-|----------|------|--------|-----------|
-| 1 | FE Auth Token Consolidation | HIGH | 30 min |
-| 2 | BE Pagination Utility | MEDIUM | 20 min |
-| 3 | BE SortBy Enum | MEDIUM | 15 min |
-| 4 | ActionButton Component (Optional) | LOW | 30 min |
+| Priority | Task                              | Impact | Est. Time |
+| -------- | --------------------------------- | ------ | --------- |
+| 1        | FE Auth Token Consolidation       | HIGH   | 30 min    |
+| 2        | BE Pagination Utility             | MEDIUM | 20 min    |
+| 3        | BE SortBy Enum                    | MEDIUM | 15 min    |
+| 4        | ActionButton Component (Optional) | LOW    | 30 min    |
 
 **Total Estimated Time**: 95 minutes (65 min without Priority 4)
 

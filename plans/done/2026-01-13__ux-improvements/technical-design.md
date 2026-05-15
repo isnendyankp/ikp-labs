@@ -21,7 +21,7 @@
 
 ### System Architecture
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────┐
 │                    Next.js Frontend (Port 3002)              │
 │                                                              │
@@ -53,7 +53,8 @@
 ### Data Flow
 
 **Toast Notification Flow**:
-```
+
+```text
 User Action (e.g., Upload Photo)
     ↓
 Component calls showToast('Success!', 'success')
@@ -68,7 +69,8 @@ Toast removed from state
 ```
 
 **Loading State Flow**:
-```
+
+```text
 User Action (e.g., Click Upload)
     ↓
 Component sets setLoading(true)
@@ -88,7 +90,7 @@ UI renders actual content/error
 
 ### Toast System Components
 
-#### 1. Toast Types
+### 1. Toast Types
 
 **File**: `frontend/src/types/toast.ts`
 
@@ -110,7 +112,7 @@ export interface ToastConfig {
 }
 ```
 
-#### 2. Toast Context
+### 2. Toast Context
 
 **File**: `frontend/src/context/ToastContext.tsx`
 
@@ -169,7 +171,7 @@ export function useToast() {
 }
 ```
 
-#### 3. Toast Component
+### 3. Toast Component
 
 **File**: `frontend/src/components/Toast.tsx`
 
@@ -248,7 +250,7 @@ export default function Toast({ toast, onDismiss }: ToastProps) {
 }
 ```
 
-#### 4. Toast Container
+### 4. Toast Container
 
 **File**: `frontend/src/components/ToastContainer.tsx`
 
@@ -271,7 +273,7 @@ export default function ToastContainer() {
 }
 ```
 
-#### 5. useToast Hook
+### 5. useToast Hook
 
 **File**: `frontend/src/hooks/useToast.ts`
 
@@ -426,7 +428,7 @@ export default function ConfirmDialog({
 
 ### Skeleton Components
 
-#### Photo Card Skeleton
+### Photo Card Skeleton
 
 **File**: `frontend/src/components/skeletons/PhotoCardSkeleton.tsx`
 
@@ -461,7 +463,7 @@ export default function PhotoCardSkeleton() {
 }
 ```
 
-#### Gallery Grid Skeleton
+### Gallery Grid Skeleton
 
 **File**: `frontend/src/components/skeletons/GalleryGridSkeleton.tsx`
 
@@ -635,6 +637,7 @@ const handleUpload = async (file: File) => {
 ### Tailwind CSS Classes
 
 **Toast Styles**:
+
 ```css
 @layer utilities {
   .animate-slide-in {
@@ -663,9 +666,12 @@ const handleUpload = async (file: File) => {
 ```
 
 **Hover Effects**:
+
 ```css
 .hover-lift {
-  transition: transform 0.2s ease-out, box-shadow 0.2s ease-out;
+  transition:
+    transform 0.2s ease-out,
+    box-shadow 0.2s ease-out;
 }
 
 .hover-lift:hover {
@@ -748,7 +754,9 @@ describe('Toast', () => {
 
 ```typescript
 // ux-improvements.spec.ts
-test('UX-001: should show success toast after photo upload', async ({ page }) => {
+test('UX-001: should show success toast after photo upload', async ({
+  page,
+}) => {
   await page.goto('/gallery');
   await page.click('[data-testid="upload-button"]');
 
@@ -757,7 +765,9 @@ test('UX-001: should show success toast after photo upload', async ({ page }) =>
   await fileInput.setInputFiles('test-photo.jpg');
 
   // Wait for toast
-  await expect(page.locator('.fixed.top-4')).toContainText('uploaded successfully');
+  await expect(page.locator('.fixed.top-4')).toContainText(
+    'uploaded successfully'
+  );
 });
 
 test('UX-008: should show dialog before deleting photo', async ({ page }) => {

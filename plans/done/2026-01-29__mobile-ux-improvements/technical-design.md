@@ -25,7 +25,7 @@
 
 ### Current Architecture
 
-```
+```text
 frontend/src/app/gallery/page.tsx
 ├── Header Section (static)
 ├── Action Bar (NOT STICKY) ← PROBLEM: Disappears on scroll
@@ -38,7 +38,7 @@ frontend/src/app/gallery/page.tsx
 
 ### Target Architecture
 
-```
+```text
 frontend/src/app/gallery/page.tsx
 ├── Header Section (static)
 │   ├── MobileHeaderControls (mobile only) ← NEW
@@ -56,7 +56,7 @@ frontend/src/app/gallery/page.tsx
 
 ### Component Hierarchy
 
-```
+```text
 GalleryPage
 ├── Header
 │   ├── Title
@@ -85,6 +85,7 @@ GalleryPage
 **Purpose**: Display icon-only filter and sort controls in the header on mobile devices.
 
 **Props Interface**:
+
 ```typescript
 interface MobileHeaderControlsProps {
   currentFilter: FilterType;
@@ -95,6 +96,7 @@ interface MobileHeaderControlsProps {
 ```
 
 **State**:
+
 ```typescript
 const [isFilterOpen, setIsFilterOpen] = useState(false);
 const [isSortOpen, setIsSortOpen] = useState(false);
@@ -103,6 +105,7 @@ const sortRef = useRef<HTMLDivElement>(null);
 ```
 
 **Key Features**:
+
 1. Icon-only buttons (🔍 for filter, ⚙️ for sort)
 2. Click outside detection to close dropdowns
 3. Touch-friendly tap targets (min 44x44px)
@@ -111,6 +114,7 @@ const sortRef = useRef<HTMLDivElement>(null);
 6. ARIA labels for screen readers
 
 **Implementation Outline**:
+
 ```typescript
 export function MobileHeaderControls({
   currentFilter,
@@ -180,6 +184,7 @@ export function MobileHeaderControls({
 ```
 
 **Dependencies**:
+
 - `useClickOutside` custom hook (need to create)
 - Icons from `lucide-react` or Heroicons
 - Modified FilterDropdown with `variant="compact"` prop
@@ -194,6 +199,7 @@ export function MobileHeaderControls({
 **Purpose**: Floating action button for quick photo upload access.
 
 **Props Interface**:
+
 ```typescript
 interface FABUploadProps {
   onClick?: () => void;
@@ -204,6 +210,7 @@ interface FABUploadProps {
 **State**: None (controlled component)
 
 **Key Features**:
+
 1. Fixed position at bottom-right
 2. Circular design with upload icon
 3. Green background (bg-green-600)
@@ -213,6 +220,7 @@ interface FABUploadProps {
 7. Keyboard navigation support
 
 **Implementation Outline**:
+
 ```typescript
 import { useRouter } from "next/navigation";
 import { UploadIcon } from "lucide-react";
@@ -256,6 +264,7 @@ export function FABUpload({ onClick, className = "" }: FABUploadProps) {
 ```
 
 **Styling**:
+
 - Fixed position: `fixed bottom-4 right-4`
 - Z-index: `z-40` (above content, below BackToTop at z-50)
 - Size: `w-14 h-14` (56px)
@@ -272,6 +281,7 @@ export function FABUpload({ onClick, className = "" }: FABUploadProps) {
 **Purpose**: Wrapper component to make action bar sticky on desktop.
 
 **Props Interface**:
+
 ```typescript
 interface StickyActionBarProps {
   currentFilter: FilterType;
@@ -284,6 +294,7 @@ interface StickyActionBarProps {
 **State**: None (controlled component)
 
 **Key Features**:
+
 1. Sticky positioning on desktop
 2. Hidden on mobile
 3. Maintains existing action bar layout
@@ -291,6 +302,7 @@ interface StickyActionBarProps {
 5. Optional shadow on scroll
 
 **Implementation Outline**:
+
 ```typescript
 import { FilterDropdown } from "@/components/FilterDropdown";
 import { SortByDropdown } from "@/components/SortByDropdown";
@@ -332,6 +344,7 @@ export function StickyActionBar({
 ```
 
 **Styling**:
+
 - Responsive: `hidden sm:flex` (hidden on mobile, flex on desktop)
 - Sticky: `sticky top-0` (sticks to top of viewport)
 - Z-index: `z-10` (above content, below header)
@@ -347,8 +360,9 @@ export function StickyActionBar({
 **Purpose**: Custom hook to detect clicks outside a component.
 
 **Implementation**:
+
 ```typescript
-import { useEffect, RefObject } from "react";
+import { useEffect, RefObject } from 'react';
 
 export function useClickOutside(
   ref: RefObject<HTMLElement>,
@@ -361,8 +375,8 @@ export function useClickOutside(
       }
     };
 
-    document.addEventListener("mousedown", handleClick);
-    return () => document.removeEventListener("mousedown", handleClick);
+    document.addEventListener('mousedown', handleClick);
+    return () => document.removeEventListener('mousedown', handleClick);
   }, [ref, callback]);
 }
 ```
@@ -374,13 +388,15 @@ export function useClickOutside(
 ### Gallery Page State
 
 **Current State** (in `frontend/src/app/gallery/page.tsx`):
+
 ```typescript
 const [searchParams] = useSearchParams();
-const currentFilter = searchParams.get("filter") || "all";
-const currentSort = searchParams.get("sort") || "newest";
+const currentFilter = searchParams.get('filter') || 'all';
+const currentSort = searchParams.get('sort') || 'newest';
 ```
 
 **No New State Required** for this feature:
+
 - Filter/sort state already managed by URL parameters
 - Dropdown open/close state is local to components
 - Back to top visibility is local to BackToTop component
@@ -388,6 +404,7 @@ const currentSort = searchParams.get("sort") || "newest";
 ### Component State
 
 **MobileHeaderControls**:
+
 ```typescript
 const [isFilterOpen, setIsFilterOpen] = useState(false);
 const [isSortOpen, setIsSortOpen] = useState(false);
@@ -398,6 +415,7 @@ const [isSortOpen, setIsSortOpen] = useState(false);
 **StickyActionBar**: No state (controlled component)
 
 **BackToTop** (existing):
+
 ```typescript
 const [isVisible, setIsVisible] = useState(false);
 ```
@@ -409,6 +427,7 @@ const [isVisible, setIsVisible] = useState(false);
 ### Tailwind CSS Classes
 
 **Mobile Breakpoints**:
+
 - Mobile (default): < 640px
 - Small tablets (sm): ≥ 640px
 - Tablets (md): ≥ 768px
@@ -417,15 +436,18 @@ const [isVisible, setIsVisible] = useState(false);
 **Key Classes**:
 
 **Responsive Visibility**:
+
 - Mobile only: `sm:hidden`
 - Desktop only: `hidden sm:flex`
 
 **Positioning**:
+
 - Fixed: `fixed bottom-4 right-4` (FAB)
 - Sticky: `sticky top-0` (action bar)
 - Absolute: `absolute top-full right-0` (dropdowns)
 
 **Z-Index Scale**:
+
 - Content: `z-0` (default)
 - Sticky action bar: `z-10`
 - FAB upload: `z-40`
@@ -433,12 +455,14 @@ const [isVisible, setIsVisible] = useState(false);
 - Dropdowns: `z-50`
 
 **Animations**:
+
 - Hover scale: `hover:scale-110`
 - Active scale: `active:scale-95`
 - Transition: `transition-all duration-200`
 - Fade in/out: `transition-opacity duration-300`
 
 **Touch Targets**:
+
 - Minimum size: `w-11 h-11` (44px)
 - Padding: `p-3` (12px padding = 44px with icon)
 
@@ -449,12 +473,14 @@ const [isVisible, setIsVisible] = useState(false);
 ### Breakpoint Strategy
 
 **Mobile (< 640px)**:
+
 - Show icon-only controls in header
 - Hide action bar
 - Show FAB upload button
 - Show back to top button
 
 **Desktop (≥ 640px)**:
+
 - Hide icon-only controls
 - Show sticky action bar
 - Show FAB upload button
@@ -463,7 +489,8 @@ const [isVisible, setIsVisible] = useState(false);
 ### Layout Changes
 
 **Before**:
-```
+
+```text
 ┌──────────────────────────────┐
 │ Photo Gallery                │ ← Header
 ├──────────────────────────────┤
@@ -474,7 +501,8 @@ const [isVisible, setIsVisible] = useState(false);
 ```
 
 **After (Mobile)**:
-```
+
+```text
 ┌──────────────────────────────┐
 │ Photo Gallery          🔍 ⚙️ │ ← Header with icons
 ├──────────────────────────────┤
@@ -487,7 +515,8 @@ const [isVisible, setIsVisible] = useState(false);
 ```
 
 **After (Desktop)**:
-```
+
+```text
 ┌─────────────────────────────────────────────────┐
 │ Photo Gallery                    [Filter▼] [Sort▼] [+ Upload] │ ← Sticky
 ├─────────────────────────────────────────────────┤
@@ -508,11 +537,13 @@ const [isVisible, setIsVisible] = useState(false);
 **Steps**:
 
 1. **Create `MobileHeaderControls` component**:
+
    ```bash
    touch frontend/src/components/gallery/MobileHeaderControls.tsx
    ```
 
 2. **Create `useClickOutside` hook**:
+
    ```bash
    touch frontend/src/hooks/useClickOutside.ts
    ```
@@ -533,6 +564,7 @@ const [isVisible, setIsVisible] = useState(false);
    - Hide action bar on mobile: `<div className="hidden sm:flex ...">`
 
 **Files to Modify**:
+
 - `frontend/src/components/gallery/MobileHeaderControls.tsx` (new)
 - `frontend/src/hooks/useClickOutside.ts` (new)
 - `frontend/src/components/FilterDropdown.tsx` (modify)
@@ -548,6 +580,7 @@ const [isVisible, setIsVisible] = useState(false);
 **Steps**:
 
 1. **Create `FABUpload` component**:
+
    ```bash
    touch frontend/src/components/gallery/FABUpload.tsx
    ```
@@ -565,6 +598,7 @@ const [isVisible, setIsVisible] = useState(false);
    - Position after PhotoGrid (z-index handles visibility)
 
 **Files to Modify**:
+
 - `frontend/src/components/gallery/FABUpload.tsx` (new)
 - `frontend/src/app/gallery/page.tsx` (modify)
 
@@ -577,6 +611,7 @@ const [isVisible, setIsVisible] = useState(false);
 **Steps**:
 
 1. **Create `StickyActionBar` component**:
+
    ```bash
    touch frontend/src/components/gallery/StickyActionBar.tsx
    ```
@@ -594,6 +629,7 @@ const [isVisible, setIsVisible] = useState(false);
    - Remove existing action bar markup
 
 **Files to Modify**:
+
 - `frontend/src/components/gallery/StickyActionBar.tsx` (new)
 - `frontend/src/app/gallery/page.tsx` (modify)
 
@@ -621,6 +657,7 @@ const [isVisible, setIsVisible] = useState(false);
    - Ensure visibility on all devices
 
 **Files to Modify**:
+
 - `frontend/src/components/BackToTop.tsx` (modify if needed)
 - `frontend/src/app/gallery/page.tsx` (modify)
 
@@ -633,6 +670,7 @@ const [isVisible, setIsVisible] = useState(false);
 ### Unit Tests
 
 **Components to Test**:
+
 1. `MobileHeaderControls`
    - Filter icon opens dropdown on click
    - Sort icon opens dropdown on click
@@ -661,85 +699,88 @@ const [isVisible, setIsVisible] = useState(false);
 **Test Suites**:
 
 1. **Mobile Header Controls** (4 tests):
+
    ```typescript
-   test("should show filter icon on mobile", async ({ page }) => {
+   test('should show filter icon on mobile', async ({ page }) => {
      await page.setViewportSize({ width: 375, height: 667 });
-     await page.goto("/gallery");
+     await page.goto('/gallery');
      await expect(page.locator('[aria-label="Filter photos"]')).toBeVisible();
    });
 
-   test("should hide filter icon on desktop", async ({ page }) => {
+   test('should hide filter icon on desktop', async ({ page }) => {
      await page.setViewportSize({ width: 1024, height: 768 });
-     await page.goto("/gallery");
+     await page.goto('/gallery');
      await expect(page.locator('[aria-label="Filter photos"]')).toBeHidden();
    });
 
-   test("should open filter dropdown when icon clicked", async ({ page }) => {
+   test('should open filter dropdown when icon clicked', async ({ page }) => {
      await page.setViewportSize({ width: 375, height: 667 });
-     await page.goto("/gallery");
+     await page.goto('/gallery');
      await page.click('[aria-label="Filter photos"]');
-     await expect(page.locator("text=All Photos")).toBeVisible();
+     await expect(page.locator('text=All Photos')).toBeVisible();
    });
 
-   test("should close dropdown when clicking outside", async ({ page }) => {
+   test('should close dropdown when clicking outside', async ({ page }) => {
      await page.setViewportSize({ width: 375, height: 667 });
-     await page.goto("/gallery");
+     await page.goto('/gallery');
      await page.click('[aria-label="Filter photos"]');
-     await page.click("body");
-     await expect(page.locator("text=All Photos")).toBeHidden();
+     await page.click('body');
+     await expect(page.locator('text=All Photos')).toBeHidden();
    });
    ```
 
 2. **FAB Upload Button** (4 tests):
+
    ```typescript
-   test("should show FAB button on all devices", async ({ page }) => {
-     await page.goto("/gallery");
+   test('should show FAB button on all devices', async ({ page }) => {
+     await page.goto('/gallery');
      await expect(page.locator('[aria-label="Upload photo"]')).toBeVisible();
    });
 
-   test("should navigate to upload page when FAB clicked", async ({ page }) => {
-     await page.goto("/gallery");
+   test('should navigate to upload page when FAB clicked', async ({ page }) => {
+     await page.goto('/gallery');
      await page.click('[aria-label="Upload photo"]');
-     await expect(page).toHaveURL("/gallery/upload");
+     await expect(page).toHaveURL('/gallery/upload');
    });
 
-   test("should position FAB at bottom-right", async ({ page }) => {
-     await page.goto("/gallery");
+   test('should position FAB at bottom-right', async ({ page }) => {
+     await page.goto('/gallery');
      const fab = page.locator('[aria-label="Upload photo"]');
      const box = await fab.boundingBox();
      expect(box?.x).toBeGreaterThan(300); // Right side
      expect(box?.y).toBeGreaterThan(500); // Bottom
    });
 
-   test("should have green background", async ({ page }) => {
-     await page.goto("/gallery");
+   test('should have green background', async ({ page }) => {
+     await page.goto('/gallery');
      const fab = page.locator('[aria-label="Upload photo"]');
-     await expect(fab).toHaveCSS("background-color", "rgb(22, 163, 74)"); // green-600
+     await expect(fab).toHaveCSS('background-color', 'rgb(22, 163, 74)'); // green-600
    });
    ```
 
 3. **Back to Top** (4 tests):
+
    ```typescript
-   test("should show back to top after scrolling", async ({ page }) => {
-     await page.goto("/gallery");
+   test('should show back to top after scrolling', async ({ page }) => {
+     await page.goto('/gallery');
      await page.evaluate(() => window.scrollTo(0, 500));
      await expect(page.locator('[aria-label="Back to top"]')).toBeVisible();
    });
 
-   test("should hide back to top at top of page", async ({ page }) => {
-     await page.goto("/gallery");
+   test('should hide back to top at top of page', async ({ page }) => {
+     await page.goto('/gallery');
      await expect(page.locator('[aria-label="Back to top"]')).toBeHidden();
    });
 
-   test("should scroll to top when clicked", async ({ page }) => {
-     await page.goto("/gallery");
+   test('should scroll to top when clicked', async ({ page }) => {
+     await page.goto('/gallery');
      await page.evaluate(() => window.scrollTo(0, 500));
      await page.click('[aria-label="Back to top"]');
      await expect(await page.evaluate(() => window.scrollY)).toBe(0);
    });
 
-   test("should position back to top at bottom-left", async ({ page }) => {
-     await page.goto("/gallery");
+   test('should position back to top at bottom-left', async ({ page }) => {
+     await page.goto('/gallery');
      await page.evaluate(() => window.scrollTo(0, 500));
      const button = page.locator('[aria-label="Back to top"]');
      const box = await button.boundingBox();
@@ -749,66 +790,68 @@ const [isVisible, setIsVisible] = useState(false);
    ```
 
 4. **Desktop Sticky Controls** (4 tests):
+
    ```typescript
-   test("should stick action bar on desktop", async ({ page }) => {
+   test('should stick action bar on desktop', async ({ page }) => {
      await page.setViewportSize({ width: 1024, height: 768 });
-     await page.goto("/gallery");
+     await page.goto('/gallery');
      await page.evaluate(() => window.scrollTo(0, 500));
-     const actionBar = page.locator("div.sticky");
+     const actionBar = page.locator('div.sticky');
      await expect(actionBar).toBeInViewport();
    });
 
-   test("should hide action bar on mobile", async ({ page }) => {
+   test('should hide action bar on mobile', async ({ page }) => {
      await page.setViewportSize({ width: 375, height: 667 });
-     await page.goto("/gallery");
-     await expect(page.locator("div.sticky")).toBeHidden();
+     await page.goto('/gallery');
+     await expect(page.locator('div.sticky')).toBeHidden();
    });
 
-   test("should show filter options on desktop", async ({ page }) => {
+   test('should show filter options on desktop', async ({ page }) => {
      await page.setViewportSize({ width: 1024, height: 768 });
-     await page.goto("/gallery");
-     await page.click("text=Filter");
-     await expect(page.locator("text=All Photos")).toBeVisible();
+     await page.goto('/gallery');
+     await page.click('text=Filter');
+     await expect(page.locator('text=All Photos')).toBeVisible();
    });
 
-   test("should filter work when action bar is sticky", async ({ page }) => {
+   test('should filter work when action bar is sticky', async ({ page }) => {
      await page.setViewportSize({ width: 1024, height: 768 });
-     await page.goto("/gallery");
+     await page.goto('/gallery');
      await page.evaluate(() => window.scrollTo(0, 500));
-     await page.click("text=Filter");
-     await page.click("text=My Photos");
+     await page.click('text=Filter');
+     await page.click('text=My Photos');
      await expect(page).toHaveURL(/?filter=my/);
    });
    ```
 
 5. **Cross-Device** (4 tests):
+
    ```typescript
-   test("should show correct layout on mobile", async ({ page }) => {
+   test('should show correct layout on mobile', async ({ page }) => {
      await page.setViewportSize({ width: 375, height: 667 });
-     await page.goto("/gallery");
+     await page.goto('/gallery');
      await expect(page.locator('[aria-label="Filter photos"]')).toBeVisible();
      await expect(page.locator('[aria-label="Upload photo"]')).toBeVisible();
-     await expect(page.locator("div.sticky")).toBeHidden();
+     await expect(page.locator('div.sticky')).toBeHidden();
    });
 
-   test("should show correct layout on desktop", async ({ page }) => {
+   test('should show correct layout on desktop', async ({ page }) => {
      await page.setViewportSize({ width: 1024, height: 768 });
-     await page.goto("/gallery");
+     await page.goto('/gallery');
      await expect(page.locator('[aria-label="Filter photos"]')).toBeHidden();
      await expect(page.locator('[aria-label="Upload photo"]')).toBeVisible();
-     await expect(page.locator("div.sticky")).toBeVisible();
+     await expect(page.locator('div.sticky')).toBeVisible();
    });
 
-   test("should work on tablet", async ({ page }) => {
+   test('should work on tablet', async ({ page }) => {
      await page.setViewportSize({ width: 768, height: 1024 });
-     await page.goto("/gallery");
+     await page.goto('/gallery');
      await expect(page.locator('[aria-label="Upload photo"]')).toBeVisible();
-     await expect(page.locator("div.sticky")).toBeVisible();
+     await expect(page.locator('div.sticky')).toBeVisible();
    });
 
-   test("should not have horizontal scroll", async ({ page }) => {
+   test('should not have horizontal scroll', async ({ page }) => {
      await page.setViewportSize({ width: 375, height: 667 });
-     await page.goto("/gallery");
+     await page.goto('/gallery');
      const scrollWidth = await page.evaluate(() => document.body.scrollWidth);
      const clientWidth = await page.evaluate(() => document.body.clientWidth);
      expect(scrollWidth).toEqual(clientWidth);
@@ -816,44 +859,45 @@ const [isVisible, setIsVisible] = useState(false);
    ```
 
 6. **Feature Parity** (4 tests):
+
    ```typescript
-   test("should have all filter options on mobile", async ({ page }) => {
+   test('should have all filter options on mobile', async ({ page }) => {
      await page.setViewportSize({ width: 375, height: 667 });
-     await page.goto("/gallery");
+     await page.goto('/gallery');
      await page.click('[aria-label="Filter photos"]');
-     await expect(page.locator("text=All Photos")).toBeVisible();
-     await expect(page.locator("text=My Photos")).toBeVisible();
-     await expect(page.locator("text=Liked")).toBeVisible();
-     await expect(page.locator("text=Favorited")).toBeVisible();
+     await expect(page.locator('text=All Photos')).toBeVisible();
+     await expect(page.locator('text=My Photos')).toBeVisible();
+     await expect(page.locator('text=Liked')).toBeVisible();
+     await expect(page.locator('text=Favorited')).toBeVisible();
    });
 
-   test("should have all sort options on mobile", async ({ page }) => {
+   test('should have all sort options on mobile', async ({ page }) => {
      await page.setViewportSize({ width: 375, height: 667 });
-     await page.goto("/gallery");
+     await page.goto('/gallery');
      await page.click('[aria-label="Sort photos"]');
-     await expect(page.locator("text=Newest")).toBeVisible();
-     await expect(page.locator("text=Oldest")).toBeVisible();
-     await expect(page.locator("text=Most Liked")).toBeVisible();
-     await expect(page.locator("text=Most Favorited")).toBeVisible();
+     await expect(page.locator('text=Newest')).toBeVisible();
+     await expect(page.locator('text=Oldest')).toBeVisible();
+     await expect(page.locator('text=Most Liked')).toBeVisible();
+     await expect(page.locator('text=Most Favorited')).toBeVisible();
    });
 
-   test("should update URL params on mobile", async ({ page }) => {
+   test('should update URL params on mobile', async ({ page }) => {
      await page.setViewportSize({ width: 375, height: 667 });
-     await page.goto("/gallery");
+     await page.goto('/gallery');
      await page.click('[aria-label="Filter photos"]');
-     await page.click("text=My Photos");
+     await page.click('text=My Photos');
      await expect(page).toHaveURL(/?filter=my/);
    });
 
-   test("should make API calls on mobile", async ({ page }) => {
+   test('should make API calls on mobile', async ({ page }) => {
      await page.setViewportSize({ width: 375, height: 667 });
-     await page.goto("/gallery");
+     await page.goto('/gallery');
      await page.click('[aria-label="Filter photos"]');
-     await page.click("text=My Photos");
+     await page.click('text=My Photos');
      // Wait for API call to complete
-     await page.waitForLoadState("networkidle");
+     await page.waitForLoadState('networkidle');
      // Verify photos are filtered
-     await expect(page.locator(".photo-card")).toHaveCountGreaterThan(0);
+     await expect(page.locator('.photo-card')).toHaveCountGreaterThan(0);
    });
    ```
 
@@ -884,23 +928,30 @@ const [isVisible, setIsVisible] = useState(false);
 ### Optimizations
 
 1. **Memoization**:
+
    ```typescript
-   export const MobileHeaderControls = React.memo(function MobileHeaderControls({
-     currentFilter,
-     onFilterChange,
-     currentSort,
-     onSortChange,
-   }: MobileHeaderControlsProps) {
-     // ...
-   });
+   export const MobileHeaderControls = React.memo(
+     function MobileHeaderControls({
+       currentFilter,
+       onFilterChange,
+       currentSort,
+       onSortChange,
+     }: MobileHeaderControlsProps) {
+       // ...
+     }
+   );
    ```
 
 2. **Callback memoization**:
+
    ```typescript
-   const handleFilterChange = useCallback((filter: FilterType) => {
-     onFilterChange(filter);
-     setIsFilterOpen(false);
-   }, [onFilterChange]);
+   const handleFilterChange = useCallback(
+     (filter: FilterType) => {
+       onFilterChange(filter);
+       setIsFilterOpen(false);
+     },
+     [onFilterChange]
+   );
    ```
 
 3. **Lazy loading**:
@@ -914,6 +965,7 @@ const [isVisible, setIsVisible] = useState(false);
 ### ARIA Labels
 
 **MobileHeaderControls**:
+
 ```typescript
 <button
   aria-label="Filter photos"
@@ -925,6 +977,7 @@ const [isVisible, setIsVisible] = useState(false);
 ```
 
 **FABUpload**:
+
 ```typescript
 <button
   aria-label="Upload photo"
@@ -935,6 +988,7 @@ const [isVisible, setIsVisible] = useState(false);
 ```
 
 **BackToTop**:
+
 ```typescript
 <button
   aria-label="Back to top"
@@ -947,6 +1001,7 @@ const [isVisible, setIsVisible] = useState(false);
 ### Keyboard Navigation
 
 **Tab Order**:
+
 1. Header links (if any)
 2. Filter icon button (mobile)
 3. Sort icon button (mobile)
@@ -957,6 +1012,7 @@ const [isVisible, setIsVisible] = useState(false);
 8. Back to top button
 
 **Focus Management**:
+
 - Dropdown items focusable with `tabindex`
 - Focus trap in dropdowns when open
 - Focus returns to trigger after close
@@ -964,7 +1020,8 @@ const [isVisible, setIsVisible] = useState(false);
 ### Focus Indicators
 
 ```typescript
-className="focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
+className =
+  'focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2';
 ```
 
 ### Screen Reader Announcements
@@ -981,6 +1038,7 @@ className="focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offse
 ### Sticky Positioning
 
 **Support**:
+
 - Chrome: 56+ (March 2017)
 - Firefox: 59+ (March 2018)
 - Safari: 13+ (September 2019)
@@ -991,6 +1049,7 @@ className="focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offse
 ### Smooth Scroll
 
 **Support**:
+
 - Chrome: 61+ (September 2017)
 - Firefox: 36+ (February 2015)
 - Safari: 15.4+ (March 2022)
@@ -1001,6 +1060,7 @@ className="focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offse
 ### CSS Transforms
 
 **Support**:
+
 - All modern browsers
 - Scale animations universally supported
 
@@ -1008,10 +1068,11 @@ className="focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offse
 
 ```typescript
 // Check for sticky support
-const isStickySupported = CSS.supports("position", "sticky");
+const isStickySupported = CSS.supports('position', 'sticky');
 
 // Check for smooth scroll support
-const isSmoothScrollSupported = "scrollBehavior" in document.documentElement.style;
+const isSmoothScrollSupported =
+  'scrollBehavior' in document.documentElement.style;
 ```
 
 ---
@@ -1052,6 +1113,7 @@ This technical design document provides:
 8. **Browser Compatibility**: Modern browsers, no polyfills needed
 
 **Key Technical Decisions**:
+
 - Use existing FilterDropdown/SortByDropdown with `variant` prop
 - Fixed position for FAB (z-index: 40)
 - Sticky position for action bar (z-index: 10)

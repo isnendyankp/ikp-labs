@@ -18,6 +18,7 @@ Project ini bertujuan untuk migrasi struktur IKP-Labs dari manual monorepo (npm 
 ## Scope
 
 ### In Scope
+
 - Setup Nx workspace configuration
 - Migrate `frontend/` to `apps/frontend/`
 - Migrate `backend/` to `apps/backend/`
@@ -26,6 +27,7 @@ Project ini bertujuan untuk migrasi struktur IKP-Labs dari manual monorepo (npm 
 - Create shared types library (optional)
 
 ### Out of Scope
+
 - Menambah apps baru
 - Mengubah business logic
 - Mengubah database schema
@@ -33,14 +35,14 @@ Project ini bertujuan untuk migrasi struktur IKP-Labs dari manual monorepo (npm 
 
 ## Timeline
 
-| Phase | Deskripsi | Estimasi |
-|-------|-----------|----------|
-| Phase 0 | Planning (Hari ini) | 1 hari |
-| Phase 1 | Setup Nx Workspace | 1 hari |
-| Phase 2 | Migrate Frontend | 1 hari |
-| Phase 3 | Migrate Backend | 1 hari |
-| Phase 4 | Update CI/CD & Deploy | 1 hari |
-| Phase 5 | Shared Library (Optional) | 1 hari |
+| Phase   | Deskripsi                 | Estimasi |
+| ------- | ------------------------- | -------- |
+| Phase 0 | Planning (Hari ini)       | 1 hari   |
+| Phase 1 | Setup Nx Workspace        | 1 hari   |
+| Phase 2 | Migrate Frontend          | 1 hari   |
+| Phase 3 | Migrate Backend           | 1 hari   |
+| Phase 4 | Update CI/CD & Deploy     | 1 hari   |
+| Phase 5 | Shared Library (Optional) | 1 hari   |
 
 **Total**: 6 hari (1 PR per phase)
 
@@ -54,12 +56,12 @@ Project ini bertujuan untuk migrasi struktur IKP-Labs dari manual monorepo (npm 
 
 ## Risks
 
-| Risiko | Mitigasi |
-|--------|----------|
-| Build failure set | Test thorough di setiap phase |
-| CI timeout | Update paths sebelum merge |
-| Deploy gagal | Rollback ke previous commit |
-| Import paths broken | Use IDE "Find and Replace" |
+| Risiko              | Mitigasi                      |
+| ------------------- | ----------------------------- |
+| Build failure set   | Test thorough di setiap phase |
+| CI timeout          | Update paths sebelum merge    |
+| Deploy gagal        | Rollback ke previous commit   |
+| Import paths broken | Use IDE "Find and Replace"    |
 
 ## References
 

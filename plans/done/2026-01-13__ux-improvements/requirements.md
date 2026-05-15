@@ -25,14 +25,15 @@
 
 **Toast Types**:
 
-| Type | Use Case | Icon | Color | Duration |
-|------|----------|------|-------|----------|
-| **Success** | Photo uploaded, profile updated, etc. | ✅ Check | Green | 4s |
-| **Error** | Upload failed, API error, etc. | ❌ X | Red | 5s |
-| **Warning** | Session expiring, large file, etc. | ⚠️ Warning | Yellow | 5s |
-| **Info** | New feature, tips, etc. | ℹ️ Info | Blue | 4s |
+| Type        | Use Case                              | Icon       | Color  | Duration |
+| ----------- | ------------------------------------- | ---------- | ------ | -------- |
+| **Success** | Photo uploaded, profile updated, etc. | ✅ Check   | Green  | 4s       |
+| **Error**   | Upload failed, API error, etc.        | ❌ X       | Red    | 5s       |
+| **Warning** | Session expiring, large file, etc.    | ⚠️ Warning | Yellow | 5s       |
+| **Info**    | New feature, tips, etc.               | ℹ️ Info    | Blue   | 4s       |
 
 **Features**:
+
 - Auto-dismiss after duration
 - Click to dismiss
 - Pause on hover
@@ -41,6 +42,7 @@
 - Slide-out animation on dismiss
 
 **Acceptance Criteria**:
+
 - ✅ Toast appears at top-right of screen
 - ✅ Auto-dismisses after configured duration
 - ✅ User can click to dismiss
@@ -77,6 +79,7 @@
    - Green when complete
 
 **Acceptance Criteria**:
+
 - ✅ Skeleton cards match actual card dimensions
 - ✅ Loading overlay prevents interaction
 - ✅ Button loading state clearly visible
@@ -91,14 +94,15 @@
 
 **Dialog Actions**:
 
-| Action | Dialog Message | Buttons |
-|--------|---------------|---------|
-| Delete Photo | "Are you sure you want to delete this photo? This action cannot be undone." | Delete, Cancel |
-| Unlike Photo | "Remove your like from this photo?" | Unlike, Cancel |
-| Unfavorite Photo | "Remove this photo from favorites?" | Unfavorite, Cancel |
-| Logout | "Are you sure you want to log out?" | Logout, Cancel |
+| Action           | Dialog Message                                                              | Buttons            |
+| ---------------- | --------------------------------------------------------------------------- | ------------------ |
+| Delete Photo     | "Are you sure you want to delete this photo? This action cannot be undone." | Delete, Cancel     |
+| Unlike Photo     | "Remove your like from this photo?"                                         | Unlike, Cancel     |
+| Unfavorite Photo | "Remove this photo from favorites?"                                         | Unfavorite, Cancel |
+| Logout           | "Are you sure you want to log out?"                                         | Logout, Cancel     |
 
 **Dialog Features**:
+
 - Modal overlay (dark backdrop)
 - Center dialog box
 - Title bar with message
@@ -108,6 +112,7 @@
 - Focus trap (tab stays within dialog)
 
 **Acceptance Criteria**:
+
 - ✅ Dialog appears for all destructive actions
 - ✅ Action is cancelled if user clicks Cancel
 - ✅ ESC key cancels the dialog
@@ -122,20 +127,22 @@
 
 **Empty State Scenarios**:
 
-| Scenario | Message | Illustration | Action |
-|----------|---------|--------------|--------|
-| No Photos | "No photos yet. Upload your first photo!" | Camera icon | Upload Photo |
-| No Search Results | "No photos match your search." | Search icon | Clear Search |
-| No Liked Photos | "You haven't liked any photos yet. Explore the gallery!" | Heart icon | Explore Gallery |
-| No Favorited Photos | "You haven't favorited any photos yet." | Star icon | Browse Gallery |
+| Scenario            | Message                                                  | Illustration | Action          |
+| ------------------- | -------------------------------------------------------- | ------------ | --------------- |
+| No Photos           | "No photos yet. Upload your first photo!"                | Camera icon  | Upload Photo    |
+| No Search Results   | "No photos match your search."                           | Search icon  | Clear Search    |
+| No Liked Photos     | "You haven't liked any photos yet. Explore the gallery!" | Heart icon   | Explore Gallery |
+| No Favorited Photos | "You haven't favorited any photos yet."                  | Star icon    | Browse Gallery  |
 
 **Empty State Components**:
+
 - Icon/SVG illustration
 - Helpful message
 - Call-to-action button
 - Consistent layout
 
 **Acceptance Criteria**:
+
 - ✅ Empty state appears when data is empty
 - ✅ Message is contextually appropriate
 - ✅ CTA button guides user to next action
@@ -149,26 +156,29 @@
 
 **Validation States**:
 
-| Field | Validation | Error Message |
-|-------|------------|---------------|
-| Email | Valid email format | "Please enter a valid email address" |
-| Password | Min 8 chars | "Password must be at least 8 characters" |
-| Password | Matching (confirm) | "Passwords do not match" |
-| Title | Required | "Photo title is required" |
-| File | Max 5MB | "File size must be less than 5MB" |
+| Field    | Validation         | Error Message                            |
+| -------- | ------------------ | ---------------------------------------- |
+| Email    | Valid email format | "Please enter a valid email address"     |
+| Password | Min 8 chars        | "Password must be at least 8 characters" |
+| Password | Matching (confirm) | "Passwords do not match"                 |
+| Title    | Required           | "Photo title is required"                |
+| File     | Max 5MB            | "File size must be less than 5MB"        |
 
 **Visual Feedback**:
+
 - Green border + checkmark for valid input
 - Red border + error message for invalid input
 - Error message appears below field
 - Real-time validation (on blur or after debounce)
 
 **Password Strength Indicator**:
+
 - Weak (red): Less than 8 chars
 - Medium (yellow): 8+ chars, no numbers/special chars
 - Strong (green): 8+ chars with numbers and special chars
 
 **Acceptance Criteria**:
+
 - ✅ Validation feedback appears in real-time
 - ✅ Visual indicators clearly show valid/invalid state
 - ✅ Error messages are clear and actionable
@@ -202,6 +212,7 @@
    - Smooth transition (300ms)
 
 **Acceptance Criteria**:
+
 - ✅ Animations run at 60fps
 - ✅ Transitions are smooth, not jarring
 - ✅ Animations don't interfere with functionality
@@ -216,7 +227,8 @@
 **Requirement**: Toast system must use React Context for global state
 
 **Files to Create**:
-```
+
+```text
 frontend/src/
 ├── components/
 │   ├── Toast.tsx              # Individual toast component
@@ -231,6 +243,7 @@ frontend/src/
 ```
 
 **Toast Type Definition**:
+
 ```typescript
 type ToastType = 'success' | 'error' | 'warning' | 'info';
 
@@ -249,6 +262,7 @@ interface ToastContextValue {
 ```
 
 **Acceptance Criteria**:
+
 - ✅ ToastContext provides toast state globally
 - ✅ useToast hook works in any component
 - ✅ Toasts are managed with unique IDs
@@ -261,11 +275,13 @@ interface ToastContextValue {
 **Requirement**: Loading states must be managed locally per component
 
 **Approach**:
+
 - Use React useState for loading boolean
 - Pass loading prop to child components
 - Show skeleton/overlay when loading is true
 
 **Example Pattern**:
+
 ```typescript
 const [loading, setLoading] = useState(false);
 
@@ -289,6 +305,7 @@ return (
 ```
 
 **Acceptance Criteria**:
+
 - ✅ Loading state is clearly defined
 - ✅ Loading indicator appears immediately
 - ✅ Loading state is cleared after operation
@@ -301,11 +318,13 @@ return (
 **Requirement**: Confirmation must be asynchronous and await user response
 
 **Approach**:
+
 - Use Promise-based confirmation
 - Resolve with true if confirmed
 - Resolve with false if cancelled
 
 **Example Pattern**:
+
 ```typescript
 const handleDelete = async () => {
   const confirmed = await confirmDialog({
@@ -323,6 +342,7 @@ const handleDelete = async () => {
 ```
 
 **Acceptance Criteria**:
+
 - ✅ Confirmation dialog returns Promise<boolean>
 - ✅ Action only executes if confirmed
 - ✅ Dialog can be cancelled with ESC or clicking outside
@@ -335,6 +355,7 @@ const handleDelete = async () => {
 ### CR-1: Toast Component
 
 **Props**:
+
 ```typescript
 interface ToastProps {
   toast: Toast;
@@ -343,6 +364,7 @@ interface ToastProps {
 ```
 
 **Features**:
+
 - Auto-dismiss timer
 - Click to dismiss
 - Pause on hover
@@ -351,6 +373,7 @@ interface ToastProps {
 - Progress bar showing time remaining
 
 **Styling**:
+
 - Tailwind CSS classes
 - Fixed position (top-right)
 - Min-width: 300px
@@ -363,6 +386,7 @@ interface ToastProps {
 ### CR-2: ConfirmDialog Component
 
 **Props**:
+
 ```typescript
 interface ConfirmDialogProps {
   isOpen: boolean;
@@ -377,6 +401,7 @@ interface ConfirmDialogProps {
 ```
 
 **Features**:
+
 - Modal overlay (backdrop)
 - Center dialog
 - Title + message
@@ -391,12 +416,14 @@ interface ConfirmDialogProps {
 ### CR-3: Skeleton Components
 
 **Components**:
+
 - `PhotoCardSkeleton` - Skeleton for photo card
 - `GalleryGridSkeleton` - Grid of 12 photo card skeletons
 - `ProfileFormSkeleton` - Skeleton for profile form
 - `ButtonSkeleton` - Skeleton for button
 
 **Styling**:
+
 - Gray background (bg-gray-200)
 - Shimmer animation (pulse or shimmer effect)
 - Same dimensions as actual components
@@ -406,6 +433,7 @@ interface ConfirmDialogProps {
 ### CR-4: EmptyState Component
 
 **Props**:
+
 ```typescript
 interface EmptyStateProps {
   icon: React.ReactNode;
@@ -417,6 +445,7 @@ interface EmptyStateProps {
 ```
 
 **Features**:
+
 - Center alignment
 - Icon illustration
 - Title (bold)
@@ -428,6 +457,7 @@ interface EmptyStateProps {
 ### CR-5: FormField Component
 
 **Props**:
+
 ```typescript
 interface FormFieldProps {
   label: string;
@@ -443,11 +473,12 @@ interface FormFieldProps {
 ```
 
 **Features**:
+
 - Label above field
 - Red border if error
 - Green border if valid
 - Error message below field
-- Required indicator (*)
+- Required indicator (\*)
 
 ---
 
@@ -458,6 +489,7 @@ interface FormFieldProps {
 **Requirement**: All UX components must follow design system
 
 **Design Tokens**:
+
 - Primary color: black (#000)
 - Success color: green (#10B981)
 - Error color: red (#EF4444)
@@ -468,6 +500,7 @@ interface FormFieldProps {
 - Transition: 150-300ms
 
 **Acceptance Criteria**:
+
 - ✅ All components use consistent colors
 - ✅ All components use consistent spacing
 - ✅ All components use consistent border radius
@@ -480,12 +513,14 @@ interface FormFieldProps {
 **Requirement**: All UX components must work on mobile
 
 **Mobile Adjustments**:
+
 - Toasts: top-center instead of top-right
 - Dialog: 90% width on mobile
 - Empty states: stacked vertically
 - Form fields: full width
 
 **Acceptance Criteria**:
+
 - ✅ Toasts appear correctly on mobile
 - ✅ Dialog fits on small screens
 - ✅ Empty states stack vertically
@@ -498,6 +533,7 @@ interface FormFieldProps {
 **Requirement**: All UX components must be accessible
 
 **Accessibility Features**:
+
 - ARIA labels
 - Keyboard navigation
 - Focus management
@@ -506,6 +542,7 @@ interface FormFieldProps {
 - Reduced motion support
 
 **Acceptance Criteria**:
+
 - ✅ All interactive elements have ARIA labels
 - ✅ All components are keyboard accessible
 - ✅ Focus is visible (blue outline)
@@ -521,6 +558,7 @@ interface FormFieldProps {
 **Requirement**: Jest tests for all UX components
 
 **Test Files**:
+
 - `Toast.test.tsx`
 - `ConfirmDialog.test.tsx`
 - `EmptyState.test.tsx`
@@ -528,6 +566,7 @@ interface FormFieldProps {
 - `useToast.test.ts`
 
 **Test Cases** (20+ total):
+
 - Toast renders correctly
 - Toast auto-dismisses after duration
 - Toast dismisses on click
@@ -547,36 +586,37 @@ interface FormFieldProps {
 **Test File**: `tests/e2e/ux-improvements.spec.ts`
 
 **Test Cases** (15-20 total):
+
 ```typescript
 // Toast notifications
-test('UX-001: should show success toast after photo upload')
-test('UX-002: should show error toast on upload failure')
-test('UX-003: should dismiss toast on click')
-test('UX-004: should stack multiple toasts')
+test('UX-001: should show success toast after photo upload');
+test('UX-002: should show error toast on upload failure');
+test('UX-003: should dismiss toast on click');
+test('UX-004: should stack multiple toasts');
 
 // Loading states
-test('UX-005: should show skeleton while loading gallery')
-test('UX-006: should show progress bar during upload')
-test('UX-007: should disable button during loading')
+test('UX-005: should show skeleton while loading gallery');
+test('UX-006: should show progress bar during upload');
+test('UX-007: should disable button during loading');
 
 // Confirmation dialogs
-test('UX-008: should show dialog before deleting photo')
-test('UX-009: should cancel deletion when cancel clicked')
-test('UX-010: should delete photo when confirmed')
+test('UX-008: should show dialog before deleting photo');
+test('UX-009: should cancel deletion when cancel clicked');
+test('UX-010: should delete photo when confirmed');
 
 // Empty states
-test('UX-011: should show empty state when no photos')
-test('UX-012: should show CTA button in empty state')
+test('UX-011: should show empty state when no photos');
+test('UX-012: should show CTA button in empty state');
 
 // Form validation
-test('UX-013: should show real-time validation errors')
-test('UX-014: should show password strength indicator')
-test('UX-015: should allow toggling password visibility')
+test('UX-013: should show real-time validation errors');
+test('UX-014: should show password strength indicator');
+test('UX-015: should allow toggling password visibility');
 
 // Micro-interactions
-test('UX-016: should animate button on hover')
-test('UX-017: should animate photo card on hover')
-test('UX-018: should animate like button when clicked')
+test('UX-016: should animate button on hover');
+test('UX-017: should animate photo card on hover');
+test('UX-018: should animate like button when clicked');
 ```
 
 ---
@@ -588,12 +628,14 @@ test('UX-018: should animate like button when clicked')
 **Requirement**: All UX components must be keyboard accessible
 
 **Keyboard Interactions**:
+
 - Tab: Navigate through focusable elements
 - Enter/Space: Activate buttons and links
 - ESC: Close modals and dialogs
 - Arrow keys: Navigate within dropdowns/menus
 
 **Acceptance Criteria**:
+
 - ✅ Tab order is logical
 - ✅ All interactive elements are focusable
 - ✅ Focus indicator is visible
@@ -606,6 +648,7 @@ test('UX-018: should animate like button when clicked')
 **Requirement**: All components must have proper ARIA labels
 
 **ARIA Requirements**:
+
 - `role="alert"` for toasts
 - `role="dialog"` for confirmation dialogs
 - `aria-live="polite"` for toasts
@@ -614,6 +657,7 @@ test('UX-018: should animate like button when clicked')
 - `aria-busy="true"` for loading states
 
 **Acceptance Criteria**:
+
 - ✅ All toasts have proper ARIA roles
 - ✅ All dialogs have proper ARIA attributes
 - ✅ Screen readers announce toasts
@@ -626,12 +670,14 @@ test('UX-018: should animate like button when clicked')
 **Requirement**: Focus must be managed correctly
 
 **Focus Requirements**:
+
 - Focus moves to dialog when opened
 - Focus returns to trigger when dialog closes
 - Focus trap within dialog
 - Auto-focus on first input in form
 
 **Acceptance Criteria**:
+
 - ✅ Focus moves to dialog on open
 - ✅ Focus returns to trigger on close
 - ✅ Focus cannot tab outside dialog
@@ -642,6 +688,7 @@ test('UX-018: should animate like button when clicked')
 ## Acceptance Criteria Summary
 
 ### Must Pass (P0)
+
 - [ ] Toast notification system fully functional
 - [ ] Loading states for all async operations
 - [ ] Confirmation dialogs for destructive actions
@@ -653,6 +700,7 @@ test('UX-018: should animate like button when clicked')
 - [ ] Mobile responsive design
 
 ### Should Pass (P1)
+
 - [ ] Password strength indicator
 - [ ] Show/hide password toggle
 - [ ] Skeleton screens for photo cards
@@ -661,6 +709,7 @@ test('UX-018: should animate like button when clicked')
 - [ ] Reduced motion support
 
 ### Nice to Have (P2)
+
 - [ ] Toast sounds
 - [ ] Advanced animations
 - [ ] Custom icons for toast types

@@ -3,12 +3,14 @@
 ## Architecture
 
 ### Current State
-```
+
+```text
 /gallery → Auth Check → Redirect to /login (if not authenticated)
 ```
 
 ### Target State
-```
+
+```text
 /gallery → Show photos (public access)
          → Click photo → Check auth
                        → Authenticated: Show detail
@@ -19,12 +21,14 @@
 
 ### 1. Modify Gallery Page (`frontend/src/app/gallery/page.tsx`)
 
-**Changes:**
+### Changes
+
 - Remove auth check on mount
 - Add auth check only when clicking photo detail
 - Support public photo fetching without auth
 
-**Key Logic:**
+### Key Logic
+
 ```typescript
 // On mount: Fetch photos without auth check
 // On photo click: Check auth before showing detail
@@ -39,12 +43,14 @@ const handlePhotoClick = (photoId: string) => {
 
 ### 2. Update Login Page (`frontend/src/app/login/page.tsx`)
 
-**Changes:**
+### Changes
+
 - Read `returnUrl` from query params
 - Redirect to `returnUrl` after successful login
 - Default to `/myprofile` if no `returnUrl`
 
-**Key Logic:**
+### Key Logic
+
 ```typescript
 const searchParams = useSearchParams();
 const returnUrl = searchParams.get('returnUrl') || '/myprofile';
@@ -60,17 +66,19 @@ router.push(returnUrl);
 
 ## File Changes
 
-| File | Change Type | Description |
-|------|-------------|-------------|
-| `gallery/page.tsx` | Modify | Remove auth gate, add soft gate |
-| `login/page.tsx` | Modify | Add returnUrl handling |
+| File               | Change Type | Description                     |
+| ------------------ | ----------- | ------------------------------- |
+| `gallery/page.tsx` | Modify      | Remove auth gate, add soft gate |
+| `login/page.tsx`   | Modify      | Add returnUrl handling          |
 
 ## API Considerations
 
 ### Current API
+
 - `GET /api/photos` - Requires authentication
 
 ### Options
+
 1. **Use existing API** - Works if backend allows public access
 2. **Create public endpoint** - `GET /api/public/photos` (if needed)
 
@@ -78,7 +86,7 @@ router.push(returnUrl);
 
 ## Data Flow
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────┐
 │                      GALLERY PAGE                           │
 ├─────────────────────────────────────────────────────────────┤
@@ -125,6 +133,7 @@ router.push(returnUrl);
 ## Rollback Plan
 
 If issues arise:
+
 1. Revert gallery page changes
 2. Gallery returns to fully protected state
 3. No data migration needed

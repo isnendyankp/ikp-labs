@@ -14,6 +14,7 @@ Implement a comprehensive CI/CD pipeline using GitHub Actions to automate testin
 ## Problem Statement
 
 Currently, the project lacks automated CI/CD:
+
 - No automated testing on push/PR
 - No pre-commit hooks for code quality
 - Manual deployment process
@@ -21,7 +22,8 @@ Currently, the project lacks automated CI/CD:
 - Risk of breaking changes reaching main
 - Inconsistent code quality standards
 
-**Current Pain Points:**
+### Current Pain Points
+
 - "I pushed code with tests that don't pass" ❌ No automated checks
 - "I forgot to run tests before committing" ❌ No pre-commit hooks
 - "I have to manually deploy to production" ❌ No automated deployment
@@ -31,6 +33,7 @@ Currently, the project lacks automated CI/CD:
 ## Proposed Solution
 
 Implement GitHub Actions workflows for:
+
 - **Automated Testing**: Run all tests on every push and PR
 - **Code Quality**: Run linters, formatters, and type checkers
 - **Pre-commit Hooks**: Run checks before allowing commits
@@ -39,7 +42,7 @@ Implement GitHub Actions workflows for:
 
 ### CI/CD Pipeline Stages
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────┐
 │                    Developer Push/PR                         │
 └─────────────────────┬───────────────────────────────────────┘
@@ -96,7 +99,8 @@ Implement GitHub Actions workflows for:
 
 ### In-Scope ✅
 
-#### GitHub Actions Workflows
+### GitHub Actions Workflows
+
 - **CI Workflow** - Run on push and PR
   - Backend tests (JUnit)
   - Frontend tests (Jest)
@@ -110,22 +114,26 @@ Implement GitHub Actions workflows for:
   - Build frontend
   - Deploy to production (Vercel/other)
 
-#### Pre-commit Hooks
+### Pre-commit Hooks
+
 - ESLint with auto-fix
 - Prettier formatting
 - TypeScript type check
 - Run fast tests (unit only)
 
-#### Status Badges
+### Status Badges
+
 - Build status badge
 - Test coverage badge
 - Deployment status badge
 
-#### Documentation
+### Documentation
+
 - CI/CD setup guide
 - Troubleshooting guide
 
 ### Out-of-Scope ❌
+
 - Multi-environment deployments (staging, dev, prod)
 - Docker containerization (separate feature)
 - Kubernetes deployment
@@ -136,6 +144,7 @@ Implement GitHub Actions workflows for:
 ## Success Criteria
 
 ### Must Have (P0)
+
 - [ ] GitHub Actions workflow configured
 - [ ] All tests run automatically on push
 - [ ] PR must pass checks before merge
@@ -144,6 +153,7 @@ Implement GitHub Actions workflows for:
 - [ ] All workflows run successfully
 
 ### Should Have (P1)
+
 - [ ] Automated deployment to production
 - [ ] Fast feedback (checks complete in < 5 minutes)
 - [ ] Slack/Discord notifications on failure
@@ -151,6 +161,7 @@ Implement GitHub Actions workflows for:
 - [ ] Caching for faster builds
 
 ### Nice to Have (P2)
+
 - [ ] Nightly builds
 - [ ] Performance regression tests
 - [ ] Security scanning
@@ -168,38 +179,40 @@ Implement GitHub Actions workflows for:
 
 ## Timeline
 
-| Phase | Duration | Tasks |
-|-------|----------|-------|
+| Phase                             | Duration  | Tasks                               |
+| --------------------------------- | --------- | ----------------------------------- |
 | **Phase 1**: GitHub Actions Setup | 2-3 hours | Create workflows, configure secrets |
-| **Phase 2**: Backend CI | 1-2 hours | Backend tests, linting, type check |
-| **Phase 3**: Frontend CI | 1-2 hours | Frontend tests, linting, type check |
-| **Phase 4**: E2E Tests | 1-2 hours | Playwright tests in CI |
-| **Phase 5**: Pre-commit Hooks | 1-2 hours | Husky, lint-staged |
-| **Phase 6**: Deployment | 2-3 hours | Automated deployment setup |
-| **Phase 7**: Documentation | 1 hour | Setup guide, troubleshooting |
+| **Phase 2**: Backend CI           | 1-2 hours | Backend tests, linting, type check  |
+| **Phase 3**: Frontend CI          | 1-2 hours | Frontend tests, linting, type check |
+| **Phase 4**: E2E Tests            | 1-2 hours | Playwright tests in CI              |
+| **Phase 5**: Pre-commit Hooks     | 1-2 hours | Husky, lint-staged                  |
+| **Phase 6**: Deployment           | 2-3 hours | Automated deployment setup          |
+| **Phase 7**: Documentation        | 1 hour    | Setup guide, troubleshooting        |
 
 **Total Estimated**: 9-15 hours
 
 ## Dependencies
 
 ### No Blockers
+
 - GitHub repository exists
 - All tests already pass locally
 - No infrastructure dependencies
 
 ### Prerequisites
+
 - GitHub account with repo access
 - Deployment platform account (Vercel, etc.)
 - Local development environment
 
 ## Risks & Mitigations
 
-| Risk | Impact | Mitigation |
-|------|--------|------------|
-| CI execution time too long | MEDIUM | Use caching, parallel jobs |
-| Flaky tests in CI | MEDIUM | Run tests 3x, investigate failures |
-| Deployment failures | HIGH | Test deployment in staging first |
-| Pre-commit hooks too slow | LOW | Only run fast checks, use lint-staged |
+| Risk                       | Impact | Mitigation                            |
+| -------------------------- | ------ | ------------------------------------- |
+| CI execution time too long | MEDIUM | Use caching, parallel jobs            |
+| Flaky tests in CI          | MEDIUM | Run tests 3x, investigate failures    |
+| Deployment failures        | HIGH   | Test deployment in staging first      |
+| Pre-commit hooks too slow  | LOW    | Only run fast checks, use lint-staged |
 
 ## Related Plans
 

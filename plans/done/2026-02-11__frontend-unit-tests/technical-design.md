@@ -9,7 +9,7 @@
 
 ### 1.1 Test Architecture
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────┐
 │                     Test Runner (Jest)                      │
 ├─────────────────────────────────────────────────────────────┤
@@ -35,7 +35,7 @@
 
 ### 1.2 Test File Structure
 
-```
+```text
 frontend/
 ├── src/
 │   ├── components/
@@ -74,12 +74,12 @@ frontend/
 Update `frontend/jest.config.js`:
 
 ```javascript
-const nextJest = require('next/jest')
+const nextJest = require('next/jest');
 
 const createJestConfig = nextJest({
   // Provide the path to your Next.js app to load next.config.js and .env files in your test environment
   dir: './',
-})
+});
 
 // Add any custom config to be passed to Jest
 const customJestConfig = {
@@ -114,15 +114,18 @@ const customJestConfig = {
 
   // Transform files
   transform: {
-    '^.+\\.(js|jsx|ts|tsx)$': ['@swc/jest', {
-      jsc: {
-        transform: {
-          react: {
-            runtime: 'automatic',
+    '^.+\\.(js|jsx|ts|tsx)$': [
+      '@swc/jest',
+      {
+        jsc: {
+          transform: {
+            react: {
+              runtime: 'automatic',
+            },
           },
         },
       },
-    }],
+    ],
   },
 
   // Ignore patterns
@@ -134,10 +137,10 @@ const customJestConfig = {
 
   // Module file extensions
   moduleFileExtensions: ['ts', 'tsx', 'js', 'jsx', 'json'],
-}
+};
 
 // createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
-module.exports = createJestConfig(customJestConfig)
+module.exports = createJestConfig(customJestConfig);
 ```
 
 ### 2.2 Test Setup File
@@ -145,12 +148,12 @@ module.exports = createJestConfig(customJestConfig)
 Create `frontend/src/__tests__/setup.ts`:
 
 ```typescript
-import '@testing-library/jest-dom'
-import { TextEncoder, TextDecoder } from 'util'
+import '@testing-library/jest-dom';
+import { TextEncoder, TextDecoder } from 'util';
 
 // Polyfill for TextEncoder/TextDecoder
-global.TextEncoder = TextEncoder
-global.TextDecoder = TextDecoder as any
+global.TextEncoder = TextEncoder;
+global.TextDecoder = TextDecoder as any;
 
 // Mock IntersectionObserver
 global.IntersectionObserver = class IntersectionObserver {
@@ -158,10 +161,10 @@ global.IntersectionObserver = class IntersectionObserver {
   disconnect() {}
   observe() {}
   takeRecords() {
-    return []
+    return [];
   }
   unobserve() {}
-} as any
+} as any;
 
 // Mock window.matchMedia
 Object.defineProperty(window, 'matchMedia', {
@@ -176,10 +179,10 @@ Object.defineProperty(window, 'matchMedia', {
     removeEventListener: () => {},
     dispatchEvent: () => {},
   }),
-})
+});
 
 // Mock next/router
-jest.mock('next/router', () => require('next-router-mock'))
+jest.mock('next/router', () => require('next-router-mock'));
 
 // Mock next/navigation
 jest.mock('next/navigation', () => ({
@@ -191,15 +194,15 @@ jest.mock('next/navigation', () => ({
       back: jest.fn(),
       pathname: '/',
       query: {},
-    }
+    };
   },
   usePathname() {
-    return '/'
+    return '/';
   },
   useSearchParams() {
-    return new URLSearchParams()
+    return new URLSearchParams();
   },
-}))
+}));
 ```
 
 ---
@@ -211,63 +214,60 @@ jest.mock('next/navigation', () => ({
 Create `frontend/src/__tests__/mocks/handlers.ts`:
 
 ```typescript
-import { http, HttpResponse } from 'msw'
-import { setupServer } from 'msw/node'
+import { http, HttpResponse } from 'msw';
+import { setupServer } from 'msw/node';
 
 // Mock data generators
-import { createMockUser, createMockPhoto } from './data'
+import { createMockUser, createMockPhoto } from './data';
 
 // Auth handlers
 export const authHandlers = [
   // Login
   http.post('/api/auth/login', async ({ request }) => {
-    const { email, password } = await request.json()
+    const { email, password } = await request.json();
 
     if (email === 'test@example.com' && password === 'password') {
       return HttpResponse.json({
         token: 'mock-jwt-token',
         user: createMockUser(),
-      })
+      });
     }
 
     return HttpResponse.json(
       { message: 'Invalid credentials' },
       { status: 401 }
-    )
+    );
   }),
 
   // Register
   http.post('/api/auth/register', async ({ request }) => {
-    const data = await request.json()
+    const data = await request.json();
 
     return HttpResponse.json({
       token: 'mock-jwt-token',
       user: createMockUser(data),
-    })
+    });
   }),
 
   // Get current user
   http.get('/api/auth/me', ({ request }) => {
-    const authHeader = request.headers.get('Authorization')
+    const authHeader = request.headers.get('Authorization');
 
     if (!authHeader) {
-      return HttpResponse.json(
-        { message: 'Unauthorized' },
-        { status: 401 }
-      )
+      return HttpResponse.json({ message: 'Unauthorized' }, { status: 401 });
     }
 
-    return HttpResponse.json(createMockUser())
+    return HttpResponse.json(createMockUser());
   }),
-]
+];
 
 // Gallery handlers
 export const galleryHandlers = [
   // Get public photos
   http.get('/api/photos/public', ({ request }) => {
-    const url = new URL(request.url)
-    const page = parseInt(url.searchParams.get('page') || '0')
-    const size = parseInt(url.searchParams.get('size') || '10')
+    const url = new URL(request.url);
+    const page = parseInt(url.searchParams.get('page') || '0');
+    const size = parseInt(url.searchParams.get('size') || '10');
 
     return HttpResponse.json({
       content: Array.from({ length: size }, () => createMockPhoto()),
@@ -277,19 +277,19 @@ export const galleryHandlers = [
       totalPages: 10,
       hasNext: page < 9,
       hasPrevious: page > 0,
-    })
+    });
   }),
 
   // Get photo by ID
   http.get('/api/photos/:id', ({ params }) => {
-    return HttpResponse.json(createMockPhoto({ id: params.id }))
+    return HttpResponse.json(createMockPhoto({ id: params.id }));
   }),
 
   // Upload photo
   http.post('/api/photos', async ({ request }) => {
-    return HttpResponse.json(createMockPhoto())
+    return HttpResponse.json(createMockPhoto());
   }),
-]
+];
 
 // Photo like handlers
 export const likeHandlers = [
@@ -298,7 +298,7 @@ export const likeHandlers = [
     return HttpResponse.json({
       liked: true,
       likeCount: 5,
-    })
+    });
   }),
 
   // Unlike photo
@@ -306,7 +306,7 @@ export const likeHandlers = [
     return HttpResponse.json({
       liked: false,
       likeCount: 4,
-    })
+    });
   }),
 
   // Get liked photos
@@ -317,9 +317,9 @@ export const likeHandlers = [
       size: 10,
       totalElements: 5,
       totalPages: 1,
-    })
+    });
   }),
-]
+];
 
 // Photo favorite handlers
 export const favoriteHandlers = [
@@ -327,14 +327,14 @@ export const favoriteHandlers = [
   http.post('/api/photos/:id/favorite', ({ params }) => {
     return HttpResponse.json({
       favorited: true,
-    })
+    });
   }),
 
   // Unfavorite photo
   http.delete('/api/photos/:id/favorite', ({ params }) => {
     return HttpResponse.json({
       favorited: false,
-    })
+    });
   }),
 
   // Get favorited photos
@@ -345,9 +345,9 @@ export const favoriteHandlers = [
       size: 10,
       totalElements: 3,
       totalPages: 1,
-    })
+    });
   }),
-]
+];
 
 // Combine all handlers
 export const handlers = [
@@ -355,10 +355,10 @@ export const handlers = [
   ...galleryHandlers,
   ...likeHandlers,
   ...favoriteHandlers,
-]
+];
 
 // Setup MSW server
-export const server = setupServer(...handlers)
+export const server = setupServer(...handlers);
 ```
 
 ### 3.2 Mock Data Generators
@@ -366,7 +366,7 @@ export const server = setupServer(...handlers)
 Create `frontend/src/__tests__/mocks/data.ts`:
 
 ```typescript
-import { Photo, User } from '@/types'
+import { Photo, User } from '@/types';
 
 export function createMockUser(overrides: Partial<User> = {}): User {
   return {
@@ -378,11 +378,11 @@ export function createMockUser(overrides: Partial<User> = {}): User {
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
     ...overrides,
-  }
+  };
 }
 
 export function createMockPhoto(overrides: Partial<Photo> = {}): Photo {
-  const id = Math.random().toString(36).substring(7)
+  const id = Math.random().toString(36).substring(7);
   return {
     id,
     title: `Test Photo ${id}`,
@@ -396,11 +396,11 @@ export function createMockPhoto(overrides: Partial<Photo> = {}): Photo {
     owner: createMockUser(),
     ownerId: '1',
     ...overrides,
-  }
+  };
 }
 
 export function createMockPhotos(count: number): Photo[] {
-  return Array.from({ length: count }, () => createMockPhoto())
+  return Array.from({ length: count }, () => createMockPhoto());
 }
 ```
 
@@ -519,139 +519,139 @@ describe('PhotoCard', () => {
 
 ```typescript
 // Example: useAuth.test.ts
-import { renderHook, act, waitFor } from '@testing-library/react'
-import { server } from '@/__tests__/mocks/handlers'
-import { useAuth } from './useAuth'
+import { renderHook, act, waitFor } from '@testing-library/react';
+import { server } from '@/__tests__/mocks/handlers';
+import { useAuth } from './useAuth';
 
 describe('useAuth', () => {
   beforeEach(() => {
-    server.listen()
-  })
+    server.listen();
+  });
 
   afterEach(() => {
-    server.resetHandlers()
-  })
+    server.resetHandlers();
+  });
 
   afterAll(() => {
-    server.close()
-  })
+    server.close();
+  });
 
   it('should login successfully', async () => {
-    const { result } = renderHook(() => useAuth())
+    const { result } = renderHook(() => useAuth());
 
     await act(async () => {
-      await result.current.login('test@example.com', 'password')
-    })
+      await result.current.login('test@example.com', 'password');
+    });
 
     await waitFor(() => {
-      expect(result.current.user).toBeTruthy()
-      expect(result.current.isAuthenticated).toBe(true)
-    })
-  })
+      expect(result.current.user).toBeTruthy();
+      expect(result.current.isAuthenticated).toBe(true);
+    });
+  });
 
   it('should handle login failure', async () => {
-    const { result } = renderHook(() => useAuth())
+    const { result } = renderHook(() => useAuth());
 
     await act(async () => {
       await expect(
         result.current.login('wrong@example.com', 'wrong')
-      ).rejects.toThrow()
-    })
+      ).rejects.toThrow();
+    });
 
-    expect(result.current.user).toBeNull()
-  })
+    expect(result.current.user).toBeNull();
+  });
 
   it('should logout and clear user data', async () => {
-    const { result } = renderHook(() => useAuth())
+    const { result } = renderHook(() => useAuth());
 
     // First login
     await act(async () => {
-      await result.current.login('test@example.com', 'password')
-    })
+      await result.current.login('test@example.com', 'password');
+    });
 
     await waitFor(() => {
-      expect(result.current.user).toBeTruthy()
-    })
+      expect(result.current.user).toBeTruthy();
+    });
 
     // Then logout
     act(() => {
-      result.current.logout()
-    })
+      result.current.logout();
+    });
 
-    expect(result.current.user).toBeNull()
-    expect(result.current.isAuthenticated).toBe(false)
-  })
-})
+    expect(result.current.user).toBeNull();
+    expect(result.current.isAuthenticated).toBe(false);
+  });
+});
 ```
 
 ### 5.3 Service Testing Pattern
 
 ```typescript
 // Example: authService.test.ts
-import { server } from '@/__tests__/mocks/handlers'
-import { login } from './authService'
+import { server } from '@/__tests__/mocks/handlers';
+import { login } from './authService';
 
 describe('authService', () => {
   beforeEach(() => {
-    server.listen()
-  })
+    server.listen();
+  });
 
   afterEach(() => {
-    server.resetHandlers()
-  })
+    server.resetHandlers();
+  });
 
   afterAll(() => {
-    server.close()
-  })
+    server.close();
+  });
 
   it('should login with valid credentials', async () => {
-    const response = await login('test@example.com', 'password')
+    const response = await login('test@example.com', 'password');
 
-    expect(response.token).toBe('mock-jwt-token')
-    expect(response.user).toBeTruthy()
-  })
+    expect(response.token).toBe('mock-jwt-token');
+    expect(response.user).toBeTruthy();
+  });
 
   it('should throw error with invalid credentials', async () => {
-    await expect(
-      login('wrong@example.com', 'wrong')
-    ).rejects.toThrow('Invalid credentials')
-  })
-})
+    await expect(login('wrong@example.com', 'wrong')).rejects.toThrow(
+      'Invalid credentials'
+    );
+  });
+});
 ```
 
 ### 5.4 Utility Testing Pattern
 
 ```typescript
 // Example: utils.test.ts
-import { formatFileSize, formatDate, validateEmail } from './utils'
+import { formatFileSize, formatDate, validateEmail } from './utils';
 
 describe('formatFileSize', () => {
   it('should format bytes correctly', () => {
-    expect(formatFileSize(500)).toBe('500 B')
-    expect(formatFileSize(1024)).toBe('1 KB')
-    expect(formatFileSize(1024 * 1024)).toBe('1 MB')
-    expect(formatFileSize(1024 * 1024 * 1024)).toBe('1 GB')
-  })
-})
+    expect(formatFileSize(500)).toBe('500 B');
+    expect(formatFileSize(1024)).toBe('1 KB');
+    expect(formatFileSize(1024 * 1024)).toBe('1 MB');
+    expect(formatFileSize(1024 * 1024 * 1024)).toBe('1 GB');
+  });
+});
 
 describe('formatDate', () => {
   it('should format relative time', () => {
-    const now = new Date()
-    expect(formatDate(now.toISOString())).toBe('just now')
+    const now = new Date();
+    expect(formatDate(now.toISOString())).toBe('just now');
 
-    const yesterday = new Date(Date.now() - 86400000)
-    expect(formatDate(yesterday.toISOString())).toBe('1 day ago')
-  })
-})
+    const yesterday = new Date(Date.now() - 86400000);
+    expect(formatDate(yesterday.toISOString())).toBe('1 day ago');
+  });
+});
 
 describe('validateEmail', () => {
   it('should validate email correctly', () => {
-    expect(validateEmail('test@example.com')).toBe(true)
-    expect(validateEmail('invalid')).toBe(false)
-    expect(validateEmail('test@')).toBe(false)
-    expect(validateEmail('@example.com')).toBe(false)
-  })
-})
+    expect(validateEmail('test@example.com')).toBe(true);
+    expect(validateEmail('invalid')).toBe(false);
+    expect(validateEmail('test@')).toBe(false);
+    expect(validateEmail('@example.com')).toBe(false);
+  });
+});
 ```
 
 ---
@@ -659,13 +659,13 @@ describe('validateEmail', () => {
 ## 6. Installation Commands
 
 ```bash
-# Install MSW for API mocking
+## Install MSW for API mocking
 npm install --save-dev msw
 
-# Install user-event for realistic user interactions
+## Install user-event for realistic user interactions
 npm install --save-dev @testing-library/user-event
 
-# (Optional) Install jest-extended for custom matchers
+## (Optional) Install jest-extended for custom matchers
 npm install --save-dev jest-extended
 ```
 
