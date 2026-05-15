@@ -314,10 +314,10 @@
 
 ### Implementation
 
-- [ ] Create branch `ci/enforce-markdown-gate` from `main` (after Phase 10 is merged)
-- [ ] Confirm `npm run lint:md` passes with zero violations on `main` before making
+- [x] Create branch `ci/enforce-markdown-gate` from `main` (after Phase 10 is merged)
+- [x] Confirm `npm run lint:md` passes with zero violations on `main` before making
       any changes (prerequisite check)
-- [ ] Add `markdown-lint` to the `ci-summary` `needs` list:
+- [x] Add `markdown-lint` to the `ci-summary` `needs` list:
 
   ```yaml
   needs:
@@ -331,45 +331,45 @@
     ]
   ```
 
-- [ ] Add `markdown-lint` result check to the failure condition in the
+- [x] Add `markdown-lint` result check to the failure condition in the
       `Check all jobs status` step:
 
   ```bash
   [[ "${{ needs.markdown-lint.result }}" != "success" ]]
   ```
 
-- [ ] Add `markdown-lint` result echo line inside the failure block:
+- [x] Add `markdown-lint` result echo line inside the failure block:
 
   ```bash
   echo "- Markdown Lint: ${{ needs.markdown-lint.result }}"
   ```
 
-- [ ] Add `markdown-lint` result echo line inside the success block:
+- [x] Add `markdown-lint` result echo line inside the success block:
 
   ```bash
   echo "- Markdown Lint: ${{ needs.markdown-lint.result }}"
   ```
 
-- [ ] Update the ASCII diagram in the top comment block of the workflow file to
+- [x] Update the ASCII diagram in the top comment block of the workflow file to
       include `markdown-lint` as a sixth parallel box alongside `frontend-lint`,
       `frontend-tests`, `backend-tests`, `api-tests`, and `frontend-build`
 
 ### Validation
 
-- [ ] Inspect the YAML file and confirm:
+- [x] Inspect the YAML file and confirm:
   - `ci-summary` `needs` includes `markdown-lint`
   - `ci-summary` shell script checks `needs.markdown-lint.result`
   - Both the success and failure echo blocks include the markdown-lint line
   - The ASCII diagram shows `markdown-lint`
-- [ ] Verify YAML indentation is 2-space throughout the modified blocks (no tabs)
-- [ ] Run `npm run lint:fe` — confirm no new ESLint errors introduced
-- [ ] Run `npm run typecheck` — confirm no new TypeScript errors introduced
+- [x] Verify YAML indentation is 2-space throughout the modified blocks (no tabs)
+- [x] Run `npm run lint:fe` — confirm no new ESLint errors introduced
+- [x] Run `npm run typecheck` — confirm no new TypeScript errors introduced
 
 ### Git and PR
 
-- [ ] Stage only the changed file:
+- [x] Stage only the changed file:
       `git add .github/workflows/kameravue-ci.yml`
-- [ ] Commit: `ci(markdown): activate markdown-lint as hard CI gate`
+- [ ] Commit: `ci(markdown): activate markdown-lint as hard ci gate`
 - [ ] Push branch: `git push -u origin ci/enforce-markdown-gate`
 - [ ] Open PR targeting `main`
 - [ ] Verify all six CI jobs appear in the PR check list on GitHub
