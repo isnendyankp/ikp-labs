@@ -6,7 +6,7 @@
 
 ### Current (Centralized Tests)
 
-```
+```text
 IKP-Labs/
 ├── apps/
 │   ├── kameravue-fe/              # Frontend app (no tests inside)
@@ -28,7 +28,7 @@ IKP-Labs/
 
 ### Target (Nx-Native Pattern)
 
-```
+```text
 IKP-Labs/
 ├── specs/                         # ✅ NEW: Centralized Gherkin specs (source of truth)
 │   ├── authentication/
@@ -84,14 +84,14 @@ Migrasi dilakukan secara bertahap dengan **1 PR per phase** untuk maximize GitHu
 
 ### Key Decisions
 
-| Decision | Choice | Reason |
-|----------|--------|--------|
-| Gherkin specs location | `specs/` (root) | Centralized source of truth, reusable |
-| Frontend unit tests | `apps/kameravue-fe/__tests__/` | Co-located with app code |
-| Backend unit tests | Keep in `src/test/` | Java standard, already correct |
-| Frontend E2E | `apps/kameravue-fe-e2e/` | Separate Nx app |
-| Backend API E2E | `apps/kameravue-be-e2e/` | Separate Nx app |
-| Old `tests/` folder | Remove after Phase 6 | Clean up after migration |
+| Decision               | Choice                         | Reason                                |
+| ---------------------- | ------------------------------ | ------------------------------------- |
+| Gherkin specs location | `specs/` (root)                | Centralized source of truth, reusable |
+| Frontend unit tests    | `apps/kameravue-fe/__tests__/` | Co-located with app code              |
+| Backend unit tests     | Keep in `src/test/`            | Java standard, already correct        |
+| Frontend E2E           | `apps/kameravue-fe-e2e/`       | Separate Nx app                       |
+| Backend API E2E        | `apps/kameravue-be-e2e/`       | Separate Nx app                       |
+| Old `tests/` folder    | Remove after Phase 6           | Clean up after migration              |
 
 ---
 
@@ -102,6 +102,7 @@ Migrasi dilakukan secara bertahap dengan **1 PR per phase** untuk maximize GitHu
 **Goal**: Single source of truth untuk Gherkin feature files
 
 **Actions**:
+
 1. Create `specs/` folder structure
 2. Move all `.feature` files dari:
    - `tests/gherkin/features/` → `specs/authentication/`, `specs/gallery/`
@@ -109,21 +110,23 @@ Migrasi dilakukan secara bertahap dengan **1 PR per phase** untuk maximize GitHu
 3. Organize by domain
 
 **File Mapping**:
-```
-# Before
+
+```text
+## Before
 tests/gherkin/features/login.feature
 tests/gherkin/features/registration.feature
 specs/authentication/login.feature (duplicate?)
 
-# After
+## After
 specs/authentication/login.feature
 specs/authentication/registration.feature
 specs/authentication/home-page.feature
 ```
 
 **Verification**:
+
 ```bash
-# Check all feature files exist
+## Check all feature files exist
 ls -R specs/
 ```
 
@@ -134,12 +137,14 @@ ls -R specs/
 **Goal**: Co-locate unit tests dengan frontend app
 
 **Actions**:
+
 1. Create `apps/kameravue-fe/__tests__/` folder
 2. Move existing Jest tests (if any)
 3. Create/update `jest.config.js`
 4. Update `project.json` dengan `test` target
 
 **`apps/kameravue-fe/project.json`**:
+
 ```json
 {
   "name": "kameravue-fe",
@@ -173,6 +178,7 @@ ls -R specs/
 ```
 
 **`apps/kameravue-fe/package.json`** (add scripts):
+
 ```json
 {
   "scripts": {
@@ -184,6 +190,7 @@ ls -R specs/
 ```
 
 **Verification**:
+
 ```bash
 nx test kameravue-fe
 ```
@@ -195,7 +202,8 @@ nx test kameravue-fe
 **Goal**: E2E tests sebagai Nx app terpisah
 
 **Structure**:
-```
+
+```text
 apps/kameravue-fe-e2e/
 ├── tests/                         # E2E test files
 │   ├── login.spec.ts
@@ -216,6 +224,7 @@ apps/kameravue-fe-e2e/
 ```
 
 **`apps/kameravue-fe-e2e/project.json`**:
+
 ```json
 {
   "name": "kameravue-fe-e2e",
@@ -250,6 +259,7 @@ apps/kameravue-fe-e2e/
 ```
 
 **`apps/kameravue-fe-e2e/playwright.config.ts`**:
+
 ```typescript
 import { defineConfig, devices } from '@playwright/test';
 
@@ -260,15 +270,15 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
   workers: process.env.CI ? 1 : 3,
-  
+
   reporter: [
     ['html', { outputFolder: 'playwright-report' }],
     ['list'],
     ['json', { outputFile: 'test-results/results.json' }],
   ],
-  
+
   outputDir: 'test-results/artifacts',
-  
+
   use: {
     baseURL: 'http://localhost:3002',
     trace: 'on-first-retry',
@@ -282,7 +292,7 @@ export default defineConfig({
     },
     viewport: { width: 1280, height: 720 },
   },
-  
+
   projects: [
     {
       name: 'chromium',
@@ -297,21 +307,24 @@ export default defineConfig({
 ```
 
 **Migration Steps**:
+
 1. Create folder structure
 2. Move files:
    - `tests/e2e/*.spec.ts` → `apps/kameravue-fe-e2e/tests/`
    - `tests/gherkin/steps/*.ts` → `apps/kameravue-fe-e2e/steps/`
    - `tests/fixtures/*` → `apps/kameravue-fe-e2e/fixtures/`
 3. Update import paths untuk specs:
+
    ```typescript
    // Before
    import '../features/login.feature';
-   
+
    // After
    import '../../../../specs/authentication/login.feature';
    ```
 
 **Verification**:
+
 ```bash
 nx e2e kameravue-fe-e2e
 ```
@@ -323,7 +336,8 @@ nx e2e kameravue-fe-e2e
 **Goal**: API tests sebagai Nx app terpisah
 
 **Structure**:
-```
+
+```text
 apps/kameravue-be-e2e/
 ├── tests/
 │   └── api/
@@ -337,6 +351,7 @@ apps/kameravue-be-e2e/
 ```
 
 **`apps/kameravue-be-e2e/project.json`**:
+
 ```json
 {
   "name": "kameravue-be-e2e",
@@ -357,6 +372,7 @@ apps/kameravue-be-e2e/
 ```
 
 **`apps/kameravue-be-e2e/playwright.config.ts`**:
+
 ```typescript
 import { defineConfig } from '@playwright/test';
 
@@ -367,13 +383,13 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 1 : 0,
   workers: process.env.CI ? 1 : 3,
-  
+
   reporter: [
     ['html', { outputFolder: 'playwright-report' }],
     ['list'],
     ['json', { outputFile: 'test-results/results.json' }],
   ],
-  
+
   use: {
     baseURL: 'http://localhost:8081',
     extraHTTPHeaders: {
@@ -384,10 +400,12 @@ export default defineConfig({
 ```
 
 **Migration Steps**:
+
 1. Create folder structure
 2. Move files: `tests/api/*.spec.ts` → `apps/kameravue-be-e2e/tests/api/`
 
 **Verification**:
+
 ```bash
 nx e2e kameravue-be-e2e
 ```
@@ -401,24 +419,24 @@ nx e2e kameravue-be-e2e
 **`kameravue-ci.yml` Changes**:
 
 ```yaml
-# BEFORE
+## BEFORE
 - name: Run frontend unit tests
   working-directory: apps/kameravue-fe
   run: npx jest --watchAll=false --coverage
 
-# AFTER
+## AFTER
 - name: Run frontend unit tests
   run: npx nx test kameravue-fe
 
-# BEFORE
+## BEFORE
 - name: Run API tests
   run: npx playwright test --project=api-tests
 
-# AFTER
+## AFTER
 - name: Run API tests
   run: npx nx e2e kameravue-be-e2e
 
-# BEFORE (artifact upload)
+## BEFORE (artifact upload)
 - name: Upload coverage report
   with:
     name: frontend-coverage
@@ -426,7 +444,7 @@ nx e2e kameravue-be-e2e
       coverage/
       apps/kameravue-fe/coverage/
 
-# AFTER
+## AFTER
 - name: Upload coverage report
   with:
     name: frontend-coverage
@@ -436,19 +454,19 @@ nx e2e kameravue-be-e2e
 **`kameravue-scheduled-e2e.yml` Changes**:
 
 ```yaml
-# BEFORE
+## BEFORE
 - name: Run E2E tests
   env:
     CI: true
   run: npx playwright test --project=chromium
 
-# AFTER
+## AFTER
 - name: Run E2E tests
   env:
     CI: true
   run: npx nx e2e kameravue-fe-e2e
 
-# BEFORE (artifact upload)
+## BEFORE (artifact upload)
 - name: Upload E2E test results
   with:
     name: e2e-test-results-${{ github.run_number }}
@@ -456,7 +474,7 @@ nx e2e kameravue-be-e2e
       test-results/
       playwright-report/
 
-# AFTER
+## AFTER
 - name: Upload E2E test results
   with:
     name: e2e-test-results-${{ github.run_number }}
@@ -470,46 +488,64 @@ nx e2e kameravue-be-e2e
 ### Phase 6: Cleanup & Documentation
 
 **Actions**:
+
 1. Remove old `tests/` folder
 2. Remove or update root `playwright.config.ts`
 3. Update README.md
 4. Update documentation
 
 **README.md Updates**:
+
 ```markdown
 ## Running Tests
 
 ### Unit Tests
-```bash
-# Frontend unit tests
+```
+
+## Frontend unit tests
+
 nx test kameravue-fe
 
-# Backend unit tests
+## Backend unit tests
+
 nx test kameravue-be
-```
+
+```text
 
 ### E2E Tests
-```bash
-# Frontend E2E tests
-nx e2e kameravue-fe-e2e
 
-# Backend API tests
-nx e2e kameravue-be-e2e
-
-# Run with UI
-nx e2e kameravue-fe-e2e --ui
 ```
 
+## Frontend E2E tests
+
+nx e2e kameravue-fe-e2e
+
+## Backend API tests
+
+nx e2e kameravue-be-e2e
+
+## Run with UI
+
+nx e2e kameravue-fe-e2e --ui
+
+```text
+
 ### All Tests
-```bash
-# Run all tests
+
+```
+
+## Run all tests
+
 nx run-many --target=test --all
 nx run-many --target=e2e --all
 
-# Run affected tests only
+## Run affected tests only
+
 nx affected --target=test
 nx affected --target=e2e
-```
+
+```text
+
 ```
 
 ---
@@ -534,10 +570,17 @@ nx affected --target=e2e
   "targetDefaults": {
     "build": {
       "dependsOn": ["^build"],
-      "outputs": ["{projectRoot}/dist", "{projectRoot}/build", "{projectRoot}/target"]
+      "outputs": [
+        "{projectRoot}/dist",
+        "{projectRoot}/build",
+        "{projectRoot}/target"
+      ]
     },
     "test": {
-      "outputs": ["{projectRoot}/coverage", "{projectRoot}/target/surefire-reports"]
+      "outputs": [
+        "{projectRoot}/coverage",
+        "{projectRoot}/target/surefire-reports"
+      ]
     },
     "e2e": {
       "outputs": [
@@ -556,39 +599,39 @@ nx affected --target=e2e
 ### Before Migration
 
 ```bash
-# Frontend tests
+## Frontend tests
 cd apps/kameravue-fe && npm run test
 
-# Backend tests
+## Backend tests
 cd apps/kameravue-be/ikp-labs-api && mvn test
 
-# E2E tests
+## E2E tests
 npx playwright test --project=chromium
 
-# API tests
+## API tests
 npx playwright test --project=api-tests
 ```
 
 ### After Migration
 
 ```bash
-# Frontend tests
+## Frontend tests
 nx test kameravue-fe
 
-# Backend tests
+## Backend tests
 nx test kameravue-be
 
-# Frontend E2E
+## Frontend E2E
 nx e2e kameravue-fe-e2e
 
-# Backend API E2E
+## Backend API E2E
 nx e2e kameravue-be-e2e
 
-# All tests
+## All tests
 nx run-many --target=test --all
 nx run-many --target=e2e --all
 
-# Affected tests only
+## Affected tests only
 nx affected --target=test
 nx affected --target=e2e
 ```
@@ -609,14 +652,14 @@ Jika terjadi masalah di salah satu phase:
 
 ### Per Phase Testing
 
-| Phase | Test Command | Expected Result |
-|-------|--------------|-----------------|
-| Phase 1 | `ls -R specs/` | All .feature files present |
-| Phase 2 | `nx test kameravue-fe` | Tests pass |
-| Phase 3 | `nx e2e kameravue-fe-e2e` | E2E tests pass |
-| Phase 4 | `nx e2e kameravue-be-e2e` | API tests pass |
-| Phase 5 | GitHub Actions | All workflows pass |
-| Phase 6 | `ls tests/` | Folder not found (removed) |
+| Phase   | Test Command              | Expected Result            |
+| ------- | ------------------------- | -------------------------- |
+| Phase 1 | `ls -R specs/`            | All .feature files present |
+| Phase 2 | `nx test kameravue-fe`    | Tests pass                 |
+| Phase 3 | `nx e2e kameravue-fe-e2e` | E2E tests pass             |
+| Phase 4 | `nx e2e kameravue-be-e2e` | API tests pass             |
+| Phase 5 | GitHub Actions            | All workflows pass         |
+| Phase 6 | `ls tests/`               | Folder not found (removed) |
 
 ---
 

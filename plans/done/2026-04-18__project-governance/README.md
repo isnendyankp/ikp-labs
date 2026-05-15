@@ -6,13 +6,13 @@
 
 ## Overview
 
-IKP-Labs currently has governance at Layers 4-5 (`.workflow-template.md`) and Layer 6 (`plans/`), plus permanent documentation under `docs/`. What is missing are the foundational layers that answer *why* this project exists, *what values* guide decisions, and *what shared standards* apply across all apps consistently.
+IKP-Labs currently has governance at Layers 4-5 (`.workflow-template.md`) and Layer 6 (`plans/`), plus permanent documentation under `docs/`. What is missing are the foundational layers that answer _why_ this project exists, _what values_ guide decisions, and _what shared standards_ apply across all apps consistently.
 
 This plan creates a `governance/` folder at the repo root containing three foundational documents, then wires them into the existing docs and workflow infrastructure.
 
 **The 6-layer governance model being implemented:**
 
-```
+```text
 Layer 1 - Vision       governance/vision.md          (NEW)
 Layer 2 - Principles   governance/principles.md       (NEW)
 Layer 3 - Conventions  governance/conventions.md      (NEW)
@@ -57,6 +57,7 @@ Layer 6 - Plans        plans/                         (already exists)
 Create the `governance/` folder and its three core documents.
 
 Deliverables:
+
 - `governance/README.md`
 - `governance/vision.md`
 - `governance/principles.md`
@@ -67,6 +68,7 @@ Deliverables:
 Connect the new governance documents to existing infrastructure.
 
 Deliverables:
+
 - Updated `.workflow-template.md` (governance references added)
 - New `docs/explanation/governance.md`
 - Updated `docs/explanation/README.md`
@@ -76,6 +78,7 @@ Deliverables:
 Add guidance for AI agents operating within the project.
 
 Deliverables:
+
 - `governance/ai-agent-guidelines.md`
 
 ---

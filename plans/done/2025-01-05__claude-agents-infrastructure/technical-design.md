@@ -21,7 +21,7 @@
 
 ### System Architecture
 
-```
+```text
 ┌─────────────────────────────────────────────────────────┐
 │                   User (Developer)                      │
 │                                                         │
@@ -74,7 +74,7 @@
 
 ### Maker-Checker-Fixer Pattern
 
-```
+```text
 ┌─────────────────────────────────────────────────────────┐
 │                    PHASE 1: MAKER                       │
 │  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  │
@@ -128,7 +128,7 @@
 
 ### Skills Directory Structure
 
-```
+```text
 .claude/
 ├── agents/
 │   ├── plan-writer.md (✅ existing - will update)
@@ -173,28 +173,36 @@
 ### [Guideline Category 1]
 
 - **Do**: [Best practice]
-  ```
-  [Example]
-  ```
+```
+
+[Example]
+
+```text
 
 - **Don't**: [Anti-pattern]
-  ```
-  [Bad example]
-  ```
+```
+
+[Bad example]
+
+```text
 
 ## Examples
 
 ### Good Example
 
 ```
+
 [Full example of following the skill]
-```
+
+```text
 
 ### Bad Example
 
 ```
+
 [Example of violating the skill]
-```
+
+```text
 
 ## Decision Criteria
 
@@ -250,14 +258,15 @@ Use these skills to assess test quality and generate reports.
 
 **File**: `.claude/agents/test-validator.md`
 
-**Frontmatter:**
+#### Frontmatter
+
 ```yaml
 ---
-name: "test-validator"
-description: "Validates test coverage and Gherkin-Playwright synchronization. Checks for missing tests, skipped tests, and coverage gaps. Generates audit reports with criticality levels."
-tools: ["Read", "Bash", "Grep", "Glob", "Write"]
-model: "sonnet"
-color: "green"
+name: 'test-validator'
+description: 'Validates test coverage and Gherkin-Playwright synchronization. Checks for missing tests, skipped tests, and coverage gaps. Generates audit reports with criticality levels.'
+tools: ['Read', 'Bash', 'Grep', 'Glob', 'Write']
+model: 'sonnet'
+color: 'green'
 permission:
   skill:
     test__coverage-rules: allow
@@ -266,9 +275,9 @@ permission:
 ---
 ```
 
-**Validation Algorithm:**
+#### Validation Algorithm
 
-```
+```text
 1. SCAN GHERKIN SPECS
    - Use Glob to list specs/**/*.feature
    - Extract feature names
@@ -307,7 +316,7 @@ permission:
    - Save to generated-reports/test-audit-YYYY-MM-DD.md
 ```
 
-**Output Example:**
+#### Output Example
 
 ```markdown
 # Test Coverage Audit Report
@@ -317,6 +326,7 @@ permission:
 **Scanned**: 9 Gherkin specs, 13 E2E tests
 
 ## Summary
+
 - Total Issues: 3
 - CRITICAL: 1
 - HIGH: 1
@@ -361,12 +371,12 @@ permission:
 
 ## Coverage Summary
 
-| Feature | Gherkin Specs | E2E Tests | Coverage |
-|---------|---------------|-----------|----------|
-| Registration | 9 scenarios | 9 tests | 100% ✅ |
-| Login | 5 scenarios | 3 tests | 60% ⚠️ |
-| Gallery | 12 scenarios | 12 tests | 100% ✅ |
-| Photo Sorting | 12 scenarios | 0 tests | 0% ❌ |
+| Feature       | Gherkin Specs | E2E Tests | Coverage |
+| ------------- | ------------- | --------- | -------- |
+| Registration  | 9 scenarios   | 9 tests   | 100% ✅  |
+| Login         | 5 scenarios   | 3 tests   | 60% ⚠️   |
+| Gallery       | 12 scenarios  | 12 tests  | 100% ✅  |
+| Photo Sorting | 12 scenarios  | 0 tests   | 0% ❌    |
 
 **Overall Coverage**: 75% (24/32 scenarios tested)
 ```
@@ -377,14 +387,15 @@ permission:
 
 **File**: `.claude/agents/docs-validator.md`
 
-**Frontmatter:**
+#### Frontmatter
+
 ```yaml
 ---
-name: "docs-validator"
-description: "Validates documentation completeness and quality. Checks for undocumented API endpoints, missing JSDoc, Diátaxis compliance, and broken links."
-tools: ["Read", "Bash", "Grep", "Glob", "Write"]
-model: "sonnet"
-color: "blue"
+name: 'docs-validator'
+description: 'Validates documentation completeness and quality. Checks for undocumented API endpoints, missing JSDoc, Diátaxis compliance, and broken links.'
+tools: ['Read', 'Bash', 'Grep', 'Glob', 'Write']
+model: 'sonnet'
+color: 'blue'
 permission:
   skill:
     docs__quality-standards: allow
@@ -393,9 +404,9 @@ permission:
 ---
 ```
 
-**Validation Algorithm:**
+#### Validation Algorithm
 
-```
+```text
 1. SCAN BACKEND API ENDPOINTS
    - Use Grep to find @GetMapping, @PostMapping, @PutMapping, @DeleteMapping
    - Extract endpoint paths and HTTP methods
@@ -440,9 +451,9 @@ permission:
    - Save to generated-reports/docs-audit-YYYY-MM-DD.md
 ```
 
-**Output Example:**
+#### Output Example
 
-```markdown
+````markdown
 # Documentation Audit Report
 
 **Generated**: 2025-01-05 15:00:00
@@ -450,6 +461,7 @@ permission:
 **Scanned**: 4 API controllers, 15 components, 12 doc files
 
 ## Summary
+
 - Total Issues: 4
 - CRITICAL: 1
 - HIGH: 2
@@ -470,10 +482,12 @@ permission:
   - **Template**:
     ```markdown
     ### POST /api/gallery/sort
+
     **Description**: Sort gallery photos by criteria
     **Query Parameters**:
+
     - sortBy (string): newest|oldest|mostLiked
-    **Response**: 200 OK with sorted photos array
+      **Response**: 200 OK with sorted photos array
     ```
 
 ### HIGH (2)
@@ -525,15 +539,15 @@ permission:
 
 ## Documentation Coverage
 
-| Category | Files | JSDoc Coverage | Link Health |
-|----------|-------|----------------|-------------|
-| API Endpoints | 4 controllers | 75% (3/4 documented) | ⚠️ |
-| Components | 15 components | 87% (13/15 have JSDoc) | ✅ |
-| Tutorials | 3 docs | 100% | ✅ |
-| How-To Guides | 5 docs | 80% | ⚠️ (1 broken link) |
-| Reference | 3 docs | 67% | ✅ |
-| Explanation | 1 doc | 100% | ✅ |
-```
+| Category      | Files         | JSDoc Coverage         | Link Health        |
+| ------------- | ------------- | ---------------------- | ------------------ |
+| API Endpoints | 4 controllers | 75% (3/4 documented)   | ⚠️                 |
+| Components    | 15 components | 87% (13/15 have JSDoc) | ✅                 |
+| Tutorials     | 3 docs        | 100%                   | ✅                 |
+| How-To Guides | 5 docs        | 80%                    | ⚠️ (1 broken link) |
+| Reference     | 3 docs        | 67%                    | ✅                 |
+| Explanation   | 1 doc         | 100%                   | ✅                 |
+````
 
 ---
 
@@ -541,14 +555,15 @@ permission:
 
 **File**: `.claude/agents/plan-checker.md`
 
-**Frontmatter:**
+#### Frontmatter
+
 ```yaml
 ---
-name: "plan-checker"
-description: "Validates implementation plan structure and completeness. Checks for 4-document system, checklist completion, and plan quality before moving to done/."
-tools: ["Read", "Bash", "Glob", "Write"]
-model: "sonnet"
-color: "purple"
+name: 'plan-checker'
+description: 'Validates implementation plan structure and completeness. Checks for 4-document system, checklist completion, and plan quality before moving to done/.'
+tools: ['Read', 'Bash', 'Glob', 'Write']
+model: 'sonnet'
+color: 'purple'
 permission:
   skill:
     plan__four-doc-system: allow
@@ -556,9 +571,9 @@ permission:
 ---
 ```
 
-**Validation Algorithm:**
+#### Validation Algorithm
 
-```
+```text
 1. SCAN PLAN DIRECTORIES
    - Use Glob to list plans/in-progress/*/
    - For each plan directory:
@@ -614,17 +629,18 @@ permission:
    - Save to generated-reports/plan-audit-YYYY-MM-DD.md
 ```
 
-**Output Example:**
+#### Output Example
 
-```markdown
+````markdown
 # Plan Quality Audit Report
 
 **Generated**: 2025-01-05 16:00:00
 **Agent**: plan-checker
-**Plan**: 2025-01-05__claude-agents-infrastructure
-**Location**: plans/in-progress/2025-01-05__claude-agents-infrastructure/
+**Plan**: 2025-01-05**claude-agents-infrastructure
+**Location**: plans/in-progress/2025-01-05**claude-agents-infrastructure/
 
 ## Summary
+
 - Total Issues: 2
 - CRITICAL: 1
 - HIGH: 0
@@ -638,7 +654,7 @@ permission:
 - [ ] **Incomplete Checklist**: 5 tasks remain unchecked in checklist.md
   - **Confidence**: HIGH
   - **Action**: Complete tasks OR move to future plan OR mark as out-of-scope
-  - **File**: plans/in-progress/2025-01-05__claude-agents-infrastructure/checklist.md
+  - **File**: plans/in-progress/2025-01-05\_\_claude-agents-infrastructure/checklist.md
   - **Unchecked Tasks**:
     1. [ ] Task 3.2: Update Gallery Page with Sort State
     2. [ ] Task 4.1: Create Gherkin BDD Scenarios
@@ -654,7 +670,7 @@ permission:
 - [ ] **Missing Architecture Diagram**: technical-design.md has no ASCII diagram
   - **Confidence**: MEDIUM
   - **Action**: Add architecture overview diagram showing system components
-  - **File**: plans/in-progress/2025-01-05__claude-agents-infrastructure/technical-design.md
+  - **File**: plans/in-progress/2025-01-05\_\_claude-agents-infrastructure/technical-design.md
   - **Expected Section**: "Architecture Overview" with ASCII art
   - **Effort**: Low (15 min)
   - **Example**:
@@ -664,12 +680,12 @@ permission:
 
 ## Plan Quality Score
 
-| Document | Completeness | Quality |
-|----------|--------------|---------|
-| README.md | 100% ✅ | Excellent (all sections present) |
-| requirements.md | 100% ✅ | Excellent (30+ requirements) |
-| technical-design.md | 90% ⚠️ | Good (missing architecture diagram) |
-| checklist.md | 85% ⚠️ | Good (5 tasks incomplete) |
+| Document            | Completeness | Quality                             |
+| ------------------- | ------------ | ----------------------------------- |
+| README.md           | 100% ✅      | Excellent (all sections present)    |
+| requirements.md     | 100% ✅      | Excellent (30+ requirements)        |
+| technical-design.md | 90% ⚠️       | Good (missing architecture diagram) |
+| checklist.md        | 85% ⚠️       | Good (5 tasks incomplete)           |
 
 **Overall Score**: 94% (Very Good)
 
@@ -684,15 +700,17 @@ permission:
 **Ready to Move to done/?** ❌ NO
 
 **Blockers**:
+
 - 5 unchecked tasks in checklist
 - Plan marked as "In Progress" not "Completed"
 
 **Action Required**:
+
 1. Complete remaining tasks
 2. Update README.md status to "✅ Completed"
 3. Add completion date
 4. Move directory: `git mv plans/in-progress/[plan]/ plans/done/`
-```
+````
 
 ---
 
@@ -700,7 +718,7 @@ permission:
 
 ### Complete Directory Tree
 
-```
+```text
 IKP-Labs/
 ├── .claude/
 │   ├── agents/
@@ -751,7 +769,7 @@ IKP-Labs/
 
 ### Pattern 1: Manual Trigger (Current Implementation)
 
-```
+```text
 User: "Saya baru selesai implement photo sorting feature"
 
 Claude (Main Agent):
@@ -795,7 +813,7 @@ Claude (Main Agent):
 
 ### Pattern 2: Proactive Suggestion (Future Enhancement)
 
-```
+```text
 [User commits code]
 
 Claude (Main Agent - Proactive):
@@ -813,7 +831,7 @@ Claude (Main Agent - Proactive):
 
 ### Pattern 3: Batch Validation
 
-```
+```text
 User: "Run all validators on current codebase"
 
 Claude (Main Agent):
@@ -849,7 +867,7 @@ Claude (Main Agent):
 
 ### Report File Naming Convention
 
-```
+```text
 generated-reports/
 ├── test-audit-YYYY-MM-DD.md
 ├── docs-audit-YYYY-MM-DD.md
@@ -874,6 +892,7 @@ Every report starts with:
 **Duration**: [How long it took]
 
 ## Summary
+
 - Total Issues: X
 - CRITICAL: X (must fix before commit)
 - HIGH: X (fix within 1 day)
@@ -937,9 +956,9 @@ You are an expert test validation specialist.
 
 This agent has access to these skills:
 
-- **test__coverage-rules** - Use this to understand minimum test coverage requirements
-- **test__playwright-patterns** - Use this to assess E2E test quality
-- **wow__criticality-assessment** - Use this to classify issue severity
+- **test\_\_coverage-rules** - Use this to understand minimum test coverage requirements
+- **test\_\_playwright-patterns** - Use this to assess E2E test quality
+- **wow\_\_criticality-assessment** - Use this to classify issue severity
 
 ## How to Use Skills
 
@@ -961,21 +980,25 @@ This agent has access to these skills:
 Use `wow__criticality-assessment` skill:
 
 **CRITICAL** - Assign when:
+
 - Missing tests for new features
 - Undocumented public APIs
 - Incomplete plan checklist (blocking release)
 
 **HIGH** - Assign when:
+
 - Skipped/disabled tests
 - Missing JSDoc on components
 - Broken documentation links
 
 **MEDIUM** - Assign when:
+
 - < 80% test coverage
 - Wrong Diátaxis category
 - Minor documentation gaps
 
 **LOW** - Assign when:
+
 - Style improvements
 - Nice-to-have documentation
 - Optional enhancements
@@ -987,16 +1010,19 @@ Use `wow__criticality-assessment` skill:
 ## Confidence Assessment
 
 **HIGH** - Assign when:
+
 - Issue is definite (e.g., file does not exist)
 - Automated fix is safe
 - No ambiguity in resolution
 
 **MEDIUM** - Assign when:
+
 - Issue needs human judgment
 - Multiple valid solutions exist
 - Context required for fix decision
 
 **FALSE_POSITIVE** - Assign when:
+
 - Apparent issue is actually intentional
 - Special case that looks like violation
 - Known exception to rules

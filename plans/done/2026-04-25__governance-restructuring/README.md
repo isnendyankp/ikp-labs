@@ -9,6 +9,7 @@ Restructure `governance/` from flat files to hierarchical folder structure, alig
 ## Scope
 
 ### In Scope
+
 - Move all existing governance files into hierarchical folders
 - Create `README.md` per folder (index files, not new content)
 - Create `governance/repository-governance-architecture.md` (consolidates `docs/explanation/governance.md`)
@@ -16,6 +17,7 @@ Restructure `governance/` from flat files to hierarchical folder structure, alig
 - Move `.workflow-template.md` content into `governance/development/workflow/`
 
 ### Out of Scope
+
 - Adding new governance content beyond what already exists
 - Restructuring `docs/` folder
 - Changing any app source code

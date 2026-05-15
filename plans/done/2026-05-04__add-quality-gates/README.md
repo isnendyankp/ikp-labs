@@ -9,6 +9,7 @@
 ## Overview
 
 Add infrastructure quality gates to close gap with senior repo (ose-public):
+
 1. Markdown linting for documentation consistency
 2. Pre-push hooks to prevent broken code from being pushed
 
@@ -19,6 +20,7 @@ This is part of the broader effort to align IKP-Labs with senior repo best pract
 ## Scope
 
 ### In Scope
+
 - ✅ Add `.markdownlint-cli2.jsonc` config
 - ✅ Add `.markdownlintignore` patterns
 - ✅ Install `markdownlint-cli2` npm package
@@ -29,6 +31,7 @@ This is part of the broader effort to align IKP-Labs with senior repo best pract
 - ✅ Add `test:quick` script to `package.json`
 
 ### Out of Scope
+
 - ❌ CLAUDE.md (deferred — requires populated `.claude/agents/` and `.claude/skills/`)
 - ❌ Populating `.claude/agents/` directory (70+ files — separate plan)
 - ❌ Populating `.claude/skills/` directory (37+ files — separate plan)

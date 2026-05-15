@@ -9,6 +9,7 @@
 Project ini bertujuan untuk migrasi struktur testing IKP-Labs mengikuti pattern Nx monorepo seperti repo senior (open-sharia-enterprise). Migrasi dilakukan secara bertahap dalam 6 phase untuk memastikan setiap langkah terkontrol dan dapat di-rollback jika terjadi masalah.
 
 **Key Changes:**
+
 - Unit tests pindah ke dalam apps (`apps/kameravue-fe/__tests__/`)
 - E2E tests menjadi Nx apps terpisah (`apps/kameravue-fe-e2e/`, `apps/kameravue-be-e2e/`)
 - Gherkin specs terpusat di `specs/` folder
@@ -24,6 +25,7 @@ Project ini bertujuan untuk migrasi struktur testing IKP-Labs mengikuti pattern 
 ## Scope
 
 ### In Scope
+
 - Create centralized `specs/` folder untuk Gherkin features
 - Move unit tests ke dalam apps
 - Create `apps/kameravue-fe-e2e/` untuk frontend E2E tests
@@ -32,6 +34,7 @@ Project ini bertujuan untuk migrasi struktur testing IKP-Labs mengikuti pattern 
 - Update `nx.json` dan `project.json` configs
 
 ### Out of Scope
+
 - Menulis test cases baru
 - Mengubah test logic yang sudah ada
 - Mengubah Playwright configuration (kecuali path)
@@ -39,15 +42,15 @@ Project ini bertujuan untuk migrasi struktur testing IKP-Labs mengikuti pattern 
 
 ## Timeline
 
-| Phase | Deskripsi | Estimasi | PR |
-|-------|-----------|----------|-----|
-| Phase 0 | Planning (Hari ini) | 1 hari | 1 PR |
-| Phase 1 | Create Centralized Specs | 1 hari | 1 PR |
-| Phase 2 | Move Frontend Unit Tests | 1 hari | 1 PR |
-| Phase 3 | Create Frontend E2E App | 1-2 hari | 1 PR |
-| Phase 4 | Create Backend E2E App | 1 hari | 1 PR |
-| Phase 5 | Update GitHub Actions | 1 hari | 1 PR |
-| Phase 6 | Cleanup & Documentation | 1 hari | 1 PR |
+| Phase   | Deskripsi                | Estimasi | PR   |
+| ------- | ------------------------ | -------- | ---- |
+| Phase 0 | Planning (Hari ini)      | 1 hari   | 1 PR |
+| Phase 1 | Create Centralized Specs | 1 hari   | 1 PR |
+| Phase 2 | Move Frontend Unit Tests | 1 hari   | 1 PR |
+| Phase 3 | Create Frontend E2E App  | 1-2 hari | 1 PR |
+| Phase 4 | Create Backend E2E App   | 1 hari   | 1 PR |
+| Phase 5 | Update GitHub Actions    | 1 hari   | 1 PR |
+| Phase 6 | Cleanup & Documentation  | 1 hari   | 1 PR |
 
 **Total**: 7-8 hari (7 PRs, 1 per phase untuk GitHub activity)
 
@@ -64,12 +67,12 @@ Project ini bertujuan untuk migrasi struktur testing IKP-Labs mengikuti pattern 
 
 ## Risks
 
-| Risiko | Mitigasi |
-|--------|----------|
-| Import paths broken | Test di setiap phase sebelum merge |
-| GitHub Actions timeout | Update paths incrementally |
-| Test failures | Keep old structure until verified |
-| Gherkin step imports fail | Use relative paths carefully |
+| Risiko                    | Mitigasi                           |
+| ------------------------- | ---------------------------------- |
+| Import paths broken       | Test di setiap phase sebelum merge |
+| GitHub Actions timeout    | Update paths incrementally         |
+| Test failures             | Keep old structure until verified  |
+| Gherkin step imports fail | Use relative paths carefully       |
 
 ## References
 

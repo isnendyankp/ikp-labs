@@ -3,6 +3,7 @@
 ## Architecture Overview
 
 This plan adds two independent quality gates:
+
 1. **Markdown linting** — Runs on pre-commit (via lint-staged)
 2. **Pre-push hook** — Runs typecheck, lint, test before push
 
@@ -14,7 +15,7 @@ Both integrate with existing Husky + Nx infrastructure.
 
 ### New Files
 
-```
+```text
 /.markdownlint-cli2.jsonc       # Markdown linting config
 /.markdownlintignore            # Ignore patterns for markdown linting
 /.husky/pre-push                # Pre-push git hook script
@@ -22,7 +23,7 @@ Both integrate with existing Husky + Nx infrastructure.
 
 ### Modified Files
 
-```
+```text
 /package.json                   # Add scripts and dependencies
 ```
 
@@ -40,27 +41,22 @@ Both integrate with existing Husky + Nx infrastructure.
     "default": true,
     "MD013": false,
     "MD033": false,
-    "MD041": false
+    "MD041": false,
   },
-  "globs": [
-    "**/*.md"
-  ],
-  "ignores": [
-    "node_modules",
-    "**/node_modules",
-    "apps/**/node_modules"
-  ]
+  "globs": ["**/*.md"],
+  "ignores": ["node_modules", "**/node_modules", "apps/**/node_modules"],
 }
 ```
 
 **Rules disabled:**
+
 - `MD013` — Line length (too restrictive for docs)
 - `MD033` — Inline HTML (needed for advanced formatting)
 - `MD041` — First line heading (not always applicable)
 
 **File: `.markdownlintignore`**
 
-```
+```text
 node_modules/
 **/node_modules/
 .nx/
@@ -73,6 +69,7 @@ apps/**/build/
 ### 2. Package.json Changes
 
 **Add to `devDependencies`:**
+
 ```json
 {
   "markdownlint-cli2": "^0.14.0"
@@ -80,6 +77,7 @@ apps/**/build/
 ```
 
 **Add to `scripts`:**
+
 ```json
 {
   "lint:md": "markdownlint-cli2 \"**/*.md\"",
@@ -89,6 +87,7 @@ apps/**/build/
 ```
 
 **Update `lint-staged`:**
+
 ```json
 {
   "lint-staged": {
@@ -96,12 +95,8 @@ apps/**/build/
       "npx eslint --fix",
       "npx prettier --write"
     ],
-    "apps/kameravue-fe/**/*.{json,md,css}": [
-      "npx prettier --write"
-    ],
-    "**/*.md": [
-      "markdownlint-cli2 --fix"
-    ]
+    "apps/kameravue-fe/**/*.{json,md,css}": ["npx prettier --write"],
+    "**/*.md": ["markdownlint-cli2 --fix"]
   }
 }
 ```
@@ -143,16 +138,16 @@ echo "✅ Pre-push checks passed!"
 
 ### Existing Infrastructure
 
-| Component | Status | Integration |
-|-----------|--------|-------------|
-| Husky | ✅ Installed | Add new pre-push hook |
-| lint-staged | ✅ Configured | Add markdown linting |
-| Nx | ✅ Installed | Use `nx affected` for pre-push |
-| commitlint | ✅ Active | No changes needed |
+| Component   | Status        | Integration                    |
+| ----------- | ------------- | ------------------------------ |
+| Husky       | ✅ Installed  | Add new pre-push hook          |
+| lint-staged | ✅ Configured | Add markdown linting           |
+| Nx          | ✅ Installed  | Use `nx affected` for pre-push |
+| commitlint  | ✅ Active     | No changes needed              |
 
 ### Workflow Integration
 
-```
+```text
 Developer workflow:
 1. Make changes
 2. git add .
@@ -167,11 +162,13 @@ Developer workflow:
 ## Testing Strategy
 
 ### Markdown Linting
+
 1. Run `npm run lint:md` on existing markdown files
 2. Fix any violations or document exceptions
 3. Test pre-commit integration with sample markdown change
 
 ### Pre-push Hook
+
 1. Make a change to frontend code
 2. Attempt to push
 3. Verify typecheck, lint, and test run
@@ -183,6 +180,7 @@ Developer workflow:
 ## Rollback Plan
 
 If issues arise:
+
 1. Remove `.husky/pre-push` to disable pre-push checks
 2. Remove markdown linting from `lint-staged` in package.json
 3. Revert package.json changes
@@ -195,6 +193,7 @@ All changes are additive and can be safely removed.
 ## Reference Implementation
 
 Based on `wahidyankf/ose-public` repo:
+
 - `.markdownlint-cli2.jsonc` — Similar config
 - `.husky/` hooks — Similar pattern
 - `package.json` scripts — Similar naming

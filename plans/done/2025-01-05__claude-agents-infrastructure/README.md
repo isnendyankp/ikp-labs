@@ -18,6 +18,7 @@ Implement a comprehensive Claude Agents system following best practices from [wa
 Currently, the project has 3 basic agents (**plan-writer**, **documentation-writer**, **gherkin-spec-writer**) but lacks:
 
 ### Current Pain Points
+
 - **No validation layer** - No automated quality checks for docs, tests, or plans
 - **No fixing layer** - Manual effort required to fix identified issues
 - **Manual agent triggers** - Agents must be explicitly called, not proactive
@@ -26,6 +27,7 @@ Currently, the project has 3 basic agents (**plan-writer**, **documentation-writ
 - **Inconsistent quality** - No standardized criticality assessment
 
 ### User Pain Points
+
 - "Saya lupa update API documentation setelah implement fitur" ❌
 - "Test coverage tidak tracked, saya tidak tahu apa yang missing" ❌
 - "Plan checklist sudah selesai tapi tidak ada yang validate" ❌
@@ -35,7 +37,7 @@ Currently, the project has 3 basic agents (**plan-writer**, **documentation-writ
 
 Implement **Maker-Checker-Fixer Pattern** following repository reference:
 
-```
+```text
 Phase 1: Maker (Existing ✅)
 ├── plan-writer
 ├── documentation-writer
@@ -55,7 +57,8 @@ Phase 3: Fixer (FUTURE)
 ### Infrastructure Layer (NEW 🆕)
 
 **Skills System** - Centralized knowledge modules:
-```
+
+```text
 .claude/skills/
 ├── docs__quality-standards.md     # Diátaxis rules
 ├── docs__diataxis-framework.md    # Framework guide
@@ -70,12 +73,14 @@ Phase 3: Fixer (FUTURE)
 ### In-Scope ✅
 
 #### Infrastructure (Priority 1)
+
 - Create `.claude/skills/` directory structure
 - Implement 6 core skill modules
 - Setup `generated-reports/` directory for audit outputs
 - Update existing agents with `permission.skill` configuration
 
 #### Validation Agents (Priority 2)
+
 - **test-validator.md** - Validate E2E test coverage
   - Check specs ↔ Playwright tests synchronization
   - Report missing tests with criticality levels
@@ -93,11 +98,13 @@ Phase 3: Fixer (FUTURE)
   - Output: `generated-reports/plan-audit-YYYY-MM-DD.md`
 
 #### Documentation
+
 - Agent usage guide (`docs/how-to/use-claude-agents.md`)
 - Skills development guide (`docs/explanation/skills-system.md`)
 - Update `.claude/README.md` with agent catalog
 
 #### Testing
+
 - Manual testing of all validators
 - Verify audit reports are accurate
 - Validate skill loading mechanism
@@ -115,6 +122,7 @@ Phase 3: Fixer (FUTURE)
 ## Success Criteria
 
 ### Must Have (P0)
+
 - [x] Skills system implemented (6 skill modules created)
 - [x] 3 validation agents implemented and working
 - [x] Audit reports generated correctly with criticality levels
@@ -124,12 +132,14 @@ Phase 3: Fixer (FUTURE)
 - [x] Documentation complete (how-to + explanation)
 
 ### Should Have (P1)
+
 - [x] Validation agents use confidence scoring (HIGH/MEDIUM/FALSE_POSITIVE)
 - [x] Skills are reusable across multiple agents
 - [x] Audit reports follow consistent format
 - [x] Agent catalog in `.claude/README.md` updated
 
 ### Nice to Have (P2)
+
 - [x] Visual diagrams for agent workflow
 - [x] Example audit reports in documentation
 - [x] Comparison table: before vs after implementation
@@ -144,36 +154,38 @@ Phase 3: Fixer (FUTURE)
 
 ## Timeline
 
-| Phase | Duration | Tasks |
-|-------|----------|-------|
-| **Phase 1**: Infrastructure | 2-3 hours | Skills system, directory setup |
-| **Phase 2**: Validation Agents | 3-4 hours | test-validator, docs-validator, plan-checker |
-| **Phase 3**: Integration | 1-2 hours | Update existing agents, test integration |
-| **Phase 4**: Documentation | 1-2 hours | How-to guides, agent catalog |
-| **Phase 5**: Testing & Validation | 1-2 hours | Manual testing, report verification |
+| Phase                             | Duration  | Tasks                                        |
+| --------------------------------- | --------- | -------------------------------------------- |
+| **Phase 1**: Infrastructure       | 2-3 hours | Skills system, directory setup               |
+| **Phase 2**: Validation Agents    | 3-4 hours | test-validator, docs-validator, plan-checker |
+| **Phase 3**: Integration          | 1-2 hours | Update existing agents, test integration     |
+| **Phase 4**: Documentation        | 1-2 hours | How-to guides, agent catalog                 |
+| **Phase 5**: Testing & Validation | 1-2 hours | Manual testing, report verification          |
 
 **Total Estimated**: 8-13 hours (Senin: 4-6 hours, Selasa: 4-7 hours)
 
 ## Dependencies
 
 ### No Blockers
+
 - All required infrastructure can be implemented independently
 - No external dependencies or API keys needed
 - No database schema changes required
 
 ### Prerequisites
+
 - VSCode with Claude Code extension installed
 - Project structure understanding (docs/, tests/, specs/, plans/)
 - Familiarity with existing 3 agents
 
 ## Risks & Mitigations
 
-| Risk | Impact | Mitigation |
-|------|--------|------------|
-| Skills system not compatible with Claude Code | HIGH | Follow exact structure from repo reference |
-| Validation agents generate false positives | MEDIUM | Use confidence scoring, manual review |
-| Time estimate too optimistic | MEDIUM | Prioritize P0 criteria, defer P2 features |
-| Senior tidak bisa help karena structure berbeda | HIGH | **Follow repo senior structure exactly** |
+| Risk                                            | Impact | Mitigation                                 |
+| ----------------------------------------------- | ------ | ------------------------------------------ |
+| Skills system not compatible with Claude Code   | HIGH   | Follow exact structure from repo reference |
+| Validation agents generate false positives      | MEDIUM | Use confidence scoring, manual review      |
+| Time estimate too optimistic                    | MEDIUM | Prioritize P0 criteria, defer P2 features  |
+| Senior tidak bisa help karena structure berbeda | HIGH   | **Follow repo senior structure exactly**   |
 
 ## Related Plans
 
@@ -201,6 +213,7 @@ Phase 3: Fixer (FUTURE)
 **Total Lines Created:** 9,421+
 
 ### Deliverables
+
 - ✅ 6 Skills modules (4,900+ lines)
 - ✅ 3 Validation agents (2,571+ lines)
 - ✅ 3 Documentation guides (1,950+ lines)
@@ -208,6 +221,7 @@ Phase 3: Fixer (FUTURE)
 - ✅ Complete verification report
 
 ### Next Steps
+
 - Fixer agents (Phase 2)
 - Auto-trigger system (Phase 3)
 - CI/CD integration (Phase 4)
