@@ -17,15 +17,15 @@
 # │                     Push / PR Trigger                           │
 # └────────────────────────────┬────────────────────────────────────┘
 #                              │
-#       ┌──────────────┬───────┼──────────────┬───────────────┐
-#       │              │       │              │               │
-#       ▼              ▼       ▼              ▼               ▼
-# ┌──────────┐  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐
-# │ Frontend │  │ Frontend │ │ Backend  │ │   API    │ │ Frontend │
-# │   Lint   │  │  Tests   │ │  Tests   │ │  Tests   │ │  Build   │
-# │(ESLint + │  │ (Jest +  │ │(JUnit +  │ │(Playwright│ │(TypeScript
-# │ Prettier)│  │ Coverage)│ │ JaCoCo)  │ │+Postgres)│ │  +Next.js)
-# └──────────┘  └──────────┘ └──────────┘ └──────────┘ └──────────┘
+#       ┌──────────────┬───────┼──────────────┬───────────────┬───────────────┐
+#       │              │       │              │               │               │
+#       ▼              ▼       ▼              ▼               ▼               ▼
+# ┌──────────┐  ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐ ┌──────────┐
+# │ Frontend │  │ Frontend │ │ Backend  │ │   API    │ │ Frontend │ │ Markdown │
+# │   Lint   │  │  Tests   │ │  Tests   │ │  Tests   │ │  Build   │ │   Lint   │
+# │(ESLint + │  │ (Jest +  │ │(JUnit +  │ │(Playwright│ │(TypeScript│ │(markdownlint)│
+# │ Prettier)│  │ Coverage)│ │ JaCoCo)  │ │+Postgres)│ │  +Next.js)│ │          │
+# └──────────┘  └──────────┘ └──────────┘ └──────────┘ └──────────┘ └──────────┘
 #       │              │            │             │             │
 #       └──────────────┴────────────┴─────────────┴─────────────┘
 #                                   │
@@ -382,7 +382,7 @@ jobs:
   ci-summary:
     name: Kameravue CI Summary
     runs-on: ubuntu-latest
-    needs: [frontend-lint, frontend-tests, frontend-build, backend-tests, api-tests]
+    needs: [frontend-lint, frontend-tests, frontend-build, backend-tests, api-tests, markdown-lint]
     if: always()
 
     steps:
@@ -393,13 +393,15 @@ jobs:
              [[ "${{ needs.frontend-tests.result }}" != "success" ]] || \
              [[ "${{ needs.frontend-build.result }}" != "success" ]] || \
              [[ "${{ needs.backend-tests.result }}" != "success" ]] || \
-             [[ "${{ needs.api-tests.result }}" != "success" ]]; then
+             [[ "${{ needs.api-tests.result }}" != "success" ]] || \
+             [[ "${{ needs.markdown-lint.result }}" != "success" ]]; then
             echo "❌ CI Failed!"
             echo "- Frontend Lint: ${{ needs.frontend-lint.result }}"
             echo "- Frontend Tests: ${{ needs.frontend-tests.result }}"
             echo "- Frontend Build: ${{ needs.frontend-build.result }}"
             echo "- Backend Tests: ${{ needs.backend-tests.result }}"
             echo "- API Tests: ${{ needs.api-tests.result }}"
+            echo "- Markdown Lint: ${{ needs.markdown-lint.result }}"
             exit 1
           fi
 
@@ -409,6 +411,7 @@ jobs:
           echo "- Frontend Build: ${{ needs.frontend-build.result }}"
           echo "- Backend Tests: ${{ needs.backend-tests.result }}"
           echo "- API Tests: ${{ needs.api-tests.result }}"
+          echo "- Markdown Lint: ${{ needs.markdown-lint.result }}"
           echo ""
           echo "Note: E2E tests run on schedule (6 AM & 6 PM WIB)"
           echo "See: .github/workflows/kameravue-scheduled-e2e.yml"
