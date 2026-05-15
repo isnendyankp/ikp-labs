@@ -24,14 +24,15 @@
 
 **Requirement**: Users must be able to sort photos by 4 different criteria
 
-| Sort Option | Label | Backend Value | Sort Order | Description |
-|-------------|-------|---------------|------------|-------------|
-| **Newest First** | "Newest First" | `newest` | `createdAt DESC` | Default, most recent uploads first |
-| **Oldest First** | "Oldest First" | `oldest` | `createdAt ASC` | Oldest photos first |
-| **Most Liked** | "Most Liked" | `mostLiked` | `likeCount DESC, createdAt DESC` | Sorted by popularity (likes) |
-| **Most Favorited** | "Most Favorited" | `mostFavorited` | `favoriteCount DESC, createdAt DESC` | Sorted by favorite count |
+| Sort Option        | Label            | Backend Value   | Sort Order                           | Description                        |
+| ------------------ | ---------------- | --------------- | ------------------------------------ | ---------------------------------- |
+| **Newest First**   | "Newest First"   | `newest`        | `createdAt DESC`                     | Default, most recent uploads first |
+| **Oldest First**   | "Oldest First"   | `oldest`        | `createdAt ASC`                      | Oldest photos first                |
+| **Most Liked**     | "Most Liked"     | `mostLiked`     | `likeCount DESC, createdAt DESC`     | Sorted by popularity (likes)       |
+| **Most Favorited** | "Most Favorited" | `mostFavorited` | `favoriteCount DESC, createdAt DESC` | Sorted by favorite count           |
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ Dropdown displays all 4 options with clear labels
 - ✅ "Newest First" is selected by default
 - ✅ Changing sort triggers immediate data refetch
@@ -46,14 +47,14 @@
 
 **Supported Combinations** (16 total):
 
-| Filter | All Sorts | Result |
-|--------|-----------|--------|
-| **All Photos** | newest, oldest, mostLiked, mostFavorited | All public photos, sorted |
-| **My Photos** | newest, oldest, mostLiked, mostFavorited | User's photos, sorted |
-| **Liked Photos** | newest, oldest, mostLiked, mostFavorited | User's liked photos, sorted |
+| Filter               | All Sorts                                | Result                          |
+| -------------------- | ---------------------------------------- | ------------------------------- |
+| **All Photos**       | newest, oldest, mostLiked, mostFavorited | All public photos, sorted       |
+| **My Photos**        | newest, oldest, mostLiked, mostFavorited | User's photos, sorted           |
+| **Liked Photos**     | newest, oldest, mostLiked, mostFavorited | User's liked photos, sorted     |
 | **Favorited Photos** | newest, oldest, mostLiked, mostFavorited | User's favorited photos, sorted |
 
-**Example User Flows:**
+### Example User Flows
 
 1. **Use Case**: See my most popular photos
    - Select "My Photos" filter
@@ -70,7 +71,8 @@
    - Select "Oldest First" sort
    - Result: User's liked photos from earliest to latest
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ All 16 combinations work correctly
 - ✅ No conflicts between filter and sort
 - ✅ Pagination works with any combination
@@ -82,21 +84,23 @@
 
 **Requirement**: Gallery state must be encoded in URL for shareability
 
-**URL Structure:**
-```
+### URL Structure
+
+```text
 /gallery?filter={filterValue}&sortBy={sortValue}&page={pageNumber}
 ```
 
-**Query Parameters:**
+### Query Parameters
 
-| Parameter | Type | Values | Default | Required |
-|-----------|------|--------|---------|----------|
-| `filter` | string | `all`, `my-photos`, `liked`, `favorited` | `all` | No |
-| `sortBy` | string | `newest`, `oldest`, `mostLiked`, `mostFavorited` | `newest` | No |
-| `page` | number | 1+ | `1` | No |
+| Parameter | Type   | Values                                           | Default  | Required |
+| --------- | ------ | ------------------------------------------------ | -------- | -------- |
+| `filter`  | string | `all`, `my-photos`, `liked`, `favorited`         | `all`    | No       |
+| `sortBy`  | string | `newest`, `oldest`, `mostLiked`, `mostFavorited` | `newest` | No       |
+| `page`    | number | 1+                                               | `1`      | No       |
 
-**Examples:**
-```
+### Examples
+
+```text
 /gallery
 → All photos, newest first, page 1
 
@@ -107,7 +111,8 @@
 → My photos, most liked first, page 1
 ```
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ URL updates immediately when filter/sort changes
 - ✅ URL can be shared and works for other users (where applicable)
 - ✅ Browser back/forward buttons work correctly
@@ -120,12 +125,14 @@
 
 **Requirement**: Pagination must maintain sort order
 
-**Behavior:**
+### Behavior
+
 - 12 photos per page (existing)
 - Page number resets to 1 when filter or sort changes
 - Pagination controls show correct total pages based on filtered/sorted results
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ Photos on page 2 continue the sort order from page 1
 - ✅ Total page count is accurate for current filter + sort
 - ✅ "Next" and "Previous" buttons work correctly
@@ -138,17 +145,18 @@
 
 **Requirement**: Appropriate messages for different scenarios
 
-| Scenario | Message |
-|----------|---------|
-| All Photos + No public photos | "No public photos available" |
-| My Photos + User has no photos | "No photos yet. Upload your first photo!" |
-| Liked Photos + User liked nothing | "You haven't liked any photos yet. Explore the gallery!" |
-| Favorited Photos + No favorites | "You haven't favorited any photos yet." |
-| Most Liked + No likes on any photos | "No photos have been liked yet. Be the first!" |
-| Most Favorited + No favorites | "No photos have been favorited yet." |
-| Filtered result empty | "No photos match your current filters." |
+| Scenario                            | Message                                                  |
+| ----------------------------------- | -------------------------------------------------------- |
+| All Photos + No public photos       | "No public photos available"                             |
+| My Photos + User has no photos      | "No photos yet. Upload your first photo!"                |
+| Liked Photos + User liked nothing   | "You haven't liked any photos yet. Explore the gallery!" |
+| Favorited Photos + No favorites     | "You haven't favorited any photos yet."                  |
+| Most Liked + No likes on any photos | "No photos have been liked yet. Be the first!"           |
+| Most Favorited + No favorites       | "No photos have been favorited yet."                     |
+| Filtered result empty               | "No photos match your current filters."                  |
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ Each scenario shows contextually appropriate message
 - ✅ Messages guide users to take action
 - ✅ No loading indicators after data loads with 0 results
@@ -161,74 +169,86 @@
 
 **Requirement**: 4 gallery endpoints must support `sortBy` query parameter
 
-#### Endpoint 1: GET /api/gallery/public
+### Endpoint 1: GET /api/gallery/public
 
-**Current:**
+### Current
+
 ```java
 GET /api/gallery/public?page=0&size=12
 ```
 
-**Enhanced:**
+### Enhanced
+
 ```java
 GET /api/gallery/public?page=0&size=12&sortBy=newest
 GET /api/gallery/public?page=0&size=12&sortBy=mostLiked
 ```
 
-**Behavior:**
+### Behavior
+
 - Returns all public photos
 - Sorted by specified `sortBy` parameter
 - Default: `newest` (createdAt DESC)
 - Validates `sortBy` value (400 if invalid)
 
-#### Endpoint 2: GET /api/gallery/my-photos
+### Endpoint 2: GET /api/gallery/my-photos
 
-**Current:**
+### Current
+
 ```java
 GET /api/gallery/my-photos?page=0&size=12
 ```
 
-**Enhanced:**
+### Enhanced
+
 ```java
 GET /api/gallery/my-photos?page=0&size=12&sortBy=newest
 GET /api/gallery/my-photos?page=0&size=12&sortBy=mostLiked
 ```
 
-**Behavior:**
+### Behavior
+
 - Returns authenticated user's photos only
 - Sorted by specified `sortBy` parameter
 - Default: `newest`
 
-#### Endpoint 3: GET /api/gallery/liked-photos
+### Endpoint 3: GET /api/gallery/liked-photos
 
-**Current:**
+### Current
+
 ```java
 GET /api/gallery/liked-photos?page=0&size=12
 ```
 
-**Enhanced:**
+### Enhanced
+
 ```java
 GET /api/gallery/liked-photos?page=0&size=12&sortBy=newest
 GET /api/gallery/liked-photos?page=0&size=12&sortBy=oldest
 ```
 
-**Behavior:**
+### Behavior
+
 - Returns photos liked by authenticated user
 - Sorted by specified `sortBy` parameter
 - Default: `newest` (by when photo was liked, using `photo_likes.created_at`)
 
-#### Endpoint 4: GET /api/gallery/favorited-photos
+### Endpoint 4: GET /api/gallery/favorited-photos
 
 **New Endpoint** (if doesn't exist) or **Enhanced**:
+
 ```java
 GET /api/gallery/favorited-photos?page=0&size=12&sortBy=newest
 ```
 
-**Behavior:**
+### Behavior
+
 - Returns photos favorited by authenticated user
 - Sorted by specified `sortBy` parameter
 - Default: `newest` (by when photo was favorited)
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ All 4 endpoints accept `sortBy` parameter
 - ✅ Invalid `sortBy` returns 400 with clear error message
 - ✅ Missing `sortBy` defaults to `newest`
@@ -241,21 +261,24 @@ GET /api/gallery/favorited-photos?page=0&size=12&sortBy=newest
 
 **Requirement**: Solve N+1 query problem for like/favorite counts
 
-**Current Problem:**
-```
+### Current Problem
+
+```text
 1 main query (get photos)
 + 12 COUNT queries (get like count per photo)
 + 12 EXISTS queries (check if user liked each photo)
 = 25 queries per page
 ```
 
-**Optimized Solution:**
-```
+### Optimized Solution
+
+```text
 1 main query with JOINs (get photos + counts + user interaction in single query)
 = 1 query per page
 ```
 
-**Approach:**
+### Approach
+
 Use `LEFT JOIN` with `GROUP BY` to fetch counts in main query:
 
 ```sql
@@ -276,7 +299,8 @@ ORDER BY like_count DESC, p.created_at DESC
 LIMIT 12 OFFSET 0;
 ```
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ Single database query per page load
 - ✅ No N+1 query pattern
 - ✅ Query performance < 100ms for 1000 photos
@@ -289,29 +313,36 @@ LIMIT 12 OFFSET 0;
 
 **Requirement**: Implement sorting logic for each option
 
-#### Sort by Newest (Default)
+### Sort by Newest (Default)
+
 ```java
 Sort.by("createdAt").descending()
 ```
 
-#### Sort by Oldest
+### Sort by Oldest
+
 ```java
 Sort.by("createdAt").ascending()
 ```
 
-#### Sort by Most Liked
+### Sort by Most Liked
+
 ```sql
 ORDER BY like_count DESC, created_at DESC
 ```
+
 **Note**: Use `created_at` as tiebreaker when like counts are equal
 
-#### Sort by Most Favorited
+### Sort by Most Favorited
+
 ```sql
 ORDER BY favorite_count DESC, created_at DESC
 ```
+
 **Note**: Use `created_at` as tiebreaker when favorite counts are equal
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ Newest/Oldest use simple timestamp sort
 - ✅ Most Liked/Favorited use COUNT with tiebreaker
 - ✅ Null counts treated as 0
@@ -323,8 +354,9 @@ ORDER BY favorite_count DESC, created_at DESC
 
 **Requirement**: React component state synchronized with URL
 
-**State Flow:**
-```
+### State Flow
+
+```text
 URL Query Params
     ↓
 Next.js useSearchParams()
@@ -340,14 +372,16 @@ Response (photos + pagination)
 Update UI
 ```
 
-**State Synchronization:**
+### State Synchronization
+
 1. On component mount → Read URL params → Set initial state
 2. On filter change → Update URL → Trigger refetch
 3. On sort change → Update URL → Reset page to 1 → Trigger refetch
 4. On page change → Update URL → Trigger refetch
 5. On browser back/forward → Read new URL → Update state → Refetch
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ URL is single source of truth
 - ✅ No state drift between URL and UI
 - ✅ Browser back/forward works correctly
@@ -362,16 +396,17 @@ Update UI
 
 **Requirement**: Validate all query parameters
 
-**Validation Rules:**
+### Validation Rules
 
-| Parameter | Validation | Error Response |
-|-----------|------------|----------------|
-| `sortBy` | Must be one of: `newest`, `oldest`, `mostLiked`, `mostFavorited` | 400 Bad Request: "Invalid sortBy value" |
-| `page` | Must be >= 0 | 400 Bad Request: "Page must be non-negative" |
-| `size` | Must be 1-100 | 400 Bad Request: "Size must be between 1 and 100" |
-| `filter` | Frontend only (not sent to backend) | N/A |
+| Parameter | Validation                                                       | Error Response                                    |
+| --------- | ---------------------------------------------------------------- | ------------------------------------------------- |
+| `sortBy`  | Must be one of: `newest`, `oldest`, `mostLiked`, `mostFavorited` | 400 Bad Request: "Invalid sortBy value"           |
+| `page`    | Must be >= 0                                                     | 400 Bad Request: "Page must be non-negative"      |
+| `size`    | Must be 1-100                                                    | 400 Bad Request: "Size must be between 1 and 100" |
+| `filter`  | Frontend only (not sent to backend)                              | N/A                                               |
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ Invalid parameters return 400 status
 - ✅ Error messages are clear and actionable
 - ✅ Valid parameters pass through
@@ -383,7 +418,8 @@ Update UI
 
 **Requirement**: Maintain existing GalleryListResponse structure
 
-**Response Format:**
+### Response Format
+
 ```json
 {
   "photos": [
@@ -413,10 +449,12 @@ Update UI
 ```
 
 **New Fields** (if not already present):
+
 - `favoriteCount`: Number of times photo has been favorited
 - `isFavoritedByUser`: Boolean indicating if current user favorited this photo
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ Response structure matches existing format
 - ✅ All existing clients still work
 - ✅ New fields added without breaking changes
@@ -428,8 +466,9 @@ Update UI
 
 **Requirement**: Existing API calls without `sortBy` still work
 
-**Scenarios:**
-```
+### Scenarios
+
+```text
 GET /api/gallery/public?page=0&size=12
 → Should default to sortBy=newest (createdAt DESC)
 
@@ -437,7 +476,8 @@ GET /api/gallery/my-photos
 → Should default to page=0, size=12, sortBy=newest
 ```
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ Omitting `sortBy` defaults to `newest`
 - ✅ All existing mobile/web clients continue working
 - ✅ No breaking changes to API contract
@@ -450,8 +490,9 @@ GET /api/gallery/my-photos
 
 **Requirement**: New dropdown component for sort options
 
-**Visual Design:**
-```
+### Visual Design
+
+```text
 ┌─────────────────────┐
 │ Sort: Newest First ▼│  ← Closed state
 └─────────────────────┘
@@ -466,7 +507,8 @@ GET /api/gallery/my-photos
 └─────────────────────┘
 ```
 
-**Behavior:**
+### Behavior
+
 - Click to open/close dropdown
 - Click option to select and close
 - ESC key to close without selecting
@@ -474,13 +516,15 @@ GET /api/gallery/my-photos
 - Enter to select highlighted option
 - Checkmark indicates current selection
 
-**Styling:**
+### Styling
+
 - Consistent with FilterDropdown design
 - Tailwind CSS classes
 - Accessible color contrast
 - Responsive (mobile/desktop)
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ Matches existing FilterDropdown visual style
 - ✅ Keyboard navigation works
 - ✅ Click outside closes dropdown
@@ -493,8 +537,9 @@ GET /api/gallery/my-photos
 
 **Requirement**: Both dropdowns visible and functional
 
-**Desktop Layout:**
-```
+### Desktop Layout
+
+```text
 ┌────────────────────────────────────────────┐
 │ Gallery                                    │
 ├────────────────────────────────────────────┤
@@ -508,8 +553,9 @@ GET /api/gallery/my-photos
 └────────────────────────────────────────────┘
 ```
 
-**Mobile Layout:**
-```
+### Mobile Layout
+
+```text
 ┌──────────────────┐
 │ Gallery          │
 ├──────────────────┤
@@ -525,7 +571,8 @@ GET /api/gallery/my-photos
 └──────────────────┘
 ```
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ Dropdowns don't overlap
 - ✅ Adequate spacing between dropdowns
 - ✅ Mobile: Dropdowns stack vertically
@@ -538,13 +585,15 @@ GET /api/gallery/my-photos
 
 **Requirement**: Clear visual feedback during data fetching
 
-**States:**
+### States
+
 1. **Initial Load**: Skeleton placeholders for 12 photos
 2. **Filter/Sort Change**: Loading overlay + spinner
 3. **Page Change**: Loading overlay + spinner
 4. **Error**: Error message + retry button
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ No jarring content jumps
 - ✅ Loading indicator appears within 100ms
 - ✅ Skeleton maintains layout
@@ -556,17 +605,18 @@ GET /api/gallery/my-photos
 
 **Requirement**: Graceful error handling with user guidance
 
-**Error Scenarios:**
+### Error Scenarios
 
-| Error | Message | Action |
-|-------|---------|--------|
-| Network failure | "Unable to load photos. Please check your connection." | Retry button |
-| 401 Unauthorized | "Session expired. Please log in again." | Redirect to login |
-| 400 Bad Request | "Invalid request. Please try again." | Reset to defaults |
-| 500 Server Error | "Something went wrong. Please try again later." | Retry button |
-| Empty result | "No photos match your current filters." | Clear filters button |
+| Error            | Message                                                | Action               |
+| ---------------- | ------------------------------------------------------ | -------------------- |
+| Network failure  | "Unable to load photos. Please check your connection." | Retry button         |
+| 401 Unauthorized | "Session expired. Please log in again."                | Redirect to login    |
+| 400 Bad Request  | "Invalid request. Please try again."                   | Reset to defaults    |
+| 500 Server Error | "Something went wrong. Please try again later."        | Retry button         |
+| Empty result     | "No photos match your current filters."                | Clear filters button |
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ All errors show user-friendly messages
 - ✅ Technical details hidden from users
 - ✅ Errors logged to console for debugging
@@ -601,7 +651,8 @@ Feature: Gallery Photo Sorting
 
 **Step Definitions**: `/tests/gherkin/steps/gallery-sorting.steps.ts`
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ All scenarios pass (100%)
 - ✅ Scenarios cover happy path + edge cases
 - ✅ Step definitions reusable
@@ -617,39 +668,40 @@ Feature: Gallery Photo Sorting
 
 ```typescript
 // Sort functionality
-test('E2E-GS-001: should sort My Photos by newest first')
-test('E2E-GS-002: should sort My Photos by oldest first')
-test('E2E-GS-003: should sort My Photos by most liked')
-test('E2E-GS-004: should sort My Photos by most favorited')
+test('E2E-GS-001: should sort My Photos by newest first');
+test('E2E-GS-002: should sort My Photos by oldest first');
+test('E2E-GS-003: should sort My Photos by most liked');
+test('E2E-GS-004: should sort My Photos by most favorited');
 
 // Filter + Sort combinations
-test('E2E-GS-005: should combine liked filter with newest sort')
-test('E2E-GS-006: should combine liked filter with most liked sort')
-test('E2E-GS-007: should combine favorited filter with oldest sort')
+test('E2E-GS-005: should combine liked filter with newest sort');
+test('E2E-GS-006: should combine liked filter with most liked sort');
+test('E2E-GS-007: should combine favorited filter with oldest sort');
 
 // URL state
-test('E2E-GS-008: should update URL when sort changes')
-test('E2E-GS-009: should persist sort after page refresh')
-test('E2E-GS-010: should support browser back/forward')
-test('E2E-GS-011: should handle direct URL navigation')
+test('E2E-GS-008: should update URL when sort changes');
+test('E2E-GS-009: should persist sort after page refresh');
+test('E2E-GS-010: should support browser back/forward');
+test('E2E-GS-011: should handle direct URL navigation');
 
 // Pagination
-test('E2E-GS-012: should maintain sort across pagination')
-test('E2E-GS-013: should reset page to 1 when sort changes')
+test('E2E-GS-012: should maintain sort across pagination');
+test('E2E-GS-013: should reset page to 1 when sort changes');
 
 // UI interactions
-test('E2E-GS-014: should open/close sort dropdown')
-test('E2E-GS-015: should highlight selected sort option')
-test('E2E-GS-016: should support keyboard navigation')
+test('E2E-GS-014: should open/close sort dropdown');
+test('E2E-GS-015: should highlight selected sort option');
+test('E2E-GS-016: should support keyboard navigation');
 
 // Edge cases
-test('E2E-GS-017: should handle empty filtered results')
-test('E2E-GS-018: should handle invalid sort parameter')
-test('E2E-GS-019: should show loading state during fetch')
-test('E2E-GS-020: should handle network errors gracefully')
+test('E2E-GS-017: should handle empty filtered results');
+test('E2E-GS-018: should handle invalid sort parameter');
+test('E2E-GS-019: should show loading state during fetch');
+test('E2E-GS-020: should handle network errors gracefully');
 ```
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ All tests pass (100%)
 - ✅ Tests run in < 2 minutes
 - ✅ No flaky tests
@@ -665,33 +717,36 @@ test('E2E-GS-020: should handle network errors gracefully')
 
 ```typescript
 // Endpoint functionality
-test('API-GS-001: GET /public?sortBy=newest returns sorted photos')
-test('API-GS-002: GET /public?sortBy=oldest returns sorted photos')
-test('API-GS-003: GET /public?sortBy=mostLiked returns sorted photos')
-test('API-GS-004: GET /public?sortBy=mostFavorited returns sorted photos')
+test('API-GS-001: GET /public?sortBy=newest returns sorted photos');
+test('API-GS-002: GET /public?sortBy=oldest returns sorted photos');
+test('API-GS-003: GET /public?sortBy=mostLiked returns sorted photos');
+test('API-GS-004: GET /public?sortBy=mostFavorited returns sorted photos');
 
-test('API-GS-005: GET /my-photos?sortBy=mostLiked returns user photos sorted')
-test('API-GS-006: GET /liked-photos?sortBy=oldest returns liked photos sorted')
-test('API-GS-007: GET /favorited-photos?sortBy=newest returns favorited photos sorted')
+test('API-GS-005: GET /my-photos?sortBy=mostLiked returns user photos sorted');
+test('API-GS-006: GET /liked-photos?sortBy=oldest returns liked photos sorted');
+test(
+  'API-GS-007: GET /favorited-photos?sortBy=newest returns favorited photos sorted'
+);
 
 // Validation
-test('API-GS-008: Invalid sortBy returns 400 error')
-test('API-GS-009: Missing sortBy defaults to newest')
+test('API-GS-008: Invalid sortBy returns 400 error');
+test('API-GS-009: Missing sortBy defaults to newest');
 
 // Response structure
-test('API-GS-010: Response includes likeCount field')
-test('API-GS-011: Response includes favoriteCount field')
-test('API-GS-012: Response includes correct pagination metadata')
+test('API-GS-010: Response includes likeCount field');
+test('API-GS-011: Response includes favoriteCount field');
+test('API-GS-012: Response includes correct pagination metadata');
 
 // Performance
-test('API-GS-013: sortBy=mostLiked executes in < 100ms')
-test('API-GS-014: No N+1 query pattern detected')
+test('API-GS-013: sortBy=mostLiked executes in < 100ms');
+test('API-GS-014: No N+1 query pattern detected');
 
 // Edge cases
-test('API-GS-015: Empty result set returns empty array with correct metadata')
+test('API-GS-015: Empty result set returns empty array with correct metadata');
 ```
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ All tests pass
 - ✅ Response times < 100ms
 - ✅ Validates response structure
@@ -703,7 +758,8 @@ test('API-GS-015: Empty result set returns empty array with correct metadata')
 
 **Requirement**: Component and integration tests
 
-**Files:**
+### Files
+
 - `/frontend/src/components/__tests__/SortingDropdown.test.tsx`
 - `/frontend/src/app/gallery/__tests__/page.test.tsx`
 
@@ -712,24 +768,25 @@ test('API-GS-015: Empty result set returns empty array with correct metadata')
 ```typescript
 // SortingDropdown.test.tsx
 describe('SortingDropdown', () => {
-  test('renders all sort options')
-  test('displays current selected option')
-  test('calls onChange when option selected')
-  test('supports keyboard navigation')
-  test('closes on outside click')
-  test('highlights current selection')
-})
+  test('renders all sort options');
+  test('displays current selected option');
+  test('calls onChange when option selected');
+  test('supports keyboard navigation');
+  test('closes on outside click');
+  test('highlights current selection');
+});
 
 // Gallery page.test.tsx
 describe('Gallery Page', () => {
-  test('initializes sortBy from URL')
-  test('updates URL when sort changes')
-  test('resets page to 1 when sort changes')
-  test('fetches data with correct params')
-})
+  test('initializes sortBy from URL');
+  test('updates URL when sort changes');
+  test('resets page to 1 when sort changes');
+  test('fetches data with correct params');
+});
 ```
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ All tests pass
 - ✅ Coverage > 80%
 - ✅ Tests use React Testing Library
@@ -740,7 +797,8 @@ describe('Gallery Page', () => {
 
 **Requirement**: Service and controller layer tests
 
-**Files:**
+### Files
+
 - `GalleryServiceTest.java`
 - `GalleryControllerTest.java`
 - `GalleryPhotoRepositoryTest.java`
@@ -768,7 +826,8 @@ describe('Gallery Page', () => {
 @Test void findPublicPhotosSortedByLikeCount_UsesTiebreakerForEqualCounts()
 ```
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ All tests pass
 - ✅ Mocks used appropriately
 - ✅ Tests isolated and independent
@@ -797,7 +856,8 @@ describe('Gallery Page', () => {
 @Test void getPublicPhotos_NoN1QueryProblem_SingleDatabaseQuery()
 ```
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ Tests use real PostgreSQL database
 - ✅ Tests clean up data after execution
 - ✅ Performance assertions pass
@@ -811,14 +871,15 @@ describe('Gallery Page', () => {
 
 **Requirement**: All API calls respond quickly
 
-| Endpoint | Max Response Time | P95 Response Time |
-|----------|-------------------|-------------------|
-| GET /public | 200ms | 100ms |
-| GET /my-photos | 200ms | 100ms |
-| GET /liked-photos | 250ms | 150ms |
-| GET /favorited-photos | 250ms | 150ms |
+| Endpoint              | Max Response Time | P95 Response Time |
+| --------------------- | ----------------- | ----------------- |
+| GET /public           | 200ms             | 100ms             |
+| GET /my-photos        | 200ms             | 100ms             |
+| GET /liked-photos     | 250ms             | 150ms             |
+| GET /favorited-photos | 250ms             | 150ms             |
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ 95% of requests under P95 time
 - ✅ No requests over max time
 - ✅ Tested with 100+ photos in database
@@ -829,13 +890,15 @@ describe('Gallery Page', () => {
 
 **Requirement**: Minimize database load
 
-**Metrics:**
+### Metrics
+
 - Max 1 SELECT query per page load
 - No N+1 query patterns
 - Use of indexes on `created_at`, `photo_id`
 - Query execution time < 50ms
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ Query count verified in tests
 - ✅ EXPLAIN ANALYZE shows index usage
 - ✅ No full table scans
@@ -847,13 +910,15 @@ describe('Gallery Page', () => {
 
 **Requirement**: Smooth UI interactions
 
-**Metrics:**
+### Metrics
+
 - Dropdown open/close < 16ms (60fps)
 - Photo grid render < 100ms
 - No jank during scroll
 - Lighthouse performance score > 90
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ No layout shifts (CLS = 0)
 - ✅ First Contentful Paint < 1.5s
 - ✅ Time to Interactive < 3s
@@ -866,13 +931,15 @@ describe('Gallery Page', () => {
 
 **Requirement**: Enforce photo access rules
 
-**Rules:**
+### Rules
+
 - Any user can view public photos
 - Only owner can view private photos
 - Only authenticated users can access any endpoint
 - User can only see their own liked/favorited lists
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ Unauthenticated requests return 401
 - ✅ Users cannot access other users' private data
 - ✅ JWT token validated on every request
@@ -883,12 +950,14 @@ describe('Gallery Page', () => {
 
 **Requirement**: Sanitize all user inputs
 
-**Validation:**
+### Validation
+
 - Whitelist valid `sortBy` values
 - Range check for `page` and `size`
 - SQL injection prevention (use parameterized queries)
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ Invalid inputs rejected with 400
 - ✅ No SQL injection vulnerabilities
 - ✅ No XSS vulnerabilities
@@ -899,11 +968,13 @@ describe('Gallery Page', () => {
 
 **Requirement**: Prevent abuse
 
-**Limits:**
+### Limits
+
 - Max 100 requests per minute per user
 - Max 1000 requests per hour per IP
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ Rate limiting configured
 - ✅ 429 Too Many Requests returned when exceeded
 - ✅ Rate limit headers included in response
@@ -913,6 +984,7 @@ describe('Gallery Page', () => {
 ## Acceptance Criteria Summary
 
 ### Must Pass (P0)
+
 - [ ] All 4 gallery endpoints support `sortBy` parameter
 - [ ] All 4 sort options work correctly
 - [ ] All 16 filter + sort combinations work
@@ -926,6 +998,7 @@ describe('Gallery Page', () => {
 - [ ] Security requirements met
 
 ### Should Pass (P1)
+
 - [ ] Loading states implemented
 - [ ] Error handling implemented
 - [ ] Keyboard accessibility
@@ -933,6 +1006,7 @@ describe('Gallery Page', () => {
 - [ ] Backward compatible API
 
 ### Nice to Have (P2)
+
 - [ ] Animations/transitions
 - [ ] Remember last sort (localStorage)
 - [ ] Sort direction toggle

@@ -3,7 +3,8 @@
 ## 1. Architecture Overview
 
 ### 1.1 System Architecture
-```
+
+```text
 ┌─────────────────────────────────────────────────────────┐
 │                    Browser                               │
 │  ┌───────────────────────────────────────────────────┐  │
@@ -45,7 +46,8 @@
 ```
 
 ### 1.2 Component Hierarchy
-```
+
+```text
 App Layout
 ├── Navbar (modified)
 │   ├── Logo
@@ -80,6 +82,7 @@ App Layout
 **Purpose**: Auto-redirect based on authentication status
 
 **Implementation**:
+
 ```typescript
 'use client';
 
@@ -107,6 +110,7 @@ export default function RootPage() {
 ```
 
 **Key Points**:
+
 - Client component (needs `useEffect`, `useRouter`)
 - Checks auth on mount
 - No data fetching needed
@@ -119,6 +123,7 @@ export default function RootPage() {
 **File**: `frontend/src/components/FilterDropdown.tsx`
 
 **Props**:
+
 ```typescript
 interface FilterDropdownProps {
   currentFilter: string;
@@ -127,6 +132,7 @@ interface FilterDropdownProps {
 ```
 
 **Implementation**:
+
 ```typescript
 'use client';
 
@@ -190,6 +196,7 @@ export default function FilterDropdown({ currentFilter, onFilterChange }: Filter
 ```
 
 **Features**:
+
 - Controlled component (state managed by parent)
 - Visual indicator for selected filter
 - Keyboard accessible
@@ -200,12 +207,14 @@ export default function FilterDropdown({ currentFilter, onFilterChange }: Filter
 ### 2.3 Gallery Page (`/app/gallery/page.tsx`)
 
 **Major Changes**:
+
 1. Remove view toggle buttons (My Photos / Public)
 2. Add FilterDropdown component
 3. Add URL query param management
 4. Update data fetching based on filter
 
 **Implementation**:
+
 ```typescript
 'use client';
 
@@ -333,6 +342,7 @@ export default function GalleryPage() {
 ```
 
 **Key Changes**:
+
 - `useSearchParams()` to read URL params
 - Filter-specific fetch logic
 - URL updates via `router.push()`
@@ -346,12 +356,14 @@ export default function GalleryPage() {
 **New Path**: `frontend/src/app/myprofile/`
 
 **Changes Required**:
+
 1. Rename directory
 2. Update internal links
 3. Add "Back to Gallery" button
 4. Simplify content (remove photo grids)
 
 **Implementation** (`/app/myprofile/page.tsx`):
+
 ```typescript
 'use client';
 
@@ -454,7 +466,8 @@ router.push('/gallery');
 ## 3. Data Flow
 
 ### 3.1 Filter Data Flow
-```
+
+```text
 User clicks filter
       ↓
 FilterDropdown.onFilterChange(newFilter)
@@ -477,7 +490,8 @@ Gallery re-renders with new photos
 ```
 
 ### 3.2 Authentication Flow
-```
+
+```text
 User visits /
       ↓
 useEffect checks isAuthenticated()
@@ -502,7 +516,9 @@ Gallery loads with default filter (all)
 ```typescript
 // Existing (check and use):
 export async function fetchPublicPhotos(page: number = 1) {
-  const response = await fetch(`${API_URL}/gallery-photos?page=${page}&size=12`);
+  const response = await fetch(
+    `${API_URL}/gallery-photos?page=${page}&size=12`
+  );
   return response.json();
 }
 
@@ -537,6 +553,7 @@ export async function fetchFavoritedPhotos(userId: number, page: number = 1) {
 ### 4.2 API Endpoints Verification
 
 **Needs Verification**:
+
 1. Does `/api/users/{id}/liked-photos` exist?
    - If not, may need to filter client-side or backend implementation
    - Alternative: Fetch all photos and filter where user has liked
@@ -552,7 +569,7 @@ export async function fetchFavoritedPhotos(userId: number, page: number = 1) {
 
 ### 5.1 Query Parameter Schema
 
-```
+```text
 /gallery
 /gallery?filter=all
 /gallery?filter=all&page=1
@@ -562,6 +579,7 @@ export async function fetchFavoritedPhotos(userId: number, page: number = 1) {
 ```
 
 **Parameters**:
+
 - `filter`: string (all | my-photos | liked | favorited)
   - Default: 'all'
   - Validation: If invalid, default to 'all'
@@ -595,10 +613,12 @@ const updateURL = (newFilter: string, newPage: number) => {
 ### 6.1 URL as Source of Truth
 
 **Philosophy**: URL query params are the single source of truth for:
+
 - Current filter
 - Current page
 
 **Benefits**:
+
 - Shareable URLs
 - Browser navigation works
 - Refresh maintains state
@@ -607,6 +627,7 @@ const updateURL = (newFilter: string, newPage: number) => {
 ### 6.2 Component State
 
 **Local State** (useState):
+
 - `photos`: array - Current page photos
 - `totalPages`: number - Total pages for pagination
 - `loading`: boolean - Loading indicator
@@ -614,6 +635,7 @@ const updateURL = (newFilter: string, newPage: number) => {
 - `isDropdownOpen`: boolean - FilterDropdown open state
 
 **No Global State Needed**:
+
 - No Context API required
 - No Redux/Zustand needed
 - URL + local state sufficient
@@ -623,7 +645,8 @@ const updateURL = (newFilter: string, newPage: number) => {
 ## 7. File Structure Changes
 
 ### 7.1 Route Changes
-```
+
+```text
 BEFORE:
 frontend/src/app/
 ├── home/
@@ -652,7 +675,8 @@ frontend/src/app/
 ```
 
 ### 7.2 Component Changes
-```
+
+```text
 frontend/src/components/
 ├── FilterDropdown.tsx     ← NEW
 ├── LoginForm.tsx          ← MODIFIED (redirect change)
@@ -661,7 +685,8 @@ frontend/src/components/
 ```
 
 ### 7.3 No Backend Changes
-```
+
+```text
 backend/
 └── (no changes required)
 ```
@@ -673,6 +698,7 @@ backend/
 ### 8.1 Backward Compatibility
 
 **Old URLs Redirect**:
+
 ```typescript
 // Create middleware or add to layout
 // frontend/src/middleware.ts (if doesn't exist, create)
@@ -698,6 +724,7 @@ export const config = {
 ```
 
 ### 8.2 Data Migration
+
 - **No data migration needed** (routes only, no data changes)
 - All existing photo data remains unchanged
 - All existing user data remains unchanged
@@ -707,6 +734,7 @@ export const config = {
 ## 9. Testing Strategy
 
 ### 9.1 Unit Tests
+
 - FilterDropdown component
   - Renders with correct current filter
   - Calls onFilterChange with correct value
@@ -715,12 +743,14 @@ export const config = {
 - Filter data fetching functions
 
 ### 9.2 Integration Tests
+
 - Filter switching updates photos correctly
 - Pagination works with each filter
 - URL params sync with UI state
 - Authentication redirects work
 
 ### 9.3 E2E Tests
+
 - User journey: Login → Gallery (all) → Switch filter → Upload → View my photos
 - URL navigation: Direct access to `/gallery?filter=liked`
 - Browser navigation: Back/forward buttons work
@@ -731,12 +761,14 @@ export const config = {
 ## 10. Performance Considerations
 
 ### 10.1 Optimization Opportunities
+
 - **Filter Switching**: Debounce if needed (currently immediate)
 - **Photo Loading**: Show skeleton loaders during fetch
 - **Caching**: Consider caching filter results (optional)
 - **Prefetching**: Prefetch next page in background
 
 ### 10.2 Load Time Targets
+
 - Root redirect: < 100ms
 - Filter switch: < 300ms
 - Initial gallery load: < 2s
@@ -747,16 +779,19 @@ export const config = {
 ## 11. Security Considerations
 
 ### 11.1 Authentication
+
 - All protected routes check `isAuthenticated()`
 - JWT token validation on every API call
 - Expired token auto-redirects to login
 
 ### 11.2 Data Access
+
 - "My Photos" filter: Only show current user's photos
 - "Liked Photos" filter: Only show what current user liked
 - "Favorited Photos" filter: Private to current user
 
 ### 11.3 URL Manipulation
+
 - Validate filter param (whitelist: all, my-photos, liked, favorited)
 - Sanitize page param (must be positive integer)
 - Invalid params default to safe values
@@ -766,6 +801,7 @@ export const config = {
 ## 12. Error Handling
 
 ### 12.1 API Errors
+
 ```typescript
 try {
   const data = await fetchPhotos(filter, page);
@@ -778,6 +814,7 @@ try {
 ```
 
 ### 12.2 Authentication Errors
+
 ```typescript
 if (!isAuthenticated()) {
   router.push('/login');
@@ -786,6 +823,7 @@ if (!isAuthenticated()) {
 ```
 
 ### 12.3 Empty States
+
 - No photos in filter: "No photos found in this category"
 - New user (no uploads): "Upload your first photo to get started"
 - Network error: "Unable to load photos. Check your connection."
@@ -795,12 +833,14 @@ if (!isAuthenticated()) {
 ## 13. Accessibility
 
 ### 13.1 FilterDropdown
+
 - Keyboard navigable (Tab, Enter, Escape)
 - ARIA labels for screen readers
 - Focus management on open/close
 - Visual focus indicators
 
 ### 13.2 Navigation
+
 - Semantic HTML (`<nav>`, `<a>`, `<button>`)
 - Skip links for keyboard users
 - Meaningful link text ("My Profile" not "Click here")
@@ -810,12 +850,14 @@ if (!isAuthenticated()) {
 ## 14. Browser Compatibility
 
 **Target Browsers**:
+
 - Chrome 90+
 - Firefox 88+
 - Safari 14+
 - Edge 90+
 
 **Required Features**:
+
 - ES6+ (Next.js transpiles)
 - URLSearchParams API
 - Fetch API

@@ -28,13 +28,15 @@
 
 Users can currently upload, view, edit, and delete photos in the gallery, but there is **no way to express appreciation** for photos they enjoy or **save interesting photos for later**. This limits user engagement and prevents building a sense of community around shared photos.
 
-**Current State:**
+### Current State
+
 - ❌ No way to show appreciation for photos
 - ❌ No way to bookmark interesting photos
 - ❌ No engagement metrics for photo owners
 - ❌ No social interaction features
 
-**Desired State:**
+### Desired State
+
 - ✅ Users can like photos they enjoy
 - ✅ Users can unlike photos
 - ✅ Users can see how many likes a photo has
@@ -46,13 +48,15 @@ Users can currently upload, view, edit, and delete photos in the gallery, but th
 ### Solution Summary
 
 Implement a **Photo Likes system** that allows authenticated users to:
+
 1. **Like** any public photo with a single click
 2. **Unlike** photos they've previously liked
 3. **View** a dedicated "Liked Photos" page showing all photos they've liked
 4. **See like counts** on photo cards and detail pages
 5. **Experience instant feedback** through optimistic UI updates
 
-**Key Benefits:**
+### Key Benefits
+
 - 🎯 Increased user engagement
 - 💬 Foundation for future social features (comments, follows)
 - 📊 Engagement metrics for content creators
@@ -64,7 +68,8 @@ Implement a **Photo Likes system** that allows authenticated users to:
 
 ### In Scope ✅
 
-**Phase 1 (This Week): Photo Likes**
+### Phase 1 (This Week): Photo Likes
+
 1. **Like/Unlike Functionality**
    - Users can like any public photo
    - Users can unlike photos they've liked
@@ -105,7 +110,8 @@ Implement a **Photo Likes system** that allows authenticated users to:
 
 ### Out of Scope ❌
 
-**NOT in Phase 1 (This Week):**
+### NOT in Phase 1 (This Week)
+
 1. ❌ **Favorites/Bookmarks** - Different feature (next week)
 2. ❌ **Photo Comments** - Separate feature (future)
 3. ❌ **Like Notifications** - Requires email system (future)
@@ -114,7 +120,8 @@ Implement a **Photo Likes system** that allows authenticated users to:
 6. ❌ **Sort by Most Liked** - Gallery sorting enhancement (future)
 7. ❌ **Like Own Photos** - Users cannot like their own photos (business rule)
 
-**Deferred to Future Phases:**
+### Deferred to Future Phases
+
 - Photo Favorites (Phase 2 - Next week)
 - Real-time like updates via WebSocket (Phase 3 - Future)
 - Like activity feed (Phase 4 - Future)
@@ -124,7 +131,8 @@ Implement a **Photo Likes system** that allows authenticated users to:
 
 ### Scope Boundaries
 
-**Clear Boundaries:**
+### Clear Boundaries
+
 - **Likes vs Favorites:**
   - Likes = Public appreciation (visible to others)
   - Favorites = Private bookmarks (only you see)
@@ -157,7 +165,8 @@ Implement a **Photo Likes system** that allows authenticated users to:
 **I want to** like a public photo
 **So that I** can show appreciation for content I enjoy
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ When viewing a photo (gallery or detail), I see a heart icon
 - ✅ When I click the heart icon, it fills in (visual feedback)
 - ✅ The like count increases by 1 immediately
@@ -181,7 +190,8 @@ Implement a **Photo Likes system** that allows authenticated users to:
 **I want to** unlike a photo I previously liked
 **So that I** can change my mind or clean up my collection
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ When viewing a photo I've liked, the heart icon is filled
 - ✅ When I click the filled heart, it becomes outline (unlike)
 - ✅ The like count decreases by 1 immediately
@@ -203,7 +213,8 @@ Implement a **Photo Likes system** that allows authenticated users to:
 **I want to** see all photos I've liked in one place
 **So that I** can revisit content I enjoyed
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ I can navigate to "Liked Photos" page from main menu
 - ✅ The page shows all photos I've liked, newest first
 - ✅ Photos display in same grid layout as gallery
@@ -226,7 +237,8 @@ Implement a **Photo Likes system** that allows authenticated users to:
 **I want to** see how many likes a photo has
 **So that I** can gauge its popularity
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ Like count displays on photo cards in gallery
 - ✅ Like count displays on photo detail page
 - ✅ Count updates immediately when I like/unlike
@@ -246,7 +258,8 @@ Implement a **Photo Likes system** that allows authenticated users to:
 **I want** instant feedback when I like/unlike
 **So that** the app feels fast and responsive
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ When I click like, UI updates immediately (no loading spinner)
 - ✅ Like count increases before API confirms
 - ✅ If API fails, UI rolls back to previous state
@@ -270,20 +283,23 @@ Implement a **Photo Likes system** that allows authenticated users to:
 **Request Body:** None (user ID from token)
 **Response:** 201 Created
 
-**Business Rules:**
+### Business Rules
+
 1. User must be authenticated
 2. Photo must exist and be public
 3. User cannot like their own photo
 4. User cannot like the same photo twice (unique constraint)
 5. Creates record in `photo_likes` table with `(photo_id, user_id, created_at)`
 
-**Validations:**
+### Validations
+
 - Photo ID must be valid (photo exists)
 - Photo must be public (is_public = true)
 - Photo owner_id ≠ current user_id
 - No existing like for this photo+user combination
 
-**Error Cases:**
+### Error Cases
+
 - 401 Unauthorized: No JWT token
 - 404 Not Found: Photo doesn't exist
 - 403 Forbidden: Photo is private OR user is owner
@@ -298,16 +314,19 @@ Implement a **Photo Likes system** that allows authenticated users to:
 **Request Body:** None (user ID from token)
 **Response:** 204 No Content
 
-**Business Rules:**
+### Business Rules
+
 1. User must be authenticated
 2. Like must exist (user has previously liked this photo)
 3. Deletes record from `photo_likes` table matching `(photo_id, user_id)`
 
-**Validations:**
+### Validations
+
 - Photo ID must be valid
 - Like record must exist for this photo+user
 
-**Error Cases:**
+### Error Cases
+
 - 401 Unauthorized: No JWT token
 - 404 Not Found: Photo doesn't exist OR not liked
 - 400 Bad Request: Photo not previously liked
@@ -318,19 +337,23 @@ Implement a **Photo Likes system** that allows authenticated users to:
 
 **Endpoint:** `GET /api/gallery/liked-photos?page=0&size=12`
 **Authentication:** Required (JWT)
-**Query Parameters:**
+
+### Query Parameters
+
 - `page` (optional, default: 0)
 - `size` (optional, default: 12)
 
 **Response:** 200 OK with paginated photo list
 
-**Business Rules:**
+### Business Rules
+
 1. Returns all photos liked by current user
 2. Ordered by most recently liked first (created_at DESC)
 3. Pagination support
 4. Includes full photo details (same as gallery response)
 
-**Response Format:**
+### Response Format
+
 ```json
 {
   "content": [
@@ -360,13 +383,16 @@ Implement a **Photo Likes system** that allows authenticated users to:
 ### FR-4: Like Button Component
 
 **Component:** `LikeButton.tsx`
-**Props:**
+
+### Props
+
 - `photoId: number` - Photo to like/unlike
 - `isLiked: boolean` - Current like state
 - `likeCount: number` - Current like count
 - `onLikeChange?: (liked: boolean) => void` - Callback
 
-**Behavior:**
+### Behavior
+
 1. Displays heart icon (outline if unliked, filled if liked)
 2. Shows like count next to icon
 3. On click:
@@ -375,7 +401,8 @@ Implement a **Photo Likes system** that allows authenticated users to:
    - If API fails, rolls back UI
    - Shows error toast on failure
 
-**States:**
+### States
+
 - Default: Outline heart + count
 - Liked: Filled heart + count
 - Loading: Disabled state (during API call)
@@ -389,13 +416,15 @@ Implement a **Photo Likes system** that allows authenticated users to:
 **Component:** `LikedPhotosPage.tsx`
 **Authentication:** Required
 
-**Layout:**
+### Layout
+
 - Page title: "Liked Photos"
 - Same grid layout as gallery (1-4 columns)
 - Pagination controls at bottom
 - Empty state: "You haven't liked any photos yet. Start exploring!"
 
-**Features:**
+### Features
+
 - Displays all liked photos
 - Each photo card shows:
   - Photo image
@@ -462,6 +491,7 @@ Implement a **Photo Likes system** that allows authenticated users to:
 ### Feature Completeness
 
 ✅ **Must Have (Phase 1 - This Week):**
+
 1. Users can like any public photo
 2. Users can unlike photos they've liked
 3. Like count displays correctly on all photo views
@@ -471,12 +501,14 @@ Implement a **Photo Likes system** that allows authenticated users to:
 7. Gherkin specs written for Photo Likes and Profile Picture
 
 ✅ **Should Have (Nice to Have):**
+
 1. Like button animation (heart pops when liked)
 2. Loading state during API call
 3. Error toast notifications
 4. Empty state with helpful message
 
 ❌ **Won't Have (Out of Scope):**
+
 1. Favorites feature (next week)
 2. Real-time updates (future)
 3. Like notifications (future)
@@ -486,20 +518,23 @@ Implement a **Photo Likes system** that allows authenticated users to:
 
 ### Quality Metrics
 
-**Testing:**
+### Testing
+
 - ✅ 32 tests total with 100% pass rate
 - ✅ Unit tests: 8 tests (PhotoLikeService)
 - ✅ Integration tests: 6 tests (Controller + Service)
 - ✅ API tests: 8 tests (Full backend with real DB)
 - ✅ E2E tests: 10 tests (Full FE + BE flow)
 
-**Code Quality:**
+### Code Quality
+
 - ✅ No duplicate code
 - ✅ Follows project coding conventions
 - ✅ Proper error handling
 - ✅ Clear variable/function names
 
-**Documentation:**
+### Documentation
+
 - ✅ Gherkin specs complete (22 scenarios total)
 - ✅ API documentation updated
 - ✅ README updated with feature
@@ -509,7 +544,8 @@ Implement a **Photo Likes system** that allows authenticated users to:
 
 ### User Acceptance Criteria
 
-**Feature is accepted when:**
+### Feature is accepted when
+
 1. ✅ I can like a photo and see immediate visual feedback
 2. ✅ I can unlike a photo and see count decrease
 3. ✅ I can navigate to Liked Photos and see all my likes
@@ -525,36 +561,41 @@ Implement a **Photo Likes system** that allows authenticated users to:
 
 ### Technical Dependencies
 
-**Backend:**
+### Backend
+
 - ✅ Spring Boot 3.3.6 (already installed)
 - ✅ PostgreSQL database (already running)
 - ✅ Spring Data JPA (already configured)
 - ✅ JWT authentication (already implemented)
 - ✅ Flyway migrations (already configured)
 
-**Frontend:**
+### Frontend
+
 - ✅ Next.js 15.5.0 (already installed)
 - ✅ React 19.1.0 (already installed)
 - ✅ Tailwind CSS 4 (already installed)
 - ✅ JWT token management (already implemented)
 
-**Testing:**
+### Testing
+
 - ✅ JUnit 5 + Mockito (already configured)
 - ✅ Playwright (already installed)
 - ✅ PostgreSQL test database (already configured)
 
-**No new dependencies required!**
+### No new dependencies required
 
 ---
 
 ### Feature Dependencies
 
-**Required Features (Must be complete):**
+### Required Features (Must be complete)
+
 - ✅ User Authentication (JWT) - Already implemented
 - ✅ Photo Gallery (upload, view, CRUD) - Already implemented
 - ✅ Public/Private photo privacy - Already implemented
 
-**Blocked Features (Cannot start until this is done):**
+### Blocked Features (Cannot start until this is done)
+
 - ⏳ Photo Favorites - Depends on Likes pattern
 - ⏳ Comments - Depends on engagement foundation
 - ⏳ Like notifications - Depends on email system (future)
@@ -607,7 +648,8 @@ Implement a **Photo Likes system** that allows authenticated users to:
 **Probability:** Medium
 **Impact:** High (data integrity)
 
-**Mitigation:**
+### Mitigation
+
 - ✅ Database unique constraint on (photo_id, user_id)
 - ✅ API returns 409 Conflict if duplicate
 - ✅ Frontend disables button during API call
@@ -621,7 +663,8 @@ Implement a **Photo Likes system** that allows authenticated users to:
 **Probability:** Low
 **Impact:** Medium (user confusion)
 
-**Mitigation:**
+### Mitigation
+
 - ✅ Clear error toast with "Failed to like. Please try again."
 - ✅ UI smoothly reverts to previous state
 - ✅ Retry button in error toast
@@ -635,7 +678,8 @@ Implement a **Photo Likes system** that allows authenticated users to:
 **Probability:** Low (most users < 100 likes)
 **Impact:** Medium (slow page load)
 
-**Mitigation:**
+### Mitigation
+
 - ✅ Pagination (12 per page) prevents loading all at once
 - ✅ Database indexes on photo_likes.user_id
 - ✅ Lazy loading images
@@ -649,7 +693,8 @@ Implement a **Photo Likes system** that allows authenticated users to:
 **Probability:** Medium
 **Impact:** High (missed deadline)
 
-**Mitigation:**
+### Mitigation
+
 - ✅ Clear scope document (this file!)
 - ✅ Defer all "nice to have" features
 - ✅ Focus on 32 tests passing
@@ -663,7 +708,7 @@ Implement a **Photo Likes system** that allows authenticated users to:
 
 1. ✅ Review and approve this requirements document
 2. ⏳ Read [Technical Design](technical-design.md)
-3. ⏳ Create database migration (V3__create_photo_likes.sql)
+3. ⏳ Create database migration (V3\_\_create_photo_likes.sql)
 4. ⏳ Create PhotoLike entity
 5. ⏳ Write Gherkin specs
 
@@ -673,7 +718,7 @@ Implement a **Photo Likes system** that allows authenticated users to:
 - Create REST endpoints
 - Write Playwright API tests (automated!)
 
-**See [Daily Checklist](checklist.md) for detailed task breakdown!**
+### See [Daily Checklist](checklist.md) for detailed task breakdown
 
 ---
 
@@ -682,4 +727,4 @@ Implement a **Photo Likes system** that allows authenticated users to:
 
 ---
 
-**Ready to build! Let's make this happen! 🚀**
+### Ready to build! Let's make this happen! 🚀

@@ -17,7 +17,7 @@ This document provides technical implementation details for the Photo Gallery fe
 
 ### Layer Structure
 
-```
+```text
 ┌─────────────────────────────────────────────┐
 │                 FRONTEND                     │
 │  (Next.js + React + TypeScript)             │
@@ -306,7 +306,7 @@ public void validateGalleryPhoto(MultipartFile file) {
 
 ### File Structure
 
-```
+```text
 frontend/src/
 ├── app/gallery/
 │   ├── page.tsx              # Gallery list page
@@ -333,21 +333,21 @@ const API_BASE = '/api/gallery';
 export const galleryService = {
   async uploadPhoto(formData: FormData): Promise<GalleryPhotoResponse> {
     const response = await api.post(`${API_BASE}/upload`, formData, {
-      headers: { 'Content-Type': 'multipart/form-data' }
+      headers: { 'Content-Type': 'multipart/form-data' },
     });
     return response.data;
   },
 
   async getMyPhotos(page = 0, size = 20): Promise<GalleryListResponse> {
     const response = await api.get(`${API_BASE}/my-photos`, {
-      params: { page, size }
+      params: { page, size },
     });
     return response.data;
   },
 
   async getPublicPhotos(page = 0, size = 20): Promise<GalleryListResponse> {
     const response = await api.get(`${API_BASE}/public`, {
-      params: { page, size }
+      params: { page, size },
     });
     return response.data;
   },
@@ -357,7 +357,10 @@ export const galleryService = {
     return response.data;
   },
 
-  async updatePhoto(id: number, data: UpdatePhotoRequest): Promise<GalleryPhotoResponse> {
+  async updatePhoto(
+    id: number,
+    data: UpdatePhotoRequest
+  ): Promise<GalleryPhotoResponse> {
     const response = await api.put(`${API_BASE}/photo/${id}`, data);
     return response.data;
   },
@@ -369,7 +372,7 @@ export const galleryService = {
 
   async deletePhoto(id: number): Promise<void> {
     await api.delete(`${API_BASE}/photo/${id}`);
-  }
+  },
 };
 ```
 
@@ -440,16 +443,19 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 ## Testing Strategy
 
 ### Unit Tests
+
 - GalleryServiceTest (18 tests)
 - FileStorageServiceTest (8 tests)
 - Repository tests (7 tests)
 
 ### Integration Tests
+
 - API endpoint tests
 - Authorization tests
 - File upload tests
 
 ### E2E Tests
+
 - See: [E2E Gallery Tests](../2024-12-08__e2e-gallery-tests/)
 
 ---

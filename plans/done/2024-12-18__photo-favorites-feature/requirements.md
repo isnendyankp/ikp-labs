@@ -28,14 +28,16 @@
 
 Users can currently like photos to show appreciation (public engagement), but there is **no way to privately save photos for later viewing**. This limits the ability to build personal collections and organize content they want to revisit.
 
-**Current State:**
+### Current State
+
 - ✅ Users can like photos (public appreciation)
 - ❌ No way to privately bookmark photos
 - ❌ No personal collection management
 - ❌ Cannot save own photos to favorites
 - ❌ No quick access to saved content
 
-**Desired State:**
+### Desired State
+
 - ✅ Users can favorite any photo (public or own)
 - ✅ Users can unfavorite photos
 - ✅ Users can view all their favorited photos
@@ -47,13 +49,15 @@ Users can currently like photos to show appreciation (public engagement), but th
 ### Solution Summary
 
 Implement a **Photo Favorites system** that allows authenticated users to:
+
 1. **Favorite** any photo they have access to
 2. **Unfavorite** photos they've previously saved
 3. **View** a dedicated "Favorited Photos" page showing all their saved photos
 4. **Private collection** - only the user can see their favorites
 5. **Experience instant feedback** through optimistic UI updates
 
-**Key Benefits:**
+### Key Benefits
+
 - 🔖 Personal bookmarking system
 - 📂 Content organization for later
 - 🔒 Private collection (unlike Likes which are public)
@@ -66,7 +70,8 @@ Implement a **Photo Favorites system** that allows authenticated users to:
 
 ### In Scope ✅
 
-**Phase 2 (This Week): Photo Favorites**
+### Phase 2 (This Week): Photo Favorites
+
 1. **Favorite/Unfavorite Functionality**
    - Users can favorite any photo they have access to
    - Users can unfavorite photos they've saved
@@ -108,7 +113,8 @@ Implement a **Photo Favorites system** that allows authenticated users to:
 
 ### Out of Scope ❌
 
-**NOT in Phase 2 (This Week):**
+### NOT in Phase 2 (This Week)
+
 1. ❌ **Favorite Collections/Folders** - Organizing favorites into categories (future)
 2. ❌ **Favorite Tags** - Tagging favorites for organization (future)
 3. ❌ **Share Favorites** - Sharing favorite collections with others (future)
@@ -117,7 +123,8 @@ Implement a **Photo Favorites system** that allows authenticated users to:
 6. ❌ **Export Favorites** - Download favorited photos as zip (future)
 7. ❌ **Sort Favorited Photos** - Custom sorting options (future)
 
-**Deferred to Future Phases:**
+### Deferred to Future Phases
+
 - Favorite Collections (Phase 3 - Future)
 - Public favorite counter (Phase 4 - Future)
 - Export functionality (Phase 5 - Future)
@@ -127,7 +134,8 @@ Implement a **Photo Favorites system** that allows authenticated users to:
 
 ### Scope Boundaries
 
-**Clear Boundaries:**
+### Clear Boundaries
+
 - **Favorites vs Likes:**
   - Favorites = **Private** bookmarks (only you see)
   - Likes = **Public** appreciation (everyone sees count)
@@ -169,7 +177,8 @@ Implement a **Photo Favorites system** that allows authenticated users to:
 **I want to** favorite a photo
 **So that I** can save it for later viewing
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ When viewing a photo (gallery or detail), I see a star icon
 - ✅ When I click the star icon, it fills in (visual feedback)
 - ✅ The photo is saved to my "Favorited Photos" collection
@@ -193,7 +202,8 @@ Implement a **Photo Favorites system** that allows authenticated users to:
 **I want to** unfavorite a photo I previously saved
 **So that I** can clean up my collection or change my mind
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ When viewing a photo I've favorited, the star icon is filled
 - ✅ When I click the filled star, it becomes outline (unfavorite)
 - ✅ The photo is removed from my "Favorited Photos" collection
@@ -215,7 +225,8 @@ Implement a **Photo Favorites system** that allows authenticated users to:
 **I want to** see all photos I've favorited in one place
 **So that I** can easily access my saved content
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ I can navigate to "Favorited Photos" page from main menu
 - ✅ The page shows all photos I've favorited, newest first
 - ✅ Photos display in same grid layout as gallery
@@ -240,7 +251,8 @@ Implement a **Photo Favorites system** that allows authenticated users to:
 **I want** my favorites to be private
 **So that** I can save content without others knowing
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ My favorited photos are only visible to me
 - ✅ No favorite counter displays on photos (unlike Likes)
 - ✅ Other users cannot see what I've favorited
@@ -260,7 +272,8 @@ Implement a **Photo Favorites system** that allows authenticated users to:
 **I want to** favorite my own photos
 **So that I** can highlight them or organize my portfolio
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ I can favorite photos I uploaded
 - ✅ I can favorite my own public photos
 - ✅ I can favorite my own private photos
@@ -281,7 +294,8 @@ Implement a **Photo Favorites system** that allows authenticated users to:
 **I want** instant feedback when I favorite/unfavorite
 **So that** the app feels fast and responsive
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ When I click favorite, UI updates immediately (no loading spinner)
 - ✅ If API fails, UI rolls back to previous state
 - ✅ Error message shows if favorite fails
@@ -301,7 +315,8 @@ Implement a **Photo Favorites system** that allows authenticated users to:
 **I want to** both like AND favorite the same photo
 **So that I** can show appreciation (public) and save (private)
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - ✅ I can like and favorite the same photo
 - ✅ Like button (heart) and Favorite button (star) work independently
 - ✅ Both buttons can be active at same time
@@ -323,7 +338,8 @@ Implement a **Photo Favorites system** that allows authenticated users to:
 **Request Body:** None (user ID from token)
 **Response:** 201 Created
 
-**Business Rules:**
+### Business Rules
+
 1. User must be authenticated
 2. Photo must exist
 3. **User CAN favorite their own photo** (different from Likes!)
@@ -331,12 +347,14 @@ Implement a **Photo Favorites system** that allows authenticated users to:
 5. Creates record in `photo_favorites` table with `(photo_id, user_id, created_at)`
 6. No visibility to other users (private)
 
-**Validations:**
+### Validations
+
 - Photo ID must be valid (photo exists)
 - Photo must be accessible (public OR user is owner)
 - No existing favorite for this photo+user combination
 
-**Error Cases:**
+### Error Cases
+
 - 401 Unauthorized: No JWT token
 - 404 Not Found: Photo doesn't exist
 - 403 Forbidden: Photo is private AND user is not owner
@@ -351,16 +369,19 @@ Implement a **Photo Favorites system** that allows authenticated users to:
 **Request Body:** None (user ID from token)
 **Response:** 204 No Content
 
-**Business Rules:**
+### Business Rules
+
 1. User must be authenticated
 2. Favorite must exist (user has previously favorited this photo)
 3. Deletes record from `photo_favorites` table matching `(photo_id, user_id)`
 
-**Validations:**
+### Validations
+
 - Photo ID must be valid
 - Favorite record must exist for this photo+user
 
-**Error Cases:**
+### Error Cases
+
 - 401 Unauthorized: No JWT token
 - 404 Not Found: Photo doesn't exist OR not favorited
 - 400 Bad Request: Photo not previously favorited
@@ -371,20 +392,24 @@ Implement a **Photo Favorites system** that allows authenticated users to:
 
 **Endpoint:** `GET /api/gallery/favorited-photos?page=0&size=12`
 **Authentication:** Required (JWT)
-**Query Parameters:**
+
+### Query Parameters
+
 - `page` (optional, default: 0)
 - `size` (optional, default: 12)
 
 **Response:** 200 OK with paginated photo list
 
-**Business Rules:**
+### Business Rules
+
 1. Returns all photos favorited by current user
 2. Ordered by most recently favorited first (created_at DESC)
 3. Pagination support
 4. Includes full photo details (same as gallery response)
 5. **Only returns current user's favorites** (private)
 
-**Response Format:**
+### Response Format
+
 ```json
 {
   "content": [
@@ -415,12 +440,15 @@ Implement a **Photo Favorites system** that allows authenticated users to:
 ### FR-4: Favorite Button Component
 
 **Component:** `FavoriteButton.tsx`
-**Props:**
+
+### Props
+
 - `photoId: number` - Photo to favorite/unfavorite
 - `isFavorited: boolean` - Current favorite state
 - `onFavoriteChange?: (favorited: boolean) => void` - Callback
 
-**Behavior:**
+### Behavior
+
 1. Displays star icon (outline if not favorited, filled if favorited)
 2. On click:
    - Optimistically updates UI (instant feedback)
@@ -428,13 +456,15 @@ Implement a **Photo Favorites system** that allows authenticated users to:
    - If API fails, rolls back UI
    - Shows error toast on failure
 
-**States:**
+### States
+
 - Default: Outline star
 - Favorited: Filled star (gold/yellow color)
 - Loading: Disabled state (during API call)
 - Error: Reverts to previous state + error message
 
-**Visual Design:**
+### Visual Design
+
 - Outline star: ⭐ (border only)
 - Filled star: ⭐ (solid gold/yellow)
 - Position: Next to like button
@@ -447,13 +477,15 @@ Implement a **Photo Favorites system** that allows authenticated users to:
 **Component:** `FavoritedPhotosPage.tsx`
 **Authentication:** Required
 
-**Layout:**
+### Layout
+
 - Page title: "Favorited Photos"
 - Same grid layout as gallery (1-4 columns)
 - Pagination controls at bottom
 - Empty state: "You haven't favorited any photos yet. Start exploring!"
 
-**Features:**
+### Features
+
 - Displays all favorited photos
 - Each photo card shows:
   - Photo image
@@ -522,6 +554,7 @@ Implement a **Photo Favorites system** that allows authenticated users to:
 ### Feature Completeness
 
 ✅ **Must Have (Phase 2 - This Week):**
+
 1. Users can favorite any photo they have access to
 2. Users can unfavorite photos they've saved
 3. Users can favorite their own photos
@@ -533,6 +566,7 @@ Implement a **Photo Favorites system** that allows authenticated users to:
 9. Gherkin specs written for Photo Favorites
 
 ✅ **Should Have (Nice to Have):**
+
 1. Favorite button animation (star pops when favorited)
 2. Loading state during API call
 3. Error toast notifications
@@ -540,6 +574,7 @@ Implement a **Photo Favorites system** that allows authenticated users to:
 5. Clear visual distinction from Like button
 
 ❌ **Won't Have (Out of Scope):**
+
 1. Favorite collections/folders (future)
 2. Public favorite counter (future)
 3. Share favorites (future)
@@ -549,21 +584,24 @@ Implement a **Photo Favorites system** that allows authenticated users to:
 
 ### Quality Metrics
 
-**Testing:**
+### Testing
+
 - ✅ 32 tests total with 100% pass rate
 - ✅ Unit tests: 8 tests (PhotoFavoriteService)
 - ✅ Integration tests: 6 tests (Controller + Service)
 - ✅ API tests: 8 tests (Full backend with real DB)
 - ✅ E2E tests: 10 tests (Full FE + BE flow)
 
-**Code Quality:**
+### Code Quality
+
 - ✅ No duplicate code
 - ✅ Follows project coding conventions
 - ✅ Proper error handling
 - ✅ Clear variable/function names
 - ✅ Privacy enforced at all layers
 
-**Documentation:**
+### Documentation
+
 - ✅ Gherkin specs complete (12 scenarios)
 - ✅ API documentation updated
 - ✅ README updated with feature
@@ -573,7 +611,8 @@ Implement a **Photo Favorites system** that allows authenticated users to:
 
 ### User Acceptance Criteria
 
-**Feature is accepted when:**
+### Feature is accepted when
+
 1. ✅ I can favorite a photo and see immediate visual feedback
 2. ✅ I can unfavorite a photo
 3. ✅ I can favorite my own photos (unlike Likes)
@@ -591,36 +630,41 @@ Implement a **Photo Favorites system** that allows authenticated users to:
 
 ### Technical Dependencies
 
-**Backend:**
+### Backend
+
 - ✅ Spring Boot 3.3.6 (already installed)
 - ✅ PostgreSQL database (already running)
 - ✅ Spring Data JPA (already configured)
 - ✅ JWT authentication (already implemented)
 - ✅ Flyway migrations (already configured)
 
-**Frontend:**
+### Frontend
+
 - ✅ Next.js 15.5.0 (already installed)
 - ✅ React 19.1.0 (already installed)
 - ✅ Tailwind CSS 4 (already installed)
 - ✅ JWT token management (already implemented)
 
-**Testing:**
+### Testing
+
 - ✅ JUnit 5 + Mockito (already configured)
 - ✅ Playwright (already installed)
 - ✅ PostgreSQL test database (already configured)
 
-**No new dependencies required!**
+### No new dependencies required
 
 ---
 
 ### Feature Dependencies
 
-**Required Features (Must be complete):**
+### Required Features (Must be complete)
+
 - ✅ User Authentication (JWT) - Already implemented
 - ✅ Photo Gallery (upload, view, CRUD) - Already implemented
 - ✅ Photo Likes - Already implemented (works alongside)
 
-**Blocked Features (Cannot start until this is done):**
+### Blocked Features (Cannot start until this is done)
+
 - ⏳ Favorite Collections - Depends on Favorites foundation
 - ⏳ Export Favorites - Depends on Favorites data structure
 
@@ -672,7 +716,8 @@ Implement a **Photo Favorites system** that allows authenticated users to:
 **Probability:** Medium
 **Impact:** High (data integrity)
 
-**Mitigation:**
+### Mitigation
+
 - ✅ Database unique constraint on (photo_id, user_id)
 - ✅ API returns 409 Conflict if duplicate
 - ✅ Frontend disables button during API call
@@ -686,7 +731,8 @@ Implement a **Photo Favorites system** that allows authenticated users to:
 **Probability:** Low
 **Impact:** High (privacy breach)
 
-**Mitigation:**
+### Mitigation
+
 - ✅ Privacy enforced at API controller level
 - ✅ No public endpoints for favorite counts
 - ✅ Security testing for all endpoints
@@ -700,7 +746,8 @@ Implement a **Photo Favorites system** that allows authenticated users to:
 **Probability:** Medium
 **Impact:** Medium (UX confusion)
 
-**Mitigation:**
+### Mitigation
+
 - ✅ Clear visual distinction (heart vs star)
 - ✅ Tooltips explaining difference
 - ✅ Documentation in UI
@@ -714,7 +761,8 @@ Implement a **Photo Favorites system** that allows authenticated users to:
 **Probability:** Low (most users < 100 favorites)
 **Impact:** Medium (slow page load)
 
-**Mitigation:**
+### Mitigation
+
 - ✅ Pagination (12 per page) prevents loading all at once
 - ✅ Database indexes on photo_favorites.user_id
 - ✅ Lazy loading images
@@ -728,7 +776,7 @@ Implement a **Photo Favorites system** that allows authenticated users to:
 
 1. ✅ Review and approve this requirements document
 2. ⏳ Read [Technical Design](technical-design.md)
-3. ⏳ Create database migration (V4__create_photo_favorites.sql)
+3. ⏳ Create database migration (V4\_\_create_photo_favorites.sql)
 4. ⏳ Create PhotoFavorite entity
 5. ⏳ Write Gherkin specs
 
@@ -738,7 +786,7 @@ Implement a **Photo Favorites system** that allows authenticated users to:
 - Create REST endpoints
 - Write Playwright API tests (automated!)
 
-**See [Daily Checklist](checklist.md) for detailed task breakdown!**
+### See [Daily Checklist](checklist.md) for detailed task breakdown
 
 ---
 
@@ -747,4 +795,4 @@ Implement a **Photo Favorites system** that allows authenticated users to:
 
 ---
 
-**Ready to build! Let's make this happen! 🚀**
+### Ready to build! Let's make this happen! 🚀

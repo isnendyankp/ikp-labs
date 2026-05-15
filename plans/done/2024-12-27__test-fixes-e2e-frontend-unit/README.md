@@ -1,6 +1,6 @@
 # Test Fixes - E2E & Frontend Unit Tests
 
-**Feature ID**: 2024-12-27__test-fixes-e2e-frontend-unit
+**Feature ID**: 2024-12-27\_\_test-fixes-e2e-frontend-unit
 **Status**: ✅ Partially Complete (48% E2E Improvement)
 **Created**: December 27, 2024
 **Last Updated**: December 27, 2024
@@ -11,6 +11,7 @@
 **E2E Test Status**: 10/21 scenarios passing (48%) - **Improved from 0%** ✅
 
 ### Completed This Session
+
 1. ✅ **Critical Port/BaseURL Fix** (Commits: 86e5a3f, 5100404)
    - Fixed hardcoded port 3000 → relative URLs with baseURL
    - Added baseURL to Playwright browser context
@@ -22,6 +23,7 @@
    - Documented for future investigation
 
 ### Deferred to Next Week
+
 - Remaining 11 E2E scenarios (validation, visual feedback, password toggle)
 - Frontend Unit Tests (Jest)
 - Test documentation
@@ -36,6 +38,7 @@ This plan focuses on fixing pre-existing test failures in the **E2E (Cucumber/Pl
 ## Context
 
 After implementing the gallery-centric navigation feature, comprehensive test analysis revealed:
+
 - **Backend Unit Tests**: ✅ 100% PASS (87 tests - GalleryService, AuthService, etc.)
 - **E2E Tests**: ❌ 33% pass (7/21 scenarios - 14 pre-existing failures)
 - **Frontend Unit Tests**: ⚠️ Not verified yet (Jest tests exist but not run recently)
@@ -46,11 +49,13 @@ After implementing the gallery-centric navigation feature, comprehensive test an
 ## Goals
 
 ### Primary Objectives
+
 1. **Fix E2E Tests**: Achieve 100% E2E scenario pass rate (21/21 scenarios)
 2. **Verify Frontend Unit Tests**: Run Jest tests and fix any failures
 3. **Maintain Test Quality**: Ensure tests validate real user behavior, not implementation details
 
 ### Success Metrics
+
 - E2E Tests: 7/21 → **10/21 PASS** (48%) ✅ PARTIAL
   - ✅ Critical blocker resolved (port/baseURL)
   - ⏸️ Remaining 11 scenarios deferred to next week
@@ -61,23 +66,29 @@ After implementing the gallery-centric navigation feature, comprehensive test an
 ## Scope
 
 ### In Scope (This Week - Option A)
+
 ✅ **E2E Tests** (Priority 1 - 1.5 hours):
+
 - Port configuration fixes (3000 → 3002)
 - Validation display expectation updates
 - Google OAuth mock setup
 - Password visibility timing fixes
 
 ✅ **Frontend Unit Tests** (Priority 2 - 15 min):
+
 - Run `npm test` (Jest)
 - Fix any failures
 - Verify LoginForm.test.tsx passes
 
 ### Out of Scope (Deferred to Next Week - Option B)
+
 ⏸️ **Backend Integration Tests**:
+
 - UserRepositoryTest (17 NoClassDefFound errors)
 - Other repository test class loading issues
 
 ⏸️ **Backend API Tests** (Controller Mocks):
+
 - GalleryControllerTest (6 NullPointer errors)
 - UserControllerTest mock setup
 - ProfileControllerTest mock setup
@@ -86,31 +97,36 @@ After implementing the gallery-centric navigation feature, comprehensive test an
 
 ### E2E Test Failures (14 scenarios)
 
-#### 1. Port Configuration (2 failures)
+### 1. Port Configuration (2 failures)
+
 **Issue**: Tests hardcoded to port 3000, but frontend runs on 3002
 **Error**: `net::ERR_CONNECTION_REFUSED at http://localhost:3000/login`
 **Fix**: Update test configuration to use port 3002
 **Time**: 2 minutes
 
-#### 2. Validation Display (5 failures)
+### 2. Validation Display (5 failures)
+
 **Issue**: Tests expect validation errors to appear immediately, but frontend triggers on submit
 **Error**: `expect(locator).toBeVisible() failed - Locator: text=Please enter a valid email`
 **Fix**: Update test expectations to submit form before checking validation
 **Time**: 30 minutes
 
-#### 3. Google OAuth Mock (2 failures)
+### 3. Google OAuth Mock (2 failures)
+
 **Issue**: Mock Google OAuth button not detected in tests
 **Error**: Test expects Google button but can't find it
 **Fix**: Update mock setup or test selectors
 **Time**: 30 minutes
 
-#### 4. Password Visibility Toggle (1 failure)
+### 4. Password Visibility Toggle (1 failure)
+
 **Issue**: UI timing issue when toggling password visibility
 **Error**: Test clicks too fast before React state updates
 **Fix**: Add proper wait conditions
 **Time**: 15 minutes
 
 ### Frontend Unit Test Status
+
 **Status**: Unknown - needs verification
 **Action**: Run `npm test` and address failures
 **Estimated Time**: 15 minutes
@@ -118,18 +134,21 @@ After implementing the gallery-centric navigation feature, comprehensive test an
 ## Features
 
 ### 1. E2E Test Fixes
+
 - Fix port configuration in Playwright config
 - Update validation test expectations
 - Fix Google OAuth mock detection
 - Add proper wait conditions for UI state changes
 
 ### 2. Frontend Unit Test Verification
+
 - Run Jest test suite
 - Fix any component test failures
 - Verify LoginForm tests pass
 - Add missing tests if coverage low
 
 ### 3. Test Documentation
+
 - Document test patterns for future developers
 - Add comments explaining wait conditions
 - Update test README if needed
@@ -137,20 +156,24 @@ After implementing the gallery-centric navigation feature, comprehensive test an
 ## Technical Approach
 
 ### E2E Tests (Cucumber/Playwright)
+
 **Test Location**: `frontend/tests/gherkin/features/`
 **Command**: `npm run test:cucumber`
 
 **Fix Strategy**:
+
 1. Port config: Update Playwright config or env vars
 2. Validation: Update step definitions to submit form first
 3. OAuth: Fix mock button selector or visibility
 4. Timing: Add `await page.waitForSelector()` where needed
 
 ### Frontend Unit Tests (Jest)
+
 **Test Location**: `frontend/src/components/__tests__/`
 **Command**: `npm test`
 
 **Fix Strategy**:
+
 1. Run tests to identify failures
 2. Fix any outdated snapshot tests
 3. Update component mocks if needed
@@ -159,18 +182,21 @@ After implementing the gallery-centric navigation feature, comprehensive test an
 ## Success Criteria
 
 ### Functional
+
 - [ ] All 21 E2E scenarios pass
 - [ ] All frontend unit tests pass
 - [ ] No test flakiness (consistent pass/fail)
 - [ ] Tests run in reasonable time (< 5 min total)
 
 ### Code Quality
+
 - [ ] Tests validate user behavior, not implementation
 - [ ] Proper wait conditions (no arbitrary sleeps)
 - [ ] Clear test descriptions
 - [ ] No hardcoded values (use config/env)
 
 ### Documentation
+
 - [ ] Test patterns documented
 - [ ] Common issues noted in README
 - [ ] Team knows how to run tests locally
@@ -178,11 +204,13 @@ After implementing the gallery-centric navigation feature, comprehensive test an
 ## Dependencies
 
 ### Internal
+
 - Gallery-centric navigation feature (completed)
 - Existing E2E test framework
 - Existing Jest test setup
 
 ### External
+
 - Playwright (E2E testing)
 - Cucumber (BDD framework)
 - Jest (unit testing)
@@ -193,6 +221,7 @@ After implementing the gallery-centric navigation feature, comprehensive test an
 **Estimated Duration**: 1 development session (~2 hours)
 
 **Phases**:
+
 1. ✅ Planning & Documentation (Completed)
 2. ⏳ E2E Test Fixes (1.5 hours)
 3. ⏳ Frontend Unit Test Verification (15 min)
@@ -213,7 +242,9 @@ After implementing the gallery-centric navigation feature, comprehensive test an
 ## Notes
 
 ### Why Skip Backend Tests This Week?
+
 **ROI Analysis**:
+
 - Backend unit tests already 100% PASS ✅
 - E2E tests validate full stack (including backend)
 - Integration/API test failures are mock setup issues (low user impact)
@@ -222,12 +253,15 @@ After implementing the gallery-centric navigation feature, comprehensive test an
 **Backend tests deferred to next week** as separate technical debt cleanup plan.
 
 ### Test Philosophy
+
 - **E2E Tests**: Validate real user workflows (login, navigation, interactions)
 - **Unit Tests**: Validate component logic in isolation
 - **Integration Tests**: Validate database + service layer (already covered by E2E)
 
 ### Atomic Commit Strategy
+
 Each fix type = 1 atomic commit:
+
 - E2E port config fix
 - E2E validation fix
 - E2E OAuth fix

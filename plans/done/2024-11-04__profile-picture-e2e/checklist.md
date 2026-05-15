@@ -23,6 +23,7 @@ This checklist tracks the implementation progress of the Profile Picture E2E tes
 ## Test Scenarios
 
 ### 1. Profile Picture Upload Flow
+
 - [x] Register new user
 - [x] Login with credentials
 - [x] Navigate to home page
@@ -32,6 +33,7 @@ This checklist tracks the implementation progress of the Profile Picture E2E tes
 - [x] Verify profile picture URL updated
 
 ### 2. Profile Picture Delete Flow
+
 - [x] Use existing authenticated user with uploaded picture
 - [x] Click "Delete Picture" button
 - [x] Confirm deletion in dialog
@@ -40,6 +42,7 @@ This checklist tracks the implementation progress of the Profile Picture E2E tes
 - [x] Verify success message
 
 ### 3. Complete End-to-End Flow
+
 - [x] Register new unique user
 - [x] Auto-redirect to home after registration
 - [x] Verify user info displayed
@@ -51,18 +54,21 @@ This checklist tracks the implementation progress of the Profile Picture E2E tes
 - [x] Verify redirected to login
 
 ### 4. Upload Validation Tests
+
 - [x] Test file > 5MB (should fail)
 - [x] Test non-image file (should fail)
 - [x] Test unsupported format (should fail)
 - [x] Verify error messages displayed
 
 ### 5. Profile Picture Persistence
+
 - [x] Upload profile picture
 - [x] Refresh page
 - [x] Verify picture still displayed
 - [x] Verify no re-upload required
 
 ### 6. Multiple Upload/Delete Cycles
+
 - [x] Upload picture #1
 - [x] Delete picture #1
 - [x] Upload picture #2 (different image)
@@ -95,42 +101,50 @@ This checklist tracks the implementation progress of the Profile Picture E2E tes
 ## Implementation Steps
 
 ### Step 1: Create Test Fixtures
+
 - [x] Create `tests/fixtures/` directory
 - [x] Add test image files
 - [x] Add invalid file for validation tests
 
 ### Step 2: Create Helper Functions
+
 - [x] Extract common patterns into reusable helpers
 - [x] Add authentication helpers
 - [x] Add upload/delete helpers
 
 ### Step 3: Write Basic Upload Test
+
 - [x] Test file selection
 - [x] Test upload button click
 - [x] Test success verification
 
 ### Step 4: Write Basic Delete Test
+
 - [x] Test delete button click
 - [x] Test confirmation dialog
 - [x] Test success verification
 
 ### Step 5: Write Complete Flow Test
+
 - [x] Combine all steps into one flow
 - [x] Test full user journey
 - [x] Verify each step
 
 ### Step 6: Write Validation Tests
+
 - [x] Test file size validation
 - [x] Test file type validation
 - [x] Test error messages
 
 ### Step 7: Run and Debug
+
 - [x] Run tests locally
 - [x] Fix any flaky tests
 - [x] Optimize selectors
 - [x] Add proper waits
 
 ### Step 8: Document and Commit
+
 - [x] Update README with test instructions
 - [x] Commit test files
 - [x] Push to repository

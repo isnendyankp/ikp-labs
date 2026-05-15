@@ -24,7 +24,7 @@
 
 ### High-Level Architecture
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────┐
 │                       Frontend (Next.js)                     │
 │  ┌────────────────┐  ┌───────────────────┐  ┌──────────────┐│
@@ -72,20 +72,23 @@
 
 ### Technology Stack
 
-**Backend:**
+### Backend
+
 - Spring Boot 3.3.6
 - Spring Data JPA
 - Spring Security (JWT)
 - PostgreSQL 14+
 - Flyway (migrations)
 
-**Frontend:**
+### Frontend
+
 - Next.js 15.5.0
 - React 19.1.0
 - TypeScript
 - Tailwind CSS 4
 
-**Testing:**
+### Testing
+
 - JUnit 5 + Mockito (Unit & Integration)
 - Playwright (API & E2E)
 
@@ -128,31 +131,35 @@ CREATE INDEX idx_photo_favorites_user_id ON photo_favorites(user_id);
 CREATE INDEX idx_photo_favorites_created_at ON photo_favorites(created_at DESC);
 ```
 
-**Column Descriptions:**
+### Column Descriptions
 
-| Column | Type | Nullable | Description |
-|--------|------|----------|-------------|
-| `id` | BIGSERIAL | NO | Primary key, auto-increment |
-| `photo_id` | BIGINT | NO | Foreign key to gallery_photos.id |
-| `user_id` | BIGINT | NO | Foreign key to users.id (owner of favorite) |
-| `created_at` | TIMESTAMP | NO | When the favorite was created (for ordering) |
+| Column       | Type      | Nullable | Description                                  |
+| ------------ | --------- | -------- | -------------------------------------------- |
+| `id`         | BIGSERIAL | NO       | Primary key, auto-increment                  |
+| `photo_id`   | BIGINT    | NO       | Foreign key to gallery_photos.id             |
+| `user_id`    | BIGINT    | NO       | Foreign key to users.id (owner of favorite)  |
+| `created_at` | TIMESTAMP | NO       | When the favorite was created (for ordering) |
 
-**Constraints:**
+### Constraints
+
 1. **Primary Key:** `id` - Unique identifier for each favorite
 2. **Foreign Key:** `photo_id` → `gallery_photos(id)` ON DELETE CASCADE
 3. **Foreign Key:** `user_id` → `users(id)` ON DELETE CASCADE
 4. **Unique Constraint:** `(photo_id, user_id)` - Prevent duplicate favorites
 
-**Indexes:**
+### Indexes
+
 1. `idx_photo_favorites_photo_id` - Fast lookups by photo
 2. `idx_photo_favorites_user_id` - Fast lookups by user (for favorited photos page)
 3. `idx_photo_favorites_created_at` - Fast ordering by most recent
 
-**Cascade Behavior:**
+### Cascade Behavior
+
 - If a photo is deleted → All favorites for that photo are deleted
 - If a user is deleted → All favorites by that user are deleted
 
-**Key Difference from photo_likes:**
+### Key Difference from photo_likes
+
 - No public counter (favorites are private)
 - Used for bookmarking, not social engagement
 - User CAN favorite their own photos
@@ -198,7 +205,7 @@ CREATE INDEX idx_photo_favorites_created_at ON photo_favorites(created_at DESC);
 
 ### Entity Relationship Diagram
 
-```
+```text
 users (existing)
   ├── id (PK)
   ├── full_name
@@ -227,7 +234,8 @@ photo_likes (existing - from last week)
   └── created_at
 ```
 
-**Relationships:**
+### Relationships
+
 - `photo_favorites.photo_id` → Many favorites point to ONE photo
 - `photo_favorites.user_id` → Many favorites created by ONE user
 - **Many-to-Many** between `users` and `gallery_photos` (through `photo_favorites`)
@@ -239,7 +247,7 @@ photo_likes (existing - from last week)
 
 ### Layer Architecture
 
-```
+```text
 Controller Layer (REST API)
     │
     ├── PhotoFavoriteController.java
@@ -320,7 +328,8 @@ public class PhotoFavorite {
 }
 ```
 
-**Key Features:**
+### Key Features
+
 - `@Entity` - JPA entity mapped to `photo_favorites` table
 - `@UniqueConstraint` - Enforces one favorite per user per photo
 - `@ManyToOne` - Relationship to GalleryPhoto and User
@@ -377,12 +386,14 @@ public interface PhotoFavoriteRepository extends JpaRepository<PhotoFavorite, Lo
 }
 ```
 
-**Method Naming Convention:**
+### Method Naming Convention
+
 - `findByPhotoIdAndUserId` - Spring Data JPA auto-generates query
 - `existsByPhotoIdAndUserId` - Returns boolean (more efficient than find)
 - `@Query` - Custom JPQL for complex queries
 
-**Privacy Note:**
+### Privacy Note
+
 - No method to get ALL favorites across users (private by design)
 - No method to count favorites per photo (no public counter)
 
@@ -502,14 +513,16 @@ public class PhotoFavoriteService {
 }
 ```
 
-**Business Logic Highlights:**
+### Business Logic Highlights
+
 1. **Privacy Validation:** User can favorite public photos OR own photos
 2. **Can Favorite Own Photos:** Unlike Likes, users CAN favorite their own photos
 3. **Duplicate Prevention:** Check if already favorited
 4. **Transactions:** `@Transactional` ensures atomicity
 5. **Error Handling:** Clear exception messages
 
-**Key Difference from PhotoLikeService:**
+### Key Difference from PhotoLikeService
+
 - No "cannot favorite own photo" restriction
 - Privacy check allows own photos
 - No public counter logic
@@ -640,7 +653,8 @@ public class PhotoFavoriteController {
 }
 ```
 
-**HTTP Status Codes:**
+### HTTP Status Codes
+
 - `201 Created` - Photo favorited successfully
 - `204 No Content` - Photo unfavorited successfully
 - `200 OK` - Favorited photos retrieved
@@ -649,7 +663,8 @@ public class PhotoFavoriteController {
 - `404 Not Found` - Photo not found
 - `409 Conflict` - Already favorited (handled by exception handler)
 
-**Privacy Enforcement:**
+### Privacy Enforcement
+
 - User ID always from JWT (never from request body)
 - Only current user's favorites returned
 - No endpoint to view other users' favorites
@@ -660,7 +675,7 @@ public class PhotoFavoriteController {
 
 ### Component Architecture
 
-```
+```text
 App
  └── HomeLayout
       ├── Sidebar/Navigation
@@ -770,7 +785,8 @@ export default function FavoriteButton({
 }
 ```
 
-**Key Features:**
+### Key Features
+
 - ✅ Optimistic updates (instant UI feedback)
 - ✅ Rollback on error
 - ✅ Loading state (prevent double-clicks)
@@ -778,7 +794,8 @@ export default function FavoriteButton({
 - ✅ Clear visual states (outline vs filled star)
 - ✅ Different color from Like button (yellow/gold vs red)
 
-**Visual Design:**
+### Visual Design
+
 - Unfavorited: Outline star (gray)
 - Favorited: Filled star (yellow/gold)
 - Position: Next to like button
@@ -810,13 +827,16 @@ function getAuthToken(): string {
 export async function favoritePhoto(photoId: number): Promise<void> {
   const token = getAuthToken();
 
-  const response = await fetch(`${API_BASE_URL}/api/gallery/photo/${photoId}/favorite`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
+  const response = await fetch(
+    `${API_BASE_URL}/api/gallery/photo/${photoId}/favorite`,
+    {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
     }
-  });
+  );
 
   if (!response.ok) {
     const error = await response.text();
@@ -831,12 +851,15 @@ export async function favoritePhoto(photoId: number): Promise<void> {
 export async function unfavoritePhoto(photoId: number): Promise<void> {
   const token = getAuthToken();
 
-  const response = await fetch(`${API_BASE_URL}/api/gallery/photo/${photoId}/favorite`, {
-    method: 'DELETE',
-    headers: {
-      'Authorization': `Bearer ${token}`
+  const response = await fetch(
+    `${API_BASE_URL}/api/gallery/photo/${photoId}/favorite`,
+    {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     }
-  });
+  );
 
   if (!response.ok) {
     const error = await response.text();
@@ -856,8 +879,8 @@ export async function getFavoritedPhotos(page: number = 0, size: number = 12) {
     `${API_BASE_URL}/api/gallery/favorited-photos?page=${page}&size=${size}`,
     {
       headers: {
-        'Authorization': `Bearer ${token}`
-      }
+        Authorization: `Bearer ${token}`,
+      },
     }
   );
 
@@ -973,19 +996,22 @@ export default function FavoritedPhotosPage() {
 
 **Authentication:** Required (JWT token in header)
 
-**Request:**
+### Request
+
 ```http
 POST /api/gallery/photo/123/favorite HTTP/1.1
 Host: localhost:8081
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9...
 ```
 
-**Response Success (201 Created):**
+### Response Success (201 Created)
+
 ```http
 HTTP/1.1 201 Created
 ```
 
-**Response Error (409 Conflict - Already Favorited):**
+### Response Error (409 Conflict - Already Favorited)
+
 ```http
 HTTP/1.1 409 Conflict
 Content-Type: text/plain
@@ -993,7 +1019,8 @@ Content-Type: text/plain
 Photo already favorited
 ```
 
-**Response Error (403 Forbidden - Private Photo):**
+### Response Error (403 Forbidden - Private Photo)
+
 ```http
 HTTP/1.1 403 Forbidden
 Content-Type: text/plain
@@ -1001,7 +1028,8 @@ Content-Type: text/plain
 Cannot favorite private photos of other users
 ```
 
-**Response Error (404 Not Found):**
+### Response Error (404 Not Found)
+
 ```http
 HTTP/1.1 404 Not Found
 Content-Type: text/plain
@@ -1019,19 +1047,22 @@ Photo not found
 
 **Authentication:** Required (JWT)
 
-**Request:**
+### Request
+
 ```http
 DELETE /api/gallery/photo/123/favorite HTTP/1.1
 Host: localhost:8081
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9...
 ```
 
-**Response Success (204 No Content):**
+### Response Success (204 No Content)
+
 ```http
 HTTP/1.1 204 No Content
 ```
 
-**Response Error (400 Bad Request - Not Favorited):**
+### Response Error (400 Bad Request - Not Favorited)
+
 ```http
 HTTP/1.1 400 Bad Request
 Content-Type: text/plain
@@ -1049,14 +1080,16 @@ Photo not favorited
 
 **Authentication:** Required (JWT)
 
-**Request:**
+### Request
+
 ```http
 GET /api/gallery/favorited-photos?page=0&size=12 HTTP/1.1
 Host: localhost:8081
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9...
 ```
 
-**Response Success (200 OK):**
+### Response Success (200 OK)
+
 ```json
 {
   "content": [
@@ -1093,7 +1126,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9...
 
 ### Overview: 4 Types of Testing (32 Tests Total)
 
-```
+```text
 Testing Pyramid:
 
                     ┌──────────┐
@@ -1120,15 +1153,16 @@ Testing Pyramid:
 
 **File:** `backend/.../test/.../PhotoFavoriteServiceTest.java`
 
-**Purpose:** Test PhotoFavoriteService business logic in **complete isolation**
+### Purpose:**Test PhotoFavoriteService business logic in**complete isolation
 
-**Characteristics:**
+### Characteristics
+
 - ✅ **NO database** - all repositories mocked with Mockito
 - ✅ **Fast execution** (<100ms total)
 - ✅ **Tests business rules** only
 - ✅ **High confidence** in service logic
 
-**Test Cases:**
+### Test Cases
 
 1. **testFavoritePhoto_Success()**
    - Given: Valid photo, valid user, photo is public (or user is owner)
@@ -1170,7 +1204,7 @@ Testing Pyramid:
    - When: getFavoritedPhotos() called
    - Then: Returns Page with 3 photos
 
-**Example Test:**
+### Example Test
 
 ```java
 @ExtendWith(MockitoExtension.class)
@@ -1255,7 +1289,7 @@ class PhotoFavoriteServiceTest {
 
 **Purpose:** Test Controller + Service **interaction** without database
 
-**Test Cases:**
+### Test Cases
 
 1. **testFavoritePhoto_Returns201Created()**
 2. **testFavoritePhoto_Returns404NotFound()**
@@ -1270,9 +1304,9 @@ class PhotoFavoriteServiceTest {
 
 **File:** `tests/api/photo-favorites.api.spec.ts`
 
-**Purpose:** Test **complete backend cycle** with **REAL PostgreSQL database**
+### Purpose:**Test **complete backend cycle** with**REAL PostgreSQL database
 
-**Test Cases:**
+### Test Cases
 
 1. **POST /favorite - should favorite photo successfully**
 2. **POST /favorite - should allow favoriting own photo**
@@ -1291,7 +1325,7 @@ class PhotoFavoriteServiceTest {
 
 **Purpose:** Test **complete user journey** through browser (FE + BE + DB)
 
-**Test Cases:**
+### Test Cases
 
 1. **should favorite photo from gallery view**
 2. **should unfavorite photo from gallery view**
@@ -1376,4 +1410,4 @@ Only frontend origin allowed.
 
 **Next Document:** [Daily Checklist](checklist.md)
 
-**Ready to implement! 🚀**
+### Ready to implement! 🚀

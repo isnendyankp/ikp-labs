@@ -48,7 +48,8 @@ This document defines the requirements and specifications for the Photo Gallery 
 
 **Description:** Users can upload photos with metadata
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - Accept JPEG, PNG, GIF, WebP formats
 - Maximum file size: 5MB
 - Required fields: file, title
@@ -57,8 +58,9 @@ This document defines the requirements and specifications for the Photo Gallery 
 - Store in user-specific directory
 - Return photo ID and metadata
 
-**API Endpoint:**
-```
+### API Endpoint
+
+```text
 POST /api/gallery/upload
 Content-Type: multipart/form-data
 
@@ -79,15 +81,17 @@ Response: GalleryPhotoResponse
 
 **Description:** Users can view all their uploaded photos
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - Show all photos (public + private)
 - Display privacy badge
 - Support pagination (default 20 per page)
 - Show photo thumbnail, title, upload date
 - Click to view details
 
-**API Endpoint:**
-```
+### API Endpoint
+
+```text
 GET /api/gallery/my-photos?page=0&size=20
 Authorization: Bearer {token}
 
@@ -102,14 +106,16 @@ Response: GalleryListResponse
 
 **Description:** Users can view all public photos
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - Show only public photos from all users
 - Display owner name
 - Support pagination
 - Accessible without authentication (optional)
 
-**API Endpoint:**
-```
+### API Endpoint
+
+```text
 GET /api/gallery/public?page=0&size=20
 
 Response: GalleryListResponse
@@ -123,15 +129,17 @@ Response: GalleryListResponse
 
 **Description:** Users can view detailed photo information
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - Show full-size image
 - Display title, description, privacy status
 - Show upload date, owner info
 - Owner sees Edit/Delete buttons
 - Non-owner sees View only
 
-**API Endpoint:**
-```
+### API Endpoint
+
+```text
 GET /api/gallery/photo/{id}
 Authorization: Bearer {token} (optional for public)
 
@@ -146,14 +154,16 @@ Response: GalleryPhotoDetailResponse
 
 **Description:** Photo owners can edit metadata
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - Only owner can edit
 - Editable fields: title, description, isPublic
 - Return updated photo data
 - Update timestamp changed
 
-**API Endpoint:**
-```
+### API Endpoint
+
+```text
 PUT /api/gallery/photo/{id}
 Authorization: Bearer {token}
 
@@ -173,14 +183,16 @@ Response: GalleryPhotoResponse
 
 **Description:** Photo owners can change privacy setting
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - Only owner can toggle
 - Toggle between public/private
 - Return updated status
 - Affect visibility in public gallery
 
-**API Endpoint:**
-```
+### API Endpoint
+
+```text
 PATCH /api/gallery/photo/{id}/privacy
 Authorization: Bearer {token}
 
@@ -195,14 +207,16 @@ Response: GalleryPhotoResponse
 
 **Description:** Photo owners can delete their photos
 
-**Acceptance Criteria:**
+### Acceptance Criteria
+
 - Only owner can delete
 - Delete from database
 - Delete file from storage
 - Return success confirmation
 
-**API Endpoint:**
-```
+### API Endpoint
+
+```text
 DELETE /api/gallery/photo/{id}
 Authorization: Bearer {token}
 
@@ -302,19 +316,20 @@ public class GalleryListResponse {
 
 ### Error Responses
 
-| Error | Status | Message |
-|-------|--------|---------|
-| Photo not found | 404 | "Photo not found" |
-| Unauthorized access | 403 | "You don't have permission" |
-| File too large | 400 | "File size exceeds 5MB" |
-| Invalid file type | 400 | "Only image files allowed" |
-| Upload failed | 500 | "Failed to upload photo" |
+| Error               | Status | Message                     |
+| ------------------- | ------ | --------------------------- |
+| Photo not found     | 404    | "Photo not found"           |
+| Unauthorized access | 403    | "You don't have permission" |
+| File too large      | 400    | "File size exceeds 5MB"     |
+| Invalid file type   | 400    | "Only image files allowed"  |
+| Upload failed       | 500    | "Failed to upload photo"    |
 
 ---
 
 ## Acceptance Criteria Summary
 
 ### Must Have (MVP)
+
 - [x] Upload photo with title
 - [x] View my photos
 - [x] View public photos
@@ -322,11 +337,13 @@ public class GalleryListResponse {
 - [x] Privacy toggle
 
 ### Should Have
+
 - [x] Edit photo metadata
 - [x] Pagination
 - [x] Photo detail view
 
 ### Nice to Have
+
 - [ ] Photo albums
 - [ ] Photo comments
 - [ ] Photo sharing

@@ -203,11 +203,11 @@
 ### Git and PR
 
 - [x] Stage all changed `.md` files
-- [ ] Commit: `docs(markdown): fix remaining misc violations outside major dirs`
-- [ ] Push branch: `git push -u origin docs/fix-md-remaining`
-- [ ] Open PR targeting `main`
-- [ ] Verify `markdown-lint` CI job passes on the PR (only `plans/done/` violations should remain)
-- [ ] Merge PR
+- [x] Commit: `docs(markdown): fix remaining misc violations outside major dirs`
+- [x] Push branch: `git push -u origin docs/fix-md-remaining`
+- [x] Open PR targeting `main`
+- [x] Verify `markdown-lint` CI job passes on the PR (only `plans/done/` violations should remain)
+- [x] Merge PR (PR #111)
 
 ---
 
@@ -218,22 +218,22 @@
 
 ### Implementation
 
-- [ ] Create branch `docs/fix-md-plans-done-2024` from `main`
-- [ ] Run `npx markdownlint-cli2 --fix "plans/done/2024-**/*.md"` to apply auto-fixes
-- [ ] Run `npx markdownlint-cli2 "plans/done/2024-**/*.md"` and inspect remaining violations
-- [ ] Manually fix MD040 violations: add language identifier to fenced code blocks
-- [ ] Manually fix MD036 violations: convert emphasis-as-headings to ATX headings
-- [ ] Manually fix MD024 violations: resolve duplicate heading text
-- [ ] Re-run `npx markdownlint-cli2 "plans/done/2024-**/*.md"` and confirm zero output
+- [x] Create branch `docs/fix-md-plans-done-2024` from `main`
+- [x] Run `npx markdownlint-cli2 --fix "plans/done/2024-**/*.md"` to apply auto-fixes
+- [x] Run `npx markdownlint-cli2 "plans/done/2024-**/*.md"` and inspect remaining violations
+- [x] Manually fix MD040 violations: add language identifier to fenced code blocks
+- [x] Manually fix MD036 violations: convert emphasis-as-headings to ATX headings
+- [x] Manually fix MD024 violations: resolve duplicate heading text
+- [x] Re-run `npx markdownlint-cli2 "plans/done/2024-**/*.md"` and confirm zero output
 
 ### Validation
 
-- [ ] `npx markdownlint-cli2 "plans/done/2024-**/*.md"` reports zero violations
-- [ ] No markdown files deleted or renamed (content fixes only)
+- [x] `npx markdownlint-cli2 "plans/done/2024-**/*.md"` reports zero violations
+- [x] No markdown files deleted or renamed (content fixes only)
 
 ### Git and PR
 
-- [ ] Stage all changed `.md` files under `plans/done/2024-**/`
+- [x] Stage all changed `.md` files under `plans/done/2024-**/`
 - [ ] Commit: `docs(markdown): fix violations in plans/done 2024 plans`
 - [ ] Push branch: `git push -u origin docs/fix-md-plans-done-2024`
 - [ ] Open PR targeting `main`

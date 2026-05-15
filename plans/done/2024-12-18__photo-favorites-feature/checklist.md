@@ -7,7 +7,7 @@
 
 ## Progress Overview
 
-```
+```text
 Day 1 (Thu): ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  0/10 tasks (0%)
 Day 2 (Fri): ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  0/10 tasks (0%)
 Day 3 (Sat): ⬜⬜⬜⬜⬜⬜⬜⬜⬜⬜  0/10 tasks (0%)
@@ -19,7 +19,8 @@ Overall Progress: 0/50 tasks (0%)
 
 **Legend:** ⬜ Pending | 🔄 In Progress | ✅ Complete
 
-**Current Status (December 18, 2024):**
+### Current Status (December 18, 2024)
+
 - ⏳ **Day 0 (Today):** Planning Complete ✅
 - ⏳ **Day 1 (Thu):** Backend Foundation (Database + Gherkin)
 - ⏳ **Day 2 (Fri):** Backend APIs + API Tests
@@ -28,6 +29,7 @@ Overall Progress: 0/50 tasks (0%)
 - ⏳ **Day 5 (Mon):** E2E Tests + Documentation
 
 **Commits Planned:** 10 atomic commits (2 per day)
+
 - Commit #1: ⏳ Database (V4 migration + Entity + Repository)
 - Commit #2: ⏳ Gherkin specs
 - Commit #3: ⏳ Service + Controller
@@ -40,6 +42,7 @@ Overall Progress: 0/50 tasks (0%)
 - Commit #10: ⏳ Documentation
 
 **Tests Planned:** 32 tests total
+
 - ⏳ API Tests: 0/8
 - ⏳ Unit Tests: 0/8
 - ⏳ Integration Tests: 0/6
@@ -55,7 +58,7 @@ Overall Progress: 0/50 tasks (0%)
 
 ### Morning Session (3-4 hours)
 
-#### Backend - Database Setup
+### Backend - Database Setup
 
 - [ ] **Task 1.1:** Create Flyway migration file
   - File: `backend/ikp-labs-api/src/main/resources/db/migration/V4__create_photo_favorites.sql`
@@ -82,12 +85,13 @@ Overall Progress: 0/50 tasks (0%)
 
 - [ ] **Task 1.4:** Run migration and verify schema
   - Start backend: `cd backend/ikp-labs-api && ./mvnw spring-boot:run`
-  - Check logs for Flyway migration success: "V4__create_photo_favorites.sql"
+  - Check logs for Flyway migration success: "V4\_\_create_photo_favorites.sql"
   - Verify table created in PostgreSQL
   - Verify indexes created
   - Verify unique constraint works
 
 **Commit 1:** (Push immediately after completing)
+
 ```bash
 cd /Users/isnendyankp/Desktop/Programmer/Belajar/Project/Template/IKP-Labs
 git add backend/ikp-labs-api/src/main/resources/db/migration/V4__create_photo_favorites.sql
@@ -108,7 +112,7 @@ git push
 
 ### Afternoon Session (3 hours)
 
-#### Documentation - Gherkin Specifications
+### Documentation - Gherkin Specifications
 
 - [ ] **Task 1.5:** Create Photo Favorites Gherkin spec
   - File: `specs/gallery/photo-favorites.feature`
@@ -135,6 +139,7 @@ git push
   - Ensure 1-1-1 rule (1 Given, 1 When, 1 Then per scenario)
 
 **Commit 2:** (Push immediately after completing)
+
 ```bash
 git add specs/gallery/photo-favorites.feature
 git commit -m "docs(gherkin): add spec for photo favorites feature
@@ -158,7 +163,8 @@ git push
 - [ ] Gherkin spec written and reviewed
 - [ ] Tomorrow's tasks previewed
 
-**Day 1 Summary:**
+### Day 1 Summary
+
 - Database: ✅ Ready
 - Entities: ✅ Created
 - Repositories: ✅ Created
@@ -175,7 +181,7 @@ git push
 
 ### Morning Session (4 hours)
 
-#### Backend - Service Layer
+### Backend - Service Layer
 
 - [ ] **Task 2.1:** Create PhotoFavoriteService class
   - File: `backend/ikp-labs-api/src/main/java/com/registrationform/api/service/PhotoFavoriteService.java`
@@ -217,6 +223,7 @@ git push
   - Check: "Mapped GET [/api/gallery/favorited-photos]"
 
 **Commit 3:** (Push immediately after completing)
+
 ```bash
 git add backend/ikp-labs-api/src/main/java/com/registrationform/api/service/PhotoFavoriteService.java
 git add backend/ikp-labs-api/src/main/java/com/registrationform/api/controller/PhotoFavoriteController.java
@@ -237,7 +244,7 @@ git push
 
 ### Afternoon Session (3-4 hours)
 
-#### Testing - Playwright API Tests (Automated!)
+### Testing - Playwright API Tests (Automated!)
 
 - [ ] **Task 2.5:** Create Playwright API test file
   - File: `frontend/tests/api/photo-favorites.api.spec.ts`
@@ -290,6 +297,7 @@ git push
   - Ensure database cleanup after tests
 
 **Commit 4:** (Push immediately after completing)
+
 ```bash
 git add frontend/tests/api/photo-favorites.api.spec.ts
 git commit -m "test(api): add automated photo favorites API tests (8 tests)
@@ -315,7 +323,8 @@ git push
 - [ ] All commits pushed (2 commits today)
 - [ ] Backend fully functional
 
-**Day 2 Summary:**
+### Day 2 Summary
+
 - Service: ✅ Complete
 - Controller: ✅ Complete
 - API Tests: ✅ 8/8 passing
@@ -333,7 +342,7 @@ git push
 
 ### Morning Session (3-4 hours)
 
-#### Unit Tests - PhotoFavoriteService
+### Unit Tests - PhotoFavoriteService
 
 - [ ] **Task 3.1:** Create PhotoFavoriteServiceTest class
   - File: `backend/ikp-labs-api/src/test/java/com/registrationform/api/service/PhotoFavoriteServiceTest.java`
@@ -383,6 +392,7 @@ git push
   - Check test coverage
 
 **Commit 5:** (Push immediately after completing)
+
 ```bash
 git add backend/ikp-labs-api/src/test/java/com/registrationform/api/service/PhotoFavoriteServiceTest.java
 git commit -m "test(unit): add PhotoFavoriteService unit tests (8 tests)
@@ -402,7 +412,7 @@ git push
 
 ### Afternoon Session (3 hours)
 
-#### Integration Tests - PhotoFavoriteController
+### Integration Tests - PhotoFavoriteController
 
 - [ ] **Task 3.4:** Create PhotoFavoriteControllerIntegrationTest class
   - File: `backend/ikp-labs-api/src/test/java/com/registrationform/api/controller/PhotoFavoriteControllerIntegrationTest.java`
@@ -442,6 +452,7 @@ git push
   - Check HTTP status codes correct
 
 **Commit 6:** (Push immediately after completing)
+
 ```bash
 git add backend/ikp-labs-api/src/test/java/com/registrationform/api/controller/PhotoFavoriteControllerIntegrationTest.java
 git commit -m "test(integration): add PhotoFavoriteController integration tests (6 tests)
@@ -465,7 +476,8 @@ git push
 - [ ] Test coverage report generated
 - [ ] Backend testing complete
 
-**Day 3 Summary:**
+### Day 3 Summary
+
 - Unit Tests: ✅ 8/8 passing
 - Integration Tests: ✅ 6/6 passing
 - Total Backend Tests: ✅ 22/22 (8 API + 8 Unit + 6 Integration)
@@ -482,7 +494,7 @@ git push
 
 ### Morning Session (4 hours)
 
-#### Frontend - API Service & FavoriteButton Component
+### Frontend - API Service & FavoriteButton Component
 
 - [ ] **Task 4.1:** Create photoFavoriteService.ts
   - File: `frontend/src/services/photoFavoriteService.ts`
@@ -525,6 +537,7 @@ git push
   - Test: Works independently from Like button
 
 **Commit 7:** (Push immediately after completing)
+
 ```bash
 git add frontend/src/services/photoFavoriteService.ts
 git add frontend/src/components/FavoriteButton.tsx
@@ -545,7 +558,7 @@ git push
 
 ### Afternoon Session (3-4 hours)
 
-#### Frontend - Favorited Photos Page
+### Frontend - Favorited Photos Page
 
 - [ ] **Task 4.5:** Create FavoritedPhotosPage component
   - File: `frontend/src/app/home/favorited-photos/page.tsx`
@@ -580,6 +593,7 @@ git push
   - Test: Empty state (unfavorite all)
 
 **Commit 8:** (Push immediately after completing)
+
 ```bash
 git add frontend/src/app/home/favorited-photos/page.tsx
 git add frontend/src/components/Sidebar.tsx
@@ -606,7 +620,8 @@ git push
 - [ ] Optimistic updates working
 - [ ] All commits pushed (2 commits today)
 
-**Day 4 Summary:**
+### Day 4 Summary
+
 - FavoriteButton: ✅ Complete
 - FavoritedPhotosPage: ✅ Complete
 - API Integration: ✅ Working
@@ -624,7 +639,7 @@ git push
 
 ### Morning Session (4-5 hours)
 
-#### E2E Tests - Full Flow Testing
+### E2E Tests - Full Flow Testing
 
 - [ ] **Task 5.1:** Create photo-favorites.spec.ts
   - File: `frontend/tests/e2e/photo-favorites.spec.ts`
@@ -661,6 +676,7 @@ git push
   - Fix any flaky tests
 
 **Commit 9:** (Push immediately after completing)
+
 ```bash
 git add frontend/tests/e2e/photo-favorites.spec.ts
 git commit -m "test(e2e): add photo favorites E2E tests (10 scenarios)
@@ -681,7 +697,7 @@ git push
 
 ### Afternoon Session (2-3 hours)
 
-#### Documentation & Final Polish
+### Documentation & Final Polish
 
 - [ ] **Task 5.4:** Update main README.md
   - File: `README.md` (root)
@@ -716,6 +732,7 @@ git push
   - Verify mobile responsiveness
 
 **Commit 10:** (Push immediately after completing)
+
 ```bash
 git add README.md
 git add docs/api/endpoints.md
@@ -741,7 +758,8 @@ git push
 - [ ] Feature fully complete
 - [ ] Ready for demo/LinkedIn post
 
-**Day 5 Summary:**
+### Day 5 Summary
+
 - E2E Tests: ✅ 10/10 passing
 - Total Tests: ✅ 32/32 passing (100%)
 - Documentation: ✅ Updated
@@ -790,7 +808,7 @@ git push
 
 ### Commits Summary
 
-**Total: 10 atomic commits over 5 days**
+### Total: 10 atomic commits over 5 days
 
 1. ✅ feat(db): photo_favorites table
 2. ✅ docs(gherkin): favorites spec
@@ -813,30 +831,36 @@ git push
 
 ### LinkedIn Post Content
 
-**Headline:**
+### Headline
+
 🚀 Just shipped Photo Favorites - a privacy-focused bookmarking system for my photo gallery app!
 
-**Body:**
+### Body
+
 Excited to share my latest feature: Photo Favorites! 📸⭐
 
-**What I Built:**
+### What I Built
+
 ✅ Private bookmarking system (unlike public "Likes")
 ✅ Users can save ANY photo - including their own!
 ✅ 32 automated tests across 4 types (API, Unit, Integration, E2E)
 ✅ Optimistic UI updates for instant feedback
 ✅ Works seamlessly alongside the existing Likes feature
 
-**Technical Highlights:**
+### Technical Highlights
+
 • Spring Boot + PostgreSQL backend with REST APIs
 • React 19 + Next.js 15 frontend
 • Playwright for automated testing (no manual Postman!)
 • Privacy by design - favorites are 100% private
 • Clean separation of concerns (Entity → Repository → Service → Controller)
 
-**Key Learning:**
+### Key Learning
+
 Building features that work TOGETHER is crucial. Favorites and Likes coexist beautifully - one for public appreciation (heart ❤️), one for private bookmarks (star ⭐).
 
-**Testing Coverage:**
+### Testing Coverage
+
 • 8 API tests (with real database)
 • 8 Unit tests (isolated business logic)
 • 6 Integration tests (controller + service)
@@ -844,9 +868,10 @@ Building features that work TOGETHER is crucial. Favorites and Likes coexist bea
 
 **Result:** 100% test pass rate, production-ready feature! 🎉
 
-#FullStackDevelopment #ReactJS #SpringBoot #Testing #WebDevelopment #SoftwareEngineering #PostgreSQL #Playwright #CleanCode
+FullStackDevelopment #ReactJS #SpringBoot #Testing #WebDevelopment #SoftwareEngineering #PostgreSQL #Playwright #CleanCode
 
-**Visuals to Include:**
+### Visuals to Include
+
 1. Screenshot of FavoriteButton (star icon) next to LikeButton
 2. Screenshot of Favorited Photos page
 3. GIF of optimistic update (click star → instant fill)
@@ -859,24 +884,28 @@ Building features that work TOGETHER is crucial. Favorites and Likes coexist bea
 
 ### Common Issues
 
-**Issue 1: Migration fails with "table already exists"**
+### Issue 1: Migration fails with "table already exists"
+
 - Solution: Check Flyway version table
 - Solution: Rename to V5 if V4 already used
 - Solution: Drop table and re-run migration
 
-**Issue 2: FavoriteButton not updating UI**
+### Issue 2: FavoriteButton not updating UI
+
 - Check: API endpoint working (Network tab)
 - Check: JWT token valid
 - Check: Optimistic update logic correct
 - Check: State management (useState)
 
-**Issue 3: Tests failing intermittently**
+### Issue 3: Tests failing intermittently
+
 - Solution: Add wait conditions
 - Solution: Ensure database cleanup
 - Solution: Check for race conditions
 - Solution: Increase timeouts if needed
 
-**Issue 4: Can't favorite own photos**
+### Issue 4: Can't favorite own photos
+
 - Check: Service logic allows owner_id == user_id
 - Check: Different from PhotoLikeService
 - Check: Privacy check only blocks others' private photos
@@ -885,25 +914,25 @@ Building features that work TOGETHER is crucial. Favorites and Likes coexist bea
 
 ## Notes for Implementation
 
-### Key Differences from Likes:
+### Key Differences from Likes
 
-| Aspect | Likes (Week 1) | Favorites (Week 2) |
-|--------|---------------|-------------------|
-| Purpose | Public appreciation | Private bookmarks |
-| Visibility | Public (counter visible) | Private (only user sees) |
-| Icon | Heart ❤️ (red) | Star ⭐ (yellow/gold) |
-| Can save own photos? | ❌ NO | ✅ YES |
-| Public counter? | ✅ YES | ❌ NO |
-| Use case | Social engagement | Content organization |
+| Aspect               | Likes (Week 1)           | Favorites (Week 2)       |
+| -------------------- | ------------------------ | ------------------------ |
+| Purpose              | Public appreciation      | Private bookmarks        |
+| Visibility           | Public (counter visible) | Private (only user sees) |
+| Icon                 | Heart ❤️ (red)           | Star ⭐ (yellow/gold)    |
+| Can save own photos? | ❌ NO                    | ✅ YES                   |
+| Public counter?      | ✅ YES                   | ❌ NO                    |
+| Use case             | Social engagement        | Content organization     |
 
-### Privacy Enforcement:
+### Privacy Enforcement
 
 1. **API Level:** User ID from JWT only
 2. **Database Level:** No public counter queries
 3. **Frontend Level:** No visibility to others
 4. **Testing Level:** Verify privacy in API tests
 
-### Code Reuse:
+### Code Reuse
 
 - Entity structure similar to PhotoLike
 - Repository pattern same
@@ -911,7 +940,7 @@ Building features that work TOGETHER is crucial. Favorites and Likes coexist bea
 - Controller pattern same
 - Frontend components similar (different icon/color)
 
-### Best Practices:
+### Best Practices
 
 1. **Atomic Commits:** 1 feature per commit
 2. **Push Immediately:** After each commit
@@ -921,6 +950,6 @@ Building features that work TOGETHER is crucial. Favorites and Likes coexist bea
 
 ---
 
-**Ready to start Day 1! Let's build this! 🚀**
+### Ready to start Day 1! Let's build this! 🚀
 
 Good luck with the implementation! You got this! 💪

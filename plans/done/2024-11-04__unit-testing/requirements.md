@@ -41,7 +41,7 @@ This document defines the requirements and specifications for implementing compr
 
 ### Testing Strategy Overview
 
-```
+```text
 ┌─────────────────────────────────────────────────────┐
 │                  TESTING STRATEGY                   │
 └─────────────────────────────────────────────────────┘
@@ -59,20 +59,23 @@ BACKEND (Spring Boot/Java):
 
 ### Key Differences
 
-**1. Bahasa yang Berbeda**
-```
+### 1. Bahasa yang Berbeda
+
+```text
 Frontend: JavaScript/TypeScript → Jest
 Backend:  Java               → JUnit + Mockito
 ```
 
-**2. Framework yang Berbeda**
-```
+### 2. Framework yang Berbeda
+
+```text
 Frontend: React Components → React Testing Library
 Backend:  Spring Boot      → Spring Boot Test
 ```
 
-**3. Tujuan yang Berbeda**
-```
+### 3. Tujuan yang Berbeda
+
+```text
 Frontend Unit Test:
 - Test component rendering
 - Test user interactions
@@ -91,33 +94,36 @@ Backend Unit Test:
 
 ### Phase 1: Service Layer Testing (HIGH PRIORITY)
 
-#### 1.1 AuthService ✅ COMPLETED
+### 1.1 AuthService ✅ COMPLETED
 
 **File:** `service/AuthServiceTest.java`
 **Tests:** 5
 **Coverage:** ~90%
 
-**Test Cases:**
+### Test Cases
+
 1. Login with valid credentials → Should return success with JWT token
 2. Login with email not found → Should throw exception
 3. Login with wrong password → Should throw exception
 4. Register new user with valid data → Should save successfully
 5. Register with duplicate email → Should throw exception
 
-**Dependencies Mocked:**
+### Dependencies Mocked
+
 - UserRepository
 - PasswordEncoder
 - JwtUtil
 
 ---
 
-#### 1.2 UserService
+### 1.2 UserService
 
 **File:** `service/UserServiceTest.java`
 **Tests:** 9
 **Priority:** HIGH
 
-**Test Cases:**
+### Test Cases
+
 1. getUserById() - user exists → return user
 2. getUserById() - user not found → throw exception
 3. getUserByEmail() - email exists → return user
@@ -130,13 +136,14 @@ Backend Unit Test:
 
 ---
 
-#### 1.3 FileStorageService
+### 1.3 FileStorageService
 
 **File:** `service/FileStorageServiceTest.java`
 **Tests:** 8
 **Priority:** HIGH
 
-**Test Cases:**
+### Test Cases
+
 1. storeFile() - valid PNG image → save success
 2. storeFile() - valid JPEG image → save success
 3. storeFile() - invalid file type (PDF) → throw exception
@@ -148,13 +155,14 @@ Backend Unit Test:
 
 ---
 
-#### 1.4 GalleryService
+### 1.4 GalleryService
 
 **File:** `service/GalleryServiceTest.java`
 **Tests:** 18
 **Priority:** HIGH
 
-**Test Cases:**
+### Test Cases
+
 1. uploadPhoto() - happy path
 2. uploadPhoto() - invalid file
 3. uploadPhoto() - defaults to private
@@ -178,13 +186,14 @@ Backend Unit Test:
 
 ### Phase 2: Security Layer Testing (HIGH PRIORITY)
 
-#### 2.1 JwtUtil
+### 2.1 JwtUtil
 
 **File:** `security/JwtUtilTest.java`
 **Tests:** 18
 **Priority:** HIGH
 
-**Test Cases:**
+### Test Cases
+
 1. generateToken() - valid email → return valid JWT
 2. generateToken() - null email → throw exception
 3. generateToken() - empty email → throw exception
@@ -208,13 +217,14 @@ Backend Unit Test:
 
 ### Phase 3: Controller Layer Testing (MEDIUM PRIORITY)
 
-#### 3.1 UserController
+### 3.1 UserController
 
 **File:** `controller/UserControllerTest.java`
 **Tests:** 9
 **Priority:** MEDIUM
 
-**Test Cases:**
+### Test Cases
+
 1. GET /api/users → 200 OK with user list
 2. GET /api/users (empty) → 200 OK with empty array
 3. GET /api/users/{id} - user exists → 200 OK with user
@@ -227,13 +237,14 @@ Backend Unit Test:
 
 ---
 
-#### 3.2 ProfileController
+### 3.2 ProfileController
 
 **File:** `controller/ProfileControllerTest.java`
 **Tests:** 8
 **Priority:** MEDIUM
 
-**Test Cases:**
+### Test Cases
+
 1. GET /api/profile - authenticated → 200 OK with profile
 2. GET /api/profile - not authenticated → 401 Unauthorized
 3. PUT /api/profile - valid data → 200 OK
@@ -275,13 +286,15 @@ Backend Unit Test:
 
 ### Development Environment
 
-**Before Starting:**
+### Before Starting
+
 - JUnit 5 installed
 - Mockito installed
 - Spring Boot Test configured
 - JaCoCo configured for coverage
 
-**Verify Setup:**
+### Verify Setup
+
 ```bash
 cd backend/ikp-labs-api
 mvn clean test

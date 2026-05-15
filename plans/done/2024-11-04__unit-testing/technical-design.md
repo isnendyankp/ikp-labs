@@ -15,13 +15,13 @@ This document provides technical implementation details for unit testing the Bac
 
 ## Technology Stack
 
-| Component | Technology | Version |
-|-----------|------------|---------|
-| Testing Framework | JUnit 5 | 5.x |
-| Mocking Framework | Mockito | 5.x |
-| Assertions | AssertJ (optional) | 3.x |
-| Coverage | JaCoCo | 0.8.x |
-| Build Tool | Maven | 3.x |
+| Component         | Technology         | Version |
+| ----------------- | ------------------ | ------- |
+| Testing Framework | JUnit 5            | 5.x     |
+| Mocking Framework | Mockito            | 5.x     |
+| Assertions        | AssertJ (optional) | 3.x     |
+| Coverage          | JaCoCo             | 0.8.x   |
+| Build Tool        | Maven              | 3.x     |
 
 ---
 
@@ -65,7 +65,7 @@ This document provides technical implementation details for unit testing the Bac
 
 ### Directory Structure
 
-```
+```text
 backend/ikp-labs-api/src/
 ├── main/java/com/registrationform/api/
 │   ├── service/
@@ -383,12 +383,12 @@ assertEquals(EXPECTED_COUNT, result);
 
 ## Coverage Goals
 
-| Layer | Target | Actual |
-|-------|--------|--------|
-| Service Layer | 90% | ~90% |
-| Security Layer | 85% | ~95% |
-| Controller Layer | 75% | ~85% |
-| **Overall** | **80%** | **~91%** |
+| Layer            | Target  | Actual   |
+| ---------------- | ------- | -------- |
+| Service Layer    | 90%     | ~90%     |
+| Security Layer   | 85%     | ~95%     |
+| Controller Layer | 75%     | ~85%     |
+| **Overall**      | **80%** | **~91%** |
 
 ---
 
@@ -396,14 +396,16 @@ assertEquals(EXPECTED_COUNT, result);
 
 ### Common Issues
 
-**1. NullPointerException in @InjectMocks**
+### 1. NullPointerException in @InjectMocks
+
 ```java
 // Make sure @ExtendWith(MockitoExtension.class) is present
 @ExtendWith(MockitoExtension.class)
 class MyTest { ... }
 ```
 
-**2. Mock Not Returning Expected Value**
+### 2. Mock Not Returning Expected Value
+
 ```java
 // Check if stub is correct
 when(repository.findById(1L)).thenReturn(Optional.of(user));
@@ -411,7 +413,8 @@ when(repository.findById(1L)).thenReturn(Optional.of(user));
 when(repository.findById(anyLong())).thenReturn(Optional.of(user));
 ```
 
-**3. Test Failing Due to Static Methods**
+### 3. Test Failing Due to Static Methods
+
 ```java
 // Use try-with-resources for static mocks
 try (MockedStatic<MyUtils> mocked = mockStatic(MyUtils.class)) {

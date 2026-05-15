@@ -24,7 +24,7 @@
 
 ### High-Level Architecture
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────┐
 │                       Frontend (Next.js)                     │
 │  ┌────────────┐  ┌──────────────┐  ┌──────────────────────┐│
@@ -71,20 +71,23 @@
 
 ### Technology Stack
 
-**Backend:**
+### Backend
+
 - Spring Boot 3.3.6
 - Spring Data JPA
 - Spring Security (JWT)
 - PostgreSQL 14+
 - Flyway (migrations)
 
-**Frontend:**
+### Frontend
+
 - Next.js 15.5.0
 - React 19.1.0
 - TypeScript
 - Tailwind CSS 4
 
-**Testing:**
+### Testing
+
 - JUnit 5 + Mockito (Unit & Integration)
 - Playwright (API & E2E)
 
@@ -127,27 +130,30 @@ CREATE INDEX idx_photo_likes_user_id ON photo_likes(user_id);
 CREATE INDEX idx_photo_likes_created_at ON photo_likes(created_at DESC);
 ```
 
-**Column Descriptions:**
+### Column Descriptions
 
-| Column | Type | Nullable | Description |
-|--------|------|----------|-------------|
-| `id` | BIGSERIAL | NO | Primary key, auto-increment |
-| `photo_id` | BIGINT | NO | Foreign key to gallery_photos.id |
-| `user_id` | BIGINT | NO | Foreign key to users.id |
-| `created_at` | TIMESTAMP | NO | When the like was created (for ordering) |
+| Column       | Type      | Nullable | Description                              |
+| ------------ | --------- | -------- | ---------------------------------------- |
+| `id`         | BIGSERIAL | NO       | Primary key, auto-increment              |
+| `photo_id`   | BIGINT    | NO       | Foreign key to gallery_photos.id         |
+| `user_id`    | BIGINT    | NO       | Foreign key to users.id                  |
+| `created_at` | TIMESTAMP | NO       | When the like was created (for ordering) |
 
-**Constraints:**
+### Constraints
+
 1. **Primary Key:** `id` - Unique identifier for each like
 2. **Foreign Key:** `photo_id` → `gallery_photos(id)` ON DELETE CASCADE
 3. **Foreign Key:** `user_id` → `users(id)` ON DELETE CASCADE
 4. **Unique Constraint:** `(photo_id, user_id)` - Prevent duplicate likes
 
-**Indexes:**
+### Indexes
+
 1. `idx_photo_likes_photo_id` - Fast lookups by photo (for like count)
 2. `idx_photo_likes_user_id` - Fast lookups by user (for liked photos page)
 3. `idx_photo_likes_created_at` - Fast ordering by most recent
 
-**Cascade Behavior:**
+### Cascade Behavior
+
 - If a photo is deleted → All likes for that photo are deleted
 - If a user is deleted → All likes by that user are deleted
 
@@ -192,7 +198,7 @@ CREATE INDEX idx_photo_likes_created_at ON photo_likes(created_at DESC);
 
 ### Entity Relationship Diagram
 
-```
+```text
 users (existing)
   ├── id (PK)
   ├── full_name
@@ -215,7 +221,8 @@ photo_likes (NEW)
   └── created_at                           ┘
 ```
 
-**Relationships:**
+### Relationships
+
 - `photo_likes.photo_id` → Many likes point to ONE photo
 - `photo_likes.user_id` → Many likes created by ONE user
 - **Many-to-Many** between `users` and `gallery_photos` (through `photo_likes`)
@@ -226,7 +233,7 @@ photo_likes (NEW)
 
 ### Layer Architecture
 
-```
+```text
 Controller Layer (REST API)
     │
     ├── PhotoLikeController.java
@@ -305,7 +312,8 @@ public class PhotoLike {
 }
 ```
 
-**Key Features:**
+### Key Features
+
 - `@Entity` - JPA entity mapped to `photo_likes` table
 - `@UniqueConstraint` - Enforces one like per user per photo
 - `@ManyToOne` - Relationship to GalleryPhoto and User
@@ -366,7 +374,8 @@ public interface PhotoLikeRepository extends JpaRepository<PhotoLike, Long> {
 }
 ```
 
-**Method Naming Convention:**
+### Method Naming Convention
+
 - `findByPhotoIdAndUserId` - Spring Data JPA auto-generates query
 - `existsByPhotoIdAndUserId` - Returns boolean (more efficient than find)
 - `countByPhotoId` - Returns long count
@@ -501,7 +510,8 @@ public class PhotoLikeService {
 }
 ```
 
-**Business Logic Highlights:**
+### Business Logic Highlights
+
 1. **Validation:** Photo exists, is public, user not owner
 2. **Duplicate Prevention:** Check if already liked
 3. **Transactions:** `@Transactional` ensures atomicity
@@ -623,7 +633,8 @@ public class PhotoLikeController {
 }
 ```
 
-**HTTP Status Codes:**
+### HTTP Status Codes
+
 - `201 Created` - Photo liked successfully
 - `204 No Content` - Photo unliked successfully
 - `200 OK` - Liked photos retrieved
@@ -638,7 +649,7 @@ public class PhotoLikeController {
 
 ### Component Architecture
 
-```
+```text
 App
  └── HomeLayout
       ├── Sidebar/Navigation
@@ -747,7 +758,8 @@ export default function LikeButton({
 }
 ```
 
-**Key Features:**
+### Key Features
+
 - ✅ Optimistic updates (instant UI feedback)
 - ✅ Rollback on error
 - ✅ Loading state (prevent double-clicks)
@@ -781,13 +793,16 @@ function getAuthToken(): string {
 export async function likePhoto(photoId: number): Promise<void> {
   const token = getAuthToken();
 
-  const response = await fetch(`${API_BASE_URL}/api/gallery/photo/${photoId}/like`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${token}`,
-      'Content-Type': 'application/json'
+  const response = await fetch(
+    `${API_BASE_URL}/api/gallery/photo/${photoId}/like`,
+    {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
     }
-  });
+  );
 
   if (!response.ok) {
     const error = await response.text();
@@ -802,12 +817,15 @@ export async function likePhoto(photoId: number): Promise<void> {
 export async function unlikePhoto(photoId: number): Promise<void> {
   const token = getAuthToken();
 
-  const response = await fetch(`${API_BASE_URL}/api/gallery/photo/${photoId}/like`, {
-    method: 'DELETE',
-    headers: {
-      'Authorization': `Bearer ${token}`
+  const response = await fetch(
+    `${API_BASE_URL}/api/gallery/photo/${photoId}/like`,
+    {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
     }
-  });
+  );
 
   if (!response.ok) {
     const error = await response.text();
@@ -826,8 +844,8 @@ export async function getLikedPhotos(page: number = 0, size: number = 12) {
     `${API_BASE_URL}/api/gallery/liked-photos?page=${page}&size=${size}`,
     {
       headers: {
-        'Authorization': `Bearer ${token}`
-      }
+        Authorization: `Bearer ${token}`,
+      },
     }
   );
 
@@ -924,19 +942,22 @@ export default function LikedPhotosPage() {
 
 **Authentication:** Required (JWT token in header)
 
-**Request:**
+### Request
+
 ```http
 POST /api/gallery/photo/123/like HTTP/1.1
 Host: localhost:8081
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9...
 ```
 
-**Response Success (201 Created):**
+### Response Success (201 Created)
+
 ```http
 HTTP/1.1 201 Created
 ```
 
-**Response Error (409 Conflict - Already Liked):**
+### Response Error (409 Conflict - Already Liked)
+
 ```http
 HTTP/1.1 409 Conflict
 Content-Type: text/plain
@@ -944,7 +965,8 @@ Content-Type: text/plain
 Photo already liked
 ```
 
-**Response Error (403 Forbidden - Own Photo):**
+### Response Error (403 Forbidden - Own Photo)
+
 ```http
 HTTP/1.1 403 Forbidden
 Content-Type: text/plain
@@ -952,7 +974,8 @@ Content-Type: text/plain
 Cannot like your own photo
 ```
 
-**Response Error (404 Not Found):**
+### Response Error (404 Not Found)
+
 ```http
 HTTP/1.1 404 Not Found
 Content-Type: text/plain
@@ -970,19 +993,22 @@ Photo not found
 
 **Authentication:** Required (JWT)
 
-**Request:**
+### Request
+
 ```http
 DELETE /api/gallery/photo/123/like HTTP/1.1
 Host: localhost:8081
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9...
 ```
 
-**Response Success (204 No Content):**
+### Response Success (204 No Content)
+
 ```http
 HTTP/1.1 204 No Content
 ```
 
-**Response Error (400 Bad Request - Not Liked):**
+### Response Error (400 Bad Request - Not Liked)
+
 ```http
 HTTP/1.1 400 Bad Request
 Content-Type: text/plain
@@ -1000,14 +1026,16 @@ Photo not liked
 
 **Authentication:** Required (JWT)
 
-**Request:**
+### Request
+
 ```http
 GET /api/gallery/liked-photos?page=0&size=12 HTTP/1.1
 Host: localhost:8081
 Authorization: Bearer eyJhbGciOiJIUzUxMiJ9...
 ```
 
-**Response Success (200 OK):**
+### Response Success (200 OK)
+
 ```json
 {
   "content": [
@@ -1043,7 +1071,7 @@ Authorization: Bearer eyJhbGciOiJIUzUxMiJ9...
 
 ### Overview: 4 Types of Testing (32 Tests Total)
 
-```
+```text
 Testing Pyramid:
 
                     ┌──────────┐
@@ -1070,15 +1098,16 @@ Testing Pyramid:
 
 **File:** `backend/.../test/.../PhotoLikeServiceTest.java`
 
-**Purpose:** Test PhotoLikeService business logic in **complete isolation**
+### Purpose:**Test PhotoLikeService business logic in**complete isolation
 
-**Characteristics:**
+### Characteristics
+
 - ✅ **NO database** - all repositories mocked with Mockito
 - ✅ **Fast execution** (<100ms total)
 - ✅ **Tests business rules** only
 - ✅ **High confidence** in service logic
 
-**Test Cases:**
+### Test Cases
 
 1. **testLikePhoto_Success()**
    - Given: Valid photo, valid user, photo is public, not owner, not liked
@@ -1120,7 +1149,7 @@ Testing Pyramid:
    - When: getLikedPhotos() called
    - Then: Returns Page with 3 photos
 
-**Example Test:**
+### Example Test
 
 ```java
 @ExtendWith(MockitoExtension.class)
@@ -1205,13 +1234,14 @@ class PhotoLikeServiceTest {
 
 **Purpose:** Test Controller + Service **interaction** without database
 
-**Characteristics:**
+### Characteristics
+
 - ✅ **NO real database** - services are @MockBean
 - ✅ **Tests HTTP layer** - request/response, status codes
 - ✅ **Uses MockMvc** - simulates HTTP requests
 - ✅ **Fast** (<500ms total)
 
-**Test Cases:**
+### Test Cases
 
 1. **testLikePhoto_Returns201Created()**
    - Given: Valid photo ID, valid JWT token
@@ -1243,7 +1273,7 @@ class PhotoLikeServiceTest {
    - When: GET /api/gallery/liked-photos
    - Then: Returns 200 OK with empty content array
 
-**Example Test:**
+### Example Test
 
 ```java
 @WebMvcTest(PhotoLikeController.class)
@@ -1290,16 +1320,17 @@ class PhotoLikeControllerIntegrationTest {
 
 **File:** `tests/api/photo-likes.api.spec.ts`
 
-**Purpose:** Test **complete backend cycle** with **REAL PostgreSQL database**
+### Purpose:**Test **complete backend cycle** with**REAL PostgreSQL database
 
-**Characteristics:**
+### Characteristics
+
 - ✅ **REAL database** (PostgreSQL)
 - ✅ **Full backend flow** (Controller → Service → Repository → Database)
 - ✅ **Playwright API testing** (NOT manual Postman!)
 - ✅ **Automated** - runs in CI/CD
 - ✅ **Data cleanup** after each test
 
-**Test Cases:**
+### Test Cases
 
 1. **POST /like - should like photo successfully**
    - Arrange: Create test user + public photo
@@ -1338,7 +1369,7 @@ class PhotoLikeControllerIntegrationTest {
    - Act: POST /like without Authorization header
    - Assert: 401 Unauthorized
 
-**Example Test:**
+### Example Test
 
 ```typescript
 import { test, expect } from '@playwright/test';
@@ -1355,8 +1386,8 @@ test.describe('Photo Likes API', () => {
         fullName: 'Test User',
         email: `test${Date.now()}@example.com`,
         password: 'Password123!',
-        confirmPassword: 'Password123!'
-      }
+        confirmPassword: 'Password123!',
+      },
     });
 
     const { token, user } = await registerResponse.json();
@@ -1372,8 +1403,8 @@ test.describe('Photo Likes API', () => {
     // Act: Like photo
     const response = await request.post(`/api/gallery/photo/${photoId}/like`, {
       headers: {
-        Authorization: `Bearer ${authToken}`
-      }
+        Authorization: `Bearer ${authToken}`,
+      },
     });
 
     // Assert: 201 Created
@@ -1382,8 +1413,8 @@ test.describe('Photo Likes API', () => {
     // Verify in database via API
     const likedPhotos = await request.get('/api/gallery/liked-photos', {
       headers: {
-        Authorization: `Bearer ${authToken}`
-      }
+        Authorization: `Bearer ${authToken}`,
+      },
     });
 
     const body = await likedPhotos.json();
@@ -1394,12 +1425,12 @@ test.describe('Photo Likes API', () => {
   test('POST /like - should prevent duplicate like', async ({ request }) => {
     // Arrange: Like once
     await request.post(`/api/gallery/photo/${photoId}/like`, {
-      headers: { Authorization: `Bearer ${authToken}` }
+      headers: { Authorization: `Bearer ${authToken}` },
     });
 
     // Act: Try to like again
     const response = await request.post(`/api/gallery/photo/${photoId}/like`, {
-      headers: { Authorization: `Bearer ${authToken}` }
+      headers: { Authorization: `Bearer ${authToken}` },
     });
 
     // Assert: 409 Conflict
@@ -1416,14 +1447,15 @@ test.describe('Photo Likes API', () => {
 
 **Purpose:** Test **complete user journey** through browser (FE + BE + DB)
 
-**Characteristics:**
+### Characteristics
+
 - ✅ **Browser automation** (real Chrome/Firefox)
 - ✅ **Full stack** (Frontend → Backend → Database)
 - ✅ **User interactions** (clicks, navigation)
 - ✅ **Visual verification** (button states, counts)
 - ✅ **Slow** (~30 seconds total) but comprehensive
 
-**Test Cases:**
+### Test Cases
 
 1. **should like photo from gallery view**
    - Navigate to gallery → Click like button → Verify heart fills → Verify count increases
@@ -1455,7 +1487,7 @@ test.describe('Photo Likes API', () => {
 10. **unauthenticated user cannot like**
     - Logout → View photo → Verify like button disabled or hidden
 
-**Example Test:**
+### Example Test
 
 ```typescript
 import { test, expect } from '@playwright/test';
@@ -1490,7 +1522,10 @@ test.describe('Photo Likes E2E', () => {
 
   test('should persist like after page refresh', async ({ page }) => {
     // Like photo
-    const likeButton = page.locator('.photo-card').first().locator('button[aria-label*="Like"]');
+    const likeButton = page
+      .locator('.photo-card')
+      .first()
+      .locator('button[aria-label*="Like"]');
     await likeButton.click();
 
     // Wait for API to complete
@@ -1513,7 +1548,9 @@ test.describe('Photo Likes E2E', () => {
     await page.click('text=Liked Photos');
 
     // Verify photo appears
-    await expect(page.locator(`.photo-card:has-text("${photoTitle}")`)).toBeVisible();
+    await expect(
+      page.locator(`.photo-card:has-text("${photoTitle}")`)
+    ).toBeVisible();
   });
 });
 ```
@@ -1584,4 +1621,4 @@ Only frontend origin allowed.
 
 **Next Document:** [Daily Checklist](checklist.md)
 
-**Ready to implement! 🚀**
+### Ready to implement! 🚀

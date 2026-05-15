@@ -24,6 +24,7 @@ This checklist tracks the implementation progress of the Unit Testing Java Backe
 ## Setup Checklist
 
 ### Dependencies & Configuration
+
 - [x] JUnit 5 added to pom.xml
 - [x] Mockito added to pom.xml
 - [x] Mockito JUnit Jupiter integration added
@@ -32,6 +33,7 @@ This checklist tracks the implementation progress of the Unit Testing Java Backe
 - [x] IDE test runner working
 
 ### Test Infrastructure
+
 - [x] Test directory structure created
 - [x] Base test configuration ready
 - [x] Test utilities/helpers created
@@ -41,6 +43,7 @@ This checklist tracks the implementation progress of the Unit Testing Java Backe
 ## Phase 1: Service Layer Tests (HIGH PRIORITY)
 
 ### 1.1 AuthService ✅ COMPLETED
+
 - [x] Create AuthServiceTest.java
 - [x] Test login with valid credentials
 - [x] Test login with email not found
@@ -51,6 +54,7 @@ This checklist tracks the implementation progress of the Unit Testing Java Backe
 - [x] Coverage ≥ 85%
 
 ### 1.2 UserService ✅ COMPLETED
+
 - [x] Create UserServiceTest.java
 - [x] Test getUserById() - user exists
 - [x] Test getUserById() - user not found
@@ -65,6 +69,7 @@ This checklist tracks the implementation progress of the Unit Testing Java Backe
 - [x] Coverage ≥ 85%
 
 ### 1.3 FileStorageService ✅ COMPLETED
+
 - [x] Create FileStorageServiceTest.java
 - [x] Test storeFile() - valid PNG
 - [x] Test storeFile() - valid JPEG
@@ -78,6 +83,7 @@ This checklist tracks the implementation progress of the Unit Testing Java Backe
 - [x] Coverage ≥ 85%
 
 ### 1.4 GalleryService ✅ COMPLETED
+
 - [x] Create GalleryServiceTest.java
 - [x] Test uploadPhoto() - happy path
 - [x] Test uploadPhoto() - invalid file
@@ -105,6 +111,7 @@ This checklist tracks the implementation progress of the Unit Testing Java Backe
 ## Phase 2: Security Layer Tests (HIGH PRIORITY)
 
 ### 2.1 JwtUtil ✅ COMPLETED
+
 - [x] Create JwtUtilTest.java
 - [x] Test generateToken() - valid email
 - [x] Test generateToken() - null email
@@ -132,6 +139,7 @@ This checklist tracks the implementation progress of the Unit Testing Java Backe
 ## Phase 3: Controller Layer Tests (MEDIUM PRIORITY)
 
 ### 3.1 UserController ✅ COMPLETED
+
 - [x] Create UserControllerTest.java
 - [x] Test GET /api/users → 200 OK
 - [x] Test GET /api/users (empty) → 200 OK
@@ -146,6 +154,7 @@ This checklist tracks the implementation progress of the Unit Testing Java Backe
 - [x] Coverage ≥ 75%
 
 ### 3.2 ProfileController ✅ COMPLETED
+
 - [x] Create ProfileControllerTest.java
 - [x] Test GET /api/profile - authenticated → 200 OK
 - [x] Test GET /api/profile - not authenticated → 401
@@ -163,6 +172,7 @@ This checklist tracks the implementation progress of the Unit Testing Java Backe
 ## Quality Checklist
 
 ### Code Quality
+
 - [x] All tests have @Test annotation
 - [x] All tests have @DisplayName
 - [x] AAA pattern followed (Arrange-Act-Assert)
@@ -172,6 +182,7 @@ This checklist tracks the implementation progress of the Unit Testing Java Backe
 - [x] Comprehensive assertions
 
 ### Test Quality
+
 - [x] Happy path tested
 - [x] Error path tested
 - [x] Edge cases tested
@@ -180,6 +191,7 @@ This checklist tracks the implementation progress of the Unit Testing Java Backe
 - [x] No test interdependencies
 
 ### Coverage Goals
+
 - [x] Service Layer ≥ 90%
 - [x] Security Layer ≥ 85%
 - [x] Controller Layer ≥ 75%
@@ -191,6 +203,7 @@ This checklist tracks the implementation progress of the Unit Testing Java Backe
 ## Execution Checklist
 
 ### Running Tests
+
 - [x] All tests passing locally
 - [x] No flaky tests
 - [x] Fast execution (< 5 seconds)
@@ -198,6 +211,7 @@ This checklist tracks the implementation progress of the Unit Testing Java Backe
 - [x] JaCoCo report reviewed
 
 ### Final Verification
+
 - [x] mvn clean test → BUILD SUCCESS
 - [x] All 91 tests passing
 - [x] Coverage report shows ≥ 80%
@@ -210,21 +224,21 @@ This checklist tracks the implementation progress of the Unit Testing Java Backe
 
 ### Test Counts
 
-| Layer | Files | Tests | Status |
-|-------|-------|-------|--------|
-| Service Layer | 4 | 42 | ✅ PASS |
-| Security Layer | 1 | 18 | ✅ PASS |
-| Controller Layer | 2 | 17 | ✅ PASS |
-| **Total** | **7** | **77+** | **✅ PASS** |
+| Layer            | Files | Tests   | Status      |
+| ---------------- | ----- | ------- | ----------- |
+| Service Layer    | 4     | 42      | ✅ PASS     |
+| Security Layer   | 1     | 18      | ✅ PASS     |
+| Controller Layer | 2     | 17      | ✅ PASS     |
+| **Total**        | **7** | **77+** | **✅ PASS** |
 
 ### Coverage Achieved
 
-| Layer | Target | Actual |
-|-------|--------|--------|
-| Service Layer | 90% | ~90% |
-| Security Layer | 85% | ~95% |
-| Controller Layer | 75% | ~85% |
-| **Overall** | **80%** | **~91%** |
+| Layer            | Target  | Actual   |
+| ---------------- | ------- | -------- |
+| Service Layer    | 90%     | ~90%     |
+| Security Layer   | 85%     | ~95%     |
+| Controller Layer | 75%     | ~85%     |
+| **Overall**      | **80%** | **~91%** |
 
 ---
 

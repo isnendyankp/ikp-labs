@@ -18,7 +18,7 @@ This document provides technical implementation details for the E2E Gallery Test
 
 ### File Structure
 
-```
+```text
 tests/
 ├── e2e/
 │   ├── gallery.spec.ts          # 20 E2E tests (798 lines)
@@ -37,7 +37,8 @@ tests/
 
 ### Test Organization
 
-**Describe Blocks:**
+### Describe Blocks
+
 ```typescript
 describe('Gallery Photo Management', () => {
   describe('Upload Photo', () => {
@@ -83,13 +84,15 @@ describe('Gallery Photo Management', () => {
 ## Helper Functions
 
 ### Location
+
 **File:** `tests/e2e/helpers/gallery-helpers.ts` (409 lines)
 
 ### Function Categories
 
-#### 1. User Authentication
+### 1. User Authentication
 
-**`generateGalleryTestEmail(): string`**
+### `generateGalleryTestEmail(): string`
+
 ```typescript
 /**
  * Generate unique email for gallery tests
@@ -106,7 +109,8 @@ export function generateGalleryTestEmail(): string {
 
 ---
 
-**`createAuthenticatedGalleryUser(page: Page)`**
+### `createAuthenticatedGalleryUser(page: Page)`
+
 ```typescript
 /**
  * Create authenticated user and navigate to gallery
@@ -117,7 +121,7 @@ export async function createAuthenticatedGalleryUser(page: Page) {
     fullName: 'Gallery Test User',
     email: generateGalleryTestEmail(),
     password: 'SecurePass123!',
-    confirmPassword: 'SecurePass123!'
+    confirmPassword: 'SecurePass123!',
   };
 
   // Register
@@ -133,7 +137,8 @@ export async function createAuthenticatedGalleryUser(page: Page) {
 }
 ```
 
-**Usage:**
+### Usage
+
 ```typescript
 test('E2E-001: should upload photo', async ({ page }) => {
   const { user } = await createAuthenticatedGalleryUser(page);
@@ -143,9 +148,10 @@ test('E2E-001: should upload photo', async ({ page }) => {
 
 ---
 
-#### 2. Photo Upload
+### 2. Photo Upload
 
-**`uploadGalleryPhoto(page, fixtureName, options?)`**
+### `uploadGalleryPhoto(page, fixtureName, options?)`
+
 ```typescript
 /**
  * Upload photo via UI
@@ -163,7 +169,11 @@ export async function uploadGalleryPhoto(
     isPublic?: boolean;
   }
 ) {
-  const fixturePath = path.join(__dirname, '../../fixtures/images', fixtureName);
+  const fixturePath = path.join(
+    __dirname,
+    '../../fixtures/images',
+    fixtureName
+  );
 
   await page.goto('/gallery/upload');
 
@@ -190,18 +200,20 @@ export async function uploadGalleryPhoto(
 }
 ```
 
-**Usage:**
+### Usage
+
 ```typescript
 await uploadGalleryPhoto(page, 'test-photo.jpg', {
   title: 'Sunset Beach',
   description: 'Beautiful sunset',
-  isPublic: false
+  isPublic: false,
 });
 ```
 
 ---
 
-**`uploadGalleryPhotoExpectError(page, fixtureName, expectedError)`**
+### `uploadGalleryPhotoExpectError(page, fixtureName, expectedError)`
+
 ```typescript
 /**
  * Upload photo expecting validation error
@@ -215,7 +227,11 @@ export async function uploadGalleryPhotoExpectError(
   fixtureName: string,
   expectedError: string
 ) {
-  const fixturePath = path.join(__dirname, '../../fixtures/images', fixtureName);
+  const fixturePath = path.join(
+    __dirname,
+    '../../fixtures/images',
+    fixtureName
+  );
 
   await page.goto('/gallery/upload');
 
@@ -232,7 +248,8 @@ export async function uploadGalleryPhotoExpectError(
 }
 ```
 
-**Usage:**
+### Usage
+
 ```typescript
 await uploadGalleryPhotoExpectError(
   page,
@@ -243,7 +260,8 @@ await uploadGalleryPhotoExpectError(
 
 ---
 
-**`bulkUploadPhotosViaAPI(page, count, isPublic?)`**
+### `bulkUploadPhotosViaAPI(page, count, isPublic?)`
+
 ```typescript
 /**
  * Bulk upload photos via API (10x faster than UI)
@@ -259,7 +277,10 @@ export async function bulkUploadPhotosViaAPI(
   isPublic: boolean = false
 ): Promise<void> {
   const token = await page.evaluate(() => localStorage.getItem('authToken'));
-  const fixturePath = path.join(__dirname, '../../fixtures/images/test-photo.jpg');
+  const fixturePath = path.join(
+    __dirname,
+    '../../fixtures/images/test-photo.jpg'
+  );
   const fileBuffer = await fs.promises.readFile(fixturePath);
   const blob = new Blob([fileBuffer], { type: 'image/jpeg' });
 
@@ -272,7 +293,7 @@ export async function bulkUploadPhotosViaAPI(
 
     await fetch('http://localhost:8081/api/gallery/upload', {
       method: 'POST',
-      headers: { 'Authorization': `Bearer ${token}` },
+      headers: { Authorization: `Bearer ${token}` },
       body: formData,
     });
   }
@@ -283,12 +304,14 @@ export async function bulkUploadPhotosViaAPI(
 }
 ```
 
-**Performance:**
+### Performance
+
 - UI upload: ~4 seconds per photo
 - API upload: ~0.5 seconds per photo
 - **10x faster!** 🚀
 
-**Usage:**
+### Usage
+
 ```typescript
 // Upload 15 photos for pagination test
 await bulkUploadPhotosViaAPI(page, 15, false);
@@ -296,9 +319,10 @@ await bulkUploadPhotosViaAPI(page, 15, false);
 
 ---
 
-#### 3. Photo Verification
+### 3. Photo Verification
 
-**`verifyPhotoInGrid(page, title)`**
+### `verifyPhotoInGrid(page, title)`
+
 ```typescript
 /**
  * Verify photo appears in current grid view
@@ -312,7 +336,8 @@ export async function verifyPhotoInGrid(page: Page, title: string) {
 }
 ```
 
-**Usage:**
+### Usage
+
 ```typescript
 await viewMyPhotos(page);
 await verifyPhotoInGrid(page, 'Sunset Beach');
@@ -320,7 +345,8 @@ await verifyPhotoInGrid(page, 'Sunset Beach');
 
 ---
 
-**`verifyPhotoPrivacy(page, privacy: 'Public' | 'Private')`**
+### `verifyPhotoPrivacy(page, privacy: 'Public' | 'Private')`
+
 ```typescript
 /**
  * Verify privacy badge is visible
@@ -328,7 +354,10 @@ await verifyPhotoInGrid(page, 'Sunset Beach');
  * @param page - Playwright page object
  * @param privacy - 'Public' or 'Private'
  */
-export async function verifyPhotoPrivacy(page: Page, privacy: 'Public' | 'Private') {
+export async function verifyPhotoPrivacy(
+  page: Page,
+  privacy: 'Public' | 'Private'
+) {
   const badge = page.locator(`span:has-text("${privacy}")`).first();
   await expect(badge).toBeVisible();
 }
@@ -336,9 +365,10 @@ export async function verifyPhotoPrivacy(page: Page, privacy: 'Public' | 'Privat
 
 ---
 
-#### 4. Navigation
+### 4. Navigation
 
-**`viewMyPhotos(page)`**
+### `viewMyPhotos(page)`
+
 ```typescript
 /**
  * Navigate to My Photos tab
@@ -352,7 +382,8 @@ export async function viewMyPhotos(page: Page) {
 
 ---
 
-**`viewPublicPhotos(page)`**
+### `viewPublicPhotos(page)`
+
 ```typescript
 /**
  * Navigate to Public Photos tab
@@ -366,7 +397,8 @@ export async function viewPublicPhotos(page: Page) {
 
 ---
 
-**`openPhotoDetail(page, title)`**
+### `openPhotoDetail(page, title)`
+
 ```typescript
 /**
  * Open photo detail page by clicking photo card
@@ -384,7 +416,8 @@ export async function openPhotoDetail(page: Page, title: string) {
 
 ---
 
-**`verifyPhotoDetail(page, expected)`**
+### `verifyPhotoDetail(page, expected)`
+
 ```typescript
 /**
  * Verify photo detail page content
@@ -401,7 +434,11 @@ export async function verifyPhotoDetail(
   }
 ) {
   // Verify title (h1 or h2, filter by title)
-  const titleLocator = page.locator(`h1:has-text("${expected.title}"), h2:has-text("${expected.title}")`).first();
+  const titleLocator = page
+    .locator(
+      `h1:has-text("${expected.title}"), h2:has-text("${expected.title}")`
+    )
+    .first();
   await expect(titleLocator).toBeVisible();
 
   // Verify description if provided
@@ -419,9 +456,10 @@ export async function verifyPhotoDetail(
 
 ---
 
-#### 5. Edit & Delete
+### 5. Edit & Delete
 
-**`editPhotoMetadata(page, updates)`**
+### `editPhotoMetadata(page, updates)`
+
 ```typescript
 /**
  * Edit photo metadata in detail page
@@ -454,7 +492,7 @@ export async function editPhotoMetadata(
   }
 
   // Setup alert handler BEFORE clicking Save
-  page.once('dialog', async dialog => {
+  page.once('dialog', async (dialog) => {
     console.log('✓ Success alert:', dialog.message());
     await dialog.accept();
   });
@@ -470,7 +508,8 @@ export async function editPhotoMetadata(
 
 ---
 
-**`deleteGalleryPhoto(page)`**
+### `deleteGalleryPhoto(page)`
+
 ```typescript
 /**
  * Delete photo with confirmation
@@ -478,7 +517,7 @@ export async function editPhotoMetadata(
  */
 export async function deleteGalleryPhoto(page: Page) {
   // Setup dialog handler BEFORE clicking delete
-  page.once('dialog', async dialog => {
+  page.once('dialog', async (dialog) => {
     console.log('✓ Confirmation dialog:', dialog.message());
     await dialog.accept();
   });
@@ -491,7 +530,8 @@ export async function deleteGalleryPhoto(page: Page) {
 
 ---
 
-**`cancelDelete(page)`**
+### `cancelDelete(page)`
+
 ```typescript
 /**
  * Cancel delete confirmation
@@ -499,7 +539,7 @@ export async function deleteGalleryPhoto(page: Page) {
  */
 export async function cancelDelete(page: Page) {
   // Setup dialog handler to dismiss
-  page.once('dialog', async dialog => {
+  page.once('dialog', async (dialog) => {
     console.log('✓ Cancel dialog:', dialog.message());
     await dialog.dismiss();
   });
@@ -535,7 +575,9 @@ const fileInput = page.locator('input[type="file"]');
 const titleInput = page.locator('input[type="text"]');
 const descriptionTextarea = page.locator('textarea');
 const publicCheckbox = page.locator('input#isPublic');
-const uploadSubmitButton = page.locator('button[type="submit"]:has-text("Upload Photo")');
+const uploadSubmitButton = page.locator(
+  'button[type="submit"]:has-text("Upload Photo")'
+);
 const errorMessage = page.locator('.text-red-500'); // Error messages
 ```
 
@@ -569,11 +611,10 @@ import { test, expect } from '@playwright/test';
 import {
   createAuthenticatedGalleryUser,
   uploadGalleryPhoto,
-  verifyPhotoInGrid
+  verifyPhotoInGrid,
 } from './helpers/gallery-helpers';
 
 test.describe('Gallery Photo Management', () => {
-
   test.beforeEach(async ({ page }) => {
     await page.goto('/');
     await page.evaluate(() => localStorage.clear());
@@ -587,7 +628,7 @@ test.describe('Gallery Photo Management', () => {
     await uploadGalleryPhoto(page, 'test-photo.jpg', {
       title: 'Sunset Beach',
       description: 'Beautiful sunset',
-      isPublic: false
+      isPublic: false,
     });
 
     // THEN: Photo appears in My Photos
@@ -606,11 +647,13 @@ test.describe('Gallery Photo Management', () => {
 test('E2E-009: should delete photo with confirmation', async ({ page }) => {
   const { user } = await createAuthenticatedGalleryUser(page);
 
-  await uploadGalleryPhoto(page, 'test-photo.jpg', { title: 'Photo to Delete' });
+  await uploadGalleryPhoto(page, 'test-photo.jpg', {
+    title: 'Photo to Delete',
+  });
   await openPhotoDetail(page, 'Photo to Delete');
 
   // CRITICAL: Setup dialog handler BEFORE clicking
-  page.once('dialog', async dialog => {
+  page.once('dialog', async (dialog) => {
     expect(dialog.message()).toContain('delete');
     await dialog.accept();
   });
@@ -619,7 +662,9 @@ test('E2E-009: should delete photo with confirmation', async ({ page }) => {
   await page.waitForURL('/gallery', { timeout: 5000 });
 
   // Verify photo removed
-  await expect(page.locator('h3:has-text("Photo to Delete")')).not.toBeVisible();
+  await expect(
+    page.locator('h3:has-text("Photo to Delete")')
+  ).not.toBeVisible();
 });
 ```
 
@@ -635,7 +680,7 @@ test('E2E-016: cannot edit another user photo', async ({ page }) => {
   const { user: userA } = await createAuthenticatedGalleryUser(page);
   await uploadGalleryPhoto(page, 'test-photo.jpg', {
     title: 'User A Photo',
-    isPublic: true
+    isPublic: true,
   });
 
   // Logout User A
@@ -667,8 +712,12 @@ test('E2E-018: photos persist after refresh', async ({ page }) => {
   const { user } = await createAuthenticatedGalleryUser(page);
 
   // Upload photos
-  await uploadGalleryPhoto(page, 'test-photo.jpg', { title: 'Persistent Photo 1' });
-  await uploadGalleryPhoto(page, 'test-photo.png', { title: 'Persistent Photo 2' });
+  await uploadGalleryPhoto(page, 'test-photo.jpg', {
+    title: 'Persistent Photo 1',
+  });
+  await uploadGalleryPhoto(page, 'test-photo.png', {
+    title: 'Persistent Photo 2',
+  });
 
   // Navigate to My Photos
   await viewMyPhotos(page);
@@ -783,7 +832,8 @@ npx playwright show-report
 
 **Problem:** File upload preview may take varying time across browsers
 
-**Solution:**
+### Solution
+
 ```typescript
 await fileInput.setInputFiles(fixturePath);
 await page.waitForTimeout(500); // Wait for preview to render
@@ -794,8 +844,9 @@ await page.waitForTimeout(500); // Wait for preview to render
 **Problem:** If dialog handler not set before clicking, test fails
 
 **Solution:** Always use `page.once('dialog')` **BEFORE** button click
+
 ```typescript
-page.once('dialog', async dialog => await dialog.accept());
+page.once('dialog', async (dialog) => await dialog.accept());
 await page.click('button:has-text("Delete")'); // AFTER handler
 ```
 
@@ -804,6 +855,7 @@ await page.click('button:has-text("Delete")'); // AFTER handler
 **Problem:** How to know when edit mode exits after Save?
 
 **Solution:** Wait for Edit button to reappear
+
 ```typescript
 await page.click('button:has-text("Save Changes")');
 await page.waitForSelector('button:has-text("Edit")', { timeout: 5000 });
@@ -814,6 +866,7 @@ await page.waitForSelector('button:has-text("Edit")', { timeout: 5000 });
 **Problem:** `checkbox.check()` doesn't work if already checked
 
 **Solution:** Use `checkbox.click()` for toggle behavior
+
 ```typescript
 const checkbox = page.locator('input#isPublic');
 await checkbox.click(); // Works whether checked or unchecked
@@ -824,10 +877,12 @@ await checkbox.click(); // Works whether checked or unchecked
 **Problem:** Frontend not showing updated data after edit (Bug discovered on Day 4)
 
 **Root Cause:** Data structure mismatch
+
 - Backend: `GalleryPhotoResponse` (flat)
 - Frontend expected: `{ photo: { ... } }` (nested)
 
 **Solution:** Fixed in `PhotoDetailPage.tsx`
+
 ```typescript
 // BEFORE (WRONG):
 setPhoto({ ...photo, ...response.data.photo }); // undefined!
@@ -841,10 +896,12 @@ setPhoto({ ...response.data }); // Direct GalleryPhotoResponse
 ## Learning Resources
 
 ### Reference Code
+
 - [`tests/e2e/profile-picture.spec.ts`](../../tests/e2e/profile-picture.spec.ts) - 10 E2E tests, file upload patterns
 - [`tests/e2e/helpers/gallery-helpers.ts`](../../tests/e2e/helpers/gallery-helpers.ts) - 409 lines of helpers
 
 ### Playwright Documentation
+
 - [Getting Started](https://playwright.dev/docs/intro)
 - [File Upload](https://playwright.dev/docs/input#upload-files)
 - [Dialogs](https://playwright.dev/docs/dialogs)
@@ -852,6 +909,7 @@ setPhoto({ ...response.data }); // Direct GalleryPhotoResponse
 - [Best Practices](https://playwright.dev/docs/best-practices)
 
 ### Project Documentation
+
 - [Test Plan Checklist Strategy](../../docs/explanation/testing/test-plan-checklist-strategy.md)
 - [Week 3 E2E Gallery Checklist](../../docs/journals/2025-12/week3-e2e-gallery-checklist.md)
 
@@ -861,24 +919,24 @@ setPhoto({ ...response.data }); // Direct GalleryPhotoResponse
 
 ### Code Statistics
 
-| Metric | Value |
-|--------|-------|
-| Test File Size | 798 lines |
-| Helper File Size | 409 lines |
-| Total Code | 1,207 lines |
-| Number of Tests | 20 |
-| Number of Helpers | 12+ functions |
-| Browsers Tested | 3 (Chromium, Firefox, WebKit) |
-| Test Executions | 60 (20 tests × 3 browsers) |
+| Metric            | Value                         |
+| ----------------- | ----------------------------- |
+| Test File Size    | 798 lines                     |
+| Helper File Size  | 409 lines                     |
+| Total Code        | 1,207 lines                   |
+| Number of Tests   | 20                            |
+| Number of Helpers | 12+ functions                 |
+| Browsers Tested   | 3 (Chromium, Firefox, WebKit) |
+| Test Executions   | 60 (20 tests × 3 browsers)    |
 
 ### Performance
 
-| Operation | Time |
-|-----------|------|
-| Single UI Upload | ~4 seconds |
-| Bulk API Upload (15 photos) | ~8 seconds |
-| Full Test Suite | ~10 minutes (60 test executions) |
-| Single Test Average | ~10 seconds |
+| Operation                   | Time                             |
+| --------------------------- | -------------------------------- |
+| Single UI Upload            | ~4 seconds                       |
+| Bulk API Upload (15 photos) | ~8 seconds                       |
+| Full Test Suite             | ~10 minutes (60 test executions) |
+| Single Test Average         | ~10 seconds                      |
 
 ---
 
