@@ -383,9 +383,9 @@
 - [x] `package.json` is valid JSON (no trailing comma, no syntax error) — Phases 1 and 2
 - [x] Existing scripts (`lint:md`, `lint`, `build`, `test`) are unchanged — Phase 1
 - [x] `markdown-lint` CI job visible in GitHub Actions — Phase 3
-- [ ] Each fix phase: `npx markdownlint-cli2` scoped to target dir reports zero violations
-- [ ] `npm run lint:md` at repo root reports zero total violations before Phase 11
-- [ ] YAML file has correct indentation (2-space, no tabs) — Phase 11
-- [ ] No new ESLint errors introduced (`npm run lint:fe` passes) — Phase 11
-- [ ] No new TypeScript errors introduced (`npm run typecheck` passes) — Phase 11
-- [ ] All CI jobs continue to pass after each phase is merged
+- [x] Each fix phase: `npx markdownlint-cli2` scoped to target dir reports zero violations
+- [x] `npm run lint:md` at repo root reports zero total violations before Phase 11
+- [x] YAML file has correct indentation (2-space, no tabs) — Phase 11
+- [x] No new ESLint errors introduced (`npm run lint:fe` passes) — Phase 11
+- [x] No new TypeScript errors introduced (`npm run typecheck` passes) — Phase 11
+- [x] All CI jobs continue to pass after each phase is merged
