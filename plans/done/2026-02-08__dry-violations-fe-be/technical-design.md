@@ -21,7 +21,7 @@
 
 ### Current State
 
-```
+```text
 Frontend                           Backend
 ────────                           ────────
 api.ts          ─┐
@@ -38,7 +38,7 @@ PhotoFavoriteCtrl─┘   isValidSortBy()
 
 ### Target State
 
-```
+```text
 Frontend                           Backend
 ────────                           ────────
 apiClient.ts ────────> Centralized auth
@@ -61,14 +61,15 @@ PhotoFavoriteCtrl─┘   utilities   ┘
 
 ### FE-1: Centralized API Client
 
-#### File Structure
-```
+### File Structure
+
+```text
 frontend/src/lib/
 ├── auth.ts              (existing - login, logout, isAuthenticated)
 └── apiClient.ts         (NEW - centralized API client)
 ```
 
-#### API Client Interface
+### API Client Interface
 
 ```typescript
 // frontend/src/lib/apiClient.ts
@@ -102,7 +103,7 @@ export function createAuthHeaders(): Record<string, string> {
   if (!token) return {};
 
   return {
-    'Authorization': `Bearer ${token}`,
+    Authorization: `Bearer ${token}`,
     'Content-Type': 'application/json',
   };
 }
@@ -119,7 +120,7 @@ export async function fetchWithAuth(
 ): Promise<Response> {
   const headers = {
     ...createAuthHeaders(),
-    ...(options.headers as Record<string, string> || {}),
+    ...((options.headers as Record<string, string>) || {}),
   };
 
   return fetch(url, {
@@ -170,9 +171,10 @@ export async function del(url: string): Promise<void> {
 }
 ```
 
-#### Migration Example
+### Migration Example
 
 **Before** (profileService.ts):
+
 ```typescript
 const token = localStorage.getItem('authToken');
 const headers: Record<string, string> = {
@@ -190,6 +192,7 @@ const response = await fetch(`${API_URL}/profile`, {
 ```
 
 **After** (profileService.ts):
+
 ```typescript
 import { get } from '@/lib/apiClient';
 
@@ -201,15 +204,16 @@ const response = await get(`${API_URL}/profile`);
 
 ### FE-2: ActionButton Component (Optional)
 
-#### File Structure
-```
+### File Structure
+
+```text
 frontend/src/components/
 ├── LikeButton.tsx        (existing - will use ActionButton)
 ├── FavoriteButton.tsx    (existing - will use ActionButton)
 └── ActionButton.tsx      (NEW - reusable action button)
 ```
 
-#### ActionButton Interface
+### ActionButton Interface
 
 ```typescript
 // frontend/src/components/ActionButton.tsx
@@ -291,13 +295,14 @@ export function ActionButton({
 
 ### BE-1: Pagination Utility
 
-#### File Structure
-```
+### File Structure
+
+```text
 backend/src/main/java/com/ikplabs/kameravue/util/
 └── PaginationUtil.java  (NEW)
 ```
 
-#### PaginationUtil Implementation
+### PaginationUtil Implementation
 
 ```java
 // backend/.../util/PaginationUtil.java
@@ -351,9 +356,10 @@ public class PaginationUtil {
 }
 ```
 
-#### Migration Example
+### Migration Example
 
 **Before** (GalleryController.java):
+
 ```java
 int totalPages = (int) Math.ceil((double) totalPhotos / size);
 boolean hasNext = page < totalPages - 1;
@@ -371,6 +377,7 @@ return ResponseEntity.ok(new PhotoResponse(
 ```
 
 **After** (GalleryController.java):
+
 ```java
 import com.ikplabs.kameravue.util.PaginationUtil;
 import com.ikplabs.kameravue.util.PaginationUtil.PaginationMetadata;
@@ -394,13 +401,14 @@ return ResponseEntity.ok(new PhotoResponse(
 
 ### BE-2: SortBy Enum
 
-#### File Structure
-```
+### File Structure
+
+```text
 backend/src/main/java/com/ikplabs/kameravue/enums/
 └── SortByEnum.java  (NEW)
 ```
 
-#### SortByEnum Implementation
+### SortByEnum Implementation
 
 ```java
 // backend/.../enums/SortByEnum.java
@@ -454,9 +462,10 @@ public enum SortByEnum {
 }
 ```
 
-#### Migration Example
+### Migration Example
 
 **Before** (GalleryController.java):
+
 ```java
 private boolean isValidSortBy(String sortBy) {
     return sortBy.equals("newest") ||
@@ -467,6 +476,7 @@ private boolean isValidSortBy(String sortBy) {
 ```
 
 **After** (GalleryController.java):
+
 ```java
 import com.ikplabs.kameravue.enums.SortByEnum;
 
@@ -506,7 +516,7 @@ if (!SortByEnum.isValid(sortBy)) {
 
 Each priority should be committed independently:
 
-```
+```text
 feat(frontend): create centralized API client
 
 - Add apiClient.ts with getToken, createAuthHeaders, fetchWithAuth
@@ -519,7 +529,7 @@ feat(frontend): create centralized API client
 Eliminates ~100 lines of duplicate auth handling code.
 ```
 
-```
+```text
 feat(backend): add PaginationUtil for pagination metadata
 
 - Create PaginationUtil.calculatePagination()
@@ -531,7 +541,7 @@ feat(backend): add PaginationUtil for pagination metadata
 Eliminates ~30 lines of duplicate pagination code.
 ```
 
-```
+```text
 feat(backend): add SortByEnum for type-safe sort validation
 
 - Create SortByEnum with all valid values
@@ -558,11 +568,11 @@ Since this is pure refactoring (no functional changes), we rely on existing test
 ### Test Commands
 
 ```bash
-# Frontend tests
+## Frontend tests
 npm run test          # Unit tests (if any)
 npm run test:e2e      # E2E tests
 
-# Backend tests
+## Backend tests
 mvn test              # All tests
 mvn test -Dtest=GalleryControllerTest
 mvn test -Dtest=PhotoLikeControllerTest
@@ -584,22 +594,22 @@ mvn test -Dtest=PhotoFavoriteControllerTest
 
 ### Risks
 
-| Risk | Impact | Probability | Mitigation |
-|------|--------|-------------|------------|
-| Breaking existing functionality | HIGH | LOW | Comprehensive E2E test suite |
-| Introducing new bugs | MEDIUM | LOW | Atomic commits allow easy rollback |
-| TypeScript compilation errors | LOW | LOW | Type checking during development |
-| Java compilation errors | LOW | LOW | Compile before committing |
+| Risk                            | Impact | Probability | Mitigation                         |
+| ------------------------------- | ------ | ----------- | ---------------------------------- |
+| Breaking existing functionality | HIGH   | LOW         | Comprehensive E2E test suite       |
+| Introducing new bugs            | MEDIUM | LOW         | Atomic commits allow easy rollback |
+| TypeScript compilation errors   | LOW    | LOW         | Type checking during development   |
+| Java compilation errors         | LOW    | LOW         | Compile before committing          |
 
 ### Rollback Strategy
 
 Each priority is in a separate atomic commit:
 
 ```bash
-# If something breaks, rollback specific commit:
+## If something breaks, rollback specific commit:
 git revert <commit-hash>
 
-# Or rollback to before the work:
+## Or rollback to before the work:
 git reset --hard <before-commit-hash>
 ```
 
@@ -609,27 +619,27 @@ git reset --hard <before-commit-hash>
 
 ### Files to Create
 
-| File | Purpose |
-|------|---------|
-| `frontend/src/lib/apiClient.ts` | Centralized API client |
-| `backend/.../util/PaginationUtil.java` | Pagination utility |
-| `backend/.../enums/SortByEnum.java` | SortBy enum |
+| File                                       | Purpose                           |
+| ------------------------------------------ | --------------------------------- |
+| `frontend/src/lib/apiClient.ts`            | Centralized API client            |
+| `backend/.../util/PaginationUtil.java`     | Pagination utility                |
+| `backend/.../enums/SortByEnum.java`        | SortBy enum                       |
 | `frontend/src/components/ActionButton.tsx` | Reusable action button (optional) |
 
 ### Files to Modify
 
-| File | Changes |
-|------|---------|
-| `frontend/src/services/api.ts` | Use apiClient |
-| `frontend/src/services/profileService.ts` | Use apiClient |
-| `frontend/src/services/galleryService.ts` | Use apiClient |
-| `frontend/src/services/photoLikeService.ts` | Use apiClient |
-| `frontend/src/services/photoFavoriteService.ts` | Use apiClient |
-| `backend/.../controller/GalleryController.java` | Use PaginationUtil & SortByEnum |
-| `backend/.../controller/PhotoLikeController.java` | Use PaginationUtil & SortByEnum |
+| File                                                  | Changes                         |
+| ----------------------------------------------------- | ------------------------------- |
+| `frontend/src/services/api.ts`                        | Use apiClient                   |
+| `frontend/src/services/profileService.ts`             | Use apiClient                   |
+| `frontend/src/services/galleryService.ts`             | Use apiClient                   |
+| `frontend/src/services/photoLikeService.ts`           | Use apiClient                   |
+| `frontend/src/services/photoFavoriteService.ts`       | Use apiClient                   |
+| `backend/.../controller/GalleryController.java`       | Use PaginationUtil & SortByEnum |
+| `backend/.../controller/PhotoLikeController.java`     | Use PaginationUtil & SortByEnum |
 | `backend/.../controller/PhotoFavoriteController.java` | Use PaginationUtil & SortByEnum |
-| `frontend/src/components/LikeButton.tsx` | Use ActionButton (optional) |
-| `frontend/src/components/FavoriteButton.tsx` | Use ActionButton (optional) |
+| `frontend/src/components/LikeButton.tsx`              | Use ActionButton (optional)     |
+| `frontend/src/components/FavoriteButton.tsx`          | Use ActionButton (optional)     |
 
 ---
 
@@ -637,12 +647,12 @@ git reset --hard <before-commit-hash>
 
 ### Code Reduction
 
-| Category | Lines Removed | Lines Added | Net Reduction |
-|----------|---------------|-------------|---------------|
-| FE Auth Token | ~100 | ~80 | ~20 |
-| BE Pagination | ~30 | ~40 | -10 (but more maintainable) |
-| BE SortBy | ~24 | ~30 | -6 (but type-safe) |
-| **Total** | ~154 | ~150 | **~4 (net) + much improved maintainability** |
+| Category      | Lines Removed | Lines Added | Net Reduction                                |
+| ------------- | ------------- | ----------- | -------------------------------------------- |
+| FE Auth Token | ~100          | ~80         | ~20                                          |
+| BE Pagination | ~30           | ~40         | -10 (but more maintainable)                  |
+| BE SortBy     | ~24           | ~30         | -6 (but type-safe)                           |
+| **Total**     | ~154          | ~150        | **~4 (net) + much improved maintainability** |
 
 ### Maintainability Improvement
 

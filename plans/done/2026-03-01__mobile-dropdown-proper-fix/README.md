@@ -16,6 +16,7 @@ Fix mobile filter/sort dropdowns not closing on second click with proper solutio
 ### Bug: Mobile Dropdown Not Closing on Second Click
 
 **Symptoms**:
+
 - User clicks filter/sort icon -> dropdown opens
 - User clicks same icon again -> dropdown stays open (BROKEN)
 - Expected: dropdown should close on second click
@@ -24,6 +25,7 @@ Fix mobile filter/sort dropdowns not closing on second click with proper solutio
 
 PR #9 attempted fix with `stopPropagation()` on button `onClick`.
 Fix did NOT work because:
+
 - `stopPropagation()` on `onClick` doesn't block `mousedown` event
 - `handleClickOutside` listens to `mousedown`, not `click`
 - Button is outside `dropdownRef`, so always triggers close
@@ -31,7 +33,8 @@ Fix did NOT work because:
 ### Root Cause
 
 **Event Flow Problem**:
-```
+
+```text
 User clicks button (2nd time):
 1. mousedown event -> handleClickOutside() -> set isOpen = false
 2. click event -> handleFilterButtonClick() -> toggle isOpen = true
@@ -39,6 +42,7 @@ User clicks button (2nd time):
 ```
 
 **Why stopPropagation() Failed**:
+
 - Button `onClick` = `click` event
 - `handleClickOutside` = `mousedown` event
 - Different event types = stopPropagation doesn't work across them
@@ -48,12 +52,14 @@ User clicks button (2nd time):
 ### Proper Solution: Ignore Button Click in handleClickOutside
 
 **Approach**:
+
 1. Pass button ref from `MobileHeaderControls` to dropdown components
 2. In `handleClickOutside`, check if click target is the button
 3. If click is on button, ignore (don't close dropdown)
 4. Button onClick handles toggle normally
 
 **Why This Works**:
+
 - Button ref check happens in `mousedown` handler (same event type)
 - No race condition between different event types
 - Clean separation: button controls open/close, outside click only closes
@@ -62,12 +68,14 @@ User clicks button (2nd time):
 ## Scope
 
 ### In-Scope
+
 - Update FilterDropdown component with triggerRef prop
 - Update SortByDropdown component with triggerRef prop
 - Update MobileHeaderControls to pass refs
 - Remove `stopPropagation()` (not needed anymore)
 
 ### Out-of-Scope
+
 - Desktop dropdown functionality (uses different component)
 - Other dropdown components
 
@@ -84,7 +92,9 @@ User clicks button (2nd time):
 ## Final Results
 
 ### Manual Test Execution Summary
+
 **Manual Testing** (Mobile viewport 390x844):
+
 - **Filter Dropdown**: Opens and closes correctly on button click
 - **Sort Dropdown**: Opens and closes correctly on button click
 - **Click Outside**: Both dropdowns close when clicking outside
@@ -92,6 +102,7 @@ User clicks button (2nd time):
 - **Status**: **ALL TESTS PASSED**
 
 ### Files Modified
+
 1. `frontend/src/components/FilterDropdown.tsx` - Added triggerRef prop + logic
 2. `frontend/src/components/SortByDropdown.tsx` - Added triggerRef prop + logic
 3. `frontend/src/components/gallery/MobileHeaderControls.tsx` - Created refs + passed to dropdowns

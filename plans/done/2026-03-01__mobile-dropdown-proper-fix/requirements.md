@@ -21,6 +21,7 @@
 **Requirement**: FilterDropdown must accept triggerRef prop
 
 **Acceptance Criteria**:
+
 - [x] Add optional `triggerRef` prop to FilterDropdown
 - [x] Update `handleClickOutside` to check if click is on trigger button
 - [x] If click on trigger, return early (don't close)
@@ -34,6 +35,7 @@
 **Requirement**: SortByDropdown must accept triggerRef prop
 
 **Acceptance Criteria**:
+
 - [x] Add optional `triggerRef` prop to SortByDropdown
 - [x] Update `handleClickOutside` to check if click is on trigger button
 - [x] If click on trigger, return early (don't close)
@@ -47,6 +49,7 @@
 **Requirement**: MobileHeaderControls must pass refs to dropdowns
 
 **Acceptance Criteria**:
+
 - [x] Create refs for filter and sort buttons
 - [x] Pass refs to FilterDropdown and SortByDropdown
 - [x] Remove `stopPropagation()` (not needed anymore)
@@ -62,14 +65,16 @@
 **Requirement**: Filter dropdown must toggle correctly on button click
 
 **Scenarios**:
-| Scenario | Expected Result |
-|----------|-----------------|
-| Click filter icon (1st time) | Dropdown opens |
+
+| Scenario                     | Expected Result |
+| ---------------------------- | --------------- |
+| Click filter icon (1st time) | Dropdown opens  |
 | Click filter icon (2nd time) | Dropdown closes |
-| Click outside when open | Dropdown closes |
-| Press Escape when open | Dropdown closes |
+| Click outside when open      | Dropdown closes |
+| Press Escape when open       | Dropdown closes |
 
 **Acceptance Criteria**:
+
 - [x] Dropdown opens on first click
 - [x] Dropdown closes on second click
 - [x] Dropdown closes on outside click
@@ -82,14 +87,16 @@
 **Requirement**: Sort dropdown must toggle correctly on button click
 
 **Scenarios**:
-| Scenario | Expected Result |
-|----------|-----------------|
-| Click sort icon (1st time) | Dropdown opens |
+
+| Scenario                   | Expected Result |
+| -------------------------- | --------------- |
+| Click sort icon (1st time) | Dropdown opens  |
 | Click sort icon (2nd time) | Dropdown closes |
-| Click outside when open | Dropdown closes |
-| Press Escape when open | Dropdown closes |
+| Click outside when open    | Dropdown closes |
+| Press Escape when open     | Dropdown closes |
 
 **Acceptance Criteria**:
+
 - [x] Dropdown opens on first click
 - [x] Dropdown closes on second click
 - [x] Dropdown closes on outside click
@@ -102,6 +109,7 @@
 **Requirement**: Desktop version must continue to work correctly
 
 **Acceptance Criteria**:
+
 - [x] Desktop dropdowns unaffected
 - [x] No regressions in desktop behavior
 
@@ -110,6 +118,7 @@
 ## Acceptance Criteria Summary
 
 ### Must Pass (P0)
+
 - [x] Mobile filter dropdown closes on second click
 - [x] Mobile sort dropdown closes on second click
 - [x] Click outside still closes dropdown

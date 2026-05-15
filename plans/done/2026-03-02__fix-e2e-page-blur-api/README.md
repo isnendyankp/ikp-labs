@@ -30,10 +30,12 @@ Replace all `page.blur('input[name="email"]')` with `page.locator('input[name="e
 ## Scope
 
 ### In-Scope
+
 - Fix tests in `tests/e2e/ux-validation.spec.ts`
 - Use correct `locator.blur()` API
 
 ### Out-of-Scope
+
 - Other test files (no frontend code changes needed)
 
 ## Success Criteria
@@ -46,6 +48,7 @@ Replace all `page.blur('input[name="email"]')` with `page.locator('input[name="e
 ## Final Results
 
 ### Test Execution Summary
+
 **Date**: 2026-03-02
 **Command**: `npx playwright test tests/e2e/ux-validation.spec.ts --project=chromium`
 **Result**: All 5 Part 2 tests PASSED

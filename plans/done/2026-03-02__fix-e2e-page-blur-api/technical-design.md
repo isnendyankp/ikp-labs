@@ -12,4 +12,3 @@
 2. [Solution Design](#solution-design)
 3. [Code Changes](#code-changes)
 4. [Testing Strategy](#testing-strategy)
-

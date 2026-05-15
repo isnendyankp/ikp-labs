@@ -6,7 +6,7 @@
 
 ### Current (Manual Monorepo)
 
-```
+```text
 IKP-Labs/
 ├── backend/
 │   └── ikp-labs-api/          # Spring Boot (Java)
@@ -23,7 +23,7 @@ IKP-Labs/
 
 ### Target (Nx Monorepo)
 
-```
+```text
 IKP-Labs/
 ├── apps/
 │   ├── backend/               # Spring Boot (Java) - migrated from backend/
@@ -61,19 +61,20 @@ IKP-Labs/
 ### Strategy: Incremental Migration
 
 Migrasi dilakukan secara bertahap dengan **1 PR per phase**. Setiap phase harus:
+
 1. Dapat di-build dan di-test secara independen
 2. Tidak break existing functionality
 3. Mudah di-rollback jika ada masalah
 
 ### Key Decisions
 
-| Decision | Choice | Reason |
-|----------|--------|--------|
-| Backend location | `apps/backend/` | Follow Nx convention |
-| Frontend location | `apps/frontend/` | Follow Nx convention |
-| E2E tests | Keep in `tests/` for now | Minimize changes |
-| Shared libs | `libs/shared-types/` | Enable type sharing |
-| Config files | Individual `project.json` | Per-app configuration |
+| Decision          | Choice                    | Reason                |
+| ----------------- | ------------------------- | --------------------- |
+| Backend location  | `apps/backend/`           | Follow Nx convention  |
+| Frontend location | `apps/frontend/`          | Follow Nx convention  |
+| E2E tests         | Keep in `tests/` for now  | Minimize changes      |
+| Shared libs       | `libs/shared-types/`      | Enable type sharing   |
+| Config files      | Individual `project.json` | Per-app configuration |
 
 ---
 
@@ -186,11 +187,11 @@ Migrasi dilakukan secara bertahap dengan **1 PR per phase**. Setiap phase harus:
 ### GitHub Actions Workflow Updates
 
 ```yaml
-# Before
+## Before
 - name: Build Frontend
   run: cd frontend && npm run build
 
-# After
+## After
 - name: Build Frontend
   run: npx nx build frontend
 ```
@@ -198,12 +199,12 @@ Migrasi dilakukan secara bertahap dengan **1 PR per phase**. Setiap phase harus:
 ### Deploy Script Updates
 
 ```bash
-# Before (scripts/deploy-frontend.sh)
+## Before (scripts/deploy-frontend.sh)
 rsync -avz frontend/ user@server:/path/
 
-# After
+## After
 rsync -avz dist/apps/frontend/ user@server:/path/
-# or
+## or
 rsync -avz apps/frontend/ user@server:/path/
 ```
 
@@ -214,12 +215,12 @@ rsync -avz apps/frontend/ user@server:/path/
 ### Before Migration
 
 ```bash
-# Frontend
+## Frontend
 cd frontend && npm run dev
 cd frontend && npm run build
 cd frontend && npm run test
 
-# Backend
+## Backend
 cd backend/ikp-labs-api && ./mvnw spring-boot:run
 cd backend/ikp-labs-api && ./mvnw package
 cd backend/ikp-labs-api && ./mvnw test
@@ -228,24 +229,24 @@ cd backend/ikp-labs-api && ./mvnw test
 ### After Migration
 
 ```bash
-# Frontend
+## Frontend
 nx serve frontend
 nx build frontend
 nx test frontend
 nx lint frontend
 
-# Backend
+## Backend
 nx serve backend
 nx build backend
 nx test backend
 
-# All apps
+## All apps
 nx run-many -t build
 nx run-many -t test
 nx affected -t build    # Only affected projects
 nx affected -t test     # Only affected projects
 
-# Visualization
+## Visualization
 nx graph              # Show dependency graph
 ```
 
@@ -265,24 +266,24 @@ Jika terjadi masalah di salah satu phase:
 
 ### Per Phase Testing
 
-| Phase | Test Command | Expected Result |
-|-------|--------------|-----------------|
-| Phase 1 | `npx nx graph` | Graph displayed |
-| Phase 2 | `nx build frontend` | Build success |
-| Phase 2 | `nx serve frontend` | Dev server running |
-| Phase 3 | `nx build backend` | Build success |
-| Phase 3 | `nx serve backend` | Backend running |
-| Phase 4 | `gh pr checks` | All CI pass |
-| Phase 5 | `nx build shared-types` | Lib build success |
+| Phase   | Test Command            | Expected Result    |
+| ------- | ----------------------- | ------------------ |
+| Phase 1 | `npx nx graph`          | Graph displayed    |
+| Phase 2 | `nx build frontend`     | Build success      |
+| Phase 2 | `nx serve frontend`     | Dev server running |
+| Phase 3 | `nx build backend`      | Build success      |
+| Phase 3 | `nx serve backend`      | Backend running    |
+| Phase 4 | `gh pr checks`          | All CI pass        |
+| Phase 5 | `nx build shared-types` | Lib build success  |
 
 ### Integration Testing
 
 ```bash
-# Full stack test
+## Full stack test
 nx run-many -t build --all
 nx run-many -t test --all
 
-# E2E tests (manual)
+## E2E tests (manual)
 ./scripts/run-e2e-tests.sh
 ```
 

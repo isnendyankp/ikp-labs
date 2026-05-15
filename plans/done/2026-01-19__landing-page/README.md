@@ -14,16 +14,19 @@ Create a public landing page for **Kameravue** that replaces the current redirec
 ## Problem Statement
 
 Currently, the root page (`/`) immediately redirects users based on authentication:
+
 - Authenticated users → `/gallery`
 - Unauthenticated users → `/login`
 
 **Issues**:
+
 - No public-facing presence for the application
 - No way to showcase features to potential users
 - Missed opportunity for conversion (sign-ups)
 - No SEO value (redirects don't rank)
 
 **User Journey Gap**:
+
 - New visitors can't learn about the app before signing up
 - No preview of features or benefits
 - Immediate "wall" (login page) creates friction
@@ -32,31 +35,36 @@ Currently, the root page (`/`) immediately redirects users based on authenticati
 
 ### Landing Page Sections
 
-**1. Hero Section**
+### 1. Hero Section
+
 - Compelling headline: "Your perfect moments, beautifully captured and shared with the world"
 - Value proposition subheadline
 - Two CTA buttons: "Get Started Free" + "Learn More"
 - Hero image showcasing photography
 - Trust elements: "No credit card required" + "Free forever"
 
-**2. Features Section**
+### 2. Features Section
+
 - 6 feature cards in responsive grid
 - Key features: Upload & Organize, Share Beautifully, Discover Moments, Privacy Control, Mobile Friendly, Free Forever
 - Icons + titles + descriptions
 - Hover effects for engagement
 
-**3. About Section**
+### 3. About Section
+
 - Mission statement (3 paragraphs)
 - Statistics cards (10,000+ Users, 50,000+ Photos, 100% Free)
 - 2-column layout (text left, stats right)
 
-**4. CTA Section**
+### 4. CTA Section
+
 - Dark gradient background for visual contrast
 - Final conversion push: "Ready to start sharing your moments?"
 - Prominent "Get Started Free" button
 - Trust elements reinforcement
 
-**5. Navbar (Fixed)**
+### 5. Navbar (Fixed)
+
 - Logo: Kameravue
 - Navigation links: Features, About
 - Auth-aware buttons:
@@ -64,7 +72,8 @@ Currently, the root page (`/`) immediately redirects users based on authenticati
   - Authenticated: "Go to Gallery"
 - Mobile hamburger menu
 
-**6. Footer**
+### 6. Footer
+
 - Logo + tagline
 - Link columns: Product, Company, Legal
 - Copyright notice
@@ -73,13 +82,15 @@ Currently, the root page (`/`) immediately redirects users based on authenticati
 
 ### In-Scope ✅
 
-#### Landing Page Components
+### Landing Page Components
+
 - Create `landing/` folder in `frontend/src/components/`
 - Create 9 new components (LandingPage, Navbar, HeroSection, FeatureCard, FeaturesSection, AboutSection, CTASection, Footer, types)
 - Update root page routing
 - Update app metadata
 
-#### Features
+### Features
+
 - Public landing page accessible at `/`
 - Hero section with headline, CTAs, and image
 - 6 feature cards with icons
@@ -90,17 +101,20 @@ Currently, the root page (`/`) immediately redirects users based on authenticati
 - Smooth scroll navigation
 - Responsive design (mobile/tablet/desktop)
 
-#### Navigation Flow Changes
+### Navigation Flow Changes
+
 - **OLD**: `/` → Check Auth → `/gallery` or `/login`
 - **NEW**: `/` → Landing Page → User clicks "Get Started" → `/login`
 
-#### Content
+### Content
+
 - Headlines and descriptions aligned with "Share beautiful moments" value prop
 - 6 specific features (Upload, Share, Discover, Privacy, Mobile, Free)
 - Stats: 10,000+ Users, 50,000+ Photos, 100% Free
 - Trust elements throughout
 
 ### Out-of-Scope ❌
+
 - Pricing section (app is 100% free)
 - Testimonials section (Phase 2)
 - Blog/News section (Phase 2)
@@ -111,6 +125,7 @@ Currently, the root page (`/`) immediately redirects users based on authenticati
 ## Success Criteria
 
 ### Must Have (P0)
+
 - [x] Root page shows landing page (not redirect)
 - [x] Hero section displays correctly with CTAs
 - [x] All 6 feature cards render with icons
@@ -123,12 +138,14 @@ Currently, the root page (`/`) immediately redirects users based on authenticati
 - [x] Auth-aware buttons work correctly
 
 ### Should Have (P1)
+
 - [x] Responsive design on mobile/tablet/desktop
 - [x] Smooth scroll animations
 - [x] Hover effects on cards and buttons
 - [x] Mobile hamburger menu works
 
 ### Nice to Have (P2)
+
 - [ ] Fade-in animations on scroll
 - [ ] Video background in hero
 - [ ] Testimonials section
@@ -145,14 +162,14 @@ Currently, the root page (`/`) immediately redirects users based on authenticati
 
 ## Timeline
 
-| Phase | Duration | Tasks | Status |
-|-------|----------|-------|--------|
-| **Phase 1**: Setup | 30 min | Folder, types | ✅ Done |
-| **Phase 2**: Components | 2-3 hours | 9 components | ✅ Done |
-| **Phase 3**: Integration | 30 min | Routing, metadata | ✅ Done |
-| **Phase 4**: Testing | 1 hour | Manual testing | ✅ Done |
-| **Phase 5**: Polish | TBD | Cross-browser, a11y | ⏭️ Deferred |
-| **Phase 6**: E2E Testing | 3-4 hours | Playwright tests | 📋 Planned |
+| Phase                    | Duration  | Tasks               | Status      |
+| ------------------------ | --------- | ------------------- | ----------- |
+| **Phase 1**: Setup       | 30 min    | Folder, types       | ✅ Done     |
+| **Phase 2**: Components  | 2-3 hours | 9 components        | ✅ Done     |
+| **Phase 3**: Integration | 30 min    | Routing, metadata   | ✅ Done     |
+| **Phase 4**: Testing     | 1 hour    | Manual testing      | ✅ Done     |
+| **Phase 5**: Polish      | TBD       | Cross-browser, a11y | ⏭️ Deferred |
+| **Phase 6**: E2E Testing | 3-4 hours | Playwright tests    | 📋 Planned  |
 
 **Total Estimated**: 7-10 hours (4-6 implementation + 3-4 E2E testing)
 **Actual**: ~4 hours (implementation complete)
@@ -160,23 +177,25 @@ Currently, the root page (`/`) immediately redirects users based on authenticati
 ## Dependencies
 
 ### No Blockers
+
 - All required infrastructure exists
 - No backend changes needed
 - Routing changes are straightforward
 
 ### Prerequisites
+
 - Frontend server running (`npm run dev`)
 - Hero image exists at `/images/hero-image.jpg` ✅
 - Auth functions (`isAuthenticated()`) available ✅
 
 ## Risks & Mitigations
 
-| Risk | Impact | Mitigation | Status |
-|------|--------|------------|--------|
-| Hero image missing | LOW | Image already exists | ✅ Mitigated |
-| Auth check conflicts | LOW | Use existing `isAuthenticated()` | ✅ Mitigated |
-| Mobile menu issues | LOW | Test on real devices | ⏭️ Testing |
-| TypeScript errors | LOW | Proper type definitions | ✅ Mitigated |
+| Risk                 | Impact | Mitigation                       | Status       |
+| -------------------- | ------ | -------------------------------- | ------------ |
+| Hero image missing   | LOW    | Image already exists             | ✅ Mitigated |
+| Auth check conflicts | LOW    | Use existing `isAuthenticated()` | ✅ Mitigated |
+| Mobile menu issues   | LOW    | Test on real devices             | ⏭️ Testing   |
+| TypeScript errors    | LOW    | Proper type definitions          | ✅ Mitigated |
 
 ## Related Plans
 
@@ -193,18 +212,22 @@ Currently, the root page (`/`) immediately redirects users based on authenticati
 ## Notes
 
 ### Implementation Status
+
 **Core Implementation**: ✅ Complete (12/12 commits)
+
 - All 9 components created
 - Root page routing updated
 - Metadata updated
 - Manual testing passed (desktop + mobile)
 
 **E2E Testing**: 📋 Planned (10 commits)
+
 - Test suite structure to be created
 - Navigation, responsive, and interactive tests planned
 - Total test coverage: ~50+ test cases
 
 ### What's Next
+
 1. **E2E Testing**: Execute Phase 6 tasks (3-4 hours estimated)
 2. User review and feedback
 3. Adjust content based on feedback
@@ -213,6 +236,7 @@ Currently, the root page (`/`) immediately redirects users based on authenticati
 6. Optional: Add newsletter signup
 
 ### Key Design Decisions
+
 1. **No external icon library** - Inline SVG for zero dependency
 2. **Reuse existing hero image** - No new assets needed
 3. **Auth-aware Navbar** - Smart buttons based on login state

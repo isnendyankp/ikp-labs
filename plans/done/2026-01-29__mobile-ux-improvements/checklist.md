@@ -8,15 +8,15 @@
 
 ## Progress Summary
 
-| Phase | Status | Completion |
-|-------|--------|------------|
-| Phase 1: Compact Header (Mobile) | ⏳ Not Started | 0/4 tasks |
-| Phase 2: FAB Upload Button | ⏳ Not Started | 0/3 tasks |
-| Phase 3: Sticky Action Bar (Desktop) | ⏳ Not Started | 0/2 tasks |
-| Phase 4: Back to Top Button | ⏳ Not Started | 0/3 tasks |
-| Phase 5: Responsive Testing & Polish | ⏳ Not Started | 0/6 tasks |
-| Phase 6: E2E Testing | ⏳ Not Started | 0/6 tasks |
-| **Overall** | **🔄 Planning** | **0/24 tasks** |
+| Phase                                | Status          | Completion     |
+| ------------------------------------ | --------------- | -------------- |
+| Phase 1: Compact Header (Mobile)     | ⏳ Not Started  | 0/4 tasks      |
+| Phase 2: FAB Upload Button           | ⏳ Not Started  | 0/3 tasks      |
+| Phase 3: Sticky Action Bar (Desktop) | ⏳ Not Started  | 0/2 tasks      |
+| Phase 4: Back to Top Button          | ⏳ Not Started  | 0/3 tasks      |
+| Phase 5: Responsive Testing & Polish | ⏳ Not Started  | 0/6 tasks      |
+| Phase 6: E2E Testing                 | ⏳ Not Started  | 0/6 tasks      |
+| **Overall**                          | **🔄 Planning** | **0/24 tasks** |
 
 ---
 
@@ -32,6 +32,7 @@
 **File**: `frontend/src/hooks/useClickOutside.ts`
 
 **Steps**:
+
 1. Create `frontend/src/hooks/` directory if it doesn't exist
 2. Create `useClickOutside.ts` file
 3. Implement hook with useEffect for mousedown event
@@ -39,6 +40,7 @@
 5. Clean up event listener on unmount
 
 **Acceptance Criteria**:
+
 - [ ] Hook accepts ref and callback parameters
 - [ ] Hook calls callback when click is detected outside ref
 - [ ] Hook does not call callback when click is inside ref
@@ -46,7 +48,8 @@
 - [ ] TypeScript types are correct
 
 **Atomic Commit Message**:
-```
+
+```text
 feat(mobile-ux): add useClickOutside hook
 
 Add custom React hook to detect clicks outside a component:
@@ -70,6 +73,7 @@ Used by MobileHeaderControls for dropdown dismissal.
 **File**: `frontend/src/components/FilterDropdown.tsx`
 
 **Steps**:
+
 1. Add `variant?: "default" | "compact"` prop to interface
 2. When `variant="compact"`, hide the dropdown trigger button
 3. Show only the dropdown menu items in compact mode
@@ -77,6 +81,7 @@ Used by MobileHeaderControls for dropdown dismissal.
 5. Ensure all filter options are available
 
 **Acceptance Criteria**:
+
 - [ ] Variant prop added to interface
 - [ ] Compact mode hides trigger button
 - [ ] Compact mode shows dropdown items
@@ -85,7 +90,8 @@ Used by MobileHeaderControls for dropdown dismissal.
 - [ ] Existing functionality unchanged when variant="default"
 
 **Atomic Commit Message**:
-```
+
+```text
 feat(mobile-ux): add compact variant to FilterDropdown
 
 Add variant prop to FilterDropdown for mobile icon mode:
@@ -110,6 +116,7 @@ Allows dropdown to be used inside mobile header controls.
 **File**: `frontend/src/components/SortByDropdown.tsx`
 
 **Steps**:
+
 1. Add `variant?: "default" | "compact"` prop to interface
 2. When `variant="compact"`, hide the dropdown trigger button
 3. Show only the dropdown menu items in compact mode
@@ -117,6 +124,7 @@ Allows dropdown to be used inside mobile header controls.
 5. Ensure all sort options are available
 
 **Acceptance Criteria**:
+
 - [ ] Variant prop added to interface
 - [ ] Compact mode hides trigger button
 - [ ] Compact mode shows dropdown items
@@ -125,7 +133,8 @@ Allows dropdown to be used inside mobile header controls.
 - [ ] Existing functionality unchanged when variant="default"
 
 **Atomic Commit Message**:
-```
+
+```text
 feat(mobile-ux): add compact variant to SortByDropdown
 
 Add variant prop to SortByDropdown for mobile icon mode:
@@ -150,6 +159,7 @@ Allows dropdown to be used inside mobile header controls.
 **File**: `frontend/src/components/gallery/MobileHeaderControls.tsx`
 
 **Steps**:
+
 1. Create component with TypeScript interface for props
 2. Add state for filter and sort dropdown open/close
 3. Add refs for click outside detection
@@ -162,6 +172,7 @@ Allows dropdown to be used inside mobile header controls.
 10. Add hover and active states
 
 **Acceptance Criteria**:
+
 - [ ] Component accepts currentFilter, onFilterChange, currentSort, onSortChange props
 - [ ] Filter icon (🔍) visible on mobile
 - [ ] Sort icon (⚙️) visible on mobile
@@ -174,7 +185,8 @@ Allows dropdown to be used inside mobile header controls.
 - [ ] Component hidden on desktop (sm:hidden)
 
 **Atomic Commit Message**:
-```
+
+```text
 feat(mobile-ux): add MobileHeaderControls component
 
 Add icon-only filter and sort controls for mobile header:
@@ -201,6 +213,7 @@ Props: currentFilter, onFilterChange, currentSort, onSortChange
 **File**: `frontend/src/app/gallery/page.tsx`
 
 **Steps**:
+
 1. Import MobileHeaderControls component
 2. Add MobileHeaderControls to header section
 3. Position icons on right side of header
@@ -208,6 +221,7 @@ Props: currentFilter, onFilterChange, currentSort, onSortChange
 5. Test on mobile and desktop
 
 **Acceptance Criteria**:
+
 - [ ] MobileHeaderControls imported
 - [ ] MobileHeaderControls added to header
 - [ ] Props passed correctly (currentFilter, onFilterChange, currentSort, onSortChange)
@@ -217,7 +231,8 @@ Props: currentFilter, onFilterChange, currentSort, onSortChange
 - [ ] Action bar visible on desktop
 
 **Atomic Commit Message**:
-```
+
+```text
 feat(mobile-ux): integrate MobileHeaderControls into gallery page
 
 Add icon-only controls to gallery header for mobile:
@@ -246,6 +261,7 @@ Mobile users now have filter/sort in header, desktop keeps action bar.
 **File**: `frontend/src/components/gallery/FABUpload.tsx`
 
 **Steps**:
+
 1. Create component with TypeScript interface for props
 2. Use useRouter for navigation
 3. Implement fixed position styling (bottom-4 right-4)
@@ -259,6 +275,7 @@ Mobile users now have filter/sort in header, desktop keeps action bar.
 11. Add focus ring for keyboard navigation
 
 **Acceptance Criteria**:
+
 - [ ] Component accepts onClick and className props
 - [ ] Fixed position at bottom-right
 - [ ] Circular design (56x56px)
@@ -272,7 +289,8 @@ Mobile users now have filter/sort in header, desktop keeps action bar.
 - [ ] Z-index is 40
 
 **Atomic Commit Message**:
-```
+
+```text
 feat(mobile-ux): add FABUpload component
 
 Add floating action button for quick photo upload access:
@@ -301,11 +319,13 @@ Always visible on all devices for easy upload access.
 **File**: `frontend/src/app/gallery/page.tsx`
 
 **Steps**:
+
 1. Import FABUpload component
 2. Add FABUpload to page (after PhotoGrid)
 3. No props needed (uses default navigation)
 
 **Acceptance Criteria**:
+
 - [ ] FABUpload imported
 - [ ] FABUpload added to page
 - [ ] FABUpload visible on all devices
@@ -313,7 +333,8 @@ Always visible on all devices for easy upload access.
 - [ ] FABUpload navigates to /gallery/upload
 
 **Atomic Commit Message**:
-```
+
+```text
 feat(mobile-ux): integrate FABUpload into gallery page
 
 Add floating upload button to gallery page:
@@ -337,12 +358,14 @@ Upload button now always accessible without scrolling.
 **File**: `frontend/src/app/gallery/page.tsx`
 
 **Steps**:
+
 1. Locate upload button in action bar
 2. Remove upload button from action bar
 3. Keep filter and sort dropdowns
 4. Test on desktop to ensure FAB is visible
 
 **Acceptance Criteria**:
+
 - [ ] Upload button removed from action bar
 - [ ] Filter dropdown still present
 - [ ] Sort dropdown still present
@@ -350,7 +373,8 @@ Upload button now always accessible without scrolling.
 - [ ] Desktop can still upload via FAB
 
 **Atomic Commit Message**:
-```
+
+```text
 refactor(mobile-ux): remove upload button from action bar
 
 Remove upload button from desktop action bar:
@@ -373,11 +397,13 @@ Upload now only via FAB for consistency across devices.
 **File**: `frontend/src/app/gallery/upload/page.tsx`
 
 **Steps**:
+
 1. Import FABUpload component
 2. Add FABUpload to upload page
 3. Configure onClick to show modal or navigate (decide approach)
 
 **Acceptance Criteria**:
+
 - [ ] FABUpload added to upload page
 - [ ] FABUpload behavior appropriate (maybe hidden or different action)
 - [ ] Consistent with gallery page
@@ -385,7 +411,8 @@ Upload now only via FAB for consistency across devices.
 **Note**: This task is optional and may be skipped if FAB is not needed on upload page.
 
 **Atomic Commit Message**:
-```
+
+```text
 feat(mobile-ux): add FABUpload to upload page
 
 Add floating upload button to upload page for consistency:
@@ -413,6 +440,7 @@ Optional: May skip if FAB not needed on upload page.
 **File**: `frontend/src/components/gallery/StickyActionBar.tsx`
 
 **Steps**:
+
 1. Create component with TypeScript interface for props
 2. Add sticky positioning classes (sticky top-0)
 3. Add z-index (z-10)
@@ -424,6 +452,7 @@ Optional: May skip if FAB not needed on upload page.
 9. Remove upload button (use FAB instead)
 
 **Acceptance Criteria**:
+
 - [ ] Component accepts currentFilter, onFilterChange, currentSort, onSortChange props
 - [ ] Sticky positioning (sticky top-0)
 - [ ] Z-index is 10
@@ -434,7 +463,8 @@ Optional: May skip if FAB not needed on upload page.
 - [ ] Upload button removed
 
 **Atomic Commit Message**:
-```
+
+```text
 feat(mobile-ux): add StickyActionBar component
 
 Add sticky wrapper for desktop action bar:
@@ -459,12 +489,14 @@ Props: currentFilter, onFilterChange, currentSort, onSortChange
 **File**: `frontend/src/app/gallery/page.tsx`
 
 **Steps**:
+
 1. Import StickyActionBar component
 2. Replace existing action bar div with StickyActionBar
 3. Remove old action bar markup
 4. Test sticky behavior on desktop
 
 **Acceptance Criteria**:
+
 - [ ] StickyActionBar imported
 - [ ] Old action bar removed
 - [ ] StickyActionBar added
@@ -473,7 +505,8 @@ Props: currentFilter, onFilterChange, currentSort, onSortChange
 - [ ] Action bar hidden on mobile
 
 **Atomic Commit Message**:
-```
+
+```text
 feat(mobile-ux): integrate StickyActionBar into gallery page
 
 Replace action bar with sticky wrapper:
@@ -502,6 +535,7 @@ Desktop action bar now sticks to top when scrolling.
 **File**: `frontend/src/components/BackToTop.tsx`
 
 **Steps**:
+
 1. Read BackToTop component file
 2. Check scroll threshold (should be 400px)
 3. Check smooth scroll implementation
@@ -509,6 +543,7 @@ Desktop action bar now sticks to top when scrolling.
 5. Check z-index
 
 **Acceptance Criteria**:
+
 - [ ] Component reviewed
 - [ ] Scroll threshold confirmed (400px)
 - [ ] Smooth scroll confirmed
@@ -528,6 +563,7 @@ Desktop action bar now sticks to top when scrolling.
 **File**: `frontend/src/components/BackToTop.tsx`
 
 **Steps**:
+
 1. Create component with TypeScript interface
 2. Add state for visibility
 3. Add scroll event listener with 400px threshold
@@ -538,6 +574,7 @@ Desktop action bar now sticks to top when scrolling.
 8. Add ARIA label
 
 **Acceptance Criteria**:
+
 - [ ] Component created
 - [ ] Appears after scrolling 400px
 - [ ] Hides when at top of page
@@ -547,7 +584,8 @@ Desktop action bar now sticks to top when scrolling.
 - [ ] ARIA label present
 
 **Atomic Commit Message**:
-```
+
+```text
 feat(mobile-ux): add BackToTop component
 
 Add back to top button for quick navigation:
@@ -573,12 +611,14 @@ Helps users quickly return to top of page.
 **File**: `frontend/src/app/gallery/page.tsx`
 
 **Steps**:
+
 1. Import BackToTop component
 2. Add BackToTop to page layout
 3. Test show/hide behavior
 4. Test scroll to top functionality
 
 **Acceptance Criteria**:
+
 - [ ] BackToTop imported
 - [ ] BackToTop added to page
 - [ ] BackToTop appears after scrolling
@@ -588,7 +628,8 @@ Helps users quickly return to top of page.
 - [ ] BackToTop doesn't overlap with FAB
 
 **Atomic Commit Message**:
-```
+
+```text
 feat(mobile-ux): integrate BackToTop into gallery page
 
 Add back to top button to gallery page:
@@ -616,6 +657,7 @@ Users can now quickly return to top of page.
 **Description**: Test layout on various mobile screen sizes.
 
 **Steps**:
+
 1. Open DevTools and set viewport to 375px (iPhone SE)
 2. Test all features (filter, sort, upload, back to top)
 3. Set viewport to 390px (iPhone 13)
@@ -627,6 +669,7 @@ Users can now quickly return to top of page.
 9. Check touch targets
 
 **Acceptance Criteria**:
+
 - [ ] No horizontal scroll on any mobile size
 - [ ] No element overlap on any mobile size
 - [ ] Filter/sort icons visible and tappable
@@ -636,7 +679,8 @@ Users can now quickly return to top of page.
 - [ ] All functionality works correctly
 
 **Atomic Commit Message**:
-```
+
+```text
 test(mobile-ux): test mobile screen sizes
 
 Test layout on mobile screen sizes:
@@ -660,6 +704,7 @@ Mobile layout validated across common screen sizes.
 **Description**: Test layout on tablet screen sizes.
 
 **Steps**:
+
 1. Open DevTools and set viewport to 640px (small tablet)
 2. Test all features
 3. Set viewport to 768px (tablet)
@@ -668,6 +713,7 @@ Mobile layout validated across common screen sizes.
 6. Check for layout issues
 
 **Acceptance Criteria**:
+
 - [ ] Correct layout at 640px (should be desktop layout)
 - [ ] Correct layout at 768px (desktop layout)
 - [ ] Action bar sticky behavior works
@@ -675,7 +721,8 @@ Mobile layout validated across common screen sizes.
 - [ ] No layout issues at breakpoint
 
 **Atomic Commit Message**:
-```
+
+```text
 test(mobile-ux): test tablet screen sizes
 
 Test layout on tablet screen sizes:
@@ -698,6 +745,7 @@ Tablet layout validated.
 **Description**: Test layout on desktop screen sizes.
 
 **Steps**:
+
 1. Open DevTools and set viewport to 1024px (desktop)
 2. Test all features
 3. Set viewport to 1280px (large desktop)
@@ -708,6 +756,7 @@ Tablet layout validated.
 8. Check for layout issues
 
 **Acceptance Criteria**:
+
 - [ ] All desktop sizes working correctly
 - [ ] Sticky action bar working
 - [ ] Filter/sort dropdowns working
@@ -716,7 +765,8 @@ Tablet layout validated.
 - [ ] No layout issues
 
 **Atomic Commit Message**:
-```
+
+```text
 test(mobile-ux): test desktop screen sizes
 
 Test layout on desktop screen sizes:
@@ -739,6 +789,7 @@ Desktop layout validated across common screen sizes.
 **Description**: Test touch targets and user interactions.
 
 **Steps**:
+
 1. Test filter icon tap target size
 2. Test sort icon tap target size
 3. Test FAB tap target size
@@ -749,6 +800,7 @@ Desktop layout validated across common screen sizes.
 8. Test smooth transitions
 
 **Acceptance Criteria**:
+
 - [ ] Filter icon min 44x44px
 - [ ] Sort icon min 44x44px
 - [ ] FAB 56x56px
@@ -759,7 +811,8 @@ Desktop layout validated across common screen sizes.
 - [ ] Transitions smooth (60fps)
 
 **Atomic Commit Message**:
-```
+
+```text
 test(mobile-ux): test touch targets and interactions
 
 Test touch targets and user interactions:
@@ -784,6 +837,7 @@ All touch targets meet iOS/Android guidelines.
 **Description**: Test accessibility features.
 
 **Steps**:
+
 1. Test keyboard navigation (Tab through all buttons)
 2. Test focus indicators (visible on all buttons)
 3. Test screen reader (announce button functions)
@@ -792,6 +846,7 @@ All touch targets meet iOS/Android guidelines.
 6. Test color contrast (WCAG AA)
 
 **Acceptance Criteria**:
+
 - [ ] All buttons keyboard accessible
 - [ ] Focus indicators visible
 - [ ] Screen reader announces functions
@@ -800,7 +855,8 @@ All touch targets meet iOS/Android guidelines.
 - [ ] Color contrast WCAG AA compliant
 
 **Atomic Commit Message**:
-```
+
+```text
 test(mobile-ux): test accessibility features
 
 Test accessibility compliance:
@@ -824,6 +880,7 @@ Accessibility requirements met.
 **Description**: Test performance and optimize if needed.
 
 **Steps**:
+
 1. Test page load time (should not increase >100ms)
 2. Test scroll performance (should be 60fps)
 3. Test animation performance (should be 60fps)
@@ -832,6 +889,7 @@ Accessibility requirements met.
 6. Optimize if needed
 
 **Acceptance Criteria**:
+
 - [ ] Page load time increased <100ms
 - [ ] Scroll performance 60fps
 - [ ] Animation performance 60fps
@@ -839,7 +897,8 @@ Accessibility requirements met.
 - [ ] No unnecessary re-renders
 
 **Atomic Commit Message**:
-```
+
+```text
 perf(mobile-ux): optimize performance
 
 Performance testing and optimization:
@@ -869,17 +928,20 @@ Performance is acceptable.
 **File**: `tests/e2e/gallery-mobile-ux.spec.ts`
 
 **Steps**:
+
 1. Create test file
 2. Set up test suite structure
 3. Import necessary dependencies
 
 **Acceptance Criteria**:
+
 - [ ] Test file created
 - [ ] Test suite structure set up
 - [ ] Dependencies imported
 
 **Atomic Commit Message**:
-```
+
+```text
 test(e2e): create gallery mobile UX test file
 
 Create E2E test file for mobile UX features:
@@ -900,12 +962,14 @@ Ready for test implementations.
 **Description**: Add E2E tests for mobile header controls.
 
 **Tests**:
+
 1. Filter icon visible on mobile
 2. Sort icon visible on mobile
 3. Filter dropdown opens when tapped
 4. Sort dropdown opens when tapped
 
 **Acceptance Criteria**:
+
 - [ ] Test 1: Filter icon visible on mobile (375px)
 - [ ] Test 2: Sort icon visible on mobile (375px)
 - [ ] Test 3: Filter dropdown opens on click
@@ -913,7 +977,8 @@ Ready for test implementations.
 - [ ] All tests passing
 
 **Atomic Commit Message**:
-```
+
+```text
 test(e2e): add mobile header controls tests
 
 Add E2E tests for mobile header controls:
@@ -935,12 +1000,14 @@ Add E2E tests for mobile header controls:
 **Description**: Add E2E tests for FAB upload button.
 
 **Tests**:
+
 1. FAB button visible on all pages
 2. FAB button navigates to upload page
 3. FAB button positioned bottom-right
 4. FAB button has proper styling
 
 **Acceptance Criteria**:
+
 - [ ] Test 1: FAB visible on all devices
 - [ ] Test 2: FAB navigates to /gallery/upload
 - [ ] Test 3: FAB positioned bottom-right
@@ -948,7 +1015,8 @@ Add E2E tests for mobile header controls:
 - [ ] All tests passing
 
 **Atomic Commit Message**:
-```
+
+```text
 test(e2e): add FAB upload button tests
 
 Add E2E tests for FAB upload button:
@@ -970,12 +1038,14 @@ Add E2E tests for FAB upload button:
 **Description**: Add E2E tests for back to top button.
 
 **Tests**:
+
 1. Back to top appears after scrolling
 2. Back to top hidden at top of page
 3. Back to top scrolls to top smoothly
 4. Back to top positioned correctly
 
 **Acceptance Criteria**:
+
 - [ ] Test 1: Back to top appears after 400px scroll
 - [ ] Test 2: Back to top hidden at top
 - [ ] Test 3: Back to top scrolls to top
@@ -983,7 +1053,8 @@ Add E2E tests for FAB upload button:
 - [ ] All tests passing
 
 **Atomic Commit Message**:
-```
+
+```text
 test(e2e): add back to top button tests
 
 Add E2E tests for back to top button:
@@ -1005,12 +1076,14 @@ Add E2E tests for back to top button:
 **Description**: Add E2E tests for desktop sticky controls.
 
 **Tests**:
+
 1. Action bar sticks on desktop
 2. Controls accessible when scrolled
 3. Filter/sort work in sticky mode
 4. Upload button accessible in sticky mode
 
 **Acceptance Criteria**:
+
 - [ ] Test 1: Action bar sticks on desktop (1024px)
 - [ ] Test 2: Controls accessible when scrolled
 - [ ] Test 3: Filter dropdown works when sticky
@@ -1018,7 +1091,8 @@ Add E2E tests for back to top button:
 - [ ] All tests passing
 
 **Atomic Commit Message**:
-```
+
+```text
 test(e2e): add desktop sticky controls tests
 
 Add E2E tests for desktop sticky controls:
@@ -1040,12 +1114,14 @@ Add E2E tests for desktop sticky controls:
 **Description**: Add E2E tests for cross-device compatibility and feature parity.
 
 **Tests**:
+
 1. Mobile layout correct (< 640px)
 2. Desktop layout correct (≥ 640px)
 3. All filter options work on mobile
 4. All sort options work on mobile
 
 **Acceptance Criteria**:
+
 - [ ] Test 1: Mobile layout correct (375px)
 - [ ] Test 2: Desktop layout correct (1024px)
 - [ ] Test 3: All 4 filter options work on mobile
@@ -1053,7 +1129,8 @@ Add E2E tests for desktop sticky controls:
 - [ ] All tests passing
 
 **Atomic Commit Message**:
-```
+
+```text
 test(e2e): add cross-device and feature parity tests
 
 Add E2E tests for cross-device and feature parity:
@@ -1077,6 +1154,7 @@ Total: 24 E2E tests for mobile UX improvements.
 ### Pre-Release Checks
 
 **Code Quality**:
+
 - [ ] All TypeScript errors resolved
 - [ ] All ESLint errors resolved
 - [ ] Code follows project style guide
@@ -1084,6 +1162,7 @@ Total: 24 E2E tests for mobile UX improvements.
 - [ ] All commits pushed to remote
 
 **Testing**:
+
 - [ ] All 24 E2E tests passing
 - [ ] Manual testing completed on mobile
 - [ ] Manual testing completed on desktop
@@ -1091,6 +1170,7 @@ Total: 24 E2E tests for mobile UX improvements.
 - [ ] Performance testing completed
 
 **Documentation**:
+
 - [ ] README.md up to date
 - [ ] requirements.md complete
 - [ ] technical-design.md complete
@@ -1098,6 +1178,7 @@ Total: 24 E2E tests for mobile UX improvements.
 - [ ] All status fields updated
 
 **Deployment**:
+
 - [ ] No console errors in production
 - [ ] No layout issues in production
 - [ ] All features working in production
@@ -1114,6 +1195,7 @@ Total: 24 E2E tests for mobile UX improvements.
 **E2E Tests**: 24 tests
 
 **Phases**:
+
 1. ✅ Phase 1: Compact Header (Mobile) - 4 tasks, ~1.5 hours
 2. ✅ Phase 2: FAB Upload Button - 3 tasks, ~1 hour
 3. ✅ Phase 3: Sticky Action Bar (Desktop) - 2 tasks, ~30 minutes
@@ -1140,6 +1222,7 @@ Total: 24 E2E tests for mobile UX improvements.
 ## Completion Criteria
 
 **Project is complete when**:
+
 - ✅ All 24 tasks completed
 - ✅ All 24 E2E tests passing
 - ✅ Manual testing completed
@@ -1149,6 +1232,7 @@ Total: 24 E2E tests for mobile UX improvements.
 - ✅ Documentation up to date
 
 **Ready to merge when**:
+
 - ✅ All acceptance criteria met
 - ✅ All tests passing
 - ✅ Code reviewed

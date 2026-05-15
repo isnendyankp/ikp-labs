@@ -3,6 +3,7 @@
 ---
 
 ## Status Legend
+
 - [ ] Not started
 - [x] Completed
 - [ ] Blocked
@@ -12,6 +13,7 @@
 ## Phase 0: Planning (Hari Ini)
 
 ### Setup
+
 - [x] Create work branch `docs/nx-migration-plan` from main
 - [x] Create plan directory `plans/in-progress/2026-03-25__nx-migration/`
 - [x] Write README.md (overview & scope)
@@ -25,6 +27,7 @@
 - [x] Update local main
 
 ### Acceptance Criteria Phase 0
+
 - [x] Plan files created dan committed
 - [x] PR merged ke main
 - [x] Plan siap diimplementasi di hari berikutnya
@@ -34,18 +37,23 @@
 ## Phase 1: Setup Nx Workspace
 
 ### Branch Setup
+
 - [x] Create work branch `chore/nx-workspace-setup` from main
 
 ### Implementation
+
 - [x] Install Nx dependencies
+
   ```bash
   npm install -D nx @nx/workspace @nx/next @nx/jest @nx/linter
   ```
+
 - [x] Create `nx.json` configuration
 - [x] Create `workspace.json` (or individual `project.json` files)
 - [x] Create `apps/` folder
 - [x] Create `libs/` folder
 - [x] Update root `package.json` scripts:
+
   ```json
   {
     "scripts": {
@@ -56,15 +64,18 @@
     }
   }
   ```
+
 - [x] Add `.nx/cache` to `.gitignore`
 - [x] Test: `npx nx graph`
 
 ### Verification
+
 - [x] `npx nx graph` displays graph (even if empty)
 - [x] No errors in `nx.json`
 - [x] All existing tests still pass (CI passed)
 
 ### Finalization
+
 - [x] Commit: `chore: initialize Nx workspace configuration`
 - [x] Push to origin
 - [x] Create PR #42
@@ -73,6 +84,7 @@
 - [x] Update local main
 
 ### Acceptance Criteria Phase 1
+
 - [x] Nx installed and configured
 - [x] `nx graph` command works
 - [x] All existing tests pass (CI passed)
@@ -83,31 +95,39 @@
 ## Phase 2: Migrate Frontend
 
 ### Branch Setup
+
 - [x] Create work branch `refactor/migrate-frontend-to-nx` from main
 
 ### Pre-migration
+
 - [x] Verify frontend builds currently: `cd frontend && npm run build`
 - [x] Verify frontend tests pass: `cd frontend && npm run test`
 
 ### Migration
+
 - [x] Move frontend folder to `apps/kameravue-fe` (following senior's naming convention `[domain]-[type]`):
+
   ```bash
   git mv frontend apps/kameravue-fe
   ```
+
 - [x] Create `apps/kameravue-fe/project.json` with `nx:run-commands` executor
 - [x] Update root package.json workspace path to `apps/kameravue-fe`
 - [x] Update lint-staged paths in root `package.json`
 - [x] Update `.gitignore` for coverage path
 
 ### Verification
+
 - [x] `nx build kameravue-fe` succeeds
 - [x] `nx test kameravue-fe` passes (394 tests)
 - [x] `nx lint kameravue-fe` passes
 
 ### Update CI/CD (Partial)
+
 - [x] Update `.github/workflows/ci.yml` frontend paths (done in PR #43)
 
 ### Finalization
+
 - [x] Commit: `refactor: migrate frontend to Nx apps/kameravue-fe`
 - [x] Push to origin
 - [x] Create PR #43
@@ -116,6 +136,7 @@
 - [x] Update local main
 
 ### Acceptance Criteria Phase 2
+
 - [x] Frontend in `apps/kameravue-fe/`
 - [x] `nx build kameravue-fe` works
 - [x] `nx test kameravue-fe` passes (394 tests)
@@ -128,18 +149,24 @@
 ## Phase 3: Migrate Backend
 
 ### Branch Setup
+
 - [x] Create work branch `refactor/migrate-backend-to-nx` from main
 
 ### Pre-migration
+
 - [x] Verify backend builds currently: `cd backend/ikp-labs-api && ./mvnw package`
 - [x] Verify backend tests pass: `cd backend/ikp-labs-api && ./mvnw test`
 
 ### Migration
+
 - [x] Move backend folder (following senior's naming convention `[domain]-[type]`):
+
   ```bash
   git mv backend apps/kameravue-be
   ```
+
 - [x] Create `apps/kameravue-be/project.json`:
+
   ```json
   {
     "name": "kameravue-be",
@@ -170,17 +197,21 @@
     }
   }
   ```
+
 - [x] Update root package.json workspace path
 - [x] Verify `apps/kameravue-be/ikp-labs-api/pom.xml` unchanged
 
 ### Verification
+
 - [x] `nx build kameravue-be` succeeds (verified by CI)
 - [ ] `nx serve kameravue-be` starts Spring Boot (to be tested locally)
 - [x] `nx test kameravue-be` passes (verified by CI)
-- [ ] Manual test: verify API at http://localhost:8081 (to be tested locally)
+- [ ] Manual test: verify API at <http://localhost:8081> (to be tested locally)
 
 ### Update CI/CD (Partial)
+
 - [x] Update `.github/workflows/ci.yml` backend paths:
+
   ```yaml
   # Change from:
   working-directory: ./backend/ikp-labs-api
@@ -189,6 +220,7 @@
   ```
 
 ### Finalization
+
 - [x] Commit: `refactor: migrate backend to Nx apps/kameravue-be`
 - [x] Push to origin
 - [x] Create PR #45
@@ -197,6 +229,7 @@
 - [x] Update local main
 
 ### Acceptance Criteria Phase 3
+
 - [x] Backend in `apps/kameravue-be/`
 - [x] `nx build kameravue-be` works (verified by CI)
 - [ ] `nx serve kameravue-be` works (to be tested locally)
@@ -209,9 +242,11 @@
 ## Phase 4: Update CI/CD & Deployment
 
 ### Branch Setup
+
 - [x] Create work branch `ci/update-for-nx-structure` from main
 
 ### CI/CD Updates
+
 - [x] ~~Update `.github/workflows/ci.yml`~~ (paths already updated in Phase 3)
   - [x] ~~Use `nx` commands instead of manual cd~~ (skipped - direct mvn commands work fine)
   - [x] ~~Add Nx cache setup~~ (skipped - optional optimization, not needed)
@@ -223,23 +258,29 @@
 - [x] ~~Test CI locally~~ (skipped - verified by CI in Phase 3)
 
 ### Deployment Script Updates
+
 > **Note:** `scripts/` folder is in `.gitignore` - deployment scripts are local/VPS only, not tracked in git.
+
 - [x] ~~Update `scripts/deploy-frontend.sh`~~ (skipped - in .gitignore, update manually on VPS if needed)
 - [x] ~~Update `scripts/deploy-backend.sh`~~ (skipped - in .gitignore, update manually on VPS if needed)
 - [x] ~~Update `scripts/deploy-all.sh`~~ (skipped - in .gitignore)
 
 ### PM2 Configuration (if exists)
+
 - [x] ~~Update `ecosystem.config.js` paths~~ (skipped - file doesn't exist)
 
 ### Playwright Config
+
 - [x] ~~Update `playwright.config.ts`~~ (verified - no changes needed, uses relative paths and localhost URLs)
 
 ### Verification
+
 - [x] All CI checks pass (verified in Phase 3)
 - [x] ~~Test deployment to staging~~ (skipped - no staging environment)
 - [x] ~~Verify production deployment works~~ (skipped - deploy separately)
 
 ### Finalization
+
 - [x] Commit: `fix(ci): update scheduled-e2e.yml paths for Nx monorepo structure` (commit 1d4e392)
 - [x] Push to origin
 - [x] ~~Create PR~~ (skipped - directly committed to main)
@@ -249,6 +290,7 @@
 - [x] ~~Deploy to production~~ (skipped - deploy separately if needed)
 
 ### Acceptance Criteria Phase 4
+
 - [x] CI pipeline passes with new structure (verified in Phase 3)
 - [x] ~~Deployment scripts work correctly~~ (skipped - in .gitignore, verify on VPS if needed)
 - [x] ~~Production deployment successful~~ (skipped - deploy separately)
@@ -261,14 +303,19 @@
 ## Phase 5: Shared Library (Optional)
 
 ### Branch Setup
+
 - [ ] Create work branch `feat/add-shared-types-library` from main
 
 ### Implementation
+
 - [ ] Create libs folder structure:
+
   ```bash
   mkdir -p libs/shared-types/src
   ```
+
 - [ ] Create `libs/shared-types/project.json`:
+
   ```json
   {
     "name": "shared-types",
@@ -290,8 +337,10 @@
     }
   }
   ```
+
 - [ ] Create `libs/shared-types/src/index.ts`
 - [ ] Define API types:
+
   ```typescript
   // Example types
   export interface UserResponse {
@@ -307,8 +356,10 @@
     // ...
   }
   ```
+
 - [ ] Create `libs/shared-types/tsconfig.json`
 - [ ] Update root `tsconfig.base.json` paths:
+
   ```json
   {
     "compilerOptions": {
@@ -318,17 +369,21 @@
     }
   }
   ```
+
 - [ ] Import in frontend:
+
   ```typescript
   import { UserResponse } from '@ikp-labs/shared-types';
   ```
 
 ### Verification
+
 - [ ] `nx build shared-types` succeeds
 - [ ] Frontend can import from shared-types
 - [ ] Types are correctly inferred
 
 ### Finalization
+
 - [ ] Commit: `feat: add shared types library`
 - [ ] Push to origin
 - [ ] Create PR
@@ -337,6 +392,7 @@
 - [ ] Update local main
 
 ### Acceptance Criteria Phase 5
+
 - [ ] `libs/shared-types/` created
 - [ ] Types can be imported in frontend
 - [ ] Build succeeds

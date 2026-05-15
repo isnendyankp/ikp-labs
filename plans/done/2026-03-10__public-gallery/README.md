@@ -7,6 +7,7 @@ Implementasi fitur **Public Gallery** yang memungkinkan user non-login untuk mel
 ## Scope
 
 ### In Scope
+
 - Gallery page bisa diakses tanpa login
 - Menampilkan foto real dari database
 - Redirect ke login ketika user mencoba melihat detail foto
@@ -14,13 +15,14 @@ Implementasi fitur **Public Gallery** yang memungkinkan user non-login untuk mel
 - Footer link ke gallery berfungsi
 
 ### Out of Scope
+
 - Authentication system changes
 - Backend API changes
 - Photo upload/edit features
 
 ## User Flow
 
-```
+```text
 Footer Gallery Click
         ↓
 Public Gallery Page (show photos)

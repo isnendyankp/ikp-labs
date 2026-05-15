@@ -18,12 +18,14 @@ The three Claude validator agents (`test-validator`, `docs-validator`, `plan-che
 ## Scope
 
 ### In-Scope
+
 - Update `test-validator.md` path references
 - Update `docs-validator.md` path references
 - Update `plan-checker.md` path references
 - Update last modified dates
 
 ### Out-of-Scope
+
 - Major refactoring of validator logic
 - Adding new validation features
 - Changes to related skills files

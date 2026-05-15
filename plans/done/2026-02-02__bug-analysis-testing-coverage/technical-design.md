@@ -25,7 +25,7 @@
 
 This analysis will use a **manual testing approach** combined with **code review** to identify bugs and test coverage gaps.
 
-```
+```text
 ┌─────────────────────────────────────────────────────────────┐
 │                    ANALYSIS WORKFLOW                         │
 ├─────────────────────────────────────────────────────────────┤
@@ -55,16 +55,17 @@ This analysis will use a **manual testing approach** combined with **code review
 
 ### Analysis Phases
 
-#### Phase 1: Pre-Analysis Setup
+### Phase 1: Pre-Analysis Setup
 
 **Objective**: Prepare testing environment
 
 **Steps**:
+
 1. Open terminal and navigate to project root
 2. Start backend server: `npm run dev:backend` (or equivalent)
 3. Start frontend server: `npm run dev:frontend` (or equivalent)
-4. Verify backend is accessible: http://localhost:8081
-5. Verify frontend is accessible: http://localhost:3002
+4. Verify backend is accessible: <http://localhost:8081>
+5. Verify frontend is accessible: <http://localhost:3002>
 6. Open browser (Chrome/Chromium recommended)
 7. Open DevTools (F12 or Cmd+Option+I)
 8. Clear browser data:
@@ -73,6 +74,7 @@ This analysis will use a **manual testing approach** combined with **code review
 9. Refresh page (Cmd+R / F5)
 
 **Success Criteria**:
+
 - Backend responds on port 8081
 - Frontend responds on port 3002
 - No console errors on page load
@@ -82,9 +84,10 @@ This analysis will use a **manual testing approach** combined with **code review
 
 ---
 
-#### Phase 2: Landing Page Analysis
+### Phase 2: Landing Page Analysis
 
 **Files to Analyze**:
+
 - `/frontend/src/components/landing/LandingPage.tsx`
 - `/frontend/src/components/landing/Navbar.tsx`
 - `/frontend/src/components/landing/HeroSection.tsx`
@@ -95,7 +98,8 @@ This analysis will use a **manual testing approach** combined with **code review
 
 **Test Cases**:
 
-##### Desktop View Testing (1280x720)
+#### Desktop View Testing (1280x720)
+
 1. **Navigation Testing**:
    - Click "Get Started Free" button → Verify navigates to `/register` ✗
    - Click "Login" button → Verify navigates to `/login` ✓
@@ -118,7 +122,8 @@ This analysis will use a **manual testing approach** combined with **code review
    - Scroll down → Verify BackToTop appears
    - Click BackToTop → Verify smooth scroll to top
 
-##### Mobile View Testing (375x667)
+#### Mobile View Testing (375x667)
+
 1. **Navigation Testing**:
    - Click "Get Started Free" button → Verify navigates to `/register` ✗
    - Click hamburger menu → Verify opens
@@ -135,14 +140,16 @@ This analysis will use a **manual testing approach** combined with **code review
    - Swipe → Verify no horizontal scroll
    - Scroll → Verify smooth behavior
 
-##### Known Bugs to Verify:
+#### Known Bugs to Verify
+
 - [ ] **BUG-001**: CTA button navigates to `/login` instead of `/register`
   - **File**: `LandingPage.tsx:32`
   - **Function**: `handleGetStarted()`
   - **Current**: `router.push('/login')`
   - **Should be**: `router.push('/register')`
 
-##### Loading States Analysis:
+#### Loading States Analysis
+
 - [ ] Check if Hero section needs skeleton loading
 - [ ] Check if Features section needs skeleton loading
 - [ ] Check if About section needs skeleton loading
@@ -150,15 +157,17 @@ This analysis will use a **manual testing approach** combined with **code review
 
 ---
 
-#### Phase 3: Login Page Analysis
+### Phase 3: Login Page Analysis
 
 **Files to Analyze**:
+
 - `/frontend/src/components/LoginForm.tsx`
 - `/frontend/src/app/login/page.tsx`
 
 **Test Cases**:
 
-##### Desktop View Testing (1280x720)
+#### Desktop View Testing (1280x720)
+
 1. **Form Validation**:
    - Submit empty form → Verify validation errors
    - Enter invalid email → Verify email error
@@ -175,7 +184,8 @@ This analysis will use a **manual testing approach** combined with **code review
    - Click "Remember me" → Verify checkbox toggles
    - Submit form → Verify loading spinner appears
 
-##### Mobile View Testing (375x667)
+#### Mobile View Testing (375x667)
+
 1. **Layout Verification**:
    - Verify left panel (hero image) is hidden
    - Verify form takes full width
@@ -185,7 +195,8 @@ This analysis will use a **manual testing approach** combined with **code review
    - Tap all inputs → Verify keyboard doesn't hide submit button
    - Tap all buttons → Verify responsive
 
-##### Known Bugs to Verify:
+#### Known Bugs to Verify
+
 - [ ] **BUG-002**: Forgot password link is non-functional
   - **File**: `LoginForm.tsx:348`
   - **Current**: `<a href="#">Forgot your password?</a>`
@@ -197,15 +208,17 @@ This analysis will use a **manual testing approach** combined with **code review
 
 ---
 
-#### Phase 4: Register Page Analysis
+### Phase 4: Register Page Analysis
 
 **Files to Analyze**:
+
 - `/frontend/src/components/RegistrationForm.tsx`
 - `/frontend/src/app/register/page.tsx`
 
 **Test Cases**:
 
-##### Desktop View Testing (1280x720)
+#### Desktop View Testing (1280x720)
+
 1. **Form Validation**:
    - Submit empty form → Verify validation errors
    - Enter mismatched passwords → Verify error
@@ -216,21 +229,24 @@ This analysis will use a **manual testing approach** combined with **code review
    - Click "Sign in" link → Verify navigates to `/login`
    - Click Google Sign Up → Verify functionality or proper message ✗
 
-##### Mobile View Testing (375x667)
+#### Mobile View Testing (375x667)
+
 1. **Layout Verification**:
    - Verify left panel is hidden
    - Verify form takes full width
 
-##### Known Bugs to Verify:
+#### Known Bugs to Verify
+
 - [ ] **BUG-007**: Google Sign Up shows placeholder message
   - **File**: `RegistrationForm.tsx:159`
   - **Current**: Shows toast "planned for future development"
 
 ---
 
-#### Phase 5: Gallery Page Analysis
+### Phase 5: Gallery Page Analysis
 
 **Files to Analyze**:
+
 - `/frontend/src/app/gallery/page.tsx`
 - `/frontend/src/components/gallery/PhotoGrid.tsx`
 - `/frontend/src/components/gallery/PhotoCard.tsx`
@@ -240,7 +256,8 @@ This analysis will use a **manual testing approach** combined with **code review
 
 **Test Cases**:
 
-##### Desktop View Testing (1280x720)
+#### Desktop View Testing (1280x720)
+
 1. **Layout Verification**:
    - Verify photo grid displays (3-4 columns)
    - Verify StickyActionBar is visible
@@ -262,7 +279,8 @@ This analysis will use a **manual testing approach** combined with **code review
    - Verify controls remain accessible when sticky
    - Verify dropdowns work when sticky
 
-##### Mobile View Testing (375x667)
+#### Mobile View Testing (375x667)
+
 1. **Layout Verification**:
    - Verify photo grid displays (1 column)
    - Verify StickyActionBar is hidden
@@ -278,16 +296,18 @@ This analysis will use a **manual testing approach** combined with **code review
 
 ---
 
-#### Phase 6: Profile Page Analysis
+### Phase 6: Profile Page Analysis
 
 **Files to Analyze**:
+
 - `/frontend/src/app/myprofile/page.tsx`
 - `/frontend/src/components/ProfilePicture.tsx`
 - `/frontend/src/components/ProfilePictureUpload.tsx`
 
 **Test Cases**:
 
-##### Desktop View Testing (1280x720)
+#### Desktop View Testing (1280x720)
+
 1. **Layout Verification**:
    - Verify 2-column layout (info + picture)
    - Verify profile picture displays correctly
@@ -300,16 +320,18 @@ This analysis will use a **manual testing approach** combined with **code review
    - Click "Go to My Gallery" → Verify navigates to gallery
    - Click Logout → Verify logout works
 
-##### Mobile View Testing (375x667)
+#### Mobile View Testing (375x667)
+
 1. **Layout Verification**:
    - Verify 1-column layout
    - Verify profile picture appropriately sized
 
 ---
 
-#### Phase 7: Test Coverage Analysis
+### Phase 7: Test Coverage Analysis
 
 **Files to Analyze**:
+
 - `/tests/e2e/landing-page.spec.ts`
 - `/tests/e2e/login.spec.ts`
 - `/tests/e2e/registration.spec.ts`
@@ -336,7 +358,7 @@ This analysis will use a **manual testing approach** combined with **code review
 
 ---
 
-#### Phase 8: Bug Documentation
+### Phase 8: Bug Documentation
 
 **Bug Report Template**:
 
@@ -344,37 +366,46 @@ This analysis will use a **manual testing approach** combined with **code review
 ## Bug Report: [BUG-XXX] - [Brief Description]
 
 ### Description
+
 [Clear description of the bug]
 
 ### Location
+
 - **File**: `path/to/file.tsx`
 - **Line**: XXX
 - **Component**: ComponentName
 
 ### Severity
+
 - [ ] P0 (Critical) - Blocks user flow, broken navigation
 - [ ] P1 (High) - Major functionality broken
 - [ ] P2 (Medium) - Minor issues, missing features
 - [ ] P3 (Low) - Cosmetic, nice-to-have
 
 ### Steps to Reproduce
+
 1. Navigate to [page]
 2. Click [element]
 3. Observe [behavior]
 
 ### Expected Behavior
+
 [What should happen]
 
 ### Actual Behavior
+
 [What actually happens]
 
 ### Screenshots/Recordings
+
 [Attach if applicable]
 
 ### Recommended Fix
+
 [Code or approach to fix]
 
 ### Related Files
+
 - [List related files]
 ```
 
@@ -385,27 +416,32 @@ This analysis will use a **manual testing approach** combined with **code review
 ### Viewport Testing Strategy
 
 **Desktop Viewports**:
+
 - 1280x720 (Standard desktop)
 - 1920x1080 (Full HD)
 - 1024x768 (Small desktop)
 
 **Mobile Viewports**:
+
 - 375x667 (iPhone SE)
 - 390x844 (iPhone 13)
 - 414x896 (iPhone 14 Plus)
 
 **Tablet Viewports**:
+
 - 768x1024 (iPad)
 - 820x1180 (iPad 11")
 
 ### Browser Testing Strategy
 
 **Primary Browser**: Chromium (Chrome/Edge)
+
 - Most widely used
 - Best DevTools
 - Reliable viewport simulation
 
 **Secondary Browsers** (if time permits):
+
 - Firefox
 - Safari (Mac only)
 
@@ -415,6 +451,7 @@ This analysis will use a **manual testing approach** combined with **code review
 ## [Page Name] Testing Checklist
 
 ### Desktop View (≥ 640px)
+
 - [ ] Layout correct
 - [ ] No horizontal scroll
 - [ ] All buttons work
@@ -423,6 +460,7 @@ This analysis will use a **manual testing approach** combined with **code review
 - [ ] Interactive elements work
 
 ### Mobile View (< 640px)
+
 - [ ] Layout correct
 - [ ] No horizontal scroll
 - [ ] All buttons touch-friendly
@@ -431,6 +469,7 @@ This analysis will use a **manual testing approach** combined with **code review
 - [ ] All desktop features work
 
 ### Responsive
+
 - [ ] Breakpoint at 640px works
 - [ ] Transitions smooth
 - [ ] No layout shifts
@@ -442,25 +481,29 @@ This analysis will use a **manual testing approach** combined with **code review
 
 ### Severity Levels
 
-#### P0 (Critical)
+### P0 (Critical)
+
 - Navigation that leads to wrong page
 - Broken functionality that blocks user flow
 - Application crashes
 - Data loss
 
-#### P1 (High)
+### P1 (High)
+
 - Non-functional links/buttons
 - Missing loading states causing poor UX
 - Broken features on specific viewports
 - Validation errors not caught
 
-#### P2 (Medium)
+### P2 (Medium)
+
 - Missing test coverage
 - Placeholder messages for unimplemented features
 - Minor responsive issues
 - Inconsistent behavior
 
-#### P3 (Low)
+### P3 (Low)
+
 - Cosmetic issues
 - Nice-to-have improvements
 - Minor text/grammar issues
@@ -482,6 +525,7 @@ This analysis will use a **manual testing approach** combined with **code review
 ### File Reference Format
 
 When referencing files in bug reports:
+
 ```markdown
 File: `frontend/src/components/Example.tsx`
 Line: 42
@@ -492,6 +536,7 @@ Function: exampleFunction
 ### Code Reference Format
 
 When referencing code:
+
 ```typescript
 // Current (buggy)
 const handleGetStarted = () => {
@@ -511,64 +556,86 @@ const handleGetStarted = () => {
 ### Final Bug Report Structure
 
 ```markdown
-# Bug Analysis Report - Vue Camera App
+## Bug Analysis Report - Vue Camera App
+
 **Date**: [Analysis Date]
 **Analyst**: [Name]
 **Duration**: [Hours]
 
 ## Executive Summary
+
 [Brief overview of findings]
 
 ## Bugs by Severity
+
 ### P0 (Critical)
+
 - [List of critical bugs]
 
 ### P1 (High)
+
 - [List of high priority bugs]
 
 ### P2 (Medium)
+
 - [List of medium priority bugs]
 
 ### P3 (Low)
+
 - [List of low priority bugs]
 
 ## Bugs by Page
+
 ### Landing Page
+
 - [List of bugs]
 
 ### Login Page
+
 - [List of bugs]
 
 ### Register Page
+
 - [List of bugs]
 
 ### Gallery Page
+
 - [List of bugs]
 
 ### Profile Page
+
 - [List of bugs]
 
 ## Test Coverage Gaps
+
 ### Viewport Coverage
+
 - [Missing viewports]
 
 ### Feature Coverage
+
 - [Missing tests]
 
 ### Browser Coverage
+
 - [Missing browsers]
 
 ## Recommendations
+
 ### Priority Fixes
+
 1. [Fix 1]
 2. [Fix 2]
 
 ### Future Improvements
+
 1. [Improvement 1]
 2. [Improvement 2]
 
 ## Appendix
+
 ### Detailed Bug Reports
+
 [Full details for each bug]
 ```
 
@@ -586,6 +653,7 @@ This technical design document provides:
 6. **Reporting Structure**: Final bug report format
 
 **Key Success Factors**:
+
 - Thorough testing on multiple viewports
 - Clear documentation of all findings
 - Consistent bug classification

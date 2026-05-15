@@ -27,16 +27,18 @@
 ## Phase 1: Pre-Analysis Setup
 
 ### Environment Setup
+
 - [ ] Navigate to project root directory
 - [ ] Open terminal/command prompt
 - [ ] Check if backend server is running (port 8081)
 - [ ] Check if frontend server is running (port 3002)
 - [ ] If not running, start backend server
 - [ ] If not running, start frontend server
-- [ ] Verify backend accessible at http://localhost:8081
-- [ ] Verify frontend accessible at http://localhost:3002
+- [ ] Verify backend accessible at <http://localhost:8081>
+- [ ] Verify frontend accessible at <http://localhost:3002>
 
 ### Browser Setup
+
 - [ ] Open Chrome/Chromium browser
 - [ ] Open DevTools (F12 or Cmd+Option+I)
 - [ ] Open DevTools Device Toolbar (Cmd+Shift+M)
@@ -45,6 +47,7 @@
 - [ ] Verify no console errors on page load
 
 ### Pre-Analysis Verification
+
 - [ ] Backend server responding
 - [ ] Frontend server responding
 - [ ] No console errors
@@ -58,6 +61,7 @@
 ## Phase 2: Landing Page Analysis
 
 ### File Reading
+
 - [ ] Read `/frontend/src/components/landing/LandingPage.tsx`
 - [ ] Read `/frontend/src/components/landing/Navbar.tsx`
 - [ ] Read `/frontend/src/components/landing/HeroSection.tsx`
@@ -67,8 +71,9 @@
 - [ ] Read `/frontend/src/components/landing/Footer.tsx`
 
 ### Desktop View Testing (1280x720)
+
 - [ ] Set viewport to 1280x720
-- [ ] Navigate to http://localhost:3002
+- [ ] Navigate to <http://localhost:3002>
 - [ ] Click "Get Started Free" button → Check if navigates to `/register`
   - [ ] If navigates to `/login` → **BUG FOUND** (BUG-001)
 - [ ] Click "Login" button → Check if navigates to `/login`
@@ -88,11 +93,13 @@
 - [ ] Check if hamburger menu is hidden (desktop)
 
 ### Desktop Viewport Variations
+
 - [ ] Set viewport to 1920x1080 → Check layout
 - [ ] Set viewport to 1024x768 → Check layout
 - [ ] Check for horizontal scroll on each viewport
 
 ### Mobile View Testing (375x667)
+
 - [ ] Set viewport to 375x667 (iPhone SE)
 - [ ] Refresh page
 - [ ] Check if hamburger menu is visible
@@ -109,11 +116,13 @@
 - [ ] Click BackToTop → Check smooth scroll to top
 
 ### Mobile Viewport Variations
+
 - [ ] Set viewport to 390x844 (iPhone 13) → Check layout
 - [ ] Set viewport to 414x896 (iPhone 14 Plus) → Check layout
 - [ ] Check for horizontal scroll on each viewport
 
 ### Loading States Analysis
+
 - [ ] Check if Hero section needs skeleton loading
 - [ ] Check if Features section needs skeleton loading
 - [ ] Check if About section needs skeleton loading
@@ -121,6 +130,7 @@
 - [ ] Document if any skeleton loading components exist
 
 ### Landing Page Summary
+
 - [ ] Document all bugs found
 - [ ] Document all responsive issues
 - [ ] Document missing features
@@ -133,12 +143,14 @@
 ## Phase 3: Login Page Analysis
 
 ### File Reading
+
 - [ ] Read `/frontend/src/components/LoginForm.tsx`
 - [ ] Read `/frontend/src/app/login/page.tsx`
 
 ### Desktop View Testing (1280x720)
+
 - [ ] Set viewport to 1280x720
-- [ ] Navigate to http://localhost:3002/login
+- [ ] Navigate to <http://localhost:3002/login>
 - [ ] Check if left panel (hero image) is visible
 - [ ] Check if form is centered
 - [ ] Enter invalid email format → Check validation error
@@ -158,6 +170,7 @@
 - [ ] Click "Remember me" → Check if checkbox toggles
 
 ### Mobile View Testing (375x667)
+
 - [ ] Set viewport to 375x667
 - [ ] Refresh page
 - [ ] Check if left panel (hero image) is hidden
@@ -168,12 +181,14 @@
 - [ ] Verify all desktop functionality works
 
 ### Loading States Verification
+
 - [ ] Verify loading spinner exists
 - [ ] Verify button is disabled during loading
 - [ ] Verify "Signing In..." text appears
 - [ ] Document if loading states are adequate
 
 ### Login Page Summary
+
 - [ ] Document all bugs found
 - [ ] Document all responsive issues
 - [ ] Document validation coverage
@@ -186,12 +201,14 @@
 ## Phase 4: Register Page Analysis
 
 ### File Reading
+
 - [ ] Read `/frontend/src/components/RegistrationForm.tsx`
 - [ ] Read `/frontend/src/app/register/page.tsx`
 
 ### Desktop View Testing (1280x720)
+
 - [ ] Set viewport to 1280x720
-- [ ] Navigate to http://localhost:3002/register
+- [ ] Navigate to <http://localhost:3002/register>
 - [ ] Check if left panel (hero image) is visible
 - [ ] Check if form is centered
 - [ ] Enter mismatched passwords → Check error message
@@ -206,6 +223,7 @@
   - [ ] If shows placeholder toast → **BUG FOUND** (BUG-007)
 
 ### Mobile View Testing (375x667)
+
 - [ ] Set viewport to 375x667
 - [ ] Refresh page
 - [ ] Check if left panel (hero image) is hidden
@@ -216,11 +234,13 @@
 - [ ] Verify all desktop functionality works
 
 ### Loading States Verification
+
 - [ ] Verify loading spinner exists
 - [ ] Verify button is disabled during loading
 - [ ] Document if loading states are adequate
 
 ### Register Page Summary
+
 - [ ] Document all bugs found
 - [ ] Document all responsive issues
 - [ ] Document validation coverage
@@ -233,6 +253,7 @@
 ## Phase 5: Gallery Page Analysis
 
 ### File Reading
+
 - [ ] Read `/frontend/src/app/gallery/page.tsx`
 - [ ] Read `/frontend/src/components/gallery/PhotoGrid.tsx`
 - [ ] Read `/frontend/src/components/gallery/PhotoCard.tsx`
@@ -241,9 +262,10 @@
 - [ ] Read `/frontend/src/components/gallery/FABUpload.tsx`
 
 ### Desktop View Testing (1280x720)
+
 - [ ] Set viewport to 1280x720
 - [ ] Login to the application
-- [ ] Navigate to http://localhost:3002/gallery
+- [ ] Navigate to <http://localhost:3002/gallery>
 - [ ] Check photo grid layout (3-4 columns)
 - [ ] Check StickyActionBar is visible
 - [ ] Check FAB upload button is visible (bottom-right)
@@ -266,6 +288,7 @@
 - [ ] Check no horizontal scroll
 
 ### Mobile View Testing (375x667)
+
 - [ ] Set viewport to 375x667
 - [ ] Refresh gallery page
 - [ ] Check photo grid layout (1 column)
@@ -285,11 +308,13 @@
 - [ ] Check no horizontal scroll
 
 ### Loading States Verification
+
 - [ ] Verify skeleton cards appear during loading
 - [ ] Verify skeleton matches grid layout
 - [ ] Document if loading states are adequate
 
 ### Gallery Page Summary
+
 - [ ] Document all bugs found
 - [ ] Document all responsive issues
 - [ ] Document feature parity issues
@@ -302,14 +327,16 @@
 ## Phase 6: Profile Page Analysis
 
 ### File Reading
+
 - [ ] Read `/frontend/src/app/myprofile/page.tsx`
 - [ ] Read `/frontend/src/components/ProfilePicture.tsx`
 - [ ] Read `/frontend/src/components/ProfilePictureUpload.tsx`
 
 ### Desktop View Testing (1280x720)
+
 - [ ] Set viewport to 1280x720
 - [ ] Login to the application
-- [ ] Navigate to http://localhost:3002/myprofile
+- [ ] Navigate to <http://localhost:3002/myprofile>
 - [ ] Check 2-column layout (info + picture)
 - [ ] Check profile picture displays correctly
 - [ ] Check user info displays correctly
@@ -322,6 +349,7 @@
 - [ ] Check no horizontal scroll
 
 ### Mobile View Testing (375x667)
+
 - [ ] Set viewport to 375x667
 - [ ] Refresh profile page
 - [ ] Check 1-column layout
@@ -331,11 +359,13 @@
 - [ ] Check no horizontal scroll
 
 ### Loading States Verification
+
 - [ ] Verify loading spinner during auth check
 - [ ] Verify loading state during picture upload
 - [ ] Document if loading states are adequate
 
 ### Profile Page Summary
+
 - [ ] Document all bugs found
 - [ ] Document all responsive issues
 - [ ] Document feature issues
@@ -348,6 +378,7 @@
 ## Phase 7: Test Coverage Analysis
 
 ### E2E Test Review
+
 - [ ] Read `/tests/e2e/landing-page.spec.ts`
 - [ ] Read `/tests/e2e/login.spec.ts`
 - [ ] Read `/tests/e2e/registration.spec.ts`
@@ -356,15 +387,17 @@
 - [ ] Read `/tests/e2e/profile-picture.spec.ts`
 
 ### Viewport Coverage Analysis
+
 - [ ] Document which viewports are tested in landing-page.spec.ts
 - [ ] Document which viewports are tested in login.spec.ts
 - [ ] Document which viewports are tested in registration.spec.ts
-- [ ] Document which viewports are tested in gallery*.spec.ts
+- [ ] Document which viewports are tested in gallery\*.spec.ts
 - [ ] Identify missing desktop viewport tests
 - [ ] Identify missing tablet viewport tests (768x1024)
 - [ ] Identify missing mobile viewport tests
 
 ### Feature Coverage Analysis
+
 - [ ] Document which features have tests
 - [ ] Identify missing direct profile page tests
 - [ ] Identify missing comprehensive login validation tests
@@ -379,11 +412,13 @@
 - [ ] Identify missing Google OAuth flow tests
 
 ### Browser Coverage Analysis
+
 - [ ] Document which browsers are tested (Chromium, Firefox, WebKit)
 - [ ] Identify browser-specific test skips
 - [ ] Document any cross-browser issues
 
 ### Test Coverage Summary
+
 - [ ] Create table of viewport coverage
 - [ ] Create table of feature coverage
 - [ ] Create table of browser coverage
@@ -396,12 +431,15 @@
 ## Phase 8: Bug Documentation
 
 ### Bug Classification
+
 - [ ] Review all bugs found during analysis
 - [ ] Classify each bug by severity (P0, P1, P2, P3)
 - [ ] Classify each bug by category (Navigation, Responsive, Functional, Loading, Test Coverage, Cosmetic)
 
 ### Bug Documentation
+
 For each bug found:
+
 - [ ] Assign unique bug ID (BUG-001, BUG-002, etc.)
 - [ ] Write clear description
 - [ ] Document file location with line number
@@ -412,6 +450,7 @@ For each bug found:
 - [ ] Provide recommended fix
 
 ### Known Bugs Documentation
+
 - [ ] **BUG-001**: CTA button navigates to `/login` instead of `/register`
   - [ ] Document in bug report format
 - [ ] **BUG-002**: Forgot password link is non-functional
@@ -428,6 +467,7 @@ For each bug found:
   - [ ] Document in bug report format
 
 ### Final Bug Report Creation
+
 - [ ] Create executive summary
 - [ ] Create bugs by severity section
 - [ ] Create bugs by page section
@@ -436,6 +476,7 @@ For each bug found:
 - [ ] Create detailed bug reports appendix
 
 ### Bug Report Review
+
 - [ ] Review for completeness
 - [ ] Review for clarity
 - [ ] Review for accuracy
@@ -449,34 +490,40 @@ For each bug found:
 ## Phase 9: Google OAuth Button Hiding (OPTIONAL ENHANCEMENT)
 
 ### Overview
+
 Hide Google Sign In/Up buttons on login and register pages to provide cleaner UI for the learning project. Buttons will still exist in code but conditionally hidden.
 
 ### Proposed Implementation
 
-#### 9.1 Environment Variable Setup
+### 9.1 Environment Variable Setup
+
 - [x] Add `NEXT_PUBLIC_GOOGLE_OAUTH_ENABLED=false` to `.env.local`
 - [x] Add `NEXT_PUBLIC_GOOGLE_OAUTH_ENABLED` to `.env.example`
 - [x] Document environment variable usage
 
-#### 9.2 LoginForm.tsx Updates
+### 9.2 LoginForm.tsx Updates
+
 - [x] Add `GOOGLE_OAUTH_ENABLED` constant at component level
 - [x] Wrap Google Sign In button with conditional rendering
 - [x] Keep `handleGoogleSignin` function (for future use)
 - [x] Test button is hidden when flag is false
 
-#### 9.3 RegistrationForm.tsx Updates
+### 9.3 RegistrationForm.tsx Updates
+
 - [x] Add `GOOGLE_OAUTH_ENABLED` constant at component level
 - [x] Wrap Google Sign Up button with conditional rendering
 - [x] Keep `handleGoogleSignup` function (for future use)
 - [x] Test button is hidden when flag is false
 
 ### Files to Modify
+
 - `/frontend/.env.local` - Add Google OAuth flag (false)
 - `/frontend/.env.example` - Add Google OAuth flag example
 - `/frontend/src/components/LoginForm.tsx` - Conditional rendering
 - `/frontend/src/components/RegistrationForm.tsx` - Conditional rendering
 
 ### Implementation Approach
+
 ```typescript
 // Add at top of component files
 const GOOGLE_OAUTH_ENABLED = process.env.NEXT_PUBLIC_GOOGLE_OAUTH_ENABLED === 'true';
@@ -490,6 +537,7 @@ const GOOGLE_OAUTH_ENABLED = process.env.NEXT_PUBLIC_GOOGLE_OAUTH_ENABLED === 't
 ```
 
 ### Benefits
+
 - ✅ Cleaner UI without non-functional buttons
 - ✅ No false hope for users
 - ✅ Easy to enable in future (just change env var)
@@ -497,6 +545,7 @@ const GOOGLE_OAUTH_ENABLED = process.env.NEXT_PUBLIC_GOOGLE_OAUTH_ENABLED === 't
 - ✅ Feature flagging pattern implemented
 
 ### Estimated Time
+
 - [x] Environment setup: 5 minutes ✅
 - [x] Code changes: 15 minutes ✅
 - [x] Testing: 10 minutes ✅
@@ -509,13 +558,15 @@ const GOOGLE_OAUTH_ENABLED = process.env.NEXT_PUBLIC_GOOGLE_OAUTH_ENABLED === 't
 ## Phase 10: Skeleton Loading Enhancement (UX Improvement)
 
 ### Overview
+
 Add skeleton loading states to My Profile page and Photo Detail page to improve perceived performance and user experience. All skeletons will be responsive (mobile-friendly).
 
 **Note**: Existing skeletons (LandingPageSkeleton, GalleryGridSkeleton) are already responsive using Tailwind breakpoints.
 
 ### Proposed Implementation
 
-#### 10.1 My Profile Page Skeleton
+### 10.1 My Profile Page Skeleton
+
 - [x] Create `ProfileSkeleton.tsx` component ✅
 - [x] Add skeleton for profile picture section (circle placeholder) ✅
 - [x] Add skeleton for user info section (name, email, ID fields) ✅
@@ -523,8 +574,9 @@ Add skeleton loading states to My Profile page and Photo Detail page to improve 
 - [x] Integrate skeleton into `/myprofile/page.tsx` ✅
 - [x] Test responsive layout (1 col mobile, 3 col desktop) ✅
 
-**Skeleton Structure:**
-```
+### Skeleton Structure
+
+```text
 ProfileSkeleton
 ├── Header Skeleton (title + logout button)
 ├── Grid Layout (1 col mobile → 3 col desktop)
@@ -536,7 +588,8 @@ ProfileSkeleton
 │       └── Quick Action button placeholder
 ```
 
-#### 10.2 Photo Detail Page Skeleton
+### 10.2 Photo Detail Page Skeleton
+
 - [x] Create `PhotoDetailSkeleton.tsx` component ✅
 - [x] Add skeleton for large photo placeholder ✅
 - [x] Add skeleton for photo info section ✅
@@ -544,8 +597,9 @@ ProfileSkeleton
 - [x] Integrate skeleton into `/gallery/[id]/page.tsx` ✅
 - [x] Test responsive layout (1 col mobile → 2 col desktop) ✅
 
-**Skeleton Structure:**
-```
+### Skeleton Structure
+
+```text
 PhotoDetailSkeleton
 ├── Header Skeleton (back button)
 ├── Grid Layout (1 col mobile → 2 col desktop)
@@ -559,20 +613,25 @@ PhotoDetailSkeleton
 ```
 
 ### Files to Create
+
 - `/frontend/src/components/skeletons/ProfileSkeleton.tsx`
 - `/frontend/src/components/skeletons/PhotoDetailSkeleton.tsx`
 
 ### Files to Modify
+
 - `/frontend/src/app/myprofile/page.tsx` - Add skeleton loading state
 - `/frontend/src/app/gallery/[id]/page.tsx` - Add skeleton loading state
 
 ### Responsive Design Notes
+
 All skeletons will use Tailwind CSS breakpoints:
+
 - **Mobile (< 640px)**: Single column layout
 - **Tablet (sm: 640px, md: 768px)**: 2 columns where applicable
 - **Desktop (lg: 1024px+)**: Full multi-column layout
 
 ### Implementation Approach
+
 ```typescript
 // Example: ProfileSkeleton.tsx
 export function ProfileSkeleton() {
@@ -612,6 +671,7 @@ export function ProfileSkeleton() {
 ```
 
 ### Benefits
+
 - ✅ Improved perceived performance
 - ✅ Better UX during data loading
 - ✅ Consistent skeleton pattern across app
@@ -619,6 +679,7 @@ export function ProfileSkeleton() {
 - ✅ Smooth loading transitions
 
 ### Estimated Time
+
 - [x] ProfileSkeleton creation: 15 minutes ✅
 - [x] PhotoDetailSkeleton creation: 15 minutes ✅
 - [x] Integration into pages: 10 minutes ✅
@@ -632,6 +693,7 @@ export function ProfileSkeleton() {
 ## Phase 11: Fix Mobile Logout Icon Bug (BUG FIX)
 
 ### Overview
+
 Fix the non-functional logout icon on mobile view in the Gallery page. The icon currently uses the wrong localStorage key, causing logout to fail silently.
 
 ### Bug Details
@@ -639,6 +701,7 @@ Fix the non-functional logout icon on mobile view in the Gallery page. The icon 
 **Issue**: Mobile logout icon doesn't work - nothing happens when clicked
 
 **Root Cause**: Wrong localStorage key
+
 - Current code: `localStorage.removeItem('token')` ❌
 - Correct key: `localStorage.removeItem('authToken')` ✅
 
@@ -648,24 +711,29 @@ Fix the non-functional logout icon on mobile view in the Gallery page. The icon 
 
 ### Proposed Implementation
 
-#### 11.1 Import logout function
+### 11.1 Import logout function
+
 - [x] Add `logout` import from `../../lib/auth` ✅
 - [x] Keep existing `isAuthenticated` and `getUserFromToken` imports ✅
 
-#### 11.2 Fix mobile logout icon
+### 11.2 Fix mobile logout icon
+
 - [x] Replace inline logout code with `logout()` function call ✅
 - [x] Keep `router.push('/login')` after logout ✅
 - [x] Test logout functionality on mobile view ✅
 - [x] Verify redirect to login page works ✅
 
 ### Current Code (Buggy)
+
 ```tsx
-{/* Logout icon - Mobile only */}
+{
+  /* Logout icon - Mobile only */
+}
 <button
   onClick={() => {
     // Logout functionality
     if (typeof window !== 'undefined') {
-      localStorage.removeItem('token');  // ❌ WRONG KEY!
+      localStorage.removeItem('token'); // ❌ WRONG KEY!
       router.push('/login');
     }
   }}
@@ -673,34 +741,40 @@ Fix the non-functional logout icon on mobile view in the Gallery page. The icon 
   className="sm:hidden p-3 hover:bg-gray-100 rounded-lg active:scale-95 transition-transform focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
 >
   <LogOut className="w-5 h-5 text-gray-700" strokeWidth={2} />
-</button>
+</button>;
 ```
 
 ### Fixed Code
+
 ```tsx
-{/* Logout icon - Mobile only */}
+{
+  /* Logout icon - Mobile only */
+}
 <button
   onClick={() => {
-    logout();  // ✅ Use auth utility function
+    logout(); // ✅ Use auth utility function
     router.push('/login');
   }}
   aria-label="Logout"
   className="sm:hidden p-3 hover:bg-gray-100 rounded-lg active:scale-95 transition-transform focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
 >
   <LogOut className="w-5 h-5 text-gray-700" strokeWidth={2} />
-</button>
+</button>;
 ```
 
 ### Files to Modify
+
 - `/frontend/src/app/gallery/page.tsx` - Fix mobile logout icon
 
 ### Benefits
+
 - ✅ Users can now logout from mobile view
 - ✅ Consistent logout behavior across mobile and desktop
 - ✅ Uses same `logout()` utility as desktop LogoutButton
 - ✅ Properly clears `'authToken'` from localStorage
 
 ### Estimated Time
+
 - [x] Import logout function: 2 minutes ✅
 - [x] Fix mobile logout icon: 3 minutes ✅
 - [x] Testing (mobile view): 5 minutes ✅
@@ -713,30 +787,35 @@ Fix the non-functional logout icon on mobile view in the Gallery page. The icon 
 ## Phase 12: Add LICENSE & Update README (PROJECT COMPLETION)
 
 ### Overview
+
 Add MIT LICENSE file and update README.md with copyright notice to properly protect and document the project. This phase completes the project setup for portfolio/recruiter purposes.
 
 ### Why This Matters
 
 **For Recruiters**:
+
 - ✅ Shows professionalism and attention to detail
 - ✅ Demonstrates understanding of open-source licensing
 - ✅ Clear project ownership and purpose
 
 **For You**:
+
 - ✅ Legal protection for your work
 - ✅ Clear that this is a portfolio project
 - ✅ Prevents others from claiming your work as theirs
 
 ### Proposed Implementation
 
-#### 12.1 Create LICENSE file
+### 12.1 Create LICENSE file
+
 - [x] Create `LICENSE` file in root directory ✅
 - [x] Use MIT License template ✅
 - [x] Include copyright notice with your name ✅
 - [x] Include current year (2026) ✅
 
 **LICENSE Content Template**:
-```
+
+```text
 MIT License
 
 Copyright (c) 2026 Isnendy Ankp
@@ -760,13 +839,15 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
-#### 12.2 Update README.md
+### 12.2 Update README.md
+
 - [x] Add Copyright & License section at the end ✅
 - [x] Include educational purpose statement ✅
 - [x] Add link to LICENSE file ✅
 - [x] Keep existing content (features, installation, etc.) ✅
 
 **README Section to Add**:
+
 ```markdown
 ## Copyright & License
 
@@ -778,6 +859,7 @@ This project ("Kameravue" / "IKP Labs") is a **portfolio project** created for
 educational and demonstration purposes to showcase full-stack development skills.
 
 This is:
+
 - ✅ A learning project to demonstrate web development skills
 - ✅ A portfolio piece for job applications
 - ✅ Open-source for others to learn from
@@ -787,11 +869,13 @@ This is:
 ### Usage Guidelines
 
 You are free to:
+
 - Use this code for learning and inspiration
 - Reference this project for your own work
 - Fork and modify for your needs
 
 Please:
+
 - Give credit where appropriate
 - Use ethically and responsibly
 - Understand this is for educational purposes
@@ -801,25 +885,30 @@ Please:
 This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) file for details.
 ```
 
-#### 12.3 Update checklist.md
+### 12.3 Update checklist.md
+
 - [x] Mark Phase 12 as completed ✅
 - [x] Update overall progress section ✅
 - [x] Update Table of Contents ✅
 
 ### Files to Create
+
 - `/LICENSE` - MIT License file (root directory)
 
 ### Files to Modify
+
 - `/README.md` - Add Copyright & License section
 - `/plans/in-progress/2026-02-02__bug-analysis-testing-coverage/checklist.md` - Track Phase 12
 
 ### Benefits
+
 - ✅ Professional documentation
 - ✅ Clear legal protection
 - ✅ Recruiter-friendly project setup
 - ✅ Proper attribution for portfolio purposes
 
 ### Estimated Time
+
 - [x] Create LICENSE file: 3 minutes ✅
 - [x] Update README.md: 5 minutes ✅
 - [x] Update checklist.md: 2 minutes ✅
@@ -832,17 +921,18 @@ This project is licensed under the **MIT License** - see the [LICENSE](LICENSE) 
 ## Phase 13: Fix E2E Test DRY Violation (CODE QUALITY)
 
 ### Overview
+
 Fix DRY (Don't Repeat Yourself) violation in E2E tests by extracting duplicate `createFakeJwtToken()` function to a shared helper file.
 
 ### Problem Identified
 
 **DRY Violation**: `createFakeJwtToken()` function is duplicated across 3 test files
 
-| File | Lines | Code Duplication |
-|------|-------|------------------|
-| `tests/e2e/profile.spec.ts` | 13-33 | 22 lines |
-| `tests/e2e/landing-page.spec.ts` | 17-40 | 24 lines (with comments) |
-| `tests/e2e/desktop-viewport.spec.ts` | 13-33 | 22 lines |
+| File                                 | Lines | Code Duplication         |
+| ------------------------------------ | ----- | ------------------------ |
+| `tests/e2e/profile.spec.ts`          | 13-33 | 22 lines                 |
+| `tests/e2e/landing-page.spec.ts`     | 17-40 | 24 lines (with comments) |
+| `tests/e2e/desktop-viewport.spec.ts` | 13-33 | 22 lines                 |
 
 **Total**: 68 lines of duplicate code!
 
@@ -851,6 +941,7 @@ Fix DRY (Don't Repeat Yourself) violation in E2E tests by extracting duplicate `
 ### Why This Happened?
 
 **Copy-Paste Development** 👨‍💻
+
 - Developer pertama kali buat function ini di `profile.spec.ts`
 - Pas buat test baru di `landing-page.spec.ts`, dia copy-paste function itu
 - Pas buat test lagi di `desktop-viewport.spec.ts`, copy-paste lagi
@@ -858,17 +949,18 @@ Fix DRY (Don't Repeat Yourself) violation in E2E tests by extracting duplicate `
 
 ### Why Must Fix?
 
-| Problem | Example |
-|---------|---------|
-| **Susah Maintain** | Kalau JWT format berubah, harus update 3 file |
-| **Risk of Inconsistency** | Bisa saja satu file update, file lain lupa |
-| **Code Bloat** | 68 lines duplicate code untuk hal yang sama |
+| Problem                    | Example                                             |
+| -------------------------- | --------------------------------------------------- |
+| **Susah Maintain**         | Kalau JWT format berubah, harus update 3 file       |
+| **Risk of Inconsistency**  | Bisa saja satu file update, file lain lupa          |
+| **Code Bloat**             | 68 lines duplicate code untuk hal yang sama         |
 | **Violates DRY Principle** | Don't Repeat Yourself = basic programming principle |
-| **Harder to Read** | Test files jadi lebih panjang dari necessary |
+| **Harder to Read**         | Test files jadi lebih panjang dari necessary        |
 
 ### Proposed Implementation
 
-#### 13.1 Create auth-helpers.ts
+### 13.1 Create auth-helpers.ts
+
 - [x] Create `tests/e2e/helpers/auth-helpers.ts` ✅
 - [x] Extract `createFakeJwtToken()` function ✅
 - [x] Add JSDoc comments ✅
@@ -904,7 +996,7 @@ export function createFakeJwtToken(): string {
     fullName: 'Test User',
     exp: exp,
     iat: now,
-    sub: 'test-user'
+    sub: 'test-user',
   };
 
   const header = btoa(JSON.stringify({ alg: 'HS256', typ: 'JWT' }));
@@ -917,21 +1009,24 @@ export function createFakeJwtToken(): string {
 }
 ```
 
-#### 13.2 Update profile.spec.ts
+### 13.2 Update profile.spec.ts
+
 - [x] Remove local `createFakeJwtToken()` function (lines 10-33) ✅
 - [x] Add import: `import { createFakeJwtToken } from './helpers/auth-helpers';` ✅
 - [x] Verify tests still pass ✅
 
 **File to Modify**: `tests/e2e/profile.spec.ts`
 
-#### 13.3 Update landing-page.spec.ts
+### 13.3 Update landing-page.spec.ts
+
 - [x] Remove local `createFakeJwtToken()` function (lines 10-40) ✅
 - [x] Add import: `import { createFakeJwtToken } from './helpers/auth-helpers';` ✅
 - [x] Verify tests still pass ✅
 
 **File to Modify**: `tests/e2e/landing-page.spec.ts`
 
-#### 13.4 Update desktop-viewport.spec.ts
+### 13.4 Update desktop-viewport.spec.ts
+
 - [x] Remove local `createFakeJwtToken()` function (lines 10-33) ✅
 - [x] Add import: `import { createFakeJwtToken } from './helpers/auth-helpers';` ✅
 - [x] Verify tests still pass ✅
@@ -939,14 +1034,17 @@ export function createFakeJwtToken(): string {
 **File to Modify**: `tests/e2e/desktop-viewport.spec.ts`
 
 ### Files to Create
+
 - `tests/e2e/helpers/auth-helpers.ts` - Shared authentication helper functions
 
 ### Files to Modify
+
 - `tests/e2e/profile.spec.ts` - Remove duplicate function, add import
 - `tests/e2e/landing-page.spec.ts` - Remove duplicate function, add import
 - `tests/e2e/desktop-viewport.spec.ts` - Remove duplicate function, add import
 
 ### Benefits
+
 - ✅ Eliminates 68 lines of duplicate code
 - ✅ Single source of truth for JWT token creation
 - ✅ Easier maintenance (change once, apply everywhere)
@@ -955,6 +1053,7 @@ export function createFakeJwtToken(): string {
 - ✅ Shows clean code practices for recruiters
 
 ### Estimated Time
+
 - [x] Create auth-helpers.ts: 3 minutes ✅
 - [x] Update profile.spec.ts: 2 minutes ✅
 - [x] Update landing-page.spec.ts: 2 minutes ✅
@@ -971,6 +1070,7 @@ export function createFakeJwtToken(): string {
 > **⚠️ MOVED TO NEW PLAN**
 >
 > This phase has been moved to a separate implementation plan:
+>
 > - **New Plan**: `2026-02-08__dry-violations-fe-be`
 > - **Reason**: Large code quality improvement task that should be tracked independently
 > - **Status**: See the new plan for implementation details
@@ -980,25 +1080,27 @@ export function createFakeJwtToken(): string {
 > ---
 
 ### Overview
+
 Fix DRY (Don't Repeat Yourself) violations in Frontend (FE) and Backend (BE) code by extracting duplicate logic to shared utilities, components, and services.
 
 ### Problem Identified
 
-**After exploration, found multiple DRY violations in FE and BE:**
+### After exploration, found multiple DRY violations in FE and BE
 
 ---
 
 ## Frontend DRY Violations (FE)
 
 ### FE-1: Authentication Token Handling 🔴 HIGH PRIORITY
+
 **Problem**: `getToken()` and `createAuthHeaders()` functions duplicated across 5 service files
 
-| File | Lines | Duplication |
-|------|-------|-------------|
-| `api.ts` | 30-53 | Token + headers logic |
-| `profileService.ts` | 27-32, 37-46 | Token + headers logic |
-| `galleryService.ts` | 33-38, 43-71 | Token + headers logic |
-| `photoLikeService.ts` | 33-38, 43-54 | Token + headers logic |
+| File                      | Lines        | Duplication           |
+| ------------------------- | ------------ | --------------------- |
+| `api.ts`                  | 30-53        | Token + headers logic |
+| `profileService.ts`       | 27-32, 37-46 | Token + headers logic |
+| `galleryService.ts`       | 33-38, 43-71 | Token + headers logic |
+| `photoLikeService.ts`     | 33-38, 43-54 | Token + headers logic |
 | `photoFavoriteService.ts` | 49-54, 59-70 | Token + headers logic |
 
 **Total**: ~100 lines of duplicate code across 5 files
@@ -1006,11 +1108,12 @@ Fix DRY (Don't Repeat Yourself) violations in Frontend (FE) and Backend (BE) cod
 **Solution**: Create centralized auth utilities (already exists in `lib/auth.ts`, but services not using it)
 
 ### FE-2: Like vs Favorite Button Logic 🟡 MEDIUM PRIORITY
+
 **Problem**: Both components implement nearly identical optimistic update logic
 
-| File | Lines | Similar Logic |
-|------|-------|---------------|
-| `LikeButton.tsx` | 99-165 | Optimistic update, rollback, loading |
+| File                 | Lines   | Similar Logic                        |
+| -------------------- | ------- | ------------------------------------ |
+| `LikeButton.tsx`     | 99-165  | Optimistic update, rollback, loading |
 | `FavoriteButton.tsx` | 107-170 | Optimistic update, rollback, loading |
 
 **Total**: ~140 lines with similar patterns
@@ -1018,6 +1121,7 @@ Fix DRY (Don't Repeat Yourself) violations in Frontend (FE) and Backend (BE) cod
 **Solution**: Create reusable `ActionButton` component or extract shared hook
 
 ### FE-3: API Response Handling Pattern 🟡 MEDIUM PRIORITY
+
 **Problem**: Same response parsing and error handling across all services
 
 **Pattern repeated in**: api.ts, profileService.ts, galleryService.ts, photoLikeService.ts, photoFavoriteService.ts
@@ -1029,13 +1133,14 @@ Fix DRY (Don't Repeat Yourself) violations in Frontend (FE) and Backend (BE) cod
 ## Backend DRY Violations (BE)
 
 ### BE-1: Pagination Logic Repetition 🔴 HIGH PRIORITY
+
 **Problem**: Same pagination metadata calculation in 3 controllers
 
-| File | Lines | Duplication |
-|------|-------|-------------|
-| `GalleryController.java` | 216-221, 290-295, 354-359 | Pagination calculation |
-| `PhotoLikeController.java` | 282-296 | Pagination calculation |
-| `PhotoFavoriteController.java` | 326-337 | Pagination calculation |
+| File                           | Lines                     | Duplication            |
+| ------------------------------ | ------------------------- | ---------------------- |
+| `GalleryController.java`       | 216-221, 290-295, 354-359 | Pagination calculation |
+| `PhotoLikeController.java`     | 282-296                   | Pagination calculation |
+| `PhotoFavoriteController.java` | 326-337                   | Pagination calculation |
 
 ```java
 // Repeated in all 3 controllers:
@@ -1047,12 +1152,13 @@ boolean hasPrevious = page > 0;
 **Solution**: Create `PaginationUtil` helper class
 
 ### BE-2: SortBy Validation Logic 🟡 MEDIUM PRIORITY
+
 **Problem**: Identical `isValidSortBy()` method in 3 controllers
 
-| File | Lines | Same Method |
-|------|-------|-------------|
-| `GalleryController.java` | 577-582 | isValidSortBy() |
-| `PhotoLikeController.java` | 311-316 | isValidSortBy() |
+| File                           | Lines   | Same Method     |
+| ------------------------------ | ------- | --------------- |
+| `GalleryController.java`       | 577-582 | isValidSortBy() |
+| `PhotoLikeController.java`     | 311-316 | isValidSortBy() |
 | `PhotoFavoriteController.java` | 303-308 | isValidSortBy() |
 
 ```java
@@ -1068,6 +1174,7 @@ private boolean isValidSortBy(String sortBy) {
 **Solution**: Create `SortByEnum` or validation utility
 
 ### BE-3: Controller Response Patterns 🟢 LOW PRIORITY
+
 **Problem**: Similar ResponseEntity patterns with try-catch blocks
 
 **Solution**: Create base controller or response helper (lower priority)
@@ -1078,20 +1185,23 @@ private boolean isValidSortBy(String sortBy) {
 
 ### Priority 1 (Highest Impact): FE Auth Token Consolidation
 
-#### 14.1 Create centralized API client
+### 14.1 Create centralized API client
+
 - [ ] Create `frontend/src/lib/apiClient.ts` with token management
 - [ ] Add `getToken()` method (centralized)
 - [ ] Add `createAuthHeaders()` method (centralized)
 - [ ] Add `fetchWithAuth()` wrapper for API calls
 
 **Benefits**:
+
 - Eliminate ~100 lines duplicate code
 - Single source of truth for auth
 - Easier to add interceptors, error handling
 
 ### Priority 2: Backend Pagination Utility
 
-#### 14.2 Create PaginationUtil
+### 14.2 Create PaginationUtil
+
 - [ ] Create `backend/.../util/PaginationUtil.java`
 - [ ] Extract pagination metadata calculation
 - [ ] Update GalleryController to use utility
@@ -1099,13 +1209,15 @@ private boolean isValidSortBy(String sortBy) {
 - [ ] Update PhotoFavoriteController to use utility
 
 **Benefits**:
+
 - Eliminate ~30 lines duplicate code
 - Consistent pagination across all endpoints
 - Easier to add pagination features
 
 ### Priority 3: Backend SortBy Validation
 
-#### 14.3 Create SortByEnum
+### 14.3 Create SortByEnum
+
 - [ ] Create `SortByEnum` with all valid values
 - [ ] Add validation method to enum
 - [ ] Update GalleryController to use enum
@@ -1113,19 +1225,22 @@ private boolean isValidSortBy(String sortBy) {
 - [ ] Update PhotoFavoriteController to use enum
 
 **Benefits**:
+
 - Eliminate ~24 lines duplicate code
 - Type-safe sortBy values
 - Single place to add new sort options
 
 ### Priority 4 (Optional): Reusable Action Button
 
-#### 14.4 Create ActionButton component (Optional)
+### 14.4 Create ActionButton component (Optional)
+
 - [ ] Create `frontend/src/components/ActionButton.tsx`
 - [ ] Extract common optimistic update logic
 - [ ] Update LikeButton to use ActionButton
 - [ ] Update FavoriteButton to use ActionButton
 
 **Benefits**:
+
 - Eliminate ~60 lines duplicate code
 - Consistent button behavior
 - Easier to add new action buttons
@@ -1133,6 +1248,7 @@ private boolean isValidSortBy(String sortBy) {
 ---
 
 ## Files to Create
+
 - `frontend/src/lib/apiClient.ts` - Centralized API client
 - `backend/.../util/PaginationUtil.java` - Pagination utility
 - `backend/.../dto/SortByEnum.java` - SortBy enum
@@ -1140,7 +1256,8 @@ private boolean isValidSortBy(String sortBy) {
 
 ## Files to Modify
 
-**Frontend:**
+### Frontend
+
 - `frontend/src/services/api.ts` - Use apiClient
 - `frontend/src/services/profileService.ts` - Use apiClient
 - `frontend/src/services/galleryService.ts` - Use apiClient
@@ -1149,7 +1266,8 @@ private boolean isValidSortBy(String sortBy) {
 - `frontend/src/components/LikeButton.tsx` (optional) - Use ActionButton
 - `frontend/src/components/FavoriteButton.tsx` (optional) - Use ActionButton
 
-**Backend:**
+### Backend
+
 - `backend/.../controller/GalleryController.java` - Use PaginationUtil & SortByEnum
 - `backend/.../controller/PhotoLikeController.java` - Use PaginationUtil & SortByEnum
 - `backend/.../controller/PhotoFavoriteController.java` - Use PaginationUtil & SortByEnum
@@ -1157,6 +1275,7 @@ private boolean isValidSortBy(String sortBy) {
 ---
 
 ## Benefits Summary
+
 - ✅ Eliminate ~200+ lines of duplicate code (combined)
 - ✅ Single source of truth for auth, pagination, and validation
 - ✅ Easier maintenance across FE and BE
@@ -1167,6 +1286,7 @@ private boolean isValidSortBy(String sortBy) {
 ---
 
 ## Estimated Time
+
 - [ ] Priority 1: API Client consolidation: 30 minutes
 - [ ] Priority 2: Backend Pagination Utility: 20 minutes
 - [ ] Priority 3: Backend SortBy Enum: 15 minutes
@@ -1182,6 +1302,7 @@ private boolean isValidSortBy(String sortBy) {
 ## Summary Checklist (Updated)
 
 ### Overall Progress
+
 - [x] Phase 1: Pre-Analysis Setup (5-10 min) ✅ COMPLETED
 - [x] Phase 2: Landing Page Analysis (30-45 min) ✅ COMPLETED
 - [x] Phase 3: Login Page Analysis (20-30 min) ✅ COMPLETED
@@ -1200,31 +1321,34 @@ private boolean isValidSortBy(String sortBy) {
 
 ### Bug Fix Progress
 
-| Bug ID | Description | Severity | Status | Commit |
-|--------|-------------|----------|--------|--------|
-| BUG-001 | Get Started button → wrong page | P1 | ✅ FIXED | 56cb73b |
-| BUG-002 | Forgot password link non-functional | P2 | ✅ FIXED | 4b1ea87 |
-| BUG-003 | No Register button on landing page | P2 | ✅ FIXED (via BUG-001) | - |
-| BUG-004 | Landing page missing skeleton loading | P2 | ✅ FIXED | 12675b2 |
-| BUG-005 | E2E tests mostly mobile viewport | P2 | ✅ ADDRESSED | d8022f4 |
-| BUG-006 | No direct profile page E2E tests | P2 | ✅ ADDRESSED | 61fbef9 |
-| BUG-007 | Google Sign In/Up placeholder | P3 | ✅ FIXED | a6facf0 |
-| BUG-008 | Mobile logout icon non-functional | P1 | ✅ FIXED | 591a748 |
+| Bug ID  | Description                           | Severity | Status                 | Commit  |
+| ------- | ------------------------------------- | -------- | ---------------------- | ------- |
+| BUG-001 | Get Started button → wrong page       | P1       | ✅ FIXED               | 56cb73b |
+| BUG-002 | Forgot password link non-functional   | P2       | ✅ FIXED               | 4b1ea87 |
+| BUG-003 | No Register button on landing page    | P2       | ✅ FIXED (via BUG-001) | -       |
+| BUG-004 | Landing page missing skeleton loading | P2       | ✅ FIXED               | 12675b2 |
+| BUG-005 | E2E tests mostly mobile viewport      | P2       | ✅ ADDRESSED           | d8022f4 |
+| BUG-006 | No direct profile page E2E tests      | P2       | ✅ ADDRESSED           | 61fbef9 |
+| BUG-007 | Google Sign In/Up placeholder         | P3       | ✅ FIXED               | a6facf0 |
+| BUG-008 | Mobile logout icon non-functional     | P1       | ✅ FIXED               | 591a748 |
 
 **Progress**: 8/8 bugs addressed (100%) ✅
 
 **Note**:
+
 - "FIXED" = Code changes applied
 - "ADDRESSED" = Tests added for coverage
 - "PLANNED" = Plan created, awaiting approval
 
 ### Deliverables
+
 - [x] Bug report with severity levels
 - [x] Test coverage gap analysis
 - [x] Recommendations for fixes
 - [x] File locations for all issues
 
 ### Final Verification
+
 - [x] All phases completed ✅
 - [x] All bugs documented ✅
 - [x] All findings accurate ✅

@@ -17,11 +17,13 @@ Add a section to README.md documenting the 3 Claude validator agents that are av
 ## Scope
 
 ### In-Scope
+
 - Add new section after "Development" or before "Contributing"
 - List 3 validators with brief descriptions
 - Note about generated-reports
 
 ### Out-of-Scope
+
 - Changes to validator files
 - Changes to workflow template
 

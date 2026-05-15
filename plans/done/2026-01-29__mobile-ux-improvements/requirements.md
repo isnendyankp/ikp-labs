@@ -29,6 +29,7 @@
 On mobile devices (< 640px), the gallery page shall display compact icon-only controls in the header for filter and sort functionality, replacing the full action bar.
 
 **Requirements**:
+
 1. **FR-1.1**: Filter icon button (🔍) shall be visible in the header on mobile devices
 2. **FR-1.2**: Sort icon button (⚙️) shall be visible in the header on mobile devices
 3. **FR-1.3**: Filter icon button shall be hidden on desktop devices (≥ 640px)
@@ -52,6 +53,7 @@ On mobile devices (< 640px), the gallery page shall display compact icon-only co
 A Floating Action Button (FAB) for photo upload shall be displayed in the bottom-right corner of the gallery page, visible on all devices.
 
 **Requirements**:
+
 1. **FR-2.1**: FAB button shall be displayed in fixed position at bottom-right of viewport
 2. **FR-2.2**: FAB button shall maintain position during page scrolling
 3. **FR-2.3**: FAB button shall be circular with upload icon (📤 or equivalent SVG)
@@ -75,6 +77,7 @@ A Floating Action Button (FAB) for photo upload shall be displayed in the bottom
 On desktop devices (≥ 640px), the existing action bar with filter/sort/upload controls shall stick to the top of the viewport when scrolling.
 
 **Requirements**:
+
 1. **FR-3.1**: Action bar shall use sticky positioning (`position: sticky`)
 2. **FR-3.2**: Action bar shall stick to top of viewport with top offset of 0
 3. **FR-3.3**: Action bar shall be visible only on desktop devices (≥ 640px)
@@ -98,6 +101,7 @@ On desktop devices (≥ 640px), the existing action bar with filter/sort/upload 
 A back-to-top button shall be displayed after scrolling down the gallery page, allowing users to quickly return to the top.
 
 **Requirements**:
+
 1. **FR-4.1**: Back to top button shall appear after scrolling past 400px threshold
 2. **FR-4.2**: Back to top button shall be hidden when at top of page
 3. **FR-4.3**: Back to top button shall be positioned in bottom-left corner
@@ -121,6 +125,7 @@ A back-to-top button shall be displayed after scrolling down the gallery page, a
 All existing filter and sort functionality shall work identically on mobile and desktop after implementing new UI components.
 
 **Requirements**:
+
 1. **FR-5.1**: All 4 filter options shall work on mobile (All, My, Liked, Favorited)
 2. **FR-5.2**: All 4 sort options shall work on mobile (Newest, Oldest, Most Liked, Most Favorited)
 3. **FR-5.3**: URL parameters shall update correctly when filter changes on mobile
@@ -142,6 +147,7 @@ All existing filter and sort functionality shall work identically on mobile and 
 **Priority**: P2 (Medium)
 
 **Requirements**:
+
 1. **NFR-1.1**: Page load time shall not increase by more than 100ms
 2. **NFR-1.2**: Animations shall maintain 60fps on mobile devices
 3. **NFR-1.3**: Scroll performance shall not be degraded
@@ -156,6 +162,7 @@ All existing filter and sort functionality shall work identically on mobile and 
 **Priority**: P1 (High)
 
 **Requirements**:
+
 1. **NFR-2.1**: Icon buttons shall have aria-labels describing their function
 2. **NFR-2.2**: Dropdown menus shall be keyboard accessible
 3. **NFR-2.3**: Focus shall be managed when dropdowns open/close
@@ -175,6 +182,7 @@ All existing filter and sort functionality shall work identically on mobile and 
 **Priority**: P1 (High)
 
 **Requirements**:
+
 1. **NFR-3.1**: Layout shall work correctly on mobile (375px - 414px)
 2. **NFR-3.2**: Layout shall work correctly on tablet (640px - 768px)
 3. **NFR-3.3**: Layout shall work correctly on desktop (1024px+)
@@ -194,6 +202,7 @@ All existing filter and sort functionality shall work identically on mobile and 
 **Priority**: P2 (Medium)
 
 **Requirements**:
+
 1. **NFR-4.1**: Features shall work on Chrome 90+
 2. **NFR-4.2**: Features shall work on Firefox 88+
 3. **NFR-4.3**: Features shall work on Safari 14+
@@ -209,6 +218,7 @@ All existing filter and sort functionality shall work identically on mobile and 
 **Priority**: P2 (Medium)
 
 **Requirements**:
+
 1. **NFR-5.1**: New components shall follow existing code style
 2. **NFR-5.2**: New components shall use TypeScript with proper types
 3. **NFR-5.3**: New components shall use Tailwind CSS classes
@@ -228,6 +238,7 @@ All existing filter and sort functionality shall work identically on mobile and 
 **So that** I can change them without scrolling back to the top of the page.
 
 **Acceptance Criteria**:
+
 - Filter icon (🔍) visible in header on mobile
 - Sort icon (⚙️) visible in header on mobile
 - Icons clickable and show dropdown when tapped
@@ -247,6 +258,7 @@ All existing filter and sort functionality shall work identically on mobile and 
 **So that** I can upload photos from anywhere in the gallery without scrolling.
 
 **Acceptance Criteria**:
+
 - FAB upload button visible in bottom-right corner
 - Button floats above content (stays visible when scrolling)
 - Button shows upload icon (📤)
@@ -266,6 +278,7 @@ All existing filter and sort functionality shall work identically on mobile and 
 **So that** I can access them without scrolling back to the top of the page.
 
 **Acceptance Criteria**:
+
 - Action bar sticks to top when scrolling
 - Controls remain accessible at all times
 - Design remains unchanged from current layout
@@ -284,6 +297,7 @@ All existing filter and sort functionality shall work identically on mobile and 
 **So that** I can access filters or view more photos without excessive scrolling.
 
 **Acceptance Criteria**:
+
 - Back to top button appears after scrolling down
 - Button visible in bottom-left corner
 - Smooth scroll animation when clicked
@@ -302,6 +316,7 @@ All existing filter and sort functionality shall work identically on mobile and 
 **So that** I don't lose any functionality when switching devices.
 
 **Acceptance Criteria**:
+
 - All 4 filter options work on mobile
 - All 4 sort options work on mobile
 - URL parameters update correctly on mobile
@@ -321,6 +336,7 @@ All existing filter and sort functionality shall work identically on mobile and 
 ### Phase 1: Compact Header (Mobile)
 
 **Criteria**:
+
 - [ ] Filter icon (🔍) visible in header on mobile (< 640px)
 - [ ] Sort icon (⚙️) visible in header on mobile (< 640px)
 - [ ] Filter icon hidden on desktop (≥ 640px)
@@ -339,6 +355,7 @@ All existing filter and sort functionality shall work identically on mobile and 
 ### Phase 2: FAB Upload Button
 
 **Criteria**:
+
 - [ ] FAB button visible in fixed position at bottom-right
 - [ ] FAB button maintains position during scrolling
 - [ ] FAB button circular with upload icon (📤 or SVG)
@@ -357,6 +374,7 @@ All existing filter and sort functionality shall work identically on mobile and 
 ### Phase 3: Sticky Action Bar (Desktop)
 
 **Criteria**:
+
 - [ ] Action bar uses sticky positioning
 - [ ] Action bar sticks to top with top offset 0
 - [ ] Action bar visible only on desktop (≥ 640px)
@@ -375,6 +393,7 @@ All existing filter and sort functionality shall work identically on mobile and 
 ### Phase 4: Back to Top Button
 
 **Criteria**:
+
 - [ ] Button appears after scrolling past 400px
 - [ ] Button hidden when at top of page
 - [ ] Button positioned in bottom-left corner
@@ -392,6 +411,7 @@ All existing filter and sort functionality shall work identically on mobile and 
 ### Phase 5: Responsive Testing & Polish
 
 **Criteria**:
+
 - [ ] Layout tested on mobile (375px, 390px, 414px)
 - [ ] Layout tested on tablet (640px, 768px)
 - [ ] Layout tested on desktop (1024px, 1280px, 1920px)
@@ -409,6 +429,7 @@ All existing filter and sort functionality shall work identically on mobile and 
 ### Phase 6: E2E Testing
 
 **Criteria**:
+
 - [ ] Mobile filter icon visibility test passes
 - [ ] Mobile sort icon visibility test passes
 - [ ] Filter dropdown open/close test passes
@@ -571,6 +592,7 @@ None identified.
 ## Summary
 
 This requirements document defines:
+
 - **5 Functional Requirements** (FR-1 to FR-5) covering all features
 - **5 Non-Functional Requirements** (NFR-1 to NFR-5) covering quality attributes
 - **5 User Stories** (US-1 to US-5) from user perspective
@@ -581,9 +603,10 @@ This requirements document defines:
 - **Assumptions** about users and environment
 - **Risks** with mitigation strategies
 
-**Total Requirements**: 50 functional requirements + 37 non-functional requirements = **87 total requirements**
+### Total Requirements**: 50 functional requirements + 37 non-functional requirements =**87 total requirements
 
 **Success Metrics**:
+
 - All functional requirements met
 - All non-functional requirements met
 - All acceptance criteria passed

@@ -11,4 +11,3 @@
 1. [API Requirements](#api-requirements)
 2. [DOM Selector Requirements](#dom-selector-requirements)
 3. [Acceptance Criteria](#acceptance-criteria)
-

@@ -14,4 +14,3 @@
 ---
 
 ## API Requirements
-

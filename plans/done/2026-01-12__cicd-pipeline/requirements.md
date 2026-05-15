@@ -23,6 +23,7 @@
 **Requirement**: CI workflow must trigger on appropriate events
 
 **Triggers**:
+
 - Push to `main` branch
 - Push to `develop` branch (if exists)
 - Pull request to `main` branch
@@ -30,6 +31,7 @@
 - Manual workflow dispatch
 
 **Acceptance Criteria**:
+
 - ✅ Workflow triggers on push to main
 - ✅ Workflow triggers on PR to main
 - ✅ Workflow can be triggered manually
@@ -42,6 +44,7 @@
 **Requirement**: Backend code must pass quality checks
 
 **Checks**:
+
 1. **Java Compilation**
    - Compile Java code
    - Fail if compilation errors
@@ -60,6 +63,7 @@
    - Fail if any test fails
 
 **Acceptance Criteria**:
+
 - ✅ Backend code compiles without errors
 - ✅ All unit tests pass (100%)
 - ✅ All integration tests pass (100%)
@@ -72,6 +76,7 @@
 **Requirement**: Frontend code must pass quality checks
 
 **Checks**:
+
 1. **TypeScript Compilation**
    - Run `tsc --noEmit`
    - Fail if type errors
@@ -91,6 +96,7 @@
    - Generate coverage report
 
 **Acceptance Criteria**:
+
 - ✅ No TypeScript errors
 - ✅ No ESLint errors
 - ✅ Prettier formatting matches
@@ -104,6 +110,7 @@
 **Requirement**: E2E tests must run in CI environment
 
 **Tests**:
+
 1. **Playwright E2E Tests**
    - Install Playwright browsers
    - Run all E2E tests
@@ -116,6 +123,7 @@
    - Upload test results
 
 **Acceptance Criteria**:
+
 - ✅ All E2E tests pass (100%)
 - ✅ All API tests pass (100%)
 - ✅ Test reports available as artifacts
@@ -128,17 +136,20 @@
 **Requirement**: CI workflow must complete quickly
 
 **Targets**:
+
 - Total workflow time: < 10 minutes
 - Backend checks: < 3 minutes
 - Frontend checks: < 3 minutes
 - E2E tests: < 5 minutes
 
 **Optimizations**:
+
 - Parallel job execution
 - Dependency caching
 - Artifact caching
 
 **Acceptance Criteria**:
+
 - ✅ Workflow completes in under 10 minutes
 - ✅ Jobs run in parallel where possible
 - ✅ Caching reduces setup time
@@ -152,10 +163,12 @@
 **Requirement**: Deployment must trigger on merge to main
 
 **Triggers**:
+
 - Push to `main` branch after CI passes
 - Manual workflow dispatch
 
 **Acceptance Criteria**:
+
 - ✅ Deployment triggers after successful CI
 - ✅ Deployment can be triggered manually
 - ✅ Deployment skips if CI failed
@@ -167,12 +180,14 @@
 **Requirement**: Frontend must deploy to production automatically
 
 **Deployment Steps**:
+
 1. Build frontend
 2. Run production build
 3. Deploy to Vercel/other platform
 4. Verify deployment success
 
 **Acceptance Criteria**:
+
 - ✅ Frontend builds without errors
 - ✅ Frontend deploys to production
 - ✅ Deployment URL is accessible
@@ -185,6 +200,7 @@
 **Requirement**: Backend must deploy to production automatically
 
 **Deployment Steps**:
+
 1. Build backend JAR
 2. Run tests one more time
 3. Deploy to Railway/other platform
@@ -192,6 +208,7 @@
 5. Verify deployment success
 
 **Acceptance Criteria**:
+
 - ✅ Backend builds without errors
 - ✅ Backend deploys to production
 - ✅ API endpoints are accessible
@@ -204,12 +221,14 @@
 **Requirement**: Deployment must be verified after completion
 
 **Verification Steps**:
+
 1. Check deployment URL responds
 2. Run smoke tests against production
 3. Verify critical endpoints work
 4. Send notification on failure
 
 **Acceptance Criteria**:
+
 - ✅ Smoke tests pass
 - ✅ Critical endpoints accessible
 - ✅ Notification sent on failure
@@ -223,11 +242,13 @@
 **Requirement**: Pre-commit hooks must be installed via Husky
 
 **Setup**:
+
 - Install Husky
 - Configure .husky directory
 - Create pre-commit hook
 
 **Acceptance Criteria**:
+
 - ✅ Husky installed
 - ✅ Pre-commit hook created
 - ✅ Hooks run before commit
@@ -239,11 +260,13 @@
 **Requirement**: Only staged files should be checked
 
 **Configuration**:
+
 - ESLint on staged TS/TSX files
 - Prettier on staged files
 - Auto-fix issues
 
 **Acceptance Criteria**:
+
 - ✅ Only staged files checked
 - ✅ Auto-fix works
 - ✅ Commit blocked on failures
@@ -255,11 +278,13 @@
 **Requirement**: Pre-commit hooks should only run fast tests
 
 **Tests to Run**:
+
 - Frontend unit tests (optional, can be skipped for speed)
 - No E2E tests
 - No integration tests
 
 **Acceptance Criteria**:
+
 - ✅ Hooks complete in < 30 seconds
 - ✅ E2E tests not included
 - ✅ Commit not delayed
@@ -273,16 +298,19 @@
 **Requirement**: Show build status in README
 
 **Badge**:
+
 - Shows passing/failing status
 - Links to GitHub Actions
 - Updates automatically
 
 **Markdown**:
+
 ```markdown
 [![CI/CD Pipeline](https://github.com/username/repo/actions/workflows/ci.yml/badge.svg)](https://github.com/username/repo/actions/workflows/ci.yml)
 ```
 
 **Acceptance Criteria**:
+
 - ✅ Badge visible in README
 - ✅ Badge shows correct status
 - ✅ Badge links to Actions
@@ -294,11 +322,13 @@
 **Requirement**: Show test coverage in README
 
 **Badge**:
+
 - Shows percentage coverage
 - Links to coverage report
 - Updates on each build
 
 **Acceptance Criteria**:
+
 - ✅ Badge visible in README
 - ✅ Coverage percentage accurate
 - ✅ Badge links to report
@@ -310,11 +340,13 @@
 **Requirement**: Show deployment status in README
 
 **Badge**:
+
 - Shows deployment status
 - Links to deployment
 - Updates automatically
 
 **Acceptance Criteria**:
+
 - ✅ Badge visible in README
 - ✅ Status reflects current deployment
 - ✅ Badge links to deployment
@@ -328,16 +360,19 @@
 **Requirement**: Notify team on CI/CD failures
 
 **Channels**:
+
 - Slack webhook (optional)
 - Discord webhook (optional)
 - Email (optional)
 
 **Triggers**:
+
 - CI workflow fails
 - CD workflow fails
 - Deployment fails
 
 **Acceptance Criteria**:
+
 - ✅ Notification sent on failure
 - ✅ Notification includes failure details
 - ✅ Notification includes logs link
@@ -349,9 +384,11 @@
 **Requirement**: Optionally notify on successful deployment
 
 **Triggers**:
+
 - Deployment to production succeeds
 
 **Acceptance Criteria**:
+
 - ✅ Notification sent on deploy success
 - ✅ Notification includes deployment URL
 - ✅ Can be disabled if too noisy
@@ -365,11 +402,13 @@
 **Requirement**: Sensitive data must be stored as GitHub Secrets
 
 **Secrets Required**:
+
 - Deployment tokens (Vercel, Railway, etc.)
 - API keys (if needed)
 - Database credentials (if needed)
 
 **Acceptance Criteria**:
+
 - ✅ Secrets stored in GitHub
 - ✅ Secrets not exposed in logs
 - ✅ Secrets injected at runtime
@@ -381,12 +420,14 @@
 **Requirement**: Main branch must be protected
 
 **Rules**:
+
 - PR required before merge
 - CI checks must pass
 - At least 1 approval required
 - Cannot force push
 
 **Acceptance Criteria**:
+
 - ✅ Branch protection enabled
 - ✅ PR required
 - ✅ CI checks required
@@ -397,6 +438,7 @@
 ## Acceptance Criteria Summary
 
 ### Must Pass (P0)
+
 - [ ] GitHub Actions workflow configured
 - [ ] All tests run automatically on push
 - [ ] PR must pass checks before merge
@@ -406,6 +448,7 @@
 - [ ] Deployment automated
 
 ### Should Pass (P1)
+
 - [ ] Notifications configured
 - [ ] Fast feedback (< 5 min)
 - [ ] Parallel execution
@@ -413,6 +456,7 @@
 - [ ] Branch protection enabled
 
 ### Nice to Have (P2)
+
 - [ ] Nightly builds
 - [ ] Security scanning
 - [ ] Performance tests

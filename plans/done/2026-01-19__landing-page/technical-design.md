@@ -22,7 +22,8 @@
 ### System Architecture
 
 **Current Architecture**:
-```
+
+```text
 / (Root Page)
     ↓
     Check Auth via isAuthenticated()
@@ -34,7 +35,8 @@ Authenticated → /gallery    Unauthenticated → /login
 ```
 
 **New Architecture**:
-```
+
+```text
 / (Root Page)
     ↓
     Render LandingPage (always)
@@ -61,12 +63,12 @@ User clicks           User clicks
 
 ### Technology Stack
 
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| Next.js | 15.5.0 | React framework with App Router |
-| React | 19.1.0 | UI library |
-| TypeScript | 5.x | Type safety |
-| Tailwind CSS | v4 | Styling |
+| Technology   | Version | Purpose                         |
+| ------------ | ------- | ------------------------------- |
+| Next.js      | 15.5.0  | React framework with App Router |
+| React        | 19.1.0  | UI library                      |
+| TypeScript   | 5.x     | Type safety                     |
+| Tailwind CSS | v4      | Styling                         |
 
 ---
 
@@ -74,7 +76,7 @@ User clicks           User clicks
 
 ### Component Hierarchy
 
-```
+```text
 LandingPage (Main Container)
 ├── Navbar (Fixed Header)
 │   ├── Logo
@@ -193,6 +195,7 @@ export default function LandingPage() {
 **File**: `frontend/src/components/landing/Navbar.tsx`
 
 **Props Interface**:
+
 ```typescript
 interface NavbarProps {
   onNavigate?: (section: string) => void;
@@ -200,6 +203,7 @@ interface NavbarProps {
 ```
 
 **State Management**:
+
 ```typescript
 const [isUserAuthenticated, setIsUserAuthenticated] = useState(false);
 const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -221,6 +225,7 @@ useEffect(() => {
 ```
 
 **Conditional Rendering**:
+
 ```typescript
 {/* Auth Buttons - Desktop */}
 {isUserAuthenticated ? (
@@ -240,6 +245,7 @@ useEffect(() => {
 **File**: `frontend/src/components/landing/HeroSection.tsx`
 
 **Props Interface**:
+
 ```typescript
 interface HeroSectionProps {
   onGetStarted: () => void;
@@ -248,6 +254,7 @@ interface HeroSectionProps {
 ```
 
 **Structure**:
+
 ```tsx
 <section className="min-h-screen flex items-center pt-20 bg-gradient-to-br from-white via-gray-50 to-white">
   <div className="max-w-7xl mx-auto">
@@ -288,6 +295,7 @@ interface HeroSectionProps {
 **File**: `frontend/src/components/landing/FeatureCard.tsx`
 
 **Props Interface**:
+
 ```typescript
 interface FeatureCardProps {
   icon: ComponentType<SVGProps<SVGSVGElement>>;
@@ -297,6 +305,7 @@ interface FeatureCardProps {
 ```
 
 **Implementation**:
+
 ```tsx
 <article className="group p-6 bg-white border border-gray-200 rounded-xl hover:scale-105 hover:shadow-xl transition-all duration-300">
   {/* Icon */}
@@ -313,6 +322,7 @@ interface FeatureCardProps {
 ```
 
 **Hover Effect**:
+
 - Background color transition: gray-100 → black
 - Icon color transition: black → white
 - Scale: 1 → 1.05
@@ -325,6 +335,7 @@ interface FeatureCardProps {
 **File**: `frontend/src/components/landing/FeaturesSection.tsx`
 
 **Props Interface**:
+
 ```typescript
 interface FeaturesSectionProps {
   features: FeatureCardProps[];
@@ -332,13 +343,16 @@ interface FeaturesSectionProps {
 ```
 
 **Grid Layout**:
+
 ```tsx
 <section className="py-20 px-4 bg-gray-50">
   <div className="max-w-7xl mx-auto">
     {/* Section Header */}
     <div className="text-center mb-16">
       <h2 className="text-3xl md:text-4xl font-bold text-gray-900">Features</h2>
-      <p className="text-lg text-gray-600">Everything you need to share beautiful moments</p>
+      <p className="text-lg text-gray-600">
+        Everything you need to share beautiful moments
+      </p>
     </div>
 
     {/* Features Grid */}
@@ -357,6 +371,7 @@ interface FeaturesSectionProps {
 ```
 
 **Responsive Grid**:
+
 - Mobile: `grid-cols-1` (1 column)
 - Tablet: `md:grid-cols-2` (2 columns)
 - Desktop: `lg:grid-cols-3` (3 columns)
@@ -368,6 +383,7 @@ interface FeaturesSectionProps {
 **File**: `frontend/src/components/landing/AboutSection.tsx`
 
 **Props Interface**:
+
 ```typescript
 interface AboutSectionProps {
   stats?: {
@@ -379,13 +395,16 @@ interface AboutSectionProps {
 ```
 
 **Structure**:
+
 ```tsx
 <section className="py-20 px-4 bg-white">
   <div className="max-w-7xl mx-auto">
     {/* Section Header */}
     <div className="text-center mb-16">
       <h2 className="text-3xl md:text-4xl font-bold">About Us</h2>
-      <p className="text-lg text-gray-600">We're on a mission to preserve your memories</p>
+      <p className="text-lg text-gray-600">
+        We're on a mission to preserve your memories
+      </p>
     </div>
 
     {/* Content Grid */}
@@ -399,9 +418,17 @@ interface AboutSectionProps {
 
       {/* Right: Stats Cards */}
       <div className="space-y-6">
-        <StatCard value={stats.users} label="Active Users" icon={UserGroupIcon} />
+        <StatCard
+          value={stats.users}
+          label="Active Users"
+          icon={UserGroupIcon}
+        />
         <StatCard value={stats.photos} label="Photos Shared" icon={PhotoIcon} />
-        <StatCard value={stats.tagline} label="No hidden fees" icon={HeartIcon} />
+        <StatCard
+          value={stats.tagline}
+          label="No hidden fees"
+          icon={HeartIcon}
+        />
       </div>
     </div>
   </div>
@@ -415,6 +442,7 @@ interface AboutSectionProps {
 **File**: `frontend/src/components/landing/CTASection.tsx`
 
 **Props Interface**:
+
 ```typescript
 interface CTASectionProps {
   onGetStarted: () => void;
@@ -422,6 +450,7 @@ interface CTASectionProps {
 ```
 
 **Structure**:
+
 ```tsx
 <section className="py-20 px-4 bg-gradient-to-r from-gray-900 via-black to-gray-900">
   <div className="max-w-4xl mx-auto text-center">
@@ -453,6 +482,7 @@ interface CTASectionProps {
 ```
 
 **Dark Gradient Background**:
+
 - From: `from-gray-900`
 - Via: `via-black`
 - To: `to-gray-900`
@@ -464,6 +494,7 @@ interface CTASectionProps {
 **File**: `frontend/src/components/landing/Footer.tsx`
 
 **Props Interface**:
+
 ```typescript
 interface FooterProps {
   onNavigate?: (path: string) => void;
@@ -471,6 +502,7 @@ interface FooterProps {
 ```
 
 **Structure**:
+
 ```tsx
 <footer className="bg-gray-50 border-t border-gray-200">
   <div className="max-w-7xl mx-auto px-4 py-12">
@@ -486,8 +518,12 @@ interface FooterProps {
       <div>
         <h4 className="font-semibold mb-4">Product</h4>
         <ul className="space-y-3">
-          <li><button onClick={() => onNavigate('features')}>Features</button></li>
-          <li><a href="/gallery">Gallery</a></li>
+          <li>
+            <button onClick={() => onNavigate('features')}>Features</button>
+          </li>
+          <li>
+            <a href="/gallery">Gallery</a>
+          </li>
         </ul>
       </div>
 
@@ -495,8 +531,12 @@ interface FooterProps {
       <div>
         <h4 className="font-semibold mb-4">Company</h4>
         <ul className="space-y-3">
-          <li><button onClick={() => onNavigate('about')}>About Us</button></li>
-          <li><a href="mailto:hello@kameravue.com">Contact</a></li>
+          <li>
+            <button onClick={() => onNavigate('about')}>About Us</button>
+          </li>
+          <li>
+            <a href="mailto:hello@kameravue.com">Contact</a>
+          </li>
         </ul>
       </div>
 
@@ -504,8 +544,12 @@ interface FooterProps {
       <div>
         <h4 className="font-semibold mb-4">Legal</h4>
         <ul className="space-y-3">
-          <li><a href="/terms">Terms of Service</a></li>
-          <li><a href="/privacy">Privacy Policy</a></li>
+          <li>
+            <a href="/terms">Terms of Service</a>
+          </li>
+          <li>
+            <a href="/privacy">Privacy Policy</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -543,6 +587,7 @@ useEffect(() => {
 ```
 
 **Behavior**:
+
 - Check `isAuthenticated()` from `@/lib/auth` on component mount
 - Store result in local state
 - Used for conditional rendering of auth buttons
@@ -558,6 +603,7 @@ const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 ```
 
 **Behavior**:
+
 - Toggle mobile menu visibility
 - Close menu after navigation
 - Controlled by hamburger button
@@ -581,6 +627,7 @@ useEffect(() => {
 ```
 
 **Behavior**:
+
 - Add shadow/backdrop when scrolled > 10px
 - Event listener added on mount
 - Cleanup on unmount
@@ -594,6 +641,7 @@ useEffect(() => {
 **File**: `frontend/src/app/page.tsx`
 
 **Before**:
+
 ```typescript
 'use client';
 
@@ -617,6 +665,7 @@ export default function RootPage() {
 ```
 
 **After**:
+
 ```typescript
 import LandingPage from '@/components/landing/LandingPage';
 
@@ -626,6 +675,7 @@ export default function RootPage() {
 ```
 
 **Benefits**:
+
 - Landing page is always accessible
 - Simplified routing logic
 - Auth check moved to Navbar component
@@ -635,7 +685,8 @@ export default function RootPage() {
 ### Navigation Flow
 
 **Unauthenticated User**:
-```
+
+```text
 / → Landing Page
     ↓ Click "Get Started" or "Login"
 /login → Login Form
@@ -644,7 +695,8 @@ export default function RootPage() {
 ```
 
 **Authenticated User**:
-```
+
+```text
 / → Landing Page
     ↓ Click "Go to Gallery" in Navbar
 /gallery → Gallery (direct access)
@@ -655,6 +707,7 @@ export default function RootPage() {
 ### Smooth Scroll Navigation
 
 **Implementation**:
+
 ```typescript
 const scrollToSection = (sectionId: string) => {
   const element = document.getElementById(sectionId);
@@ -665,10 +718,12 @@ const scrollToSection = (sectionId: string) => {
 ```
 
 **Section IDs**:
+
 - `features` - Features section
 - `about` - About section
 
 **Usage**:
+
 - Navbar links scroll to sections
 - "Learn More" button scrolls to Features
 - Footer links scroll to sections
@@ -679,69 +734,69 @@ const scrollToSection = (sectionId: string) => {
 
 ### Color Palette
 
-| Color | Tailwind Class | Usage |
-|-------|---------------|-------|
-| **Black** | `bg-black`, `text-black` | Primary actions, headings emphasis |
-| **Gray 900** | `text-gray-900` | Headings |
-| **Gray 600** | `text-gray-600` | Body text |
-| **Gray 400** | `text-gray-400` | Subtle text |
-| **Gray 100** | `bg-gray-100` | Feature card icon backgrounds |
-| **Gray 50** | `bg-gray-50` | Section backgrounds (alternating) |
-| **White** | `bg-white`, `text-white` | Card backgrounds, text on dark |
+| Color        | Tailwind Class           | Usage                              |
+| ------------ | ------------------------ | ---------------------------------- |
+| **Black**    | `bg-black`, `text-black` | Primary actions, headings emphasis |
+| **Gray 900** | `text-gray-900`          | Headings                           |
+| **Gray 600** | `text-gray-600`          | Body text                          |
+| **Gray 400** | `text-gray-400`          | Subtle text                        |
+| **Gray 100** | `bg-gray-100`            | Feature card icon backgrounds      |
+| **Gray 50**  | `bg-gray-50`             | Section backgrounds (alternating)  |
+| **White**    | `bg-white`, `text-white` | Card backgrounds, text on dark     |
 
 ---
 
 ### Typography Scale
 
-| Usage | Class | Size |
-|-------|-------|------|
-| **Hero Headline** | `text-4xl md:text-5xl lg:text-6xl` | 36px / 48px / 60px |
-| **Section Headings** | `text-3xl md:text-4xl` | 30px / 36px |
-| **Card Titles** | `text-xl font-semibold` | 20px |
-| **Body Text** | `text-lg text-gray-600` | 18px |
-| **Small Text** | `text-sm` | 14px |
+| Usage                | Class                              | Size               |
+| -------------------- | ---------------------------------- | ------------------ |
+| **Hero Headline**    | `text-4xl md:text-5xl lg:text-6xl` | 36px / 48px / 60px |
+| **Section Headings** | `text-3xl md:text-4xl`             | 30px / 36px        |
+| **Card Titles**      | `text-xl font-semibold`            | 20px               |
+| **Body Text**        | `text-lg text-gray-600`            | 18px               |
+| **Small Text**       | `text-sm`                          | 14px               |
 
 ---
 
 ### Responsive Breakpoints
 
-| Breakpoint | Width | Prefix |
-|------------|-------|--------|
-| **Mobile** | < 640px | default |
-| **Tablet** | 640px - 1023px | `md:` |
-| **Desktop** | ≥ 1024px | `lg:` |
+| Breakpoint  | Width          | Prefix  |
+| ----------- | -------------- | ------- |
+| **Mobile**  | < 640px        | default |
+| **Tablet**  | 640px - 1023px | `md:`   |
+| **Desktop** | ≥ 1024px       | `lg:`   |
 
 ---
 
 ### Spacing System
 
-| Element | Padding/Margin |
-|---------|---------------|
-| **Section Vertical** | `py-20 md:py-24 lg:py-32` |
-| **Container Horizontal** | `px-4 sm:px-6 lg:px-8` |
-| **Card Internal** | `p-6` |
-| **Grid Gap** | `gap-8` |
+| Element                  | Padding/Margin            |
+| ------------------------ | ------------------------- |
+| **Section Vertical**     | `py-20 md:py-24 lg:py-32` |
+| **Container Horizontal** | `px-4 sm:px-6 lg:px-8`    |
+| **Card Internal**        | `p-6`                     |
+| **Grid Gap**             | `gap-8`                   |
 
 ---
 
 ### Border Radius
 
-| Usage | Class | Radius |
-|-------|-------|--------|
-| **Buttons** | `rounded-lg` | 8px |
-| **Feature Cards** | `rounded-xl` | 12px |
-| **Hero Image** | `rounded-2xl` | 16px |
-| **CTA Button** | `rounded-full` | Fully rounded |
+| Usage             | Class          | Radius        |
+| ----------------- | -------------- | ------------- |
+| **Buttons**       | `rounded-lg`   | 8px           |
+| **Feature Cards** | `rounded-xl`   | 12px          |
+| **Hero Image**    | `rounded-2xl`  | 16px          |
+| **CTA Button**    | `rounded-full` | Fully rounded |
 
 ---
 
 ### Shadows
 
-| Usage | Class |
-|-------|-------|
-| **Feature Cards** | `shadow-sm hover:shadow-xl` |
-| **Hero Image** | `shadow-2xl` |
-| **Navbar (scrolled)** | `shadow-sm` |
+| Usage                 | Class                       |
+| --------------------- | --------------------------- |
+| **Feature Cards**     | `shadow-sm hover:shadow-xl` |
+| **Hero Image**        | `shadow-2xl`                |
+| **Navbar (scrolled)** | `shadow-sm`                 |
 
 ---
 
@@ -750,6 +805,7 @@ const scrollToSection = (sectionId: string) => {
 ### Manual Testing Checklist
 
 **Functional Testing**:
+
 - [ ] Visit `/` and see landing page (not redirect)
 - [ ] Hero section displays correctly
 - [ ] All 6 feature cards render with icons
@@ -764,11 +820,13 @@ const scrollToSection = (sectionId: string) => {
 - [ ] Unauthenticated users see "Login + Get Started"
 
 **Responsive Testing**:
+
 - [ ] Mobile (375px) - stacked layout
 - [ ] Tablet (768px) - 2-column features
 - [ ] Desktop (1280px+) - full layout
 
 **Cross-Browser Testing**:
+
 - [ ] Chrome (latest)
 - [ ] Firefox (latest)
 - [ ] Safari (latest)
@@ -779,6 +837,7 @@ const scrollToSection = (sectionId: string) => {
 ### Visual Testing
 
 **Design Consistency**:
+
 - [ ] Colors match design system
 - [ ] Typography scale is consistent
 - [ ] Spacing is consistent
@@ -786,6 +845,7 @@ const scrollToSection = (sectionId: string) => {
 - [ ] Transitions are smooth (no jank)
 
 **Accessibility Testing**:
+
 - [ ] Semantic HTML (`<header>`, `<main>`, `<section>`, `<footer>`)
 - [ ] ARIA labels on interactive elements
 - [ ] Keyboard navigation works
@@ -799,6 +859,7 @@ const scrollToSection = (sectionId: string) => {
 ### Image Optimization
 
 **Hero Image**:
+
 ```typescript
 <Image
   src="/images/hero-image.jpg"
@@ -811,6 +872,7 @@ const scrollToSection = (sectionId: string) => {
 ```
 
 **Benefits**:
+
 - Next.js Image component optimization
 - Automatic responsive sizes
 - Lazy loading for below-fold images (if added)
@@ -821,6 +883,7 @@ const scrollToSection = (sectionId: string) => {
 ### Code Splitting
 
 **Automatic** (Next.js App Router):
+
 - Each section component is automatically code-split
 - Navbar and Footer are shared (no duplication)
 - Route-based splitting for `/login` and `/gallery`
@@ -830,6 +893,7 @@ const scrollToSection = (sectionId: string) => {
 ### Font Optimization
 
 **Current Setup**:
+
 - Geist Sans font (already loaded in layout.tsx)
 - No additional fonts needed
 

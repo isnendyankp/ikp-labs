@@ -1,13 +1,16 @@
 # Technical Design
 
 ## Approach
+
 Edit `specs/README.md` untuk menambahkan dokumentasi feature files yang missing.
 
 ## Changes Required
 
 ### 1. Directory Structure Section
+
 Add new entries:
-```
+
+```text
 specs/
 ├── authentication/
 │   ├── registration.feature   # 5 scenarios
@@ -25,28 +28,32 @@ specs/
 ```
 
 ### 2. Total Coverage Line
-```
+
+```text
 **Total Coverage:** 121 scenarios across 9 feature files
 ```
 
 ### 3. Playwright Alignment Table
+
 Add 3 new rows dan update status "planned" → implemented:
 
-| Feature File | Playwright Test File | Scenarios |
-|--------------|---------------------|-----------|
-| `photo-likes.feature` | `photo-likes.spec.ts` | 15 |
-| `photo-sorting.feature` | `gallery-sorting.spec.ts` | 28 |
-| `profile-picture.feature` | `profile-picture.spec.ts` | 15 |
+| Feature File              | Playwright Test File      | Scenarios |
+| ------------------------- | ------------------------- | --------- |
+| `photo-likes.feature`     | `photo-likes.spec.ts`     | 15        |
+| `photo-sorting.feature`   | `gallery-sorting.spec.ts` | 28        |
+| `profile-picture.feature` | `profile-picture.spec.ts` | 15        |
 
 Update existing gallery entries dari "(planned)" ke implemented.
 
 ## Calculation
+
 - Authentication: 5 + 4 + 9 = 18
 - Gallery: 10 + 19 + 16 + 15 + 28 = 88
 - Profile: 15
 - **Total: 18 + 88 + 15 = 121**
 
 ## Risk Assessment
+
 - **Risk Level:** Low
 - **Impact:** Documentation only, no code changes
 - **Rollback:** Simple git revert

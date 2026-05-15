@@ -3,6 +3,7 @@
 ## Implementation Tasks
 
 ### Phase 1: Gallery Page Modifications
+
 - [x] Read current gallery page implementation
 - [x] Remove auth check on component mount
 - [x] Modify photo fetch to work without auth (or use public API)
@@ -12,12 +13,14 @@
 - [x] Hide FAB upload for non-authenticated users
 
 ### Phase 2: Login Page Modifications
+
 - [x] Read current login page implementation
 - [x] Add returnUrl query parameter handling
 - [x] Update redirect logic after successful login
 - [x] Add URL validation for security (simple implementation)
 
 ### Phase 3: Testing
+
 - [x] Manual test: Non-login user can view gallery
 - [x] Manual test: Non-login user redirected on photo click
 - [x] Manual test: Return URL works after login
@@ -25,6 +28,7 @@
 - [x] Manual test: Footer gallery link works
 
 ### Phase 4: Final Checks
+
 - [x] Code review self-check
 - [x] No console errors
 - [x] Responsive design works
