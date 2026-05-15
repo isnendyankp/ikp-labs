@@ -280,26 +280,26 @@
 
 ### Implementation
 
-- [ ] Create branch `docs/fix-md-plans-done-2026-late` from `main`
-- [ ] Run `npx markdownlint-cli2 --fix` scoped to Apr-May 2026 subdirs under `plans/done/`
-- [ ] Run lint scoped to those same subdirs and inspect remaining violations
-- [ ] Manually fix MD040 violations: add language identifier to fenced code blocks
-- [ ] Manually fix MD036 violations: convert emphasis-as-headings to ATX headings
-- [ ] Manually fix MD024 violations: resolve duplicate heading text
-- [ ] Re-run lint scoped to those subdirs and confirm zero output
-- [ ] Run `npm run lint:md` at the repo root and confirm zero total violations across
+- [x] Create branch `docs/fix-md-plans-done-2026-late` from `main`
+- [x] Run `npx markdownlint-cli2 --fix` scoped to Apr-May 2026 subdirs under `plans/done/`
+- [x] Run lint scoped to those same subdirs and inspect remaining violations
+- [x] Manually fix MD040 violations: add language identifier to fenced code blocks
+- [x] Manually fix MD036 violations: convert emphasis-as-headings to ATX headings
+- [x] Manually fix MD024 violations: resolve duplicate heading text
+- [x] Re-run lint scoped to those subdirs and confirm zero output
+- [x] Run `npm run lint:md` at the repo root and confirm zero total violations across
       the entire repository
 
 ### Validation
 
-- [ ] Lint scoped to Apr-May 2026 plan files reports zero violations
-- [ ] `npm run lint:md` at repo root reports zero total violations
-- [ ] No markdown files deleted or renamed (content fixes only)
+- [x] Lint scoped to Apr-May 2026 plan files reports zero violations
+- [x] `npm run lint:md` at repo root reports zero total violations
+- [x] No markdown files deleted or renamed (content fixes only)
 
 ### Git and PR
 
-- [ ] Stage all changed `.md` files under Apr-May 2026 `plans/done/` subdirs
-- [ ] Commit: `docs(markdown): fix violations in plans/done late 2026 (Apr-May)`
+- [x] Stage all changed `.md` files under Apr-May 2026 `plans/done/` subdirs
+- [ ] Commit: `docs(markdown): fix violations in plans/done late 2026 (apr-may)`
 - [ ] Push branch: `git push -u origin docs/fix-md-plans-done-2026-late`
 - [ ] Open PR targeting `main`
 - [ ] Verify `markdown-lint` CI job passes on the PR (expect full green)

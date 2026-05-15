@@ -14,7 +14,7 @@
 
 ## Target Structure
 
-```
+```text
 governance/
 ├── README.md                              (updated index)
 ├── repository-governance-architecture.md (new — from docs/explanation/governance.md)

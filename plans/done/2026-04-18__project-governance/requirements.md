@@ -41,14 +41,14 @@ So that I understand the context before writing any code
 **Acceptance Criteria:**
 
 Scenario: Developer reads the vision document
-  Given the developer opens `governance/vision.md`
-  When they read through the document
-  Then they understand the project's purpose, who uses it, and what long-term success looks like
+Given the developer opens `governance/vision.md`
+When they read through the document
+Then they understand the project's purpose, who uses it, and what long-term success looks like
 
 Scenario: Developer navigates from README to governance
-  Given the developer is exploring the repository root
-  When they find `governance/README.md`
-  Then they can navigate to vision, principles, and conventions from that single entry point
+Given the developer is exploring the repository root
+When they find `governance/README.md`
+Then they can navigate to vision, principles, and conventions from that single entry point
 
 ---
 
@@ -61,14 +61,14 @@ So that I can make a decision consistent with project values
 **Acceptance Criteria:**
 
 Scenario: Developer chooses between two implementation approaches
-  Given the developer is unsure which approach aligns with the project
-  When they open `governance/principles.md`
-  Then each principle has a clear statement and at least one concrete example they can apply
+Given the developer is unsure which approach aligns with the project
+When they open `governance/principles.md`
+Then each principle has a clear statement and at least one concrete example they can apply
 
 Scenario: Developer resolves a naming dispute
-  Given two developers disagree on a file or variable name
-  When they consult `governance/conventions.md`
-  Then the conventions document has an explicit rule covering that naming decision
+Given two developers disagree on a file or variable name
+When they consult `governance/conventions.md`
+Then the conventions document has an explicit rule covering that naming decision
 
 ---
 
@@ -81,14 +81,14 @@ So that the git history stays consistent across all contributors
 **Acceptance Criteria:**
 
 Scenario: Developer writes a commit message
-  Given the developer is about to commit
-  When they open `governance/conventions.md`
-  Then the commit format section shows allowed types, format, and examples
+Given the developer is about to commit
+When they open `governance/conventions.md`
+Then the commit format section shows allowed types, format, and examples
 
 Scenario: Developer names a new branch
-  Given the developer is creating a feature branch
-  When they consult the conventions document
-  Then there is an explicit branch naming pattern with examples for `feat/`, `fix/`, `chore/`, `refactor/`, `docs/`, `config/`, `hotfix/`
+Given the developer is creating a feature branch
+When they consult the conventions document
+Then there is an explicit branch naming pattern with examples for `feat/`, `fix/`, `chore/`, `refactor/`, `docs/`, `config/`, `hotfix/`
 
 ---
 
@@ -101,14 +101,14 @@ So that AI-generated changes are consistent with the project's values and conven
 **Acceptance Criteria:**
 
 Scenario: AI agent proposes code changes
-  Given the AI agent is implementing a feature
-  When it consults `governance/ai-agent-guidelines.md`
-  Then it finds clear rules on which governance layer to check first and how to resolve conflicts between layers
+Given the AI agent is implementing a feature
+When it consults `governance/ai-agent-guidelines.md`
+Then it finds clear rules on which governance layer to check first and how to resolve conflicts between layers
 
 Scenario: AI agent creates a plan
-  Given the AI agent is drafting an implementation plan
-  When it follows the ai-agent-guidelines
-  Then the plan structure matches the conventions defined in `governance/conventions.md` and `plans/README.md`
+Given the AI agent is drafting an implementation plan
+When it follows the ai-agent-guidelines
+Then the plan structure matches the conventions defined in `governance/conventions.md` and `plans/README.md`
 
 ---
 
@@ -121,27 +121,30 @@ So that I can use governance documents in the intended way
 **Acceptance Criteria:**
 
 Scenario: Developer reads the governance explanation doc
-  Given the developer opens `docs/explanation/governance.md`
-  When they read through it
-  Then they understand what each of the 6 layers contains and why the model is structured this way
+Given the developer opens `docs/explanation/governance.md`
+When they read through it
+Then they understand what each of the 6 layers contains and why the model is structured this way
 
 ---
 
 ## Acceptance Criteria Summary
 
-### Phase 1 Complete When:
+### Phase 1 Complete When
+
 - [ ] `governance/` folder exists at repo root
 - [ ] `governance/README.md` indexes all governance documents
 - [ ] `governance/vision.md` exists and answers: why does this project exist, who uses it, what does success look like
 - [ ] `governance/principles.md` contains 5-7 principles, each with a name, statement, rationale, and example
 - [ ] `governance/conventions.md` covers: file naming, variable naming, commit format, branch naming, PR format, folder structure rules for TypeScript and Java code
 
-### Phase 2 Complete When:
+### Phase 2 Complete When
+
 - [ ] `.workflow-template.md` has a governance reference section linking to `governance/`
 - [ ] `docs/explanation/governance.md` exists and explains all 6 layers
 - [ ] `docs/explanation/README.md` links to the new governance explanation doc
 
-### Phase 3 Complete When:
+### Phase 3 Complete When
+
 - [ ] `governance/ai-agent-guidelines.md` exists
 - [ ] The document specifies which governance layers to consult for which types of decisions
 - [ ] The document specifies how to handle conflicts between governance layers

@@ -5,6 +5,7 @@
 ## Phase 1: Branch Setup
 
 - [ ] Create work branch `docs/governance-restructuring` from main
+
   ```bash
   git checkout main && git pull origin main
   git checkout -b docs/governance-restructuring
@@ -100,6 +101,7 @@
 ## Phase 9: Move Plan to Done
 
 - [ ] Move plan:
+
   ```bash
   git checkout -b docs/close-governance-restructuring-plan
   git mv plans/in-progress/2026-04-25__governance-restructuring plans/done/2026-04-25__governance-restructuring

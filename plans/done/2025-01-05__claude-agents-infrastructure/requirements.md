@@ -25,16 +25,17 @@
 
 **Skills to Create** (6 total):
 
-| Skill Name | Purpose | Content |
-|------------|---------|---------|
-| `docs__quality-standards.md` | Documentation quality rules | Diátaxis framework, writing standards, factual accuracy |
-| `docs__diataxis-framework.md` | Diátaxis categories | Tutorials, How-To, Reference, Explanation |
-| `test__coverage-rules.md` | Test coverage requirements | E2E, API, Unit test expectations |
-| `test__playwright-patterns.md` | E2E test patterns | Best practices for Playwright tests |
-| `plan__four-doc-system.md` | Plan structure rules | README, requirements, technical-design, checklist |
-| `wow__criticality-assessment.md` | Issue severity levels | CRITICAL, HIGH, MEDIUM, LOW classification |
+| Skill Name                       | Purpose                     | Content                                                 |
+| -------------------------------- | --------------------------- | ------------------------------------------------------- |
+| `docs__quality-standards.md`     | Documentation quality rules | Diátaxis framework, writing standards, factual accuracy |
+| `docs__diataxis-framework.md`    | Diátaxis categories         | Tutorials, How-To, Reference, Explanation               |
+| `test__coverage-rules.md`        | Test coverage requirements  | E2E, API, Unit test expectations                        |
+| `test__playwright-patterns.md`   | E2E test patterns           | Best practices for Playwright tests                     |
+| `plan__four-doc-system.md`       | Plan structure rules        | README, requirements, technical-design, checklist       |
+| `wow__criticality-assessment.md` | Issue severity levels       | CRITICAL, HIGH, MEDIUM, LOW classification              |
 
-**Acceptance Criteria:**
+#### Acceptance Criteria
+
 - ✅ All 6 skills created in `.claude/skills/` directory
 - ✅ Each skill is self-contained and reusable
 - ✅ Skills use consistent markdown format
@@ -47,45 +48,51 @@
 
 **Requirement**: Automated validation of test coverage and synchronization
 
-**Responsibilities:**
+#### Responsibilities
+
 1. Check that every Gherkin spec has corresponding Playwright E2E test
 2. Check that every feature has sufficient test coverage
 3. Identify skipped/disabled tests
 4. Verify test file naming conventions
 5. Report gaps with criticality levels
 
-**Validation Checks:**
+#### Validation Checks
 
-| Check | Description | Criticality |
-|-------|-------------|-------------|
-| Missing E2E test for spec | Gherkin spec exists but no E2E test | CRITICAL |
-| Skipped test | Test marked as `.skip()` or commented out | HIGH |
-| Incomplete test coverage | Feature has < 80% scenario coverage | MEDIUM |
-| Test naming mismatch | Spec and test names don't align | MEDIUM |
-| No API test for endpoint | Backend endpoint has no API test | HIGH |
+| Check                     | Description                               | Criticality |
+| ------------------------- | ----------------------------------------- | ----------- |
+| Missing E2E test for spec | Gherkin spec exists but no E2E test       | CRITICAL    |
+| Skipped test              | Test marked as `.skip()` or commented out | HIGH        |
+| Incomplete test coverage  | Feature has < 80% scenario coverage       | MEDIUM      |
+| Test naming mismatch      | Spec and test names don't align           | MEDIUM      |
+| No API test for endpoint  | Backend endpoint has no API test          | HIGH        |
 
-**Output Format:**
+#### Output Format
+
 ```markdown
 # Test Coverage Audit Report
+
 **Generated**: 2025-01-05 10:30:00
 **Agent**: test-validator
 
 ## Issues Found: 5
 
 ### CRITICAL (1)
+
 - [ ] **Missing E2E Test**: specs/gallery/photo-sorting.feature has NO Playwright test
   - **Confidence**: HIGH
   - **Action**: Create tests/e2e/gallery-sorting.spec.ts
   - **Effort**: Medium (2-3 hours)
 
 ### HIGH (2)
+
 - [ ] **Skipped Test**: registration.spec.ts:42 - Password mismatch validation
   - **Confidence**: MEDIUM
   - **Action**: Re-enable and fix test
   - **Effort**: Low (30 min)
 ```
 
-**Acceptance Criteria:**
+#### Acceptance Criteria
+
 - ✅ Agent scans `specs/` and `tests/e2e/` directories
 - ✅ Generates accurate coverage report
 - ✅ Uses criticality levels (CRITICAL/HIGH/MEDIUM/LOW)
@@ -98,32 +105,36 @@
 
 **Requirement**: Automated validation of documentation completeness
 
-**Responsibilities:**
+#### Responsibilities
+
 1. Check that new API endpoints are documented
 2. Check that components have JSDoc comments
 3. Verify documentation follows Diátaxis framework
 4. Check for broken links in documentation
 5. Report missing/outdated documentation
 
-**Validation Checks:**
+#### Validation Checks
 
-| Check | Description | Criticality |
-|-------|-------------|-------------|
-| Undocumented API endpoint | Controller endpoint not in API reference | CRITICAL |
-| Missing component JSDoc | React component has no JSDoc header | HIGH |
-| Wrong Diátaxis category | Tutorial content in Reference section | MEDIUM |
-| Broken internal link | Link to non-existent doc file | HIGH |
-| Outdated example | Code example doesn't match actual code | MEDIUM |
+| Check                     | Description                              | Criticality |
+| ------------------------- | ---------------------------------------- | ----------- |
+| Undocumented API endpoint | Controller endpoint not in API reference | CRITICAL    |
+| Missing component JSDoc   | React component has no JSDoc header      | HIGH        |
+| Wrong Diátaxis category   | Tutorial content in Reference section    | MEDIUM      |
+| Broken internal link      | Link to non-existent doc file            | HIGH        |
+| Outdated example          | Code example doesn't match actual code   | MEDIUM      |
 
-**Output Format:**
+#### Output Format
+
 ```markdown
 # Documentation Audit Report
+
 **Generated**: 2025-01-05 11:00:00
 **Agent**: docs-validator
 
 ## Issues Found: 4
 
 ### CRITICAL (1)
+
 - [ ] **Undocumented Endpoint**: POST /api/photos/sort NOT in docs/reference/api-endpoints.md
   - **Confidence**: HIGH
   - **Action**: Add endpoint documentation with examples
@@ -131,6 +142,7 @@
   - **Effort**: Low (15 min)
 
 ### HIGH (2)
+
 - [ ] **Missing JSDoc**: GallerySortingComponent has no component documentation
   - **Confidence**: HIGH
   - **Action**: Add JSDoc header with @component, @example
@@ -138,7 +150,8 @@
   - **Effort**: Low (10 min)
 ```
 
-**Acceptance Criteria:**
+#### Acceptance Criteria
+
 - ✅ Agent scans backend controllers for endpoints
 - ✅ Agent scans frontend components for JSDoc
 - ✅ Verifies Diátaxis categorization
@@ -150,33 +163,37 @@
 
 **Requirement**: Automated validation of implementation plan structure
 
-**Responsibilities:**
+#### Responsibilities
+
 1. Verify 4-document system is complete
 2. Check checklist completion before plan moved to done/
 3. Validate plan follows project conventions
 4. Check for missing sections in plan documents
 5. Report plan quality issues
 
-**Validation Checks:**
+#### Validation Checks
 
-| Check | Description | Criticality |
-|-------|-------------|-------------|
-| Missing plan document | One of 4 required docs not present | CRITICAL |
-| Incomplete checklist | Unchecked items but plan marked done | CRITICAL |
-| Missing scope section | requirements.md has no scope definition | HIGH |
-| No technical design | technical-design.md missing architecture | HIGH |
-| Empty checklist | No tasks defined in checklist.md | MEDIUM |
+| Check                 | Description                              | Criticality |
+| --------------------- | ---------------------------------------- | ----------- |
+| Missing plan document | One of 4 required docs not present       | CRITICAL    |
+| Incomplete checklist  | Unchecked items but plan marked done     | CRITICAL    |
+| Missing scope section | requirements.md has no scope definition  | HIGH        |
+| No technical design   | technical-design.md missing architecture | HIGH        |
+| Empty checklist       | No tasks defined in checklist.md         | MEDIUM      |
 
-**Output Format:**
+#### Output Format
+
 ```markdown
 # Plan Quality Audit Report
+
 **Generated**: 2025-01-05 12:00:00
 **Agent**: plan-checker
-**Plan**: 2025-01-05__claude-agents-infrastructure
+**Plan**: 2025-01-05\_\_claude-agents-infrastructure
 
 ## Issues Found: 2
 
 ### CRITICAL (1)
+
 - [ ] **Incomplete Checklist**: 5 tasks unchecked in checklist.md
   - **Confidence**: HIGH
   - **Action**: Complete tasks OR move unchecked items to future plan
@@ -184,13 +201,15 @@
   - **Tasks**: [List of unchecked items]
 
 ### HIGH (1)
+
 - [ ] **Missing Technical Design**: No architecture diagram in technical-design.md
   - **Confidence**: MEDIUM
   - **Action**: Add ASCII art architecture diagram
   - **File**: plans/in-progress/.../technical-design.md
 ```
 
-**Acceptance Criteria:**
+#### Acceptance Criteria
+
 - ✅ Agent validates plan directory structure
 - ✅ Checks all 4 required documents exist
 - ✅ Validates checklist completion
@@ -204,14 +223,15 @@
 
 **Requirement**: All agents must follow repository reference frontmatter format
 
-**Frontmatter Template:**
+#### Frontmatter Template
+
 ```yaml
 ---
-name: "agent-name"
+name: 'agent-name'
 description: "Multi-line description with examples in \\n format"
-tools: ["Read", "Write", "Bash", "Grep", "Glob"]
-model: "sonnet"  # or "haiku" for simple agents
-color: "purple"  # visual identifier
+tools: ['Read', 'Write', 'Bash', 'Grep', 'Glob']
+model: 'sonnet' # or "haiku" for simple agents
+color: 'purple' # visual identifier
 permission:
   skill:
     docs__quality-standards: allow
@@ -219,7 +239,8 @@ permission:
 ---
 ```
 
-**Required Fields:**
+#### Required Fields
+
 - `name`: Kebab-case agent identifier
 - `description`: Clear description with usage examples
 - `tools`: Array of Claude Code tools the agent can use
@@ -227,7 +248,8 @@ permission:
 - `color`: Visual identifier color
 - `permission.skill`: Skills this agent can access
 
-**Acceptance Criteria:**
+#### Acceptance Criteria
+
 - ✅ All new agents have complete frontmatter
 - ✅ Existing agents updated with permission.skill
 - ✅ Frontmatter validates without errors
@@ -239,41 +261,51 @@ permission:
 
 **Requirement**: Agents can load and use skills on-demand
 
-**Implementation:**
+#### Implementation
+
 ```markdown
 ## Skills Available
 
 This agent has access to:
+
 - `docs__quality-standards` - Documentation quality rules
 - `wow__criticality-assessment` - Issue severity classification
 
 Use these skills to:
+
 1. Assess documentation quality
 2. Classify issues by severity
 ```
 
-**Skill File Format:**
+#### Skill File Format
+
 ```markdown
 # Skill: Documentation Quality Standards
 
 ## Purpose
+
 Define standards for high-quality documentation following Diátaxis framework.
 
 ## Rules
+
 1. All docs must be in correct Diátaxis category
 2. No placeholder content (TODO, Coming Soon)
 3. All code examples must be real, not fictional
-...
+   ...
 
 ## Examples
+
 ### Good Documentation
+
 [Example of well-structured doc]
 
 ### Bad Documentation
+
 [Example of poor doc with issues]
 ```
 
-**Acceptance Criteria:**
+#### Acceptance Criteria
+
 - ✅ Skills are markdown files in `.claude/skills/`
 - ✅ Skills are self-contained (no external dependencies)
 - ✅ Skills provide actionable guidance
@@ -285,14 +317,17 @@ Define standards for high-quality documentation following Diátaxis framework.
 
 **Requirement**: Consistent format for all validation reports
 
-**Report Structure:**
+#### Report Structure
+
 ```markdown
 # [Report Type] Audit Report
+
 **Generated**: YYYY-MM-DD HH:MM:SS
 **Agent**: [agent-name]
 **Target**: [what was validated]
 
 ## Summary
+
 - Total Issues: X
 - CRITICAL: X
 - HIGH: X
@@ -302,6 +337,7 @@ Define standards for high-quality documentation following Diátaxis framework.
 ## Issues Found: X
 
 ### CRITICAL (count)
+
 - [ ] **[Issue Type]**: [Description]
   - **Confidence**: HIGH/MEDIUM/FALSE_POSITIVE
   - **Action**: [What to do]
@@ -310,20 +346,25 @@ Define standards for high-quality documentation following Diátaxis framework.
   - **Context**: [Additional info]
 
 ### HIGH (count)
+
 [Same format]
 
 ### MEDIUM (count)
+
 [Same format]
 
 ### LOW (count)
+
 [Same format]
 
 ## Recommendations
+
 1. [Priority actions]
 2. [Next steps]
 ```
 
-**Acceptance Criteria:**
+#### Acceptance Criteria
+
 - ✅ All reports follow consistent format
 - ✅ Reports use markdown for readability
 - ✅ Reports include actionable recommendations
@@ -335,24 +376,25 @@ Define standards for high-quality documentation following Diátaxis framework.
 
 **Requirement**: Standardized severity classification for all issues
 
-**Criticality Levels:**
+#### Criticality Levels
 
-| Level | Definition | Examples | Response Time |
-|-------|------------|----------|---------------|
-| **CRITICAL** | Blocks functionality, must fix immediately | Missing tests for new feature, undocumented API | Fix before commit |
-| **HIGH** | Important but not blocking | Skipped tests, missing JSDoc | Fix within 1 day |
-| **MEDIUM** | Should fix but not urgent | Incomplete coverage, outdated examples | Fix within 1 week |
-| **LOW** | Nice to have, cosmetic | Style improvements, minor optimizations | Fix when convenient |
+| Level        | Definition                                 | Examples                                        | Response Time       |
+| ------------ | ------------------------------------------ | ----------------------------------------------- | ------------------- |
+| **CRITICAL** | Blocks functionality, must fix immediately | Missing tests for new feature, undocumented API | Fix before commit   |
+| **HIGH**     | Important but not blocking                 | Skipped tests, missing JSDoc                    | Fix within 1 day    |
+| **MEDIUM**   | Should fix but not urgent                  | Incomplete coverage, outdated examples          | Fix within 1 week   |
+| **LOW**      | Nice to have, cosmetic                     | Style improvements, minor optimizations         | Fix when convenient |
 
-**Confidence Levels:**
+#### Confidence Levels
 
-| Confidence | Definition | Action |
-|------------|------------|--------|
-| **HIGH** | Definite issue, auto-fix safe | Can be fixed automatically by fixer agent |
-| **MEDIUM** | Likely issue, needs review | Human should review before fixing |
-| **FALSE_POSITIVE** | Not actually an issue | Skip this item |
+| Confidence         | Definition                    | Action                                    |
+| ------------------ | ----------------------------- | ----------------------------------------- |
+| **HIGH**           | Definite issue, auto-fix safe | Can be fixed automatically by fixer agent |
+| **MEDIUM**         | Likely issue, needs review    | Human should review before fixing         |
+| **FALSE_POSITIVE** | Not actually an issue         | Skip this item                            |
 
-**Acceptance Criteria:**
+#### Acceptance Criteria
+
 - ✅ All issues classified with criticality level
 - ✅ All issues have confidence score
 - ✅ Classification is consistent across agents
@@ -362,56 +404,63 @@ Define standards for high-quality documentation following Diátaxis framework.
 
 ## Skills System Requirements
 
-### SKL-1: docs__quality-standards.md
+### SKL-1: docs\_\_quality-standards.md
 
-**Content:**
+#### Content
+
 - Diátaxis framework overview
 - Writing style guidelines (clear, concise, present tense)
 - Code example standards (real code, no placeholders)
 - Cross-referencing best practices
 - Accessibility requirements
 
-**Acceptance Criteria:**
+#### Acceptance Criteria
+
 - ✅ Covers all documentation quality rules
 - ✅ Provides good/bad examples
 - ✅ Actionable guidance for documentation-writer agent
 
 ---
 
-### SKL-2: docs__diataxis-framework.md
+### SKL-2: docs\_\_diataxis-framework.md
 
-**Content:**
+#### Content
+
 - 4 categories: Tutorials, How-To, Reference, Explanation
 - When to use each category
 - Category characteristics
 - Examples from project
 
-**Acceptance Criteria:**
+#### Acceptance Criteria
+
 - ✅ Clear category definitions
 - ✅ Decision tree for categorization
 - ✅ Project-specific examples
 
 ---
 
-### SKL-3: test__coverage-rules.md
+### SKL-3: test\_\_coverage-rules.md
 
-**Content:**
+#### Content
+
 - Minimum coverage requirements (80% for new code)
 - Test types: E2E, API, Unit, Integration
 - Gherkin ↔ Playwright alignment rules
 - Test naming conventions
 - Skip/TODO test policies
 
-**Acceptance Criteria:**
+#### Acceptance Criteria
+
 - ✅ Defines coverage expectations
 - ✅ Explains test pyramid
 - ✅ Provides test quality standards
 
 ---
 
-### SKL-4: test__playwright-patterns.md
+### SKL-4: test\_\_playwright-patterns.md
 
-**Content:**
+#### Content
+
 - Playwright best practices
 - Page object patterns
 - Proper wait strategies (NO arbitrary sleeps)
@@ -419,38 +468,43 @@ Define standards for high-quality documentation following Diátaxis framework.
 - Test data management
 - Common pitfalls
 
-**Acceptance Criteria:**
+#### Acceptance Criteria
+
 - ✅ Covers E2E testing patterns
 - ✅ Includes code examples
 - ✅ Addresses flakiness prevention
 
 ---
 
-### SKL-5: plan__four-doc-system.md
+### SKL-5: plan\_\_four-doc-system.md
 
-**Content:**
+#### Content
+
 - 4-document structure (README, requirements, technical-design, checklist)
 - Required sections for each document
 - Plan lifecycle (in-progress → done)
 - Checklist format and conventions
 - Atomic commit strategy
 
-**Acceptance Criteria:**
+#### Acceptance Criteria
+
 - ✅ Defines plan structure
 - ✅ Explains each document purpose
 - ✅ Provides templates
 
 ---
 
-### SKL-6: wow__criticality-assessment.md
+### SKL-6: wow\_\_criticality-assessment.md
 
-**Content:**
+#### Content
+
 - CRITICAL/HIGH/MEDIUM/LOW definitions
 - Confidence scoring (HIGH/MEDIUM/FALSE_POSITIVE)
 - Examples of each level
 - Decision criteria for classification
 
-**Acceptance Criteria:**
+#### Acceptance Criteria
+
 - ✅ Clear severity definitions
 - ✅ Confidence scoring guide
 - ✅ Examples for each level
@@ -461,20 +515,23 @@ Define standards for high-quality documentation following Diátaxis framework.
 
 ### VAL-1: test-validator.md Agent
 
-**Tools Required:**
+#### Tools Required
+
 ```yaml
-tools: ["Read", "Bash", "Grep", "Glob", "Write"]
-model: "sonnet"
+tools: ['Read', 'Bash', 'Grep', 'Glob', 'Write']
+model: 'sonnet'
 ```
 
-**Validation Process:**
+#### Validation Process
+
 1. Use `Glob` to list all `.feature` files in `specs/`
 2. For each spec, use `Glob` to check if corresponding `.spec.ts` exists
 3. Use `Grep` to find skipped tests (`.skip()`, `test.skip`, `xdescribe`)
 4. Use `Read` to check test file structure
 5. Use `Write` to generate audit report
 
-**Acceptance Criteria:**
+#### Acceptance Criteria
+
 - ✅ Accurately detects missing tests
 - ✅ Identifies skipped/disabled tests
 - ✅ Reports coverage gaps
@@ -484,13 +541,15 @@ model: "sonnet"
 
 ### VAL-2: docs-validator.md Agent
 
-**Tools Required:**
+#### Tools Required
+
 ```yaml
-tools: ["Read", "Bash", "Grep", "Glob", "Write"]
-model: "sonnet"
+tools: ['Read', 'Bash', 'Grep', 'Glob', 'Write']
+model: 'sonnet'
 ```
 
-**Validation Process:**
+#### Validation Process
+
 1. Use `Grep` to find all `@GetMapping`, `@PostMapping`, etc in backend
 2. Check if endpoints exist in `docs/reference/api-endpoints.md`
 3. Use `Glob` to find all React components (`*.tsx`)
@@ -498,7 +557,8 @@ model: "sonnet"
 5. Verify Diátaxis categorization in `docs/`
 6. Use `Write` to generate audit report
 
-**Acceptance Criteria:**
+#### Acceptance Criteria
+
 - ✅ Detects undocumented endpoints
 - ✅ Finds components without JSDoc
 - ✅ Verifies Diátaxis placement
@@ -508,20 +568,23 @@ model: "sonnet"
 
 ### VAL-3: plan-checker.md Agent
 
-**Tools Required:**
+#### Tools Required
+
 ```yaml
-tools: ["Read", "Bash", "Glob", "Write"]
-model: "sonnet"
+tools: ['Read', 'Bash', 'Glob', 'Write']
+model: 'sonnet'
 ```
 
-**Validation Process:**
+#### Validation Process
+
 1. Use `Glob` to list plan directories in `plans/in-progress/`
 2. For each plan, verify 4 files exist
 3. Use `Read` to parse checklist.md for unchecked items
 4. Check for required sections (scope, timeline, etc)
 5. Use `Write` to generate audit report
 
-**Acceptance Criteria:**
+#### Acceptance Criteria
+
 - ✅ Validates plan structure
 - ✅ Checks checklist completion
 - ✅ Identifies missing sections
@@ -535,13 +598,15 @@ model: "sonnet"
 
 **File**: `docs/how-to/use-claude-agents.md`
 
-**Content:**
+#### Content
+
 - How to run validators manually
 - When to run each agent
 - How to interpret audit reports
 - How to fix issues found by validators
 
-**Acceptance Criteria:**
+#### Acceptance Criteria
+
 - ✅ Step-by-step instructions
 - ✅ Examples for each agent
 - ✅ Troubleshooting section
@@ -552,13 +617,15 @@ model: "sonnet"
 
 **File**: `docs/explanation/skills-system.md`
 
-**Content:**
+#### Content
+
 - What are skills and why use them
 - How skills are loaded by agents
 - How to create new skills
 - Skills architecture diagram
 
-**Acceptance Criteria:**
+#### Acceptance Criteria
+
 - ✅ Explains skills concept
 - ✅ Provides development guide
 - ✅ Includes examples
@@ -569,30 +636,35 @@ model: "sonnet"
 
 **File**: `.claude/README.md`
 
-**Content:**
+#### Content
+
 ```markdown
 # Claude Agents
 
 ## Makers (3)
+
 - **plan-writer** - Create implementation plans
 - **documentation-writer** - Write Diátaxis docs
 - **gherkin-spec-writer** - Create BDD specs
 
 ## Checkers (3)
+
 - **test-validator** - Validate test coverage
 - **docs-validator** - Validate documentation
 - **plan-checker** - Validate plan structure
 
 ## Skills (6)
-- docs__quality-standards
-- docs__diataxis-framework
-- test__coverage-rules
-- test__playwright-patterns
-- plan__four-doc-system
-- wow__criticality-assessment
+
+- docs\_\_quality-standards
+- docs\_\_diataxis-framework
+- test\_\_coverage-rules
+- test\_\_playwright-patterns
+- plan\_\_four-doc-system
+- wow\_\_criticality-assessment
 ```
 
-**Acceptance Criteria:**
+#### Acceptance Criteria
+
 - ✅ Lists all agents with descriptions
 - ✅ Lists all skills
 - ✅ Explains agent workflow
@@ -605,7 +677,8 @@ model: "sonnet"
 
 **Requirement**: All validators must be tested against real project data
 
-**Test Cases:**
+#### Test Cases
+
 - Run test-validator on current codebase
 - Verify it finds known missing tests
 - Run docs-validator on current docs
@@ -613,7 +686,8 @@ model: "sonnet"
 - Run plan-checker on existing plans
 - Verify accuracy of reports
 
-**Acceptance Criteria:**
+#### Acceptance Criteria
+
 - ✅ Validators tested with real data
 - ✅ Reports are accurate (no false positives)
 - ✅ All criticality levels used appropriately
@@ -624,13 +698,15 @@ model: "sonnet"
 
 **Requirement**: Skills must be clear, actionable, and accurate
 
-**Quality Checks:**
+#### Quality Checks
+
 - Skills provide actionable guidance
 - Skills include examples
 - Skills are up-to-date with project standards
 - Skills are self-contained
 
-**Acceptance Criteria:**
+#### Acceptance Criteria
+
 - ✅ All skills reviewed for quality
 - ✅ Examples are realistic
 - ✅ No outdated information
@@ -641,13 +717,15 @@ model: "sonnet"
 
 **Requirement**: Audit reports must be trustworthy
 
-**Validation:**
+#### Validation
+
 - Cross-check report findings manually
 - Verify criticality levels are appropriate
 - Confirm recommended actions are correct
 - Test confidence scoring accuracy
 
-**Acceptance Criteria:**
+#### Acceptance Criteria
+
 - ✅ < 5% false positive rate
 - ✅ All CRITICAL issues are truly critical
 - ✅ Recommendations are actionable
@@ -657,6 +735,7 @@ model: "sonnet"
 ## Acceptance Criteria Summary
 
 ### Must Pass (P0)
+
 - [ ] All 6 skills created and accurate
 - [ ] All 3 validation agents implemented
 - [ ] Audit reports generate correctly
@@ -666,12 +745,14 @@ model: "sonnet"
 - [ ] Follow repo senior structure exactly
 
 ### Should Pass (P1)
+
 - [ ] Reports use confidence scoring
 - [ ] Skills are reusable across agents
 - [ ] Agent catalog updated
 - [ ] All validators tested with real data
 
 ### Nice to Have (P2)
+
 - [ ] Visual workflow diagrams
 - [ ] Example reports in documentation
 - [ ] Before/after comparison

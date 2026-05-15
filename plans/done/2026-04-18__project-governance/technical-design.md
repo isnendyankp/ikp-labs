@@ -4,7 +4,7 @@
 
 ## Target Repository Structure
 
-```
+```text
 IKP-Labs/
 ├── governance/                          (NEW)
 │   ├── README.md                        (NEW) - index and navigation
@@ -29,7 +29,7 @@ IKP-Labs/
 
 ## Governance Layer Model
 
-```
+```text
 Layer 6  plans/                   Ephemeral - individual work plans
    |
 Layer 5  .workflow-template.md    Workflows - step-by-step procedures
@@ -52,6 +52,7 @@ Higher layers provide context for lower layers. When a lower layer is ambiguous,
 ### governance/README.md
 
 Entry point for the governance folder. Contains:
+
 - One-sentence summary of what governance is in this project
 - List of all governance documents with a one-line description each
 - Explanation of the 6-layer model in brief (3-5 lines)
@@ -60,7 +61,8 @@ Entry point for the governance folder. Contains:
 ### governance/vision.md
 
 Structure:
-```
+
+```text
 # Vision
 
 ## Project Purpose
@@ -77,6 +79,7 @@ Structure:
 ```
 
 Content guidance based on the current project state:
+
 - IKP-Labs is a full-stack photo gallery application serving as a learning platform for modern web development practices
 - It demonstrates NX monorepo management, Spring Boot + Next.js integration, and real-world testing strategies
 - Target users are developers learning the stack and the project owner building portfolio work
@@ -85,7 +88,8 @@ Content guidance based on the current project state:
 ### governance/principles.md
 
 Structure per principle:
-```
+
+```text
 ## [Number]. [Principle Name]
 
 **Statement**: [One sentence]
@@ -117,7 +121,7 @@ Recommended principles derived from observed project patterns:
 
 Sections:
 
-```
+```text
 # Conventions
 
 ## Commit Messages
@@ -131,7 +135,7 @@ Sections:
 
 **Commit Messages** — formalize the pattern already in `.workflow-template.md`:
 
-```
+```text
 <type>: <description>
 
 Types:
@@ -153,7 +157,7 @@ Rules:
 
 **Branch Naming** — formalize the pattern already in `.workflow-template.md`:
 
-```
+```text
 <type>/<short-description>
 
 Examples:
@@ -169,7 +173,7 @@ Examples:
 
 **Pull Request Format** — derived from existing `gh pr create` usage:
 
-```
+```text
 Title: "<type>: short description" (max 70 chars)
 
 Body:
@@ -182,6 +186,7 @@ Body:
 ```
 
 **TypeScript Conventions:**
+
 - Files: `PascalCase` for components (`PhotoCard.tsx`), `camelCase` for utilities (`apiClient.ts`), `kebab-case` for pages (`photo-upload/page.tsx`)
 - Components: PascalCase named exports
 - Hooks: camelCase prefixed with `use` (`useScrollRestoration`)
@@ -190,6 +195,7 @@ Body:
 - API call functions: `camelCase` verbs (`fetchPhotos`, `uploadPhoto`)
 
 **Java Conventions:**
+
 - Classes: PascalCase (`PhotoController`, `PhotoService`)
 - Methods: camelCase verbs (`uploadPhoto`, `getPhotoById`)
 - Packages: all lowercase (`com.registrationform.api.controller`)
@@ -198,6 +204,7 @@ Body:
 - Controllers: `@RestController` with `@RequestMapping("/api/<resource>")` base path
 
 **File and Folder Naming:**
+
 - App folders: `kebab-case` (`kameravue-fe`, `kameravue-be-e2e`)
 - Spec files: `kebab-case.feature` (`photo-upload.feature`)
 - Plan folders: `YYYY-MM-DD__kebab-case` (`2026-04-18__project-governance`)
@@ -216,12 +223,12 @@ Add a new section at the top of the file (after the quick reference table, befor
 
 Before starting any work, you can consult the governance layer relevant to your decision:
 
-| Question | Document |
-|----------|----------|
-| Why does this project exist? | `governance/vision.md` |
-| Which approach aligns with project values? | `governance/principles.md` |
-| What naming/format should I use? | `governance/conventions.md` |
-| How should I structure a plan? | `plans/README.md` |
+| Question                                   | Document                     |
+| ------------------------------------------ | ---------------------------- |
+| Why does this project exist?               | `governance/vision.md`       |
+| Which approach aligns with project values? | `governance/principles.md`   |
+| What naming/format should I use?           | `governance/conventions.md`  |
+| How should I structure a plan?             | `plans/README.md`            |
 | How should I structure an explanation doc? | `docs/explanation/README.md` |
 
 See `docs/explanation/governance.md` for the full governance model.
@@ -232,7 +239,8 @@ Also update the "2. Check/Create Plan" section to reference `governance/conventi
 ### docs/explanation/governance.md
 
 Structure:
-```
+
+```text
 # Governance Model
 
 ## Why Governance?
@@ -247,7 +255,7 @@ Structure:
 ## For AI Agents
 ```
 
-This document explains the *why* behind the model — it is conceptual, not procedural. It does not duplicate the content of `governance/` documents; it explains the structure and reasoning.
+This document explains the _why_ behind the model — it is conceptual, not procedural. It does not duplicate the content of `governance/` documents; it explains the structure and reasoning.
 
 ---
 
@@ -256,7 +264,8 @@ This document explains the *why* behind the model — it is conceptual, not proc
 ### governance/ai-agent-guidelines.md
 
 Structure:
-```
+
+```text
 # AI Agent Guidelines
 
 ## Purpose
@@ -272,6 +281,7 @@ Structure:
 Key content:
 
 **Governance Consultation Order** (highest to lowest authority):
+
 1. `governance/vision.md` — does this change serve the project's purpose?
 2. `governance/principles.md` — does this approach align with project values?
 3. `governance/conventions.md` — does this follow naming and format standards?
@@ -279,18 +289,21 @@ Key content:
 5. `plans/README.md` — does this plan follow the plan structure?
 
 **Decision Types:**
+
 - Architectural decisions → check Principles first
 - Naming decisions → check Conventions first
 - Process decisions (branching, committing) → check Development/Workflows
 - Scope decisions → check Vision first
 
 **What AI Agents Should NOT Do:**
+
 - Modify `governance/` documents without explicit user instruction
 - Skip the conventions when naming files, branches, or commits
 - Create plans without following the 4-document structure
 - Add features that conflict with the Vision without flagging the conflict
 
 **Plan Creation Protocol:**
+
 - Always use `YYYY-MM-DD__kebab-case` naming
 - Always create all 4 documents: README.md, requirements.md, technical-design.md, checklist.md
 - Always place in `plans/in-progress/` when starting
