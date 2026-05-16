@@ -1,11 +1,38 @@
 {
   "config": {
+    // Enable all markdownlint rules by default, then selectively disable below.
+    // Enforced rules ensure consistent, readable documentation across the monorepo.
     "default": true,
+
+    // --- Rules Disabled ---
+
+    // MD013: Line length
+    // Disabled — long URLs, code examples, and table cells naturally exceed any fixed limit.
+    // Enforcing this would require artificial line breaks that hurt readability.
     "MD013": false,
+
+    // MD024: Duplicate heading text
+    // Disabled — plan documents (requirements.md, checklist.md) intentionally reuse
+    // section headings like "Acceptance Criteria" and "Steps" across multiple phases.
     "MD024": false,
+
+    // MD029: Ordered list item prefix
+    // Disabled — both "1. 2. 3." and "1. 1. 1." styles are acceptable in this repo.
     "MD029": false,
+
+    // MD033: Inline HTML
+    // Disabled — some documentation uses HTML elements (e.g. <details>, <summary>)
+    // for collapsible sections which is intentional.
     "MD033": false,
+
+    // MD041: First line should be a top-level heading
+    // Disabled — some files start with frontmatter, badges, or a brief intro paragraph
+    // before the main heading, which is a valid and common documentation pattern.
     "MD041": false,
+
+    // MD051: Link fragments
+    // Disabled — anchor links can produce false positives when headings are
+    // auto-generated or contain special characters.
     "MD051": false
   },
   "ignores": [
