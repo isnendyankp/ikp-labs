@@ -168,7 +168,7 @@ nx affected -t build
 nx affected -t test
 ```
 
-**Full Nx Migration Guide**: [plans/done/2026-03-25__nx-migration/](plans/done/2026-03-25__nx-migration/)
+**Full Nx Migration Guide**: [plans/done/2026-03-25\_\_nx-migration/](plans/done/2026-03-25__nx-migration/)
 
 ---
 
@@ -287,13 +287,13 @@ npx nx test kameravue-be
 
 ### Test Coverage Summary
 
-| Type | Count | Status | Technology |
-|------|-------|--------|------------|
-| **Unit Tests** | 393 tests | ✅ 100% pass | Jest + React Testing Library |
-| **E2E Tests** | 48 tests | ✅ 100% pass | Playwright + TypeScript |
-| **API Tests** | 31 tests | ✅ 100% pass | Playwright API |
-| **Integration Tests** | 40 tests | ✅ 100% pass | JUnit 5 + Spring Boot Test |
-| **Total** | **512 tests** | ✅ **100% pass** | - |
+| Type                  | Count         | Status           | Technology                   |
+| --------------------- | ------------- | ---------------- | ---------------------------- |
+| **Unit Tests**        | 393 tests     | ✅ 100% pass     | Jest + React Testing Library |
+| **E2E Tests**         | 48 tests      | ✅ 100% pass     | Playwright + TypeScript      |
+| **API Tests**         | 31 tests      | ✅ 100% pass     | Playwright API               |
+| **Integration Tests** | 40 tests      | ✅ 100% pass     | JUnit 5 + Spring Boot Test   |
+| **Total**             | **512 tests** | ✅ **100% pass** | -                            |
 
 ### Unit Test Breakdown (Frontend)
 
@@ -351,14 +351,14 @@ This project follows the [Diátaxis](https://diataxis.fr/) documentation framewo
 
 This project uses a **6-layer governance model** to keep decisions consistent across sessions — whether made by a human or an AI agent.
 
-| Layer | File | Purpose |
-|-------|------|---------|
-| 1 | [`governance/vision/ikp-labs.md`](governance/vision/ikp-labs.md) | Why this project exists |
-| 2 | [`governance/principles/general.md`](governance/principles/general.md) | Values that guide decisions |
-| 3 | [`governance/conventions/development.md`](governance/conventions/development.md) | Naming, commit, branch, PR standards |
-| 4 | [`governance/development/workflow/implementation.md`](governance/development/workflow/implementation.md) | Step-by-step development workflow |
-| 5 | [`governance/development/agents/ai-agent-guidelines.md`](governance/development/agents/ai-agent-guidelines.md) | AI agent decision protocols |
-| 6 | [`plans/`](plans/) | Active work tracking |
+| Layer | File                                                                                                           | Purpose                              |
+| ----- | -------------------------------------------------------------------------------------------------------------- | ------------------------------------ |
+| 1     | [`governance/vision/ikp-labs.md`](governance/vision/ikp-labs.md)                                               | Why this project exists              |
+| 2     | [`governance/principles/general.md`](governance/principles/general.md)                                         | Values that guide decisions          |
+| 3     | [`governance/conventions/development.md`](governance/conventions/development.md)                               | Naming, commit, branch, PR standards |
+| 4     | [`governance/development/workflow/implementation.md`](governance/development/workflow/implementation.md)       | Step-by-step development workflow    |
+| 5     | [`governance/development/agents/ai-agent-guidelines.md`](governance/development/agents/ai-agent-guidelines.md) | AI agent decision protocols          |
+| 6     | [`plans/`](plans/)                                                                                             | Active work tracking                 |
 
 Higher layers override lower ones. When in doubt, escalate up.
 
@@ -480,11 +480,11 @@ This project includes optional Claude-powered validator agents for quality check
 
 ### Available Validators
 
-| Validator | Description | Output |
-|-----------|-------------|--------|
+| Validator         | Description                                                         | Output                              |
+| ----------------- | ------------------------------------------------------------------- | ----------------------------------- |
 | `@test-validator` | E2E test coverage audit, spec synchronization, flaky test detection | `generated-reports/test-audit-*.md` |
 | `@docs-validator` | API documentation completeness, JSDoc coverage, Diátaxis compliance | `generated-reports/docs-audit-*.md` |
-| `@plan-checker` | Implementation plan validation, 4-doc system check, task atomicity | `generated-reports/plan-audit-*.md` |
+| `@plan-checker`   | Implementation plan validation, 4-doc system check, task atomicity  | `generated-reports/plan-audit-*.md` |
 
 ### Usage
 
@@ -508,19 +508,22 @@ This project uses GitHub Actions for continuous integration with automated quali
 
 ### Automated Checks
 
-| Check | Description | Trigger |
-|-------|-------------|---------|
-| **Frontend Lint** | ESLint + Prettier | Push, PR |
-| **Frontend Tests** | Jest unit tests with coverage | Push, PR |
-| **Frontend Build** | TypeScript + Next.js build | Push, PR |
-| **Backend Tests** | JUnit tests with JaCoCo coverage | Push, PR |
+| Check              | Description                                       | Trigger  |
+| ------------------ | ------------------------------------------------- | -------- |
+| **Frontend Lint**  | ESLint + Prettier                                 | Push, PR |
+| **Frontend Tests** | Jest unit tests with coverage                     | Push, PR |
+| **Frontend Build** | TypeScript + Next.js build                        | Push, PR |
+| **Backend Tests**  | JUnit tests with JaCoCo coverage                  | Push, PR |
+| **API Tests**      | Playwright API tests against running backend      | Push, PR |
+| **Markdown Lint**  | markdownlint — enforces consistent doc formatting | Push, PR |
 
 ### Pre-commit Hooks
 
 Pre-commit hooks run automatically before each commit:
 
 ```bash
-# ESLint auto-fix and Prettier format on staged files
+# ESLint auto-fix and Prettier format on staged .js/.ts files
+# markdownlint check on staged .md files
 # Commit blocked if checks fail
 git commit -m "feat: add feature"
 ```
