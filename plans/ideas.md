@@ -8,6 +8,34 @@ Quick concept snippets and brainstorming notes that haven't been formalized into
 
 <!-- Add new ideas here with date -->
 
+### 2026-05-18: Claude Governance Gap — Adopt ose-public `.claude/` Patterns
+
+Gap analysis vs senior repo `wahidyankf/ose-public`. Prioritized list:
+
+#### High Priority
+
+- **Maker/Checker/Fixer triad** — Adopt consistent `{domain}-maker`, `{domain}-checker`, `{domain}-fixer`
+  pattern for all agent domains. Currently broken/asymmetric (e.g., have `plan-checker` but no
+  `plan-maker` or `plan-fixer`).
+- **Skills subdirectory structure** — Migrate from flat `skills/domain__topic.md` to
+  `skills/{name}/SKILL.md` with optional `reference/` subdirs for complex skills.
+
+#### Medium Priority
+
+- **Hooks as shell scripts** — Move inline bash in `settings.json` to dedicated
+  `.claude/hooks/*.sh` files. Add missing hooks: `warm-cache-before-push.sh`,
+  `worktree-create.sh`.
+- **settings.json hardening** — Add `permissions.allow` explicit allowlist + `enabledPlugins`
+  (LSP plugins: typescript, python, rust, etc.) + `extraKnownMarketplaces` if needed.
+
+#### Low Priority
+
+- **README in agents/ and skills/** — Add `README.md` to both directories (senior has both).
+- **Domain coverage** — Senior has agents for CI, multi-language SWE, repo governance, PDF
+  conversion, social, deployment. Evaluate which apply to ikp-labs context.
+
+References: `wahidyankf/ose-public` `.claude/` directory (fetched 2026-05-18).
+
 ### 2026-01-13: Core UX Improvements (In Progress - Week 1)
 
 - **Toast Notifications System** - Success/Error/Warning/Info feedback
@@ -132,4 +160,4 @@ Quick concept snippets and brainstorming notes that haven't been formalized into
 
 ---
 
-**Last Updated**: January 12, 2026
+**Last Updated**: May 18, 2026
