@@ -158,14 +158,15 @@
 
 ## Close Plan
 
-- [ ] `git checkout -b docs/close-claude-agents-triad-plan`
-- [ ] `git mv plans/in-progress/2026-05-19__claude-agents-triad plans/done/2026-05-19__claude-agents-triad`
-- [ ] `git commit -m "docs(plan): move claude-agents-triad to done"`
-- [ ] `git push -u origin docs/close-claude-agents-triad-plan`
-- [ ] `gh pr merge --rebase --delete-branch`
-- [ ] `git checkout main && git pull origin main`
+- [x] `git checkout -b docs/close-claude-agents-triad-plan`
+- [x] `git mv plans/in-progress/2026-05-19__claude-agents-triad plans/done/2026-05-19__claude-agents-triad`
+- [x] `git commit -m "docs(plan): move claude-agents-triad to done"`
+- [x] `git push -u origin docs/close-claude-agents-triad-plan`
+- [x] `gh pr merge --rebase --delete-branch`
+- [x] `git checkout main && git pull origin main`
 
 ---
 
 **Created**: 2026-05-19
-**Status**: In Progress
+**Completed**: 2026-05-19
+**Status**: Done
