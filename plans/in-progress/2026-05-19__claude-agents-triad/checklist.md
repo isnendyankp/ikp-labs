@@ -42,28 +42,28 @@
 
 ### Branch Setup
 
-- [ ] `git checkout main && git pull origin main`
-- [ ] `git checkout -b chore/claude-agents-docs-triad`
+- [x] `git checkout main && git pull origin main`
+- [x] `git checkout -b chore/claude-agents-docs-triad`
 
 ### File Operations
 
-- [ ] Rename `.claude/agents/documentation-writer.md` → `.claude/agents/docs-maker.md`
+- [x] Rename `.claude/agents/documentation-writer.md` → `.claude/agents/docs-maker.md`
   - Update `name:` frontmatter to `docs-maker`
   - Update `description:` to reflect maker role
-- [ ] Rename `.claude/agents/docs-validator.md` → `.claude/agents/docs-checker.md`
+- [x] Rename `.claude/agents/docs-validator.md` → `.claude/agents/docs-checker.md`
   - Update `name:` frontmatter to `docs-checker`
   - Update `description:` to reflect checker role
-- [ ] Create `.claude/agents/docs-fixer.md`
-  - Frontmatter: `name: docs-fixer`, `model: sonnet`, `color: purple`
+- [x] Create `.claude/agents/docs-fixer.md`
+  - Frontmatter: `name: docs-fixer`, `model: sonnet`, `color: orange`
   - Body: agent that fixes documentation issues found by docs-checker
 
 ### Verify
 
-- [ ] `docs-maker.md` exists, `name: docs-maker` in frontmatter
-- [ ] `docs-checker.md` exists, `name: docs-checker` in frontmatter
-- [ ] `documentation-writer.md` no longer exists
-- [ ] `docs-validator.md` no longer exists
-- [ ] `docs-fixer.md` exists, `name: docs-fixer` in frontmatter
+- [x] `docs-maker.md` exists, `name: docs-maker` in frontmatter
+- [x] `docs-checker.md` exists, `name: docs-checker` in frontmatter
+- [x] `documentation-writer.md` no longer exists
+- [x] `docs-validator.md` no longer exists
+- [x] `docs-fixer.md` exists, `name: docs-fixer` in frontmatter
 
 ### Commit & PR
 
