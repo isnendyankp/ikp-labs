@@ -6,24 +6,24 @@
 
 ### Branch Setup
 
-- [ ] `git checkout main && git pull origin main`
-- [ ] `git checkout -b chore/claude-agents-plan-triad`
+- [x] `git checkout main && git pull origin main`
+- [x] `git checkout -b chore/claude-agents-plan-triad`
 
 ### File Operations
 
-- [ ] Rename `.claude/agents/plan-writer.md` → `.claude/agents/plan-maker.md`
+- [x] Rename `.claude/agents/plan-writer.md` → `.claude/agents/plan-maker.md`
   - Update `name:` frontmatter to `plan-maker`
   - Update `description:` to reflect maker role
-- [ ] Create `.claude/agents/plan-fixer.md`
-  - Frontmatter: `name: plan-fixer`, `model: sonnet`, `color: purple`
+- [x] Create `.claude/agents/plan-fixer.md`
+  - Frontmatter: `name: plan-fixer`, `model: sonnet`, `color: orange`
   - Body: agent that fixes plan issues found by plan-checker
 
 ### Verify
 
-- [ ] `plan-maker.md` exists, `name: plan-maker` in frontmatter
-- [ ] `plan-writer.md` no longer exists
-- [ ] `plan-checker.md` unchanged
-- [ ] `plan-fixer.md` exists, `name: plan-fixer` in frontmatter
+- [x] `plan-maker.md` exists, `name: plan-maker` in frontmatter
+- [x] `plan-writer.md` no longer exists
+- [x] `plan-checker.md` unchanged
+- [x] `plan-fixer.md` exists, `name: plan-fixer` in frontmatter
 
 ### Commit & PR
 
