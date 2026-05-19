@@ -82,27 +82,27 @@
 
 ### Branch Setup
 
-- [ ] `git checkout main && git pull origin main`
-- [ ] `git checkout -b chore/claude-agents-test-triad`
+- [x] `git checkout main && git pull origin main`
+- [x] `git checkout -b chore/claude-agents-test-triad`
 
 ### File Operations
 
-- [ ] Rename `.claude/agents/test-validator.md` → `.claude/agents/test-checker.md`
+- [x] Rename `.claude/agents/test-validator.md` → `.claude/agents/test-checker.md`
   - Update `name:` frontmatter to `test-checker`
   - Update `description:` to reflect checker role
-- [ ] Create `.claude/agents/test-maker.md`
+- [x] Create `.claude/agents/test-maker.md`
   - Frontmatter: `name: test-maker`, `model: sonnet`, `color: purple`
   - Body: agent that creates E2E/unit tests from specs or requirements
-- [ ] Create `.claude/agents/test-fixer.md`
-  - Frontmatter: `name: test-fixer`, `model: sonnet`, `color: purple`
+- [x] Create `.claude/agents/test-fixer.md`
+  - Frontmatter: `name: test-fixer`, `model: sonnet`, `color: orange`
   - Body: agent that fixes failing or flaky tests
 
 ### Verify
 
-- [ ] `test-checker.md` exists, `name: test-checker` in frontmatter
-- [ ] `test-validator.md` no longer exists
-- [ ] `test-maker.md` exists, `name: test-maker` in frontmatter
-- [ ] `test-fixer.md` exists, `name: test-fixer` in frontmatter
+- [x] `test-checker.md` exists, `name: test-checker` in frontmatter
+- [x] `test-validator.md` no longer exists
+- [x] `test-maker.md` exists, `name: test-maker` in frontmatter
+- [x] `test-fixer.md` exists, `name: test-fixer` in frontmatter
 
 ### Commit & PR
 
