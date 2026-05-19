@@ -121,32 +121,32 @@
 
 ### Branch Setup
 
-- [ ] `git checkout main && git pull origin main`
-- [ ] `git checkout -b chore/claude-agents-specs-triad`
+- [x] `git checkout main && git pull origin main`
+- [x] `git checkout -b chore/claude-agents-specs-triad`
 
 ### File Operations
 
-- [ ] Rename `.claude/agents/gherkin-spec-writer.md` → `.claude/agents/specs-maker.md`
+- [x] Rename `.claude/agents/gherkin-spec-writer.md` → `.claude/agents/specs-maker.md`
   - Update `name:` frontmatter to `specs-maker`
   - Update `description:` to reflect maker role
-- [ ] Create `.claude/agents/specs-checker.md`
-  - Frontmatter: `name: specs-checker`, `model: sonnet`, `color: purple`
+- [x] Create `.claude/agents/specs-checker.md`
+  - Frontmatter: `name: specs-checker`, `model: sonnet`, `color: blue`
   - Body: agent that validates Gherkin specs completeness and quality
-- [ ] Create `.claude/agents/specs-fixer.md`
-  - Frontmatter: `name: specs-fixer`, `model: sonnet`, `color: purple`
+- [x] Create `.claude/agents/specs-fixer.md`
+  - Frontmatter: `name: specs-fixer`, `model: sonnet`, `color: orange`
   - Body: agent that fixes spec issues found by specs-checker
 
 ### Verify
 
-- [ ] `specs-maker.md` exists, `name: specs-maker` in frontmatter
-- [ ] `gherkin-spec-writer.md` no longer exists
-- [ ] `specs-checker.md` exists, `name: specs-checker` in frontmatter
-- [ ] `specs-fixer.md` exists, `name: specs-fixer` in frontmatter
+- [x] `specs-maker.md` exists, `name: specs-maker` in frontmatter
+- [x] `gherkin-spec-writer.md` no longer exists
+- [x] `specs-checker.md` exists, `name: specs-checker` in frontmatter
+- [x] `specs-fixer.md` exists, `name: specs-fixer` in frontmatter
 
 ### Commit & PR
 
 - [ ] `git add .claude/agents/`
-- [ ] `git commit -m "chore(agents): rename gherkin-spec-writer to specs-maker, add specs-checker + specs-fixer"`
+- [ ] `git commit -m "chore(agents): complete specs domain triad"`
 - [ ] `git push -u origin chore/claude-agents-specs-triad`
 - [ ] `gh pr create --title "chore(agents): specs domain triad - maker/checker/fixer"`
 - [ ] CI passes
