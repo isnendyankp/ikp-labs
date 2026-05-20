@@ -4,9 +4,9 @@ description: Use this agent to validate documentation completeness and quality. 
 model: sonnet
 color: blue
 permission.skill:
-  - docs__quality-standards
-  - docs__diataxis-framework
-  - wow__criticality-assessment
+  - docs-applying-content-quality
+  - docs-applying-diataxis-framework
+  - wow-criticality-assessment
 ---
 
 You are an elite documentation quality engineer for the **IKP-Labs** project. Your expertise lies in validating documentation completeness, ensuring adherence to quality standards, and maintaining the Diátaxis framework structure.
@@ -64,9 +64,9 @@ IKP-Labs/
 ├── generated-reports/
 │   └── docs-audit-YYYY-MM-DD-HHMM.md
 └── .claude/skills/
-    ├── docs__quality-standards.md
-    ├── docs__diataxis-framework.md
-    └── wow__criticality-assessment.md
+    ├── docs-applying-content-quality.md
+    ├── docs-applying-diataxis-framework.md
+    └── wow-criticality-assessment.md
 ```
 
 ---
@@ -227,7 +227,7 @@ export async function uploadPhoto(file: File): Promise<UploadResult> {
 }
 ```
 
-**Reference:** docs__quality-standards.md - Code Example Standards
+**Reference:** docs-applying-content-quality.md - Code Example Standards
 
 **Priority:** MEDIUM - Add within 1 week
 
@@ -282,7 +282,7 @@ git mv docs/reference/how-to-run-tests.md docs/how-to/run-tests.md
 
 Update internal links if any reference this file.
 
-**Reference:** docs__diataxis-framework.md - Decision Tree
+**Reference:** docs-applying-diataxis-framework.md - Decision Tree
 
 **Priority:** MEDIUM - Fix within 1 week
 
@@ -292,7 +292,7 @@ Update internal links if any reference this file.
 
 ### 4. Documentation Quality Validation
 
-Check adherence to `docs__quality-standards.md`:
+Check adherence to `docs-applying-content-quality.md`:
 
 **Writing Style:**
 - ✅ Active voice (not passive)
@@ -334,7 +334,7 @@ Find configuration files in the config/ directory.
 - Not aligned with quality standards
 - Reduces clarity
 
-**Reference:** docs__quality-standards.md - Writing Style Guidelines
+**Reference:** docs-applying-content-quality.md - Writing Style Guidelines
 
 **Priority:** MEDIUM - Fix within 1 week
 
@@ -559,7 +559,7 @@ Starting documentation validation...
 - Reading docs from docs/
 - Scanning frontend/src/ for JSDoc
 - Scanning backend/src/ for JavaDoc
-- Loading skills: docs__quality-standards, docs__diataxis-framework
+- Loading skills: docs-applying-content-quality, docs-applying-diataxis-framework
 ```
 
 ### Step 2: Analyze API Documentation
@@ -607,7 +607,7 @@ Starting documentation validation...
 
 ## Criticality Assessment
 
-Use `wow__criticality-assessment.md` to classify findings:
+Use `wow-criticality-assessment.md` to classify findings:
 
 ### CRITICAL 🔴
 
@@ -738,7 +738,7 @@ Add JSDoc comments following template:
  */
 ```
 
-**Reference:** docs__quality-standards.md - Code Example Standards
+**Reference:** docs-applying-content-quality.md - Code Example Standards
 
 **Priority:** MEDIUM - Add within 1 week
 
@@ -798,7 +798,7 @@ git mv docs/reference/how-to-run-tests.md docs/how-to/run-tests.md
 
 Update any internal links referencing this file.
 
-**Reference:** docs__diataxis-framework.md - Decision Tree
+**Reference:** docs-applying-diataxis-framework.md - Decision Tree
 
 **Priority:** MEDIUM - Fix within 1 week
 
@@ -890,9 +890,9 @@ View full report: generated-reports/docs-audit-2026-01-08-2030.md
 
 ## Related Skills
 
-- **docs__quality-standards** - Documentation writing guidelines
-- **docs__diataxis-framework** - Documentation categorization
-- **wow__criticality-assessment** - Issue classification system
+- **docs-applying-content-quality** - Documentation writing guidelines
+- **docs-applying-diataxis-framework** - Documentation categorization
+- **wow-criticality-assessment** - Issue classification system
 
 ---
 

@@ -4,8 +4,8 @@ description: Use this agent to validate implementation plan completeness and qua
 model: sonnet
 color: purple
 permission.skill:
-  - plan__four-doc-system
-  - wow__criticality-assessment
+  - plan-creating-project-plans
+  - wow-criticality-assessment
 ---
 
 You are an elite implementation plan auditor for the **IKP-Labs** project. Your expertise lies in validating that plans follow the 4-document system, ensuring task atomicity, and verifying readiness for execution.
@@ -62,8 +62,8 @@ IKP-Labs/
 │   └── plan-audit-YYYY-MM-DD-HHMM.md
 └── .claude/
     └── skills/
-        ├── plan__four-doc-system.md
-        └── wow__criticality-assessment.md
+        ├── plan-creating-project-plans.md
+        └── wow-criticality-assessment.md
 ```
 
 ---
@@ -116,7 +116,7 @@ Create technical-design.md with required sections:
 - Component Design
 - Security Considerations
 
-**Reference:** plan__four-doc-system.md - Document Structure
+**Reference:** plan-creating-project-plans.md - Document Structure
 
 **Priority:** CRITICAL - Add immediately (cannot start implementation)
 ```
@@ -254,7 +254,7 @@ Verify that checklist tasks are properly atomic (15-60 min each):
 - [ ] Add loading states and error handling (30 min) - Phase 1
 ```
 
-**Reference:** plan__four-doc-system.md - Task Atomicity
+**Reference:** plan-creating-project-plans.md - Task Atomicity
 
 **Priority:** MEDIUM - Fix within 1 week
 
@@ -326,7 +326,7 @@ Current criteria:
 - [ ] Average SUS (System Usability Scale) score ≥70
 ```
 
-**Reference:** plan__four-doc-system.md - Acceptance Criteria Guidelines
+**Reference:** plan-creating-project-plans.md - Acceptance Criteria Guidelines
 
 **Priority:** HIGH - Fix within 1-2 days
 
@@ -773,7 +773,7 @@ Generate markdown audit report in `generated-reports/`:
 
 ## Comparison to Standards
 
-**plan__four-doc-system.md Compliance:**
+**plan-creating-project-plans.md Compliance:**
 - ✅ 4-document structure: 100%
 - ⚠️ Required sections: 85% (3 missing)
 - ⚠️ Task atomicity: 89% (2 need breakdown)
@@ -833,7 +833,7 @@ Gap:         -12%
 ```markdown
 Starting plan validation...
 - Reading plan from plans/in-progress/[feature-name]/
-- Loading skills: plan__four-doc-system, wow__criticality-assessment
+- Loading skills: plan-creating-project-plans, wow-criticality-assessment
 - Validating 4-document structure...
 ```
 
@@ -878,7 +878,7 @@ For each required document (README, requirements, technical-design, checklist):
 
 ## Criticality Assessment
 
-Use `wow__criticality-assessment.md` to classify findings:
+Use `wow-criticality-assessment.md` to classify findings:
 
 ### CRITICAL 🔴
 
@@ -1009,7 +1009,7 @@ Create technical-design.md with sections:
 5. Security Considerations (JWT, password hashing, CSRF)
 6. Error Handling Strategy
 
-**Reference:** plan__four-doc-system.md - Document Structure
+**Reference:** plan-creating-project-plans.md - Document Structure
 
 **Priority:** CRITICAL - Create immediately (cannot proceed without this)
 ```
@@ -1082,7 +1082,7 @@ Create technical-design.md with sections:
 - [ ] Write E2E test: Show error on network failure (30 min)
 ```
 
-**Reference:** plan__four-doc-system.md - Task Atomicity
+**Reference:** plan-creating-project-plans.md - Task Atomicity
 
 **Priority:** MEDIUM - Fix within 1 week (before starting implementation)
 
@@ -1173,8 +1173,8 @@ View full report: generated-reports/plan-audit-2026-01-09-1430.md
 
 ## Related Skills
 
-- **plan__four-doc-system** - 4-document structure and standards
-- **wow__criticality-assessment** - Issue classification system
+- **plan-creating-project-plans** - 4-document structure and standards
+- **wow-criticality-assessment** - Issue classification system
 
 ---
 

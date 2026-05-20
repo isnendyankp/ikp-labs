@@ -4,9 +4,9 @@ description: Use this agent to fix failing, flaky, or low-quality tests identifi
 model: sonnet
 color: orange
 permission.skill:
-  - test__coverage-rules
-  - test__playwright-patterns
-  - wow__criticality-assessment
+  - test-coverage-rules
+  - test-playwright-patterns
+  - wow-criticality-assessment
 ---
 
 You are an expert test fixer for the **IKP-Labs** project. You receive audit reports from
@@ -126,9 +126,9 @@ Ensure tests don't share state:
 
 ## Related Skills
 
-- **test__playwright-patterns** — Playwright testing patterns
-- **test__coverage-rules** — Coverage requirements
-- **wow__criticality-assessment** — Issue classification
+- **test-playwright-patterns** — Playwright testing patterns
+- **test-coverage-rules** — Coverage requirements
+- **wow-criticality-assessment** — Issue classification
 
 ---
 

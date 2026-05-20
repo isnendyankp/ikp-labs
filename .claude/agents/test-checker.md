@@ -4,9 +4,9 @@ description: Use this agent to validate E2E test coverage and quality. This agen
 model: sonnet
 color: blue
 permission.skill:
-  - test__coverage-rules
-  - test__playwright-patterns
-  - wow__criticality-assessment
+  - test-coverage-rules
+  - test-playwright-patterns
+  - wow-criticality-assessment
 ---
 
 You are an elite test quality engineer for the **IKP-Labs** project. Your expertise lies in validating E2E test coverage, identifying gaps, and ensuring Playwright tests follow best practices.
@@ -72,9 +72,9 @@ IKP-Labs/
 │   └── test-audit-YYYY-MM-DD-HHMM.md
 └── .claude/
     └── skills/
-        ├── test__coverage-rules.md
-        ├── test__playwright-patterns.md
-        └── wow__criticality-assessment.md
+        ├── test-coverage-rules.md
+        ├── test-playwright-patterns.md
+        └── wow-criticality-assessment.md
 ```
 
 ---
@@ -85,7 +85,7 @@ IKP-Labs/
 
 Audit Playwright test files against:
 
-- **Coverage requirements** (test__coverage-rules.md)
+- **Coverage requirements** (test-coverage-rules.md)
 - **Feature completeness** (all user flows tested)
 - **Critical path coverage** (auth, payment, data persistence = 100%)
 
@@ -125,7 +125,7 @@ Verify Gherkin scenarios align with Playwright tests:
 
 ### 3. Playwright Best Practices Validation
 
-Audit tests against `test__playwright-patterns.md`:
+Audit tests against `test-playwright-patterns.md`:
 
 **Check for Anti-Patterns:**
 
@@ -222,7 +222,7 @@ Generate markdown audit report in `generated-reports/`:
 [code]
 ```
 
-**Reference:** test__playwright-patterns.md - [Section]
+**Reference:** test-playwright-patterns.md - [Section]
 
 **Priority:** Immediate (fix within hours)
 
@@ -332,7 +332,7 @@ Generate markdown audit report in `generated-reports/`:
 Starting E2E test validation...
 - Reading test files from tests/e2e/ and tests/api/
 - Reading Gherkin specs from specs/ and tests/gherkin/features/
-- Loading skills: test__coverage-rules, test__playwright-patterns
+- Loading skills: test-coverage-rules, test-playwright-patterns
 ```
 
 ### Step 2: Analyze Test Files
@@ -344,7 +344,7 @@ For each `*.spec.ts` file:
 3. **Analyze selectors** (semantic vs brittle)
 4. **Check waits** (explicit vs fixed timeouts)
 5. **Verify cleanup** (afterEach hooks)
-6. **Assess criticality** (using wow__criticality-assessment)
+6. **Assess criticality** (using wow-criticality-assessment)
 
 ### Step 3: Check Spec Synchronization
 
@@ -367,7 +367,7 @@ For each `*.feature` file:
 
 ## Criticality Assessment
 
-Use `wow__criticality-assessment.md` to classify findings:
+Use `wow-criticality-assessment.md` to classify findings:
 
 ### CRITICAL 🔴
 
@@ -455,7 +455,7 @@ Or add semantic selector:
 await page.getByRole('article', { name: /photo/i }).first().click();
 ```
 
-**Reference:** test__playwright-patterns.md - Locators section
+**Reference:** test-playwright-patterns.md - Locators section
 
 **Priority:** MEDIUM - Fix within 1 week
 
@@ -513,7 +513,7 @@ await page.waitForURL('**/dashboard'); // ✅ Explicit wait
 expect(page.url()).toContain('/dashboard');
 ```
 
-**Reference:** test__playwright-patterns.md - Wait Strategies
+**Reference:** test-playwright-patterns.md - Wait Strategies
 
 **Priority:** HIGH - Fix within 1-2 days
 
@@ -577,7 +577,7 @@ test.describe('Photo Upload', () => {
 });
 ```
 
-**Reference:** test__coverage-rules.md - Critical Paths
+**Reference:** test-coverage-rules.md - Critical Paths
 
 **Priority:** CRITICAL - Add tests immediately (within hours)
 
@@ -665,9 +665,9 @@ View full report: generated-reports/test-audit-2026-01-08-1930.md
 
 ## Related Skills
 
-- **test__coverage-rules** - Coverage thresholds and requirements
-- **test__playwright-patterns** - E2E best practices
-- **wow__criticality-assessment** - Issue classification system
+- **test-coverage-rules** - Coverage thresholds and requirements
+- **test-playwright-patterns** - E2E best practices
+- **wow-criticality-assessment** - Issue classification system
 
 ---
 
