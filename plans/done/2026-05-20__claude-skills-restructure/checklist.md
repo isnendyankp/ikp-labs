@@ -79,12 +79,13 @@
 
 ## Close Plan
 
-- [ ] `git checkout -b docs/close-claude-skills-restructure-plan`
-- [ ] `git mv plans/in-progress/2026-05-20__claude-skills-restructure plans/done/`
-- [ ] `git commit -m "docs(plan): move claude-skills-restructure to done"`
-- [ ] PR + merge
+- [x] `git checkout -b docs/close-claude-skills-restructure-plan`
+- [x] `git mv plans/in-progress/2026-05-20__claude-skills-restructure plans/done/`
+- [x] `git commit -m "docs(plan): move claude-skills-restructure to done"`
+- [x] PR + merge
 
 ---
 
 **Created**: 2026-05-20
-**Status**: In Progress
+**Completed**: 2026-05-20
+**Status**: Done
