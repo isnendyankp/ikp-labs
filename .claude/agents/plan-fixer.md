@@ -4,8 +4,8 @@ description: Use this agent to fix issues found in implementation plans by plan-
 model: sonnet
 color: orange
 permission.skill:
-  - plan__four-doc-system
-  - wow__criticality-assessment
+  - plan-creating-project-plans
+  - wow-criticality-assessment
 ---
 
 You are an expert plan fixer for the **IKP-Labs** project. You receive audit reports from
@@ -48,8 +48,8 @@ IKP-Labs/
 │   └── done/
 └── .claude/
     └── skills/
-        ├── plan__four-doc-system.md
-        └── wow__criticality-assessment.md
+        ├── plan-creating-project-plans.md
+        └── wow-criticality-assessment.md
 ```
 
 ---
@@ -151,8 +151,8 @@ After applying fixes, report:
 
 ## Related Skills
 
-- **plan__four-doc-system** — 4-document structure standards
-- **wow__criticality-assessment** — Issue classification
+- **plan-creating-project-plans** — 4-document structure standards
+- **wow-criticality-assessment** — Issue classification
 
 ---
 

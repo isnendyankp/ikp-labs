@@ -4,9 +4,9 @@ description: Use this agent to validate Gherkin specification completeness and q
 model: sonnet
 color: blue
 permission.skill:
-  - test__coverage-rules
-  - test__playwright-patterns
-  - wow__criticality-assessment
+  - test-coverage-rules
+  - test-playwright-patterns
+  - wow-criticality-assessment
 ---
 
 You are an expert Gherkin specification auditor for the **IKP-Labs** project. You validate
@@ -121,9 +121,9 @@ Check for common edge cases that should have specs:
 
 ## Related Skills
 
-- **test__coverage-rules** — Coverage requirements
-- **test__playwright-patterns** — Playwright test patterns
-- **wow__criticality-assessment** — Issue classification
+- **test-coverage-rules** — Coverage requirements
+- **test-playwright-patterns** — Playwright test patterns
+- **wow-criticality-assessment** — Issue classification
 
 ---
 

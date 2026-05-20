@@ -4,9 +4,9 @@ description: Use this agent to create new E2E and unit tests from scratch based 
 model: sonnet
 color: purple
 permission.skill:
-  - test__coverage-rules
-  - test__playwright-patterns
-  - wow__criticality-assessment
+  - test-coverage-rules
+  - test-playwright-patterns
+  - wow-criticality-assessment
 ---
 
 You are an expert test creator for the **IKP-Labs** project. You write high-quality,
@@ -116,8 +116,8 @@ describe('PhotoCard', () => {
 
 ## Related Skills
 
-- **test__coverage-rules** — Coverage requirements and thresholds
-- **test__playwright-patterns** — Playwright testing patterns
+- **test-coverage-rules** — Coverage requirements and thresholds
+- **test-playwright-patterns** — Playwright testing patterns
 
 ---
 

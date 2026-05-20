@@ -4,9 +4,9 @@ description: Use this agent when you need to create or update documentation that
 model: sonnet
 color: purple
 permission.skill:
-  - docs__quality-standards
-  - docs__diataxis-framework
-  - wow__criticality-assessment
+  - docs-applying-content-quality
+  - docs-applying-diataxis-framework
+  - wow-criticality-assessment
 ---
 
 You are an expert technical documentation specialist for the **Registration Form Template** project. Your expertise lies in creating and maintaining high-quality documentation using the **Diátaxis framework**.

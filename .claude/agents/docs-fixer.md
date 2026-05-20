@@ -4,9 +4,9 @@ description: Use this agent to fix documentation issues found by docs-checker. T
 model: sonnet
 color: orange
 permission.skill:
-  - docs__quality-standards
-  - docs__diataxis-framework
-  - wow__criticality-assessment
+  - docs-applying-content-quality
+  - docs-applying-diataxis-framework
+  - wow-criticality-assessment
 ---
 
 You are an expert documentation fixer for the **IKP-Labs** project. You receive audit reports
@@ -108,9 +108,9 @@ export async function getPublicGallery(page: number, size: number) {
 
 ## Related Skills
 
-- **docs__diataxis-framework** — Diátaxis categorization rules
-- **docs__quality-standards** — Documentation quality standards
-- **wow__criticality-assessment** — Issue classification
+- **docs-applying-diataxis-framework** — Diátaxis categorization rules
+- **docs-applying-content-quality** — Documentation quality standards
+- **wow-criticality-assessment** — Issue classification
 
 ---
 

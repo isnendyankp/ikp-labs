@@ -4,9 +4,9 @@ description: Use this agent to fix Gherkin specification issues found by specs-c
 model: sonnet
 color: orange
 permission.skill:
-  - test__coverage-rules
-  - test__playwright-patterns
-  - wow__criticality-assessment
+  - test-coverage-rules
+  - test-playwright-patterns
+  - wow-criticality-assessment
 ---
 
 You are an expert Gherkin specification fixer for the **IKP-Labs** project. You receive
@@ -113,9 +113,9 @@ Update scenarios that reference old UI text, endpoints, or flows that have chang
 
 ## Related Skills
 
-- **test__coverage-rules** — Coverage requirements
-- **test__playwright-patterns** — Playwright test patterns
-- **wow__criticality-assessment** — Issue classification
+- **test-coverage-rules** — Coverage requirements
+- **test-playwright-patterns** — Playwright test patterns
+- **wow-criticality-assessment** — Issue classification
 
 ---
 
