@@ -65,12 +65,13 @@
 
 ## Close Plan
 
-- [ ] `git checkout -b docs/close-claude-hooks-plan`
-- [ ] `git mv plans/in-progress/2026-05-21__claude-hooks-as-scripts plans/done/`
-- [ ] `git commit -m "docs(plan): move claude-hooks-as-scripts to done"`
-- [ ] PR + merge
+- [x] `git checkout -b docs/close-claude-hooks-plan`
+- [x] `git mv plans/in-progress/2026-05-21__claude-hooks-as-scripts plans/done/`
+- [x] `git commit -m "docs(plan): move claude-hooks-as-scripts to done"`
+- [x] PR + merge
 
 ---
 
 **Created**: 2026-05-21
-**Status**: In Progress
+**Completed**: 2026-05-21
+**Status**: Done
