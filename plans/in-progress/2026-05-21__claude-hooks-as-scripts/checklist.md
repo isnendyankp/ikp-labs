@@ -41,30 +41,25 @@
 
 ### Branch Setup
 
-- [ ] `git checkout main && git pull origin main`
-- [ ] `git checkout -b chore/claude-hooks-update-settings`
+- [x] `git checkout main && git pull origin main`
+- [x] `git checkout -b chore/claude-hooks-update-settings`
 
 ### Update settings.json
 
-- [ ] Replace inline bash PostToolUse → script path
-- [ ] Add `PreToolUse` section for `warm-cache-before-push.sh`
-- [ ] Add `WorktreeCreate` section for `worktree-create.sh`
+- [x] Replace inline bash PostToolUse → script path
+- [x] Add `PreToolUse` section for `warm-cache-before-push.sh`
+- [x] Add `WorktreeCreate` section for `worktree-create.sh`
 
 ### Verify
 
-- [ ] No inline `bash -c` remains in hooks section
-- [ ] All 3 hook script paths present
+- [x] No inline `bash -c` remains in hooks section
+- [x] All 3 hook script paths present
 
 ### Commit & PR
 
 - [ ] `git add .claude/settings.json`
 - [ ] `git commit -m "chore(settings): replace inline hooks with script references"`
-- [ ] `git push -u origin chore/claude-hooks-update-settings`
-- [ ] `gh pr create --title "chore(settings): replace inline hooks with scripts"`
-- [ ] CI passes
-- [ ] `gh pr merge --rebase --delete-branch`
-- [ ] `git checkout main && git pull origin main`
-- [ ] Update checklist: mark Phase 2 done
+- [ ] PR + merge
 
 ---
 
