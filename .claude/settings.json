@@ -1,4 +1,15 @@
 {
+  "permissions": {
+    "allow": [
+      "Read(.claude/**)",
+      "Write(.claude/**)",
+      "Edit(.claude/**)",
+      "Write(/tmp/**)",
+      "Read(/tmp/**)",
+      "Bash",
+      "Skill(update-config)"
+    ]
+  },
   "hooks": {
     "PreToolUse": [
       {
@@ -34,5 +45,20 @@
         ]
       }
     ]
+  },
+  "enabledPlugins": {
+    "context7@claude-plugins-official": true,
+    "playwright@claude-plugins-official": true,
+    "typescript-lsp@claude-plugins-official": true,
+    "jdtls-lsp@claude-plugins-official": true,
+    "nx@nx-claude-plugins": true
+  },
+  "extraKnownMarketplaces": {
+    "nx-claude-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "nrwl/nx-ai-agents-config"
+      }
+    }
   }
 }
