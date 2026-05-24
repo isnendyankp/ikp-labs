@@ -8,96 +8,20 @@ Quick concept snippets and brainstorming notes that haven't been formalized into
 
 <!-- Add new ideas here with date -->
 
-### 2026-05-18: Claude Governance Gap — Adopt ose-public `.claude/` Patterns
-
-Gap analysis vs senior repo `wahidyankf/ose-public`. Prioritized list:
-
-#### High Priority
-
-- **Maker/Checker/Fixer triad** — Adopt consistent `{domain}-maker`, `{domain}-checker`, `{domain}-fixer`
-  pattern for all agent domains. Currently broken/asymmetric (e.g., have `plan-checker` but no
-  `plan-maker` or `plan-fixer`).
-- **Skills subdirectory structure** — Migrate from flat `skills/domain__topic.md` to
-  `skills/{name}/SKILL.md` with optional `reference/` subdirs for complex skills.
-
-#### Medium Priority
-
-- **Hooks as shell scripts** — Move inline bash in `settings.json` to dedicated
-  `.claude/hooks/*.sh` files. Add missing hooks: `warm-cache-before-push.sh`,
-  `worktree-create.sh`.
-- **settings.json hardening** — Add `permissions.allow` explicit allowlist + `enabledPlugins`
-  (LSP plugins: typescript, python, rust, etc.) + `extraKnownMarketplaces` if needed.
-
-#### Low Priority
-
-- **README in agents/ and skills/** — Add `README.md` to both directories (senior has both).
-- **Domain coverage** — Senior has agents for CI, multi-language SWE, repo governance, PDF
-  conversion, social, deployment. Evaluate which apply to ikp-labs context.
-
-References: `wahidyankf/ose-public` `.claude/` directory (fetched 2026-05-18).
-
-### 2026-01-13: Core UX Improvements (In Progress - Week 1)
-
-- **Toast Notifications System** - Success/Error/Warning/Info feedback
-- **Loading States** - Skeleton screens, spinners, progress bars
-- **Confirmation Dialogs** - Destructive action confirmations
-- **Empty States** - Helpful messages with CTAs
-- **Form Validation UX** - Real-time inline validation
-- **Micro-interactions** - Hover effects, animations
-- Note: 6 core improvements, estimated 12-17 hours
-
-### 2026-01-13: UX Enhancements (Backlog - Week 2+)
-
-- **Dark Mode Toggle** - Theme switcher (light/dark/auto)
-- **Image Lightbox/Preview** - Full-size image viewer with zoom
-- **Drag & Drop Upload** - Better file upload experience
-- **Lazy Loading Images** - Performance + UX improvement
-- **Command Palette (Cmd+K)** - Quick search and actions
-- **Keyboard Shortcuts** - Power user navigation
-- **Optimistic UI** - Instant feedback with rollback
-- **Infinite Scroll** - Replace pagination (optional)
-
-### 2026-01-12: Future Feature Ideas (High Priority)
-
-- **Photo Comments System** - Allow users to comment on photos
-- **Photo Search & Advanced Filtering** - Search by tags, date ranges, metadata
-- **User Tagging in Photos** - Tag other users in photos (@mentions)
-- **Photo Albums/Collections** - Organize photos into albums
-- **Batch Photo Operations** - Select multiple photos for bulk actions
-- **Photo Metadata Editor** - Edit EXIF data, location, tags
-- **Notification System** - In-app notifications for likes, comments, mentions
-
-### 2026-01-12: Infrastructure Ideas (Medium Priority)
-
-- **Docker Containerization** - Dockerfiles for local development and deployment
-- **Redis Caching Layer** - Cache frequently accessed data
-- **API Rate Limiting** - Prevent abuse, ensure fair usage
-- **Database Backup Automation** - Automated backup system
-- **Monitoring & Logging** - Application monitoring with alerts
-- **API Documentation with Swagger/OpenAPI** - Interactive API docs
-
-### 2026-01-12: Testing Ideas (Low Priority)
-
-- **Visual Regression Tests** - Storybook + Chromatic for UI changes
-- **Performance Tests** - Lighthouse CI for performance tracking
-- **Accessibility Tests** - jest-axe for a11y validation
-- **Contract Testing** - Pact for API contract validation
-
-### 2026-01-12: Nice-to-Have Features
-
-- **Photo Editing Tools** - Crop, rotate, filters
-- **Social Sharing** - Share photos to social media
-- **Photo Download** - Allow users to download photos
-- **Print Ordering** - Integration with print services
-- **Mobile App** - React Native or PWA version
-
 ---
 
 ## 🗃️ Archive
 
 <!-- Ideas that have been implemented or rejected -->
 
-### ✅ Moved to Done (Formal Plans Completed)
+### ✅ Implemented
+
+- **Claude Governance Gap #1–#5** (completed 2026-05-19 to 2026-05-23)
+  - Gap #1: Maker/Checker/Fixer triad for all agent domains
+  - Gap #2: Skills subdirectory structure (`skill-name/SKILL.md`)
+  - Gap #3: Hooks as shell scripts
+  - Gap #4: settings.json permissions + plugins + marketplaces
+  - Gap #5: README in agents/ and skills/
 
 - **UX Improvements** (completed in `done/2026-01-13__ux-improvements/`)
   - Toast notifications, loading states, confirmation dialogs
@@ -114,7 +38,7 @@ References: `wahidyankf/ose-public` `.claude/` directory (fetched 2026-05-18).
   - Pre-commit hooks, automated deployment
   - Status: Backlog
 
-### ✅ Implemented
+### ✅ Implemented (Features)
 
 - **Gallery Sorting Feature** (moved to `done/2024-12-28__gallery-sorting-feature/`)
   - Completed: January 4, 2026
@@ -134,6 +58,46 @@ References: `wahidyankf/ose-public` `.claude/` directory (fetched 2026-05-18).
   - 6-day commit streak with 31 atomic commits
   - 1,207 lines of test code (tests + helpers)
   - 1 critical frontend bug discovered and fixed
+
+### ⏸️ KameraVue Development Paused
+
+The following ideas were scoped for KameraVue but are on hold as KameraVue development
+is currently paused. Revisit if KameraVue development resumes.
+
+- **UX Enhancements Week 2+** (2026-01-13)
+  - Dark mode toggle, image lightbox/preview, drag & drop upload
+  - Lazy loading images, command palette (Cmd+K), keyboard shortcuts
+  - Optimistic UI, infinite scroll
+
+- **Future Feature Ideas** (2026-01-12)
+  - Photo comments system
+  - Photo search & advanced filtering
+  - User tagging in photos (@mentions)
+  - Photo albums/collections
+  - Batch photo operations
+  - Photo metadata editor
+  - Notification system
+
+- **Infrastructure Ideas** (2026-01-12)
+  - Docker containerization
+  - Redis caching layer
+  - API rate limiting
+  - Database backup automation
+  - Monitoring & logging
+  - API documentation with Swagger/OpenAPI
+
+- **Testing Ideas** (2026-01-12)
+  - Visual regression tests (Storybook + Chromatic)
+  - Performance tests (Lighthouse CI)
+  - Accessibility tests (jest-axe)
+  - Contract testing (Pact)
+
+- **Nice-to-Have Features** (2026-01-12)
+  - Photo editing tools (crop, rotate, filters)
+  - Social sharing
+  - Photo download
+  - Print ordering integration
+  - Mobile app (React Native or PWA)
 
 ---
 
@@ -160,4 +124,4 @@ References: `wahidyankf/ose-public` `.claude/` directory (fetched 2026-05-18).
 
 ---
 
-**Last Updated**: May 18, 2026
+**Last Updated**: May 24, 2026
