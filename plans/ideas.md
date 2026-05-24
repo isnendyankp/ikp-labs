@@ -8,6 +8,44 @@ Quick concept snippets and brainstorming notes that haven't been formalized into
 
 <!-- Add new ideas here with date -->
 
+### 2026-05-24: Claude Governance Gap Round 2 — Adopt More ose-public `.claude/` Patterns
+
+Second gap analysis vs `wahidyankf/ose-public`. Items not yet in IKP-Labs, grouped by priority.
+Skip list: `apps-*`, `pdf-to-md-*`, `social-*`, non-Java/TS languages, OSE-specific agents.
+
+#### High Priority
+
+- **SWE domain agents + skills** — Senior has per-language and per-layer agents missing here:
+  - `swe-typescript-dev` + skill `swe-programming-typescript` (Next.js)
+  - `swe-java-dev` + skill `swe-programming-java` (Spring Boot)
+  - `swe-ui-maker/checker/fixer` + skill `swe-developing-frontend-ui`
+  - `swe-e2e-dev` + skill `swe-developing-e2e-test-with-playwright`
+  - `swe-code-checker` + skill `swe-developing-applications-common`
+- **`agent-maker` + skill `agent-developing-agents`** — Meta-agent that creates new agents.
+  High value for a template project.
+
+#### Medium Priority
+
+- **`readme` triad** — `readme-maker/checker/fixer` + skill `readme-writing-readme-files`.
+  No dedicated README agent exists yet.
+- **`repo` domain** — Two full triads missing:
+  - `repo-rules-maker/checker/fixer`
+  - `repo-workflow-maker/checker/fixer`
+  - Skills: `repo-understanding-repository-architecture`, `repo-defining-workflows`,
+    `repo-practicing-trunk-based-development`, `repo-generating-validation-reports`
+- **`ci` triad** — `ci-checker/ci-fixer` + skill `ci-standards`. CI pipeline exists but no
+  agent to validate or fix CI configuration.
+- **`docs-link` pair** — `docs-link-checker/fixer` + skill `docs-validating-links`.
+
+#### Low Priority
+
+- `plan-execution-checker` — validates that a plan is being executed correctly
+- `web-research-maker` — dedicated web research agent
+- `docs-file-manager` — documentation file management
+- Plugin `frontend-design@claude-plugins-official` — senior has it, we don't
+
+References: `wahidyankf/ose-public` `.claude/` directory (fetched 2026-05-24).
+
 ---
 
 ## 🗃️ Archive
@@ -124,4 +162,4 @@ is currently paused. Revisit if KameraVue development resumes.
 
 ---
 
-**Last Updated**: May 24, 2026
+**Last Updated**: May 24, 2026 (Round 2 gap analysis added)
