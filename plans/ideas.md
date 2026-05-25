@@ -39,10 +39,7 @@ Skip list: `apps-*`, `pdf-to-md-*`, `social-*`, non-Java/TS languages, OSE-speci
 
 #### Low Priority
 
-- `plan-execution-checker` — validates that a plan is being executed correctly
-- `web-research-maker` — dedicated web research agent
-- `docs-file-manager` — documentation file management
-- Plugin `frontend-design@claude-plugins-official` — senior has it, we don't
+~~All implemented (2026-05-25). See Archive below.~~
 
 References: `wahidyankf/ose-public` `.claude/` directory (fetched 2026-05-24).
 
@@ -53,6 +50,12 @@ References: `wahidyankf/ose-public` `.claude/` directory (fetched 2026-05-24).
 <!-- Ideas that have been implemented or rejected -->
 
 ### ✅ Implemented
+
+- **Claude Governance Gap Round 2 — Low Priority Agents** (completed 2026-05-25)
+  - `plan-execution-checker` — final quality gate before archiving plans
+  - `web-research-maker` — isolated web research with confidence tagging
+  - `docs-file-manager` — safe file management inside `docs/` with git history preservation
+  - Plugin `frontend-design@claude-plugins-official` — external plugin, skipped (not buildable)
 
 - **Claude Governance Gap #1–#5** (completed 2026-05-19 to 2026-05-23)
   - Gap #1: Maker/Checker/Fixer triad for all agent domains
