@@ -15,14 +15,7 @@ Skip list: `apps-*`, `pdf-to-md-*`, `social-*`, non-Java/TS languages, OSE-speci
 
 #### High Priority
 
-- **SWE domain agents + skills** — Senior has per-language and per-layer agents missing here:
-  - `swe-typescript-dev` + skill `swe-programming-typescript` (Next.js)
-  - `swe-java-dev` + skill `swe-programming-java` (Spring Boot)
-  - `swe-ui-maker/checker/fixer` + skill `swe-developing-frontend-ui`
-  - `swe-e2e-dev` + skill `swe-developing-e2e-test-with-playwright`
-  - `swe-code-checker` + skill `swe-developing-applications-common`
-- **`agent-maker` + skill `agent-developing-agents`** — Meta-agent that creates new agents.
-  High value for a template project.
+~~All implemented (2026-05-26). See Archive below.~~
 
 #### Medium Priority
 
@@ -50,6 +43,14 @@ References: `wahidyankf/ose-public` `.claude/` directory (fetched 2026-05-24).
 <!-- Ideas that have been implemented or rejected -->
 
 ### ✅ Implemented
+
+- **Claude Governance Gap Round 2 — High Priority Agents + Skills** (completed 2026-05-26)
+  - `swe-typescript-dev` + skill `swe-programming-typescript` (Next.js/React)
+  - `swe-java-dev` + skill `swe-programming-java` (Spring Boot)
+  - `swe-ui-maker/checker/fixer` + skill `swe-developing-frontend-ui`
+  - `swe-e2e-dev` + skill `swe-developing-e2e-test-with-playwright`
+  - `swe-code-checker` + skill `swe-developing-applications-common`
+  - `agent-maker` + skill `agent-developing-agents`
 
 - **Claude Governance Gap Round 2 — Low Priority Agents** (completed 2026-05-25)
   - `plan-execution-checker` — final quality gate before archiving plans
@@ -165,4 +166,4 @@ is currently paused. Revisit if KameraVue development resumes.
 
 ---
 
-**Last Updated**: May 24, 2026 (Round 2 gap analysis added)
+**Last Updated**: May 26, 2026 (High priority round 2 items implemented)
