@@ -31,8 +31,8 @@
 
 ## Phase 5: Ship
 
-- [ ] Commit plan + skills + agents (10 min)
-- [ ] Push branch and create PR (5 min)
+- [x] Commit plan + skills + agents (10 min)
+- [x] Push branch and create PR (5 min)
 - [ ] Merge PR and move plan to `done/` (5 min)
 
 ## Commit Strategy
