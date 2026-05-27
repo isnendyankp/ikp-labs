@@ -33,7 +33,7 @@
 
 - [x] Commit plan + skills + agents (10 min)
 - [x] Push branch and create PR (5 min)
-- [ ] Merge PR and move plan to `done/` (5 min)
+- [x] Merge PR and move plan to `done/` (5 min)
 
 ## Commit Strategy
 
