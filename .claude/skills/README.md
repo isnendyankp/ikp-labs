@@ -28,6 +28,8 @@ skills/
 | `test-coverage-rules/`         | Test Coverage Rules          | specs triad, test triad          |
 | `test-playwright-patterns/`    | Playwright Testing Patterns  | specs triad, test triad          |
 | `wow-criticality-assessment/`  | Criticality Assessment       | docs triad, plan triad, test triad |
+| `docs-validating-links/`       | Link Validation Standards    | docs-link pair                     |
+| `readme-writing-readme-files/` | README Writing Standards     | readme triad                       |
 
 ---
 
@@ -37,10 +39,12 @@ skills/
 | ------------------------------ | --------------------------------------------------------------- |
 | `docs-applying-content-quality`   | `documentation-writer`, `docs-validator`, `docs-fixer`       |
 | `docs-applying-diataxis-framework`| `documentation-writer`, `docs-validator`, `docs-fixer`       |
+| `docs-validating-links`           | `docs-link-checker`, `docs-link-fixer`                       |
 | `plan-creating-project-plans`     | `plan-maker`, `plan-checker`, `plan-fixer`                   |
+| `readme-writing-readme-files`     | `readme-maker`, `readme-checker`, `readme-fixer`             |
 | `test-coverage-rules`             | `gherkin-spec-writer`, `specs-checker`, `specs-fixer`, `test-maker`, `test-validator`, `test-fixer` |
 | `test-playwright-patterns`        | `gherkin-spec-writer`, `specs-checker`, `specs-fixer`, `test-maker`, `test-validator`, `test-fixer` |
-| `wow-criticality-assessment`      | `documentation-writer`, `docs-validator`, `docs-fixer`, `plan-maker`, `plan-checker`, `plan-fixer`, `test-maker`, `test-validator`, `test-fixer` |
+| `wow-criticality-assessment`      | `documentation-writer`, `docs-validator`, `docs-fixer`, `plan-maker`, `plan-checker`, `plan-fixer`, `test-maker`, `test-validator`, `test-fixer`, `docs-link-checker`, `docs-link-fixer`, `readme-maker`, `readme-checker`, `readme-fixer` |
 
 ---
 
