@@ -58,6 +58,27 @@ Skills used: `test-coverage-rules`, `test-playwright-patterns`, `wow-criticality
 
 Skills used: `test-coverage-rules`, `test-playwright-patterns`, `wow-criticality-assessment`
 
+### Docs Link
+
+| File                    | Agent name          | Role    |
+| ----------------------- | ------------------- | ------- |
+| `docs-link-checker.md`  | `docs-link-checker` | Checker |
+| `docs-link-fixer.md`    | `docs-link-fixer`   | Fixer   |
+
+Skills used: `docs-validating-links`, `wow-criticality-assessment`
+
+> No Maker in this domain — links are created as part of writing docs, not as a standalone artifact.
+
+### Readme
+
+| File               | Agent name       | Role    |
+| ------------------ | ---------------- | ------- |
+| `readme-maker.md`  | `readme-maker`   | Maker   |
+| `readme-checker.md`| `readme-checker` | Checker |
+| `readme-fixer.md`  | `readme-fixer`   | Fixer   |
+
+Skills used: `readme-writing-readme-files`, `wow-criticality-assessment`
+
 ---
 
 ## Usage

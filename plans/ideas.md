@@ -19,8 +19,9 @@ Skip list: `apps-*`, `pdf-to-md-*`, `social-*`, non-Java/TS languages, OSE-speci
 
 #### Medium Priority
 
-- **`readme` triad** — `readme-maker/checker/fixer` + skill `readme-writing-readme-files`.
-  No dedicated README agent exists yet.
+~~- **`readme` triad** — `readme-maker/checker/fixer` + skill `readme-writing-readme-files`.~~
+~~Implemented 2026-05-29. See Archive below.~~
+
 - **`repo` domain** — Two full triads missing:
   - `repo-rules-maker/checker/fixer`
   - `repo-workflow-maker/checker/fixer`
@@ -28,7 +29,8 @@ Skip list: `apps-*`, `pdf-to-md-*`, `social-*`, non-Java/TS languages, OSE-speci
     `repo-practicing-trunk-based-development`, `repo-generating-validation-reports`
 - **`ci` triad** — `ci-checker/ci-fixer` + skill `ci-standards`. CI pipeline exists but no
   agent to validate or fix CI configuration.
-- **`docs-link` pair** — `docs-link-checker/fixer` + skill `docs-validating-links`.
+  ~~- **`docs-link` pair** — `docs-link-checker/fixer` + skill `docs-validating-links`.~~
+  ~~Implemented 2026-05-29. See Archive below.~~
 
 #### Low Priority
 
@@ -43,6 +45,10 @@ References: `wahidyankf/ose-public` `.claude/` directory (fetched 2026-05-24).
 <!-- Ideas that have been implemented or rejected -->
 
 ### ✅ Implemented
+
+- **Claude Governance Gap Round 2 — Medium Priority Batch 1** (completed 2026-05-29)
+  - `readme-maker/checker/fixer` + skill `readme-writing-readme-files`
+  - `docs-link-checker/fixer` + skill `docs-validating-links`
 
 - **Claude Governance Gap Round 2 — High Priority Agents + Skills** (completed 2026-05-26)
   - `swe-typescript-dev` + skill `swe-programming-typescript` (Next.js/React)
@@ -166,4 +172,4 @@ is currently paused. Revisit if KameraVue development resumes.
 
 ---
 
-**Last Updated**: May 26, 2026 (High priority round 2 items implemented)
+**Last Updated**: May 29, 2026 (Medium priority batch 1: readme + docs-link agents implemented)
