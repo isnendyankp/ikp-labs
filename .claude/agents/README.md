@@ -79,6 +79,17 @@ Skills used: `docs-validating-links`, `wow-criticality-assessment`
 
 Skills used: `readme-writing-readme-files`, `wow-criticality-assessment`
 
+### CI
+
+| File             | Agent name   | Role    |
+| ---------------- | ------------ | ------- |
+| `ci-checker.md`  | `ci-checker` | Checker |
+| `ci-fixer.md`    | `ci-fixer`   | Fixer   |
+
+Skills used: `ci-standards`, `wow-criticality-assessment`
+
+> No Maker in this domain — CI workflows are authored manually; agents only validate and fix.
+
 ---
 
 ## Usage
