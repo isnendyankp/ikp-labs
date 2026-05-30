@@ -27,10 +27,10 @@ Skip list: `apps-*`, `pdf-to-md-*`, `social-*`, non-Java/TS languages, OSE-speci
   - `repo-workflow-maker/checker/fixer`
   - Skills: `repo-understanding-repository-architecture`, `repo-defining-workflows`,
     `repo-practicing-trunk-based-development`, `repo-generating-validation-reports`
-- **`ci` triad** — `ci-checker/ci-fixer` + skill `ci-standards`. CI pipeline exists but no
-  agent to validate or fix CI configuration.
-  ~~- **`docs-link` pair** — `docs-link-checker/fixer` + skill `docs-validating-links`.~~
-  ~~Implemented 2026-05-29. See Archive below.~~
+    ~~- **`ci` triad** — `ci-checker/ci-fixer` + skill `ci-standards`. CI pipeline exists but no~~
+    ~~agent to validate or fix CI configuration. Implemented 2026-05-30. See Archive below.~~
+    ~~- **`docs-link` pair** — `docs-link-checker/fixer` + skill `docs-validating-links`.~~
+    ~~Implemented 2026-05-29. See Archive below.~~
 
 #### Low Priority
 
@@ -45,6 +45,9 @@ References: `wahidyankf/ose-public` `.claude/` directory (fetched 2026-05-24).
 <!-- Ideas that have been implemented or rejected -->
 
 ### ✅ Implemented
+
+- **Claude Governance Gap Round 2 — Medium Priority Batch 2** (completed 2026-05-30)
+  - `ci-checker/fixer` + skill `ci-standards`
 
 - **Claude Governance Gap Round 2 — Medium Priority Batch 1** (completed 2026-05-29)
   - `readme-maker/checker/fixer` + skill `readme-writing-readme-files`
@@ -172,4 +175,4 @@ is currently paused. Revisit if KameraVue development resumes.
 
 ---
 
-**Last Updated**: May 29, 2026 (Medium priority batch 1: readme + docs-link agents implemented)
+**Last Updated**: May 30, 2026 (Medium priority batch 2: ci-checker/fixer implemented)

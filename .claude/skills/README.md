@@ -30,6 +30,7 @@ skills/
 | `wow-criticality-assessment/`  | Criticality Assessment       | docs triad, plan triad, test triad |
 | `docs-validating-links/`       | Link Validation Standards    | docs-link pair                     |
 | `readme-writing-readme-files/` | README Writing Standards     | readme triad                       |
+| `ci-standards/`                | CI Standards                 | ci pair                            |
 
 ---
 
@@ -44,7 +45,8 @@ skills/
 | `readme-writing-readme-files`     | `readme-maker`, `readme-checker`, `readme-fixer`             |
 | `test-coverage-rules`             | `gherkin-spec-writer`, `specs-checker`, `specs-fixer`, `test-maker`, `test-validator`, `test-fixer` |
 | `test-playwright-patterns`        | `gherkin-spec-writer`, `specs-checker`, `specs-fixer`, `test-maker`, `test-validator`, `test-fixer` |
-| `wow-criticality-assessment`      | `documentation-writer`, `docs-validator`, `docs-fixer`, `plan-maker`, `plan-checker`, `plan-fixer`, `test-maker`, `test-validator`, `test-fixer`, `docs-link-checker`, `docs-link-fixer`, `readme-maker`, `readme-checker`, `readme-fixer` |
+| `ci-standards`                    | `ci-checker`, `ci-fixer`                                     |
+| `wow-criticality-assessment`      | `documentation-writer`, `docs-validator`, `docs-fixer`, `plan-maker`, `plan-checker`, `plan-fixer`, `test-maker`, `test-validator`, `test-fixer`, `docs-link-checker`, `docs-link-fixer`, `readme-maker`, `readme-checker`, `readme-fixer`, `ci-checker`, `ci-fixer` |
 
 ---
 
