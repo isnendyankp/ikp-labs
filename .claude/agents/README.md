@@ -110,6 +110,42 @@ Skills used: `repo-understanding-repository-architecture`, `repo-generating-vali
 
 Skills used: `repo-defining-workflows`, `repo-practicing-trunk-based-development`, `repo-understanding-repository-architecture`, `wow-criticality-assessment`
 
+### SWE UI
+
+| File                 | Agent name      | Role    |
+| -------------------- | --------------- | ------- |
+| `swe-ui-maker.md`    | `swe-ui-maker`  | Maker   |
+| `swe-ui-checker.md`  | `swe-ui-checker`| Checker |
+| `swe-ui-fixer.md`    | `swe-ui-fixer`  | Fixer   |
+
+Skills used: `swe-developing-frontend-ui`, `swe-programming-typescript`, `wow-criticality-assessment`
+
+### SWE Dev (Standalone)
+
+Specialised developer agents — not a triad; each targets a specific stack layer.
+
+| File                    | Agent name          | Role / Stack              |
+| ----------------------- | ------------------- | ------------------------- |
+| `swe-typescript-dev.md` | `swe-typescript-dev`| Next.js / TypeScript      |
+| `swe-java-dev.md`       | `swe-java-dev`      | Spring Boot / Java        |
+| `swe-e2e-dev.md`        | `swe-e2e-dev`       | Playwright E2E / API      |
+| `swe-code-checker.md`   | `swe-code-checker`  | Cross-stack code quality  |
+
+Skills used: `swe-programming-typescript`, `swe-programming-java`, `swe-developing-e2e-test-with-playwright`, `swe-developing-applications-common`, `wow-criticality-assessment`
+
+### Standalone Utility Agents
+
+Single-purpose agents that do not belong to a triad.
+
+| File                      | Agent name              | Purpose                                      |
+| ------------------------- | ----------------------- | -------------------------------------------- |
+| `agent-maker.md`          | `agent-maker`           | Create new Claude Code agent files           |
+| `docs-file-manager.md`    | `docs-file-manager`     | Safe file management inside `docs/`          |
+| `plan-execution-checker.md` | `plan-execution-checker` | Final quality gate before archiving plans |
+| `web-research-maker.md`   | `web-research-maker`    | Isolated web research with confidence tagging|
+
+Skills used: `agent-developing-agents`, `docs-applying-content-quality`, `plan-creating-project-plans`, `wow-criticality-assessment`
+
 ---
 
 ## Usage
