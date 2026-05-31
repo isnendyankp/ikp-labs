@@ -31,6 +31,8 @@ skills/
 | `docs-validating-links/`       | Link Validation Standards    | docs-link pair                     |
 | `readme-writing-readme-files/` | README Writing Standards     | readme triad                       |
 | `ci-standards/`                | CI Standards                 | ci pair                            |
+| `repo-understanding-repository-architecture/` | Repository Architecture | repo-rules triad        |
+| `repo-generating-validation-reports/` | Repo Validation Reports  | repo-rules triad              |
 
 ---
 
@@ -46,7 +48,9 @@ skills/
 | `test-coverage-rules`             | `gherkin-spec-writer`, `specs-checker`, `specs-fixer`, `test-maker`, `test-validator`, `test-fixer` |
 | `test-playwright-patterns`        | `gherkin-spec-writer`, `specs-checker`, `specs-fixer`, `test-maker`, `test-validator`, `test-fixer` |
 | `ci-standards`                    | `ci-checker`, `ci-fixer`                                     |
-| `wow-criticality-assessment`      | `documentation-writer`, `docs-validator`, `docs-fixer`, `plan-maker`, `plan-checker`, `plan-fixer`, `test-maker`, `test-validator`, `test-fixer`, `docs-link-checker`, `docs-link-fixer`, `readme-maker`, `readme-checker`, `readme-fixer`, `ci-checker`, `ci-fixer` |
+| `repo-understanding-repository-architecture` | `repo-rules-maker`, `repo-rules-checker`, `repo-rules-fixer` |
+| `repo-generating-validation-reports`         | `repo-rules-maker`, `repo-rules-checker`, `repo-rules-fixer` |
+| `wow-criticality-assessment`      | `documentation-writer`, `docs-validator`, `docs-fixer`, `plan-maker`, `plan-checker`, `plan-fixer`, `test-maker`, `test-validator`, `test-fixer`, `docs-link-checker`, `docs-link-fixer`, `readme-maker`, `readme-checker`, `readme-fixer`, `ci-checker`, `ci-fixer`, `repo-rules-maker`, `repo-rules-checker`, `repo-rules-fixer` |
 
 ---
 

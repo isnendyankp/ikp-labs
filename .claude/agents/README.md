@@ -90,6 +90,16 @@ Skills used: `ci-standards`, `wow-criticality-assessment`
 
 > No Maker in this domain — CI workflows are authored manually; agents only validate and fix.
 
+### Repo Rules
+
+| File                    | Agent name          | Role    |
+| ----------------------- | ------------------- | ------- |
+| `repo-rules-maker.md`   | `repo-rules-maker`  | Maker   |
+| `repo-rules-checker.md` | `repo-rules-checker`| Checker |
+| `repo-rules-fixer.md`   | `repo-rules-fixer`  | Fixer   |
+
+Skills used: `repo-understanding-repository-architecture`, `repo-generating-validation-reports`, `wow-criticality-assessment`
+
 ---
 
 ## Usage
