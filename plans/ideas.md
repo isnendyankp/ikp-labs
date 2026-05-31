@@ -23,10 +23,10 @@ Skip list: `apps-*`, `pdf-to-md-*`, `social-*`, non-Java/TS languages, OSE-speci
 ~~Implemented 2026-05-29. See Archive below.~~
 
 - **`repo` domain** — Two full triads missing:
-  - `repo-rules-maker/checker/fixer`
+  - ~~`repo-rules-maker/checker/fixer`~~ — Implemented 2026-05-31. See Archive below.
   - `repo-workflow-maker/checker/fixer`
-  - Skills: `repo-understanding-repository-architecture`, `repo-defining-workflows`,
-    `repo-practicing-trunk-based-development`, `repo-generating-validation-reports`
+  - ~~Skills: `repo-understanding-repository-architecture`, `repo-generating-validation-reports`~~ — Implemented 2026-05-31.
+  - Skills: `repo-defining-workflows`, `repo-practicing-trunk-based-development`
     ~~- **`ci` triad** — `ci-checker/ci-fixer` + skill `ci-standards`. CI pipeline exists but no~~
     ~~agent to validate or fix CI configuration. Implemented 2026-05-30. See Archive below.~~
     ~~- **`docs-link` pair** — `docs-link-checker/fixer` + skill `docs-validating-links`.~~
@@ -45,6 +45,9 @@ References: `wahidyankf/ose-public` `.claude/` directory (fetched 2026-05-24).
 <!-- Ideas that have been implemented or rejected -->
 
 ### ✅ Implemented
+
+- **Claude Governance Gap Round 2 — Medium Priority Batch 3a** (completed 2026-05-31)
+  - `repo-rules-maker/checker/fixer` + skills `repo-understanding-repository-architecture`, `repo-generating-validation-reports`
 
 - **Claude Governance Gap Round 2 — Medium Priority Batch 2** (completed 2026-05-30)
   - `ci-checker/fixer` + skill `ci-standards`
@@ -175,4 +178,4 @@ is currently paused. Revisit if KameraVue development resumes.
 
 ---
 
-**Last Updated**: May 30, 2026 (Medium priority batch 2: ci-checker/fixer implemented)
+**Last Updated**: May 31, 2026 (Medium priority batch 3a: repo-rules triad + 2 skills implemented)
