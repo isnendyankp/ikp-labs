@@ -100,6 +100,16 @@ Skills used: `ci-standards`, `wow-criticality-assessment`
 
 Skills used: `repo-understanding-repository-architecture`, `repo-generating-validation-reports`, `wow-criticality-assessment`
 
+### Repo Workflow
+
+| File                       | Agent name             | Role    |
+| -------------------------- | ---------------------- | ------- |
+| `repo-workflow-maker.md`   | `repo-workflow-maker`  | Maker   |
+| `repo-workflow-checker.md` | `repo-workflow-checker`| Checker |
+| `repo-workflow-fixer.md`   | `repo-workflow-fixer`  | Fixer   |
+
+Skills used: `repo-defining-workflows`, `repo-practicing-trunk-based-development`, `repo-understanding-repository-architecture`, `wow-criticality-assessment`
+
 ---
 
 ## Usage
