@@ -33,6 +33,8 @@ skills/
 | `ci-standards/`                | CI Standards                 | ci pair                            |
 | `repo-understanding-repository-architecture/` | Repository Architecture | repo-rules triad        |
 | `repo-generating-validation-reports/` | Repo Validation Reports  | repo-rules triad              |
+| `repo-defining-workflows/`            | Workflow Definition Standards | repo-workflow triad      |
+| `repo-practicing-trunk-based-development/` | Trunk-Based Development | repo-workflow triad     |
 
 ---
 
@@ -49,8 +51,10 @@ skills/
 | `test-playwright-patterns`        | `gherkin-spec-writer`, `specs-checker`, `specs-fixer`, `test-maker`, `test-validator`, `test-fixer` |
 | `ci-standards`                    | `ci-checker`, `ci-fixer`                                     |
 | `repo-understanding-repository-architecture` | `repo-rules-maker`, `repo-rules-checker`, `repo-rules-fixer` |
-| `repo-generating-validation-reports`         | `repo-rules-maker`, `repo-rules-checker`, `repo-rules-fixer` |
-| `wow-criticality-assessment`      | `documentation-writer`, `docs-validator`, `docs-fixer`, `plan-maker`, `plan-checker`, `plan-fixer`, `test-maker`, `test-validator`, `test-fixer`, `docs-link-checker`, `docs-link-fixer`, `readme-maker`, `readme-checker`, `readme-fixer`, `ci-checker`, `ci-fixer`, `repo-rules-maker`, `repo-rules-checker`, `repo-rules-fixer` |
+| `repo-generating-validation-reports`         | `repo-rules-maker`, `repo-rules-checker`, `repo-rules-fixer`, `repo-workflow-checker`, `repo-workflow-fixer` |
+| `repo-defining-workflows`                    | `repo-workflow-maker`, `repo-workflow-checker`, `repo-workflow-fixer` |
+| `repo-practicing-trunk-based-development`    | `repo-workflow-maker`, `repo-workflow-checker`, `repo-workflow-fixer` |
+| `wow-criticality-assessment`      | `documentation-writer`, `docs-validator`, `docs-fixer`, `plan-maker`, `plan-checker`, `plan-fixer`, `test-maker`, `test-validator`, `test-fixer`, `docs-link-checker`, `docs-link-fixer`, `readme-maker`, `readme-checker`, `readme-fixer`, `ci-checker`, `ci-fixer`, `repo-rules-maker`, `repo-rules-checker`, `repo-rules-fixer`, `repo-workflow-maker`, `repo-workflow-checker`, `repo-workflow-fixer` |
 
 ---
 
