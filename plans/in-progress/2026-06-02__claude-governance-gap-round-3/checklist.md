@@ -41,21 +41,21 @@
 - [x] Agent file created with valid frontmatter
 - [x] No OSE/Nx/Gradle references
 - [x] `permission.skill` values reference existing skill directories
-- [ ] Commit: `chore(agents): add repo-harness-compatibility-checker`
+- [x] Commit: `chore(agents): add repo-harness-compatibility-checker`
 
 ---
 
 ## Phase 2b: repo-harness-compatibility-fixer
 
-- [ ] Create `.claude/agents/repo-harness-compatibility-fixer.md`
-- [ ] Frontmatter: `model: sonnet`, `color: yellow`, skills: `repo-understanding-repository-architecture`, `wow-criticality-assessment`
-- [ ] Body: reads checker report before acting, fixes frontmatter, creates skill stubs, updates settings wiring
+- [x] Create `.claude/agents/repo-harness-compatibility-fixer.md`
+- [x] Frontmatter: `model: sonnet`, `color: yellow`, skills: `repo-understanding-repository-architecture`, `wow-criticality-assessment`
+- [x] Body: reads checker report before acting, fixes frontmatter, creates skill stubs, updates settings wiring
 
 **Acceptance Criteria — Phase 2b:**
 
-- [ ] Agent file created with valid frontmatter
-- [ ] No OSE/Nx/Gradle references
-- [ ] `permission.skill` values reference existing skill directories
+- [x] Agent file created with valid frontmatter
+- [x] No OSE/Nx/Gradle references
+- [x] `permission.skill` values reference existing skill directories
 - [ ] Commit: `chore(agents): add repo-harness-compatibility-fixer`
 
 ---
