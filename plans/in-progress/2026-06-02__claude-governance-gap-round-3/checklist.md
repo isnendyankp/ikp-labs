@@ -26,29 +26,52 @@
 
 ## Phase 2: High Priority — Agents
 
-### repo-harness-compatibility-checker
+> Split into 3 sub-phases (1 agent per PR) for easier revert if needed.
 
-- [ ] Create `.claude/agents/repo-harness-compatibility-checker.md`
-- [ ] Frontmatter: `model: sonnet`, `color: green`, skills: `repo-understanding-repository-architecture`, `wow-criticality-assessment`
-- [ ] Body covers: agent frontmatter key validation, skill directory structure check, hook wiring verification, `permission.skill` reference resolution
+---
 
-### repo-harness-compatibility-fixer
+## Phase 2a: repo-harness-compatibility-checker
+
+- [x] Create `.claude/agents/repo-harness-compatibility-checker.md`
+- [x] Frontmatter: `model: sonnet`, `color: green`, skills: `repo-understanding-repository-architecture`, `wow-criticality-assessment`
+- [x] Body covers: agent frontmatter key validation, skill directory structure check, hook wiring verification, `permission.skill` reference resolution
+
+**Acceptance Criteria — Phase 2a:**
+
+- [x] Agent file created with valid frontmatter
+- [x] No OSE/Nx/Gradle references
+- [x] `permission.skill` values reference existing skill directories
+- [ ] Commit: `chore(agents): add repo-harness-compatibility-checker`
+
+---
+
+## Phase 2b: repo-harness-compatibility-fixer
 
 - [ ] Create `.claude/agents/repo-harness-compatibility-fixer.md`
 - [ ] Frontmatter: `model: sonnet`, `color: yellow`, skills: `repo-understanding-repository-architecture`, `wow-criticality-assessment`
 - [ ] Body: reads checker report before acting, fixes frontmatter, creates skill stubs, updates settings wiring
 
-### repo-setup-manager
+**Acceptance Criteria — Phase 2b:**
+
+- [ ] Agent file created with valid frontmatter
+- [ ] No OSE/Nx/Gradle references
+- [ ] `permission.skill` values reference existing skill directories
+- [ ] Commit: `chore(agents): add repo-harness-compatibility-fixer`
+
+---
+
+## Phase 2c: repo-setup-manager
 
 - [ ] Create `.claude/agents/repo-setup-manager.md`
 - [ ] Frontmatter: `model: sonnet`, `color: blue`, skills: `repo-understanding-repository-architecture`, `repo-applying-maker-checker-fixer`
 - [ ] Body covers: `npm install` (FE), `mvn install` (BE), PostgreSQL setup, `chmod +x` hooks, `.env.example` → `.env.local`
 
-**Acceptance Criteria — Phase 2 Agents:**
+**Acceptance Criteria — Phase 2c:**
 
-- [ ] All 3 agent files created with valid frontmatter
-- [ ] No OSE/Nx/Gradle references in any file
+- [ ] Agent file created with valid frontmatter
+- [ ] No OSE/Nx/Gradle references
 - [ ] `permission.skill` values reference existing skill directories
+- [ ] Commit: `chore(agents): add repo-setup-manager`
 
 ---
 
