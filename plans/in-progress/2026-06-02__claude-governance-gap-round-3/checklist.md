@@ -72,49 +72,100 @@
 - [x] Agent file created with valid frontmatter
 - [x] No OSE/Nx/Gradle references
 - [x] `permission.skill` values reference existing skill directories
-- [ ] Commit: `chore(agents): add repo-setup-manager`
+- [x] Commit: `chore(agents): add repo-setup-manager`
 
 ---
 
 ## Phase 3: High Priority — Skills (Part A: Repo Skills)
 
-### Overlap evaluation (do this first)
+> Split into 4 sub-phases (1 PR each) for easier revert if needed.
 
-- [ ] Read `.claude/skills/wow-criticality-assessment/SKILL.md`
-- [ ] Determine if `repo-assessing-criticality-confidence` is additive or redundant
-- [ ] Document decision in this checklist item (mark redundant/additive with rationale)
+---
 
-### grill-me
+## Phase 3a: Plan Update (this PR)
+
+### Overlap evaluation — COMPLETED
+
+- [x] Read `.claude/skills/wow-criticality-assessment/SKILL.md`
+- [x] Read `repo-assessing-criticality-confidence/SKILL.md` from senior repo (`wahidyankf/ose-public`)
+- [x] Decision: **ADDITIVE** — adopt from senior repo, adapt to IKP-Labs
+
+**Rationale:** Senior repo does NOT have `wow-criticality-assessment` — they only use
+`repo-assessing-criticality-confidence`. Our `wow-criticality-assessment` covers the basics
+but the senior version is significantly richer: P0–P4 priority matrix, execution order for
+fixers, dual-label pattern, domain-specific examples framework. The senior version is the
+canonical reference; we adopt and adapt it to IKP-Labs context (remove OSE/ayokoding
+domain examples, replace with IKP-Labs domains).
+
+### repo-applying-maker-checker-fixer
+
+- [x] Create `.claude/skills/repo-applying-maker-checker-fixer/SKILL.md`
+- [x] Defines MCF roles: maker (create), checker (validate), fixer (correct)
+- [x] Decision guide: when a triad is needed vs. a single agent
+- [x] References existing triads as examples
+- [x] IKP-Labs naming convention: `<domain>-<maker|checker|fixer>.md`
+
+> Completed in Phase 2c (bundled with repo-setup-manager, PR #159)
+
+**Acceptance Criteria — Phase 3a:**
+
+- [x] Overlap evaluation completed and documented
+- [x] Decision rationale recorded in checklist
+- [ ] Commit: `docs(plan): update phase 3 — overlap decision and sub-phase split`
+
+---
+
+## Phase 3b: grill-me skill
 
 - [ ] Create `.claude/skills/grill-me/SKILL.md`
 - [ ] Defines interactive Q&A format: topic intake → question generation → answer feedback loop
 - [ ] Includes example question types (concept check, code review, scenario-based)
 
-### plan-writing-gherkin-criteria
+**Acceptance Criteria — Phase 3b:**
+
+- [ ] SKILL.md has H1 title, category/purpose block, overview, substantive content, last-updated footer
+- [ ] No placeholder content
+- [ ] Commit: `chore(skills): add grill-me skill`
+
+---
+
+## Phase 3c: plan-writing-gherkin-criteria skill
 
 - [ ] Create `.claude/skills/plan-writing-gherkin-criteria/SKILL.md`
 - [ ] Covers Given/When/Then syntax, Scenario Outline, Background, tags
 - [ ] References `specs/` as canonical home for `.feature` files
 - [ ] Provides IKP-Labs-specific examples from existing specs
 
-### repo-applying-maker-checker-fixer
+**Acceptance Criteria — Phase 3c:**
 
-- [ ] Create `.claude/skills/repo-applying-maker-checker-fixer/SKILL.md`
-- [ ] Defines MCF roles: maker (create), checker (validate), fixer (correct)
-- [ ] Decision guide: when a triad is needed vs. a single agent
-- [ ] References existing triads as examples: `readme-maker/checker/fixer`, `pdf-to-md-maker/checker/fixer`
-- [ ] IKP-Labs naming convention: `<domain>-<maker|checker|fixer>.md`
+- [ ] SKILL.md has H1 title, category/purpose block, overview, substantive content, last-updated footer
+- [ ] No placeholder content
+- [ ] Commit: `chore(skills): add plan-writing-gherkin-criteria skill`
 
-### repo-assessing-criticality-confidence (conditional)
+---
 
-- [ ] IF additive: Create `.claude/skills/repo-assessing-criticality-confidence/SKILL.md`
-- [ ] IF redundant: Skip — note rationale here and mark this item done
+## Phase 3d: repo-assessing-criticality-confidence skill
 
-**Acceptance Criteria — Phase 3A:**
+- [ ] Create `.claude/skills/repo-assessing-criticality-confidence/SKILL.md`
+- [ ] Adopt from senior repo (`wahidyankf/ose-public`) — adapt to IKP-Labs context
+- [ ] Remove OSE/ayokoding domain examples — replace with IKP-Labs domains (CI, docs, plans, specs)
+- [ ] Covers: P0–P4 priority matrix, execution order, dual-label pattern, domain examples framework
+- [ ] Remove references to `repo-governance/` convention docs (IKP-Labs uses `governance/` path)
 
-- [ ] Overlap evaluation completed and documented
-- [ ] 3 (or 4) skill files created with no placeholder content
+**Acceptance Criteria — Phase 3d:**
+
+- [ ] SKILL.md has H1 title, category/purpose block, overview, substantive content, last-updated footer
+- [ ] No OSE/ayokoding references
+- [ ] No placeholder content
+- [ ] Commit: `chore(skills): add repo-assessing-criticality-confidence skill`
+
+---
+
+**Acceptance Criteria — Phase 3 (all):**
+
+- [ ] All 3 skill files created (3b, 3c, 3d)
 - [ ] Each SKILL.md has H1 title, category/purpose block, overview, substantive content, last-updated footer
+- [ ] No placeholder content in any file
 
 ---
 
