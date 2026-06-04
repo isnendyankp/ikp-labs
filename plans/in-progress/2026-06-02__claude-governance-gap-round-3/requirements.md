@@ -17,7 +17,7 @@
 - `grill-me` skill
 - `plan-writing-gherkin-criteria` skill
 - `repo-applying-maker-checker-fixer` skill
-- `repo-assessing-criticality-confidence` skill (after evaluating overlap with `wow-criticality-assessment`)
+- `repo-assessing-criticality-confidence` skill (adopt from senior repo, adapt to IKP-Labs — evaluated ADDITIVE)
 - `docs-validating-software-engineering-separation` skill
 - `docs-software-engineering-separation-checker` agent
 - `docs-software-engineering-separation-fixer` agent
@@ -128,15 +128,24 @@ validate MCF compliance.
 
 ### FR-6: Repo Assessing Criticality Confidence Skill (High Priority)
 
-**Description**: A skill for assessing task criticality and confidence scores.
-Before implementing, evaluate overlap with the existing `wow-criticality-assessment`
-skill to determine if this is additive or redundant.
+**Description**: Adopt `repo-assessing-criticality-confidence` from senior repo
+(`wahidyankf/ose-public`), adapted to IKP-Labs context. Evaluated as **ADDITIVE** —
+senior repo does not have `wow-criticality-assessment`; their version is significantly
+richer with P0–P4 priority matrix, execution order for fixers, dual-label pattern,
+and domain-specific examples framework.
+
+**Adaptation rules:**
+
+- Remove OSE/ayokoding domain examples
+- Replace with IKP-Labs domains: CI, docs, plans, specs, agents
+- Update `repo-governance/` path references to `governance/`
+- Keep `wow-criticality-assessment` for backward compatibility (already referenced by many agents)
 
 **Acceptance Criteria:**
 
-- Evaluation note is documented before or during implementation
-- If additive: skill created at `.claude/skills/repo-assessing-criticality-confidence/SKILL.md`
-- If redundant: skill is skipped and checklist item is marked with rationale
+- Skill created at `.claude/skills/repo-assessing-criticality-confidence/SKILL.md`
+- No OSE/ayokoding references in content
+- Covers P0–P4 matrix, execution order, dual-label pattern, domain examples framework
 
 ---
 
