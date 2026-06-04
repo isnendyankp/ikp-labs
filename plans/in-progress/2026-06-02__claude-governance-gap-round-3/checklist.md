@@ -56,21 +56,22 @@
 - [x] Agent file created with valid frontmatter
 - [x] No OSE/Nx/Gradle references
 - [x] `permission.skill` values reference existing skill directories
-- [ ] Commit: `chore(agents): add repo-harness-compatibility-fixer`
+- [x] Commit: `chore(agents): add repo-harness-compatibility-fixer`
 
 ---
 
 ## Phase 2c: repo-setup-manager
 
-- [ ] Create `.claude/agents/repo-setup-manager.md`
-- [ ] Frontmatter: `model: sonnet`, `color: blue`, skills: `repo-understanding-repository-architecture`, `repo-applying-maker-checker-fixer`
-- [ ] Body covers: `npm install` (FE), `mvn install` (BE), PostgreSQL setup, `chmod +x` hooks, `.env.example` → `.env.local`
+- [x] Create `.claude/skills/repo-applying-maker-checker-fixer/SKILL.md` (bundled — dependency of agent)
+- [x] Create `.claude/agents/repo-setup-manager.md`
+- [x] Frontmatter: `model: sonnet`, `color: blue`, skills: `repo-understanding-repository-architecture`, `repo-applying-maker-checker-fixer`
+- [x] Body covers: `npm install` (FE), `mvn install` (BE), PostgreSQL setup, `chmod +x` hooks, `.env.example` → `.env.local`
 
 **Acceptance Criteria — Phase 2c:**
 
-- [ ] Agent file created with valid frontmatter
-- [ ] No OSE/Nx/Gradle references
-- [ ] `permission.skill` values reference existing skill directories
+- [x] Agent file created with valid frontmatter
+- [x] No OSE/Nx/Gradle references
+- [x] `permission.skill` values reference existing skill directories
 - [ ] Commit: `chore(agents): add repo-setup-manager`
 
 ---
