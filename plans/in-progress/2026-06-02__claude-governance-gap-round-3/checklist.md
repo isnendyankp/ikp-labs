@@ -111,20 +111,20 @@ domain examples, replace with IKP-Labs domains).
 
 - [x] Overlap evaluation completed and documented
 - [x] Decision rationale recorded in checklist
-- [ ] Commit: `docs(plan): update phase 3 — overlap decision and sub-phase split`
+- [x] Commit: `docs(plan): update phase 3 — overlap decision and sub-phase split`
 
 ---
 
 ## Phase 3b: grill-me skill
 
-- [ ] Create `.claude/skills/grill-me/SKILL.md`
-- [ ] Defines interactive Q&A format: topic intake → question generation → answer feedback loop
-- [ ] Includes example question types (concept check, code review, scenario-based)
+- [x] Create `.claude/skills/grill-me/SKILL.md`
+- [x] Defines relentless Q&A format: one question at a time, 2–4 options each, recommended option marked
+- [x] Includes IKP-Labs context (plan scope, agent design, skill dependency, commit strategy)
 
 **Acceptance Criteria — Phase 3b:**
 
-- [ ] SKILL.md has H1 title, category/purpose block, overview, substantive content, last-updated footer
-- [ ] No placeholder content
+- [x] SKILL.md has H1 title, category/purpose block, overview, substantive content, last-updated footer
+- [x] No placeholder content
 - [ ] Commit: `chore(skills): add grill-me skill`
 
 ---
