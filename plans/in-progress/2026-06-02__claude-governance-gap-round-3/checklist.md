@@ -125,21 +125,22 @@ domain examples, replace with IKP-Labs domains).
 
 - [x] SKILL.md has H1 title, category/purpose block, overview, substantive content, last-updated footer
 - [x] No placeholder content
-- [ ] Commit: `chore(skills): add grill-me skill`
+- [x] Commit: `chore(skills): add grill-me skill`
 
 ---
 
 ## Phase 3c: plan-writing-gherkin-criteria skill
 
-- [ ] Create `.claude/skills/plan-writing-gherkin-criteria/SKILL.md`
-- [ ] Covers Given/When/Then syntax, Scenario Outline, Background, tags
-- [ ] References `specs/` as canonical home for `.feature` files
-- [ ] Provides IKP-Labs-specific examples from existing specs
+- [x] Create `.claude/skills/plan-writing-gherkin-criteria/SKILL.md`
+- [x] Covers Given/When/Then syntax, Scenario Outline, Background, 1-1-1 rule
+- [x] References `specs/` as canonical home for `.feature` files
+- [x] IKP-Labs-specific examples (auth, gallery, API, plan acceptance criteria)
 
 **Acceptance Criteria — Phase 3c:**
 
-- [ ] SKILL.md has H1 title, category/purpose block, overview, substantive content, last-updated footer
-- [ ] No placeholder content
+- [x] SKILL.md has H1 title, category/purpose block, overview, substantive content, last-updated footer
+- [x] No placeholder content
+- [x] No OSE/repo-governance references
 - [ ] Commit: `chore(skills): add plan-writing-gherkin-criteria skill`
 
 ---
