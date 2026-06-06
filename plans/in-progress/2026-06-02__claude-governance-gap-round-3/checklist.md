@@ -141,23 +141,24 @@ domain examples, replace with IKP-Labs domains).
 - [x] SKILL.md has H1 title, category/purpose block, overview, substantive content, last-updated footer
 - [x] No placeholder content
 - [x] No OSE/repo-governance references
-- [ ] Commit: `chore(skills): add plan-writing-gherkin-criteria skill`
+- [x] Commit: `chore(skills): add plan-writing-gherkin-criteria skill`
 
 ---
 
 ## Phase 3d: repo-assessing-criticality-confidence skill
 
-- [ ] Create `.claude/skills/repo-assessing-criticality-confidence/SKILL.md`
-- [ ] Adopt from senior repo (`wahidyankf/ose-public`) — adapt to IKP-Labs context
-- [ ] Remove OSE/ayokoding domain examples — replace with IKP-Labs domains (CI, docs, plans, specs)
-- [ ] Covers: P0–P4 priority matrix, execution order, dual-label pattern, domain examples framework
-- [ ] Remove references to `repo-governance/` convention docs (IKP-Labs uses `governance/` path)
+- [x] Create `.claude/skills/repo-assessing-criticality-confidence/SKILL.md`
+- [x] Adopted from senior repo — adapted to IKP-Labs context
+- [x] OSE/ayokoding domain examples replaced with IKP-Labs domains (CI, docs, plans, specs, harness)
+- [x] Covers: P0–P4 priority matrix, execution order, dual-label pattern, domain examples
+- [x] No `repo-governance/` references
+- [x] Documents relationship to `wow-criticality-assessment` for backward compatibility
 
 **Acceptance Criteria — Phase 3d:**
 
-- [ ] SKILL.md has H1 title, category/purpose block, overview, substantive content, last-updated footer
-- [ ] No OSE/ayokoding references
-- [ ] No placeholder content
+- [x] SKILL.md has H1 title, category/purpose block, overview, substantive content, last-updated footer
+- [x] No OSE/ayokoding references
+- [x] No placeholder content
 - [ ] Commit: `chore(skills): add repo-assessing-criticality-confidence skill`
 
 ---
