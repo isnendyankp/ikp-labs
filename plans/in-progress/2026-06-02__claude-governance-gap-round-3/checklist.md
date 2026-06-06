@@ -159,15 +159,15 @@ domain examples, replace with IKP-Labs domains).
 - [x] SKILL.md has H1 title, category/purpose block, overview, substantive content, last-updated footer
 - [x] No OSE/ayokoding references
 - [x] No placeholder content
-- [ ] Commit: `chore(skills): add repo-assessing-criticality-confidence skill`
+- [x] Commit: `chore(skills): add repo-assessing-criticality-confidence skill`
 
 ---
 
 **Acceptance Criteria — Phase 3 (all):**
 
-- [ ] All 3 skill files created (3b, 3c, 3d)
-- [ ] Each SKILL.md has H1 title, category/purpose block, overview, substantive content, last-updated footer
-- [ ] No placeholder content in any file
+- [x] All 3 skill files created (3b, 3c, 3d)
+- [x] Each SKILL.md has H1 title, category/purpose block, overview, substantive content, last-updated footer
+- [x] No placeholder content in any file
 
 ---
 
