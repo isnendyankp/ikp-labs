@@ -173,49 +173,74 @@ domain examples, replace with IKP-Labs domains).
 
 ## Phase 4: High Priority — Skills (Part B: Docs SE Separation)
 
-### docs-validating-software-engineering-separation skill
+> **SKIPPED** — Not applicable to IKP-Labs.
+>
+> This phase validates separation between project docs (`docs/`) and an educational
+> content app (e.g. `apps/ayokoding-web/`). IKP-Labs does not have an educational
+> content app — only `kameravue-fe` and `kameravue-be`. Nothing to separate.
+> Revisit if IKP-Labs ever adds a content/blog/learning app.
 
-- [ ] Create `.claude/skills/docs-validating-software-engineering-separation/SKILL.md`
-- [ ] Defines SE-separation rules: what constitutes mixing SE and non-SE content
-- [ ] Provides compliant vs. non-compliant examples
-- [ ] Maps violation types to Diátaxis categories (tutorial, how-to, reference, explanation)
-
-### docs-software-engineering-separation-checker
-
-- [ ] Create `.claude/agents/docs-software-engineering-separation-checker.md`
-- [ ] Frontmatter: `model: sonnet`, `color: green`, skills: `docs-validating-software-engineering-separation`, `wow-criticality-assessment`
-- [ ] Body: scans `docs/`, produces line-level findings referencing rule IDs from the skill
-
-### docs-software-engineering-separation-fixer
-
-- [ ] Create `.claude/agents/docs-software-engineering-separation-fixer.md`
-- [ ] Frontmatter: `model: sonnet`, `color: yellow`, skills: `docs-validating-software-engineering-separation`, `wow-criticality-assessment`
-- [ ] Body: reads checker report, splits mixed content into appropriate Diátaxis category files
-
-**Acceptance Criteria — Phase 4:**
-
-- [ ] Skill and 2 agent files created
-- [ ] Checker references skill rule IDs in its output format description
-- [ ] Fixer explicitly states it reads checker output before acting
+- [x] ~~Create docs-validating-software-engineering-separation skill~~ — SKIPPED (N/A)
+- [x] ~~Create docs-software-engineering-separation-checker~~ — SKIPPED (N/A)
+- [x] ~~Create docs-software-engineering-separation-fixer~~ — SKIPPED (N/A)
 
 ---
 
 ## Phase 5: Medium Priority — PDF-to-MD Triad
 
-- [ ] Create `.claude/agents/pdf-to-md-maker.md`
-  - Frontmatter: `model: sonnet`, `color: purple`
-  - Body: accepts PDF path, produces `.md` preserving headings, tables, links
-- [ ] Create `.claude/agents/pdf-to-md-checker.md`
-  - Frontmatter: `model: sonnet`, `color: green`, skills: `docs-applying-content-quality`, `wow-criticality-assessment`
-  - Body: validates heading hierarchy, table formatting, link integrity in maker output
-- [ ] Create `.claude/agents/pdf-to-md-fixer.md`
-  - Frontmatter: `model: sonnet`, `color: yellow`, skills: `docs-applying-content-quality`, `wow-criticality-assessment`
-  - Body: reads checker report, corrects formatting issues
+> Split into 3 sub-phases (1 PR each) for easier revert.
+> Adapted from senior repo — `crane` CLI replaced with `pdftotext` + `tesseract` (standard tools).
 
-**Acceptance Criteria — Phase 5:**
+---
+
+## Phase 5a: pdf-to-md-maker
+
+- [x] Create `.claude/agents/pdf-to-md-maker.md`
+- [x] Frontmatter: `model: sonnet`, `color: purple`, skills: `repo-applying-maker-checker-fixer`
+- [x] Body: accepts PDF path, detects text vs image PDF, extracts with `pdftotext` (text) or `tesseract` (OCR), produces `.md` preserving headings, tables, lists, figures
+
+**Acceptance Criteria — Phase 5a:**
+
+- [x] Agent file created with valid frontmatter
+- [x] No `crane`/OSE references
+- [x] Uses `pdftotext` as primary extraction tool
+- [ ] Commit: `chore(agents): add pdf-to-md-maker`
+
+---
+
+## Phase 5b: pdf-to-md-checker
+
+- [ ] Create `.claude/agents/pdf-to-md-checker.md`
+- [ ] Frontmatter: `model: sonnet`, `color: green`, skills: `docs-applying-content-quality`, `repo-assessing-criticality-confidence`, `repo-applying-maker-checker-fixer`
+- [ ] Body: validates heading hierarchy, table formatting, text completeness, figure coverage in maker output
+
+**Acceptance Criteria — Phase 5b:**
+
+- [ ] Agent file created with valid frontmatter
+- [ ] No `crane`/OSE references
+- [ ] Commit: `chore(agents): add pdf-to-md-checker`
+
+---
+
+## Phase 5c: pdf-to-md-fixer
+
+- [ ] Create `.claude/agents/pdf-to-md-fixer.md`
+- [ ] Frontmatter: `model: sonnet`, `color: yellow`, skills: `docs-applying-content-quality`, `repo-assessing-criticality-confidence`, `repo-applying-maker-checker-fixer`
+- [ ] Body: reads checker report, re-validates findings, corrects formatting issues
+
+**Acceptance Criteria — Phase 5c:**
+
+- [ ] Agent file created with valid frontmatter
+- [ ] No `crane`/OSE references
+- [ ] Explicitly states it re-validates before acting
+- [ ] Commit: `chore(agents): add pdf-to-md-fixer`
+
+---
+
+**Acceptance Criteria — Phase 5 (all):**
 
 - [ ] All 3 agent files created
-- [ ] Checker and fixer files reference `docs-applying-content-quality` skill (already exists)
+- [ ] Checker and fixer reference `docs-applying-content-quality` and `repo-assessing-criticality-confidence` skills
 
 ---
 
