@@ -233,7 +233,7 @@ domain examples, replace with IKP-Labs domains).
 - [x] Agent file created with valid frontmatter
 - [x] No `crane`/OSE references
 - [x] Explicitly states it re-validates before acting
-- [ ] Commit: `chore(agents): add pdf-to-md-fixer`
+- [x] Commit: `chore(agents): add pdf-to-md-fixer`
 
 ---
 
