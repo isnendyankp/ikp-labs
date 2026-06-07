@@ -204,20 +204,20 @@ domain examples, replace with IKP-Labs domains).
 - [x] Agent file created with valid frontmatter
 - [x] No `crane`/OSE references
 - [x] Uses `pdftotext` as primary extraction tool
-- [ ] Commit: `chore(agents): add pdf-to-md-maker`
+- [x] Commit: `chore(agents): add pdf-to-md-maker`
 
 ---
 
 ## Phase 5b: pdf-to-md-checker
 
-- [ ] Create `.claude/agents/pdf-to-md-checker.md`
-- [ ] Frontmatter: `model: sonnet`, `color: green`, skills: `docs-applying-content-quality`, `repo-assessing-criticality-confidence`, `repo-applying-maker-checker-fixer`
-- [ ] Body: validates heading hierarchy, table formatting, text completeness, figure coverage in maker output
+- [x] Create `.claude/agents/pdf-to-md-checker.md`
+- [x] Frontmatter: `model: sonnet`, `color: green`, skills: `docs-applying-content-quality`, `repo-assessing-criticality-confidence`, `repo-applying-maker-checker-fixer`
+- [x] Body: validates heading hierarchy, table formatting, text completeness, figure coverage in maker output
 
 **Acceptance Criteria — Phase 5b:**
 
-- [ ] Agent file created with valid frontmatter
-- [ ] No `crane`/OSE references
+- [x] Agent file created with valid frontmatter
+- [x] No `crane`/OSE references
 - [ ] Commit: `chore(agents): add pdf-to-md-checker`
 
 ---
