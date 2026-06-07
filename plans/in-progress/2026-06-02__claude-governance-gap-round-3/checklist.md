@@ -218,21 +218,21 @@ domain examples, replace with IKP-Labs domains).
 
 - [x] Agent file created with valid frontmatter
 - [x] No `crane`/OSE references
-- [ ] Commit: `chore(agents): add pdf-to-md-checker`
+- [x] Commit: `chore(agents): add pdf-to-md-checker`
 
 ---
 
 ## Phase 5c: pdf-to-md-fixer
 
-- [ ] Create `.claude/agents/pdf-to-md-fixer.md`
-- [ ] Frontmatter: `model: sonnet`, `color: yellow`, skills: `docs-applying-content-quality`, `repo-assessing-criticality-confidence`, `repo-applying-maker-checker-fixer`
-- [ ] Body: reads checker report, re-validates findings, corrects formatting issues
+- [x] Create `.claude/agents/pdf-to-md-fixer.md`
+- [x] Frontmatter: `model: sonnet`, `color: yellow`, skills: `docs-applying-content-quality`, `repo-assessing-criticality-confidence`, `repo-applying-maker-checker-fixer`
+- [x] Body: reads checker report, re-validates findings, corrects formatting issues
 
 **Acceptance Criteria — Phase 5c:**
 
-- [ ] Agent file created with valid frontmatter
-- [ ] No `crane`/OSE references
-- [ ] Explicitly states it re-validates before acting
+- [x] Agent file created with valid frontmatter
+- [x] No `crane`/OSE references
+- [x] Explicitly states it re-validates before acting
 - [ ] Commit: `chore(agents): add pdf-to-md-fixer`
 
 ---
