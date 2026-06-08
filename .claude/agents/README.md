@@ -69,6 +69,16 @@ Skills used: `docs-validating-links`, `wow-criticality-assessment`
 
 > No Maker in this domain — links are created as part of writing docs, not as a standalone artifact.
 
+### PDF to Markdown
+
+| File                   | Agent name          | Role    |
+| ---------------------- | ------------------- | ------- |
+| `pdf-to-md-maker.md`   | `pdf-to-md-maker`   | Maker   |
+| `pdf-to-md-checker.md` | `pdf-to-md-checker` | Checker |
+| `pdf-to-md-fixer.md`   | `pdf-to-md-fixer`   | Fixer   |
+
+Skills used: `docs-applying-content-quality`, `repo-assessing-criticality-confidence`, `repo-applying-maker-checker-fixer`
+
 ### Readme
 
 | File               | Agent name       | Role    |
@@ -110,6 +120,17 @@ Skills used: `repo-understanding-repository-architecture`, `repo-generating-vali
 
 Skills used: `repo-defining-workflows`, `repo-practicing-trunk-based-development`, `repo-understanding-repository-architecture`, `wow-criticality-assessment`
 
+### Repo Harness Compatibility
+
+| File                                  | Agent name                       | Role    |
+| ------------------------------------- | -------------------------------- | ------- |
+| `repo-harness-compatibility-checker.md` | `repo-harness-compatibility-checker` | Checker |
+| `repo-harness-compatibility-fixer.md`  | `repo-harness-compatibility-fixer`   | Fixer   |
+
+Skills used: `repo-understanding-repository-architecture`, `wow-criticality-assessment`
+
+> No Maker in this domain — harness config is authored manually; agents only validate and fix.
+
 ### SWE UI
 
 | File                 | Agent name      | Role    |
@@ -142,9 +163,10 @@ Single-purpose agents that do not belong to a triad.
 | `agent-maker.md`          | `agent-maker`           | Create new Claude Code agent files           |
 | `docs-file-manager.md`    | `docs-file-manager`     | Safe file management inside `docs/`          |
 | `plan-execution-checker.md` | `plan-execution-checker` | Final quality gate before archiving plans |
+| `repo-setup-manager.md`   | `repo-setup-manager`    | Set up fresh repo clone for local development|
 | `web-research-maker.md`   | `web-research-maker`    | Isolated web research with confidence tagging|
 
-Skills used: `agent-developing-agents`, `docs-applying-content-quality`, `plan-creating-project-plans`, `wow-criticality-assessment`
+Skills used: `agent-developing-agents`, `docs-applying-content-quality`, `plan-creating-project-plans`, `repo-understanding-repository-architecture`, `repo-applying-maker-checker-fixer`, `wow-criticality-assessment`
 
 ---
 
