@@ -246,20 +246,21 @@ domain examples, replace with IKP-Labs domains).
 
 ## Phase 6: Medium Priority — Docs Tutorial Triad
 
-- [ ] Create `.claude/agents/docs-tutorial-maker.md`
-  - Frontmatter: `model: sonnet`, `color: purple`, skills: `docs-applying-diataxis-framework`, `docs-applying-content-quality`
-  - Body: creates Diátaxis tutorial drafts with prerequisites, ordered steps, expected outcomes
-- [ ] Create `.claude/agents/docs-tutorial-checker.md`
-  - Frontmatter: `model: sonnet`, `color: green`, skills: `docs-applying-diataxis-framework`, `wow-criticality-assessment`
-  - Body: validates tutorial against Diátaxis structure, checks step ordering and learning outcomes
-- [ ] Create `.claude/agents/docs-tutorial-fixer.md`
-  - Frontmatter: `model: sonnet`, `color: yellow`, skills: `docs-applying-diataxis-framework`, `wow-criticality-assessment`
-  - Body: corrects violations without altering compliant sections
+> **SKIPPED** — Not applicable to IKP-Labs.
+>
+> This phase assumes a dedicated educational content app (e.g. `apps/ayokoding-web/`) that
+> consumes high-volume tutorial content. IKP-Labs does not have such an app — only
+> `kameravue-fe` and `kameravue-be`. General tutorial docs in `docs/tutorials/` can be
+> handled by the existing `documentation-writer` agent.
+> Revisit if IKP-Labs ever adds an educational content app.
+
+- [x] ~~Create `.claude/agents/docs-tutorial-maker.md`~~ — SKIPPED (N/A)
+- [x] ~~Create `.claude/agents/docs-tutorial-checker.md`~~ — SKIPPED (N/A)
+- [x] ~~Create `.claude/agents/docs-tutorial-fixer.md`~~ — SKIPPED (N/A)
 
 **Acceptance Criteria — Phase 6:**
 
-- [ ] All 3 agent files created
-- [ ] All reference `docs-applying-diataxis-framework` skill (already exists)
+- [x] ~~All 3 agent files created~~ — SKIPPED
 
 ---
 
@@ -279,12 +280,12 @@ domain examples, replace with IKP-Labs domains).
 
 ## Phase 8: Medium Priority — Documentation Skills
 
+> **PARTIAL** — 2 of 5 skills skipped (tutorial-writing skills depend on Phase 6 which is N/A).
+
 - [ ] Create `.claude/skills/docs-creating-accessible-diagrams/SKILL.md`
   - Covers: alt text, color contrast, text equivalents, screen-reader compatibility
-- [ ] Create `.claude/skills/docs-creating-by-example-tutorials/SKILL.md`
-  - Covers: code-first format, minimal narrative, runnable examples, progressive complexity
-- [ ] Create `.claude/skills/docs-creating-in-the-field-tutorials/SKILL.md`
-  - Covers: scenario-driven format, real-world context, user role framing
+- [x] ~~Create `.claude/skills/docs-creating-by-example-tutorials/SKILL.md`~~ — SKIPPED (supports Phase 6, N/A)
+- [x] ~~Create `.claude/skills/docs-creating-in-the-field-tutorials/SKILL.md`~~ — SKIPPED (supports Phase 6, N/A)
 - [ ] Create `.claude/skills/docs-validating-factual-accuracy/SKILL.md`
   - Covers: claim verification standards, sourcing requirements, version-pinned references
 - [ ] Create `.claude/skills/repo-syncing-with-ose-primer/SKILL.md`
@@ -292,7 +293,7 @@ domain examples, replace with IKP-Labs domains).
 
 **Acceptance Criteria — Phase 8:**
 
-- [ ] All 5 skill files created
+- [ ] 3 remaining skill files created (`accessible-diagrams`, `factual-accuracy`, `ose-primer-sync`)
 - [ ] No placeholder content or TODO sections in any file
 - [ ] Each has H1 title, category/purpose metadata, overview, and last-updated footer
 
@@ -344,14 +345,17 @@ domain examples, replace with IKP-Labs domains).
 
 ### Opencode Sync Permissions
 
-- [ ] Add to `permissions.allow`: `Read(.opencode/**)`, `Write(.opencode/**)`, `Edit(.opencode/**)`, `Bash(npm run sync:claude-to-opencode:*)`
-- [ ] Verify JSON is valid after edit
+> **SKIPPED** — IKP-Labs has no `.opencode/` folder and no `sync:claude-to-opencode` scripts.
+> Revisit if opencode is adopted as an alternative Claude Code client.
+
+- [x] ~~Add to `permissions.allow`: `Read(.opencode/**)`, `Write(.opencode/**)`, `Edit(.opencode/**)`, `Bash(npm run sync:claude-to-opencode:*)`~~ — SKIPPED (N/A)
 
 **Acceptance Criteria — Phase 11:**
 
 - [ ] `settings.json` parses as valid JSON
 - [ ] Existing allow/deny entries are unchanged
-- [ ] 7 LSP entries and 4 opencode entries are present
+- [ ] 7 LSP entries present
+- [x] ~~4 opencode entries present~~ — SKIPPED (N/A)
 
 ---
 
