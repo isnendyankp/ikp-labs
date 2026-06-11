@@ -63,23 +63,27 @@ Live: https://kameravue.com
 ## Writing Rules
 
 ### Tone
+
 - Short sentences. Lots of line breaks. LinkedIn rewards white space.
 - Developer voice, not marketing voice. "I added a linting rule" not "I implemented a robust quality enforcement solution."
 - Learning in public — show the problem before the solution
 - Honest about difficulty, failures, scope changes
 
 ### Hook patterns that work
+
 - Surprising number: "9,174 violations. Across 269 files."
 - Counterintuitive insight: "You can't enforce what you haven't measured."
 - Relatable struggle: "This week I added a linting rule to my project. Then I ran it for the first time."
 
 ### What to include
+
 - Real numbers from the source (PR count, file count, test count, time)
 - Specific tool names (markdownlint-cli2, Playwright, Spring Boot, etc.)
 - The gap between expectation and reality (if present)
 - Concrete outcome (what shipped, what improved)
 
 ### What to exclude
+
 - Vague claims ("significant improvement", "much better performance") without data
 - Metrics not in the source
 - Promotional language
