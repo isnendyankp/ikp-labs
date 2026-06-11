@@ -266,15 +266,15 @@ domain examples, replace with IKP-Labs domains).
 
 ## Phase 7: Medium Priority — LinkedIn Post Maker
 
-- [ ] Create `.claude/agents/social-linkedin-post-maker.md`
+- [x] Create `.claude/agents/social-linkedin-post-maker.md`
   - Frontmatter: `model: sonnet`, `color: orange`, skills: `docs-applying-content-quality`
   - Body: accepts source (PR, changelog, or prompt), produces LinkedIn post in developer tone
   - Constraint: explicitly states it does not fabricate metrics
 
 **Acceptance Criteria — Phase 7:**
 
-- [ ] Agent file created
-- [ ] No-fabrication constraint is explicit in agent body
+- [x] Agent file created
+- [x] No-fabrication constraint is explicit in agent body
 
 ---
 
