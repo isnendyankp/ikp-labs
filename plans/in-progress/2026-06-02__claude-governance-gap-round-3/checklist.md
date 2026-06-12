@@ -282,7 +282,7 @@ domain examples, replace with IKP-Labs domains).
 
 > **PARTIAL** — 2 of 5 skills skipped (tutorial-writing skills depend on Phase 6 which is N/A).
 
-- [ ] Create `.claude/skills/docs-creating-accessible-diagrams/SKILL.md`
+- [x] Create `.claude/skills/docs-creating-accessible-diagrams/SKILL.md`
   - Covers: alt text, color contrast, text equivalents, screen-reader compatibility
 - [x] ~~Create `.claude/skills/docs-creating-by-example-tutorials/SKILL.md`~~ — SKIPPED (supports Phase 6, N/A)
 - [x] ~~Create `.claude/skills/docs-creating-in-the-field-tutorials/SKILL.md`~~ — SKIPPED (supports Phase 6, N/A)
