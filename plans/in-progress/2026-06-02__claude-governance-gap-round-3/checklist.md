@@ -286,7 +286,7 @@ domain examples, replace with IKP-Labs domains).
   - Covers: alt text, color contrast, text equivalents, screen-reader compatibility
 - [x] ~~Create `.claude/skills/docs-creating-by-example-tutorials/SKILL.md`~~ — SKIPPED (supports Phase 6, N/A)
 - [x] ~~Create `.claude/skills/docs-creating-in-the-field-tutorials/SKILL.md`~~ — SKIPPED (supports Phase 6, N/A)
-- [ ] Create `.claude/skills/docs-validating-factual-accuracy/SKILL.md`
+- [x] Create `.claude/skills/docs-validating-factual-accuracy/SKILL.md`
   - Covers: claim verification standards, sourcing requirements, version-pinned references
 - [ ] Create `.claude/skills/repo-syncing-with-ose-primer/SKILL.md`
   - Covers: diff workflow between IKP-Labs `.claude/` and ose-public primer, what to adopt vs. skip
