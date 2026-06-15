@@ -288,14 +288,14 @@ domain examples, replace with IKP-Labs domains).
 - [x] ~~Create `.claude/skills/docs-creating-in-the-field-tutorials/SKILL.md`~~ — SKIPPED (supports Phase 6, N/A)
 - [x] Create `.claude/skills/docs-validating-factual-accuracy/SKILL.md`
   - Covers: claim verification standards, sourcing requirements, version-pinned references
-- [ ] Create `.claude/skills/repo-syncing-with-ose-primer/SKILL.md`
+- [x] Create `.claude/skills/repo-syncing-with-ose-primer/SKILL.md`
   - Covers: diff workflow between IKP-Labs `.claude/` and ose-public primer, what to adopt vs. skip
 
 **Acceptance Criteria — Phase 8:**
 
-- [ ] 3 remaining skill files created (`accessible-diagrams`, `factual-accuracy`, `ose-primer-sync`)
-- [ ] No placeholder content or TODO sections in any file
-- [ ] Each has H1 title, category/purpose metadata, overview, and last-updated footer
+- [x] 3 remaining skill files created (`accessible-diagrams`, `factual-accuracy`, `ose-primer-sync`)
+- [x] No placeholder content or TODO sections in any file
+- [x] Each has H1 title, category/purpose metadata, overview, and last-updated footer
 
 ---
 
