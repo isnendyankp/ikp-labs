@@ -301,7 +301,7 @@ domain examples, replace with IKP-Labs domains).
 
 ## Phase 9: Low Priority — Language Extension Agents
 
-- [ ] Create `.claude/agents/swe-golang-dev.md`
+- [x] Create `.claude/agents/swe-golang-dev.md`
   - Frontmatter: `model: sonnet`, `color: purple`, skills: `swe-programming-golang`, `swe-developing-applications-common`
 - [ ] Create `.claude/agents/swe-rust-dev.md`
   - Frontmatter: `model: sonnet`, `color: purple`, skills: `swe-programming-rust`, `swe-developing-applications-common`
@@ -319,7 +319,7 @@ domain examples, replace with IKP-Labs domains).
 
 ## Phase 10: Low Priority — Language Extension Skills
 
-- [ ] Create `.claude/skills/swe-programming-golang/SKILL.md`
+- [x] Create `.claude/skills/swe-programming-golang/SKILL.md`
   - Covers: Go idioms, module system, error handling, testing with `go test`
 - [ ] Create `.claude/skills/swe-programming-rust/SKILL.md`
   - Covers: ownership model, Cargo, error handling with `Result`/`Option`, testing
