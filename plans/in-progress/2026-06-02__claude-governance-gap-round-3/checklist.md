@@ -303,7 +303,7 @@ domain examples, replace with IKP-Labs domains).
 
 - [x] Create `.claude/agents/swe-golang-dev.md`
   - Frontmatter: `model: sonnet`, `color: purple`, skills: `swe-programming-golang`, `swe-developing-applications-common`
-- [ ] Create `.claude/agents/swe-rust-dev.md`
+- [x] Create `.claude/agents/swe-rust-dev.md`
   - Frontmatter: `model: sonnet`, `color: purple`, skills: `swe-programming-rust`, `swe-developing-applications-common`
 - [ ] Create `.claude/agents/swe-csharp-dev.md`
   - Frontmatter: `model: sonnet`, `color: purple`, skills: `swe-programming-csharp`, `swe-developing-applications-common`
@@ -321,7 +321,7 @@ domain examples, replace with IKP-Labs domains).
 
 - [x] Create `.claude/skills/swe-programming-golang/SKILL.md`
   - Covers: Go idioms, module system, error handling, testing with `go test`
-- [ ] Create `.claude/skills/swe-programming-rust/SKILL.md`
+- [x] Create `.claude/skills/swe-programming-rust/SKILL.md`
   - Covers: ownership model, Cargo, error handling with `Result`/`Option`, testing
 - [ ] Create `.claude/skills/swe-programming-csharp/SKILL.md`
   - Covers: .NET conventions, NuGet, async/await, xUnit testing
