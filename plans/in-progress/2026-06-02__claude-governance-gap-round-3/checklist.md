@@ -307,13 +307,13 @@ domain examples, replace with IKP-Labs domains).
   - Frontmatter: `model: sonnet`, `color: purple`, skills: `swe-programming-rust`, `swe-developing-applications-common`
 - [x] Create `.claude/agents/swe-csharp-dev.md`
   - Frontmatter: `model: sonnet`, `color: purple`, skills: `swe-programming-csharp`, `swe-developing-applications-common`
-- [ ] Create `.claude/agents/swe-fsharp-dev.md`
+- [x] Create `.claude/agents/swe-fsharp-dev.md`
   - Frontmatter: `model: sonnet`, `color: purple`, skills: `swe-programming-fsharp`, `swe-developing-applications-common`
 
 **Acceptance Criteria — Phase 9:**
 
-- [ ] All 4 agent files created with correct frontmatter
-- [ ] Agents are generic (no IKP-Labs-specific stack assumptions for non-IKP languages)
+- [x] All 4 agent files created with correct frontmatter
+- [x] Agents are generic (no IKP-Labs-specific stack assumptions for non-IKP languages)
 
 ---
 
@@ -325,13 +325,13 @@ domain examples, replace with IKP-Labs domains).
   - Covers: ownership model, Cargo, error handling with `Result`/`Option`, testing
 - [x] Create `.claude/skills/swe-programming-csharp/SKILL.md`
   - Covers: .NET conventions, NuGet, async/await, xUnit testing
-- [ ] Create `.claude/skills/swe-programming-fsharp/SKILL.md`
+- [x] Create `.claude/skills/swe-programming-fsharp/SKILL.md`
   - Covers: functional-first patterns, discriminated unions, Railway-oriented programming, xUnit testing
 
 **Acceptance Criteria — Phase 10:**
 
-- [ ] All 4 skill files created with no placeholder content
-- [ ] Each follows the SKILL.md structure (H1, category/purpose, overview, content, footer)
+- [x] All 4 skill files created with no placeholder content
+- [x] Each follows the SKILL.md structure (H1, category/purpose, overview, content, footer)
 
 ---
 
