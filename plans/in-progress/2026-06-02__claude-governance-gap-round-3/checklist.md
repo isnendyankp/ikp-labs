@@ -305,7 +305,7 @@ domain examples, replace with IKP-Labs domains).
   - Frontmatter: `model: sonnet`, `color: purple`, skills: `swe-programming-golang`, `swe-developing-applications-common`
 - [x] Create `.claude/agents/swe-rust-dev.md`
   - Frontmatter: `model: sonnet`, `color: purple`, skills: `swe-programming-rust`, `swe-developing-applications-common`
-- [ ] Create `.claude/agents/swe-csharp-dev.md`
+- [x] Create `.claude/agents/swe-csharp-dev.md`
   - Frontmatter: `model: sonnet`, `color: purple`, skills: `swe-programming-csharp`, `swe-developing-applications-common`
 - [ ] Create `.claude/agents/swe-fsharp-dev.md`
   - Frontmatter: `model: sonnet`, `color: purple`, skills: `swe-programming-fsharp`, `swe-developing-applications-common`
@@ -323,7 +323,7 @@ domain examples, replace with IKP-Labs domains).
   - Covers: Go idioms, module system, error handling, testing with `go test`
 - [x] Create `.claude/skills/swe-programming-rust/SKILL.md`
   - Covers: ownership model, Cargo, error handling with `Result`/`Option`, testing
-- [ ] Create `.claude/skills/swe-programming-csharp/SKILL.md`
+- [x] Create `.claude/skills/swe-programming-csharp/SKILL.md`
   - Covers: .NET conventions, NuGet, async/await, xUnit testing
 - [ ] Create `.claude/skills/swe-programming-fsharp/SKILL.md`
   - Covers: functional-first patterns, discriminated unions, Railway-oriented programming, xUnit testing
