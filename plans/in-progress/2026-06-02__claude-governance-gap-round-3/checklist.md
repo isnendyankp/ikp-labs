@@ -361,20 +361,21 @@ domain examples, replace with IKP-Labs domains).
 
 ## Phase 12: Housekeeping
 
-- [ ] Update `plans/ideas.md` — mark Round 3 Active Ideas section as implemented (strikethrough + archive note)
-- [ ] Update `plans/README.md` — add Round 3 plan to the In Progress section listing
-- [ ] Verify markdown lint passes on all new files
+- [x] Update `plans/ideas.md` — mark Round 3 Active Ideas section as implemented (strikethrough + archive note)
+- [x] Update `plans/README.md` — add Round 3 plan to the In Progress section listing
+- [x] Update `.claude/agents/README.md` — add `social-linkedin-post-maker` to Standalone Utility Agents
+- [x] Verify markdown lint passes on all new files
 
 ---
 
 ## Phase 13: Ship
 
-- [ ] Commit all new agents (High, Medium, Low) with `chore(agents): ...`
-- [ ] Commit all new skills (High, Medium, Low) with `chore(skills): ...`
-- [ ] Commit settings.json additions with `chore(config): add lsp plugins and opencode permissions`
-- [ ] Commit ideas.md update with `chore(ideas): mark round-3 items as implemented`
-- [ ] Push branch and create PR
-- [ ] Merge PR
+- [x] Commit all new agents (High, Medium, Low) with `chore(agents): ...` — done per individual PR
+- [x] Commit all new skills (High, Medium, Low) with `chore(skills): ...` — done per individual PR
+- [x] Commit settings.json additions with `chore(config): add lsp plugins` — PR #179
+- [x] Commit ideas.md update with housekeeping PR
+- [x] Push branch and create PR
+- [x] Merge PR
 - [ ] Move plan to `done/2026-06-02__claude-governance-gap-round-3/`
 - [ ] Commit plan move with `docs(plan): move claude-governance-gap-round-3 to done`
 

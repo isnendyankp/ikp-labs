@@ -115,6 +115,8 @@ in-progress/
     └── checklist.md
 ```
 
+> Note: `2026-06-02__claude-governance-gap-round-3/` moved to `done/` on 2026-06-20.
+
 ### Backlog
 
 ```text
@@ -232,7 +234,7 @@ For **permanent** documentation, see:
 
 ## 📊 Quick Stats
 
-**Completed Projects**: 17
+**Completed Projects**: 18
 
 - Unit Testing (Nov 4, 2024)
 - Profile Picture E2E (Nov 4, 2024)
@@ -250,6 +252,7 @@ For **permanent** documentation, see:
 - Mobile UX Improvements (Jan 29, 2026)
 - Bug Analysis & Testing Coverage (Feb 2, 2026)
 - DRY Violations Fix (Feb 8, 2026)
+- Claude Governance Gap Round 3 (Jun 20, 2026)
 
 **In Progress**: 1
 
@@ -261,4 +264,4 @@ For **permanent** documentation, see:
 
 ---
 
-**Last Updated**: February 12, 2026
+**Last Updated**: June 20, 2026
