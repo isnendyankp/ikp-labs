@@ -339,9 +339,9 @@ domain examples, replace with IKP-Labs domains).
 
 ### LSP Plugins
 
-- [ ] Read `.claude/settings.json` to locate the `plugins` array (or equivalent key)
-- [ ] Add 7 LSP plugin entries: `gopls-lsp`, `rust-analyzer-lsp`, `pyright-lsp`, `kotlin-lsp`, `lua-lsp`, `swift-lsp`, `frontend-design` (all `@claude-plugins-official`)
-- [ ] Verify JSON is valid after edit
+- [x] Read `.claude/settings.json` to locate the `plugins` array (or equivalent key)
+- [x] Add 7 LSP plugin entries: `gopls-lsp`, `rust-analyzer-lsp`, `pyright-lsp`, `kotlin-lsp`, `lua-lsp`, `swift-lsp`, `frontend-design` (all `@claude-plugins-official`)
+- [x] Verify JSON is valid after edit
 
 ### Opencode Sync Permissions
 
@@ -352,9 +352,9 @@ domain examples, replace with IKP-Labs domains).
 
 **Acceptance Criteria — Phase 11:**
 
-- [ ] `settings.json` parses as valid JSON
-- [ ] Existing allow/deny entries are unchanged
-- [ ] 7 LSP entries present
+- [x] `settings.json` parses as valid JSON
+- [x] Existing allow/deny entries are unchanged
+- [x] 7 LSP entries present
 - [x] ~~4 opencode entries present~~ — SKIPPED (N/A)
 
 ---
