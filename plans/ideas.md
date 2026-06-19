@@ -8,53 +8,9 @@ Quick concept snippets and brainstorming notes that haven't been formalized into
 
 <!-- Add new ideas here with date -->
 
-### 2026-06-02: Claude Governance Gap Round 3 — Adopt More ose-public `.claude/` Patterns
+~~### 2026-06-02: Claude Governance Gap Round 3 — Adopt More ose-public `.claude/` Patterns~~
 
-Identified by re-comparing IKP-Labs `.claude/` vs `wahidyankf/ose-public` on 2026-06-02.
-
-#### Critical (Security)
-
-- `block-env-file-access.sh` hook + wiring in `settings.json` — PreToolUse guard that blocks Claude from reading/writing `.env*` files; ose-public has this for `Read|Write|Edit|MultiEdit` matcher
-- `.env*` deny permissions in `settings.json` — explicit deny rules for `.env`, `.env.local`, `.env.*.local`, `.env.development`, `.env.production`, `.env.staging`, `.env.test`; allow `.env.example`
-
-#### High Priority — Agents
-
-- `repo-harness-compatibility-checker` + `repo-harness-compatibility-fixer` — validates/fixes Claude harness compatibility issues
-- `repo-setup-manager` — manages initial repo setup workflow
-
-#### High Priority — Skills
-
-- `grill-me` — interactive knowledge testing/review skill
-- `plan-writing-gherkin-criteria` — Gherkin acceptance criteria writing standard
-- `repo-applying-maker-checker-fixer` — MCF pattern application guide
-- `repo-assessing-criticality-confidence` — criticality + confidence assessment (may overlap with `wow-criticality-assessment`, evaluate before implementing)
-- `docs-validating-software-engineering-separation` skill + `docs-software-engineering-separation-checker/fixer` agents — validates docs don't mix SE concerns with non-SE content
-
-#### Medium Priority — Agents
-
-- `pdf-to-md-maker/checker/fixer` triad — PDF to markdown conversion pipeline
-- `docs-tutorial-maker/checker/fixer` triad — tutorial docs creation/validation
-- `social-linkedin-post-maker` — creates LinkedIn posts from project content
-
-#### Medium Priority — Skills
-
-- `docs-creating-accessible-diagrams` — diagram accessibility standards
-- `docs-creating-by-example-tutorials` — "by example" tutorial format guide
-- `docs-creating-in-the-field-tutorials` — "in the field" tutorial format guide
-- `docs-validating-factual-accuracy` — fact-checking documentation standards
-- `repo-syncing-with-ose-primer` — OSE primer sync workflow (includes 5 reference sub-docs)
-
-#### Low Priority — Agents + Skills
-
-- `swe-golang-dev` + skill `swe-programming-golang`
-- `swe-rust-dev` + skill `swe-programming-rust`
-- `swe-csharp-dev` + skill `swe-programming-csharp`
-- `swe-fsharp-dev` + skill `swe-programming-fsharp`
-
-#### Low Priority — Settings
-
-- Additional LSP plugins in `settings.json`: `gopls-lsp`, `rust-analyzer-lsp`, `pyright-lsp`, `kotlin-lsp`, `lua-lsp`, `swift-lsp`, `frontend-design` (all `@claude-plugins-official`)
-- opencode sync permissions: `Read(.opencode/**)`, `Write(.opencode/**)`, `Edit(.opencode/**)`, `Bash(npm run sync:claude-to-opencode:*)`
+~~**All priorities fully implemented (2026-06-02 to 2026-06-20). See Archive below.**~~
 
 ~~### 2026-05-24: Claude Governance Gap Round 2 — Adopt More ose-public `.claude/` Patterns~~
 
@@ -67,6 +23,18 @@ Identified by re-comparing IKP-Labs `.claude/` vs `wahidyankf/ose-public` on 202
 <!-- Ideas that have been implemented or rejected -->
 
 ### ✅ Implemented
+
+- **Claude Governance Gap Round 3 — ALL DONE** (completed 2026-06-02 to 2026-06-20)
+  - Phase 1 (Critical): `block-env-file-access.sh` hook + `.env*` deny permissions
+  - Phase 2–3 (High): `repo-harness-compatibility-checker/fixer`, `repo-setup-manager`, skills: `grill-me`, `plan-writing-gherkin-criteria`, `repo-applying-maker-checker-fixer`, `repo-assessing-criticality-confidence`
+  - Phase 4 (Skipped): SE separation — N/A for IKP-Labs
+  - Phase 5 (Medium): `pdf-to-md-maker/checker/fixer` triad
+  - Phase 6 (Skipped): `docs-tutorial` triad — no `apps/ayokoding-web/` equivalent
+  - Phase 7 (Medium): `social-linkedin-post-maker`
+  - Phase 8 (Medium): skills `docs-creating-accessible-diagrams`, `docs-validating-factual-accuracy`, `repo-syncing-with-ose-primer` (tutorial skills skipped — depend on Phase 6)
+  - Phase 9–10 (Low): `swe-golang-dev/rust-dev/csharp-dev/fsharp-dev` + matching skills
+  - Phase 11 (Low): 7 LSP plugins added to `settings.json` (opencode permissions skipped — N/A)
+  - Implemented across PRs #154–#179
 
 - **Claude Governance Gap Round 2 — ALL DONE** (completed 2026-05-25 to 2026-05-31)
   - All high, medium, and low priority items implemented across 5 PRs (#147–#151)
@@ -206,4 +174,4 @@ is currently paused. Revisit if KameraVue development resumes.
 
 ---
 
-**Last Updated**: June 2, 2026 (Claude Governance Gap Round 3 added to Active Ideas)
+**Last Updated**: June 20, 2026 (Claude Governance Gap Round 3 moved to Archive — fully implemented)

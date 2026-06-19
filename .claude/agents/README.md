@@ -158,13 +158,14 @@ Skills used: `swe-programming-typescript`, `swe-programming-java`, `swe-developi
 
 Single-purpose agents that do not belong to a triad.
 
-| File                      | Agent name              | Purpose                                      |
-| ------------------------- | ----------------------- | -------------------------------------------- |
-| `agent-maker.md`          | `agent-maker`           | Create new Claude Code agent files           |
-| `docs-file-manager.md`    | `docs-file-manager`     | Safe file management inside `docs/`          |
-| `plan-execution-checker.md` | `plan-execution-checker` | Final quality gate before archiving plans |
-| `repo-setup-manager.md`   | `repo-setup-manager`    | Set up fresh repo clone for local development|
-| `web-research-maker.md`   | `web-research-maker`    | Isolated web research with confidence tagging|
+| File                             | Agent name                   | Purpose                                        |
+| -------------------------------- | ---------------------------- | ---------------------------------------------- |
+| `agent-maker.md`                 | `agent-maker`                | Create new Claude Code agent files             |
+| `docs-file-manager.md`           | `docs-file-manager`          | Safe file management inside `docs/`            |
+| `plan-execution-checker.md`      | `plan-execution-checker`     | Final quality gate before archiving plans      |
+| `repo-setup-manager.md`          | `repo-setup-manager`         | Set up fresh repo clone for local development  |
+| `social-linkedin-post-maker.md`  | `social-linkedin-post-maker` | Generate LinkedIn posts from PRs or progress   |
+| `web-research-maker.md`          | `web-research-maker`         | Isolated web research with confidence tagging  |
 
 Skills used: `agent-developing-agents`, `docs-applying-content-quality`, `plan-creating-project-plans`, `repo-understanding-repository-architecture`, `repo-applying-maker-checker-fixer`, `wow-criticality-assessment`
 
