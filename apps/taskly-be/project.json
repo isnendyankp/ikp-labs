@@ -1,0 +1,28 @@
+{
+  "name": "taskly-be",
+  "projectType": "application",
+  "root": "apps/taskly-be",
+  "targets": {
+    "serve": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "go run ./cmd/server/",
+        "cwd": "apps/taskly-be"
+      }
+    },
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "go build -o dist/taskly-be ./cmd/server/",
+        "cwd": "apps/taskly-be"
+      }
+    },
+    "lint": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "go vet ./... && gofmt -l .",
+        "cwd": "apps/taskly-be"
+      }
+    }
+  }
+}
