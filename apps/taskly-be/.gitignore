@@ -1,0 +1,6 @@
+taskly-be
+server
+*.exe
+.env
+dist/
+tmp/
