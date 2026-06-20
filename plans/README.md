@@ -108,7 +108,12 @@ done/
 
 ```text
 in-progress/
-└── 2026-02-11__frontend-unit-tests/
+├── 2026-02-11__frontend-unit-tests/
+│   ├── README.md
+│   ├── requirements.md
+│   ├── technical-design.md
+│   └── checklist.md
+└── 2026-06-20__taskly-be-go-auth/
     ├── README.md
     ├── requirements.md
     ├── technical-design.md
@@ -254,9 +259,10 @@ For **permanent** documentation, see:
 - DRY Violations Fix (Feb 8, 2026)
 - Claude Governance Gap Round 3 (Jun 20, 2026)
 
-**In Progress**: 1
+**In Progress**: 2
 
 - Frontend Unit Tests (Feb 11, 2026)
+- Taskly Backend Go Auth (Jun 20, 2026)
 
 **Backlog**: 1
 
