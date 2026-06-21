@@ -1,5 +1,5 @@
 taskly-be
-server
+/server
 *.exe
 .env
 dist/
