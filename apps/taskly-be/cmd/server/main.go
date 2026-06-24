@@ -30,13 +30,14 @@ func main() {
 	log.Printf("database connected and migrations applied")
 
 	userRepo := repository.NewUserRepository(conn)
-	authService := service.NewAuthService(userRepo)
+	authService := service.NewAuthService(userRepo, cfg.JWTSecret)
 	authHandler := handler.NewAuthHandler(authService)
 
 	router := gin.Default()
 
 	auth := router.Group("/api/auth")
 	auth.POST("/register", authHandler.Register)
+	auth.POST("/login", authHandler.Login)
 
 	log.Printf("server listening on :%s", cfg.ServerPort)
 	if err := router.Run(":" + cfg.ServerPort); err != nil {
