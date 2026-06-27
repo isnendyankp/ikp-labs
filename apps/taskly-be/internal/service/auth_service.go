@@ -25,6 +25,7 @@ type LoginInput struct {
 type AuthService interface {
 	Register(ctx context.Context, input RegisterInput) (*repository.User, error)
 	Login(ctx context.Context, input LoginInput) (string, error)
+	GetUserByID(ctx context.Context, id int64) (*repository.User, error)
 }
 
 type authService struct {
@@ -52,6 +53,17 @@ func (s *authService) Register(ctx context.Context, input RegisterInput) (*repos
 		return nil, err
 	}
 
+	return user, nil
+}
+
+func (s *authService) GetUserByID(ctx context.Context, id int64) (*repository.User, error) {
+	user, err := s.userRepo.FindByID(ctx, id)
+	if err != nil {
+		if errors.Is(err, repository.ErrUserNotFound) {
+			return nil, ErrUserNotFound
+		}
+		return nil, err
+	}
 	return user, nil
 }
 

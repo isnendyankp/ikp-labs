@@ -52,6 +52,28 @@ type loginResponse struct {
 	Token string `json:"token"`
 }
 
+type meResponse struct {
+	ID    int64  `json:"id"`
+	Email string `json:"email"`
+}
+
+func (h *AuthHandler) Me(c *gin.Context) {
+	val, _ := c.Get("userID")
+	userID, ok := val.(int64)
+	if !ok {
+		c.JSON(http.StatusInternalServerError, errorResponse{"internal server error"})
+		return
+	}
+
+	user, err := h.authService.GetUserByID(c.Request.Context(), userID)
+	if err != nil {
+		respondError(c, err)
+		return
+	}
+
+	c.JSON(http.StatusOK, meResponse{ID: user.ID, Email: user.Email})
+}
+
 func (h *AuthHandler) Login(c *gin.Context) {
 	var req loginRequest
 	if err := c.ShouldBindJSON(&req); err != nil {
