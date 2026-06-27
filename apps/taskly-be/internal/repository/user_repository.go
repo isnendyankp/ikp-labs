@@ -58,5 +58,16 @@ func (r *pgUserRepository) FindByEmail(ctx context.Context, email string) (*User
 }
 
 func (r *pgUserRepository) FindByID(ctx context.Context, id int64) (*User, error) {
-	return nil, ErrUserNotFound
+	u := &User{}
+	err := r.db.QueryRowContext(ctx,
+		`SELECT id, email, created_at FROM users WHERE id = $1`,
+		id,
+	).Scan(&u.ID, &u.Email, &u.CreatedAt)
+	if err != nil {
+		if errors.Is(err, sql.ErrNoRows) {
+			return nil, ErrUserNotFound
+		}
+		return nil, err
+	}
+	return u, nil
 }

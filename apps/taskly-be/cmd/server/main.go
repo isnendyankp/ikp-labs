@@ -7,6 +7,7 @@ import (
 	"github.com/isnendyankp/taskly-be/internal/config"
 	"github.com/isnendyankp/taskly-be/internal/db"
 	"github.com/isnendyankp/taskly-be/internal/handler"
+	"github.com/isnendyankp/taskly-be/internal/middleware"
 	"github.com/isnendyankp/taskly-be/internal/repository"
 	"github.com/isnendyankp/taskly-be/internal/service"
 )
@@ -38,6 +39,9 @@ func main() {
 	auth := router.Group("/api/auth")
 	auth.POST("/register", authHandler.Register)
 	auth.POST("/login", authHandler.Login)
+
+	protected := router.Group("/api", middleware.AuthRequired(cfg.JWTSecret))
+	protected.GET("/me", authHandler.Me)
 
 	log.Printf("server listening on :%s", cfg.ServerPort)
 	if err := router.Run(":" + cfg.ServerPort); err != nil {
