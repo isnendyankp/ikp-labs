@@ -258,11 +258,11 @@ For **permanent** documentation, see:
 - Bug Analysis & Testing Coverage (Feb 2, 2026)
 - DRY Violations Fix (Feb 8, 2026)
 - Claude Governance Gap Round 3 (Jun 20, 2026)
+- Taskly Backend Go Auth (Jun 20, 2026)
 
-**In Progress**: 2
+**In Progress**: 1
 
 - Frontend Unit Tests (Feb 11, 2026)
-- Taskly Backend Go Auth (Jun 20, 2026)
 
 **Backlog**: 1
 
@@ -270,4 +270,4 @@ For **permanent** documentation, see:
 
 ---
 
-**Last Updated**: June 20, 2026
+**Last Updated**: June 29, 2026
