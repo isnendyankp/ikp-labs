@@ -645,7 +645,7 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
 
 ### Task 5.1: Create tasks.feature
 
-- [ ] Create `specs/taskly-be/tasks.feature`:
+- [x] Create `specs/taskly-be/tasks.feature`:
 
 ```gherkin
 Feature: Task management
@@ -766,14 +766,14 @@ Feature: Task management
 
 ### Task 5.2: Verify 1-1-1 rule compliance
 
-- [ ] Re-read the feature file and confirm every scenario has exactly one `Given`, one `When`, and one `Then`
-- [ ] The `Background` block does not count as the `Given` for the 1-1-1 rule — each scenario's inline `Given` counts
+- [x] Re-read the feature file and confirm every scenario has exactly one `Given`, one `When`, and one `Then`
+- [x] The `Background` block does not count as the `Given` for the 1-1-1 rule — each scenario's inline `Given` counts
 
 ### Task 5.3: Commit and open PR
 
-- [ ] Stage: `specs/taskly-be/tasks.feature`
-- [ ] Commit message: `docs(taskly-be): add gherkin specs for task CRUD`
-- [ ] Push branch `docs/taskly-be-task-crud-specs` and open PR
+- [x] Stage: `specs/taskly-be/tasks.feature`
+- [x] Commit message: `docs(taskly-be): add gherkin specs for task CRUD`
+- [x] Push branch `docs/taskly-be-task-crud-specs` and open PR
 
 **Acceptance Criteria**:
 
@@ -820,20 +820,20 @@ Before moving this plan to `plans/done/`, verify every item below:
 - [ ] After delete, `GET /api/tasks/:id` returns `404` for the deleted task
 - [ ] Any task endpoint without `Authorization` header returns `401`
 - [ ] All 5 PRs merged to `main`
-- [ ] `specs/taskly-be/tasks.feature` committed and present
+- [x] `specs/taskly-be/tasks.feature` committed and present
 
 ---
 
 ## Progress Tracking
 
-| PR                     | Status          |
-| ---------------------- | --------------- |
-| PR 1 — Tasks Migration | [ ] Not started |
-| PR 2 — Task Repository | [ ] Not started |
-| PR 3 — Task Service    | [ ] Not started |
-| PR 4 — Task Handlers   | [ ] Not started |
-| PR 5 — Gherkin Specs   | [ ] Not started |
+| PR                     | Status      |
+| ---------------------- | ----------- |
+| PR 1 — Tasks Migration | [x] Merged  |
+| PR 2 — Task Repository | [x] Merged  |
+| PR 3 — Task Service    | [x] Merged  |
+| PR 4 — Task Handlers   | [x] Merged  |
+| PR 5 — Gherkin Specs   | [x] Open PR |
 
-**Overall**: 0/5 PRs merged
+**Overall**: 4/5 PRs merged
 
 **Last Updated**: July 3, 2026

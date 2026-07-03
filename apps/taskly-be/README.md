@@ -73,11 +73,28 @@ nx run taskly-be:lint
 
 ## API Endpoints
 
-| Method | Path                 | Auth Required | Description                  |
-| ------ | -------------------- | ------------- | ---------------------------- |
-| POST   | `/api/auth/register` | No            | Register a new user          |
-| POST   | `/api/auth/login`    | No            | Login and receive a JWT      |
-| GET    | `/api/me`            | Bearer JWT    | Get the current user profile |
+### Auth (public)
+
+| Method | Path                 | Auth Required | Description             |
+| ------ | -------------------- | ------------- | ----------------------- |
+| POST   | `/api/auth/register` | No            | Register a new user     |
+| POST   | `/api/auth/login`    | No            | Login and receive a JWT |
+
+### Profile (protected)
+
+| Method | Path      | Auth Required | Description                  |
+| ------ | --------- | ------------- | ---------------------------- |
+| GET    | `/api/me` | Bearer JWT    | Get the current user profile |
+
+### Tasks (protected)
+
+| Method | Path             | Auth Required | Description                     |
+| ------ | ---------------- | ------------- | ------------------------------- |
+| POST   | `/api/tasks`     | Bearer JWT    | Create a new task               |
+| GET    | `/api/tasks`     | Bearer JWT    | List all tasks for current user |
+| GET    | `/api/tasks/:id` | Bearer JWT    | Get a single task by id         |
+| PUT    | `/api/tasks/:id` | Bearer JWT    | Update task title and/or status |
+| DELETE | `/api/tasks/:id` | Bearer JWT    | Delete a task (returns 204)     |
 
 ## Example Requests
 
@@ -102,5 +119,44 @@ TOKEN=$(curl -s -X POST http://localhost:8082/api/auth/login \
 
 ```bash
 curl -s http://localhost:8082/api/me \
+  -H "Authorization: Bearer $TOKEN"
+```
+
+### Create a task
+
+```bash
+curl -s -X POST http://localhost:8082/api/tasks \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{"title":"Buy groceries"}'
+```
+
+### List tasks
+
+```bash
+curl -s http://localhost:8082/api/tasks \
+  -H "Authorization: Bearer $TOKEN"
+```
+
+### Get a task
+
+```bash
+curl -s http://localhost:8082/api/tasks/1 \
+  -H "Authorization: Bearer $TOKEN"
+```
+
+### Update a task
+
+```bash
+curl -s -X PUT http://localhost:8082/api/tasks/1 \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer $TOKEN" \
+  -d '{"status":"done"}'
+```
+
+### Delete a task
+
+```bash
+curl -s -X DELETE http://localhost:8082/api/tasks/1 \
   -H "Authorization: Bearer $TOKEN"
 ```
