@@ -97,7 +97,17 @@ done/
 │   ├── photo-gallery-feature-summary.md
 │   ├── photo-gallery-progress-checklist.md
 │   └── photo-gallery-test-plan.md
-└── 2024-12-10__photo-likes-feature/
+├── 2024-12-10__photo-likes-feature/
+│   ├── README.md
+│   ├── requirements.md
+│   ├── technical-design.md
+│   └── checklist.md
+├── 2026-06-20__taskly-be-go-auth/
+│   ├── README.md
+│   ├── requirements.md
+│   ├── technical-design.md
+│   └── checklist.md
+└── 2026-07-03__taskly-be-task-crud/
     ├── README.md
     ├── requirements.md
     ├── technical-design.md
@@ -108,12 +118,7 @@ done/
 
 ```text
 in-progress/
-├── 2026-02-11__frontend-unit-tests/
-│   ├── README.md
-│   ├── requirements.md
-│   ├── technical-design.md
-│   └── checklist.md
-└── 2026-06-20__taskly-be-go-auth/
+└── 2026-02-11__frontend-unit-tests/
     ├── README.md
     ├── requirements.md
     ├── technical-design.md
@@ -121,6 +126,7 @@ in-progress/
 ```
 
 > Note: `2026-06-02__claude-governance-gap-round-3/` moved to `done/` on 2026-06-20.
+> Note: `2026-07-03__taskly-be-task-crud/` moved to `done/` on 2026-07-03.
 
 ### Backlog
 
@@ -239,7 +245,7 @@ For **permanent** documentation, see:
 
 ## 📊 Quick Stats
 
-**Completed Projects**: 18
+**Completed Projects**: 19
 
 - Unit Testing (Nov 4, 2024)
 - Profile Picture E2E (Nov 4, 2024)
@@ -259,6 +265,7 @@ For **permanent** documentation, see:
 - DRY Violations Fix (Feb 8, 2026)
 - Claude Governance Gap Round 3 (Jun 20, 2026)
 - Taskly Backend Go Auth (Jun 20, 2026)
+- Taskly Backend Task CRUD (Jul 3, 2026)
 
 **In Progress**: 1
 
@@ -270,4 +277,4 @@ For **permanent** documentation, see:
 
 ---
 
-**Last Updated**: June 29, 2026
+**Last Updated**: July 3, 2026
