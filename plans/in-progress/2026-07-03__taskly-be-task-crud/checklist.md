@@ -213,20 +213,20 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
 
 ### Task 3.1: Extend errors.go with new sentinels
 
-- [ ] Open `apps/taskly-be/internal/service/errors.go`
-- [ ] Add the two new sentinel errors below the existing ones:
+- [x] Open `apps/taskly-be/internal/service/errors.go`
+- [x] Add the two new sentinel errors below the existing ones:
 
   ```go
   var ErrTaskNotFound = errors.New("task not found")
   var ErrForbidden    = errors.New("forbidden")
   ```
 
-- [ ] Verify `go build ./...` exits 0
+- [x] Verify `go build ./...` exits 0
 
 ### Task 3.2: Create task_service.go with types
 
-- [ ] Create `apps/taskly-be/internal/service/task_service.go`
-- [ ] Define `CreateTaskInput` and `UpdateTaskInput` types:
+- [x] Create `apps/taskly-be/internal/service/task_service.go`
+- [x] Define `CreateTaskInput` and `UpdateTaskInput` types:
 
   ```go
   type CreateTaskInput struct {
@@ -239,7 +239,7 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
   }
   ```
 
-- [ ] Define the `TaskService` interface:
+- [x] Define the `TaskService` interface:
 
   ```go
   type TaskService interface {
@@ -251,7 +251,7 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
   }
   ```
 
-- [ ] Define `taskService` struct and `NewTaskService` constructor:
+- [x] Define `taskService` struct and `NewTaskService` constructor:
 
   ```go
   type taskService struct {
@@ -265,19 +265,19 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
 
 ### Task 3.3: Implement CreateTask
 
-- [ ] Implement `CreateTask(ctx context.Context, userID int64, input CreateTaskInput) (*repository.Task, error)`:
+- [x] Implement `CreateTask(ctx context.Context, userID int64, input CreateTaskInput) (*repository.Task, error)`:
   - Call `s.taskRepo.CreateTask(ctx, userID, input.Title)`
   - Propagate any error directly (no special wrapping needed — the repo doesn't return task-specific sentinels for create)
 
 ### Task 3.4: Implement ListTasks
 
-- [ ] Implement `ListTasks(ctx context.Context, userID int64) ([]*repository.Task, error)`:
+- [x] Implement `ListTasks(ctx context.Context, userID int64) ([]*repository.Task, error)`:
   - Call `s.taskRepo.FindTasksByUserID(ctx, userID)`
   - Propagate any error directly
 
 ### Task 3.5: Implement GetTask with ownership check
 
-- [ ] Implement `GetTask(ctx context.Context, userID, taskID int64) (*repository.Task, error)`:
+- [x] Implement `GetTask(ctx context.Context, userID, taskID int64) (*repository.Task, error)`:
   - Call `s.taskRepo.FindTaskByID(ctx, taskID)`
   - If `errors.Is(err, repository.ErrTaskNotFound)`, return `ErrTaskNotFound`
   - If any other error, propagate
@@ -286,7 +286,7 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
 
 ### Task 3.6: Implement UpdateTask with ownership check and status validation
 
-- [ ] Implement `UpdateTask(ctx context.Context, userID, taskID int64, input UpdateTaskInput) (*repository.Task, error)`:
+- [x] Implement `UpdateTask(ctx context.Context, userID, taskID int64, input UpdateTaskInput) (*repository.Task, error)`:
   - Validate status if provided:
 
     ```go
@@ -305,7 +305,7 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
 
 ### Task 3.7: Implement DeleteTask with ownership check
 
-- [ ] Implement `DeleteTask(ctx context.Context, userID, taskID int64) error`:
+- [x] Implement `DeleteTask(ctx context.Context, userID, taskID int64) error`:
   - Fetch task: `s.taskRepo.FindTaskByID(ctx, taskID)` — wrap `repository.ErrTaskNotFound` as `ErrTaskNotFound`
   - Ownership check: `if task.UserID != userID { return ErrForbidden }`
   - Call `s.taskRepo.DeleteTask(ctx, taskID)`
