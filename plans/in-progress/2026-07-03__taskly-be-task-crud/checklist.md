@@ -86,8 +86,8 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
 
 ### Task 2.1: Add `Task` struct to models.go
 
-- [ ] Open `apps/taskly-be/internal/repository/models.go`
-- [ ] Add the `Task` struct below the existing `User` struct:
+- [x] Open `apps/taskly-be/internal/repository/models.go`
+- [x] Add the `Task` struct below the existing `User` struct:
 
   ```go
   type Task struct {
@@ -100,18 +100,18 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
   }
   ```
 
-- [ ] Verify the file still compiles: `go build ./internal/repository/` from `apps/taskly-be/`
+- [x] Verify the file still compiles: `go build ./internal/repository/` from `apps/taskly-be/`
 
 ### Task 2.2: Create task_repository.go with interface and constructor
 
-- [ ] Create `apps/taskly-be/internal/repository/task_repository.go`
-- [ ] Add package-level sentinel error:
+- [x] Create `apps/taskly-be/internal/repository/task_repository.go`
+- [x] Add package-level sentinel error:
 
   ```go
   var ErrTaskNotFound = errors.New("task not found")
   ```
 
-- [ ] Define the `TaskRepository` interface:
+- [x] Define the `TaskRepository` interface:
 
   ```go
   type TaskRepository interface {
@@ -123,7 +123,7 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
   }
   ```
 
-- [ ] Define `pgTaskRepository` struct and `NewTaskRepository` constructor:
+- [x] Define `pgTaskRepository` struct and `NewTaskRepository` constructor:
 
   ```go
   type pgTaskRepository struct {
@@ -137,14 +137,14 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
 
 ### Task 2.3: Implement CreateTask
 
-- [ ] Implement `CreateTask(ctx context.Context, userID int64, title string) (*Task, error)`:
+- [x] Implement `CreateTask(ctx context.Context, userID int64, title string) (*Task, error)`:
   - SQL: `INSERT INTO tasks (user_id, title) VALUES ($1, $2) RETURNING id, user_id, title, status, created_at, updated_at`
   - Use `db.QueryRowContext(ctx, sql, userID, title).Scan(&t.ID, &t.UserID, &t.Title, &t.Status, &t.CreatedAt, &t.UpdatedAt)`
   - Return the `*Task` on success; propagate any error
 
 ### Task 2.4: Implement FindTasksByUserID
 
-- [ ] Implement `FindTasksByUserID(ctx context.Context, userID int64) ([]*Task, error)`:
+- [x] Implement `FindTasksByUserID(ctx context.Context, userID int64) ([]*Task, error)`:
   - SQL: `SELECT id, user_id, title, status, created_at, updated_at FROM tasks WHERE user_id = $1 ORDER BY created_at DESC`
   - Initialize the result slice as `tasks := make([]*Task, 0)` before the loop — this ensures `json.Marshal` produces `[]` not `null`
   - Use `db.QueryContext` and iterate rows with `rows.Next()`
@@ -153,14 +153,14 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
 
 ### Task 2.5: Implement FindTaskByID
 
-- [ ] Implement `FindTaskByID(ctx context.Context, id int64) (*Task, error)`:
+- [x] Implement `FindTaskByID(ctx context.Context, id int64) (*Task, error)`:
   - SQL: `SELECT id, user_id, title, status, created_at, updated_at FROM tasks WHERE id = $1`
   - Use `db.QueryRowContext`
   - Return `ErrTaskNotFound` when `errors.Is(err, sql.ErrNoRows)`
 
 ### Task 2.6: Implement UpdateTask
 
-- [ ] Implement `UpdateTask(ctx context.Context, id int64, title, status *string) (*Task, error)`:
+- [x] Implement `UpdateTask(ctx context.Context, id int64, title, status *string) (*Task, error)`:
   - SQL:
 
     ```sql
@@ -177,7 +177,7 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
 
 ### Task 2.7: Implement DeleteTask
 
-- [ ] Implement `DeleteTask(ctx context.Context, id int64) error`:
+- [x] Implement `DeleteTask(ctx context.Context, id int64) error`:
   - SQL: `DELETE FROM tasks WHERE id = $1`
   - Use `db.ExecContext(ctx, sql, id)`
   - Call `result.RowsAffected()` — if `== 0`, return `ErrTaskNotFound`
@@ -185,9 +185,9 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
 
 ### Task 2.8: Verify compilation
 
-- [ ] From `apps/taskly-be/`, run: `go build ./...`
-- [ ] From `apps/taskly-be/`, run: `go vet ./...`
-- [ ] Both must exit 0
+- [x] From `apps/taskly-be/`, run: `go build ./...`
+- [x] From `apps/taskly-be/`, run: `go vet ./...`
+- [x] Both must exit 0
 
 ### Task 2.9: Commit and open PR
 
