@@ -341,8 +341,8 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
 
 ### Task 4.1: Create task_handler.go with type definitions
 
-- [ ] Create `apps/taskly-be/internal/handler/task_handler.go`
-- [ ] Add `TaskHandler` struct and `NewTaskHandler` constructor:
+- [x] Create `apps/taskly-be/internal/handler/task_handler.go`
+- [x] Add `TaskHandler` struct and `NewTaskHandler` constructor:
 
   ```go
   type TaskHandler struct {
@@ -354,7 +354,7 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
   }
   ```
 
-- [ ] Add request structs:
+- [x] Add request structs:
 
   ```go
   type createTaskRequest struct {
@@ -367,7 +367,7 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
   }
   ```
 
-- [ ] Add response struct:
+- [x] Add response struct:
 
   ```go
   type taskResponse struct {
@@ -380,7 +380,7 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
   }
   ```
 
-- [ ] Add `respondTaskError` helper:
+- [x] Add `respondTaskError` helper:
 
   ```go
   func respondTaskError(c *gin.Context, err error) {
@@ -400,7 +400,7 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
 
 ### Task 4.2: Implement Create handler
 
-- [ ] Implement `TaskHandler.Create(c *gin.Context)`:
+- [x] Implement `TaskHandler.Create(c *gin.Context)`:
   - Extract `userID` via `c.Get("userID")` with type assertion to `int64`; return `500` if assertion fails
   - Bind request with `c.ShouldBindJSON(&req)`; return `400` on bind error
   - Call `h.taskService.CreateTask(ctx, userID, service.CreateTaskInput{Title: req.Title})`
@@ -409,7 +409,7 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
 
 ### Task 4.3: Implement List handler
 
-- [ ] Implement `TaskHandler.List(c *gin.Context)`:
+- [x] Implement `TaskHandler.List(c *gin.Context)`:
   - Extract `userID`
   - Call `h.taskService.ListTasks(ctx, userID)`
   - On error: `respondTaskError(c, err)`
@@ -427,7 +427,7 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
 
 ### Task 4.4: Implement Get handler
 
-- [ ] Implement `TaskHandler.Get(c *gin.Context)`:
+- [x] Implement `TaskHandler.Get(c *gin.Context)`:
   - Parse `:id` with `strconv.ParseInt(c.Param("id"), 10, 64)`; return `400 {"error":"invalid task id"}` on failure
   - Extract `userID`
   - Call `h.taskService.GetTask(ctx, userID, id)`
@@ -436,7 +436,7 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
 
 ### Task 4.5: Implement Update handler
 
-- [ ] Implement `TaskHandler.Update(c *gin.Context)`:
+- [x] Implement `TaskHandler.Update(c *gin.Context)`:
   - Parse `:id`; return `400` on failure
   - Extract `userID`
   - Bind request with `c.ShouldBindJSON(&req)` (no `binding:"required"` on any field — optional fields)
@@ -449,7 +449,7 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
 
 ### Task 4.6: Implement Delete handler
 
-- [ ] Implement `TaskHandler.Delete(c *gin.Context)`:
+- [x] Implement `TaskHandler.Delete(c *gin.Context)`:
   - Parse `:id`; return `400` on failure
   - Extract `userID`
   - Call `h.taskService.DeleteTask(ctx, userID, id)`
@@ -458,8 +458,8 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
 
 ### Task 4.7: Wire task dependency chain in main.go
 
-- [ ] Open `apps/taskly-be/cmd/server/main.go`
-- [ ] After the existing auth wiring block, add:
+- [x] Open `apps/taskly-be/cmd/server/main.go`
+- [x] After the existing auth wiring block, add:
 
   ```go
   taskRepo    := repository.NewTaskRepository(conn)
@@ -467,7 +467,7 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
   taskHandler := handler.NewTaskHandler(taskService)
   ```
 
-- [ ] In the existing `protected` group block, register the five routes:
+- [x] In the existing `protected` group block, register the five routes:
 
   ```go
   protected.POST("/tasks",       taskHandler.Create)
@@ -479,8 +479,8 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
 
 ### Task 4.8: Verify compilation
 
-- [ ] From `apps/taskly-be/`: `go build ./...` — must exit 0
-- [ ] From `apps/taskly-be/`: `go vet ./...` — must exit 0
+- [x] From `apps/taskly-be/`: `go build ./...` — must exit 0
+- [x] From `apps/taskly-be/`: `go vet ./...` — must exit 0
 
 ### Task 4.9: Manual end-to-end verification
 

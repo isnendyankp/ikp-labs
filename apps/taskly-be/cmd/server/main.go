@@ -34,6 +34,10 @@ func main() {
 	authService := service.NewAuthService(userRepo, cfg.JWTSecret)
 	authHandler := handler.NewAuthHandler(authService)
 
+	taskRepo := repository.NewTaskRepository(conn)
+	taskService := service.NewTaskService(taskRepo)
+	taskHandler := handler.NewTaskHandler(taskService)
+
 	router := gin.Default()
 
 	auth := router.Group("/api/auth")
@@ -42,6 +46,11 @@ func main() {
 
 	protected := router.Group("/api", middleware.AuthRequired(cfg.JWTSecret))
 	protected.GET("/me", authHandler.Me)
+	protected.POST("/tasks", taskHandler.Create)
+	protected.GET("/tasks", taskHandler.List)
+	protected.GET("/tasks/:id", taskHandler.Get)
+	protected.PUT("/tasks/:id", taskHandler.Update)
+	protected.DELETE("/tasks/:id", taskHandler.Delete)
 
 	log.Printf("server listening on :%s", cfg.ServerPort)
 	if err := router.Run(":" + cfg.ServerPort); err != nil {
