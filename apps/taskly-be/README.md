@@ -71,6 +71,18 @@ go vet ./... && gofmt -l .
 nx run taskly-be:lint
 ```
 
+## Testing
+
+```bash
+# Run all tests (from apps/taskly-be/)
+go test ./...
+
+# Run with coverage report
+go test -cover ./...
+```
+
+Coverage target: ≥80% (backend standard).
+
 ## API Endpoints
 
 ### Auth (public)
@@ -88,13 +100,13 @@ nx run taskly-be:lint
 
 ### Tasks (protected)
 
-| Method | Path             | Auth Required | Description                     |
-| ------ | ---------------- | ------------- | ------------------------------- |
-| POST   | `/api/tasks`     | Bearer JWT    | Create a new task               |
-| GET    | `/api/tasks`     | Bearer JWT    | List all tasks for current user |
-| GET    | `/api/tasks/:id` | Bearer JWT    | Get a single task by id         |
-| PUT    | `/api/tasks/:id` | Bearer JWT    | Update task title and/or status |
-| DELETE | `/api/tasks/:id` | Bearer JWT    | Delete a task (returns 204)     |
+| Method | Path             | Auth Required | Description                                                           |
+| ------ | ---------------- | ------------- | --------------------------------------------------------------------- |
+| POST   | `/api/tasks`     | Bearer JWT    | Create a new task                                                     |
+| GET    | `/api/tasks`     | Bearer JWT    | List all tasks for current user                                       |
+| GET    | `/api/tasks/:id` | Bearer JWT    | Get a single task by id                                               |
+| PUT    | `/api/tasks/:id` | Bearer JWT    | Update task title and/or status (status: todo \| in_progress \| done) |
+| DELETE | `/api/tasks/:id` | Bearer JWT    | Delete a task (returns 204)                                           |
 
 ## Example Requests
 
@@ -104,7 +116,12 @@ nx run taskly-be:lint
 curl -s -X POST http://localhost:8082/api/auth/register \
   -H "Content-Type: application/json" \
   -d '{"email":"alice@example.com","password":"secret123"}'
+
+# Response (201 Created):
+# {"id":1,"email":"alice@example.com"}
 ```
+
+> `password` must be at least 8 characters.
 
 ### Login (capture token)
 
@@ -113,6 +130,9 @@ TOKEN=$(curl -s -X POST http://localhost:8082/api/auth/login \
   -H "Content-Type: application/json" \
   -d '{"email":"alice@example.com","password":"secret123"}' \
   | grep -o '"token":"[^"]*"' | cut -d'"' -f4)
+
+# Response (200 OK):
+# {"token":"eyJhbGci..."}
 ```
 
 ### Get current user profile
@@ -120,6 +140,9 @@ TOKEN=$(curl -s -X POST http://localhost:8082/api/auth/login \
 ```bash
 curl -s http://localhost:8082/api/me \
   -H "Authorization: Bearer $TOKEN"
+
+# Response (200 OK):
+# {"id":1,"email":"alice@example.com"}
 ```
 
 ### Create a task
@@ -129,6 +152,9 @@ curl -s -X POST http://localhost:8082/api/tasks \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $TOKEN" \
   -d '{"title":"Buy groceries"}'
+
+# Response (201 Created):
+# {"id":1,"user_id":1,"title":"Buy groceries","status":"todo","created_at":"...","updated_at":"..."}
 ```
 
 ### List tasks
@@ -136,6 +162,9 @@ curl -s -X POST http://localhost:8082/api/tasks \
 ```bash
 curl -s http://localhost:8082/api/tasks \
   -H "Authorization: Bearer $TOKEN"
+
+# Response (200 OK):
+# [{"id":1,"user_id":1,"title":"Buy groceries","status":"todo","created_at":"...","updated_at":"..."}]
 ```
 
 ### Get a task
@@ -143,6 +172,9 @@ curl -s http://localhost:8082/api/tasks \
 ```bash
 curl -s http://localhost:8082/api/tasks/1 \
   -H "Authorization: Bearer $TOKEN"
+
+# Response (200 OK):
+# {"id":1,"user_id":1,"title":"Buy groceries","status":"todo","created_at":"...","updated_at":"..."}
 ```
 
 ### Update a task
@@ -152,6 +184,9 @@ curl -s -X PUT http://localhost:8082/api/tasks/1 \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $TOKEN" \
   -d '{"status":"done"}'
+
+# Response (200 OK):
+# {"id":1,"user_id":1,"title":"Buy groceries","status":"done","created_at":"...","updated_at":"..."}
 ```
 
 ### Delete a task
@@ -159,4 +194,6 @@ curl -s -X PUT http://localhost:8082/api/tasks/1 \
 ```bash
 curl -s -X DELETE http://localhost:8082/api/tasks/1 \
   -H "Authorization: Bearer $TOKEN"
+
+# Response: 204 No Content (empty body)
 ```
