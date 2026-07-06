@@ -1,0 +1,30 @@
+{
+  "name": "taskly-be-e2e",
+  "sourceRoot": "apps/taskly-be-e2e",
+  "projectType": "application",
+  "targets": {
+    "e2e": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "playwright test --project=api-tests",
+        "cwd": "apps/taskly-be-e2e"
+      }
+    },
+    "e2e:ui": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "playwright test --project=api-tests --ui",
+        "cwd": "apps/taskly-be-e2e"
+      }
+    },
+    "e2e:debug": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "playwright test --project=api-tests --debug",
+        "cwd": "apps/taskly-be-e2e"
+      }
+    }
+  },
+  "implicitDependencies": ["taskly-be"],
+  "tags": ["type:e2e", "scope:taskly", "platform:playwright", "test:api"]
+}

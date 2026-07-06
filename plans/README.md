@@ -118,7 +118,12 @@ done/
 
 ```text
 in-progress/
-└── 2026-02-11__frontend-unit-tests/
+├── 2026-02-11__frontend-unit-tests/
+│   ├── README.md
+│   ├── requirements.md
+│   ├── technical-design.md
+│   └── checklist.md
+└── 2026-07-06__taskly-be-e2e/
     ├── README.md
     ├── requirements.md
     ├── technical-design.md
@@ -267,9 +272,10 @@ For **permanent** documentation, see:
 - Taskly Backend Go Auth (Jun 20, 2026)
 - Taskly Backend Task CRUD (Jul 3, 2026)
 
-**In Progress**: 1
+**In Progress**: 2
 
 - Frontend Unit Tests (Feb 11, 2026)
+- Taskly Backend E2E Test Suite (Jul 6, 2026)
 
 **Backlog**: 1
 
@@ -277,4 +283,4 @@ For **permanent** documentation, see:
 
 ---
 
-**Last Updated**: July 3, 2026
+**Last Updated**: July 6, 2026
