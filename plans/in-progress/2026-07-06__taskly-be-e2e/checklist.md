@@ -88,32 +88,32 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
 
 ### Task 2.1: Implement `helpers/api-client.ts`
 
-- [ ] Create `apps/taskly-be-e2e/helpers/api-client.ts`
-- [ ] Implement `ApiClient` class with `baseURL = "http://localhost:8082"`
-- [ ] Implement `post(endpoint, data, token?)` — sets `Content-Type: application/json`, optionally adds `Authorization: Bearer <token>`
-- [ ] Implement `get(endpoint, token?)` — sets `Accept: application/json`, optionally adds `Authorization: Bearer <token>`
-- [ ] Implement `put(endpoint, data, token?)` — sets `Content-Type: application/json`, optionally adds `Authorization: Bearer <token>`
-- [ ] Implement `delete(endpoint, token?)` — sets `Accept: application/json`, optionally adds `Authorization: Bearer <token>`
-- [ ] All four methods return `{ status: number; body: unknown; headers: Record<string, string> }` where `body` is `await response.json().catch(() => ({}))`
-- [ ] Do NOT add `postMultipart` — taskly-be has no file upload endpoints
+- [x] Create `apps/taskly-be-e2e/helpers/api-client.ts`
+- [x] Implement `ApiClient` class with `baseURL = "http://localhost:8082"`
+- [x] Implement `post(endpoint, data, token?)` — sets `Content-Type: application/json`, optionally adds `Authorization: Bearer <token>`
+- [x] Implement `get(endpoint, token?)` — sets `Accept: application/json`, optionally adds `Authorization: Bearer <token>`
+- [x] Implement `put(endpoint, data, token?)` — sets `Content-Type: application/json`, optionally adds `Authorization: Bearer <token>`
+- [x] Implement `delete(endpoint, token?)` — sets `Accept: application/json`, optionally adds `Authorization: Bearer <token>`
+- [x] All four methods return `{ status: number; body: unknown; headers: Record<string, string> }` where `body` is `await response.json().catch(() => ({}))`
+- [x] Do NOT add `postMultipart` — taskly-be has no file upload endpoints
 
 ### Task 2.2: Implement `helpers/auth-helper.ts`
 
-- [ ] Create `apps/taskly-be-e2e/helpers/auth-helper.ts`
-- [ ] Import `ApiClient` from `./api-client`
-- [ ] Define `AuthResult` interface: `{ token: string; userId: number; email: string }`
-- [ ] Implement `AuthHelper` class with constructor receiving `ApiClient`
-- [ ] Implement `registerAndLogin(email, password)`:
+- [x] Create `apps/taskly-be-e2e/helpers/auth-helper.ts`
+- [x] Import `ApiClient` from `./api-client`
+- [x] Define `AuthResult` interface: `{ token: string; userId: number; email: string }`
+- [x] Implement `AuthHelper` class with constructor receiving `ApiClient`
+- [x] Implement `registerAndLogin(email, password)`:
   - Step 1: `await this.client.post("/api/auth/register", { email, password })` → expect status 201, body `{id, email}`
   - Step 2: `await this.client.post("/api/auth/login", { email, password })` → expect status 200, body `{token}`
   - If either call fails, throw with the status and body: `throw new Error(\`register failed: \${resp.status} \${JSON.stringify(resp.body)}\`)`
   - Return `{ token, userId: id from register, email }`
-- [ ] Note: Register returns `{id, email}` — there is NO token in the register response. This differs from `kameravue-be-e2e`'s AuthHelper.
+- [x] Note: Register returns `{id, email}` — there is NO token in the register response. This differs from `kameravue-be-e2e`'s AuthHelper.
 
 ### Task 2.3: Implement `helpers/test-data.ts`
 
-- [ ] Create `apps/taskly-be-e2e/helpers/test-data.ts`
-- [ ] Implement `uniqueEmail()`:
+- [x] Create `apps/taskly-be-e2e/helpers/test-data.ts`
+- [x] Implement `uniqueEmail()`:
 
   ```typescript
   export function uniqueEmail(): string {
@@ -123,7 +123,7 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
   }
   ```
 
-- [ ] Implement `validPassword()`:
+- [x] Implement `validPassword()`:
 
   ```typescript
   export function validPassword(): string {
@@ -133,11 +133,11 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
 
 ### Task 2.4: Remove `.gitkeep` from `helpers/`
 
-- [ ] Delete `apps/taskly-be-e2e/helpers/.gitkeep` (directory is no longer empty)
+- [x] Delete `apps/taskly-be-e2e/helpers/.gitkeep` (directory is no longer empty)
 
 ### Task 2.5: TypeScript compilation check
 
-- [ ] From the monorepo root, run:
+- [x] From the monorepo root, run:
 
   ```bash
   npx tsc --project apps/taskly-be-e2e/tsconfig.json --noEmit
@@ -147,8 +147,8 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
 
 ### Task 2.6: Smoke-test `registerAndLogin` manually
 
-- [ ] Ensure `taskly-be` is running: `go run ./cmd/server/` from `apps/taskly-be/`
-- [ ] Verify register then login works end-to-end:
+- [x] Ensure `taskly-be` is running: `go run ./cmd/server/` from `apps/taskly-be/`
+- [x] Verify register then login works end-to-end:
 
   ```bash
   EMAIL="smoke.$(date +%s)@taskly.test"
@@ -165,9 +165,9 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
 
 ### Task 2.7: Commit and open PR
 
-- [ ] Stage: `helpers/api-client.ts`, `helpers/auth-helper.ts`, `helpers/test-data.ts`; remove `helpers/.gitkeep`
-- [ ] Commit message: `feat(taskly-be-e2e): add api client and auth helpers`
-- [ ] Push branch `feat/taskly-be-e2e-helpers` and open PR
+- [x] Stage: `helpers/api-client.ts`, `helpers/auth-helper.ts`, `helpers/test-data.ts`; remove `helpers/.gitkeep`
+- [x] Commit message: `feat(taskly-be-e2e): add api client and auth helpers`
+- [x] Push branch `feat/taskly-be-e2e-helpers` and open PR
 
 **Acceptance Criteria**:
 
@@ -430,6 +430,7 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
   ```
 
   Expected: all 33 tests pass (13 auth + 20 tasks)
+
 - [ ] From the monorepo root:
 
   ```bash
@@ -518,7 +519,7 @@ Before moving this plan to `plans/done/`, verify every item below:
 | PR                | Status          |
 | ----------------- | --------------- |
 | PR 1 — Scaffold   | [x] Complete    |
-| PR 2 — Helpers    | [ ] Not started |
+| PR 2 — Helpers    | [x] Complete    |
 | PR 3 — Auth tests | [ ] Not started |
 | PR 4 — Task tests | [ ] Not started |
 | PR 5 — README     | [ ] Not started |
