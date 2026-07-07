@@ -296,8 +296,8 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
 
 ### Task 4.1: Create `tests/api/tasks.api.spec.ts`
 
-- [ ] Create `apps/taskly-be-e2e/tests/api/tasks.api.spec.ts`
-- [ ] Add file-level import block:
+- [x] Create `apps/taskly-be-e2e/tests/api/tasks.api.spec.ts`
+- [x] Add file-level import block:
 
   ```typescript
   import { test, expect } from '@playwright/test';
@@ -308,105 +308,105 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
 
 ### Task 4.2: Implement `POST /api/tasks` describe block (3 tests)
 
-- [ ] `"returns 201 with full task object for valid title"`:
+- [x] `"returns 201 with full task object for valid title"`:
   - Get a token via `AuthHelper.registerAndLogin`
   - Send POST /api/tasks with `{ title: "My Task" }` and token
   - Assert `response.status === 201`
   - Assert body matches `{ id: <positive number>, user_id: <positive number>, title: "My Task", status: "todo" }`
   - Assert body has `created_at` and `updated_at` string fields
-- [ ] `"returns 400 when title is missing from request body"`:
+- [x] `"returns 400 when title is missing from request body"`:
   - Get a token via `AuthHelper.registerAndLogin`
   - Send POST /api/tasks with `{}` (empty body) and token
   - Assert `response.status === 400`
-- [ ] `"returns 401 when Authorization header is absent"`:
+- [x] `"returns 401 when Authorization header is absent"`:
   - Send POST /api/tasks with `{ title: "Any" }` and no token
   - Assert `response.status === 401`
 
 ### Task 4.3: Implement `GET /api/tasks` describe block (3 tests)
 
-- [ ] `"returns 200 with empty array when user has no tasks"`:
+- [x] `"returns 200 with empty array when user has no tasks"`:
   - Get a fresh token via `AuthHelper.registerAndLogin` (new user, no tasks)
   - Send GET /api/tasks with token
   - Assert `response.status === 200`
   - Assert `response.body` is an array of length 0: `expect(Array.isArray(response.body)).toBe(true)` and `expect((response.body as []).length).toBe(0)`
-- [ ] `"returns 200 with array containing the user's tasks"`:
+- [x] `"returns 200 with array containing the user's tasks"`:
   - Get a token, create two tasks via POST /api/tasks
   - Send GET /api/tasks with token
   - Assert `response.status === 200`
   - Assert the array has at least 2 items with correct structure
-- [ ] `"returns 401 when Authorization header is absent"`:
+- [x] `"returns 401 when Authorization header is absent"`:
   - Send GET /api/tasks with no token
   - Assert `response.status === 401`
 
 ### Task 4.4: Implement `GET /api/tasks/:id` describe block (4 tests)
 
-- [ ] `"returns 200 with task object for the task owner"`:
+- [x] `"returns 200 with task object for the task owner"`:
   - Get a token, create a task, capture `id` from 201 response
   - Send GET /api/tasks/:id with owner's token
   - Assert `response.status === 200`
   - Assert body `id` matches created task id
-- [ ] `"returns 403 when another user requests the task"`:
+- [x] `"returns 403 when another user requests the task"`:
   - Register user_a, create a task, capture task id
   - Register user_b via separate `registerAndLogin` call
   - Send GET /api/tasks/:id with user_b's token
   - Assert `response.status === 403`
   - Assert `response.body` matches `{ error: "forbidden" }`
-- [ ] `"returns 404 for a non-existent task id"`:
+- [x] `"returns 404 for a non-existent task id"`:
   - Get a token
   - Send GET /api/tasks/999999999 with token
   - Assert `response.status === 404`
   - Assert `response.body` matches `{ error: "task not found" }`
-- [ ] `"returns 401 when Authorization header is absent"`:
+- [x] `"returns 401 when Authorization header is absent"`:
   - Send GET /api/tasks/1 with no token
   - Assert `response.status === 401`
 
 ### Task 4.5: Implement `PUT /api/tasks/:id` describe block (8 tests)
 
-- [ ] `"returns 200 with updated task when title is changed"`:
+- [x] `"returns 200 with updated task when title is changed"`:
   - Get token, create task, send PUT with `{ title: "Updated" }`
   - Assert `response.status === 200`
   - Assert `response.body.title === "Updated"`
-- [ ] `"returns 200 when status is changed to in_progress"`:
+- [x] `"returns 200 when status is changed to in_progress"`:
   - Get token, create task, send PUT with `{ status: "in_progress" }`
   - Assert `response.status === 200`
   - Assert `response.body.status === "in_progress"`
-- [ ] `"returns 200 when status is changed to done"`:
+- [x] `"returns 200 when status is changed to done"`:
   - Get token, create task, send PUT with `{ status: "done" }`
   - Assert `response.status === 200`
   - Assert `response.body.status === "done"`
-- [ ] `"returns 400 when body contains neither title nor status"`:
+- [x] `"returns 400 when body contains neither title nor status"`:
   - Get token, create task, send PUT with `{}`
   - Assert `response.status === 400`
   - Assert `response.body.error === "at least one of title or status must be provided"`
-- [ ] `"returns 400 when status is an unrecognized value"`:
+- [x] `"returns 400 when status is an unrecognized value"`:
   - Get token, create task, send PUT with `{ status: "invalid_status" }`
   - Assert `response.status === 400`
-- [ ] `"returns 403 when another user updates the task"`:
+- [x] `"returns 403 when another user updates the task"`:
   - Register user_a, create task
   - Register user_b, send PUT /api/tasks/:id with user_b's token
   - Assert `response.status === 403`
   - Assert `response.body` matches `{ error: "forbidden" }`
-- [ ] `"returns 404 for a non-existent task id"`:
+- [x] `"returns 404 for a non-existent task id"`:
   - Get token, send PUT /api/tasks/999999999 with `{ title: "x" }`
   - Assert `response.status === 404`
-- [ ] `"returns 401 when Authorization header is absent"`:
+- [x] `"returns 401 when Authorization header is absent"`:
   - Send PUT /api/tasks/1 with `{ title: "x" }` and no token
   - Assert `response.status === 401`
 
 ### Task 4.6: Implement `DELETE /api/tasks/:id` describe block (4 tests)
 
-- [ ] `"returns 204 when owner deletes their task"`:
+- [x] `"returns 204 when owner deletes their task"`:
   - Get token, create task, send DELETE /api/tasks/:id with owner's token
   - Assert `response.status === 204`
   - Verify task is gone: send GET /api/tasks/:id with same token, expect 404
-- [ ] `"returns 403 when another user deletes the task"`:
+- [x] `"returns 403 when another user deletes the task"`:
   - Register user_a, create task
   - Register user_b, send DELETE /api/tasks/:id with user_b's token
   - Assert `response.status === 403`
-- [ ] `"returns 404 for a non-existent task id"`:
+- [x] `"returns 404 for a non-existent task id"`:
   - Get token, send DELETE /api/tasks/999999999 with token
   - Assert `response.status === 404`
-- [ ] `"returns 401 when Authorization header is absent"`:
+- [x] `"returns 401 when Authorization header is absent"`:
   - Send DELETE /api/tasks/1 with no token
   - Assert `response.status === 401`
 
@@ -441,9 +441,9 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
 
 ### Task 4.9: Commit and open PR
 
-- [ ] Stage: `tests/api/tasks.api.spec.ts`
-- [ ] Commit message: `test(taskly-be-e2e): add task crud api spec`
-- [ ] Push branch `feat/taskly-be-e2e-task-tests` and open PR
+- [x] Stage: `tests/api/tasks.api.spec.ts`
+- [x] Commit message: `feat(taskly-be-e2e): add task crud api tests with ownership checks`
+- [x] Push branch `feat/taskly-be-e2e-task-tests` and open PR
 
 **Acceptance Criteria**:
 
@@ -521,7 +521,7 @@ Before moving this plan to `plans/done/`, verify every item below:
 | PR 1 — Scaffold   | [x] Complete    |
 | PR 2 — Helpers    | [x] Complete    |
 | PR 3 — Auth tests | [x] Complete    |
-| PR 4 — Task tests | [ ] Not started |
+| PR 4 — Task tests | [x] Complete    |
 | PR 5 — README     | [ ] Not started |
 
 **Overall**: 0/5 PRs merged
