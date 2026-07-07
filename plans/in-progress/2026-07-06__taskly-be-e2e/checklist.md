@@ -187,8 +187,8 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
 
 ### Task 3.1: Create `tests/api/auth.api.spec.ts`
 
-- [ ] Create `apps/taskly-be-e2e/tests/api/auth.api.spec.ts`
-- [ ] Add file-level import block:
+- [x] Create `apps/taskly-be-e2e/tests/api/auth.api.spec.ts`
+- [x] Add file-level import block:
 
   ```typescript
   import { test, expect } from '@playwright/test';
@@ -199,73 +199,73 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
 
 ### Task 3.2: Implement `POST /api/auth/register` describe block (5 tests)
 
-- [ ] `"returns 201 with {id, email} for valid email and password"`:
+- [x] `"returns 201 with {id, email} for valid email and password"`:
   - Send POST /api/auth/register with `uniqueEmail()` and `validPassword()`
   - Assert `response.status === 201`
   - Assert body contains `id` (positive number) and `email`
   - Assert body does NOT contain `password_hash`
-- [ ] `"returns 409 when email is already registered"`:
+- [x] `"returns 409 when email is already registered"`:
   - Register with `uniqueEmail()` first (expect 201)
   - Register again with the same email
   - Assert `response.status === 409`
   - Assert `response.body.error === "email already registered"`
-- [ ] `"returns 400 when email field is missing"`:
+- [x] `"returns 400 when email field is missing"`:
   - Send POST with `{ password: validPassword() }` — no `email` key
   - Assert `response.status === 400`
-- [ ] `"returns 400 when email is an invalid format"`:
+- [x] `"returns 400 when email is an invalid format"`:
   - Send POST with `{ email: "notanemail", password: validPassword() }`
   - Assert `response.status === 400`
-- [ ] `"returns 400 when password is shorter than 8 characters"`:
+- [x] `"returns 400 when password is shorter than 8 characters"`:
   - Send POST with `{ email: uniqueEmail(), password: "short" }`
   - Assert `response.status === 400`
 
 ### Task 3.3: Implement `POST /api/auth/login` describe block (5 tests)
 
-- [ ] `"returns 200 with {token} for correct credentials"`:
+- [x] `"returns 200 with {token} for correct credentials"`:
   - Register a fresh user via `ApiClient.post`
   - Login with the same credentials
   - Assert `response.status === 200`
   - Assert `response.body.token` is a string with 3 dot-separated parts (JWT format)
-- [ ] `"returns 401 for wrong password"`:
+- [x] `"returns 401 for wrong password"`:
   - Register a fresh user
   - Login with the correct email but wrong password `"wrongpassword"`
   - Assert `response.status === 401`
   - Assert `response.body.error === "invalid credentials"`
-- [ ] `"returns 401 for unknown email"`:
+- [x] `"returns 401 for unknown email"`:
   - Send POST /api/auth/login with `{ email: uniqueEmail(), password: validPassword() }` (never registered)
   - Assert `response.status === 401`
   - Assert `response.body.error === "invalid credentials"`
-- [ ] `"returns 400 when email field is missing"`:
+- [x] `"returns 400 when email field is missing"`:
   - Send POST with `{ password: validPassword() }` — no `email` key
   - Assert `response.status === 400`
-- [ ] `"returns 400 when password field is missing"`:
+- [x] `"returns 400 when password field is missing"`:
   - Send POST with `{ email: uniqueEmail() }` — no `password` key
   - Assert `response.status === 400`
 
 ### Task 3.4: Implement `GET /api/me` describe block (3 tests)
 
-- [ ] `"returns 200 with {id, email} for valid token"`:
+- [x] `"returns 200 with {id, email} for valid token"`:
   - Use `AuthHelper.registerAndLogin` to get a token
   - Send GET /api/me with the token
   - Assert `response.status === 200`
   - Assert body contains `id` and `email`
-- [ ] `"returns 401 when Authorization header is absent"`:
+- [x] `"returns 401 when Authorization header is absent"`:
   - Send GET /api/me with no token
   - Assert `response.status === 401`
   - Assert `response.body.error === "authorization header required"`
-- [ ] `"returns 401 for a malformed token"`:
+- [x] `"returns 401 for a malformed token"`:
   - Send GET /api/me with a hardcoded invalid token: `"Bearer invalid.token.here"`
   - Assert `response.status === 401`
   - Assert `response.body.error === "invalid token"`
 
 ### Task 3.5: Remove `.gitkeep` from `tests/api/`
 
-- [ ] Delete `apps/taskly-be-e2e/tests/api/.gitkeep`
+- [x] Delete `apps/taskly-be-e2e/tests/api/.gitkeep`
 
 ### Task 3.6: Run the auth tests
 
-- [ ] Ensure `taskly-be` is running on port 8082
-- [ ] From `apps/taskly-be-e2e/`:
+- [x] Ensure `taskly-be` is running on port 8082
+- [x] From `apps/taskly-be-e2e/`:
 
   ```bash
   npx playwright test tests/api/auth.api.spec.ts --project=api-tests
@@ -275,9 +275,9 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
 
 ### Task 3.7: Commit and open PR
 
-- [ ] Stage: `tests/api/auth.api.spec.ts`; remove `tests/api/.gitkeep`
-- [ ] Commit message: `test(taskly-be-e2e): add auth api spec (register, login, me)`
-- [ ] Push branch `feat/taskly-be-e2e-auth-tests` and open PR
+- [x] Stage: `tests/api/auth.api.spec.ts`; remove `tests/api/.gitkeep`
+- [x] Commit message: `test(taskly-be-e2e): add auth api spec (register, login, me)`
+- [x] Push branch `feat/taskly-be-e2e-auth-tests` and open PR
 
 **Acceptance Criteria**:
 
@@ -520,7 +520,7 @@ Before moving this plan to `plans/done/`, verify every item below:
 | ----------------- | --------------- |
 | PR 1 — Scaffold   | [x] Complete    |
 | PR 2 — Helpers    | [x] Complete    |
-| PR 3 — Auth tests | [ ] Not started |
+| PR 3 — Auth tests | [x] Complete    |
 | PR 4 — Task tests | [ ] Not started |
 | PR 5 — README     | [ ] Not started |
 
