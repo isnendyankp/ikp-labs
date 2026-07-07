@@ -112,18 +112,18 @@ done/
     ├── requirements.md
     ├── technical-design.md
     └── checklist.md
+├── 2026-07-06__taskly-be-e2e/
+│   ├── README.md
+│   ├── requirements.md
+│   ├── technical-design.md
+│   └── checklist.md
 ```
 
 ### In Progress
 
 ```text
 in-progress/
-├── 2026-02-11__frontend-unit-tests/
-│   ├── README.md
-│   ├── requirements.md
-│   ├── technical-design.md
-│   └── checklist.md
-└── 2026-07-06__taskly-be-e2e/
+└── 2026-02-11__frontend-unit-tests/
     ├── README.md
     ├── requirements.md
     ├── technical-design.md
@@ -132,6 +132,7 @@ in-progress/
 
 > Note: `2026-06-02__claude-governance-gap-round-3/` moved to `done/` on 2026-06-20.
 > Note: `2026-07-03__taskly-be-task-crud/` moved to `done/` on 2026-07-03.
+> Note: `2026-07-06__taskly-be-e2e/` moved to `done/` on 2026-07-07.
 
 ### Backlog
 
@@ -250,7 +251,7 @@ For **permanent** documentation, see:
 
 ## 📊 Quick Stats
 
-**Completed Projects**: 19
+**Completed Projects**: 20
 
 - Unit Testing (Nov 4, 2024)
 - Profile Picture E2E (Nov 4, 2024)
@@ -271,11 +272,11 @@ For **permanent** documentation, see:
 - Claude Governance Gap Round 3 (Jun 20, 2026)
 - Taskly Backend Go Auth (Jun 20, 2026)
 - Taskly Backend Task CRUD (Jul 3, 2026)
+- Taskly Backend E2E Test Suite (Jul 7, 2026)
 
-**In Progress**: 2
+**In Progress**: 1
 
 - Frontend Unit Tests (Feb 11, 2026)
-- Taskly Backend E2E Test Suite (Jul 6, 2026)
 
 **Backlog**: 1
 
@@ -283,4 +284,4 @@ For **permanent** documentation, see:
 
 ---
 
-**Last Updated**: July 6, 2026
+**Last Updated**: July 7, 2026

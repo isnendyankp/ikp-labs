@@ -463,7 +463,7 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
 
 ### Task 5.1: Write `apps/taskly-be-e2e/README.md`
 
-- [ ] Create `apps/taskly-be-e2e/README.md` with the following sections:
+- [x] Create `apps/taskly-be-e2e/README.md` with the following sections:
   - **Overview** — what this project tests and which endpoints it covers
   - **Prerequisites** — taskly-be running on port 8082, PostgreSQL accessible
   - **Running tests** — `nx run taskly-be-e2e:e2e` and `npx playwright test --project=api-tests`
@@ -473,9 +473,9 @@ Each phase is one PR. Branch names follow `governance/conventions/development.md
 
 ### Task 5.2: Commit and open PR
 
-- [ ] Stage: `apps/taskly-be-e2e/README.md`
-- [ ] Commit message: `docs(taskly-be-e2e): add readme`
-- [ ] Push branch `docs/taskly-be-e2e-readme` and open PR
+- [x] Stage: `apps/taskly-be-e2e/README.md`
+- [x] Commit message: `docs(taskly-be-e2e): add readme and archive plan`
+- [x] Push branch `docs/taskly-be-e2e-readme` and open PR
 
 **Acceptance Criteria**:
 
@@ -522,8 +522,8 @@ Before moving this plan to `plans/done/`, verify every item below:
 | PR 2 — Helpers    | [x] Complete    |
 | PR 3 — Auth tests | [x] Complete    |
 | PR 4 — Task tests | [x] Complete    |
-| PR 5 — README     | [ ] Not started |
+| PR 5 — README     | [x] Complete    |
 
-**Overall**: 0/5 PRs merged
+**Overall**: 5/5 PRs merged
 
-**Last Updated**: July 6, 2026
+**Last Updated**: July 7, 2026
