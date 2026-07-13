@@ -20,40 +20,47 @@ PR1–PR8 are all merged, since it records final counts.
 
 ---
 
-## Phase 1 (PR1): `api-exploratory-tester`
+## Phase 1 (PR1): `api-exploratory-tester` — ✅ Done (PR #205)
 
 ### Task 1.1: Draft the adapted agent file (45 min)
 
 **Goal**: Produce `.claude/agents/api-exploratory-tester.md` with IKP-Labs adaptations
 applied per technical-design.md's PR1 section.
 
-1. [ ] `git checkout -b chore/api-exploratory-tester`
-2. [ ] Write `.claude/agents/api-exploratory-tester.md` with frontmatter: `tools: Read,
-Write, Edit, Glob, Grep, Bash, WebFetch, WebSearch`, `model: sonnet`, `color: green`,
-       `skills: plan-creating-project-plans, plan-writing-gherkin-criteria,
-docs-applying-content-quality`
-3. [ ] Apply all 6 body adaptations from technical-design.md's PR1 section (target
+1. [x] `git checkout -b chore/api-exploratory-tester`
+2. [x] Write `.claude/agents/api-exploratory-tester.md` with frontmatter: `model: sonnet`,
+       `color: green`, `permission.skill: plan-creating-project-plans,
+plan-writing-gherkin-criteria, docs-applying-content-quality`
+       — **deviation from plan**: verified against all 47 existing agents that the real
+       frontmatter key is `permission.skill:`, not `skills:`, and that zero existing
+       agents use a `tools:` field (tool scope is documented in body prose instead); both
+       corrected before commit
+3. [x] Apply all 6 body adaptations from technical-design.md's PR1 section (target
        endpoints, spec-discovery fallback, dead-link strip, `web-research-maker` rename,
        backlog path convention, cross-reference repoint)
-4. [ ] Grep the new file for `ayokoding`, `organiclever`, `ose-www`, `repo-governance`,
-       `web-researcher` (should return zero matches)
+4. [x] Grep the new file for `ayokoding`, `organiclever`, `ose-www`, `repo-governance`,
+       `web-researcher` (zero matches confirmed)
+5. [x] **Extra step (not in original plan)**: added a new "Live/Runtime Testers" section
+       to `.claude/agents/README.md`'s agent index table — this per-agent index exists and
+       needs a row for every new agent; Phase 2's three PRs will add to this same section
 
 **Acceptance Criteria**:
 
-- [ ] Agent file exists with valid frontmatter (all 3 skill refs resolve to existing
+- [x] Agent file exists with valid frontmatter (all 3 skill refs resolve to existing
       `.claude/skills/` directories)
-- [ ] Zero OSE-specific string matches per the grep above
-- [ ] Example targets reference `kameravue-be :8081` and `taskly-be :8082`
+- [x] Zero OSE-specific string matches per the grep above
+- [x] Example targets reference `kameravue-be :8081` and `taskly-be :8082`
 
 ### Task 1.2: Lint, commit, ship (20 min)
 
-1. [ ] Run `npm run lint:md` — fix all errors before proceeding
-2. [ ] **COMMIT 1**: `chore(agents): add api-exploratory-tester`
-3. [ ] `git push -u origin chore/api-exploratory-tester`
-4. [ ] `gh pr create` with summary + test plan
-5. [ ] Wait for CI to pass
-6. [ ] `gh pr merge <number> --squash --auto`
-7. [ ] `git checkout main && git pull origin main`
+1. [x] Run `npm run lint:md` — fixed 2 errors (missing fenced-code language, a `+` at
+       line-start misparsed as a list marker after wrapping)
+2. [x] **COMMIT**: `chore(agents): add api-exploratory-tester` (`265080a`)
+3. [x] `git push -u origin chore/api-exploratory-tester`
+4. [x] `gh pr create` — PR #205
+5. [x] CI passed (7/7 checks green)
+6. [x] `gh pr merge 205 --squash --auto` — merged 2026-07-13T11:56:24Z
+7. [x] `git checkout main && git pull origin main`
 
 **Verification**:
 
@@ -61,6 +68,12 @@ docs-applying-content-quality`
 npm run lint:md
 ls .claude/agents/api-exploratory-tester.md
 ```
+
+**Note**: the plan itself (`README.md`, `requirements.md`, `technical-design.md`,
+`checklist.md`) was committed and merged first, as its own PR (**PR #204**,
+`docs(plan): add claude-governance-gap-round-4 in-progress plan`), per the Round 3
+precedent of the plan landing before its first implementation PR. This PR is not one of
+the 9 numbered PRs in this plan's scope.
 
 ---
 
@@ -392,18 +405,20 @@ plans/done/2026-07-10__claude-governance-gap-round-4/`
 
 ## Progress Tracking
 
-**Overall Progress**: 0/9 PRs completed (0%) — Phase 0 (plan setup) complete
+**Overall Progress**: 1/9 PRs completed (11%) — Phase 0 (plan setup) and Phase 1 (PR1) complete
 
-| Phase                         | PR  | Status          |
-| ----------------------------- | --- | --------------- |
-| 1 — api-exploratory-tester    | PR1 | [ ] Not started |
-| 2 — web-exploratory-tester    | PR2 | [ ] Not started |
-| 2 — web-usability-tester      | PR3 | [ ] Not started |
-| 2 — web-design-tester         | PR4 | [ ] Not started |
-| 3 — pr-review-quality-gate.md | PR5 | [ ] Not started |
-| 3 — pr-review-maker           | PR6 | [ ] Not started |
-| 3 — pr-review-fixer           | PR7 | [ ] Not started |
-| 4 — hook decision (skip)      | PR8 | [ ] Not started |
-| 5 — finalize sync record      | PR9 | [ ] Not started |
+| Phase                         | PR  | Status             |
+| ----------------------------- | --- | ------------------ |
+| 1 — api-exploratory-tester    | PR1 | [x] Done (PR #205) |
+| 2 — web-exploratory-tester    | PR2 | [ ] Not started    |
+| 2 — web-usability-tester      | PR3 | [ ] Not started    |
+| 2 — web-design-tester         | PR4 | [ ] Not started    |
+| 3 — pr-review-quality-gate.md | PR5 | [ ] Not started    |
+| 3 — pr-review-maker           | PR6 | [ ] Not started    |
+| 3 — pr-review-fixer           | PR7 | [ ] Not started    |
+| 4 — hook decision (skip)      | PR8 | [ ] Not started    |
+| 5 — finalize sync record      | PR9 | [ ] Not started    |
 
-**Last Updated**: 2026-07-10
+**Plan-setup PR** (not one of the 9): `docs/add-claude-governance-gap-round-4-plan` → PR #204, merged.
+
+**Last Updated**: 2026-07-13
