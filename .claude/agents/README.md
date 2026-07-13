@@ -154,6 +154,17 @@ Specialised developer agents — not a triad; each targets a specific stack laye
 
 Skills used: `swe-programming-typescript`, `swe-programming-java`, `swe-developing-e2e-test-with-playwright`, `swe-developing-applications-common`, `wow-criticality-assessment`
 
+### Live/Runtime Testers
+
+On-demand exploratory testers that exercise a **running** app or API — distinct from the
+static-source `swe-code-checker` and the fixed-regression `*-e2e` suites.
+
+| File                          | Agent name              | Surface                          |
+| ----------------------------- | ------------------------ | --------------------------------- |
+| `api-exploratory-tester.md`   | `api-exploratory-tester` | Live REST/GraphQL API (kameravue-be, taskly-be) |
+
+Skills used: `plan-creating-project-plans`, `plan-writing-gherkin-criteria`, `docs-applying-content-quality`
+
 ### Standalone Utility Agents
 
 Single-purpose agents that do not belong to a triad.
