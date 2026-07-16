@@ -162,6 +162,7 @@ static-source `swe-code-checker` and the fixed-regression `*-e2e` suites.
 | File                          | Agent name              | Surface                          |
 | ----------------------------- | ------------------------ | --------------------------------- |
 | `api-exploratory-tester.md`   | `api-exploratory-tester` | Live REST/GraphQL API (kameravue-be, taskly-be) |
+| `web-exploratory-tester.md`   | `web-exploratory-tester` | Live rendered frontend (kameravue-fe) — functional/edge-case lens |
 
 Skills used: `plan-creating-project-plans`, `plan-writing-gherkin-criteria`, `docs-applying-content-quality`
 
