@@ -77,31 +77,35 @@ the 9 numbered PRs in this plan's scope.
 
 ---
 
-## Phase 2 (PR2): `web-exploratory-tester`
+## Phase 2 (PR2): `web-exploratory-tester` — ✅ Done (PR #207)
 
 ### Task 2.1: Draft and ship the agent (60 min)
 
-1. [ ] `git checkout -b chore/web-exploratory-tester`
-2. [ ] Write `.claude/agents/web-exploratory-tester.md`: `tools: Read, Write, Edit, Glob,
-Grep, Bash, WebFetch, WebSearch`, `model: sonnet`, `color: green`, `skills:
-plan-creating-project-plans, plan-writing-gherkin-criteria, docs-applying-content-quality`
-3. [ ] Apply the shared web-triad adaptation checklist from technical-design.md
+1. [x] `git checkout -b chore/web-exploratory-tester`
+2. [x] Write `.claude/agents/web-exploratory-tester.md`: `model: sonnet`, `color: green`,
+       `permission.skill: plan-creating-project-plans, plan-writing-gherkin-criteria,
+   docs-applying-content-quality` — same frontmatter correction as PR1
+       (`permission.skill:` not `skills:`, no `tools:` field)
+3. [x] Apply the shared web-triad adaptation checklist from technical-design.md
        (target `kameravue-fe :3002`, strip dead links, rename `web-researcher`, backlog path
-       convention)
-4. [ ] Confirm the description explicitly scopes this agent to functional/edge-case
+       convention) — plus one extra finding: verified `kameravue-fe` has no i18n/locale
+       config, so OSE's mandatory multi-locale sweep language was rewritten to state
+       locale coverage is n/a (single-locale), not left as dead instructions
+4. [x] Confirmed the description explicitly scopes this agent to functional/edge-case
        defects (not usability or design) — matching the disjoint-triad boundary
-5. [ ] Grep for OSE-specific strings — zero matches expected
-6. [ ] Run `npm run lint:md` — fix all errors
-7. [ ] **COMMIT 2**: `chore(agents): add web-exploratory-tester`
-8. [ ] `git push -u origin chore/web-exploratory-tester`
-9. [ ] `gh pr create`, wait for CI, `gh pr merge <number> --squash --auto`
-10. [ ] `git checkout main && git pull origin main`
+5. [x] Grep for OSE-specific strings — zero matches confirmed
+6. [x] Run `npm run lint:md` — 0 errors in changed files
+7. [x] **COMMIT**: `chore(agents): add web-exploratory-tester` (`107ad45`)
+8. [x] `git push -u origin chore/web-exploratory-tester`
+9. [x] `gh pr create` — PR #207; CI passed (7/7); `gh pr merge 207 --squash --auto` —
+       merged 2026-07-16T12:03:50Z
+10. [x] `git checkout main && git pull origin main`
 
 **Acceptance Criteria**:
 
-- [ ] Agent file created with valid frontmatter, skills resolve to existing directories
-- [ ] Zero OSE-specific references
-- [ ] Description scope does not overlap `web-usability-tester` or `web-design-tester`
+- [x] Agent file created with valid frontmatter, skills resolve to existing directories
+- [x] Zero OSE-specific references
+- [x] Description scope does not overlap `web-usability-tester` or `web-design-tester`
 
 ---
 
@@ -405,12 +409,12 @@ plans/done/2026-07-10__claude-governance-gap-round-4/`
 
 ## Progress Tracking
 
-**Overall Progress**: 1/9 PRs completed (11%) — Phase 0 (plan setup) and Phase 1 (PR1) complete
+**Overall Progress**: 2/9 PRs completed (22%) — Phase 0 (plan setup), Phase 1 (PR1), and Phase 2/PR2 complete
 
 | Phase                         | PR  | Status             |
 | ----------------------------- | --- | ------------------ |
 | 1 — api-exploratory-tester    | PR1 | [x] Done (PR #205) |
-| 2 — web-exploratory-tester    | PR2 | [ ] Not started    |
+| 2 — web-exploratory-tester    | PR2 | [x] Done (PR #207) |
 | 2 — web-usability-tester      | PR3 | [ ] Not started    |
 | 2 — web-design-tester         | PR4 | [ ] Not started    |
 | 3 — pr-review-quality-gate.md | PR5 | [ ] Not started    |
@@ -420,5 +424,6 @@ plans/done/2026-07-10__claude-governance-gap-round-4/`
 | 5 — finalize sync record      | PR9 | [ ] Not started    |
 
 **Plan-setup PR** (not one of the 9): `docs/add-claude-governance-gap-round-4-plan` → PR #204, merged.
+**Checklist-sync PR** (not one of the 9): `docs/mark-round-4-pr1-complete` → PR #206, merged.
 
-**Last Updated**: 2026-07-13
+**Last Updated**: 2026-07-16
