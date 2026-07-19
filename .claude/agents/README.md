@@ -164,6 +164,7 @@ static-source `swe-code-checker` and the fixed-regression `*-e2e` suites.
 | `api-exploratory-tester.md`   | `api-exploratory-tester` | Live REST/GraphQL API (kameravue-be, taskly-be) |
 | `web-exploratory-tester.md`   | `web-exploratory-tester` | Live rendered frontend (kameravue-fe) — functional/edge-case lens |
 | `web-usability-tester.md`     | `web-usability-tester`   | Live rendered frontend (kameravue-fe) — spec-blind usability lens |
+| `web-design-tester.md`        | `web-design-tester`      | Live rendered frontend (kameravue-fe) — design-aware token/primitive fidelity lens |
 
 Skills used: `plan-creating-project-plans`, `plan-writing-gherkin-criteria`, `docs-applying-content-quality`
 
