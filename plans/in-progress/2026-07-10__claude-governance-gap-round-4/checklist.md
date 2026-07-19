@@ -121,7 +121,7 @@ docs-applying-content-quality` — same frontmatter correction as PR1
        content is spec-blind heuristic evaluation (Nielsen's 10 heuristics, cognitive
        walkthrough, information scent, WCAG Understandable) against `kameravue-fe` — plus
        the same locale n/a finding as PR2, and `repo-governance/principles/content/
-   accessibility-first.md` confirmed to have no IKP-Labs equivalent (stripped to prose)
+accessibility-first.md` confirmed to have no IKP-Labs equivalent (stripped to prose)
 4. [x] Confirmed the description explicitly states it ignores specs/source/mockups
        (spec-blind), distinguishing it from `web-exploratory-tester` — and explicitly
        preserved its two unique artifacts (`walkthrough.md`, `spec-suggestions.md`) while
@@ -142,39 +142,44 @@ docs-applying-content-quality` — same frontmatter correction as PR1
 
 ---
 
-## Phase 2 (PR4): `web-design-tester`
+## Phase 2 (PR4): `web-design-tester` — ✅ Done (PR #211)
 
 ### Task 4.1: Draft and ship the agent (60 min)
 
-1. [ ] `git checkout -b chore/web-design-tester`
-2. [ ] Verify at implementation time whether `apps/kameravue-fe` uses a JS/TS
-       `tailwind.config.*` file or Tailwind 4's CSS-first `@theme` config — reflect the actual
-       convention in the ground-truth sources section
-3. [ ] Write `.claude/agents/web-design-tester.md` with the same frontmatter shape as PR2
-       (`tools`, `model: sonnet`, `color: green`, same 3 skills)
-4. [ ] Apply the shared web-triad adaptation checklist, plus the design-specific swap:
-       replace `libs/web-ui` design-system-primitives ground truth with
-       `apps/kameravue-fe/src/components/` and the actual Tailwind theme config location
-       confirmed in step 2
-5. [ ] Confirm the description explicitly scopes this agent to mockup/token/design-system
+1. [x] `git checkout -b chore/web-design-tester`
+2. [x] Verified `apps/kameravue-fe` uses Tailwind 4's CSS-first `@theme inline` config in
+       `apps/kameravue-fe/src/app/globals.css` — no `tailwind.config.*` file exists;
+       reflected the actual convention in the ground-truth sources section
+3. [x] Write `.claude/agents/web-design-tester.md` with the same frontmatter shape as PR2
+       (`model: sonnet`, `color: green`, `permission.skill:` — same 3 skills, no `tools:`
+       field)
+4. [x] Apply the shared web-triad adaptation checklist, plus the design-specific swap:
+       replaced `libs/web-ui` design-system-primitives ground truth with
+       `apps/kameravue-fe/src/components/ui/` (verified real files: Button, ConfirmDialog,
+       EmptyState, FormField, IconButton, Toast) — explicitly softened as app-local, not a
+       published Nx `libs/` package like OSE's; also found `plans/README.md` has no
+       UI-mockup convention, so that ground-truth source was reworded honestly instead of
+       asserting a nonexistent path
+5. [x] Confirmed the description explicitly scopes this agent to mockup/token/design-system
        fidelity (not functional correctness or usability heuristics)
-6. [ ] Grep for OSE-specific strings and `libs/web-ui` — zero matches expected
-7. [ ] Run `npm run lint:md` — fix all errors
-8. [ ] **COMMIT 4**: `chore(agents): add web-design-tester`
-9. [ ] `git push -u origin chore/web-design-tester`
-10. [ ] `gh pr create`, wait for CI, `gh pr merge <number> --squash --auto`
-11. [ ] `git checkout main && git pull origin main`
+6. [x] Grep for OSE-specific strings and `libs/web-ui` — zero matches confirmed
+7. [x] Run `npm run lint:md` — 0 errors in changed files
+8. [x] **COMMIT**: `chore(agents): add web-design-tester` (`c41591d`)
+9. [x] `git push -u origin chore/web-design-tester`
+10. [x] `gh pr create` — PR #211; CI passed (7/7); `gh pr merge 211 --squash --auto` —
+        merged 2026-07-19T08:54:32Z
+11. [x] `git checkout main && git pull origin main`
 
 **Acceptance Criteria**:
 
-- [ ] Agent file created with valid frontmatter
-- [ ] Zero OSE-specific references, zero `libs/web-ui` references
-- [ ] Ground-truth sources reflect `kameravue-fe`'s actual Tailwind 4 config style
+- [x] Agent file created with valid frontmatter
+- [x] Zero OSE-specific references, zero `libs/web-ui` references
+- [x] Ground-truth sources reflect `kameravue-fe`'s actual Tailwind 4 config style
 
 **Acceptance Criteria — Phase 2 (all 3 PRs)**:
 
-- [ ] All 3 web tester agents exist with non-overlapping scope descriptions
-- [ ] No new skill directories were created (all 3 reuse the same pre-existing 3 skills)
+- [x] All 3 web tester agents exist with non-overlapping scope descriptions
+- [x] No new skill directories were created (all 3 reuse the same pre-existing 3 skills)
 
 ---
 
@@ -415,14 +420,14 @@ plans/done/2026-07-10__claude-governance-gap-round-4/`
 
 ## Progress Tracking
 
-**Overall Progress**: 3/9 PRs completed (33%) — Phase 0 (plan setup), Phase 1 (PR1), and Phase 2/PR2–PR3 complete
+**Overall Progress**: 4/9 PRs completed (44%) — Phase 0 (plan setup) and Phase 1–2 (PR1–PR4) complete; web tester triad done
 
 | Phase                         | PR  | Status             |
 | ----------------------------- | --- | ------------------ |
 | 1 — api-exploratory-tester    | PR1 | [x] Done (PR #205) |
 | 2 — web-exploratory-tester    | PR2 | [x] Done (PR #207) |
 | 2 — web-usability-tester      | PR3 | [x] Done (PR #209) |
-| 2 — web-design-tester         | PR4 | [ ] Not started    |
+| 2 — web-design-tester         | PR4 | [x] Done (PR #211) |
 | 3 — pr-review-quality-gate.md | PR5 | [ ] Not started    |
 | 3 — pr-review-maker           | PR6 | [ ] Not started    |
 | 3 — pr-review-fixer           | PR7 | [ ] Not started    |
@@ -431,6 +436,6 @@ plans/done/2026-07-10__claude-governance-gap-round-4/`
 
 **Plan-setup PR** (not one of the 9): `docs/add-claude-governance-gap-round-4-plan` → PR #204, merged.
 **Checklist-sync PRs** (not one of the 9): `docs/mark-round-4-pr1-complete` → PR #206, merged;
-`docs/mark-round-4-pr2-complete` → PR #208, merged.
+`docs/mark-round-4-pr2-complete` → PR #208, merged; `docs/mark-round-4-pr3-complete` → PR #210, merged.
 
-**Last Updated**: 2026-07-18
+**Last Updated**: 2026-07-19
