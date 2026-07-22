@@ -183,43 +183,49 @@ accessibility-first.md` confirmed to have no IKP-Labs equivalent (stripped to pr
 
 ---
 
-## Phase 3 (PR5): `governance/workflows/pr/pr-review-quality-gate.md`
+## Phase 3 (PR5): `governance/workflows/pr/pr-review-quality-gate.md` — ✅ Done (PR #213)
 
 > **Sequential — must merge before PR6 starts.**
 
 ### Task 5.1: Draft and ship the workflow doc (60 min)
 
-1. [ ] `git checkout -b docs/pr-review-quality-gate-workflow`
-2. [ ] Create directory `governance/workflows/pr/`
-3. [ ] Write `governance/workflows/pr/pr-review-quality-gate.md` following
-       technical-design.md's PR5 section: no YAML frontmatter block (unlike OSE), open with an
-       H1 + Purpose/When-to-use prose section, keep Execution Mode, Participants, Loop
-       Algorithm (pseudocode + Mermaid diagram), Steps 0–4, GitHub Reviews API Mechanics, and
-       a renamed unconditional **Done-Definition** section
-4. [ ] Replace all `repo-governance/` links per the FR-5 dead-link table in
-       requirements.md — either repoint to existing IKP-Labs skill files
-       (`repo-assessing-criticality-confidence`, `repo-applying-maker-checker-fixer`) or strip
-       the link and keep the instruction as prose
-5. [ ] Replace the "every `*-to-pr` delivery mode" framing with "every PR, since IKP-Labs
-       has exactly one delivery mode" per requirements.md FR-3
-6. [ ] Link forward to `.claude/agents/pr-review-maker.md` and
-       `.claude/agents/pr-review-fixer.md` (these files do not exist yet — this is expected;
-       PR6/PR7 create them next, and the sequential dependency runs this direction)
+1. [x] `git checkout -b docs/pr-review-quality-gate-workflow`
+2. [x] Created directory `governance/workflows/pr/`
+3. [x] Wrote `governance/workflows/pr/pr-review-quality-gate.md` — no YAML frontmatter
+       (matches `governance/development/workflow/implementation.md`'s style, verified
+       directly), H1 + Purpose/When-to-use prose, kept Execution Mode, Participants, Loop
+       Algorithm (pseudocode + Mermaid diagram), Steps 0–4, GitHub Reviews API Mechanics,
+       and a renamed unconditional **Done-Definition** section
+4. [x] Went beyond the original plan's scope estimate — OSE's doc needed **heavy** cutting,
+       not light adaptation: deleted delivery-mode vocabulary (`*-to-pr`, `worktree-to-pr`,
+       etc.), the `[AI]`/`[HUMAN]` executor-tagging system, the `plan-execution.md` Step-8
+       orchestrator, merge precondition (e) and its Mermaid flowchart (referenced
+       nonexistent `ui-quality-gate.md`/`api-quality-gate.md`), the "three-repo nuance" and
+       "byte-identity-boundary sibling PRs" notes (pure OSE multi-repo concepts), and the
+       Principles/Conventions citation lists (all OSE-only doc paths) — replaced with one
+       Explicit-Over-Implicit citation to `governance/principles/general.md`
+5. [x] Replaced the "every `*-to-pr` delivery mode" framing with "every PR, since IKP-Labs
+       has exactly one delivery mode" (branch → PR → CI → squash-merge, per `CLAUDE.md`)
+6. [x] Linked forward to `.claude/agents/pr-review-maker.md` and
+       `.claude/agents/pr-review-fixer.md` (correct 3-levels-up relative path verified;
+       files don't exist yet — expected, PR6/PR7 create them next)
 
 **Acceptance Criteria**:
 
-- [ ] File exists at `governance/workflows/pr/pr-review-quality-gate.md`
-- [ ] No YAML frontmatter block (matches IKP-Labs's existing workflow doc style)
-- [ ] Zero dead links to non-existent `repo-governance/` files
-- [ ] Zero references to OSE's four-way delivery-mode vocabulary
+- [x] File exists at `governance/workflows/pr/pr-review-quality-gate.md`
+- [x] No YAML frontmatter block (matches IKP-Labs's existing workflow doc style)
+- [x] Zero dead links — grepped 16 OSE-only terms, zero matches; all remaining links
+      verified to resolve to real files
+- [x] Zero references to OSE's four-way delivery-mode vocabulary
 
 ### Task 5.2: Lint, commit, ship (20 min)
 
-1. [ ] Run `npm run lint:md` — fix all errors
-2. [ ] **COMMIT 5**: `docs(governance): add pr-review-quality-gate workflow`
-3. [ ] `git push -u origin docs/pr-review-quality-gate-workflow`
-4. [ ] `gh pr create`, wait for CI, `gh pr merge <number> --squash --auto`
-5. [ ] `git checkout main && git pull origin main`
+1. [x] Run `npm run lint:md` — 0 errors in the new file
+2. [x] **COMMIT**: `docs(governance): add pr-review-quality-gate workflow` (`f499da0`)
+3. [x] `git push -u origin docs/pr-review-quality-gate-workflow`
+4. [x] `gh pr create` — PR #213; CI passed (7/7); `gh pr merge 213 --squash --auto` —
+       merged 2026-07-22T11:02:57Z
+5. [x] `git checkout main && git pull origin main`
 
 ---
 
@@ -420,7 +426,7 @@ plans/done/2026-07-10__claude-governance-gap-round-4/`
 
 ## Progress Tracking
 
-**Overall Progress**: 4/9 PRs completed (44%) — Phase 0 (plan setup) and Phase 1–2 (PR1–PR4) complete; web tester triad done
+**Overall Progress**: 5/9 PRs completed (56%) — Phase 0-2 complete (web tester triad done); Phase 3's sequential chain started with PR5
 
 | Phase                         | PR  | Status             |
 | ----------------------------- | --- | ------------------ |
@@ -428,7 +434,7 @@ plans/done/2026-07-10__claude-governance-gap-round-4/`
 | 2 — web-exploratory-tester    | PR2 | [x] Done (PR #207) |
 | 2 — web-usability-tester      | PR3 | [x] Done (PR #209) |
 | 2 — web-design-tester         | PR4 | [x] Done (PR #211) |
-| 3 — pr-review-quality-gate.md | PR5 | [ ] Not started    |
+| 3 — pr-review-quality-gate.md | PR5 | [x] Done (PR #213) |
 | 3 — pr-review-maker           | PR6 | [ ] Not started    |
 | 3 — pr-review-fixer           | PR7 | [ ] Not started    |
 | 4 — hook decision (skip)      | PR8 | [ ] Not started    |
@@ -436,6 +442,7 @@ plans/done/2026-07-10__claude-governance-gap-round-4/`
 
 **Plan-setup PR** (not one of the 9): `docs/add-claude-governance-gap-round-4-plan` → PR #204, merged.
 **Checklist-sync PRs** (not one of the 9): `docs/mark-round-4-pr1-complete` → PR #206, merged;
-`docs/mark-round-4-pr2-complete` → PR #208, merged; `docs/mark-round-4-pr3-complete` → PR #210, merged.
+`docs/mark-round-4-pr2-complete` → PR #208, merged; `docs/mark-round-4-pr3-complete` → PR #210, merged;
+`docs/mark-round-4-pr4-complete` → PR #212, merged.
 
-**Last Updated**: 2026-07-19
+**Last Updated**: 2026-07-22
