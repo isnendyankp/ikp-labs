@@ -229,43 +229,54 @@ accessibility-first.md` confirmed to have no IKP-Labs equivalent (stripped to pr
 
 ---
 
-## Phase 3 (PR6): `pr-review-maker`
+## Phase 3 (PR6): `pr-review-maker` — ✅ Done (PR #215)
 
 > **Sequential — depends on PR5 being merged. Must merge before PR7 starts.**
 
 ### Task 6.1: Draft and ship the agent (60 min)
 
-1. [ ] Confirm PR5 is merged to `main` and pulled locally before starting
-2. [ ] `git checkout -b chore/pr-review-maker`
-3. [ ] Write `.claude/agents/pr-review-maker.md`: `tools: Read, Bash, Grep, Glob,
-WebFetch, WebSearch` (no `Write`/`Edit`), `model:` left blank (inherits orchestrator
-       model), `color: blue`, no `skills:` key
-4. [ ] Carry over Core Responsibility, Finding Requirements (confidence ≥ 80 hard floor,
+1. [x] Confirmed PR5 is merged to `main` and pulled locally before starting
+2. [x] `git checkout -b chore/pr-review-maker`
+3. [x] **Discovery mid-task**: re-fetching the OSE source 404'd — OSE refactored this
+       agent upstream into 9 specialist makers + a synthesizer sometime after this round
+       was planned. Adopting that would contradict PR5's already-merged 2-role loop
+       design, so recovered the last pre-refactor version via the parent commit before
+       OSE's deletion (`gh api commits?path=...` → parent SHA → fetch at that ref) and
+       adapted that instead — no scope change from the original plan
+4. [x] Write `.claude/agents/pr-review-maker.md`: `tools: Read, Bash, Grep, Glob,
+   WebFetch, WebSearch` (no `Write`/`Edit`), `model:` left blank (inherits orchestrator
+       model), `color: blue`, no `permission.skill:` key — deliberate exception to the
+       no-`tools:`-field convention PR1-4 established, per the plan's technical-design.md
+5. [x] Carried over Core Responsibility, Finding Requirements (confidence ≥ 80 hard floor,
        severity mapping, concrete evidence, anti-sycophantic framing), Scope Guard, CI-Gaming
        Watch, Untrusted-Input Handling, GitHub Reviews API Mechanics, Identity and Write-Scope
        Note, Maker-Fixer Loop Framing, Cross-Cycle Behavior, External Fact Verification
-5. [ ] Apply the FR-5 dead-link adaptation table (criticality-levels → `.claude/skills/
-repo-assessing-criticality-confidence`, maker-checker-fixer → `.claude/skills/
-repo-applying-maker-checker-fixer`, strip the rest, `web-researcher` →
-       `web-research-maker`)
-6. [ ] Link `governance/workflows/pr/pr-review-quality-gate.md` at the correct relative
+6. [x] Applied the FR-5 dead-link adaptation table (criticality-levels →
+       `.claude/skills/repo-assessing-criticality-confidence`, maker-checker-fixer →
+       `.claude/skills/repo-applying-maker-checker-fixer`, `git-fixture-isolation` dropped
+       entirely — doesn't transfer to IKP-Labs's Jest/JUnit/Go/Playwright suites,
+       `web-researcher` → `web-research-maker`)
+7. [x] Linked `governance/workflows/pr/pr-review-quality-gate.md` at the correct relative
        path from `.claude/agents/`
-7. [ ] Grep for OSE-specific strings and dead `repo-governance/` links — zero matches
-       expected
+8. [x] Grep for OSE-specific strings and dead `repo-governance/` links — zero matches
+       confirmed
+9. [x] **Extra step**: added a new "PR Review" section to `.claude/agents/README.md`'s
+       agent index (this round's second new domain section, after "Live/Runtime Testers")
 
 **Acceptance Criteria**:
 
-- [ ] Agent file created; `tools:` omits `Write`/`Edit`; `model:` is blank
-- [ ] All links resolve to files that actually exist in this repo
-- [ ] Zero OSE-specific references
+- [x] Agent file created; `tools:` omits `Write`/`Edit`; `model:` is blank
+- [x] All links resolve to files that actually exist in this repo
+- [x] Zero OSE-specific references
 
 ### Task 6.2: Lint, commit, ship (20 min)
 
-1. [ ] Run `npm run lint:md` — fix all errors
-2. [ ] **COMMIT 6**: `chore(agents): add pr-review-maker`
-3. [ ] `git push -u origin chore/pr-review-maker`
-4. [ ] `gh pr create`, wait for CI, `gh pr merge <number> --squash --auto`
-5. [ ] `git checkout main && git pull origin main`
+1. [x] Run `npm run lint:md` — 0 errors in changed files
+2. [x] **COMMIT**: `chore(agents): add pr-review-maker` (`445f44c`)
+3. [x] `git push -u origin chore/pr-review-maker`
+4. [x] `gh pr create` — PR #215; CI passed (7/7); `gh pr merge 215 --squash --auto` —
+       merged 2026-07-24T13:15:34Z
+5. [x] `git checkout main && git pull origin main`
 
 ---
 
@@ -426,7 +437,7 @@ plans/done/2026-07-10__claude-governance-gap-round-4/`
 
 ## Progress Tracking
 
-**Overall Progress**: 5/9 PRs completed (56%) — Phase 0-2 complete (web tester triad done); Phase 3's sequential chain started with PR5
+**Overall Progress**: 6/9 PRs completed (67%) — Phase 0-2 complete; Phase 3's sequential chain 2/3 done (PR5, PR6); PR7 next
 
 | Phase                         | PR  | Status             |
 | ----------------------------- | --- | ------------------ |
@@ -435,7 +446,7 @@ plans/done/2026-07-10__claude-governance-gap-round-4/`
 | 2 — web-usability-tester      | PR3 | [x] Done (PR #209) |
 | 2 — web-design-tester         | PR4 | [x] Done (PR #211) |
 | 3 — pr-review-quality-gate.md | PR5 | [x] Done (PR #213) |
-| 3 — pr-review-maker           | PR6 | [ ] Not started    |
+| 3 — pr-review-maker           | PR6 | [x] Done (PR #215) |
 | 3 — pr-review-fixer           | PR7 | [ ] Not started    |
 | 4 — hook decision (skip)      | PR8 | [ ] Not started    |
 | 5 — finalize sync record      | PR9 | [ ] Not started    |
@@ -443,6 +454,6 @@ plans/done/2026-07-10__claude-governance-gap-round-4/`
 **Plan-setup PR** (not one of the 9): `docs/add-claude-governance-gap-round-4-plan` → PR #204, merged.
 **Checklist-sync PRs** (not one of the 9): `docs/mark-round-4-pr1-complete` → PR #206, merged;
 `docs/mark-round-4-pr2-complete` → PR #208, merged; `docs/mark-round-4-pr3-complete` → PR #210, merged;
-`docs/mark-round-4-pr4-complete` → PR #212, merged.
+`docs/mark-round-4-pr4-complete` → PR #212, merged; `docs/mark-round-4-pr5-complete` → PR #214, merged.
 
-**Last Updated**: 2026-07-22
+**Last Updated**: 2026-07-24
