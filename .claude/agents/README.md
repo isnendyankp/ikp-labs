@@ -168,6 +168,16 @@ static-source `swe-code-checker` and the fixed-regression `*-e2e` suites.
 
 Skills used: `plan-creating-project-plans`, `plan-writing-gherkin-criteria`, `docs-applying-content-quality`
 
+### PR Review
+
+A 2-role maker→fixer loop (no separate checker — the maker's own confidence-scoring and
+evidence bar absorbs the checking function), orchestrated by
+[`governance/workflows/pr/pr-review-quality-gate.md`](../../governance/workflows/pr/pr-review-quality-gate.md).
+
+| File                     | Agent name          | Role                                          |
+| ------------------------ | ------------------- | ---------------------------------------------- |
+| `pr-review-maker.md`     | `pr-review-maker`   | Maker — posts line-anchored PR review findings |
+
 ### Standalone Utility Agents
 
 Single-purpose agents that do not belong to a triad.
