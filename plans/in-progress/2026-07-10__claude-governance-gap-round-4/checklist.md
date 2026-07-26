@@ -244,7 +244,7 @@ accessibility-first.md` confirmed to have no IKP-Labs equivalent (stripped to pr
        OSE's deletion (`gh api commits?path=...` → parent SHA → fetch at that ref) and
        adapted that instead — no scope change from the original plan
 4. [x] Write `.claude/agents/pr-review-maker.md`: `tools: Read, Bash, Grep, Glob,
-   WebFetch, WebSearch` (no `Write`/`Edit`), `model:` left blank (inherits orchestrator
+WebFetch, WebSearch` (no `Write`/`Edit`), `model:` left blank (inherits orchestrator
        model), `color: blue`, no `permission.skill:` key — deliberate exception to the
        no-`tools:`-field convention PR1-4 established, per the plan's technical-design.md
 5. [x] Carried over Core Responsibility, Finding Requirements (confidence ≥ 80 hard floor,
@@ -280,47 +280,60 @@ accessibility-first.md` confirmed to have no IKP-Labs equivalent (stripped to pr
 
 ---
 
-## Phase 3 (PR7): `pr-review-fixer`
+## Phase 3 (PR7): `pr-review-fixer` — ✅ Agent shipped (PR #217); dry-run test still pending
 
 > **Sequential — depends on PR6 being merged.**
 
 ### Task 7.1: Draft and ship the agent (60 min)
 
-1. [ ] Confirm PR6 is merged to `main` and pulled locally before starting
-2. [ ] `git checkout -b chore/pr-review-fixer`
-3. [ ] Write `.claude/agents/pr-review-fixer.md`: `tools: Read, Edit, Write, Bash, Grep,
-Glob`, `model: sonnet`, `color: yellow`, no `skills:` key
-4. [ ] Carry over Core Responsibility, Enumerating Unresolved Threads (GraphQL query
+1. [x] Confirmed PR6 is merged to `main` and pulled locally before starting
+2. [x] `git checkout -b chore/pr-review-fixer`
+3. [x] **Discovery mid-task**: OSE's current live `pr-review-fixer.md` (unlike the maker,
+       it wasn't deleted) had already been rewritten to reference the 9-specialist
+       decomposition (`pr-review-synthesis-maker` + 8 discipline specialists) — same
+       upstream-drift situation as PR6. Recovered the pre-decomposition version via the
+       same historical git ref used in PR6 and adapted that instead, staying consistent
+       with our already-merged PR5/PR6
+4. [x] Write `.claude/agents/pr-review-fixer.md`: `tools: Read, Edit, Write, Bash, Grep,
+   Glob`, `model: sonnet`, `color: yellow`, no `permission.skill:` key
+5. [x] Carried over Core Responsibility, Enumerating Unresolved Threads (GraphQL query
        pattern), the 4-way triage table, Reply and Resolve Discipline, Escalation on Repeated
        Rejection, Untrusted-Input Handling, Identity and Write Scope, Re-Run Quality Gates
-       Before Every Push (adapt the example command to `npm run lint`, `npm test`, and the
-       relevant `mvn test` / `go test ./...` depending on which app the fix touches, replacing
-       the Nx-specific `nx affected -t ...` example), Maker-Checker-Fixer Framing (Two-Role
-       Variant)
-5. [ ] Apply the same FR-5 dead-link adaptation table as PR6
-6. [ ] Link `governance/workflows/pr/pr-review-quality-gate.md` the same way as PR6
-7. [ ] Grep for OSE-specific strings and dead links — zero matches expected
+       Before Every Push (adapted the example command to `npm run lint`/`test`, `mvn test`,
+       `go test ./...`, and Nx-scoped equivalents, framed as "run whichever apply to the PR's
+       changed files" instead of one fixed Nx-target command), Maker-Checker-Fixer Framing
+       (Two-Role Variant)
+6. [x] Applied the same FR-5 dead-link adaptation table as PR6 (`git-push-default`
+       convention dropped entirely — its contrast point doesn't exist in IKP-Labs)
+7. [x] Linked `governance/workflows/pr/pr-review-quality-gate.md` the same way as PR6;
+       `pr-review-maker` is now a real backward link since PR6 is merged
+8. [x] Grep for OSE-specific strings and dead links — zero matches confirmed
+9. [x] **Extra step**: added the Fixer row to `.claude/agents/README.md`'s "PR Review"
+       section (created in PR6), completing the maker/fixer pair
 
 **Acceptance Criteria**:
 
-- [ ] Agent file created with valid frontmatter
-- [ ] Re-run-quality-gates section references actual IKP-Labs commands, not Nx-specific
+- [x] Agent file created with valid frontmatter
+- [x] Re-run-quality-gates section references actual IKP-Labs commands, not Nx-specific
       `nx affected` syntax
-- [ ] Zero OSE-specific references
+- [x] Zero OSE-specific references
 
 ### Task 7.2: Lint, commit, ship (20 min)
 
-1. [ ] Run `npm run lint:md` — fix all errors
-2. [ ] **COMMIT 7**: `chore(agents): add pr-review-fixer`
-3. [ ] `git push -u origin chore/pr-review-fixer`
-4. [ ] `gh pr create`, wait for CI, `gh pr merge <number> --squash --auto`
-5. [ ] `git checkout main && git pull origin main`
+1. [x] Run `npm run lint:md` — 0 errors in changed files
+2. [x] **COMMIT**: `chore(agents): add pr-review-fixer` (`d20927b`)
+3. [x] `git push -u origin chore/pr-review-fixer`
+4. [x] `gh pr create` — PR #217; CI passed (7/7); `gh pr merge 217 --squash --auto` —
+       merged 2026-07-26T06:03:56Z
+5. [x] `git checkout main && git pull origin main`
 
-### Task 7.3: Manual dry-run smoke test (30 min, required before Phase 3 is done)
+### Task 7.3: Manual dry-run smoke test (30 min, required before Phase 3 is done) — ⏳ NOT YET RUN
 
 > Per the Risk Flag in requirements.md FR-5: this pair posts/resolves real GitHub PR
 > review state, visible to collaborators. Do not consider Phase 3 done until this test
-> runs.
+> runs. **This is a live-state action (posts real comments on a real PR, visible to
+> collaborators) — requires explicit user go-ahead before running, per this session's
+> standing risk posture. Not run automatically as part of shipping PR7.**
 
 1. [ ] Pick one real, low-stakes open PR (or open a trivial throwaway PR against a
        scratch branch specifically for this test)
@@ -332,8 +345,8 @@ Glob`, `model: sonnet`, `color: yellow`, no `skills:` key
 
 **Acceptance Criteria — Phase 3 (all 3 PRs)**:
 
-- [ ] Workflow doc + both agents exist and cross-link correctly
-- [ ] Manual dry-run test documented with outcome
+- [x] Workflow doc + both agents exist and cross-link correctly
+- [ ] Manual dry-run test documented with outcome — **pending, see Task 7.3**
 
 ---
 
@@ -437,23 +450,28 @@ plans/done/2026-07-10__claude-governance-gap-round-4/`
 
 ## Progress Tracking
 
-**Overall Progress**: 6/9 PRs completed (67%) — Phase 0-2 complete; Phase 3's sequential chain 2/3 done (PR5, PR6); PR7 next
+**Overall Progress**: 7/9 PRs completed (78%) — Phase 0-3 all shipped (Phase 3's dry-run smoke test still pending, see checklist Task 7.3); Phase 4 (PR8) next
 
-| Phase                         | PR  | Status             |
-| ----------------------------- | --- | ------------------ |
-| 1 — api-exploratory-tester    | PR1 | [x] Done (PR #205) |
-| 2 — web-exploratory-tester    | PR2 | [x] Done (PR #207) |
-| 2 — web-usability-tester      | PR3 | [x] Done (PR #209) |
-| 2 — web-design-tester         | PR4 | [x] Done (PR #211) |
-| 3 — pr-review-quality-gate.md | PR5 | [x] Done (PR #213) |
-| 3 — pr-review-maker           | PR6 | [x] Done (PR #215) |
-| 3 — pr-review-fixer           | PR7 | [ ] Not started    |
-| 4 — hook decision (skip)      | PR8 | [ ] Not started    |
-| 5 — finalize sync record      | PR9 | [ ] Not started    |
+| Phase                         | PR  | Status                              |
+| ----------------------------- | --- | ----------------------------------- |
+| 1 — api-exploratory-tester    | PR1 | [x] Done (PR #205)                  |
+| 2 — web-exploratory-tester    | PR2 | [x] Done (PR #207)                  |
+| 2 — web-usability-tester      | PR3 | [x] Done (PR #209)                  |
+| 2 — web-design-tester         | PR4 | [x] Done (PR #211)                  |
+| 3 — pr-review-quality-gate.md | PR5 | [x] Done (PR #213)                  |
+| 3 — pr-review-maker           | PR6 | [x] Done (PR #215)                  |
+| 3 — pr-review-fixer           | PR7 | [x] Done (PR #217, dry-run pending) |
+| 4 — hook decision (skip)      | PR8 | [ ] Not started                     |
+| 5 — finalize sync record      | PR9 | [ ] Not started                     |
 
 **Plan-setup PR** (not one of the 9): `docs/add-claude-governance-gap-round-4-plan` → PR #204, merged.
 **Checklist-sync PRs** (not one of the 9): `docs/mark-round-4-pr1-complete` → PR #206, merged;
 `docs/mark-round-4-pr2-complete` → PR #208, merged; `docs/mark-round-4-pr3-complete` → PR #210, merged;
-`docs/mark-round-4-pr4-complete` → PR #212, merged; `docs/mark-round-4-pr5-complete` → PR #214, merged.
+`docs/mark-round-4-pr4-complete` → PR #212, merged; `docs/mark-round-4-pr5-complete` → PR #214, merged;
+`docs/mark-round-4-pr6-complete` → PR #216, merged.
 
-**Last Updated**: 2026-07-24
+**Open item**: Task 7.3's manual dry-run smoke test (`pr-review-maker` + `pr-review-fixer` against
+a real PR) has not been run — it posts real, collaborator-visible GitHub state, so it needs an
+explicit go-ahead rather than running automatically as part of shipping PR7.
+
+**Last Updated**: 2026-07-26
