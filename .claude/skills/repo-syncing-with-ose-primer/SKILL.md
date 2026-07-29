@@ -151,6 +151,7 @@ Document permanent skips here to avoid re-evaluation:
 | `docs-creating-in-the-field-tutorials` | Depends on tutorial triad (N/A) |
 | `docs-software-engineering-separation-*` | No content/code app separation in IKP-Labs |
 | Opencode sync permissions | No `.opencode/` folder or sync scripts |
+| `.claude/hooks/guard-pre-commit-env.test.sh` | Tests a superseded `scripts/check-no-env-staged.sh` path (404 in OSE); OSE's actual guard now lives in a Rust CLI (`apps/rhino-cli`) IKP-Labs does not have. IKP-Labs already has equivalent protection via `.claude/hooks/block-env-file-access.sh` (Round 3) |
 
 ---
 
