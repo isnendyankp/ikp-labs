@@ -295,7 +295,7 @@ WebFetch, WebSearch` (no `Write`/`Edit`), `model:` left blank (inherits orchestr
        same historical git ref used in PR6 and adapted that instead, staying consistent
        with our already-merged PR5/PR6
 4. [x] Write `.claude/agents/pr-review-fixer.md`: `tools: Read, Edit, Write, Bash, Grep,
-   Glob`, `model: sonnet`, `color: yellow`, no `permission.skill:` key
+Glob`, `model: sonnet`, `color: yellow`, no `permission.skill:` key
 5. [x] Carried over Core Responsibility, Enumerating Unresolved Threads (GraphQL query
        pattern), the 4-way triage table, Reply and Resolve Discipline, Escalation on Repeated
        Rejection, Untrusted-Input Handling, Identity and Write Scope, Re-Run Quality Gates
@@ -350,35 +350,34 @@ WebFetch, WebSearch` (no `Write`/`Edit`), `model:` left blank (inherits orchestr
 
 ---
 
-## Phase 4 (PR8): Hook Decision — `guard-pre-commit-env.test.sh`
+## Phase 4 (PR8): Hook Decision — `guard-pre-commit-env.test.sh` — ✅ Done (PR #219)
 
 ### Task 8.1: Re-confirm the decision and record it (30 min)
 
-1. [ ] `git checkout -b docs/skip-guard-pre-commit-env-hook`
-2. [ ] Re-verify via `gh api repos/wahidyankf/ose-public/contents/scripts/check-no-env-staged.sh`
-       that the path still 404s (confirm the Rust-CLI-supersession finding still holds at
-       implementation time — OSE may have changed again since this plan was written)
-3. [ ] Re-verify `.claude/hooks/block-env-file-access.sh` still exists and still covers
-       `.env*` read/write/edit blocking in IKP-Labs
-4. [ ] Add one row to the "What IKP-Labs Intentionally Does NOT Adopt" table in
-       `.claude/skills/repo-syncing-with-ose-primer/SKILL.md` per technical-design.md's PR8
-       section
-5. [ ] Confirm `.claude/hooks/` directory and `.claude/settings.json` are unchanged
-       (`git diff` shows no changes to either)
+1. [x] `git checkout -b docs/skip-guard-pre-commit-env-hook`
+2. [x] Re-verified via `gh api repos/wahidyankf/ose-public/contents/scripts/check-no-env-staged.sh`
+       that the path still 404s — Rust-CLI-supersession finding still holds
+3. [x] Re-verified `.claude/hooks/block-env-file-access.sh` still exists and is still
+       wired in `.claude/settings.json`
+4. [x] Added one row to the "What IKP-Labs Intentionally Does NOT Adopt" table in
+       `.claude/skills/repo-syncing-with-ose-primer/SKILL.md`
+5. [x] Confirmed `.claude/hooks/` directory and `.claude/settings.json` are unchanged
+       (`git diff --stat` showed only the 1-line SKILL.md change)
 
 **Acceptance Criteria**:
 
-- [ ] SKILL.md table has the new row with the Rust-CLI-supersession reason
-- [ ] No new hook file created
-- [ ] `.claude/settings.json` unchanged
+- [x] SKILL.md table has the new row with the Rust-CLI-supersession reason
+- [x] No new hook file created
+- [x] `.claude/settings.json` unchanged
 
 ### Task 8.2: Lint, commit, ship (15 min)
 
-1. [ ] Run `npm run lint:md` — fix all errors
-2. [ ] **COMMIT 8**: `docs(skills): record guard-pre-commit-env.test.sh as permanent skip`
-3. [ ] `git push -u origin docs/skip-guard-pre-commit-env-hook`
-4. [ ] `gh pr create`, wait for CI, `gh pr merge <number> --squash --auto`
-5. [ ] `git checkout main && git pull origin main`
+1. [x] Run `npm run lint:md` — 0 errors in changed files
+2. [x] **COMMIT**: `docs(skills): record guard-pre-commit-env.test.sh as permanent skip` (`45f3d05`)
+3. [x] `git push -u origin docs/skip-guard-pre-commit-env-hook`
+4. [x] `gh pr create` — PR #219; CI passed (7/7); `gh pr merge 219 --squash --auto` —
+       merged 2026-07-29T12:14:07Z
+5. [x] `git checkout main && git pull origin main`
 
 ---
 
@@ -450,7 +449,7 @@ plans/done/2026-07-10__claude-governance-gap-round-4/`
 
 ## Progress Tracking
 
-**Overall Progress**: 7/9 PRs completed (78%) — Phase 0-3 all shipped (Phase 3's dry-run smoke test still pending, see checklist Task 7.3); Phase 4 (PR8) next
+**Overall Progress**: 8/9 PRs completed (89%) — Phase 0-4 all shipped (Phase 3's dry-run smoke test still pending, see checklist Task 7.3); Phase 5 (PR9, finalize) is the last PR
 
 | Phase                         | PR  | Status                              |
 | ----------------------------- | --- | ----------------------------------- |
@@ -461,17 +460,18 @@ plans/done/2026-07-10__claude-governance-gap-round-4/`
 | 3 — pr-review-quality-gate.md | PR5 | [x] Done (PR #213)                  |
 | 3 — pr-review-maker           | PR6 | [x] Done (PR #215)                  |
 | 3 — pr-review-fixer           | PR7 | [x] Done (PR #217, dry-run pending) |
-| 4 — hook decision (skip)      | PR8 | [ ] Not started                     |
+| 4 — hook decision (skip)      | PR8 | [x] Done (PR #219)                  |
 | 5 — finalize sync record      | PR9 | [ ] Not started                     |
 
 **Plan-setup PR** (not one of the 9): `docs/add-claude-governance-gap-round-4-plan` → PR #204, merged.
 **Checklist-sync PRs** (not one of the 9): `docs/mark-round-4-pr1-complete` → PR #206, merged;
 `docs/mark-round-4-pr2-complete` → PR #208, merged; `docs/mark-round-4-pr3-complete` → PR #210, merged;
 `docs/mark-round-4-pr4-complete` → PR #212, merged; `docs/mark-round-4-pr5-complete` → PR #214, merged;
-`docs/mark-round-4-pr6-complete` → PR #216, merged.
+`docs/mark-round-4-pr6-complete` → PR #216, merged; `docs/mark-round-4-pr7-complete` → PR #218, merged.
 
 **Open item**: Task 7.3's manual dry-run smoke test (`pr-review-maker` + `pr-review-fixer` against
 a real PR) has not been run — it posts real, collaborator-visible GitHub state, so it needs an
-explicit go-ahead rather than running automatically as part of shipping PR7.
+explicit go-ahead rather than running automatically as part of shipping PR7. PR9 (Phase 5) should
+hold until this either runs or is explicitly deferred, since PR9 records final Round 4 state.
 
-**Last Updated**: 2026-07-26
+**Last Updated**: 2026-07-29
