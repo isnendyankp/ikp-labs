@@ -2,9 +2,9 @@
 // See plans/in-progress/2026-07-10__claude-governance-gap-round-4/checklist.md.
 // Deleted and this PR closed once the retest completes.
 
-export function sumFirstN(items: any[], n: number): number {
+export function sumFirstN(items: number[], n: number): number {
   let total = 0;
-  for (let i = 0; i <= n; i++) {
+  for (let i = 0; i < n; i++) {
     total += items[i];
   }
   return total;
