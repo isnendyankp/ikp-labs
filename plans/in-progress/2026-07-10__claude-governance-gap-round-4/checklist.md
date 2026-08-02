@@ -280,7 +280,7 @@ WebFetch, WebSearch` (no `Write`/`Edit`), `model:` left blank (inherits orchestr
 
 ---
 
-## Phase 3 (PR7): `pr-review-fixer` — ✅ Agent shipped (PR #217, frontmatter fixed in PR #222); dry-run test partially blocked
+## Phase 3 (PR7): `pr-review-fixer` — ✅ Done (PR #217, frontmatter fixed in PR #222, dry-run passed)
 
 > **Sequential — depends on PR6 being merged.**
 
@@ -334,7 +334,7 @@ Glob`, `model: sonnet`, `color: yellow`, no `permission.skill:` key
        merged 2026-07-26T06:03:56Z
 5. [x] `git checkout main && git pull origin main`
 
-### Task 7.3: Manual dry-run smoke test (30 min, required before Phase 3 is done) — ⚠️ PARTIALLY RUN, blocked
+### Task 7.3: Manual dry-run smoke test (30 min, required before Phase 3 is done) — ✅ DONE
 
 > Per the Risk Flag in requirements.md FR-5: this pair posts/resolves real GitHub PR
 > review state, visible to collaborators. Do not consider Phase 3 done until this test
@@ -342,30 +342,45 @@ Glob`, `model: sonnet`, `color: yellow`, no `permission.skill:` key
 > collaborators) — requires explicit user go-ahead before running, per this session's
 > standing risk posture. Not run automatically as part of shipping PR7.**
 
-1. [x] Picked a trivial throwaway PR against a scratch branch specifically for this test —
-       PR #221 (`test/pr-review-fixer-dry-run-smoke-test`), one file
+**Attempt 1** (session A) — PR #221 (`test/pr-review-fixer-dry-run-smoke-test`):
+
+1. [x] Picked a trivial throwaway PR against a scratch branch — one file
        (`SMOKE_TEST_PR_REVIEW.md`) with a deliberate `TODO:` line as reviewer bait
 2. [x] Invoked `pr-review-maker` against PR #221 — **pass**. It read the diff, checked for
        prompt injection (none), correctly judged the `TODO:` line didn't clear its
        ≥80-confidence bar (no HARD RULE to anchor even a LOW nit — no TODO-tracking
        convention exists in `governance/`), and posted **zero findings** without erroring
-3. [ ] Invoked `pr-review-fixer` against PR #221 — **blocked, not run**. The Agent tool
-       reported `Agent type 'pr-review-fixer' not found` even though the file existed.
-       Root-caused to malformed frontmatter (see Task 7.1's acceptance-criteria correction
-       above); fixed and merged in PR #222. Re-attempted the invocation both before and
-       after the fix merged to `main` (same session) — still not found both times. The
-       Agent tool's subagent registry appears to snapshot once at session start and does
-       not hot-reload mid-session, even across a merge to `main`. **This step needs to be
-       re-run in a fresh session** (registry will pick up the now-fixed
-       `.claude/agents/pr-review-fixer.md` on next session start)
-4. [x] Recorded the outcome above (this entry)
+3. [x] Invoked `pr-review-fixer` against PR #221 — **blocked**. The Agent tool reported
+       `Agent type 'pr-review-fixer' not found` even though the file existed. Root-caused to
+       malformed frontmatter (see Task 7.1's acceptance-criteria correction above); fixed and
+       merged in PR #222. Re-attempted both before and after the fix merged to `main` (same
+       session) — still not found both times. Confirmed the Agent tool's subagent registry
+       snapshots once at session start and does not hot-reload mid-session, even across a
+       merge to `main`
+4. [x] Recorded the attempt-1 outcome; PR #221 closed, branch deleted; deferred the
+       `pr-review-fixer` leg to a fresh session
+
+**Attempt 2** (session B, fresh session — registry picked up the PR #222 fix) — PR #224
+(`test/pr-review-fixer-dry-run-smoke-test-2`):
+
+1. [x] Opened a new throwaway PR with a file (`SMOKE_TEST_PR_REVIEW_2.ts`) containing two
+       deliberate, real issues: an `any[]` parameter (violates AGENTS.md's "no `any`" rule)
+       and an off-by-one loop bug (`i <= n` over-reads by one index)
+2. [x] Invoked `pr-review-maker` against PR #224 — **pass**. Posted a COMMENT-state review
+       with 2 line-anchored findings pinned to the head SHA: HIGH (95/100) on the `any[]`
+       type, CRITICAL (97/100) on the off-by-one loop
+3. [x] Invoked `pr-review-fixer` against PR #224 — **pass**. Enumerated both unresolved
+       threads via the GraphQL Reviews API, triaged both as **fix**, changed `items: any[]`
+       → `items: number[]` and `i <= n` → `i < n`, pushed both fixes in one commit
+       (`7e2b3b2`), verified the commit landed on the PR branch via `gh pr diff` before
+       resolving anything, replied to both threads with the fix reference, then resolved
+       both. Confirmed via GraphQL: 0 unresolved threads remain. Nothing errored
+4. [x] Recorded the attempt-2 outcome (this entry); PR #224 closed, branch deleted
 
 **Acceptance Criteria — Phase 3 (all 3 PRs)**:
 
 - [x] Workflow doc + both agents exist and cross-link correctly
-- [ ] Manual dry-run test documented with outcome — **pr-review-maker leg passed;
-      pr-review-fixer leg still needs a fresh-session re-run against PR #221 or a new
-      throwaway PR (see Task 7.3 step 3)**
+- [x] Manual dry-run test documented with outcome — both legs pass (attempt 2, PR #224)
 
 ---
 
@@ -472,19 +487,21 @@ acceptance-criteria correction above.
 
 ## Progress Tracking
 
-**Overall Progress**: 8/9 PRs completed (89%) — Phase 0-4 all shipped (Phase 3's dry-run smoke test partially run: pr-review-maker leg passed, pr-review-fixer leg blocked on a frontmatter bug now fixed in PR #222 and needs a fresh-session re-run, see checklist Task 7.3); Phase 5 (PR9, finalize) is the last PR
+**Overall Progress**: 8/9 PRs completed (89%) — Phase 0-4 all shipped, including Task 7.3's
+dry-run smoke test (both legs passed against PR #224, see checklist Task 7.3); Phase 5
+(PR9, finalize) is the last PR
 
-| Phase                         | PR  | Status                                                 |
-| ----------------------------- | --- | ------------------------------------------------------ |
-| 1 — api-exploratory-tester    | PR1 | [x] Done (PR #205)                                     |
-| 2 — web-exploratory-tester    | PR2 | [x] Done (PR #207)                                     |
-| 2 — web-usability-tester      | PR3 | [x] Done (PR #209)                                     |
-| 2 — web-design-tester         | PR4 | [x] Done (PR #211)                                     |
-| 3 — pr-review-quality-gate.md | PR5 | [x] Done (PR #213)                                     |
-| 3 — pr-review-maker           | PR6 | [x] Done (PR #215)                                     |
-| 3 — pr-review-fixer           | PR7 | [x] Shipped (PR #217, #222); dry-run fixer leg pending |
-| 4 — hook decision (skip)      | PR8 | [x] Done (PR #219)                                     |
-| 5 — finalize sync record      | PR9 | [ ] Not started                                        |
+| Phase                         | PR  | Status                                   |
+| ----------------------------- | --- | ---------------------------------------- |
+| 1 — api-exploratory-tester    | PR1 | [x] Done (PR #205)                       |
+| 2 — web-exploratory-tester    | PR2 | [x] Done (PR #207)                       |
+| 2 — web-usability-tester      | PR3 | [x] Done (PR #209)                       |
+| 2 — web-design-tester         | PR4 | [x] Done (PR #211)                       |
+| 3 — pr-review-quality-gate.md | PR5 | [x] Done (PR #213)                       |
+| 3 — pr-review-maker           | PR6 | [x] Done (PR #215)                       |
+| 3 — pr-review-fixer           | PR7 | [x] Done (PR #217, #222; dry-run passed) |
+| 4 — hook decision (skip)      | PR8 | [x] Done (PR #219)                       |
+| 5 — finalize sync record      | PR9 | [ ] Not started                          |
 
 **Plan-setup PR** (not one of the 9): `docs/add-claude-governance-gap-round-4-plan` → PR #204, merged.
 **Checklist-sync PRs** (not one of the 9): `docs/mark-round-4-pr1-complete` → PR #206, merged;
