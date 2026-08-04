@@ -134,7 +134,7 @@ Current IKP-Labs harness state (update after each sync round):
 
 | Area | Count | Last synced |
 |------|-------|-------------|
-| Agents | 44 | 2026-06-11 (Round 3) |
+| Agents | 53 | 2026-07-10 (Round 4) |
 | Skills | 27 | 2026-06-15 (Round 3) |
 | Hooks | 5 | 2026-06-02 (Round 3) |
 
@@ -163,4 +163,4 @@ Document permanent skips here to avoid re-evaluation:
 
 ---
 
-**Last Updated**: 2026-06-15
+**Last Updated**: 2026-07-10
