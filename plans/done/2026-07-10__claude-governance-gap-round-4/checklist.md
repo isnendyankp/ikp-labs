@@ -446,24 +446,27 @@ Glob`, `model: sonnet`, `color: yellow`, no `permission.skill:` key
        finalize PR; excludes closed throwaway smoke-test PRs #221 and #224)
 5. [x] Updated `plans/ideas.md`'s trailing `**Last Updated**:` footer line
 6. [x] Ran `npm run lint:md` — 0 errors in changed files
-7. [ ] **COMMIT 9**: `docs(plan): finalize claude-governance-gap-round-4 sync record`
-8. [ ] `git push -u origin docs/finalize-round-4-sync-record`
-9. [ ] `gh pr create` — expected PR #226; wait for CI; `gh pr merge --squash`
-10. [ ] `git checkout main && git pull origin main`
+7. [x] **COMMIT 9**: `docs(plan): finalize claude-governance-gap-round-4 sync record`
+8. [x] `git push -u origin docs/finalize-round-4-sync-record`
+9. [x] `gh pr create` — PR #226; CI passed (14/14); `gh pr merge 226 --squash`
+10. [x] `git checkout main && git pull origin main`
 
 **Acceptance Criteria**:
 
 - [x] SKILL.md counts match actual repo state (verified in Task 9.1)
 - [x] `plans/ideas.md` has the Round 4 entry with real PR numbers, not placeholders
 
-### Task 9.3: Archive this plan (15 min)
+### Task 9.3: Archive this plan (15 min) — ✅ Done
 
-1. [ ] Verify every checklist item in this file is checked
-2. [ ] Update this plan's README.md status to `✅ Completed` with completion date
-3. [ ] `git mv plans/in-progress/2026-07-10__claude-governance-gap-round-4/
+1. [x] Verified every checklist item in this file is checked (this line and the legend's
+       `[ ] Not started` in the Status Legend are the only two remaining `[ ]` — both
+       expected: this is the item being checked, the legend documents the symbol itself)
+2. [x] Updated this plan's README.md status to `✅ Completed`, added `**Completed**:
+   2026-08-04`
+3. [x] `git mv plans/in-progress/2026-07-10__claude-governance-gap-round-4/
 plans/done/2026-07-10__claude-governance-gap-round-4/`
-4. [ ] **COMMIT 10**: `docs(plan): move claude-governance-gap-round-4 to done`
-5. [ ] Push and merge per the same branch → PR → CI → merge cycle
+4. [x] **COMMIT 10**: `docs(plan): move claude-governance-gap-round-4 to done`
+5. [x] Pushed and merged per the same branch → PR → CI → merge cycle
 
 ---
 
