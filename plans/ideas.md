@@ -24,6 +24,16 @@ Quick concept snippets and brainstorming notes that haven't been formalized into
 
 ### ✅ Implemented
 
+- **Claude Governance Gap Round 4 — ALL DONE** (completed 2026-08-04)
+  - Phase 1: `api-exploratory-tester` agent (live API exploratory testing, kameravue-be + taskly-be)
+  - Phase 2: web tester triad — `web-exploratory-tester`, `web-usability-tester`, `web-design-tester`
+  - Phase 3: PR review quality gate — `governance/workflows/pr/pr-review-quality-gate.md` +
+    `pr-review-maker` + `pr-review-fixer` (manual dry-run smoke test passed against a live
+    throwaway PR: maker flagged 2 real issues, fixer fixed and resolved both)
+  - Phase 4 (Skipped): `guard-pre-commit-env.test.sh` hook — tests an OSE path superseded by a
+    Rust CLI IKP-Labs does not have; existing `block-env-file-access.sh` already covers the gap
+  - Implemented across PRs #204–#226 (excludes closed throwaway smoke-test PRs #221, #224)
+
 - **Claude Governance Gap Round 3 — ALL DONE** (completed 2026-06-02 to 2026-06-20)
   - Phase 1 (Critical): `block-env-file-access.sh` hook + `.env*` deny permissions
   - Phase 2–3 (High): `repo-harness-compatibility-checker/fixer`, `repo-setup-manager`, skills: `grill-me`, `plan-writing-gherkin-criteria`, `repo-applying-maker-checker-fixer`, `repo-assessing-criticality-confidence`
@@ -174,4 +184,4 @@ is currently paused. Revisit if KameraVue development resumes.
 
 ---
 
-**Last Updated**: June 20, 2026 (Claude Governance Gap Round 3 moved to Archive — fully implemented)
+**Last Updated**: August 4, 2026 (Claude Governance Gap Round 4 moved to Archive — fully implemented)
