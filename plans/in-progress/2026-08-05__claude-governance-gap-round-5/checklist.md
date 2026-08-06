@@ -51,49 +51,71 @@ phase's tasks below reference these steps by number instead of repeating them in
 
 ---
 
-## Phase 1 (PR1): Maker-Checker-Fixer Convergence Safeguards
+## Phase 1 (PR1): Maker-Checker-Fixer Convergence Safeguards — ✅ Done (PR #230), spot-check found a systemic gap
 
 **Target**: `.claude/skills/repo-applying-maker-checker-fixer/SKILL.md`
 **OSE source**: `.claude/skills/repo-applying-maker-checker-fixer/SKILL.md`
 
 ### Task 1.1: Draft and ship the skill update
 
-1. [ ] Recipe steps 1–2: branch `docs/mcf-convergence-safeguards`, fetch OSE source
-2. [ ] Adapt and add all five sub-capabilities: false-positives skip list, scoped
-       re-validation (only `git diff`-touched surface on repeat runs), post-edit
-       self-verification (`grep` after every `sed`-style fix, mark FAILED on silent
-       no-op), escalation guidance after 2+ rounds of maker/fixer disagreement, fixer
-       "mode" parameter (lax / normal / strict / ocd)
-3. [ ] Keep the added guidance generic across IKP-Labs's Java/TypeScript/Go stack — do not
-       hard-code any one checker's specifics into the shared skill
-4. [ ] Recipe steps 5–10: grep, lint, commit
-       (`docs(skills): add convergence safeguards to repo-applying-maker-checker-fixer`),
-       push, PR, merge, pull
+1. [x] Recipe steps 1–2: branch `docs/mcf-convergence-safeguards`, fetch OSE source
+       (`gh api ... --jq '.content'` — note: `--jq -r '.content'` errors with "accepts 1
+       arg(s), received 2"; `gh api --jq` does not take a separate `-r` flag, drop it)
+2. [x] Adapted and added all five sub-capabilities: FALSE_POSITIVE skip list
+       (`generated-reports/.known-false-positives.md`, reusing the file's own gitignored
+       `generated-reports/` convention), scoped re-validation (`git diff --name-only HEAD`),
+       post-edit self-verification (`grep` after every `sed`-style fix, log FAILED on
+       silent no-op), escalation after 2+ rounds of disagreement (`ESCALATED` status), fixer
+       `mode` parameter (lax/normal/strict/ocd) mapped to this repo's existing
+       CRITICAL/HIGH/MEDIUM/LOW tiers from `wow-criticality-assessment`
+3. [x] Kept the guidance generic — no Java/TypeScript/Go-specific hard-coding; reused
+       AGENTS.md's existing HIGH/MEDIUM/FALSE_POSITIVE confidence vocabulary instead of
+       inventing new terms
+4. [x] Recipe steps 5–10: grep (zero OSE matches), lint (0 errors), commit
+       (`docs(skills): add mcf convergence safeguards` — shortened from the originally
+       planned subject, which at 77 chars exceeded commitlint's 72-char header-max-length),
+       push, PR #230, CI green (7/7), merged, pulled
 
 **Acceptance Criteria**:
 
-- [ ] All five sub-capabilities present in the updated SKILL.md
-- [ ] Zero OSE-specific string matches
-- [ ] `npm run lint:md` passes
+- [x] All five sub-capabilities present in the updated SKILL.md
+- [x] Zero OSE-specific string matches
+- [x] `npm run lint:md` passes
 
-### Task 1.2: Spot-check downstream inheritance (required before Phase 1 is done)
+### Task 1.2: Spot-check downstream inheritance (required before Phase 1 is done) — ⚠️ FAIL, systemic gap found
 
 > Per README.md Success Criteria: verify the fix actually flows through to inheriting
 > agents, not just that the skill file changed.
 
-1. [ ] Open `.claude/agents/plan-checker.md` and confirm it references
-       `permission.skill: ... repo-applying-maker-checker-fixer ...` (or equivalent skill
-       reference) rather than duplicating skip-list/re-validation logic inline
-2. [ ] Open `.claude/agents/swe-ui-checker.md` and perform the same confirmation
-3. [ ] Record both spot-check results in this checklist (pass/fail) — if either agent does
-       NOT reference the skill, flag it as a new finding for a follow-up plan item, not a
-       Phase 1 blocker (Phase 9's `repo-harness-compatibility-fixer` finding already
-       demonstrates this class of exception can exist)
+1. [x] Opened `.claude/agents/plan-checker.md` — **FAIL**. Its `permission.skill:` list is
+       `plan-creating-project-plans`, `wow-criticality-assessment` only.
+       `repo-applying-maker-checker-fixer` is absent, and grepping the file for
+       `FALSE_POSITIVE`/`re-validat`/`maker-checker-fixer` returns zero matches — no
+       reference AND no inline duplication. The agent has no convergence-safeguard
+       behavior at all, from this skill or otherwise.
+2. [x] Opened `.claude/agents/swe-ui-checker.md` — **FAIL**, identical pattern. Its
+       `permission.skill:` list is `swe-developing-frontend-ui`, `wow-criticality-assessment`
+       only; same zero-match grep result.
+3. [x] Recorded both results. **Broader diagnostic** (not in the original task list, but
+       necessary to characterize the finding): spot-checked 5 more checker agents
+       (`repo-rules-checker`, `docs-checker`, `readme-checker`, `specs-checker`,
+       `repo-harness-compatibility-checker`) — **none** reference
+       `repo-applying-maker-checker-fixer` either. Root cause: this skill's own frontmatter
+       says `**Used By**: repo-setup-manager, agent-maker` — it was designed as a
+       meta-skill `agent-maker` consults _when authoring new_ checker/fixer agents (baking
+       the pattern into the new agent's body text at creation time), not a skill existing
+       checker/fixer agents load at runtime via `permission.skill:`. So Phase 1's stated
+       rationale ("~14 pairs inherit this automatically") does not hold for any of the 7
+       agents checked — likely none of the ~14 do.
+       **Flagging as a new finding for a follow-up plan item, not a Phase 1 blocker**, per
+       this task's own pre-written exception clause.
 
 **Acceptance Criteria**:
 
-- [ ] Both spot-checked agents confirmed to inherit the skill via reference, not
-      duplication (or the exception is explicitly recorded if not)
+- [x] Both spot-checked agents confirmed to inherit the skill via reference, not
+      duplication (or the exception is explicitly recorded if not) — **exception recorded**:
+      neither inherits it; PR1's improvements remain reference material for future
+      `agent-maker` use only until a follow-up item retrofits existing agents
 
 ---
 
