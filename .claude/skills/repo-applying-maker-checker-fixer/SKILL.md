@@ -107,6 +107,50 @@ Fixer agents process findings in CRITICAL → HIGH → MEDIUM → LOW order.
 
 ---
 
+## Preventing Iteration Loops
+
+Without these safeguards, a checker-fixer cycle can re-litigate the same findings indefinitely. Four mechanisms keep cycles converging:
+
+### 1. FALSE_POSITIVE skip list
+
+Fixer appends every finding it re-validates as FALSE_POSITIVE to `generated-reports/.known-false-positives.md` (gitignored, per the Audit Report Convention above). Checker reads this file at the start of every run and skips matching findings — match on `[category] | [file] | [brief-description]`. A skipped match is logged as `[PREVIOUSLY ACCEPTED FALSE_POSITIVE — skipped]` and does not count toward the finding total.
+
+### 2. Scoped re-validation
+
+On a re-validation run, checker re-scans only the files the previous fixer pass actually touched (`git diff --name-only HEAD`), not the whole domain. Fixer records this list in its report under `## Changed Files (for Scoped Re-validation)`.
+
+### 3. Post-edit self-verification
+
+`sed -i` and similar in-place edits exit `0` even when the pattern didn't match — a silent no-op can get logged as "fixed," and the next checker run re-flags it, looping forever. Verify every `sed`/`awk` edit landed:
+
+```bash
+sed -i 's/old-pattern/new-pattern/' file.md
+grep -q "new-pattern" file.md || echo "WARNING: sed pattern did not match — fix NOT applied"
+```
+
+Log as **FAILED (not applied)** if verification fails. For multi-line reformatting, prefer the `Edit` tool over `sed` — `sed` silently fails on multi-line patterns.
+
+### 4. Escalation after repeated disagreement
+
+If checker and fixer disagree on the same finding for 2+ consecutive cycles (checker re-flags what fixer already marked FALSE_POSITIVE), fixer marks it `ESCALATED` instead of re-applying the same verdict, and surfaces it to the user for a maker-level decision rather than looping indefinitely.
+
+---
+
+## Fixer Mode Parameter
+
+Fixer agents accept an optional `mode` to control which criticality tiers get auto-applied:
+
+| Mode | Applies |
+|------|---------|
+| `lax` | CRITICAL only |
+| `normal` (default) | CRITICAL + HIGH |
+| `strict` | CRITICAL + HIGH + MEDIUM |
+| `ocd` | CRITICAL + HIGH + MEDIUM + LOW |
+
+Findings below the mode threshold are reported but not applied — listed under `## Skipped Findings (Below Mode Threshold)` in the fix report, with a note on which mode would apply them.
+
+---
+
 ## Related Skills
 
 - `repo-understanding-repository-architecture` — IKP-Labs repo layout and agent catalog
@@ -115,4 +159,4 @@ Fixer agents process findings in CRITICAL → HIGH → MEDIUM → LOW order.
 
 ---
 
-**Last Updated:** June 2026
+**Last Updated:** 2026-08-06
