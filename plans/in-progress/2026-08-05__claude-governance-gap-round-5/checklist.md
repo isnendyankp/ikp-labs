@@ -121,20 +121,28 @@ phase's tasks below reference these steps by number instead of repeating them in
 
 ## Phase 2: Cluster A — TDD & Accessibility Testing
 
-### Task 2.1 (PR2): `swe-ui-maker.md`
+### Task 2.1 (PR2): `swe-ui-maker.md` — ✅ Done (PR #232)
 
-1. [ ] Recipe steps 1–2: branch `docs/swe-ui-maker-tdd-a11y`, fetch OSE source
-2. [ ] Adapt: mandate `jest-axe`'s `toHaveNoViolations()` in every component test, written
-       before the component implementation (per Adaptation Convention Table:
-       `vitest-axe`→`jest-axe`)
-3. [ ] Recipe steps 5–10: grep (include `vitest-axe` as a required-zero-match term), lint,
-       commit (`docs(agents): add jest-axe TDD mandate to swe-ui-maker`), push, PR, merge,
-       pull
+1. [x] Recipe steps 1–2: branch `docs/swe-ui-maker-tdd-a11y`, fetch OSE source
+2. [x] Adapted: mandated `jest-axe`'s `toHaveNoViolations()` in every component test,
+       written before the component implementation (per Adaptation Convention Table:
+       `vitest-axe`→`jest-axe`); kept only the TDD/a11y capability, not OSE's
+       CVA/Radix/Storybook/`libs/web-ui` component-authoring structure, which doesn't apply
+       to this repo's app-local `apps/kameravue-fe/src/components/ui/` setup (Round 4 PR4);
+       reordered the Workflow section to TDD (test → implement → refactor); noted `jest-axe`
+       needs adding as a devDependency (not yet present in `kameravue-fe`) — not installed
+       in this PR, scope is the agent instruction file only
+3. [x] Recipe steps 5–10: grep (zero `vitest-axe` matches — had to rephrase one explanatory
+       parenthetical that named `vitest-axe` even though it wasn't leftover OSE content, to
+       satisfy the literal zero-match requirement), lint (0 errors), commit
+       (`docs(agents): add jest-axe tdd mandate to swe-ui-maker` — lowercased "TDD" in the
+       subject, commitlint's `subject-case` rule requires all-lowercase), push, PR #232, CI
+       green (7/7), merged, pulled
 
 **Acceptance Criteria**:
 
-- [ ] `jest-axe` (not `vitest-axe`) referenced as a required assertion
-- [ ] TDD ordering (test written before implementation) stated explicitly
+- [x] `jest-axe` (not `vitest-axe`) referenced as a required assertion
+- [x] TDD ordering (test written before implementation) stated explicitly
 
 ### Task 2.2 (PR3): `swe-ui-checker.md`
 
