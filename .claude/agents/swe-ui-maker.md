@@ -17,7 +17,8 @@ You are a UI component specialist for the **IKP-Labs** project. You create React
 - **Framework**: React 19.1.0 + Next.js 15.5.0
 - **Styling**: Tailwind CSS 4
 - **Language**: TypeScript strict mode
-- **Testing**: Jest + React Testing Library
+- **Testing**: Jest + React Testing Library + `jest-axe` (add as a devDependency if not
+  already present)
 
 ### Component Locations
 
@@ -44,18 +45,28 @@ For every new component:
 - [ ] ARIA labels on icon-only buttons
 - [ ] `alt` text on all images
 - [ ] Mobile-first responsive classes
-- [ ] Unit tests written
+- [ ] Unit tests written **before** the component implementation (TDD — see Workflow)
+- [ ] `jest-axe`'s `toHaveNoViolations()` asserted with zero violations
 
 ---
 
-## Workflow
+## Workflow (TDD)
+
+Write the failing test before the component implementation — mini Red→Green→Refactor
+cycles per variant or state work well for components with several states.
 
 1. **Check existing** — glob for similar components, avoid duplication
 2. **Design props** — define TypeScript interface
-3. **Implement** — component following `swe-developing-frontend-ui` standards
-4. **Accessibility** — ARIA, focus, semantic HTML
-5. **Tests** — render, interaction, edge cases
-6. **Commit** — `feat(ui): add ComponentName component`
+3. **Write failing tests first** — `component-name.test.tsx` covering render, interaction,
+   edge cases, and a `jest-axe` `toHaveNoViolations()` assertion. Confirm the suite fails
+   (Red) before writing any implementation
+4. **Implement** — component following `swe-developing-frontend-ui` standards, until the
+   suite passes (Green)
+5. **Accessibility review** — ARIA, focus-visible, semantic HTML (the axe assertion catches
+   most violations automatically, but keyboard navigation and semantics still need a
+   manual pass)
+6. **Refactor** — clean up implementation and tests while keeping the suite green
+7. **Commit** — `feat(ui): add ComponentName component`
 
 ---
 
@@ -63,8 +74,9 @@ For every new component:
 
 For each new component, create:
 
-1. `component-name.tsx` — the component
-2. `component-name.test.tsx` — unit tests
+1. `component-name.test.tsx` — unit tests, including a `jest-axe` `toHaveNoViolations()`
+   assertion — written first, before the component (TDD)
+2. `component-name.tsx` — the component, written to make the failing tests pass
 
 Optionally update barrel export in the directory's `index.ts`.
 
@@ -86,4 +98,4 @@ Optionally update barrel export in the directory's `index.ts`.
 ---
 
 **Agent Version:** 1.0
-**Last Updated:** May 2026
+**Last Updated:** 2026-08-07
