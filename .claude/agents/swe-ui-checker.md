@@ -25,6 +25,8 @@ Components live in `apps/kameravue-fe/src/components/`. Reports saved to `genera
 | TypeScript | Props interface defined, no `any` | HIGH |
 | Tailwind | No hardcoded hex/rgb colors, no `!important` | HIGH |
 | Accessibility | ARIA labels, alt text, focus-visible, semantic HTML | HIGH |
+| Color contrast | WCAG AA ratios unverified (4.5:1 normal text, 3:1 large text/UI), color-only status indicators (e.g. red/green with no icon or label) | HIGH |
+| Dark mode | Every token added to `:root` under `@theme inline` in `apps/kameravue-fe/src/app/globals.css` has a corresponding override inside its `@media (prefers-color-scheme: dark)` block — no light-only colors | MEDIUM |
 | Responsive | Mobile-first, `md:`/`lg:` breakpoints | MEDIUM |
 | States | Loading, error, empty states present | MEDIUM |
 | `className` | Forwarded with `cn()` utility | LOW |
@@ -35,7 +37,8 @@ Components live in `apps/kameravue-fe/src/components/`. Reports saved to `genera
 ## Workflow
 
 1. **Discover** — glob for `.tsx` files in target scope
-2. **Read** — read each component file
+2. **Read** — read each component file and `apps/kameravue-fe/src/app/globals.css` (for the
+   color-contrast and dark-mode dimensions)
 3. **Check** — apply all validation dimensions
 4. **Classify** — assign severity using `wow-criticality-assessment`
 5. **Report** — write audit to `generated-reports/`
@@ -108,4 +111,4 @@ Components live in `apps/kameravue-fe/src/components/`. Reports saved to `genera
 ---
 
 **Agent Version:** 1.0
-**Last Updated:** May 2026
+**Last Updated:** 2026-08-09
