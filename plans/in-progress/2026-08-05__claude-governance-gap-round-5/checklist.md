@@ -144,22 +144,27 @@ phase's tasks below reference these steps by number instead of repeating them in
 - [x] `jest-axe` (not `vitest-axe`) referenced as a required assertion
 - [x] TDD ordering (test written before implementation) stated explicitly
 
-### Task 2.2 (PR3): `swe-ui-checker.md`
+### Task 2.2 (PR3): `swe-ui-checker.md` — ✅ Done (PR #234)
 
-1. [ ] Recipe steps 1–2: branch `docs/swe-ui-checker-contrast-darkmode`, fetch OSE source
-2. [ ] Adapt: add color-contrast as its own HIGH-severity dimension (WCAG AA ratios,
-       color-only status indicators), distinct from generic ARIA; add dark-mode as MEDIUM
-       (every token needs a dark variant); verify against `kameravue-fe`'s actual Tailwind
-       4 CSS-first `@theme inline` token setup in `apps/kameravue-fe/src/app/globals.css`
-3. [ ] Recipe steps 5–10: grep, lint,
-       commit (`docs(agents): add color-contrast and dark-mode checks to swe-ui-checker`),
-       push, PR, merge, pull
+1. [x] Recipe steps 1–2: branch `docs/swe-ui-checker-contrast-darkmode`, fetch OSE source
+2. [x] Adapted: added color-contrast as its own HIGH-severity dimension (WCAG AA ratios —
+       4.5:1 normal text, 3:1 large text/UI — plus color-only status indicators), distinct
+       from the generic Accessibility row; added dark-mode as its own MEDIUM dimension.
+       Verified `globals.css`'s actual structure first: `:root` tokens under `@theme
+   inline`, overridden inside a `@media (prefers-color-scheme: dark)` block — the
+       dark-mode check description reflects this real structure, not a generic claim.
+       Also updated Workflow step 2 to read `globals.css` alongside each component file,
+       since both new dimensions need it
+3. [x] Recipe steps 5–10: grep (zero OSE-specific matches), lint (0 errors), commit
+       (`docs(agents): add color-contrast and dark-mode checks` — shortened from the
+       originally planned subject to stay under commitlint's 72-char header limit), push,
+       PR #234, CI green (7/7), merged, pulled
 
 **Acceptance Criteria**:
 
-- [ ] Color-contrast is a distinct HIGH-severity dimension
-- [ ] Dark-mode is a distinct MEDIUM-severity dimension
-- [ ] Both reference the actual `globals.css` `@theme inline` token location
+- [x] Color-contrast is a distinct HIGH-severity dimension
+- [x] Dark-mode is a distinct MEDIUM-severity dimension
+- [x] Both reference the actual `globals.css` `@theme inline` token location
 
 ### Task 2.3 (PR4): `swe-e2e-dev.md`
 
