@@ -151,7 +151,7 @@ phase's tasks below reference these steps by number instead of repeating them in
        4.5:1 normal text, 3:1 large text/UI — plus color-only status indicators), distinct
        from the generic Accessibility row; added dark-mode as its own MEDIUM dimension.
        Verified `globals.css`'s actual structure first: `:root` tokens under `@theme
-   inline`, overridden inside a `@media (prefers-color-scheme: dark)` block — the
+inline`, overridden inside a `@media (prefers-color-scheme: dark)` block — the
        dark-mode check description reflects this real structure, not a generic claim.
        Also updated Workflow step 2 to read `globals.css` alongside each component file,
        since both new dimensions need it
@@ -166,19 +166,22 @@ phase's tasks below reference these steps by number instead of repeating them in
 - [x] Dark-mode is a distinct MEDIUM-severity dimension
 - [x] Both reference the actual `globals.css` `@theme inline` token location
 
-### Task 2.3 (PR4): `swe-e2e-dev.md`
+### Task 2.3 (PR4): `swe-e2e-dev.md` — ✅ Done (PR #236)
 
-1. [ ] Recipe steps 1–2: branch `docs/swe-e2e-dev-red-green-refactor`, fetch OSE source
-2. [ ] Adapt: require the Playwright spec be written and confirmed failing before the
-       feature lands (explicit Red→Green→Refactor), replacing the current implied
-       tests-written-after-the-fact ordering
-3. [ ] Recipe steps 5–10: grep, lint,
-       commit (`docs(agents): add Red-Green-Refactor requirement to swe-e2e-dev`), push,
-       PR, merge, pull
+1. [x] Recipe steps 1–2: branch `docs/swe-e2e-dev-red-green-refactor`, fetch OSE source
+2. [x] Adapted: workflow now requires the Playwright spec be written and confirmed failing
+       (because the feature doesn't exist yet, not a config/selector problem) before the
+       feature lands — explicit Red→Green→Refactor, replacing the prior implied
+       tests-written-after-the-fact ordering. Dropped OSE's manual-verification-script
+       variant (tied to a Manual Behavioral Verification convention this repo doesn't have)
+       to keep the change scoped
+3. [x] Recipe steps 5–10: grep (zero OSE matches), lint (0 errors), commit
+       (`docs(agents): add red-green-refactor requirement to swe-e2e-dev` — lowercased per
+       commitlint's `subject-case` rule), push, PR #236, CI green (7/7), merged, pulled
 
 **Acceptance Criteria**:
 
-- [ ] Explicit Red→Green→Refactor step ordering stated in the workflow
+- [x] Explicit Red→Green→Refactor step ordering stated in the workflow
 
 ### Task 2.4 (PR5): `swe-csharp-dev.md`
 
