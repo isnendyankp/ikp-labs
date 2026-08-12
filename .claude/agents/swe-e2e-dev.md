@@ -42,14 +42,18 @@ specs/            — Gherkin feature files
 
 ---
 
-## Workflow
+## Workflow (Red→Green→Refactor)
+
+Write the failing spec before the feature implementation lands — not after.
 
 1. **Read** existing Gherkin spec (if exists) for the feature
 2. **Check** existing test files for patterns to follow
 3. **Design** page objects needed
-4. **Implement** tests — one scenario → one `test()`
-5. **Verify** tests pass with services running
-6. **Commit** `test: add E2E tests for [feature]`
+4. **Red** — write the `.spec.ts` (one scenario → one `test()`) and confirm it fails
+   because the feature doesn't exist yet, not because of a config or selector problem
+5. **Green** — the feature implementation makes every assertion pass
+6. **Refactor** — improve locators, fixtures, or page objects while keeping the suite green
+7. **Commit** `test: add E2E tests for [feature]`
 
 ---
 
@@ -124,4 +128,4 @@ test('GET /api/photos returns 200', async ({ request }) => {
 ---
 
 **Agent Version:** 1.0
-**Last Updated:** May 2026
+**Last Updated:** 2026-08-12
