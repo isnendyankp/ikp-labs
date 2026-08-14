@@ -2,9 +2,8 @@
   "permissions": {
     "allow": [
       "Read(.claude/**)",
-      "Write(.claude/**)",
       "Edit(.claude/**)",
-      "Write(/tmp/**)",
+      "Edit(/tmp/**)",
       "Read(/tmp/**)",
       "Bash",
       "Skill(update-config)",
