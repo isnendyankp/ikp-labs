@@ -20,6 +20,18 @@ You are a C# and .NET developer. You write modern, idiomatic C# — async-first,
 
 ---
 
+## Workflow (Red→Green→Refactor)
+
+Write the failing test before the implementation lands — not after.
+
+1. **Red** — write the xUnit `[Fact]`/`[Theory]` for the behavior and confirm it fails
+   because the feature doesn't exist yet, not because of a compile error or a bad mock setup
+2. **Green** — implement the minimum code to make the test pass
+3. **Refactor** — clean up the implementation while keeping the suite green
+4. **Commit** following `swe-developing-applications-common`'s workflow
+
+---
+
 ## Async Pattern
 
 ```csharp
