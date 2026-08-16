@@ -183,19 +183,26 @@ inline`, overridden inside a `@media (prefers-color-scheme: dark)` block — the
 
 - [x] Explicit Red→Green→Refactor step ordering stated in the workflow
 
-### Task 2.4 (PR5): `swe-csharp-dev.md`
+### Task 2.4 (PR5): `swe-csharp-dev.md` — ✅ Done (PR #239)
 
-1. [ ] Recipe steps 1–2: branch `docs/swe-csharp-dev-tdd`, fetch OSE source
-2. [ ] Adapt: mandate TDD (failing test → confirm red → implement → refactor) as a
-       required workflow step, not only documented testing patterns; this agent is
-       generic (not KameraVue-tied) so no IKP-Labs app-path changes are needed
-3. [ ] Recipe steps 5–10: grep, lint,
-       commit (`docs(agents): add TDD workflow requirement to swe-csharp-dev`), push, PR,
-       merge, pull
+1. [x] Recipe steps 1–2: branch `docs/swe-csharp-dev-tdd`, fetch OSE source. Fetch 404'd
+       at the plan's recorded path (`.claude/agents/swe-csharp-dev.md`) — OSE's Phase 6
+       subfolder refactor moved it to `.claude/agents/swe/swe-csharp-dev.md`; recovered via
+       the repo tree listing rather than commit-history walk
+2. [x] Adapted: added an explicit `## Workflow (Red→Green→Refactor)` section (Red — write
+       the xUnit `[Fact]`/`[Theory]` and confirm it fails; Green — implement the minimum
+       code to pass; Refactor — clean up while keeping the suite green; Commit), mirroring
+       PR4's `swe-e2e-dev.md` pattern rather than OSE's now-trimmed pointer-only style
+       (OSE's refactored source delegates TDD detail entirely to
+       `swe-developing-applications-common` and no longer states it inline)
+3. [x] Recipe steps 5–10: grep (zero OSE matches), lint (0 errors in changed file; 5
+       pre-existing unrelated errors in `docs/linkedin/History/`), commit
+       (`docs(agents): add tdd workflow requirement to swe-csharp-dev` — lowercased per
+       commitlint's `subject-case` rule), push, PR #239, CI green (14/14), merged, pulled
 
 **Acceptance Criteria**:
 
-- [ ] TDD is a required workflow step, not only a documented pattern
+- [x] TDD is a required workflow step, not only a documented pattern
 
 ### Task 2.5 (PR6): `swe-developing-frontend-ui` (skill)
 
