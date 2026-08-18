@@ -119,7 +119,7 @@ phase's tasks below reference these steps by number instead of repeating them in
 
 ---
 
-## Phase 2: Cluster A — TDD & Accessibility Testing
+## Phase 2: Cluster A — TDD & Accessibility Testing — ✅ Done (PR #232, #234, #236, #239, #241)
 
 ### Task 2.1 (PR2): `swe-ui-maker.md` — ✅ Done (PR #232)
 
@@ -204,23 +204,35 @@ inline`, overridden inside a `@media (prefers-color-scheme: dark)` block — the
 
 - [x] TDD is a required workflow step, not only a documented pattern
 
-### Task 2.5 (PR6): `swe-developing-frontend-ui` (skill)
+### Task 2.5 (PR6): `swe-developing-frontend-ui` (skill) — ✅ Done (PR #241)
 
-1. [ ] Recipe steps 1–2: branch `docs/frontend-ui-a11y-testing`, fetch OSE source
-2. [ ] Adapt: same automated a11y-testing requirement as PR2 (`jest-axe`
-       `toHaveNoViolations()`), at the skill level
-3. [ ] Recipe steps 5–10: grep (include `vitest-axe`), lint,
-       commit (`docs(skills): add automated a11y testing requirement to swe-developing-frontend-ui`),
-       push, PR, merge, pull
+1. [x] Recipe steps 1–2: branch `docs/frontend-ui-a11y-testing`, fetch OSE source
+       (fetched cleanly at the plan's recorded path, no move)
+2. [x] Adapted: renamed "Testing UI Components" to "Testing UI Components (TDD)",
+       added `jest-axe`'s `toHaveNoViolations()` as a required assertion written before
+       the component implementation (mirroring PR2's wording), and added the same
+       requirement to the "Checklist for New Components" list. OSE's source uses
+       `vitest-axe`; substituted with `jest-axe` per IKP-Labs's Jest + RTL stack
+3. [x] Recipe steps 5–10: grep (zero OSE matches, including `vitest-axe`), lint (0 errors
+       in changed file; 5 pre-existing unrelated errors in `docs/linkedin/History/`),
+       commit (`docs(skills): add a11y testing requirement to swe-developing-frontend-ui`
+       — shortened from the plan's suggested subject to satisfy commitlint's
+       `header-max-length` (72 chars) rule), push, PR #241, CI green (14/14), merged,
+       pulled
 
 **Acceptance Criteria**:
 
-- [ ] `jest-axe` requirement present at the skill level, consistent with PR2
+- [x] `jest-axe` requirement present at the skill level, consistent with PR2
 
 **Acceptance Criteria — Phase 2 (all 5 PRs)**:
 
-- [ ] All 5 files reference `jest-axe` (where applicable) and TDD ordering consistently
-- [ ] No file in this phase references `vitest-axe`
+- [x] All 5 files reference `jest-axe` (where applicable) and TDD ordering consistently —
+      verified via grep: `swe-ui-maker.md` and the `swe-developing-frontend-ui` skill
+      reference `jest-axe` (UI-authoring surfaces); `swe-e2e-dev.md` and
+      `swe-csharp-dev.md` state Red→Green→Refactor TDD ordering (test-writing surfaces,
+      not UI-authoring, so `jest-axe` doesn't apply there); `swe-ui-checker.md`'s scope is
+      color-contrast/dark-mode review (PR3), not test authoring, so neither applies
+- [x] No file in this phase references `vitest-axe` — confirmed via grep, zero matches
 
 ---
 
