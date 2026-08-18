@@ -186,12 +186,20 @@ function PhotoUploadForm({ onSubmit }: { onSubmit: (data: FormData) => Promise<v
 
 ---
 
-## Testing UI Components
+## Testing UI Components (TDD)
+
+Write the failing test before the component implementation — mini Red→Green→Refactor
+cycles per variant or state work well for components with several states. Every
+component test file must include a `jest-axe` `toHaveNoViolations()` assertion, written
+alongside the render/interaction assertions, before the component implementation exists.
 
 ```tsx
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { axe, toHaveNoViolations } from 'jest-axe';
 import { Button } from './button';
+
+expect.extend(toHaveNoViolations);
 
 describe('Button', () => {
   it('renders with correct label', () => {
@@ -212,6 +220,11 @@ describe('Button', () => {
     await user.click(screen.getByRole('button'));
 
     expect(onClick).toHaveBeenCalledTimes(1);
+  });
+
+  it('has no accessibility violations', async () => {
+    const { container } = render(<Button>Click me</Button>);
+    expect(await axe(container)).toHaveNoViolations();
   });
 });
 ```
@@ -242,4 +255,5 @@ apps/kameravue-fe/src/
 - [ ] ARIA labels on interactive elements
 - [ ] Alt text on images
 - [ ] Mobile-first responsive
-- [ ] Unit tests written
+- [ ] Unit tests written **before** the component implementation (TDD)
+- [ ] `jest-axe`'s `toHaveNoViolations()` asserted with zero violations
