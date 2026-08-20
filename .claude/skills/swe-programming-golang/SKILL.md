@@ -291,6 +291,71 @@ func (m *mockUserRepo) FindByID(_ context.Context, id string) (*User, error) {
 
 ---
 
+## Linting Discipline
+
+- **Error comparison**: use `errors.Is`/`errors.As`, never `==` or a type assertion —
+  `errorlint` enforced
+
+  ```go
+  if errors.Is(err, io.EOF) { ... }   // NOT: err == io.EOF
+
+  var exitErr *exec.ExitError
+  if errors.As(err, &exitErr) { ... } // NOT: err.(*exec.ExitError)
+  ```
+
+- **Error wrapping**: always `%w`, never `%v`, for error args in `fmt.Errorf` —
+  `errorlint` enforced
+
+  ```go
+  return fmt.Errorf("failed to process user: %w", err) // preserves the chain
+  // Never: fmt.Errorf("...%v", err) — errorlint violation
+  ```
+
+- **Sealed-interface exhaustiveness**: mark sum-type interfaces with `//sumtype:decl` and
+  enforce exhaustive `switch` coverage with `gochecksumtype`
+
+  ```go
+  //sumtype:decl
+  type Status interface {
+      isStatus()
+  }
+  ```
+
+- **`iota` discipline**: never mix `iota` constants with literal constants in the same
+  `const` block — split them into separate blocks (`iotamixing` lint rule)
+- **Doc comments**: every exported identifier gets a doc comment starting with its name,
+  imperative mood for functions — `godot` + `revive exported` + `revive package-comments`
+  enforced
+
+  ```go
+  // Package doctor checks required development tools are installed.
+  package doctor
+
+  // Execute runs the root command, writing errors to stderr and exiting on failure.
+  func Execute() { ... }
+  ```
+
+---
+
+## Security Practices
+
+- **Input validation**: validate all external input — check bounds, formats, and types;
+  reject invalid input early
+- **SQL injection**: always use parameterized queries, never string-concatenated SQL
+
+  ```go
+  rows, err := db.Query("SELECT * FROM users WHERE id = ?", userID)
+  ```
+
+- **Context timeouts**: always set a timeout on outbound calls
+
+  ```go
+  ctx, cancel := context.WithTimeout(ctx, 30*time.Second)
+  defer cancel()
+  ```
+
+---
+
 ## Common Conventions
 
 | Convention | Rule |
