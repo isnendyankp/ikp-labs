@@ -238,20 +238,31 @@ inline`, overridden inside a `@media (prefers-color-scheme: dark)` block — the
 
 ## Phase 3: Cluster B — Language Hardening
 
-### Task 3.1 (PR7): `swe-programming-golang` (skill)
+### Task 3.1 (PR7): `swe-programming-golang` (skill) — ✅ Done (PR #243)
 
-1. [ ] Recipe steps 1–2: branch `docs/golang-linting-security`, fetch OSE source
-2. [ ] Adapt: add "Linting Discipline" section (`errors.Is`/`errors.As` over `==`, `%w`
-       not `%v` for wrapped errors — errorlint-enforced, sealed-interface exhaustiveness,
-       no mixing `iota` with literal consts, godoc comment requirements); add "Security
-       Practices" section (parameterized queries, `context.WithTimeout`, input validation)
-3. [ ] Recipe steps 5–10: grep, lint,
-       commit (`docs(skills): add linting discipline and security practices to swe-programming-golang`),
-       push, PR, merge, pull
+1. [x] Recipe steps 1–2: branch `docs/golang-linting-security`, fetch OSE source. 404'd
+       at the plan's recorded path — OSE removed Go support entirely (agent + skill) in
+       commit `a36388a` ("repository rules and quality-gate optimization"), since OSE's
+       own apps dropped Go in favor of Rust CLIs. Recovered from the last pre-deletion
+       commit (`e807b75`), pulling rule detail from that commit's
+       `reference/naming-and-modern-features.md` and
+       `reference/error-handling-concurrency-testing-security.md`
+2. [x] Adapted: added "Linting Discipline" section (`errors.Is`/`errors.As` over `==`, `%w`
+       not `%v` for wrapped errors — errorlint-enforced, sealed-interface exhaustiveness
+       via `gochecksumtype`, no mixing `iota` with literal consts, godoc comment
+       requirements via godot + revive); added "Security Practices" section (parameterized
+       queries, `context.WithTimeout`, input validation)
+3. [x] Recipe steps 5–10: grep (zero OSE matches, including `ose-primer`/`ose-public`),
+       lint (0 errors in changed file; 5 pre-existing unrelated errors in
+       `docs/linkedin/History/`), commit
+       (`docs(skills): add lint and security practices to swe-programming-golang` —
+       shortened twice from the plan's suggested subject to satisfy commitlint's
+       `header-max-length` (72 chars) rule), push, PR #243, CI green (14/14), merged,
+       pulled
 
 **Acceptance Criteria**:
 
-- [ ] Both new sections present with the specific rules listed above
+- [x] Both new sections present with the specific rules listed above
 
 ### Task 3.2 (PR8): `swe-programming-rust` (skill)
 
