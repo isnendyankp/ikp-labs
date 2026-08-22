@@ -264,20 +264,34 @@ inline`, overridden inside a `@media (prefers-color-scheme: dark)` block — the
 
 - [x] Both new sections present with the specific rules listed above
 
-### Task 3.2 (PR8): `swe-programming-rust` (skill)
+### Task 3.2 (PR8): `swe-programming-rust` (skill) — ✅ Done (PR #245)
 
-1. [ ] Recipe steps 1–2: branch `docs/rust-unsafe-policy-audit`, fetch OSE source
-2. [ ] Adapt: add Unsafe Code Policy (`#![forbid(unsafe_code)]` in application code +
-       `[lints.rust]` in `Cargo.toml`), `cargo audit`/`cargo deny` dependency-vulnerability
-       scanning, Clippy pedantic lints with hard-deny on `unwrap_used`/`panic`/
-       `undocumented_unsafe_blocks`, an enforced `.rustfmt.toml`
-3. [ ] Recipe steps 5–10: grep, lint,
-       commit (`docs(skills): add unsafe code policy and dependency scanning to swe-programming-rust`),
-       push, PR, merge, pull
+1. [x] Recipe steps 1–2: branch `docs/rust-unsafe-policy-audit`, fetch OSE source.
+       Fetched cleanly at the plan's recorded path, no move; pulled the specific rule
+       detail from the linked `reference/unsafe-policy-cargo-lints.md`, plus
+       `cargo audit`/`cargo deny` command detail from OSE's
+       `docs/.../rust/security-standards.md` and `build-configuration.md` (not in the
+       skill file itself — those two commands weren't documented at the skill level
+       upstream either, so this PR adds them net-new rather than adapting existing text)
+2. [x] Adapted: added four new sections — Unsafe Code Policy (`#![forbid(unsafe_code)]`
+       required in both `lib.rs` and `main.rs`, plus `[lints.rust]` manifest-level
+       enforcement); Dependency Vulnerability Scanning (`cargo audit` for CVEs, `cargo
+   deny check` for license/source policy, with an example `deny.toml`); Clippy
+       Pedantic Lints (`[lints.clippy]` in `Cargo.toml`, hard-deny on `unwrap_used`/
+       `panic`/`undocumented_unsafe_blocks`); Formatting (`.rustfmt.toml`, using this
+       file's existing `edition = "2021"` rather than OSE's `2024`, to match the file's
+       existing `Cargo.toml` example)
+3. [x] Recipe steps 5–10: grep (zero OSE matches, including `rhino-cli` — the example
+       app OSE's `deny.toml` sample was sourced from), lint (0 errors in changed file; 5
+       pre-existing unrelated errors in `docs/linkedin/History/`), commit
+       (`docs(skills): add unsafe policy and dep scanning to swe-programming-rust` —
+       shortened from the plan's suggested subject to satisfy commitlint's
+       `header-max-length` (72 chars) rule), push, PR #245, CI green (14/14), merged,
+       pulled
 
 **Acceptance Criteria**:
 
-- [ ] All four sub-items present (unsafe policy, audit/deny, Clippy hard-denies, rustfmt)
+- [x] All four sub-items present (unsafe policy, audit/deny, Clippy hard-denies, rustfmt)
 
 ### Task 3.3 (PR9): `swe-programming-fsharp` (skill)
 
