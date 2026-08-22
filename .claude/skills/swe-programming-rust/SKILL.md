@@ -271,6 +271,112 @@ Run: `cargo test` and `cargo test -- --nocapture` for stdout.
 
 ---
 
+## Unsafe Code Policy
+
+**MUST** forbid unsafe code in **both** `lib.rs` and `main.rs` — the attribute is not
+inherited between targets:
+
+```rust
+// src/lib.rs — line 1
+#![forbid(unsafe_code)]
+
+// src/main.rs — line 1
+#![forbid(unsafe_code)]
+```
+
+**MUST** also encode this at the manifest level in `Cargo.toml`:
+
+```toml
+[lints.rust]
+unsafe_code = "forbid"
+```
+
+Crates that genuinely need `unsafe` (rare — infra/FFI code) must document every `unsafe`
+block with a `// SAFETY:` comment explaining the invariant being upheld.
+
+---
+
+## Dependency Vulnerability Scanning
+
+**MUST** run `cargo audit` in CI to detect known CVEs in dependencies, and `cargo deny` to
+enforce license and dependency-source policy:
+
+```bash
+# Install
+cargo install cargo-audit cargo-deny
+
+# Fails on any unfixed advisory
+cargo audit
+
+# Enforces license/source/duplicate-version policy
+cargo deny check
+```
+
+```toml
+# deny.toml
+[advisories]
+version = 2
+ignore = []
+
+[licenses]
+version = 2
+allow = ["MIT", "Apache-2.0", "Apache-2.0 WITH LLVM-exception", "ISC", "BSD-2-Clause", "BSD-3-Clause"]
+
+[bans]
+multiple-versions = "warn"
+
+[sources]
+unknown-registry = "deny"
+unknown-git = "deny"
+```
+
+---
+
+## Clippy Pedantic Lints
+
+Configure Clippy via `[lints.clippy]` in `Cargo.toml` — checked into source control,
+applies consistently across contributors and CI (not CLI flags):
+
+```toml
+[lints.clippy]
+pedantic = { level = "warn", priority = -1 }
+
+# Documented allows — record the why for each
+must_use_candidate = "allow"
+missing_errors_doc = "allow"
+
+# Restriction lints — hard errors even without -D warnings
+unwrap_used = "deny"
+panic = "deny"
+undocumented_unsafe_blocks = "deny"
+```
+
+```bash
+cargo clippy --all-targets -- -D warnings   # fail on any warning
+```
+
+---
+
+## Formatting (.rustfmt.toml)
+
+Enforce a project-wide `.rustfmt.toml` instead of relying on default `cargo fmt`
+settings — checked into source control so formatting is consistent across contributors:
+
+```toml
+# .rustfmt.toml
+edition = "2021"
+max_width = 100
+use_small_heuristics = "Default"
+reorder_imports = true
+reorder_modules = true
+```
+
+```bash
+cargo fmt --all -- --check   # run in CI — fails if unformatted
+```
+
+---
+
 ## Common Conventions
 
 | Convention | Rule |
