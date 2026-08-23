@@ -233,6 +233,42 @@ Run: `dotnet test`
 
 ---
 
+## Formatting with Fantomas (Mandatory)
+
+```bash
+dotnet fantomas .            # formats all F# files
+dotnet fantomas . --check    # pre-commit — fails if any file isn't formatted
+```
+
+Wire the `--check` invocation into the pre-commit hook so unformatted F# never lands on
+`main`.
+
+---
+
+## Property-Based Testing with FsCheck
+
+Use FsCheck alongside xUnit's example-based `[<Fact>]`/`[<Theory>]` tests to cover
+invariants over generated inputs — reserve it for properties that should hold for *any*
+valid input, not as a replacement for example-based tests.
+
+```fsharp
+module UserServiceTests
+
+open Xunit
+open FsCheck.Xunit
+
+[<Property>]
+let ``getById never returns a user with an empty name`` (id: int) =
+    match service.GetById(id) with
+    | Some user -> not (System.String.IsNullOrEmpty user.Name)
+    | None -> true // vacuously true — no user to check
+```
+
+Run: `dotnet test` (`FsCheck.Xunit` integrates with the same `dotnet test` runner as
+xUnit).
+
+---
+
 ## Common Conventions
 
 | Convention | Rule |
