@@ -276,7 +276,7 @@ inline`, overridden inside a `@media (prefers-color-scheme: dark)` block — the
 2. [x] Adapted: added four new sections — Unsafe Code Policy (`#![forbid(unsafe_code)]`
        required in both `lib.rs` and `main.rs`, plus `[lints.rust]` manifest-level
        enforcement); Dependency Vulnerability Scanning (`cargo audit` for CVEs, `cargo
-   deny check` for license/source policy, with an example `deny.toml`); Clippy
+deny check` for license/source policy, with an example `deny.toml`); Clippy
        Pedantic Lints (`[lints.clippy]` in `Cargo.toml`, hard-deny on `unwrap_used`/
        `panic`/`undocumented_unsafe_blocks`); Formatting (`.rustfmt.toml`, using this
        file's existing `edition = "2021"` rather than OSE's `2024`, to match the file's
@@ -293,18 +293,29 @@ inline`, overridden inside a `@media (prefers-color-scheme: dark)` block — the
 
 - [x] All four sub-items present (unsafe policy, audit/deny, Clippy hard-denies, rustfmt)
 
-### Task 3.3 (PR9): `swe-programming-fsharp` (skill)
+### Task 3.3 (PR9): `swe-programming-fsharp` (skill) — ✅ Done (PR #247)
 
-1. [ ] Recipe steps 1–2: branch `docs/fsharp-fantomas-fscheck`, fetch OSE source
-2. [ ] Adapt: add Fantomas formatting enforcement (`dotnet fantomas . --check` in
-       pre-commit), property-based testing with FsCheck alongside example-based xUnit
-3. [ ] Recipe steps 5–10: grep, lint,
-       commit (`docs(skills): add Fantomas enforcement and property-based testing to swe-programming-fsharp`),
-       push, PR, merge, pull
+1. [x] Recipe steps 1–2: branch `docs/fsharp-fantomas-fscheck`, fetch OSE source.
+       Fetched cleanly at the plan's recorded path, no move; pulled the Fantomas/FsCheck
+       detail from the linked `reference/qs-records-async-testing.md`
+2. [x] Adapted: added "Formatting with Fantomas (Mandatory)" (`dotnet fantomas . --check`
+       wired into pre-commit) and "Property-Based Testing with FsCheck" (`FsCheck.Xunit`
+       `[<Property>]` tests alongside, not replacing, the existing example-based
+       `[<Fact>]`/`[<Theory>]` xUnit tests). OSE's source uses the Expecto testing
+       framework and an Islamic-finance ("zakat calculation") domain example — dropped
+       both; kept this skill's existing xUnit convention and generic
+       `User`/`UserService` example instead, per the plan's adaptation note ("alongside
+       existing example-based xUnit guidance")
+3. [x] Recipe steps 5–10: grep (zero OSE matches, including `zakat`/`expecto`/`nisab`),
+       lint (0 errors in changed file; 5 pre-existing unrelated errors in
+       `docs/linkedin/History/`), commit
+       (`docs(skills): add fantomas and fscheck to swe-programming-fsharp` — shortened
+       from the plan's suggested subject to satisfy commitlint's `header-max-length`
+       (72 chars) rule), push, PR #247, CI green (14/14), merged, pulled
 
 **Acceptance Criteria**:
 
-- [ ] Fantomas pre-commit check and FsCheck guidance both present
+- [x] Fantomas pre-commit check and FsCheck guidance both present
 
 ### Task 3.4 (PR10): `swe-programming-csharp` (skill)
 
