@@ -184,13 +184,31 @@ public class UserNotFoundException : Exception
         : base($"User {id} not found") { }
 }
 
-// Global exception handler (Program.cs)
+// Global exception handler (Program.cs) — RFC 7807 ProblemDetails
 app.UseExceptionHandler(builder =>
 {
     builder.Run(async context =>
     {
-        context.Response.StatusCode = 500;
-        await context.Response.WriteAsJsonAsync(new { error = "Internal server error" });
+        context.Response.ContentType = "application/problem+json";
+
+        var exception = context.Features.Get<IExceptionHandlerFeature>()?.Error;
+        var problemDetails = exception switch
+        {
+            UserNotFoundException => new ProblemDetails
+            {
+                Status = StatusCodes.Status404NotFound,
+                Title = "User not found",
+                Detail = exception.Message,
+            },
+            _ => new ProblemDetails
+            {
+                Status = StatusCodes.Status500InternalServerError,
+                Title = "An unexpected error occurred",
+            },
+        };
+
+        context.Response.StatusCode = problemDetails.Status!.Value;
+        await context.Response.WriteAsJsonAsync(problemDetails);
     });
 });
 ```
