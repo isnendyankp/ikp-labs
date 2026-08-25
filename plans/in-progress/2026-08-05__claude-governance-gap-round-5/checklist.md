@@ -236,7 +236,7 @@ inline`, overridden inside a `@media (prefers-color-scheme: dark)` block — the
 
 ---
 
-## Phase 3: Cluster B — Language Hardening
+## Phase 3: Cluster B — Language Hardening — ✅ Done (PR #243, #245, #247, #249)
 
 ### Task 3.1 (PR7): `swe-programming-golang` (skill) — ✅ Done (PR #243)
 
@@ -317,18 +317,27 @@ deny check` for license/source policy, with an example `deny.toml`); Clippy
 
 - [x] Fantomas pre-commit check and FsCheck guidance both present
 
-### Task 3.4 (PR10): `swe-programming-csharp` (skill)
+### Task 3.4 (PR10): `swe-programming-csharp` (skill) — ✅ Done (PR #249)
 
-1. [ ] Recipe steps 1–2: branch `docs/csharp-problemdetails`, fetch OSE source
-2. [ ] Adapt: replace the ad-hoc anonymous-JSON error-handling example with ASP.NET
-       Core's standard `ProblemDetails` (RFC 7807) pattern
-3. [ ] Recipe steps 5–10: grep, lint,
-       commit (`docs(skills): replace error handling example with ProblemDetails in swe-programming-csharp`),
-       push, PR, merge, pull
+1. [x] Recipe steps 1–2: branch `docs/csharp-problemdetails`, fetch OSE source.
+       Fetched cleanly at the plan's recorded path, no move
+2. [x] Adapted: replaced the global exception handler's `new { error = "..." }` anonymous
+       object with a typed `ProblemDetails` payload (`application/problem+json`),
+       branching on exception type (`UserNotFoundException` → 404, otherwise → 500).
+       OSE's source example uses an Islamic-finance ("Zakat calculation") domain — dropped
+       in favor of this skill's existing generic `UserNotFoundException`/`UserService`
+       example, consistent with how PR9 handled the same OSE domain-example pattern
+3. [x] Recipe steps 5–10: grep (zero OSE matches, including `zakat`/`nisab`), lint (0
+       errors in changed file; 5 pre-existing unrelated errors in
+       `docs/linkedin/History/`), commit
+       (`docs(skills): use problemdetails in swe-programming-csharp` — reworded from the
+       plan's suggested subject, both to satisfy commitlint's `header-max-length` (72
+       chars) rule and to avoid the ambiguous `swe-csharp` abbreviation being confused
+       with the `swe-csharp-dev` agent), push, PR #249, CI green (14/14), merged, pulled
 
 **Acceptance Criteria**:
 
-- [ ] Error-handling example uses `ProblemDetails`, not the old anonymous-JSON shape
+- [x] Error-handling example uses `ProblemDetails`, not the old anonymous-JSON shape
 
 ---
 
