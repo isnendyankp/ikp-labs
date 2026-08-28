@@ -6,6 +6,7 @@ color: blue
 permission.skill:
   - docs-applying-content-quality
   - docs-applying-diataxis-framework
+  - docs-validating-factual-accuracy
   - wow-criticality-assessment
 ---
 
@@ -73,7 +74,74 @@ IKP-Labs/
 
 ## Core Responsibilities
 
-### 1. API Documentation Validation
+### 1. Factual Accuracy Validation (Web-Verified)
+
+Verify technical claims that reference external, versioned, or web-published information —
+package versions against upstream release notes, command syntax against current tool docs,
+feature existence against current framework capabilities, and any citation or external
+link's claim.
+
+**Check:**
+
+- ✅ Version claims match the current upstream release (local `package.json`/`pom.xml`
+  confirm what IKP-Labs uses; web verification confirms the claim about that version is
+  still true upstream)
+- ✅ Command syntax is current (flags/subcommands haven't been renamed or removed in a
+  newer tool version)
+- ✅ Referenced features still exist in the current version of the library/framework
+- ✅ External citations and links resolve to content that supports the claim being made
+
+**Analysis Steps:**
+
+1. **Extract factual claims** from the doc (version numbers, command syntax, feature
+   availability, external citations)
+2. **Verify local claims first** against `package.json`/`pom.xml`/source per
+   `docs-validating-factual-accuracy` — the fast, no-network check for anything already
+   covered by that skill
+3. **Verify externally-sourced claims** via `WebFetch`/`WebSearch` — command syntax
+   against official docs, feature existence against changelogs/release notes, citations
+   against their source
+4. **Label every checked claim** with one of four states:
+   - `[Verified]` — confirmed against a primary source (repo file or official web doc)
+   - `[Unverified]` — could not confirm (source unreachable, ambiguous claim)
+   - `[Error]` — confirmed **wrong** (source contradicts the claim)
+   - `[Outdated]` — was true, but the source has since changed (version bumped, command
+     renamed, feature deprecated)
+5. **Delegate verification mechanics** — source-tier prioritization, how to check each
+   claim type, re-validation cadence — to the `docs-validating-factual-accuracy` Skill;
+   this section defines *what* to check and *how to label it*, that skill defines *how to
+   verify it*
+
+**Example Finding:**
+
+```markdown
+## 🔴 CRITICAL - [Error] Outdated Command in Setup Guide
+
+**File:** docs/how-to/setup-development.md:34
+**Criticality:** CRITICAL
+**Confidence:** HIGH
+**Label:** [Error]
+
+**Description:**
+Doc instructs `npm run start:dev`, but this script was renamed to `npm run dev` and no
+longer exists in `package.json`.
+
+**Evidence:**
+- Doc claim: `npm run start:dev`
+- `package.json` → `scripts`: no `start:dev` key, `dev` key present instead
+
+**Impact:**
+New contributors following this guide hit "missing script" and can't start local dev.
+
+**Fix:**
+Update the command to `npm run dev`.
+
+**Priority:** Immediate (breaks onboarding)
+```
+
+---
+
+### 2. API Documentation Validation
 
 Audit API endpoint documentation:
 
@@ -156,7 +224,7 @@ file: [binary data]
 
 ---
 
-### 2. JSDoc/JavaDoc Coverage Validation
+### 3. JSDoc/JavaDoc Coverage Validation
 
 Check function/method documentation:
 
@@ -235,7 +303,7 @@ export async function uploadPhoto(file: File): Promise<UploadResult> {
 
 ---
 
-### 3. Diátaxis Framework Validation
+### 4. Diátaxis Framework Validation
 
 Verify documentation follows Diátaxis structure:
 
@@ -290,7 +358,7 @@ Update internal links if any reference this file.
 
 ---
 
-### 4. Documentation Quality Validation
+### 5. Documentation Quality Validation
 
 Check adherence to `docs-applying-content-quality.md`:
 
@@ -342,7 +410,7 @@ Find configuration files in the config/ directory.
 
 ---
 
-### 5. Broken Link Detection
+### 6. Broken Link Detection
 
 Scan documentation for broken internal links:
 
@@ -391,7 +459,7 @@ See [API Documentation](../reference/api-endpoints.md) for details.
 
 ---
 
-### 6. Report Generation
+### 7. Report Generation
 
 Generate markdown audit report in `generated-reports/`:
 
@@ -559,10 +627,21 @@ Starting documentation validation...
 - Reading docs from docs/
 - Scanning frontend/src/ for JSDoc
 - Scanning backend/src/ for JavaDoc
-- Loading skills: docs-applying-content-quality, docs-applying-diataxis-framework
+- Loading skills: docs-applying-content-quality, docs-applying-diataxis-framework,
+  docs-validating-factual-accuracy
 ```
 
-### Step 2: Analyze API Documentation
+### Step 2: Verify Factual Accuracy
+
+1. **Extract factual claims** (versions, commands, feature references, citations)
+2. **Verify local claims** against `package.json`/`pom.xml`/source per
+   `docs-validating-factual-accuracy`
+3. **Verify externally-sourced claims** via `WebFetch`/`WebSearch`
+4. **Label every claim** `[Verified]` / `[Unverified]` / `[Error]` / `[Outdated]`
+5. **Report** any `[Error]` or `[Outdated]` finding with criticality per the severity
+   classification below
+
+### Step 3: Analyze API Documentation
 
 1. **Scan backend controllers** for endpoints
 2. **Extract endpoint definitions**
@@ -571,7 +650,7 @@ Starting documentation validation...
 5. **Report gaps** (undocumented endpoints)
 6. **Assess criticality** (public API missing = HIGH)
 
-### Step 3: Check JSDoc/JavaDoc Coverage
+### Step 4: Check JSDoc/JavaDoc Coverage
 
 1. **Scan TypeScript files** for exported functions
 2. **Check for JSDoc comments**
@@ -580,14 +659,14 @@ Starting documentation validation...
 5. **Calculate coverage percentage**
 6. **Report missing documentation**
 
-### Step 4: Verify Diátaxis Structure
+### Step 5: Verify Diátaxis Structure
 
 1. **List all markdown files** in docs/
 2. **Analyze content** (step-by-step? reference? explanation?)
 3. **Check directory placement** (correct category?)
 4. **Report miscategorization**
 
-### Step 5: Validate Quality Standards
+### Step 6: Validate Quality Standards
 
 1. **Check writing style** (active voice, present tense)
 2. **Check for placeholders** (TODO, Coming Soon)
@@ -595,7 +674,7 @@ Starting documentation validation...
 4. **Detect broken links**
 5. **Report quality issues**
 
-### Step 6: Generate Report
+### Step 7: Generate Report
 
 1. **Classify findings** (Criticality × Confidence)
 2. **Sort by priority** (CRITICAL → HIGH → MEDIUM → LOW)
@@ -614,6 +693,7 @@ Use `wow-criticality-assessment.md` to classify findings:
 - **Security documentation missing** (auth, encryption)
 - **Breaking change not documented**
 - **Public API completely undocumented**
+- **`[Error]` factual claim that breaks a workflow** (wrong command, wrong port)
 
 **Response Time:** Immediate (fix within hours)
 
@@ -622,6 +702,7 @@ Use `wow-criticality-assessment.md` to classify findings:
 - **Important endpoint undocumented** (POST /api/upload)
 - **JSDoc missing for critical function** (authentication)
 - **Multiple broken links** (>5 links)
+- **`[Error]` or `[Outdated]` version claim causing compatibility confusion**
 
 **Response Time:** Urgent (1-2 days)
 
@@ -631,6 +712,7 @@ Use `wow-criticality-assessment.md` to classify findings:
 - **JSDoc missing for utility function**
 - **Incorrect Diátaxis category**
 - **Uses passive voice**
+- **`[Outdated]` claim that still partially works**
 
 **Response Time:** Normal (1 week)
 
@@ -892,6 +974,7 @@ View full report: generated-reports/docs-audit-2026-01-08-2030.md
 
 - **docs-applying-content-quality** - Documentation writing guidelines
 - **docs-applying-diataxis-framework** - Documentation categorization
+- **docs-validating-factual-accuracy** - Factual claim verification mechanics
 - **wow-criticality-assessment** - Issue classification system
 
 ---
