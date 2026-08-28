@@ -343,21 +343,37 @@ deny check` for license/source policy, with an example `deny.toml`); Clippy
 
 ## Phase 4: Cluster C — Documentation Quality & Fact-Checking
 
-### Task 4.1 (PR11): `docs-checker.md`
+### Task 4.1 (PR11): `docs-checker.md` — ✅ Done (PR #251)
 
-1. [ ] Recipe steps 1–2: branch `docs/docs-checker-factual-accuracy`, fetch OSE source
-2. [ ] Adapt: add factual-accuracy verification via `WebFetch`/`WebSearch` (command
-       syntax, feature existence, version claims, citations), with
-       `[Verified]`/`[Unverified]`/`[Error]`/`[Outdated]` labeling, delegating mechanics
-       to `docs-validating-factual-accuracy` (this phase's PR15)
-3. [ ] Recipe steps 5–10: grep, lint,
-       commit (`docs(agents): add factual-accuracy verification to docs-checker`), push,
-       PR, merge, pull
+1. [x] Recipe steps 1–2: branch `docs/docs-checker-factual-accuracy`, fetch OSE source.
+       404'd at the plan's recorded path — OSE moved it to
+       `.claude/agents/docs/docs-checker.md` in a prior subfolder-grouping refactor
+       (same pattern as PR5's `swe-csharp-dev.md` move). Recovered via the repo tree
+       listing rather than commit-history walk
+2. [x] Adapted: added "1. Factual Accuracy Validation (Web-Verified)" as the new first
+       Core Responsibility — extract claims, verify local claims against
+       `package.json`/`pom.xml`/source, verify externally-sourced claims via
+       `WebFetch`/`WebSearch`, label every claim `[Verified]`/`[Unverified]`/`[Error]`/
+       `[Outdated]`, delegating verification mechanics to `docs-validating-factual-accuracy`
+       (this repo's version of that skill already exists from an earlier round but is
+       currently local-repo-only — PR15 later in this phase adds its web-verification
+       workflow; referencing it now is forward-looking, consistent with the plan's
+       "independent, any order" note). Added a matching "Step 2: Verify Factual Accuracy"
+       to the Validation Workflow, `[Error]`/`[Outdated]` examples to the Criticality
+       Assessment tiers, and the skill to `permission.skill:` frontmatter + Related Skills
+       footer. Renumbered the existing Core Responsibilities (1→2 through 6→7) and
+       Validation Workflow steps (Step 2→3 through Step 6→7) to make room — mechanical
+       only, OSE's own file structure (much more trimmed than IKP-Labs's example-heavy
+       version) was not ported wholesale
+3. [x] Recipe steps 5–10: grep (zero OSE matches), lint (0 errors in changed file; 5
+       pre-existing unrelated errors in `docs/linkedin/History/`), commit
+       (`docs(agents): add factual-accuracy verification to docs-checker`), push, PR
+       #251, CI green (14/14), merged, pulled
 
 **Acceptance Criteria**:
 
-- [ ] Factual-accuracy check present with 4-state labeling
-- [ ] References `docs-validating-factual-accuracy` for verification mechanics
+- [x] Factual-accuracy check present with 4-state labeling
+- [x] References `docs-validating-factual-accuracy` for verification mechanics
 
 ### Task 4.2 (PR12): `readme-checker.md`
 
