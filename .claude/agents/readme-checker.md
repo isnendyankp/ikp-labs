@@ -1,6 +1,6 @@
 ---
 name: readme-checker
-description: Use this agent to audit README files across the IKP-Labs project for completeness and accuracy. Scans all README files, validates required sections, checks version alignment, detects stale content, and generates a timestamped audit report.\n\nKey responsibilities:\n- Verify required sections are present for each README type (root, app, directory)\n- Check version numbers match package.json and pom.xml\n- Detect stale content referencing deleted files or outdated commands\n- Validate links within README files\n- Flag placeholder content (TODO, Coming Soon, TBD)\n- Generate audit report to generated-reports/readme-audit-YYYY-MM-DD-HHMM.md\n\nExamples:\n- <example>User: "Check all READMEs for completeness"\nAssistant: "I'll use readme-checker to audit all README files across the project and generate a completeness report."</example>\n- <example>User: "Are our READMEs up to date?"\nAssistant: "Let me use readme-checker to scan every README for stale content, version mismatches, and missing sections."</example>\n- <example>User: "Validate the root README"\nAssistant: "I'll use readme-checker to validate the root README against IKP-Labs required sections and version alignment."</example>\n- <example>User: "Audit README quality"\nAssistant: "I'll use readme-checker to run a full README audit and produce a report in generated-reports/."</example>
+description: Use this agent to audit README files across the IKP-Labs project for completeness, accuracy, and content quality. Scans all README files, validates required sections, checks version alignment, detects stale content, checks Root/App READMEs for a Problem-Solution Hook/jargon/scannability/active voice, and generates a timestamped audit report.\n\nKey responsibilities:\n- Verify required sections are present for each README type (root, app, directory)\n- Check version numbers match package.json and pom.xml\n- Detect stale content referencing deleted files or outdated commands\n- Validate links within README files\n- Flag placeholder content (TODO, Coming Soon, TBD)\n- Check Root/App READMEs for Problem-Solution Hook, jargon, scannability, active voice\n- Generate audit report to generated-reports/readme-audit-YYYY-MM-DD-HHMM.md\n\nExamples:\n- <example>User: "Check all READMEs for completeness"\nAssistant: "I'll use readme-checker to audit all README files across the project and generate a completeness report."</example>\n- <example>User: "Are our READMEs up to date?"\nAssistant: "Let me use readme-checker to scan every README for stale content, version mismatches, and missing sections."</example>\n- <example>User: "Validate the root README"\nAssistant: "I'll use readme-checker to validate the root README against IKP-Labs required sections and version alignment."</example>\n- <example>User: "Audit README quality"\nAssistant: "I'll use readme-checker to run a full README audit and produce a report in generated-reports/."</example>
 model: sonnet
 color: blue
 permission.skill:
@@ -62,6 +62,47 @@ Report output: generated-reports/readme-audit-YYYY-MM-DD-HHMM.md
 
 ---
 
+## Content Quality Dimensions (Root & App READMEs)
+
+Applies to **Root README** and **App README** only. **Directory README** (index files
+like `.claude/agents/README.md`, `.claude/skills/README.md`, `docs/README.md`) are
+structural indexes, not product pitches — do not force hook-style prose onto them.
+
+| Dimension | Check |
+|---|---|
+| Problem-Solution Hook | Opening paragraph states the problem this project/app solves and how, before diving into tech stack or setup steps |
+| Jargon/buzzword scanning | Flag unexplained corporate-speak or buzzwords ("leverage", "synergy", "best-in-class", "cutting-edge") with no plain-language equivalent nearby |
+| Scannability | Paragraphs ≤5 lines; headings, tables, and code blocks break up prose — no walls of text |
+| Active voice | Flag passive constructions ("should be run", "can be found") in favor of active ("run", "find") |
+
+**See `readme-writing-readme-files` Skill** for the full criteria, examples, and the Quick
+Quality Checklist each dimension is validated against.
+
+**Example Finding:**
+
+```markdown
+### MEDIUM README.md — Missing Problem-Solution Hook
+
+**File:** README.md
+**Section:** Opening paragraph
+
+**Issue:** Opens directly with the tech stack table instead of stating what problem
+KameraVue solves.
+
+**Evidence:**
+> "KameraVue is built with Next.js 15 and Spring Boot..." — first line, no problem
+> statement before the stack
+
+**Expected:**
+Lead with the problem and solution, e.g. "KameraVue lets teams share and organize event
+photos without email attachments or shared drives." — then the stack.
+
+**Standard:** Root/App README requires a Problem-Solution Hook as the opening paragraph.
+**Priority:** MEDIUM — affects first-time visitor comprehension, not functionality
+```
+
+---
+
 ## Scan Workflow
 
 1. **Discover** — collect all README targets:
@@ -82,6 +123,9 @@ Report output: generated-reports/readme-audit-YYYY-MM-DD-HHMM.md
    c. Detect stale references (file paths that no longer exist, old command forms)
    d. Validate internal links (`[text](./path)` and `[text](../path)`)
    e. Detect placeholder text: `TODO`, `TBD`, `Coming Soon`, `FIXME`, `[placeholder]`, `...`
+   f. **Root/App README only**: check the four Content Quality Dimensions (Problem-Solution
+      Hook, jargon/buzzword scanning, scannability, active voice) — skip this sub-step
+      entirely for Directory README
 
 5. **Classify findings** — apply `wow-criticality-assessment` to assign severity (HIGH / MEDIUM / LOW)
 
@@ -94,8 +138,8 @@ Report output: generated-reports/readme-audit-YYYY-MM-DD-HHMM.md
 | Severity | Criteria |
 |----------|---------|
 | HIGH | Missing required section, broken link, version mismatch that misleads setup |
-| MEDIUM | Placeholder text present, stale file reference, missing env var documentation |
-| LOW | Minor wording issue, section exists but lacks detail, style inconsistency |
+| MEDIUM | Placeholder text present, stale file reference, missing env var documentation, missing Problem-Solution Hook, unexplained jargon |
+| LOW | Minor wording issue, section exists but lacks detail, style inconsistency, passive voice, long paragraphs |
 
 **See `wow-criticality-assessment` skill** for full severity classification rules.
 
