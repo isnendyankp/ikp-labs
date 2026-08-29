@@ -375,21 +375,31 @@ deny check` for license/source policy, with an example `deny.toml`); Clippy
 - [x] Factual-accuracy check present with 4-state labeling
 - [x] References `docs-validating-factual-accuracy` for verification mechanics
 
-### Task 4.2 (PR12): `readme-checker.md`
+### Task 4.2 (PR12): `readme-checker.md` — ✅ Done (PR #253)
 
-1. [ ] Recipe steps 1–2: branch `docs/readme-checker-content-quality`, fetch OSE source
-2. [ ] Adapt: add Problem-Solution Hook opening check, jargon/buzzword scanning,
-       scannability check, active-voice check
-3. [ ] Note the edge case from requirements.md FR-4: this dimension must not force
-       pitch-style prose onto structural index READMEs (e.g., `.claude/agents/README.md`)
-       — scope the check to product/app-level READMEs, or explicitly exempt index files
-4. [ ] Recipe steps 5–10: grep, lint,
-       commit (`docs(agents): add content-quality dimensions to readme-checker`), push,
-       PR, merge, pull
+1. [x] Recipe steps 1–2: branch `docs/readme-checker-content-quality`, fetch OSE source.
+       404'd at the plan's recorded path — OSE moved it to
+       `.claude/agents/readme-agents/readme-checker.md` in a prior subfolder-grouping
+       refactor. Recovered via the repo tree listing. OSE's current version delegates all
+       validation criteria to `readme-writing-readme-files` rather than stating them
+       inline, and doesn't address the index-README edge case at all
+2. [x] Adapted: added "Content Quality Dimensions (Root & App READMEs)" section — table of
+       the four dimensions (Problem-Solution Hook, jargon/buzzword scanning, scannability,
+       active voice), an example finding, sub-step 4f in the Scan Workflow, and
+       severity-table examples. Delegates full criteria to `readme-writing-readme-files`
+       (already referenced in this file — no new skill dependency)
+3. [x] Resolved the edge case from requirements.md FR-4 (not resolved by OSE's own
+       source): this file already distinguishes Root/App/Directory README types, so
+       scoping was a one-line exclusion — Directory READMEs (index files like
+       `.claude/agents/README.md`) are explicitly exempted from all four dimensions
+4. [x] Recipe steps 5–10: grep (zero OSE matches), lint (0 errors in changed file; 5
+       pre-existing unrelated errors in `docs/linkedin/History/`), commit
+       (`docs(agents): add content-quality dimensions to readme-checker`), push, PR
+       #253, CI green (14/14), merged, pulled
 
 **Acceptance Criteria**:
 
-- [ ] All four content-quality dimensions present
+- [x] All four content-quality dimensions present
 - [ ] Index-file exemption or scoping note present
 
 ### Task 4.3 (PR13): `readme-fixer.md`
