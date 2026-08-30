@@ -431,17 +431,26 @@ deny check` for license/source policy, with an example `deny.toml`); Clippy
 
 - [x] Fix recipes exist for all four dimensions added in PR12
 
-### Task 4.4 (PR14): `readme-maker.md`
+### Task 4.4 (PR14): `readme-maker.md` — ✅ Done (PR #258)
 
-1. [ ] Recipe steps 1–2: branch `docs/readme-maker-content-quality`, fetch OSE source
-2. [ ] Adapt: add the same four content-quality dimensions to the authoring checklist
-3. [ ] Recipe steps 5–10: grep, lint,
-       commit (`docs(agents): add content-quality dimensions to readme-maker`), push, PR,
-       merge, pull
+1. [x] Recipe steps 1–2: branch `docs/readme-maker-content-quality`, fetch OSE source.
+       Fetched cleanly from `.claude/agents/readme-agents/readme-maker.md` (same
+       subfolder-grouping refactor as PR12/PR13's readme-agents move)
+2. [x] Adapted: added "Content Quality Dimensions (Root & App READMEs)" section
+       (Problem-Solution Hook, plain language, scannability, active voice) plus a Quality
+       Gate sub-check and a Quality Rules bullet, both scoped to Root/App README only —
+       Directory READMEs (index files) explicitly exempted, matching PR12/PR13's scoping
+3. [x] Recipe steps 5–10: grep (zero OSE matches), lint (0 errors in changed file; 5
+       pre-existing unrelated errors in `docs/linkedin/History/`), commit
+       (`docs(agents): add content-quality dimensions to readme-maker`), push, PR #258,
+       CI green (14/14), merged with `--delete-branch` — **first PR verifying the new
+       auto-delete-branch workflow** (repo setting `deleteBranchOnMerge` turned on this
+       session, plus ~56 remote and ~51 local stale merged branches swept in a one-time
+       cleanup), confirmed the branch was actually gone via `git ls-remote`, pulled
 
 **Acceptance Criteria**:
 
-- [ ] Authoring checklist includes all four dimensions
+- [x] Authoring checklist includes all four dimensions
 
 ### Task 4.5 (PR15): `docs-validating-factual-accuracy` (skill)
 
