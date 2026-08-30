@@ -1,6 +1,6 @@
 ---
 name: readme-maker
-description: Use this agent to create or update README files anywhere in the IKP-Labs project. Derives all content from actual codebase — no placeholders.\n\nKey responsibilities:\n- Create root README with badges, tech stack table, quickstart, and links to docs/\n- Create app-level README for kameravue-fe, kameravue-be, and e2e apps\n- Create directory README for .claude/agents/, docs/, and any other directory\n- Read actual source files before writing — never invent versions or commands\n- Apply criticality assessment before updating an existing README\n\nExamples:\n- <example>User: "Create a README for the frontend app"\nAssistant: "I'll use readme-maker to inspect apps/kameravue-fe/ and produce a complete README.md from actual code."</example>\n- <example>User: "Update the root README with the new tech stack"\nAssistant: "I'll use readme-maker to read package.json and pom.xml then rewrite the root README.md with accurate versions."</example>\n- <example>User: "Generate a README for the agents directory"\nAssistant: "I'll use readme-maker to inventory .claude/agents/ and write a directory README with a full agent table."</example>\n- <example>User: "Write README for kameravue-be"\nAssistant: "I'll use readme-maker to inspect apps/kameravue-be/ and produce its README.md with run and test instructions."</example>
+description: Use this agent to create or update README files anywhere in the IKP-Labs project. Derives all content from actual codebase — no placeholders — and writes Root/App READMEs to a Problem-Solution Hook, plain-language, scannable, active-voice standard.\n\nKey responsibilities:\n- Create root README with badges, tech stack table, quickstart, and links to docs/\n- Create app-level README for kameravue-fe, kameravue-be, and e2e apps\n- Create directory README for .claude/agents/, docs/, and any other directory\n- Read actual source files before writing — never invent versions or commands\n- Write Root/App READMEs with a Problem-Solution Hook, plain language, scannable paragraphs, active voice\n- Apply criticality assessment before updating an existing README\n\nExamples:\n- <example>User: "Create a README for the frontend app"\nAssistant: "I'll use readme-maker to inspect apps/kameravue-fe/ and produce a complete README.md from actual code."</example>\n- <example>User: "Update the root README with the new tech stack"\nAssistant: "I'll use readme-maker to read package.json and pom.xml then rewrite the root README.md with accurate versions."</example>\n- <example>User: "Generate a README for the agents directory"\nAssistant: "I'll use readme-maker to inventory .claude/agents/ and write a directory README with a full agent table."</example>\n- <example>User: "Write README for kameravue-be"\nAssistant: "I'll use readme-maker to inspect apps/kameravue-be/ and produce its README.md with run and test instructions."</example>
 model: sonnet
 color: purple
 permission.skill:
@@ -153,8 +153,30 @@ Required sections in order:
    - All versions match what was read from source files
    - All commands are copy-pasteable without modification
    - All links point to paths that exist in the repo
+   - **Root/App README only**: satisfies the four Content Quality Dimensions below —
+     skip this sub-check entirely for Directory README
 6. **Write** — create or overwrite the README.md at the correct path
 7. **Report** — state the file path written and summarise what was included
+
+---
+
+## Content Quality Dimensions (Root & App READMEs)
+
+Applies to **Root README** and **App README** only — write to satisfy these from the
+start. **Directory README** (index files like `.claude/agents/README.md`,
+`.claude/skills/README.md`, `docs/README.md`) are structural indexes, not product
+pitches — do not force hook-style prose onto them.
+
+| Dimension | What to write |
+|---|---|
+| Problem-Solution Hook | Open with the problem this project/app solves and how, before the tech stack or setup steps |
+| Plain language | No unexplained corporate-speak or buzzwords ("leverage", "synergy", "best-in-class") — use plain equivalents |
+| Scannability | Paragraphs ≤5 lines; use headings, tables, and code blocks instead of walls of text |
+| Active voice | Write "Run the backend", not "The backend should be run" |
+
+**See `readme-writing-readme-files` Skill** for the full writing guidance these
+dimensions summarize (hook patterns, benefits-focused language, the Quick Quality
+Checklist).
 
 ---
 
@@ -166,6 +188,7 @@ Required sections in order:
 - **No duplication.** A section present in a parent README should not be fully re-stated in a child README — link instead.
 - **Badge accuracy.** Only include badges that reflect real CI/CD pipelines or coverage tools wired up in the repo.
 - **Commands must work.** Run or verify every shell command before including it. If you cannot verify, state that explicitly.
+- **Content quality (Root/App only).** Open with a Problem-Solution Hook, avoid unexplained jargon, keep paragraphs scannable (≤5 lines), and write in active voice.
 
 ---
 
