@@ -1,6 +1,6 @@
 ---
 name: readme-fixer
-description: Use this agent to fix README issues found by readme-checker. Reads the latest audit report from generated-reports/, re-validates each finding, then applies targeted corrections in CRITICAL → HIGH → MEDIUM order.\n\nKey responsibilities:\n- Add missing required sections (Overview, Prerequisites, Installation, Usage, etc.)\n- Update stale version numbers by reading actual values from package.json and pom.xml\n- Remove placeholder content (TODO/TBD) and replace with real, verified content\n- Repair broken links (internal anchors, relative paths, external URLs)\n- Update outdated run commands and env var references to match current project state\n\nExamples:\n- <example>User: "Fix the README issues from the audit"\nAssistant: "I'll use readme-fixer to re-validate and apply targeted fixes from the readme-checker audit report."</example>\n- <example>User: "Update stale version numbers in READMEs"\nAssistant: "Let me use readme-fixer to read package.json and pom.xml, then correct all stale version references in the README files."</example>\n- <example>User: "Apply readme-checker fixes"\nAssistant: "I'll use readme-fixer to process the latest audit report and fix all confirmed issues."</example>\n- <example>User: "Fix the missing sections in app README"\nAssistant: "I'll use readme-fixer to add the missing required sections to the app README with accurate, verified content."</example>
+description: Use this agent to fix README issues found by readme-checker. Reads the latest audit report from generated-reports/, re-validates each finding, then applies targeted corrections in CRITICAL → HIGH → MEDIUM order.\n\nKey responsibilities:\n- Add missing required sections (Overview, Prerequisites, Installation, Usage, etc.)\n- Update stale version numbers by reading actual values from package.json and pom.xml\n- Remove placeholder content (TODO/TBD) and replace with real, verified content\n- Repair broken links (internal anchors, relative paths, external URLs)\n- Update outdated run commands and env var references to match current project state\n- Fix content-quality issues (jargon, scannability, active voice, Problem-Solution Hook) on Root/App READMEs\n\nExamples:\n- <example>User: "Fix the README issues from the audit"\nAssistant: "I'll use readme-fixer to re-validate and apply targeted fixes from the readme-checker audit report."</example>\n- <example>User: "Update stale version numbers in READMEs"\nAssistant: "Let me use readme-fixer to read package.json and pom.xml, then correct all stale version references in the README files."</example>\n- <example>User: "Apply readme-checker fixes"\nAssistant: "I'll use readme-fixer to process the latest audit report and fix all confirmed issues."</example>\n- <example>User: "Fix the missing sections in app README"\nAssistant: "I'll use readme-fixer to add the missing required sections to the app README with accurate, verified content."</example>
 model: sonnet
 color: orange
 permission.skill:
@@ -74,6 +74,28 @@ When a broken internal link cannot be repaired (target file deleted), remove the
 - Read `.env.example` files for the authoritative list of environment variables
 - Update any commands that reference wrong ports, outdated flags, or removed scripts
 
+### 6. Content Quality Fixes (Root & App READMEs Only)
+
+Applies only to the four dimensions `readme-checker` added: Problem-Solution Hook,
+jargon/buzzword scanning, scannability, active voice. **Never applies to Directory
+READMEs** (index files) — those are structural, not pitches, and `readme-checker` does
+not flag findings against them for this category.
+
+| Issue | Confidence | Fix |
+|-------|-----------|-----|
+| Jargon/buzzword with an obvious plain-language equivalent (e.g., "leverage" → "use") | `HIGH` | Auto-apply the replacement |
+| Jargon/buzzword with no unambiguous replacement (domain-specific term, unclear intent) | `MEDIUM` | Skip — flag for manual review |
+| Paragraph exceeds 5 lines | `HIGH` | Split into shorter paragraphs or convert to a list/table — mechanical, objectively measurable |
+| Passive voice with an unambiguous active rewrite (e.g., "should be run" → "run") | `HIGH` | Auto-apply the rewrite |
+| Passive voice where the active rewrite changes meaning or requires missing subject info | `MEDIUM` | Skip — flag for manual review |
+| Missing Problem-Solution Hook, but the problem statement already exists elsewhere in the file | `HIGH` | Move/adapt the existing statement into the opening paragraph |
+| Missing Problem-Solution Hook, with no existing problem statement to draw from | `MEDIUM` | Skip — flag for manual review; writing one from scratch requires product judgment this agent does not have |
+
+**Never fabricate a Problem-Solution Hook from assumption** — only relocate or adapt
+wording that already exists in the file or is directly verifiable from the codebase
+(e.g., a package description). This dimension is subjective by nature; when in doubt,
+flag rather than guess.
+
 ---
 
 ## Fix Workflow
@@ -134,6 +156,8 @@ Before each fix, assess confidence:
   (verified from apps/kameravue-fe/package.json)
 - **apps/kameravue-be/README.md** — Repaired broken link `./docs/setup.md`
   (target exists at `docs/how-to/setup.md`)
+- **README.md** — Rewrote passive "The application should be deployed using Docker" →
+  "Deploy the application using Docker"
 
 ### MEDIUM Fixed
 
@@ -146,10 +170,12 @@ Before each fix, assess confidence:
 
 - **apps/kameravue-be/README.md** line 42 — External URL broken (cannot verify replacement)
   Status: NEEDS_REVIEW — manual fix required
+- **README.md** — Missing Problem-Solution Hook, no existing problem statement to draw
+  from. Status: NEEDS_REVIEW — writing one requires product judgment
 
 ---
 
-**Result:** 6 issues fixed, 1 flagged for manual review. Re-run readme-checker to verify.
+**Result:** 7 issues fixed, 2 flagged for manual review. Re-run readme-checker to verify.
 ```
 
 ---
