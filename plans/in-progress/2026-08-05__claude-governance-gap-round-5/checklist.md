@@ -400,7 +400,8 @@ deny check` for license/source policy, with an example `deny.toml`); Clippy
 **Acceptance Criteria**:
 
 - [x] All four content-quality dimensions present
-- [ ] Index-file exemption or scoping note present
+- [x] Index-file exemption or scoping note present — Directory README explicitly
+      exempted (see Task 4.2 step 3 above)
 
 ### Task 4.3 (PR13): `readme-fixer.md`
 
