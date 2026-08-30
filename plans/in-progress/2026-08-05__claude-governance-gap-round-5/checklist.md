@@ -403,17 +403,33 @@ deny check` for license/source policy, with an example `deny.toml`); Clippy
 - [x] Index-file exemption or scoping note present — Directory README explicitly
       exempted (see Task 4.2 step 3 above)
 
-### Task 4.3 (PR13): `readme-fixer.md`
+### Task 4.3 (PR13): `readme-fixer.md` — ✅ Done (PR #256)
 
-1. [ ] Recipe steps 1–2: branch `docs/readme-fixer-content-quality`, fetch OSE source
-2. [ ] Adapt: add fix recipes for the same four dimensions PR12 adds to `readme-checker`
-3. [ ] Recipe steps 5–10: grep, lint,
-       commit (`docs(agents): add content-quality fix recipes to readme-fixer`), push, PR,
-       merge, pull
+1. [x] Recipe steps 1–2: branch `docs/readme-fixer-content-quality`, fetch OSE source.
+       404'd at the plan's recorded path — OSE moved it to
+       `.claude/agents/readme-agents/readme-fixer.md` (same subfolder-grouping refactor
+       as PR12's `readme-checker.md`). Recovered via the repo tree listing. OSE's
+       objective/subjective split (paragraph length, jargon, acronym context, passive
+       voice = objective; everything else = always-subjective) informed this PR's
+       confidence table, though OSE delegates the exact bash re-validation patterns to a
+       separate `readme-fixing-quality` skill this repo doesn't have — inlined the
+       confidence table directly in the agent instead of adding a new skill dependency
+2. [x] Adapted: added "6. Content Quality Fixes (Root & App READMEs Only)" section — a
+       confidence table per dimension. Jargon/scannability/active-voice: `HIGH` (auto-fix)
+       when the replacement is unambiguous, `MEDIUM` (skip/flag) otherwise. Problem-
+       Solution Hook: treated as inherently subjective — `HIGH` only when relocating a
+       problem statement that already exists elsewhere in the file, `MEDIUM`/skip
+       otherwise; this agent never fabricates a hook from assumption, consistent with its
+       existing "never write content from memory" rule for version/command fixes.
+       Explicitly exempted Directory READMEs, matching PR12's scoping
+3. [x] Recipe steps 5–10: grep (zero OSE matches), lint (0 errors in changed file; 5
+       pre-existing unrelated errors in `docs/linkedin/History/`), commit
+       (`docs(agents): add content-quality fix recipes to readme-fixer`), push, PR #256,
+       CI green (14/14), merged, pulled
 
 **Acceptance Criteria**:
 
-- [ ] Fix recipes exist for all four dimensions added in PR12
+- [x] Fix recipes exist for all four dimensions added in PR12
 
 ### Task 4.4 (PR14): `readme-maker.md`
 
