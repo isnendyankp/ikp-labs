@@ -452,18 +452,33 @@ deny check` for license/source policy, with an example `deny.toml`); Clippy
 
 - [x] Authoring checklist includes all four dimensions
 
-### Task 4.5 (PR15): `docs-validating-factual-accuracy` (skill)
+### Task 4.5 (PR15): `docs-validating-factual-accuracy` (skill) — ✅ Done (PR #260)
 
-1. [ ] Recipe steps 1–2: branch `docs/factual-accuracy-4-state`, fetch OSE source
-2. [ ] Adapt: add the 4-state confidence classification with full web-verification
-       workflow, source-tier prioritization, and a mandatory 6-month re-validation cadence
-3. [ ] Recipe steps 5–10: grep, lint,
-       commit (`docs(skills): add 4-state confidence classification to docs-validating-factual-accuracy`),
-       push, PR, merge, pull
+1. [x] Recipe steps 1–2: branch `docs/factual-accuracy-4-state`, fetch OSE source.
+       Fetched cleanly at the plan's recorded path, no move; pulled the specific detail
+       from the linked `reference/confidence-classifications.md`,
+       `reference/source-prioritization.md`, `reference/update-frequency-and-metadata.md`,
+       and `reference/validation-workflow.md`
+2. [x] Adapted: added "The Four Confidence Classifications" (`[Verified]`/`[Error]`/
+       `[Outdated]`/`[Unverified]`, the exact labeling `docs-checker` (PR11) already
+       referenced forward to), "Web Verification (WebFetch/WebSearch)" (4-tier source
+       priority, delegates research-heavy claims to `web-research-maker`), and
+       "Re-validation Cadence" (mandatory 6-month refresh + trigger list). Kept this
+       file's existing local-repo-focused content (Verification Sources, Accuracy Rules,
+       Staleness Detection) unchanged — additive, not a replacement. Dropped OSE's
+       separate `docs/metadata/external-links-status.yaml` file-format convention (no
+       `docs/metadata/` directory exists in this repo); `docs-checker`'s report format
+       already has room to record label/source/date inline per finding
+3. [x] Recipe steps 5–10: grep (zero OSE matches), lint (0 errors in changed file; 5
+       pre-existing unrelated errors in `docs/linkedin/History/`), commit
+       (`docs(skills): add web verification to factual-accuracy skill` — shortened from
+       the plan's suggested subject, which at 87 chars far exceeded commitlint's 72-char
+       `header-max-length`), push, PR #260, CI green (14/14), merged with
+       `--delete-branch`, pulled
 
 **Acceptance Criteria**:
 
-- [ ] 4-state classification, source-tier prioritization, and 6-month cadence all present
+- [x] 4-state classification, source-tier prioritization, and 6-month cadence all present
 
 ### Task 4.6 (PR16): `docs-validating-links` (skill)
 
