@@ -14,6 +14,70 @@ Documentation becomes a liability when it contains outdated versions, incorrect 
 
 ---
 
+## The Four Confidence Classifications
+
+Every checked claim gets exactly one label:
+
+| Label | Meaning | Example |
+|---|---|---|
+| `[Verified]` | Confirmed correct against a primary source | Port `8081` confirmed in `apps/kameravue-be/pom.xml`'s Spring Boot config |
+| `[Error]` | Confirmed **wrong** — the source contradicts the claim | Doc says `npm run start:dev`, but `package.json` has no such script |
+| `[Outdated]` | Was true, but the source has since changed | Doc says "Next.js 14", `package.json` now shows `15.5.0` |
+| `[Unverified]` | Could not confirm — source unreachable, claim ambiguous, or no authoritative source exists | A claim about a third-party API's rate limits with no accessible official docs |
+
+`[Unverified]` is not a failure to do the work — it is the honest outcome when a claim
+genuinely cannot be confirmed. Do not force `[Verified]` on a guess.
+
+---
+
+## Web Verification (WebFetch/WebSearch)
+
+The Verification Sources section below covers claims checkable against **this repo's own
+files** — the fast, no-network path. Some claims reference external, versioned
+information this repo's files can't confirm on their own: whether a command flag exists
+upstream, whether a claimed framework feature is actually present in the version pinned
+in `package.json`/`pom.xml`, or whether an external citation supports the claim it's
+attached to. For those, verify against the web using `WebFetch`/`WebSearch`.
+
+**Source priority** (highest to lowest authority):
+
+1. **Official documentation** — the framework/tool's own docs (e.g., nextjs.org/docs,
+   docs.spring.io) — for syntax, APIs, feature existence
+2. **Package registries** — npmjs.com, mvnrepository.com — for version/availability truth
+3. **Official release notes** — GitHub Releases, CHANGELOG files — for what changed
+   between versions, breaking changes, deprecations
+4. **Well-maintained community sources** — MDN, official tutorial sites — only when tiers
+   1–3 don't cover the claim
+
+**Workflow**: identify the claim → check it against a local repo file first if possible
+(cheaper, no network) → if it requires external confirmation, search/fetch the
+highest-priority source available → compare the claim against what the source says →
+label it → record the source URL alongside the label in the finding.
+
+For claims requiring 2+ `WebSearch` calls or 3+ `WebFetch` calls to resolve, delegate to
+`web-research-maker` rather than burning the checking agent's own context budget.
+
+---
+
+## Re-validation Cadence
+
+A `[Verified]` label is a snapshot, not a permanent guarantee — content drifts.
+
+**Mandatory re-check triggers**:
+
+- **6 months since last verification** — standard refresh cycle for any web-verified claim
+- **Major version bump** of the referenced tool/library in `package.json`/`pom.xml`
+- **Breaking change or deprecation** announced in the tool's release notes
+- A **reader reports** the claim is wrong
+
+**Optional re-check triggers**: minor/patch version bumps where the claim isn't
+version-specific, routine documentation review cycles.
+
+Record the label, source URL, and check date directly in the checker's finding (per
+`docs-checker`'s report format) — no separate metadata file needed for this repo's scale.
+
+---
+
 ## What Counts as a Factual Claim
 
 | Claim type | Example | Must verify against |
