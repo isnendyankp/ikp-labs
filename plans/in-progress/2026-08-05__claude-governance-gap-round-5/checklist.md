@@ -480,21 +480,36 @@ deny check` for license/source policy, with an example `deny.toml`); Clippy
 
 - [x] 4-state classification, source-tier prioritization, and 6-month cadence all present
 
-### Task 4.6 (PR16): `docs-validating-links` (skill)
+### Task 4.6 (PR16): `docs-validating-links` (skill) — ✅ Done (PR #262)
 
-1. [ ] Recipe steps 1–2: branch `docs/link-validation-caching`, fetch OSE source
-2. [ ] Adapt: add link-caching with per-status TTLs (OK: 7 days, broken: 1 day) and
-       HEAD-before-GET instead of re-checking every link every run; add progressive
-       writing guidance (write findings immediately so a long scan survives context
-       compaction)
-3. [ ] Recipe steps 5–10: grep, lint,
-       commit (`docs(skills): add link caching and progressive writing to docs-validating-links`),
-       push, PR, merge, pull
+1. [x] Recipe steps 1–2: branch `docs/link-validation-caching`, fetch OSE source.
+       Fetched cleanly at the plan's recorded path, no move; pulled the TTL sketch from
+       `reference/external-link-validation.md` and progressive-writing detail from
+       `reference/checker-implementation-patterns.md`. Note: OSE actually has TWO cache
+       contracts — a generic 7-day-TTL sketch in the main skill, and
+       `docs-link-checker`'s own divergent 6-month-per-link cache committed to
+       `docs/metadata/external-links-status.yaml` (`reference/cache-and-workflow.md`).
+       Adapted the generic sketch (matches the plan's exact numbers), not the
+       committed-cache contract — this repo has no `docs/metadata/` directory or
+       equivalent shared-cache convention
+2. [x] Adapted: added HEAD-before-GET to the External Links validation step; added a new
+       "Link Result Caching" section with the TTL table (OK/REDIRECT: 7 days, BROKEN: 1
+       day, timeout/flaky: 1 hour) and a JSON cache format, stored at
+       `generated-reports/link-cache.json` (gitignored, local/per-machine — this repo's
+       report-file convention, not a new committed-file convention); added explicit
+       progressive-writing guidance to the Report Format section
+3. [x] Recipe steps 5–10: grep (zero OSE matches, including `diataxis.fr`), lint (0
+       errors in changed file; 5 pre-existing unrelated errors in
+       `docs/linkedin/History/`), commit
+       (`docs(skills): add link caching to docs-validating-links` — shortened from the
+       plan's suggested subject, which at 79 chars exceeded commitlint's 72-char
+       `header-max-length`), push, PR #262, CI green (14/14), merged with
+       `--delete-branch`, pulled
 
 **Acceptance Criteria**:
 
-- [ ] TTL caching and HEAD-before-GET both present
-- [ ] Progressive-writing guidance present
+- [x] TTL caching and HEAD-before-GET both present
+- [x] Progressive-writing guidance present
 
 ### Task 4.7 (PR17): `readme-writing-readme-files` (skill)
 
