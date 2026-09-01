@@ -53,11 +53,13 @@ Links that start with `http://` or `https://`:
 
 **Validation:**
 
-- HTTP GET request with 10-second timeout
+- HEAD request first (faster, no response body) with a 10-second timeout; fall back to
+  GET only if the server rejects HEAD (some servers return 405 for HEAD)
 - Follow up to 3 redirects
 - Classify by final HTTP status: 200 = OK, 301/302 = warn (update to canonical URL), 404/410 = broken, timeout = flaky
 
-**Deduplication:** Only check each unique URL once per run.
+**Deduplication:** Only check each unique URL once per run — see Link Result Caching
+below for reuse across runs.
 
 **Failure modes:**
 
@@ -99,6 +101,46 @@ These are almost always incorrect — absolute paths break in CI and on other ma
 
 ---
 
+## Link Result Caching
+
+External link checks are the slow part of a scan (network round-trips) and most URLs
+don't change between runs — cache results instead of re-checking every external link
+every time.
+
+**Cache file**: `generated-reports/link-cache.json` (gitignored, same as this agent's
+audit reports — local/per-machine, not shared across the team; internal links are cheap
+enough to always re-check, so only external results are cached).
+
+**Format:**
+
+```json
+{
+  "https://playwright.dev/docs/test-assertions": {
+    "status": "OK",
+    "http_code": 200,
+    "last_checked": "2026-08-31T10:00:00+07:00",
+    "ttl_seconds": 604800
+  }
+}
+```
+
+**TTL by status** — re-verify once the entry is older than its TTL, otherwise reuse the
+cached result:
+
+| Status | TTL | Rationale |
+|--------|-----|-----------|
+| OK (200) | 7 days | Stable resources rarely go away between weekly checks |
+| REDIRECT (301/302) | 7 days | Redirect targets are stable, same reasoning as OK |
+| BROKEN (404/410) | 1 day | Re-check soon — the page may come back, and a broken link is worth confirming quickly rather than trusting a stale "broken" verdict |
+| Timeout/flaky | 1 hour | Likely transient network issue, not a real link problem |
+
+Before checking any external URL, look up the cache entry — skip the HTTP request
+entirely if it's still within TTL, otherwise check it and update the cache entry
+(including on the write path: a cache write happens for every URL checked this run, not
+just newly-added ones).
+
+---
+
 ## Scan Locations
 
 Scan these locations for `.md` files, excluding build artifacts:
@@ -137,6 +179,11 @@ Use `wow-criticality-assessment` for severity, with these link-specific defaults
 ## Report Format
 
 Save to `generated-reports/link-audit-YYYY-MM-DD-HHMM.md`.
+
+**Write progressively — never buffer findings in memory until the end.** Initialize the
+report file at the start of the scan and append each finding to it as soon as it's
+discovered. A long scan across many files risks losing buffered findings to context
+compaction; a report written incrementally survives that.
 
 ````markdown
 # Link Audit Report - YYYY-MM-DD HH:MM
