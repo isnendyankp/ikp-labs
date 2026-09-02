@@ -511,18 +511,32 @@ deny check` for license/source policy, with an example `deny.toml`); Clippy
 - [x] TTL caching and HEAD-before-GET both present
 - [x] Progressive-writing guidance present
 
-### Task 4.7 (PR17): `readme-writing-readme-files` (skill)
+### Task 4.7 (PR17): `readme-writing-readme-files` (skill) — ✅ Done (PR #264)
 
-1. [ ] Recipe steps 1–2: branch `docs/readme-writing-hook-guidance`, fetch OSE source
-2. [ ] Adapt: add Problem-Solution Hook opening and benefits-first language guidance to
-       the writing standards
-3. [ ] Recipe steps 5–10: grep, lint,
-       commit (`docs(skills): add Problem-Solution Hook guidance to readme-writing-readme-files`),
-       push, PR, merge, pull
+1. [x] Recipe steps 1–2: branch `docs/readme-writing-hook-guidance`, fetch OSE source.
+       Fetched cleanly at the plan's recorded path, no move; pulled the specific
+       principles/examples from `reference/core-readme-principles.md`. Confirmed before
+       adapting that this file genuinely had zero Hook/jargon/benefits guidance — PR12,
+       PR13, and PR14 all pointed to this skill's "full criteria" for these dimensions,
+       which is exactly what this PR delivers
+2. [x] Adapted: added "Core Writing Principles" section — Problem-Solution Hook
+       (✅/❌ examples rewritten for KameraVue's own domain, not OSE's Shariah-compliance
+       example), Plain Language/acronym-context, Benefits-Focused Language — all three
+       scoped to Root/App READMEs only, matching PR12/13/14's Directory-README exemption.
+       Added an explicit Paragraph Length limit (≤5 lines) to Writing Standards — was
+       implied by "Scannability" but never stated as a number. Extended the Quality
+       Checklist and Anti-Patterns table with matching items
+3. [x] Recipe steps 5–10: grep (zero OSE matches, including `shariah`/`nisab`/`zakat`),
+       lint (0 errors in changed file; 5 pre-existing unrelated errors in
+       `docs/linkedin/History/`), commit
+       (`docs(skills): add hook guidance to readme-writing-readme-files` — shortened
+       from the plan's suggested subject, which at 79 chars exceeded commitlint's
+       72-char `header-max-length`), push, PR #264, CI green (14/14), merged with
+       `--delete-branch`, pulled
 
 **Acceptance Criteria**:
 
-- [ ] Hook-opening and benefits-first guidance both present
+- [x] Hook-opening and benefits-first guidance both present
 
 ### Task 4.8 (PR18): `docs-applying-content-quality` (skill)
 
