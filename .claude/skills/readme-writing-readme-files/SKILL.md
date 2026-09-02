@@ -246,7 +246,77 @@ One-line purpose.
 
 ---
 
+## Core Writing Principles
+
+### Problem-Solution Hook
+
+Start with WHY, not WHAT. The opening lines should show the problem the project solves
+and how, before anything about tech stack or setup.
+
+✅ **Good opening**:
+
+```markdown
+# KameraVue
+
+**Problem**: Sharing event photos across a team means email attachments or shared
+drives nobody keeps organized.
+**Solution**: KameraVue gives every event a shared gallery anyone can upload to and
+browse, no attachments required.
+```
+
+❌ **Weak opening**:
+
+```markdown
+# KameraVue
+
+This is a photo gallery application built with Next.js and Spring Boot.
+```
+
+Applies to **Root and App READMEs only** — Directory READMEs (`.claude/agents/README.md`,
+`docs/README.md`, etc.) are structural indexes, not product pitches; skip the hook there.
+
+### Plain Language
+
+Avoid unexplained jargon and buzzwords ("leverage", "synergy", "best-in-class"). Explain
+technical terms on first use.
+
+✅ **Good**: "Uses **Nx** (a monorepo build system) to manage multiple apps."
+❌ **Bad**: "Uses Nx for the monorepo." — what's Nx? What's a monorepo?
+
+**Acronym context** — define acronyms on first use: `WCAG (Web Content Accessibility
+Guidelines)`, not a bare `WCAG compliance required`.
+
+### Benefits-Focused Language
+
+Emphasize outcomes over features — show what a reader gains, not just what the system
+does.
+
+✅ **Benefits-focused**:
+
+```markdown
+## Key Benefits
+
+- **Faster reviews**: Shared galleries mean no more hunting through email threads for photos
+- **No lost photos**: Every upload is backed up automatically
+```
+
+❌ **Feature-focused**:
+
+```markdown
+## Features
+
+- Has photo upload
+- Uses cloud storage
+```
+
+---
+
 ## Writing Standards
+
+### Paragraph Length
+
+Maximum 5 lines per paragraph — split longer explanations into multiple short
+paragraphs, or convert to a list.
 
 ### Version Numbers
 
@@ -291,6 +361,10 @@ Before completing README work, verify:
 - ✅ All internal links resolve to real files
 - ✅ Required sections present for this README type
 - ✅ File named `README.md` (uppercase, `.md` extension)
+- ✅ **Root/App only**: Problem-Solution Hook present in the opening
+- ✅ **Root/App only**: no unexplained jargon; acronyms defined on first use
+- ✅ **Root/App only**: benefits emphasized over bare feature lists
+- ✅ No paragraph exceeds 5 lines
 
 ---
 
@@ -302,6 +376,9 @@ Before completing README work, verify:
 | `npm start` without verifying | Command may not exist in Nx monorepo | Verify against `package.json` scripts |
 | Version from memory (`Spring Boot 3.x`) | Stale within weeks | Read from `pom.xml` |
 | Giant wall of text | Not scannable | Break into sections with headings + tables |
+| Starting with tech stack, not the problem | Reader doesn't know why the project exists | Open with a Problem-Solution Hook (Root/App only) |
+| Unexplained jargon (`Uses Nx monorepo with affected builds`) | Assumes reader already knows the term | Define on first use: `Nx (a monorepo build system)` |
+| Feature list with no benefit stated | Reader can't tell what they gain | Rewrite as outcomes: "Faster reviews", not "Has upload" |
 | Duplicate info from docs/ | Maintenance burden | Link to docs instead |
 
 ---
