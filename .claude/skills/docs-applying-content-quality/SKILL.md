@@ -203,6 +203,56 @@ Response: JWT token
 
 ---
 
+## Accessibility Standards
+
+**Alt Text Required**: All images MUST have descriptive alt text.
+
+```markdown
+✅ ![Architecture diagram showing gallery upload flow](./diagram.png)
+❌ ![](./diagram.png)  ← Missing alt text
+```
+
+**WCAG AA Color Contrast**: Text must meet these minimum contrast ratios against its
+background:
+
+- Normal text: **4.5:1** minimum
+- Large text (18pt+ or 14pt+ bold): **3:1** minimum
+
+**Semantic Formatting**:
+
+- Use **bold** for emphasis, not italics
+- Use proper heading structure — never bold text standing in for a heading
+- Use lists for list content, not manually typed bullet characters
+
+---
+
+## No Time Estimates
+
+**CRITICAL**: Never include time-based framing in content.
+
+❌ **Forbidden**:
+
+- "This tutorial takes 30 minutes"
+- "Complete this in 2-3 weeks"
+- "You can do this in 5 minutes"
+
+✅ **Instead**:
+
+- Describe what will be accomplished
+- List concrete outcomes
+- Let users determine their own pace
+
+**Rationale**: Time estimates create artificial pressure and vary widely by reader
+experience level and environment.
+
+> **Known violation (not fixed by this PR)**: `docs-applying-diataxis-framework`'s
+> tutorial templates currently contain literal `**Time**: 30 minutes` /
+> `**Time**: 10-15 minutes` / `**Time**: 5 minutes` fields — a direct contradiction of
+> this rule. Recorded here as a follow-up finding for that skill's own maintainers to
+> resolve; out of scope for a change to this file.
+
+---
+
 ## Code Example Standards
 
 ### 1. **Real Code Only**
@@ -630,6 +680,8 @@ Before publishing documentation, verify:
 - [ ] **Voice**: Active voice, present tense, second person
 - [ ] **Examples**: At least one working example included
 - [ ] **Context**: Sufficient background provided
+- [ ] **Accessibility**: All images have alt text; custom colors meet WCAG AA contrast (4.5:1 normal, 3:1 large text)
+- [ ] **No time estimates**: No time-based framing ("takes 30 minutes", "in 2 weeks")
 
 ---
 
