@@ -538,24 +538,32 @@ deny check` for license/source policy, with an example `deny.toml`); Clippy
 
 - [x] Hook-opening and benefits-first guidance both present
 
-### Task 4.8 (PR18): `docs-applying-content-quality` (skill)
+### Task 4.8 (PR18): `docs-applying-content-quality` (skill) — ✅ Done (PR #266)
 
-1. [ ] Recipe steps 1–2: branch `docs/content-quality-no-time-estimates`, fetch OSE source
-2. [ ] Adapt: add a "No Time Estimates" rule — **record, do not fix**, that
-       `docs-applying-diataxis-framework`'s templates currently violate this with literal
-       "**Time**: 30 minutes" fields (note this as a follow-up finding in the skill's own
-       body or a linked note, not a template edit in this PR); add explicit numeric WCAG
-       AA contrast ratios (4.5:1 normal text, 3:1 large text)
-3. [ ] Recipe steps 5–10: grep, lint,
-       commit (`docs(skills): add No Time Estimates rule and WCAG ratios to docs-applying-content-quality`),
-       push, PR, merge, pull
+1. [x] Recipe steps 1–2: branch `docs/content-quality-no-time-estimates`, fetch OSE source.
+       Fetched cleanly at the plan's recorded path, no move; pulled the specific detail
+       from `reference/formatting-and-common-mistakes.md` (No Time Estimates) and
+       `reference/writing-style-heading-accessibility.md` (WCAG ratios)
+2. [x] Adapted: added "No Time Estimates" section with the exact ratios/examples from
+       OSE, plus a callout recording (not fixing) the self-contradiction; verified before
+       writing that `docs-applying-diataxis-framework` genuinely has all three literal
+       `**Time**:` fields (lines 69, 176, 224) the plan described. Added a new
+       "Accessibility Standards" section (alt-text requirement, numeric WCAG AA contrast
+       4.5:1/3:1, semantic formatting). Extended the Validation Checklist with matching
+       items
+3. [x] Recipe steps 5–10: grep (zero OSE matches), lint (0 errors in changed file; 5
+       pre-existing unrelated errors in `docs/linkedin/History/`), commit
+       (`docs(skills): add wcag ratios to docs-applying-content-quality` — shortened
+       from the plan's suggested subject (89 chars, exceeded commitlint's 72-char
+       `header-max-length`) and lowercased `WCAG`→`wcag` to satisfy the `subject-case`
+       rule), push, PR #266, CI green (14/14), merged with `--delete-branch`, pulled
 
 **Acceptance Criteria**:
 
-- [ ] "No Time Estimates" rule present
-- [ ] Self-contradiction with `docs-applying-diataxis-framework` templates is noted, not
+- [x] "No Time Estimates" rule present
+- [x] Self-contradiction with `docs-applying-diataxis-framework` templates is noted, not
       silently fixed
-- [ ] Numeric WCAG AA ratios (4.5:1 / 3:1) present
+- [x] Numeric WCAG AA ratios (4.5:1 / 3:1) present
 
 ### Task 4.9 (PR19): `docs-creating-accessible-diagrams` (skill)
 
