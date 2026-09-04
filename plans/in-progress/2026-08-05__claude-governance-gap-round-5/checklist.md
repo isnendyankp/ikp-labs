@@ -341,7 +341,7 @@ deny check` for license/source policy, with an example `deny.toml`); Clippy
 
 ---
 
-## Phase 4: Cluster C — Documentation Quality & Fact-Checking
+## Phase 4: Cluster C — Documentation Quality & Fact-Checking — ✅ Done (PR #251, #253, #256, #258, #260, #262, #264, #266, #268)
 
 ### Task 4.1 (PR11): `docs-checker.md` — ✅ Done (PR #251)
 
@@ -565,25 +565,37 @@ deny check` for license/source policy, with an example `deny.toml`); Clippy
       silently fixed
 - [x] Numeric WCAG AA ratios (4.5:1 / 3:1) present
 
-### Task 4.9 (PR19): `docs-creating-accessible-diagrams` (skill)
+### Task 4.9 (PR19): `docs-creating-accessible-diagrams` (skill) — ✅ Done (PR #268)
 
-1. [ ] Recipe steps 1–2: branch `docs/diagrams-wcag-palette`, fetch OSE source
-2. [ ] Adapt: add a concrete WCAG-verified 8-color hex palette for diagrams with
-       per-color contrast ratios and "never use red/green/yellow" guidance; add a Mermaid
-       special-character escaping table and comment-syntax gotchas
-3. [ ] Recipe steps 5–10: grep, lint,
-       commit (`docs(skills): add WCAG color palette and Mermaid escaping to docs-creating-accessible-diagrams`),
-       push, PR, merge, pull
+1. [x] Recipe steps 1–2: branch `docs/diagrams-wcag-palette`, fetch OSE source. Fetched
+       cleanly at the plan's recorded path, no move; pulled the exact palette from
+       `reference/color-palette-and-avoided-colors.md` and Mermaid detail from
+       `reference/mermaid-best-practices.md`
+2. [x] Adapted: added rule #3 "Use the Verified Accessible Color Palette" (8 colors —
+       Blue/Orange/Teal/Purple/Brown/Black/White/Gray — with hex codes and WCAG AA
+       light/dark contrast ratios) and rule #4 "Never Use These Colors" (red/green/yellow
+       with the color-blindness rationale for each, colorblind-emoji exception). Extended
+       rule #6 (Mermaid) with the comment-syntax gotcha (`%%` correct,
+       `%%{ ... }%%` breaks rendering) and an 8-character escaping table. Renumbered
+       rules 3→5 through 5→7 to make room; extended the Validation Checklist to match
+3. [x] Recipe steps 5–10: grep (zero OSE matches), lint (0 errors in changed file; 5
+       pre-existing unrelated errors in `docs/linkedin/History/`), commit
+       (`docs(skills): add color palette to accessible-diagrams` — shortened from the
+       plan's suggested subject, which at 94 chars far exceeded commitlint's 72-char
+       `header-max-length`), push, PR #268, CI green (7/7), merged with
+       `--delete-branch`, pulled
 
 **Acceptance Criteria**:
 
-- [ ] 8-color hex palette with contrast ratios present
-- [ ] Mermaid escaping table present
+- [x] 8-color hex palette with contrast ratios present
+- [x] Mermaid escaping table present
 
 **Acceptance Criteria — Phase 4 (all 9 PRs)**:
 
-- [ ] All 9 files updated; `docs-checker` and `docs-validating-factual-accuracy` use
-      consistent 4-state labeling terminology
+- [x] All 9 files updated; `docs-checker` and `docs-validating-factual-accuracy` use
+      consistent 4-state labeling terminology — verified via grep: both files use the
+      exact same terms (`[Verified]`/`[Unverified]`/`[Error]`/`[Outdated]`) with aligned
+      definitions
 
 ---
 
