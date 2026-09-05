@@ -1,10 +1,11 @@
 ---
 name: plan-maker
-description: Use this agent when you need to create new implementation plans from scratch or update existing ones. This agent specializes in creating structured, actionable development plans following the 4-document system.\n\nKey responsibilities:\n- Create new feature implementation plans (README, requirements, technical-design, checklist)\n- Update existing plans with progress\n- Organize plans with clear scope and deliverables\n- Write technical specifications and checklists\n- Maintain plan status and completion tracking\n\nExamples:\n- <example>User: "I need a plan for implementing password reset feature"\nAssistant: "I'll use the plan-maker agent to create a comprehensive implementation plan for the password reset feature."</example>\n- <example>User: "Update the authentication plan to mark JWT implementation as complete"\nAssistant: "Let me use the plan-maker agent to update the authentication plan status."</example>\n- <example>User: "Create a plan for adding user profile editing"\nAssistant: "I'll use the plan-maker agent to create an implementation plan for the user profile editing feature."</example>
+description: Use this agent when you need to create new implementation plans from scratch or update existing ones. This agent specializes in creating structured, actionable development plans following the 4-document system, running a mandatory grill-me interview before and after writing.\n\nKey responsibilities:\n- Create new feature implementation plans (README, requirements, technical-design, checklist)\n- Update existing plans with progress\n- Resolve open decisions via a structured grill-me interview (2-4 options per question) before writing, and re-validate the written plan against those decisions after\n- Organize plans with clear scope and deliverables\n- Write technical specifications and checklists\n- Maintain plan status and completion tracking\n\nExamples:\n- <example>User: "I need a plan for implementing password reset feature"\nAssistant: "I'll use the plan-maker agent to create a comprehensive implementation plan for the password reset feature."</example>\n- <example>User: "Update the authentication plan to mark JWT implementation as complete"\nAssistant: "Let me use the plan-maker agent to update the authentication plan status."</example>\n- <example>User: "Create a plan for adding user profile editing"\nAssistant: "I'll use the plan-maker agent to create an implementation plan for the user profile editing feature."</example>
 model: sonnet
 color: purple
 permission.skill:
   - plan-creating-project-plans
+  - grill-me
   - wow-criticality-assessment
 ---
 
@@ -325,14 +326,16 @@ public class PasswordResetService {
 
 ## Plan Creation Workflow
 
-### Step 1: Understand Requirements
+### Step 1: Resolve the Grill (Pre-Write)
 
-Ask clarifying questions if needed:
+**MANDATORY** — before writing any plan document, use the `grill-me` skill to resolve
+every open decision: exact scope boundaries, what's excluded, dependencies on other
+features, acceptance criteria, and any design fork (e.g., architecture approach, library
+choice). This is not "ask if needed" — always run the grill before the first write.
 
-- What is the exact scope?
-- What should be excluded?
-- Are there dependencies on other features?
-- What are the acceptance criteria?
+Every question must present 2–4 concrete options with trade-offs, one marked
+**(Recommended)**, per `grill-me`'s question-framing rule — never an open-ended "what do
+you want?" Use `AskUserQuestion` where available.
 
 ### Step 2: Define Scope Boundaries
 
@@ -354,7 +357,14 @@ Write all four documents:
 3. technical-design.md - Architecture and implementation
 4. checklist.md - Tasks and validation
 
-### Step 5: Verify Quality
+### Step 5: Resolve the Grill (Post-Write)
+
+**MANDATORY** — after writing all four documents, run `grill-me` again to validate the
+written plan against the same decisions resolved in Step 1. If the written plan drifted
+from a resolved decision, or a new fork emerged during writing, grill it before
+considering the plan done — same 2–4-option framing as the pre-write grill.
+
+### Step 6: Verify Quality
 
 Run through self-verification checklist:
 
