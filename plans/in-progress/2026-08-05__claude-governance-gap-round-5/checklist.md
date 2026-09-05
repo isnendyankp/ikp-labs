@@ -601,18 +601,31 @@ deny check` for license/source policy, with an example `deny.toml`); Clippy
 
 ## Phase 5: Cluster D — Plan Lifecycle
 
-### Task 5.1 (PR20): `plan-maker.md`
+### Task 5.1 (PR20): `plan-maker.md` — ✅ Done (PR #270)
 
-1. [ ] Recipe steps 1–2: branch `docs/plan-maker-grill-me`, fetch OSE source
-2. [ ] Adapt: wire in the existing `grill-me` skill — mandate a structured grill-me
-       interview (2–4 concrete options per question) both before and after plan writing
-3. [ ] Recipe steps 5–10: grep, lint,
-       commit (`docs(agents): wire grill-me interview into plan-maker`), push, PR, merge,
-       pull
+1. [x] Recipe steps 1–2: branch `docs/plan-maker-grill-me`, fetch OSE source. Fetched
+       cleanly from `.claude/agents/plan/plan-maker.md` (subfolder-grouping refactor,
+       same pattern as prior moved-path PRs). OSE's current source has been substantially
+       rewritten around its own 8-document plan system (BRD/PRD, delivery.md,
+       Execution-Grade Clarity, Worktree/Delivery-Mode declarations) that doesn't map to
+       this repo's 4-document system — extracted only the portable capability (mandatory
+       structured grill-me pre/post-write), not the document structure
+2. [x] Adapted: rewrote Step 1 from "ask clarifying questions if needed" (vague,
+       optional, open-ended) to a mandatory, structured `grill-me` interview — 2–4
+       concrete options per question, one marked (Recommended), per `grill-me`'s own
+       question-framing rule. Added new Step 5 "Resolve the Grill (Post-Write)" — after
+       writing all four documents, re-run `grill-me` to catch drift or newly emerged
+       forks before considering the plan done. Renumbered old Step 5 (Verify Quality) to
+       Step 6. Added `grill-me` to `permission.skill:` frontmatter and updated the agent
+       description
+3. [x] Recipe steps 5–10: grep (zero OSE matches), lint (0 errors in changed file; 5
+       pre-existing unrelated errors in `docs/linkedin/History/`), commit
+       (`docs(agents): wire grill-me interview into plan-maker`), push, PR #270, CI green
+       (14/14), merged with `--delete-branch`, pulled
 
 **Acceptance Criteria**:
 
-- [ ] `grill-me` invoked both before and after plan writing, with 2–4-option question
+- [x] `grill-me` invoked both before and after plan writing, with 2–4-option question
       framing
 
 ### Task 5.2 (PR21): `plan-checker.md`
