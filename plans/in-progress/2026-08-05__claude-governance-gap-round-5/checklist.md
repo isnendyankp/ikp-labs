@@ -628,22 +628,37 @@ deny check` for license/source policy, with an example `deny.toml`); Clippy
 - [x] `grill-me` invoked both before and after plan writing, with 2–4-option question
       framing
 
-### Task 5.2 (PR21): `plan-checker.md`
+### Task 5.2 (PR21): `plan-checker.md` — ✅ Done (PR #272)
 
-1. [ ] Recipe steps 1–2: branch `docs/plan-checker-pr-gate-factcheck`, fetch OSE source
-2. [ ] Adapt: gate PR-bound plans on completion of the PR-Review Maker→Fixer cycle
-       (link `governance/workflows/pr/pr-review-quality-gate.md`, adopted Round 4); add a
-       factual-accuracy pass using `docs-validating-factual-accuracy`; add a persistent
-       false-positives skip list (same shape as PR1)
-3. [ ] Recipe steps 5–10: grep, lint,
-       commit (`docs(agents): add PR-review gate and factual-accuracy pass to plan-checker`),
-       push, PR, merge, pull
+1. [x] Recipe steps 1–2: branch `docs/plan-checker-pr-gate-factcheck`, fetch OSE source
+       (`.claude/agents/plan/plan-checker.md`, subfolder-grouping refactor). OSE's
+       current source is built around its own 8-document plan system with no PR-review
+       gate concept mapped to Round 4's `pr-review-maker`/`pr-review-fixer` agents — this
+       capability is IKP-Labs-specific, not a straight port, per the plan's decision
+       record
+2. [x] Adapted: added Core Responsibility #8 "PR-Review Cycle Completion Gate" (links
+       `governance/workflows/pr/pr-review-quality-gate.md`, verified the relative path
+       resolves), #9 "Factual-Accuracy Pass" (reuses `docs-validating-factual-accuracy`'s
+       4-state labeling, same terms as `docs-checker` from PR11), and a new "Convergence
+       Safeguards" section with the persistent false-positive skip list at
+       `generated-reports/.known-false-positives.md` — same shape as PR1's
+       `repo-applying-maker-checker-fixer` pattern. Renumbered old "8. Report Generation"
+       to "10."; added both skills to frontmatter and the Related Skills footer
+3. [x] Recipe steps 5–10: grep (zero OSE matches), lint — hit one MD031 (blanks-around-
+       fences) violation exposed by a fence-parity shift from my insertion earlier in
+       this 1182-line file (added a missing blank line before an unrelated pre-existing
+       fence to fix it, 0 errors after; 5 pre-existing unrelated errors remain in
+       `docs/linkedin/History/`), commit
+       (`docs(agents): add pr-review gate to plan-checker` — shortened from the plan's
+       suggested subject, which at 74 chars exceeded commitlint's 72-char
+       `header-max-length` by 2), push, PR #272, CI green (14/14), merged with
+       `--delete-branch`, pulled
 
 **Acceptance Criteria**:
 
-- [ ] PR-Review cycle gate present and links to the correct governance doc
-- [ ] Factual-accuracy pass present, referencing `docs-validating-factual-accuracy`
-- [ ] Persistent skip list present
+- [x] PR-Review cycle gate present and links to the correct governance doc
+- [x] Factual-accuracy pass present, referencing `docs-validating-factual-accuracy`
+- [x] Persistent skip list present
 
 ### Task 5.3 (PR22): `plan-execution-checker.md`
 
