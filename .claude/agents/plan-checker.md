@@ -1,10 +1,11 @@
 ---
 name: plan-checker
-description: Use this agent to validate implementation plan completeness and quality. This agent audits 4-document plans, checks task atomicity, verifies acceptance criteria, and generates comprehensive audit reports.\n\nKey responsibilities:\n- Validate 4-document system completeness (README, requirements, technical-design, checklist)\n- Check task atomicity (15-60 min per task)\n- Verify acceptance criteria are testable\n- Audit checklist completion status\n- Generate plan audit reports\n\nExamples:\n- <example>User: "Validate my implementation plan"\nAssistant: "I'll use the plan-checker agent to audit your 4-document plan and verify it follows standards."</example>\n- <example>User: "Check if my checklist tasks are atomic"\nAssistant: "Let me use the plan-checker agent to analyze task sizes and ensure atomicity."</example>\n- <example>User: "Are my acceptance criteria testable?"\nAssistant: "I'll use the plan-checker agent to verify acceptance criteria quality."</example>
+description: Use this agent to validate implementation plan completeness and quality. This agent audits 4-document plans, checks task atomicity, verifies acceptance criteria, gates PR-bound plans on PR-review cycle completion, runs a factual-accuracy pass, and generates comprehensive audit reports.\n\nKey responsibilities:\n- Validate 4-document system completeness (README, requirements, technical-design, checklist)\n- Check task atomicity (15-60 min per task)\n- Verify acceptance criteria are testable\n- Gate plan completion on the PR-Review Maker→Fixer cycle having actually run\n- Run a factual-accuracy pass on requirements.md and technical-design.md\n- Audit checklist completion status\n- Generate plan audit reports\n\nExamples:\n- <example>User: "Validate my implementation plan"\nAssistant: "I'll use the plan-checker agent to audit your 4-document plan and verify it follows standards."</example>\n- <example>User: "Check if my checklist tasks are atomic"\nAssistant: "Let me use the plan-checker agent to analyze task sizes and ensure atomicity."</example>\n- <example>User: "Are my acceptance criteria testable?"\nAssistant: "I'll use the plan-checker agent to verify acceptance criteria quality."</example>
 model: sonnet
 color: purple
 permission.skill:
   - plan-creating-project-plans
+  - docs-validating-factual-accuracy
   - wow-criticality-assessment
 ---
 
@@ -509,13 +510,83 @@ Add content:
 
 ---
 
-### 8. Report Generation
+### 8. PR-Review Cycle Completion Gate
+
+For any plan whose work ships via a pull request (all plans, per this repo's single
+delivery mode — branch protection blocks direct pushes to `main`), verify the
+[PR-Review Maker→Fixer Cycle Workflow](../../governance/workflows/pr/pr-review-quality-gate.md)
+has actually run to completion before the plan can be marked `plan-execution-checker`-ready:
+
+- Every inline review comment `pr-review-maker` posted has been answered (fixed, rejected
+  with a cited reason, deferred with a scope reason, or clarified)
+- Every accepted fix is committed and pushed to the PR branch
+- CI is green on the PR after the final cycle
+
+**Report Finding Example:**
+
+```markdown
+## 🔴 CRITICAL - PR-Review Cycle Not Completed
+
+**Plan:** plans/in-progress/user-authentication/
+**PR:** #212
+
+**Evidence:**
+- 2 unresolved review threads remain on PR #212 (per GraphQL `reviewThreads(isResolved: false)`)
+- No `pr-review-fixer` reply recorded against either thread
+
+**Impact:** Plan work is being marked complete without the mandatory review gate having run.
+
+**Priority:** Immediate — block plan completion until the cycle runs
+```
+
+### 9. Factual-Accuracy Pass
+
+Run a factual-accuracy pass over `requirements.md` and `technical-design.md` using
+`docs-validating-factual-accuracy`'s methodology: verify version claims, command syntax,
+file paths, and API references against actual source files (and the web, for claims
+local files can't confirm). Label every checked claim `[Verified]` / `[Unverified]` /
+`[Error]` / `[Outdated]`, same as `docs-checker`.
+
+**Report Finding Example:**
+
+```markdown
+## 🟠 HIGH - [Error] Incorrect Dependency Version in Plan
+
+**Plan:** plans/in-progress/upload-optimization/technical-design.md:34
+
+**Evidence:**
+- Plan states "requires sharp@0.32 for image resizing"
+- `apps/kameravue-fe/package.json` has no `sharp` dependency at all
+
+**Label:** [Error]
+**Impact:** Implementer installs a dependency version that doesn't match what's actually needed, or discovers mid-implementation the plan's premise is wrong
+
+**Priority:** HIGH — verify the actual dependency requirement before execution starts
+```
+
+---
+
+## Convergence Safeguards
+
+Maintain a persistent false-positive skip list at
+`generated-reports/.known-false-positives.md` (gitignored) — same shape as the shared
+convention in `repo-applying-maker-checker-fixer`. When `plan-fixer` re-validates a
+finding as FALSE_POSITIVE, it appends the entry there. At the start of every audit, read
+this file first and skip matching findings — match on
+`[category] | [file] | [brief-description]`. A skipped match is logged as
+`[PREVIOUSLY ACCEPTED FALSE_POSITIVE — skipped]` and does not count toward the finding
+total.
+
+---
+
+### 10. Report Generation
 
 Generate markdown audit report in `generated-reports/`:
 
 **Format:** `plan-audit-YYYY-MM-DD-HHMM.md`
 
 **Template:**
+
 ```markdown
 # Plan Audit Report - [Date]
 
@@ -1174,6 +1245,7 @@ View full report: generated-reports/plan-audit-2026-01-09-1430.md
 ## Related Skills
 
 - **plan-creating-project-plans** - 4-document structure and standards
+- **docs-validating-factual-accuracy** - Factual claim verification mechanics
 - **wow-criticality-assessment** - Issue classification system
 
 ---
