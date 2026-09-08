@@ -660,18 +660,30 @@ deny check` for license/source policy, with an example `deny.toml`); Clippy
 - [x] Factual-accuracy pass present, referencing `docs-validating-factual-accuracy`
 - [x] Persistent skip list present
 
-### Task 5.3 (PR22): `plan-execution-checker.md`
+### Task 5.3 (PR22): `plan-execution-checker.md` — ✅ Done (PR #274)
 
-1. [ ] Recipe steps 1–2: branch `docs/plan-execution-checker-archival`, fetch OSE source
-2. [ ] Adapt: add archival-mechanics verification (folder actually `git mv`'d to `done/`,
-       index files updated, no orphaned references, archival commit exists)
-3. [ ] Recipe steps 5–10: grep, lint,
-       commit (`docs(agents): add archival-mechanics verification to plan-execution-checker`),
-       push, PR, merge, pull
+1. [x] Recipe steps 1–2: branch `docs/plan-execution-checker-archival`, fetch OSE source
+       (`.claude/agents/plan/plan-execution-checker.md`, subfolder-grouping refactor).
+       OSE's current source delegates entirely to a `plan-verifying-execution` skill (5
+       reference modules) this repo doesn't have, built around its own BRD/PRD document
+       system — adapted only the specific capability the plan called for, not a new
+       skill dependency
+2. [x] Adapted: added Core Validation Scope item "6. Archival Mechanics Verification"
+       with all four checks (git mv rename via `git log --follow --diff-filter=R`,
+       `plans/README.md` index updated, no orphaned path references, archival commit
+       exists), a matching "Step 7: Archival Mechanics Verification" in the Validation
+       Workflow (skipped for plans not yet archived), and extended the Executive Summary
+       dimension list and Severity Classification table with archival-mechanics examples
+3. [x] Recipe steps 5–10: grep (zero OSE matches), lint (0 errors in changed file; 5
+       pre-existing unrelated errors in `docs/linkedin/History/`), commit
+       (`docs(agents): add archival checks to plan-execution-checker` — shortened from
+       the plan's suggested subject, which at 75 chars exceeded commitlint's 72-char
+       `header-max-length`), push, PR #274, CI green (14/14), merged with
+       `--delete-branch`, pulled
 
 **Acceptance Criteria**:
 
-- [ ] All four archival-mechanics checks present
+- [x] All four archival-mechanics checks present
 
 ### Task 5.4 (PR23): `plan-fixer.md`
 
