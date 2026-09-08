@@ -1,6 +1,6 @@
 ---
 name: plan-execution-checker
-description: Use this agent as the final quality gate before marking a plan complete. It validates that all requirements, acceptance criteria, and code standards are met after implementation. Checks requirements coverage, technical alignment, delivery completion, code quality, and integration correctness.\n\nKey responsibilities:\n- Validate requirements coverage against plan documents\n- Verify technical alignment with documented architecture\n- Confirm all checklist items are complete\n- Assess code quality, tests, and documentation\n- Validate integration and end-to-end correctness\n- Produce a markdown validation report\n\nExamples:\n- <example>User: "I finished implementing the gallery sorting feature, check if it's ready to close"\nAssistant: "I'll use the plan-execution-checker agent to validate the implementation against the plan before archiving."</example>\n- <example>User: "Validate that the auth plan is fully executed"\nAssistant: "Let me use the plan-execution-checker agent to run a final quality gate on the auth implementation."</example>\n- <example>User: "Is the photo upload feature done? Can I move it to done/"\nAssistant: "I'll use the plan-execution-checker agent to verify all acceptance criteria are met before archiving the plan."</example>
+description: Use this agent as the final quality gate before marking a plan complete. It validates that all requirements, acceptance criteria, and code standards are met after implementation, and that a plan already archived to done/ was actually moved correctly. Checks requirements coverage, technical alignment, delivery completion, code quality, integration correctness, and archival mechanics.\n\nKey responsibilities:\n- Validate requirements coverage against plan documents\n- Verify technical alignment with documented architecture\n- Confirm all checklist items are complete\n- Assess code quality, tests, and documentation\n- Validate integration and end-to-end correctness\n- Verify archival mechanics: git mv rename, index update, no orphaned references, archival commit exists\n- Produce a markdown validation report\n\nExamples:\n- <example>User: "I finished implementing the gallery sorting feature, check if it's ready to close"\nAssistant: "I'll use the plan-execution-checker agent to validate the implementation against the plan before archiving."</example>\n- <example>User: "Validate that the auth plan is fully executed"\nAssistant: "Let me use the plan-execution-checker agent to run a final quality gate on the auth implementation."</example>\n- <example>User: "Is the photo upload feature done? Can I move it to done/"\nAssistant: "I'll use the plan-execution-checker agent to verify all acceptance criteria are met before archiving the plan."</example>
 model: sonnet
 color: green
 permission.skill:
@@ -156,6 +156,51 @@ Verify end-to-end correctness — components work together.
 
 ---
 
+### 6. Archival Mechanics Verification
+
+This gate has historically approved plans for archival without ever checking that the
+archival step itself happened correctly. When invoked against a plan already claiming
+`done/` status (or immediately after an archival commit), verify the mechanics, not just
+the recommendation:
+
+**Check for:**
+
+- ✅ Folder actually moved via `git log --follow --diff-filter=R -- plans/done/<name>/README.md`
+  showing a rename from `plans/in-progress/<name>/` — not copied (old folder still
+  present under `in-progress/`) and not manually recreated (git history shows no rename,
+  just a fresh add)
+- ✅ `plans/README.md` index updated to list the plan under its done section, no longer
+  under in-progress
+- ✅ No orphaned references — grep the repo for the old `plans/in-progress/<name>/` path;
+  any surviving link (other docs, other plans, code comments) must be updated to the new
+  `plans/done/<name>/` path
+- ✅ An archival commit exists in git history (`git log --oneline -- plans/done/<name>/`
+  shows at least one commit) — the move isn't just staged/uncommitted
+- ❌ Folder present in both `in-progress/` and `done/` (copy, not move)
+- ❌ `plans/README.md` still lists the plan under in-progress
+- ❌ A doc or plan elsewhere still links to the pre-archival path
+- ❌ No commit in git history performing the move
+
+**Finding example:**
+
+```markdown
+## 🔴 CRITICAL - Plan Copied, Not Moved, to done/
+
+**Plan:** plans/done/photo-upload/
+**Evidence:**
+- `plans/in-progress/photo-upload/` still exists on disk with identical content
+- `git log --follow -- plans/done/photo-upload/README.md` shows no rename — the file was
+  added fresh, not moved from `in-progress/`
+
+**Impact:** Two copies of the same plan now exist; future edits will drift out of sync,
+and git history for the plan's authoring is lost from the `done/` copy
+
+**Action:** `git mv plans/in-progress/photo-upload plans/done/photo-upload`, commit, then
+delete the stray in-progress copy if `git mv` wasn't used correctly
+```
+
+---
+
 ## Validation Workflow
 
 ### Step 0: Initialize
@@ -199,7 +244,14 @@ Read all 4 plan documents: README.md, requirements.md, technical-design.md, chec
 - Verify E2E and API test existence for primary flows
 - Flag missing integration coverage
 
-### Step 7: Generate Report
+### Step 7: Archival Mechanics Verification
+
+- If the plan is already under `plans/done/`, or is being validated immediately after an
+  archival commit: verify the `git mv` rename, the `plans/README.md` index update, no
+  orphaned path references, and that an archival commit exists
+- Skip this step for a plan still under `plans/in-progress/` awaiting its first approval
+
+### Step 8: Generate Report
 
 Save to `generated-reports/plan-execution__YYYY-MM-DD-HHMM__validation.md`.
 
@@ -227,6 +279,7 @@ Save to `generated-reports/plan-execution__YYYY-MM-DD-HHMM__validation.md`.
 - Delivery Completion:  ✅ / ⚠️ / ❌
 - Code Quality:         ✅ / ⚠️ / ❌
 - Integration:          ✅ / ⚠️ / ❌
+- Archival Mechanics:   ✅ / ⚠️ / ❌ / N/A (not yet archived)
 
 **Issues Found:** N (Critical: X, High: Y, Medium: Z)
 
@@ -259,9 +312,9 @@ Address CRITICAL/HIGH issues before archiving.
 
 | Severity | Examples | Response |
 |----------|----------|----------|
-| 🔴 CRITICAL | Unimplemented requirement, checklist <50%, failing tests | Block — fix immediately |
-| 🟠 HIGH | Coverage below threshold, missing E2E for primary flow | Fix before archiving |
-| 🟡 MEDIUM | Minor divergence from technical design, missing docs | Fix or document deferral |
+| 🔴 CRITICAL | Unimplemented requirement, checklist <50%, failing tests, plan copied (not moved) to `done/` | Block — fix immediately |
+| 🟠 HIGH | Coverage below threshold, missing E2E for primary flow, orphaned reference to pre-archival path | Fix before archiving |
+| 🟡 MEDIUM | Minor divergence from technical design, missing docs, `plans/README.md` index not yet updated | Fix or document deferral |
 | 🟢 LOW | Formatting, naming inconsistency | Log and move on |
 
 ---
