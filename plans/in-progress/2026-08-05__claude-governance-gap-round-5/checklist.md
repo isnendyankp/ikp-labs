@@ -685,20 +685,32 @@ deny check` for license/source policy, with an example `deny.toml`); Clippy
 
 - [x] All four archival-mechanics checks present
 
-### Task 5.4 (PR23): `plan-fixer.md`
+### Task 5.4 (PR23): `plan-fixer.md` — ✅ Done (PR #276)
 
-1. [ ] Recipe steps 1–2: branch `docs/plan-fixer-governance-gate-rule`, fetch OSE source
-2. [ ] Adapt: add a front-loaded hard rule that merge/PR steps are governance gates no fix
-       recipe may ever touch; add false-positive persistence to the shared skip list
-       `plan-checker` reads (PR21)
-3. [ ] Recipe steps 5–10: grep, lint,
-       commit (`docs(agents): add governance-gate hard rule to plan-fixer`), push, PR,
-       merge, pull
+1. [x] Recipe steps 1–2: branch `docs/plan-fixer-governance-gate-rule`, fetch OSE source.
+       404'd at every path — `plan-fixer.md` no longer exists anywhere in OSE (deleted
+       upstream in commit `2b7b0b4`, "move the plan and rules quality gates to a
+       governance-gate class", consolidating checker+fixer into a unified
+       workflow-driven concept). Recovered the last pre-deletion version from the
+       deletion commit's parent (`2c400f5`) per the 404-recovery pattern
+2. [x] Adapted: added "Merge/PR Steps Are Out of Scope for Every Fix Recipe (READ FIRST)"
+       right after the intro paragraph (line 14), before Project Context — a merge/PR
+       step is a governance gate no recipe may touch regardless of confidence/finding
+       type; a finding requiring it is a false positive on that line specifically. Added
+       false-positive persistence to the Fix Workflow (read/write
+       `generated-reports/.known-false-positives.md`, matching
+       `[category] | [file] | [brief-description]`) — same shape as PR1's
+       `repo-applying-maker-checker-fixer` convention and PR21's `plan-checker` skip list
+3. [x] Recipe steps 5–10: grep (zero OSE matches, including `plan-applying-fixes`), lint
+       (0 errors in changed file; 5 pre-existing unrelated errors in
+       `docs/linkedin/History/`), commit
+       (`docs(agents): add governance-gate hard rule to plan-fixer`), push, PR #276, CI
+       green (14/14), merged with `--delete-branch`, pulled
 
 **Acceptance Criteria**:
 
-- [ ] Hard rule appears near the top of the file (front-loaded, not buried)
-- [ ] False-positive persistence shares the skip-list shape from PR21
+- [x] Hard rule appears near the top of the file (front-loaded, not buried)
+- [x] False-positive persistence shares the skip-list shape from PR21
 
 ### Task 5.5 (PR24): `plan-creating-project-plans` (skill)
 
