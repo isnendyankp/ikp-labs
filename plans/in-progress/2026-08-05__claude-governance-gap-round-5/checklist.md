@@ -712,19 +712,36 @@ deny check` for license/source policy, with an example `deny.toml`); Clippy
 - [x] Hard rule appears near the top of the file (front-loaded, not buried)
 - [x] False-positive persistence shares the skip-list shape from PR21
 
-### Task 5.5 (PR24): `plan-creating-project-plans` (skill)
+### Task 5.5 (PR24): `plan-creating-project-plans` (skill) — ✅ Done (PR #278)
 
-1. [ ] Recipe steps 1–2: branch `docs/plan-skill-grilling-archival`, fetch OSE source
-2. [ ] Adapt: add mandatory grilling (via `grill-me`) at both start and end of plan
-       writing; add a pre-write anti-hallucination verification step so plans can't cite
-       nonexistent files/APIs; add a final "Knowledge Capture" + "Plan Archival" phase
-3. [ ] Recipe steps 5–10: grep, lint,
-       commit (`docs(skills): add grilling and anti-hallucination checks to plan-creating-project-plans`),
-       push, PR, merge, pull
+1. [x] Recipe steps 1–2: branch `docs/plan-skill-grilling-archival`, fetch OSE source.
+       Fetched cleanly at the plan's recorded path, no move; pulled the specific detail
+       from `reference/mandatory-grilling.md`, `reference/verification-recipes.md`,
+       `reference/refuse-uncertainty-and-anti-patterns.md`,
+       `reference/knowledge-capture-phase-template.md`, and `reference/plan-archival.md`
+2. [x] Adapted: added "Mandatory Grilling (Pre-Write and Post-Write)" (skill-level
+       counterpart to PR20's agent-level wiring); "Pre-Write Verification
+       (Anti-Hallucination)" with a claim-type → verification-command table adapted to
+       IKP-Labs's actual tooling, plus a 4-label confidence scheme
+       (`[Repo-grounded]`/`[Web-cited]`/`[Judgment call]`/`[Unverified]`) deliberately
+       kept distinct from the docs-side `[Verified]`/`[Error]`/`[Outdated]`/`[Unverified]`
+       scheme (PR11/PR15) since they serve different purposes; new lifecycle stage 3
+       "Knowledge Capture" and a strengthened stage 4 "Completion / Plan Archival"
+       (explicit `git mv`, `plans/README.md` index update, orphaned-reference check,
+       archival commit) matching exactly what PR22's `plan-execution-checker` verifies.
+       Rewrote both sections from scratch against this repo's own `plans/README.md`
+       index format rather than porting OSE's worktree/rtk/`plans/ideas/` infrastructure,
+       none of which exists here
+3. [x] Recipe steps 5–10: grep (zero OSE matches), lint (0 errors in changed file; 5
+       pre-existing unrelated errors in `docs/linkedin/History/`), commit
+       (`docs(skills): add grilling and archival to plan-creating-plans` — shortened from
+       the plan's suggested subject, which at 87 chars far exceeded commitlint's 72-char
+       `header-max-length`), push, PR #278, CI green (14/14), merged with
+       `--delete-branch`, pulled
 
 **Acceptance Criteria**:
 
-- [ ] Grilling, anti-hallucination check, and Knowledge Capture/Archival phase all present
+- [x] Grilling, anti-hallucination check, and Knowledge Capture/Archival phase all present
 
 ### Task 5.6 (PR25): `plan-writing-gherkin-criteria` (skill)
 
