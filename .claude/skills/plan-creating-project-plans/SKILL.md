@@ -48,6 +48,67 @@ plans/
 
 ---
 
+## Mandatory Grilling (Pre-Write and Post-Write)
+
+Before writing any plan document, resolve every open material decision via the `grill-me`
+skill — never infer an answer to a decision the repo doesn't already settle.
+
+**Pre-write grill covers**:
+
+- What problem is this solving? What's the specific pain point?
+- What are the acceptance criteria — how will we know it's done?
+- What's the scope? What's explicitly out of scope?
+- What are the constraints (performance, backwards compatibility, dependencies)?
+- Are there design forks where the author has a preference (architecture approach,
+  library choice, UI pattern)?
+
+Every question presents 2–4 concrete, mutually exclusive options with a one-sentence
+trade-off each, one marked **(Recommended)** — never an open-ended question. See `grill-me`
+for the full question-framing rule.
+
+**After writing all four documents, run `grill-me` again** to stress-test the finished
+plan: check for ambiguity, contradictions, unsupported assumptions, and whether a
+developer unfamiliar with the codebase could actually execute it. Resolve anything the
+post-write grill surfaces and re-check before signaling the plan is ready.
+
+**Do not start writing** while a material pre-write decision remains open. **Do not
+signal the plan is done** before the post-write grill passes.
+
+---
+
+## Pre-Write Verification (Anti-Hallucination)
+
+Before writing any non-trivial factual claim into a plan, verify it — a plan that cites a
+file path, Nx target, or version that doesn't exist turns into broken work the moment
+someone starts executing it. Verify at authoring time; it's the cheapest place to catch
+fabrication.
+
+| Claim type | Verification |
+|---|---|
+| File/directory path | `Glob`/`Bash test -f` or `test -d`; if it's a new file, mark it `_New file_` |
+| Function/symbol | `Grep` the codebase |
+| Nx target | Read `apps/<project>/project.json` under `targets` |
+| Package version | Read `package.json` (FE) or `pom.xml` (BE) |
+| API signature (external) | Delegate to `web-research-maker` |
+| CLI command/flag | `<cmd> --help` or existing repo doc reference |
+| Test name | `Grep` test files; if new, mark `_New test_` |
+| Agent/skill reference | `test -f .claude/agents/<name>.md` or `.claude/skills/<name>/SKILL.md` |
+| Cross-link target | `Bash test -f` on the resolved relative path |
+| Numeric metric | Forbidden as a bare claim — cite a measured source or label `[Judgment call]` |
+
+**Label every non-trivial claim** with one of:
+
+- **`[Repo-grounded]`** — verified via `Glob`/`Grep`/`Bash`/`Read` against this commit
+- **`[Web-cited]`** — verified externally; cite the URL
+- **`[Judgment call]`** — an explicit subjective estimate, never presented as fact
+- **`[Unverified]`** — flagged for follow-up before execution starts
+
+An unlabeled claim defaults to `[Unverified]`. When verification fails or is impossible:
+skip the claim, or label it `[Unverified]`/`[Judgment call]` — never write it as fact and
+hope it's correct.
+
+---
+
 ## Document 1: README.md
 
 ### Purpose
@@ -751,9 +812,30 @@ If a task is >1 hour, break it down:
 
 ---
 
-### 3. Completion (done/)
+### 3. Knowledge Capture (before archival)
 
-**When**: All checklist tasks are ✅ Completed
+**When**: All checklist tasks are ✅ Completed, immediately before Completion — the last
+substantive step before the plan folder moves to `done/`.
+
+Review the delivery for anything durable worth keeping beyond this plan's own lifespan —
+a workaround, a gotcha, a convention decision, or a reusable pattern. Route each one to
+exactly one durable home:
+
+- **A reusable code/process pattern** → the relevant `.claude/agents/*.md` or
+  `.claude/skills/*/SKILL.md` file
+- **A project convention or decision** → `governance/` or `docs/explanation/`
+- **A how-to worth repeating** → `docs/how-to/`
+- **Nothing generalizable emerged** → record `No generalizable learnings` in the plan's
+  README and move on — this is a valid, expected outcome for most plans, not a failure
+
+Do not leave a learning unrouted. Do not invent a lesson that didn't actually occur just
+to fill this section.
+
+---
+
+### 4. Completion / Plan Archival (done/)
+
+**When**: All checklist tasks are ✅ Completed and Knowledge Capture is resolved.
 
 **Steps**:
 
@@ -761,20 +843,33 @@ If a task is >1 hour, break it down:
 2. Update README.md:
    - Status: 🏗️ In Progress → ✅ Completed
    - Add "Completed" date
-3. Move directory: `plans/in-progress/` → `plans/done/`
-4. Commit: `docs(plan): mark [feature-name] as completed`
+3. `git mv plans/in-progress/<name>/ plans/done/<name>/` — an actual rename, not a copy;
+   never leave a duplicate folder under `in-progress/`
+4. Update `plans/README.md`'s "🗂️ Current Plans" index — remove the entry from "In
+   Progress", add it to "Done (Archived)" with its file tree
+5. Grep the repo for any surviving reference to the old `plans/in-progress/<name>/` path
+   (other docs, other plans, code comments) and update each to the new `plans/done/<name>/`
+   path
+6. Commit: `docs(plan): mark [feature-name] as completed` — this commit is the archival
+   commit `plan-execution-checker` looks for; the move must not be left uncommitted
 
 **Verification Checklist**:
 
 - [ ] All checklist tasks marked [✅]
 - [ ] All acceptance criteria met
+- [ ] Knowledge Capture resolved (routed, or `No generalizable learnings` recorded)
+- [ ] Folder moved via `git mv`, not copied — verify with `git log --follow` showing the
+      rename, and confirm no duplicate remains under `in-progress/`
+- [ ] `plans/README.md` index updated
+- [ ] No orphaned references to the pre-archival path
+- [ ] Archival commit exists
 - [ ] All commits pushed to repository
 - [ ] All documentation updated
 - [ ] All tests passing
 
 ---
 
-### 4. Cancellation (archived/)
+### 5. Cancellation (archived/)
 
 **When**: Feature is cancelled/deprioritized
 
@@ -973,6 +1068,7 @@ Before considering a plan "complete", verify:
 - **docs__quality-standards** - For documentation writing style
 - **docs__diataxis-framework** - For categorizing implementation docs
 - **wow__criticality-assessment** - For prioritizing plan tasks
+- **grill-me** - Structured pre-write and post-write grilling interview
 
 ---
 
