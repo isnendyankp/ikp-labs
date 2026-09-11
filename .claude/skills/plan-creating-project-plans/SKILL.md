@@ -625,6 +625,33 @@ The **checklist.md** provides a step-by-step execution plan. It answers:
 - What are the acceptance criteria for each task?
 - What commits are needed?
 
+### Phase Gates (Natural Pause Points)
+
+**HARD RULE**: every phase MUST end with a clear gate — a reader must be able to stop
+after any phase and find the repository coherent (code compiles, tests pass, nothing
+half-applied). A phase without a gate isn't a real stopping point.
+
+- Every phase ends with a `### Phase N Gate` subsection: a must-pass verification
+  checklist naming exact commands and observable acceptance criteria
+- Phase N+1 must not begin while any Phase N gate check is failing
+- Immediately after the gate, add a one-line note stating the safe-to-stop state and the
+  command to resume/re-verify
+
+```markdown
+## Phase 1: [Phase Name]
+
+- [ ] [Task] — acceptance: [observable outcome]
+
+### Phase 1 Gate
+
+> All checks below must pass before starting Phase 2.
+
+- [ ] `npm test` passes
+- [ ] `npm run build` succeeds
+
+> Safe to stop here — [state]. To resume: re-run the Phase 1 Gate checks above.
+```
+
 ### Required Sections
 
 ```markdown
@@ -671,6 +698,18 @@ npm run build
 ### Task 1.2: [Another Task] (Duration)
 
 [Repeat structure above]
+
+---
+
+### Phase 1 Gate
+
+> All checks below must pass before starting Phase 2.
+
+- [ ] [Exact verification command] — [observable acceptance criterion]
+- [ ] [Exact verification command] — [observable acceptance criterion]
+
+Safe to stop here — [state the repo is left in]. To resume: re-run the Phase 1 Gate
+checks above.
 
 ---
 
