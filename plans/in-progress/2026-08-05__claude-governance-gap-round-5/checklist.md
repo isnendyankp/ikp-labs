@@ -599,7 +599,7 @@ deny check` for license/source policy, with an example `deny.toml`); Clippy
 
 ---
 
-## Phase 5: Cluster D — Plan Lifecycle
+## Phase 5: Cluster D — Plan Lifecycle — ✅ Done (PR #270, #272, #274, #276, #278, #280, #281)
 
 ### Task 5.1 (PR20): `plan-maker.md` — ✅ Done (PR #270)
 
@@ -743,28 +743,48 @@ deny check` for license/source policy, with an example `deny.toml`); Clippy
 
 - [x] Grilling, anti-hallucination check, and Knowledge Capture/Archival phase all present
 
-### Task 5.6 (PR25): `plan-writing-gherkin-criteria` (skill)
+### Task 5.6 (PR25): `plan-writing-gherkin-criteria` (skill) — ✅ Done (PR #281)
 
 > **Sequential — must merge after PR24.**
 
-1. [ ] Confirm PR24 is merged to `main` and pulled locally before starting
-2. [ ] Recipe steps 1–2: branch `docs/gherkin-phase-gate-checks`, fetch OSE source
-3. [ ] Adapt: add "Phase Gate Acceptance Checks" — applying Gherkin-style testability to
-       phase-gate checklist items, not just scenarios, referencing the phase-gate concept
-       PR24 just added to `plan-creating-project-plans`
-4. [ ] Recipe steps 5–10: grep, lint,
-       commit (`docs(skills): add phase-gate acceptance checks to plan-writing-gherkin-criteria`),
-       push, PR, merge, pull
+1. [x] Confirmed PR24 (and its required supplement, PR #280) merged to `main` and pulled
+       locally before starting. **Correction discovered here**: PR24 as originally
+       delivered never actually added a "phase-gate concept" — I'd missed OSE's
+       `reference/phases-as-natural-pauses.md` when fetching PR24's sources. Filed and
+       merged PR #280 (`docs(skills): add phase-gate concept to plan-creating-plans`) as
+       a same-day supplement to `plan-creating-project-plans` before starting this task,
+       so PR25 would have something real to reference
+2. [x] Recipe steps 1–2: branch `docs/gherkin-phase-gate-checks`, fetch OSE source.
+       Fetched cleanly at the plan's recorded path, no move; pulled the exact detail from
+       `reference/phase-gate-acceptance-checks.md`
+3. [x] Adapted: added "Phase Gate Acceptance Checks" subsection under "Integration with
+       IKP-Labs Plans" — phase-gate items must meet the same testability standard as a
+       Gherkin scenario (independently verifiable, concrete observable outcome, never
+       subjective) but as a single runnable check, not a full Given-When-Then block.
+       Cross-references `plan-creating-project-plans`' Phase Gate concept (PR280).
+       ✅/❌ examples use this repo's actual commands (`npx nx test`, `npm run lint`,
+       `npx playwright test`)
+4. [x] Recipe steps 5–10: grep (zero OSE matches, including `delivery.md`), lint (0
+       errors in changed file; 5 pre-existing unrelated errors in
+       `docs/linkedin/History/`), commit
+       (`docs(skills): add phase-gate checks to gherkin-criteria` — shortened from the
+       plan's suggested subject, which at 79 chars exceeded commitlint's 72-char
+       `header-max-length`), push, PR #281, CI green (14/14), merged with
+       `--delete-branch`, pulled
 
 **Acceptance Criteria**:
 
-- [ ] Phase Gate Acceptance Checks section present and cross-references
+- [x] Phase Gate Acceptance Checks section present and cross-references
       `plan-creating-project-plans`' phase-gate concept
 
 **Acceptance Criteria — Phase 5 (all 6 PRs)**:
 
-- [ ] PR25 merged strictly after PR24
-- [ ] `plan-checker` and `plan-fixer` share the same skip-list shape
+- [x] PR25 merged strictly after PR24 — PR #281 merged 2026-09-11T11:53:41Z, after PR24's
+      supplement PR #280 (merged 2026-09-11T11:49:50Z), which was itself required after
+      original PR24 (#278, merged 2026-09-10)
+- [x] `plan-checker` and `plan-fixer` share the same skip-list shape — verified via grep:
+      both use `generated-reports/.known-false-positives.md` and the exact match format
+      `[category] | [file] | [brief-description]`
 
 ---
 
