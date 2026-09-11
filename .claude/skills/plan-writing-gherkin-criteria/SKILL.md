@@ -287,6 +287,41 @@ Scenario: Phase 2a complete
   And all permission.skill values should reference existing skill directories
 ```
 
+### Phase Gate Acceptance Checks
+
+`plan-creating-project-plans` requires every checklist phase to end with a
+`### Phase N Gate` subsection — a must-pass verification checklist before the next phase
+can start. Phase gate items are a special class of acceptance check: they must meet the
+same testability standard as a Gherkin scenario — independently verifiable, a concrete
+observable outcome, never reliant on subjective judgment — but expressed as a single
+runnable check instead of a full Given-When-Then block.
+
+Apply the same reasoning used for scenarios: what's the precondition, what command runs,
+what does success look like?
+
+```markdown
+### Phase 1 Gate
+
+> All checks below must pass before starting Phase 2.
+
+- [ ] `npx nx test kameravue-fe` passes with 0 failures
+- [ ] `curl http://localhost:8081/api/gallery/public` returns HTTP 200
+```
+
+❌ **Not gate-testable** (subjective, no observable outcome):
+
+```markdown
+- [ ] Code looks clean
+- [ ] Feature works as expected
+```
+
+✅ **Gate-testable** (exact command, concrete pass condition):
+
+```markdown
+- [ ] `npm run lint` exits 0
+- [ ] `npx playwright test gallery-upload.spec.ts` — all tests pass
+```
+
 ### Feature File Format (specs/)
 
 Full Gherkin in `specs/<domain>/<feature>.feature`:
