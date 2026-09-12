@@ -52,7 +52,7 @@ public class JwtUtil {
      * @Value = Ambil nilai dari application.properties
      * Jika tidak ada, pakai default value
      */
-    @Value("${jwt.secret:registrationFormSecretKeyThatIsVeryLongAndSecure123456789}")
+    @Value("${jwt.secret:dev-only-jwt-secret-do-not-use-in-production-set-JWT_SECRET-env-var}")
     private String jwtSecret;
 
     /**
