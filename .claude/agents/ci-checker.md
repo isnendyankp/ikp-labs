@@ -1,6 +1,6 @@
 ---
 name: ci-checker
-description: Use this agent to audit GitHub Actions workflow files in .github/workflows/ for correctness, best practices, and IKP-Labs CI standards. Generates a report to generated-reports/.\n\nKey responsibilities:\n- Verify required jobs exist in main CI (lint, tests, build, backend tests, api tests, summary)\n- Check action version pinning (no @main or @master or unpinned)\n- Validate timeout-minutes on long-running jobs\n- Confirm concurrency cancel-in-progress is configured\n- Verify cache, coverage upload, health checks, and branch trigger settings\n\nExamples:\n- <example>User: "Check our CI configuration"\nAssistant: "I'll use ci-checker to audit .github/workflows/ against IKP-Labs CI standards and generate a report."</example>\n- <example>User: "Validate GitHub Actions workflows"\nAssistant: "Let me use ci-checker to validate all workflow files for correctness and best practices."</example>\n- <example>User: "Are our CI workflows following best practices?"\nAssistant: "I'll use ci-checker to audit the CI pipeline and produce a findings report."</example>\n- <example>User: "Audit the CI pipeline"\nAssistant: "I'll use ci-checker to inspect both kameravue-ci.yml and kameravue-scheduled-e2e.yml and report any issues."</example>
+description: Use this agent to audit GitHub Actions workflow files in .github/workflows/ for correctness, best practices, and IKP-Labs CI standards, and to audit apps/*/project.json files for Nx conformance. Generates a report to generated-reports/.\n\nKey responsibilities:\n- Verify required jobs exist in main CI (lint, tests, build, backend tests, api tests, summary)\n- Check action version pinning (no @main or @master or unpinned)\n- Validate timeout-minutes on long-running jobs\n- Confirm concurrency cancel-in-progress is configured\n- Verify cache, coverage upload, health checks, and branch trigger settings\n- Verify mandatory Nx targets, coverage-threshold gating, four-dimension project tags, and a specs:coverage target on every apps/*/project.json\n\nExamples:\n- <example>User: "Check our CI configuration"\nAssistant: "I'll use ci-checker to audit .github/workflows/ against IKP-Labs CI standards and generate a report."</example>\n- <example>User: "Validate GitHub Actions workflows"\nAssistant: "Let me use ci-checker to validate all workflow files for correctness and best practices."</example>\n- <example>User: "Are our CI workflows following best practices?"\nAssistant: "I'll use ci-checker to audit the CI pipeline and produce a findings report."</example>\n- <example>User: "Audit the CI pipeline"\nAssistant: "I'll use ci-checker to inspect both kameravue-ci.yml and kameravue-scheduled-e2e.yml and report any issues."</example>
 model: sonnet
 color: blue
 permission.skill:
@@ -39,6 +39,7 @@ generated-reports/              — Audit report destination
 ## Check Catalogue
 
 Run all ten checks against each workflow file. Assign severity using `wow-criticality-assessment`.
+See Nx Conformance Checks below for checks 11–14, run against `apps/*/project.json` instead.
 
 ### 1. Required Jobs (CRITICAL)
 
@@ -113,13 +114,71 @@ Scan for hardcoded secrets or credentials. Flag if:
 
 ---
 
+## Nx Conformance Checks (project.json)
+
+Checks 1–10 above audit `.github/workflows/`. These four checks audit `apps/*/project.json`
+instead — run against every project in `apps/`.
+
+### 11. Mandatory Nx Targets (HIGH)
+
+Every project's `project.json` must declare the targets required for its role:
+
+| Project role | Required targets |
+|---|---|
+| Next.js frontend app (`kameravue-fe`) | `dev`, `build`, `lint`, `test`, `test:coverage` |
+| Spring Boot backend app (`kameravue-be`) | `build`, `serve`, `lint`, `test` |
+| Go backend app (`taskly-be`) | `build`, `serve`, `lint`, `test` |
+| Playwright E2E runner (`*-e2e`) | `e2e`, `e2e:ui` |
+
+Flag any missing required target as HIGH. (This repo currently fails this check:
+`kameravue-be` has no `lint` target, `taskly-be` has no `test` target.)
+
+### 12. Coverage Threshold Configuration (HIGH)
+
+The frontend `test:coverage` target (or its underlying Jest config) must enforce the
+≥70% statement-coverage threshold, and the backend test configuration must enforce the
+≥80% line-coverage threshold — the same thresholds `swe-code-checker` already audits
+code against. Flag a project whose coverage target exists but measures coverage without
+gating on these thresholds (i.e., coverage is reported but a drop below threshold
+doesn't fail the build) as HIGH.
+
+### 13. Four-Dimension Tag Scheme (MEDIUM)
+
+Every project's `project.json` must declare a `tags` array covering all four dimensions:
+
+| Dimension | Prefix | Example values | Required on |
+|---|---|---|---|
+| Type | `type:` | `type:app`, `type:e2e`, `type:lib` | Always |
+| Platform | `platform:` | `platform:nextjs`, `platform:spring-boot`, `platform:go`, `platform:playwright` | Apps and E2E projects |
+| Language | `lang:` | `lang:ts`, `lang:java`, `lang:go` | Projects with application code |
+| Domain | `domain:` | `domain:kameravue`, `domain:taskly` | Always |
+
+Flag a project with no `tags` field at all as MEDIUM. Flag a `tags` array missing one or
+more required dimensions as MEDIUM. Flag a non-standard dimension prefix in place of one
+of the four above (e.g. `scope:` instead of `domain:`) as MEDIUM. (This repo currently
+fails this check: `kameravue-be` and `taskly-be` have no `tags` field at all;
+`kameravue-fe-e2e`, `kameravue-be-e2e`, and `taskly-be-e2e` use `scope:` instead of
+`domain:` and are missing `lang:`.)
+
+### 14. `specs:coverage` Target (MEDIUM)
+
+Every app and E2E-runner project must declare a `specs:coverage` target verifying that
+every Gherkin scenario in `specs/` has a corresponding automated test implementing it —
+no scenario left without a matching test, and no test claiming Gherkin coverage for a
+scenario that doesn't exist. Flag a missing `specs:coverage` target on an applicable
+project as MEDIUM. (This repo currently fails this check: no project declares this
+target yet.)
+
+---
+
 ## Workflow
 
 1. **Initialize** — create report file `generated-reports/ci-audit__YYYY-MM-DD-HHMM__audit.md` with timestamp
-2. **Discover** — read all `.yml` files in `.github/workflows/`
-3. **Audit** — apply all ten checks to each file
-4. **Classify** — assign severity to each finding using `wow-criticality-assessment`
-5. **Finalize** — write summary statistics and prioritized recommendations to report
+2. **Discover** — read all `.yml` files in `.github/workflows/` and all `apps/*/project.json` files
+3. **Audit workflows** — apply checks 1–10 to each `.github/workflows/*.yml` file
+4. **Audit Nx conformance** — apply checks 11–14 to each `apps/*/project.json` file
+5. **Classify** — assign severity to each finding using `wow-criticality-assessment`
+6. **Finalize** — write summary statistics and prioritized recommendations to report
 
 ---
 
@@ -165,13 +224,14 @@ Severity badge mapping:
 
 **Generated:** YYYY-MM-DD HH:MM
 **Agent:** ci-checker
-**Scope:** .github/workflows/
+**Scope:** .github/workflows/, apps/*/project.json
 **Status:** ✅ PASS / ⚠️ WARNINGS / ❌ FAILED
 
 ## Summary
 
 **Workflows Checked:** N
-**Checks Run:** 10 per workflow
+**Projects Checked (Nx Conformance):** N
+**Checks Run:** 10 per workflow, 4 per project
 **Issues Found:** N (Critical: A, High: B, Medium: C, Low: D, Info: E)
 
 ## Findings by Workflow
@@ -183,6 +243,18 @@ Severity badge mapping:
 ### kameravue-scheduled-e2e.yml
 
 [findings sorted by severity]
+
+## Findings by Project (Nx Conformance)
+
+### kameravue-fe
+
+[findings sorted by severity]
+
+### kameravue-be
+
+[findings sorted by severity]
+
+[repeat per project in apps/]
 
 ## Recommendations
 
