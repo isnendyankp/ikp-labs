@@ -790,20 +790,39 @@ deny check` for license/source policy, with an example `deny.toml`); Clippy
 
 ## Phase 6: Cluster E — CI / Nx Validation
 
-### Task 6.1 (PR26): `ci-checker.md`
+### Task 6.1 (PR26): `ci-checker.md` — ✅ Done (PR #284)
 
-1. [ ] Recipe steps 1–2: branch `docs/ci-checker-nx-conformance`, fetch OSE source
-2. [ ] Adapt: add Nx-specific conformance checks — mandatory `project.json` targets,
-       coverage-threshold values (verify this repo's actual thresholds — FE ≥70%, BE ≥80%
-       — against `swe-code-checker.md`'s existing description before writing them), a
-       4-dimension tag scheme, a `specs:coverage` target
-3. [ ] Recipe steps 5–10: grep, lint,
-       commit (`docs(agents): add Nx conformance checks to ci-checker`), push, PR, merge,
-       pull
+1. [x] Recipe steps 1–2: branch `docs/ci-checker-nx-conformance`, fetch OSE source
+       (`.claude/agents/general/ci-checker.md`, subfolder-grouping refactor). OSE's
+       current version has been rewritten around a completely different BDD/behavior-
+       testing model (99% line coverage, static/BDD test surfaces) with no mapping to
+       this repo's actual setup. Recovered the concrete "four-dimension tag scheme" and
+       "specs:coverage" concepts from `repo-governance/development/infra/nx-targets.md`
+       and the `ci-standards` skill as they existed around the plan's authoring date
+       (commit `9f21698`, 2026-06-22, the last version before OSE's coverage rewrite),
+       per the plan's explicit instruction to use this repo's own coverage thresholds
+       rather than OSE's
+2. [x] Verified FE ≥70%/BE ≥80% against `swe-code-checker.md` before writing (confirmed:
+       lines 35 and 47). Adapted: added "Nx Conformance Checks (project.json)" section,
+       checks 11–14 — Mandatory Nx Targets, Coverage Threshold Configuration, Four-
+       Dimension Tag Scheme (`type:`/`platform:`/`lang:`/`domain:`), `specs:coverage`
+       Target. Inspected every `apps/*/project.json` before writing the check
+       descriptions and confirmed this repo currently fails all four: `kameravue-be` has
+       no `lint` target and no `tags` field; `taskly-be` has no `test` target and no
+       `tags` field; the three `*-e2e` projects use non-standard `scope:` instead of
+       `domain:` and are missing `lang:`; no project declares `specs:coverage` yet —
+       documented these as concrete examples in the check descriptions. Updated Workflow
+       steps, Report Template, and frontmatter description to cover the new scope
+3. [x] Recipe steps 5–10: grep (zero OSE matches, including `rhino-cli`/`demo-be`/
+       `demo-fe`), lint (0 errors in changed file; 5 pre-existing unrelated errors in
+       `docs/linkedin/History/`), commit
+       (`docs(agents): add nx conformance checks to ci-checker` — lowercased `Nx`→`nx`
+       per commitlint's `subject-case` rule), push, PR #284, CI green (7/7), merged with
+       `--delete-branch`, pulled
 
 **Acceptance Criteria**:
 
-- [ ] All four Nx-conformance checks present with correct, verified threshold values
+- [x] All four Nx-conformance checks present with correct, verified threshold values
 
 ### Task 6.2 (PR27): `ci-fixer.md`
 
