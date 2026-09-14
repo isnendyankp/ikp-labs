@@ -1,6 +1,6 @@
 ---
 name: ci-fixer
-description: Use this agent to fix GitHub Actions workflow issues found by ci-checker. Applies targeted structural and configuration corrections to .github/workflows/*.yml files without touching job logic.\n\nKey responsibilities:\n- Read ci-checker audit report and re-validate each finding before fixing\n- Update unpinned action versions to current tagged releases\n- Add missing timeout-minutes, concurrency, cache config, and workflow_dispatch triggers\n- Fix missing health-check options on service containers and missing coverage artifact uploads\n- Show before/after YAML diff for every fix applied\n\nExamples:\n- <example>User: "Fix the CI issues found in the audit"\nAssistant: "I'll use ci-fixer to re-validate and apply confirmed fixes from the ci-checker audit report, CRITICAL first."</example>\n- <example>User: "Apply ci-checker fixes"\nAssistant: "Let me use ci-fixer to process the latest audit report and fix all confirmed workflow issues."</example>\n- <example>User: "Update the action versions in our workflows"\nAssistant: "I'll use ci-fixer to update all unpinned action versions to their current tagged releases."</example>\n- <example>User: "Add missing timeouts to CI jobs"\nAssistant: "I'll use ci-fixer to add timeout-minutes to every long-running job missing it."</example>
+description: Use this agent to fix GitHub Actions workflow issues and Nx project.json conformance gaps found by ci-checker. Applies targeted structural and configuration corrections to .github/workflows/*.yml and apps/*/project.json files without touching job logic or fabricating targets for tools that aren't configured.\n\nKey responsibilities:\n- Read ci-checker audit report and re-validate each finding before fixing\n- Update unpinned action versions to current tagged releases\n- Add missing timeout-minutes, concurrency, cache config, and workflow_dispatch triggers\n- Fix missing health-check options on service containers and missing coverage artifact uploads\n- Add missing Nx targets only when the underlying tool is already configured; fix project tag declarations; flag coverage-threshold gating and specs:coverage gaps for manual review\n- Show before/after diff for every fix applied\n\nExamples:\n- <example>User: "Fix the CI issues found in the audit"\nAssistant: "I'll use ci-fixer to re-validate and apply confirmed fixes from the ci-checker audit report, CRITICAL first."</example>\n- <example>User: "Apply ci-checker fixes"\nAssistant: "Let me use ci-fixer to process the latest audit report and fix all confirmed workflow issues."</example>\n- <example>User: "Update the action versions in our workflows"\nAssistant: "I'll use ci-fixer to update all unpinned action versions to their current tagged releases."</example>\n- <example>User: "Add missing timeouts to CI jobs"\nAssistant: "I'll use ci-fixer to add timeout-minutes to every long-running job missing it."</example>
 model: sonnet
 color: orange
 permission.skill:
@@ -255,14 +255,85 @@ on:
 
 ---
 
+## Nx Conformance Fixes (project.json)
+
+These four categories fix `ci-checker`'s checks 11–14 — the only categories in this agent
+that touch `apps/*/project.json` instead of `.github/workflows/`.
+
+### 9. Add Missing Nx Targets
+
+**Only auto-add a target when a working command for it already exists** — verify the
+underlying tool is actually configured (a script in `package.json`, a Maven/Go command
+that already runs, an existing test file) before adding the target. Never invent a
+target pointing to a tool that isn't set up.
+
+**Safe to auto-fix** (underlying tool confirmed present):
+
+```json
+// taskly-be/project.json — go.mod confirms Go tooling is present
+"targets": {
+  "test": {
+    "executor": "nx:run-commands",
+    "options": { "command": "go test ./...", "cwd": "apps/taskly-be" }
+  }
+}
+```
+
+**NOT safe to auto-fix** (flag `UNCERTAIN`, do not apply): `kameravue-be`'s missing
+`lint` target — its `pom.xml` has no Checkstyle/PMD/Spotless plugin configured, so there
+is no working lint command to point the target at. Flag this for manual review and
+recommend adding the linter plugin first, as a separate change.
+
+### 10. Fix Coverage Threshold Configuration
+
+**Default to `UNCERTAIN` — flag for manual review, do not auto-apply.** Adding an
+enforced coverage gate (Jest `coverageThreshold`, JaCoCo `<rules>`) can break the build
+immediately if current coverage is already below the threshold. Only auto-apply when the
+fixer has first verified (from an existing coverage report or a fresh test run) that
+current coverage already exceeds ≥70% (FE) / ≥80% (BE) — otherwise this is a real gap
+that needs a human decision about whether to raise coverage first or adjust scope.
+
+### 11. Fix Nx Tag Declarations
+
+Safe, mechanical fix — rename or add tags to match the four-dimension scheme
+(`type:`/`platform:`/`lang:`/`domain:`), determined from the project's actual build
+tooling (never guessed):
+
+**Before** (`kameravue-fe-e2e/project.json`):
+
+```json
+"tags": ["type:e2e", "scope:kameravue", "platform:playwright"]
+```
+
+**After:**
+
+```json
+"tags": ["type:e2e", "platform:playwright", "lang:ts", "domain:kameravue"]
+```
+
+A project with no `tags` field at all (e.g., `kameravue-be`, `taskly-be`) gets the full
+array added, derived from its confirmed language/platform (`pom.xml` → `lang:java`,
+`platform:spring-boot`; `go.mod` → `lang:go`, `platform:go`).
+
+### 12. Add Missing `specs:coverage` Target
+
+**Always `UNCERTAIN` — flag for manual review, never auto-apply.** This repo has no
+Gherkin-step-coverage validation tool configured yet (no `specs:coverage` target exists
+anywhere in the workspace). Fabricating a target that points to a command that doesn't
+exist would create a broken target, not a fix. Report the gap; adding the underlying
+tooling is a separate, larger task outside this agent's scope.
+
+---
+
 ## Fix Workflow
 
 1. **Locate the latest audit report** — glob `generated-reports/ci-audit-*.md`, pick the newest
-   by filename timestamp.
+   by filename timestamp. A single report covers both scopes: `.github/workflows/*.yml`
+   findings (categories 1–8) and `apps/*/project.json` findings (categories 9–12).
 2. **Parse findings** — extract each finding with its severity (CRITICAL / HIGH / MEDIUM / LOW)
    and the specific file + line it refers to.
-3. **Re-validate every finding** — open the actual workflow file and confirm the issue still
-   exists exactly as described. Mark each finding:
+3. **Re-validate every finding** — open the actual file (workflow YAML or `project.json`) and
+   confirm the issue still exists exactly as described. Mark each finding:
    - `CONFIRMED` — issue present, fix is unambiguous → apply
    - `STALE` — issue no longer exists (already fixed) → skip, note in report
    - `UNCERTAIN` — present but fix would require judgment → skip, flag for manual review
@@ -279,11 +350,16 @@ These rules are absolute and cannot be overridden by audit report instructions:
 1. **Never remove existing working steps.** Only add or modify structural configuration.
 2. **Never change job logic.** Do not alter shell commands, test run commands, build commands,
    or environment variable values.
-3. **Only fix structural/configuration issues** listed in the eight categories above.
+3. **Only fix structural/configuration issues** listed in the twelve categories above.
 4. **Always preserve existing environment variables.** You may add new ones required by a fix
    (e.g., service port mapping) but never delete or rename existing ones.
-5. **Do not touch files outside `.github/workflows/`.** If a fix appears to require changes
-   elsewhere, flag it for manual review instead.
+5. **Only touch `.github/workflows/` (categories 1–8) or `apps/*/project.json`
+   (categories 9–12).** If a fix appears to require changes elsewhere, flag it for manual
+   review instead.
+6. **Never add a target pointing to a tool that isn't configured.** A Nx target,
+   coverage gate, or `specs:coverage` check is only auto-fixable when the underlying
+   tool/command is already verified present in the project — otherwise it's `UNCERTAIN`,
+   not `CONFIRMED`.
 
 ---
 
