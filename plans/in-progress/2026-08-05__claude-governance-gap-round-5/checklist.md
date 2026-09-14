@@ -788,7 +788,7 @@ deny check` for license/source policy, with an example `deny.toml`); Clippy
 
 ---
 
-## Phase 6: Cluster E — CI / Nx Validation
+## Phase 6: Cluster E — CI / Nx Validation — ✅ Done (PR #284, #286)
 
 ### Task 6.1 (PR26): `ci-checker.md` — ✅ Done (PR #284)
 
@@ -824,21 +824,35 @@ deny check` for license/source policy, with an example `deny.toml`); Clippy
 
 - [x] All four Nx-conformance checks present with correct, verified threshold values
 
-### Task 6.2 (PR27): `ci-fixer.md`
+### Task 6.2 (PR27): `ci-fixer.md` — ✅ Done (PR #286)
 
 > **Sequential — must merge after PR26.**
 
-1. [ ] Confirm PR26 is merged to `main` and pulled locally before starting
-2. [ ] Recipe steps 1–2: branch `docs/ci-fixer-nx-conformance`, fetch OSE source
-3. [ ] Adapt: add matching fixer capability for whatever `ci-checker` now flags
-       (`project.json` target gaps, coverage-threshold misconfiguration, tag-scheme
-       gaps, missing `specs:coverage` target)
-4. [ ] Recipe steps 5–10: grep, lint,
-       commit (`docs(agents): add Nx fix recipes to ci-fixer`), push, PR, merge, pull
+1. [x] Confirmed PR26 merged to `main` and pulled locally before starting
+2. [x] Recipe steps 1–2: branch `docs/ci-fixer-nx-conformance`, fetch OSE source
+       (`.claude/agents/general/ci-fixer.md`, subfolder-grouping refactor). OSE's version
+       confirmed the general shape (fix Nx targets, fix tags) but not the specific new
+       categories PR26 introduced — those needed to be authored fresh to match exactly
+3. [x] Adapted: added "Nx Conformance Fixes (project.json)" section, categories 9–12,
+       matching PR26's checks 11–14 — deliberately safety-graded rather than blanket-
+       auto-fixable. Verified before writing: `taskly-be` has a `go.mod` (so
+       `go test ./...` is safe to auto-add), `kameravue-be`'s `pom.xml` has no
+       Checkstyle/PMD/Spotless plugin (so its missing `lint` target must be flagged
+       `UNCERTAIN`, not auto-fixed) — #9 Add Missing Nx Targets (tool-presence-gated);
+       #10 Fix Coverage Threshold Configuration (always `UNCERTAIN` — could break the
+       build if current coverage is below threshold); #11 Fix Nx Tag Declarations (safe,
+       mechanical); #12 Add Missing `specs:coverage` Target (always `UNCERTAIN` — no
+       underlying tool exists in this repo). Updated Fix Workflow, Safety Rules (extended
+       file-touch boundary, added a rule against fabricating targets for unconfigured
+       tools), and frontmatter description
+4. [x] Recipe steps 5–10: grep (zero OSE matches, including `rhino-cli`), lint (0 errors
+       in changed file; 5 pre-existing unrelated errors in `docs/linkedin/History/`),
+       commit (`docs(agents): add nx fix recipes to ci-fixer`), push, PR #286, CI green
+       (7/7), merged with `--delete-branch`, pulled
 
 **Acceptance Criteria**:
 
-- [ ] A fix recipe exists for every finding category PR26 introduced
+- [x] A fix recipe exists for every finding category PR26 introduced
 
 ---
 
