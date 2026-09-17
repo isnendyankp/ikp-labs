@@ -858,18 +858,30 @@ deny check` for license/source policy, with an example `deny.toml`); Clippy
 
 ## Phase 7: Cluster F — PDF Pipeline
 
-### Task 7.1 (PR28): `pdf-to-md-checker.md`
+### Task 7.1 (PR28): `pdf-to-md-checker.md` — ✅ Done (PR #288)
 
-1. [ ] Recipe steps 1–2: branch `docs/pdf-checker-nesting-accuracy`, fetch OSE source
-2. [ ] Adapt: add content-nesting-accuracy validation (list/indentation depth vs. PDF
-       layout)
-3. [ ] Recipe steps 5–10: grep, lint,
-       commit (`docs(agents): add content-nesting validation to pdf-to-md-checker`), push,
-       PR, merge, pull
+1. [x] Recipe steps 1–2: branch `docs/pdf-checker-nesting-accuracy`, fetch OSE source
+       (`.claude/agents/pdf-to-md/pdf-to-md-checker.md`, subfolder-grouping refactor).
+       OSE's version delegates the actual nesting check to an internal `crane nesting
+   --check` CLI tool this repo doesn't have; pulled the underlying criticality logic
+       (HIGH for inverted hierarchy, MEDIUM for off-by-one) from
+       `docs-converting-pdf-to-markdown`'s `reference/checking-fidelity-workflow.md`
+       Step 4
+2. [x] Adapted: added "Step 4: Content Nesting Accuracy Check" — compares list/
+       indentation depth between the PDF's visual layout (`pdftotext -layout`) and the
+       Markdown's list nesting, distinct from the existing heading-hierarchy check.
+       Hand-rolled as a `pdftotext`/`grep`-based check rather than a CLI tool, matching
+       this file's existing style for all other steps. Renumbered subsequent steps
+       (Table Integrity 4→5, Figure Coverage 5→6, OCR Quality 6→7, Structure Integrity
+       7→8) and added matching rows to the Criticality Levels table
+3. [x] Recipe steps 5–10: grep (zero OSE matches, including `crane`), lint (0 errors in
+       changed file; 5 pre-existing unrelated errors in `docs/linkedin/History/`),
+       commit (`docs(agents): add content-nesting validation to pdf-to-md-checker`),
+       push, PR #288, CI green (14/14), merged with `--delete-branch`, pulled
 
 **Acceptance Criteria**:
 
-- [ ] Nesting-accuracy validation present
+- [x] Nesting-accuracy validation present
 
 ### Task 7.2 (PR29): `pdf-to-md-fixer.md`
 
