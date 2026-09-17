@@ -1,6 +1,6 @@
 ---
 name: pdf-to-md-checker
-description: Use this agent to validate that a Markdown file is a complete and faithful representation of its source PDF. Checks heading hierarchy, table integrity, text completeness, figure coverage, and OCR quality. Generates a report to generated-reports/.\n\nKey responsibilities:\n- Verify all major sections from the PDF exist in the Markdown\n- Check heading hierarchy matches PDF structure\n- Validate tables are present and correctly formatted\n- Confirm figures have at least a placeholder\n- Flag OCR-tagged pages for quality review\n- Generate audit report in generated-reports/\n\nExamples:\n- <example>User: "Validate the converted PDF markdown"\nAssistant: "I'll use pdf-to-md-checker to validate the conversion fidelity and generate an audit report."</example>\n- <example>User: "Check if spec.md matches spec.pdf"\nAssistant: "Let me use pdf-to-md-checker to compare spec.md against spec.pdf and report any missing or incorrect content."</example>\n- <example>User: "Did the PDF conversion capture everything?"\nAssistant: "I'll use pdf-to-md-checker to audit the markdown file against the source PDF."</example>
+description: Use this agent to validate that a Markdown file is a complete and faithful representation of its source PDF. Checks heading hierarchy, content nesting (list/indentation depth), table integrity, text completeness, figure coverage, and OCR quality. Generates a report to generated-reports/.\n\nKey responsibilities:\n- Verify all major sections from the PDF exist in the Markdown\n- Check heading hierarchy matches PDF structure\n- Check list/indentation nesting depth matches the PDF's visual layout\n- Validate tables are present and correctly formatted\n- Confirm figures have at least a placeholder\n- Flag OCR-tagged pages for quality review\n- Generate audit report in generated-reports/\n\nExamples:\n- <example>User: "Validate the converted PDF markdown"\nAssistant: "I'll use pdf-to-md-checker to validate the conversion fidelity and generate an audit report."</example>\n- <example>User: "Check if spec.md matches spec.pdf"\nAssistant: "Let me use pdf-to-md-checker to compare spec.md against spec.pdf and report any missing or incorrect content."</example>\n- <example>User: "Did the PDF conversion capture everything?"\nAssistant: "I'll use pdf-to-md-checker to audit the markdown file against the source PDF."</example>
 model: sonnet
 color: green
 permission.skill:
@@ -39,7 +39,9 @@ generated-reports/   — Audit report destination
 | Figure with no representation | HIGH |
 | Invalid Markdown table syntax | HIGH |
 | Heading hierarchy mismatch (off by 2+ levels) | HIGH |
+| List/indentation nesting hierarchy inverted | HIGH |
 | Minor heading level drift (off by 1) | MEDIUM |
+| List/indentation nesting off by one level | MEDIUM |
 | Missing page header/footer content | MEDIUM |
 | Figure has placeholder but Mermaid was determinable | MEDIUM |
 | Minor whitespace or punctuation difference | LOW |
@@ -101,7 +103,35 @@ Extract numbered headings from PDF text to infer expected hierarchy. Verify:
 - Heading depth follows section numbering (e.g. `2.3` → H3)
 - No heading skips levels (H2 immediately followed by H4)
 
-### Step 4: Table Integrity Check
+### Step 4: Content Nesting Accuracy Check
+
+Compare list/indentation depth between the PDF's visual layout and the Markdown's list
+nesting — this is distinct from Step 3 (heading hierarchy), which only checks `#` levels.
+
+```bash
+# Extract PDF with layout preserved (keeps visual indentation)
+pdftotext -layout "$PDF_FILE" /tmp/pdf_layout.txt
+
+# Extract Markdown list nesting depth
+grep -n "^[[:space:]]*[-*+][[:space:]]" "$MD_FILE"
+```
+
+For each nested list identified in the PDF (sub-bullets, sub-numbered items indented
+under a parent item), verify in the Markdown:
+
+1. The same relative indentation depth is preserved (a PDF sub-item stays nested under
+   its parent, not promoted to a sibling)
+2. Nesting order isn't inverted (an item that was a child of A doesn't end up nested
+   under B, or at the top level)
+
+Criticality:
+
+- Nesting hierarchy inverted (child promoted to sibling, or attached to the wrong
+  parent) → HIGH
+- Off by exactly one indentation level (still nested, but under the wrong ancestor's
+  direct depth) → MEDIUM
+
+### Step 5: Table Integrity Check
 
 Count tables in PDF text (look for grid-like column alignment). Count Markdown tables:
 
@@ -116,7 +146,7 @@ For each detected table:
 3. Missing table entirely → CRITICAL
 4. Wrong column count → HIGH
 
-### Step 5: Figure Coverage Check
+### Step 6: Figure Coverage Check
 
 Search PDF text for `Figure`, `Diagram`, `Chart`, `Table` labels:
 
@@ -131,7 +161,7 @@ For each figure found, verify the Markdown contains either:
 
 Missing entirely → HIGH.
 
-### Step 6: OCR Quality Check
+### Step 7: OCR Quality Check
 
 Find OCR-tagged sections in the Markdown:
 
@@ -151,7 +181,7 @@ Error rate estimate:
 - 5–10% → HIGH
 - 2–5% → MEDIUM
 
-### Step 7: Structure Integrity Check
+### Step 8: Structure Integrity Check
 
 - MD starts with `# H1` heading
 - Major sections appear in the same order as the PDF
