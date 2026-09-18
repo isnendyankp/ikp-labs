@@ -863,7 +863,7 @@ deny check` for license/source policy, with an example `deny.toml`); Clippy
 1. [x] Recipe steps 1–2: branch `docs/pdf-checker-nesting-accuracy`, fetch OSE source
        (`.claude/agents/pdf-to-md/pdf-to-md-checker.md`, subfolder-grouping refactor).
        OSE's version delegates the actual nesting check to an internal `crane nesting
-   --check` CLI tool this repo doesn't have; pulled the underlying criticality logic
+--check` CLI tool this repo doesn't have; pulled the underlying criticality logic
        (HIGH for inverted hierarchy, MEDIUM for off-by-one) from
        `docs-converting-pdf-to-markdown`'s `reference/checking-fidelity-workflow.md`
        Step 4
@@ -883,21 +883,31 @@ deny check` for license/source policy, with an example `deny.toml`); Clippy
 
 - [x] Nesting-accuracy validation present
 
-### Task 7.2 (PR29): `pdf-to-md-fixer.md`
+### Task 7.2 (PR29): `pdf-to-md-fixer.md` — ✅ Done (PR #290)
 
-1. [ ] Recipe steps 1–2: branch `docs/pdf-fixer-confidence-downgrade`, fetch OSE source
-2. [ ] Adapt: add a confidence-downgrade safety rule (skip even HIGH_CONFIDENCE fixes
-       touching >10 occurrences, editing outside the finding's region, or colliding with
-       another pending finding); add false-positive skip-list persistence
-3. [ ] Recipe steps 5–10: grep, lint,
-       commit (`docs(agents): add confidence-downgrade safety rule to pdf-to-md-fixer`),
-       push, PR, merge, pull
+1. [x] Recipe steps 1–2: branch `docs/pdf-fixer-confidence-downgrade`, fetch OSE source
+       (`.claude/agents/pdf-to-md/pdf-to-md-fixer.md`, subfolder-grouping refactor).
+       OSE's version delegates the actual detail to
+       `reference/fixing-conversions-confidence-and-priority.md`, which had the exact
+       three downgrade conditions the plan described
+2. [x] Adapted: added "Confidence Downgrade" subsection with all three conditions (>10
+       occurrences of the same structural pattern, out-of-region edit, colliding pending
+       finding) plus concrete examples; added "False-Positive Skip-List Persistence"
+       reusing the shared `generated-reports/.known-false-positives.md` shape from PR1/
+       PR21/PR23 rather than inventing OSE's `crane skiplist --add` equivalent. Updated
+       Workflow (read skip list first, persist new false positives as steps), Fix Report
+       Format (added downgrade count), Skipped Finding Format (added a downgrade
+       example), and frontmatter description
+3. [x] Recipe steps 5–10: grep (zero OSE matches, including `crane`), lint (0 errors in
+       changed file; 5 pre-existing unrelated errors in `docs/linkedin/History/`), commit
+       (`docs(agents): add confidence-downgrade safety rule to pdf-to-md-fixer`), push,
+       PR #290, CI green (14/14), merged with `--delete-branch`, pulled
 
 **Acceptance Criteria**:
 
-- [ ] All three safety-rule conditions present (>10 occurrences, out-of-region,
+- [x] All three safety-rule conditions present (>10 occurrences, out-of-region,
       colliding findings)
-- [ ] Skip-list persistence present
+- [x] Skip-list persistence present
 
 ### Task 7.3 (PR30): `pdf-to-md-maker.md`
 
