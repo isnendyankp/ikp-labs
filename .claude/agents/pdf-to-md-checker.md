@@ -195,6 +195,8 @@ Error rate estimate:
 ## 🔴 CRITICAL - Missing Section
 
 **File:** path/to/file.md
+**Location:** path/to/file.md — insert after the "2. Architecture" section (no line
+yet; content is absent)
 **Check:** Text Completeness (#2)
 
 **Issue:** Section "3. System Requirements" present in PDF but absent from Markdown.
@@ -206,6 +208,16 @@ Error rate estimate:
 
 **Confidence:** HIGH
 ```
+
+**Location** is required on every finding — `pdf-to-md-fixer` uses this exact field to
+decide whether a proposed fix stays within the finding's own region (its
+confidence-downgrade "out-of-region edit" rule). Format:
+
+- When the content already exists in the Markdown: `path/to/file.md:LINE` (from `grep -n`)
+- When content is entirely absent (nothing to point a line at yet): the target file plus
+  where it should be inserted (e.g. "insert after the '2. Architecture' section")
+- For a nesting/heading finding spanning multiple lines: the line range,
+  `path/to/file.md:START-END`
 
 ---
 
