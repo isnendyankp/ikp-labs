@@ -856,7 +856,7 @@ deny check` for license/source policy, with an example `deny.toml`); Clippy
 
 ---
 
-## Phase 7: Cluster F — PDF Pipeline
+## Phase 7: Cluster F — PDF Pipeline — ✅ Done (PR #288, #290, #292, #293)
 
 ### Task 7.1 (PR28): `pdf-to-md-checker.md` — ✅ Done (PR #288)
 
@@ -909,25 +909,46 @@ deny check` for license/source policy, with an example `deny.toml`); Clippy
       colliding findings)
 - [x] Skip-list persistence present
 
-### Task 7.3 (PR30): `pdf-to-md-maker.md`
+### Task 7.3 (PR30): `pdf-to-md-maker.md` — ✅ Done (PR #292)
 
-1. [ ] Recipe steps 1–2: branch `docs/pdf-maker-chunking-mermaid`, fetch OSE source
-2. [ ] Adapt: add PDF chunking (50-page segments) to avoid single-pass overflow on large
-       PDFs; convert figure placeholders into typed Mermaid diagram stubs (inferred from
-       captions) instead of plain `[FIGURE N: ...]` text
-3. [ ] Recipe steps 5–10: grep, lint,
-       commit (`docs(agents): add PDF chunking and Mermaid figure stubs to pdf-to-md-maker`),
-       push, PR, merge, pull
+1. [x] Recipe steps 1–2: branch `docs/pdf-maker-chunking-mermaid`, fetch OSE source
+       (`.claude/agents/pdf-to-md/pdf-to-md-maker.md`, subfolder-grouping refactor).
+       OSE's version delegates to `crane pdf --extract` (a CLI this repo doesn't have);
+       adapted the chunking loop to `pdftotext -f/-l` page-range flags, consistent with
+       how PR28/PR29 already extract page ranges. Pulled the typed-Mermaid-stub mapping
+       (flowchart/sequence/state/class) from
+       `reference/making-conversions-assemble-and-write.md`
+2. [x] Adapted: added `chunk-size` input (default 50); Step 3a now branches to a
+       page-chunked loop for `TOTAL_PAGES > CHUNK_SIZE`, single-pass otherwise — chunk
+       boundaries must stay invisible in the assembled output. Step 4's figure rule now
+       infers a Mermaid diagram type from caption/label signals with a caption-to-type
+       table, generating a typed stub with the caption as a blockquote; falls back to
+       the existing plain `[FIGURE N: ...]` placeholder only when no type is
+       determinable. Updated Key Rules, Output Summary, and frontmatter description
+3. [x] Recipe steps 5–10: grep (zero OSE matches, including `crane`), lint (0 errors in
+       changed file; 5 pre-existing unrelated errors in `docs/linkedin/History/`),
+       commit (`docs(agents): add chunking and mermaid stubs to pdf-to-md-maker` —
+       shortened from the plan's suggested subject, which at 74 chars exceeded
+       commitlint's 72-char `header-max-length` by 2), push, PR #292, CI green (14/14),
+       merged with `--delete-branch`, pulled
 
 **Acceptance Criteria**:
 
-- [ ] 50-page chunking threshold present
-- [ ] Figure placeholders replaced with typed Mermaid stub guidance
+- [x] 50-page chunking threshold present
+- [x] Figure placeholders replaced with typed Mermaid stub guidance
 
 **Acceptance Criteria — Phase 7 (all 3 PRs)**:
 
-- [ ] `pdf-to-md-checker`'s new nesting check and `pdf-to-md-fixer`'s safety rule are
-      consistent in what they consider a "finding region"
+- [x] `pdf-to-md-checker`'s new nesting check and `pdf-to-md-fixer`'s safety rule are
+      consistent in what they consider a "finding region" — **gap found and fixed**:
+      `pdf-to-md-fixer`'s confidence-downgrade rule (PR29) referenced "the finding's own
+      reported location" as a structured field, but `pdf-to-md-checker`'s Finding Format
+      (PR28) had no dedicated Location field — location was only loosely embedded in
+      prose. Filed and merged a same-day supplement (PR #293,
+      `docs(agents): add location field to pdf-to-md-checker`) adding a required
+      `**Location:**` field with three concrete formats (file:line, insertion-point
+      description for absent content, line range for multi-line findings) before
+      marking this criterion complete
 
 ---
 
