@@ -954,21 +954,36 @@ deny check` for license/source policy, with an example `deny.toml`); Clippy
 
 ## Phase 8: Cluster G — Repo & Process Governance
 
-### Task 8.1 (PR31): `repo-setup-manager.md`
+### Task 8.1 (PR31): `repo-setup-manager.md` — ✅ Done (PR #295)
 
-1. [ ] Recipe steps 1–2: branch `docs/repo-setup-manager-phase-0`, fetch OSE source
-2. [ ] Adapt: broaden scope from "bootstrap a fresh clone" to "Phase 0 of every plan" —
-       install deps, converge toolchain, run baseline tests, and resolve every in-scope
-       preexisting test failure before plan work begins; keep OSE's "document
-       out-of-scope failures rather than fixing them" boundary so scope stays bounded
-3. [ ] Recipe steps 5–10: grep, lint,
-       commit (`docs(agents): broaden repo-setup-manager to plan Phase 0`), push, PR,
-       merge, pull
+1. [x] Recipe steps 1–2: branch `docs/repo-setup-manager-phase-0`, fetch OSE source
+       (`.claude/agents/repo/repo-setup-manager.md`). OSE's version relies on `rtk`/
+       `hippo` (internal transactional-execution wrapper) and a polyglot `npm run
+   doctor` toolchain-fixer, neither of which exists here
+2. [x] Adapted: added "Plan Phase 0 Sequence" (kept separate from the existing "Setup
+       Sequence" — different moments: first-time bootstrap vs. before-every-plan
+       baseline). Four steps: Install Dependencies and Hooks (`npm install`, this repo's
+       `prepare: husky` already wires hooks); Converge Toolchain (explicit
+       `node`/`java`/`go` version checks — report drift, don't auto-fix, since no doctor
+       script exists); Baseline Test Run (`npx nx affected -t test`/`npm run test`);
+       Resolve Preexisting Failures (in-scope fix now / out-of-scope document-don't-fix,
+       halt on unresolvable in-scope failure). Preserved the "No push, no PR step, ever"
+       hard rule, tied to this repo's actual Merge Strategy and cross-referencing
+       `plan-checker` as the escalation path. Dropped OSE's Vercel MCP probe step
+       entirely — confirmed via `git ls-files | grep vercel.json` that no Vercel-deployed
+       surface exists anywhere in this repo. Added `plan-maker`/`plan-checker` to
+       Related Agents
+3. [x] Recipe steps 5–10: grep (zero OSE matches, including `rtk`/`hippo`), lint (0
+       errors in changed file; 5 pre-existing unrelated errors in
+       `docs/linkedin/History/`), commit
+       (`docs(agents): broaden repo-setup-manager to plan phase 0` — lowercased
+       `Phase`→`phase` per commitlint's `subject-case` rule), push, PR #295, CI green
+       (7/7), merged with `--delete-branch`, pulled
 
 **Acceptance Criteria**:
 
-- [ ] Scope statement covers Phase-0-of-every-plan, not only fresh-clone bootstrap
-- [ ] "Document, don't fix, out-of-scope failures" boundary preserved
+- [x] Scope statement covers Phase-0-of-every-plan, not only fresh-clone bootstrap
+- [x] "Document, don't fix, out-of-scope failures" boundary preserved
 
 ### Task 8.2 (PR32): `repo-practicing-trunk-based-development` (skill)
 
