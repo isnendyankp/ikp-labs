@@ -71,6 +71,72 @@ Do NOT create a long-lived `feat/big-feature` branch that diverges for weeks.
 
 ---
 
+## Delivery Mode: Worktree-to-PR (Default)
+
+**IKP-Labs's default delivery mode is `worktree-to-pr`**: a disposable git worktree on a
+plan-scoped branch, pushed to a PR against `main`, merged once CI is green. This is TBD
+in practice — a short-lived branch reviewed and merged via PR is a recognized TBD flavor,
+not an exception to it.
+
+### Standard Flow
+
+```bash
+# 1. Provision a disposable worktree on a plan-scoped branch
+#    (the .claude/hooks/worktree-create.sh WorktreeCreate hook automates this — it
+#    routes to <repo-root>/worktrees/<name>/ on branch worktree/<name>)
+git worktree add worktrees/<plan-identifier> -b <plan-identifier>
+cd worktrees/<plan-identifier>
+
+# 2. Make changes, commit frequently
+git add <files>
+git commit -m "feat(scope): description"
+
+# 3. Push the plan branch and open a PR against main
+git push -u origin <plan-identifier>
+gh pr create --title "..." --body "..."
+
+# 4. Drive PR CI green, then merge
+gh pr merge <number> --squash --auto --delete-branch
+
+# 5. Clean up the worktree
+cd <repo-root>
+git worktree remove worktrees/<plan-identifier>
+```
+
+For a small, single-file change where the overhead of a separate worktree isn't
+warranted, working directly in the main checkout on a plan-scoped branch
+(`git checkout -b <type>/<description>`) is an acceptable lighter-weight variant of the
+same mode — the branch-then-PR discipline is what matters, not the worktree itself.
+Reach for a dedicated worktree when isolation actually helps: concurrent work on
+multiple plans, or a change risky enough that keeping the main checkout undisturbed is
+worth the setup cost.
+
+### `[AI]`/`[HUMAN]` Step Tagging
+
+Tag every delivery-mode step with who performs it, so a plan's checklist is unambiguous
+about what runs unattended versus what needs a human decision:
+
+- **Pushing to the plan branch is always `[AI]`** — it's not a merge, so it carries no
+  review gate by itself.
+- **The merge is `[AI]` by default** once CI is green — matches this repo's actual
+  practice (`gh pr merge --squash --auto`, per `CLAUDE.md`'s Merge Strategy). A
+  `[HUMAN]` merge-approval gate applies only when a plan explicitly opts into one (e.g.,
+  a change touching production data or governance files) — that opt-in must be
+  preserved, never silently "corrected" back to `[AI]`.
+- **Never write a `[HUMAN]` "review the diff before pushing" step** — pushing to a PR
+  branch isn't a merge to `main`; gating it on human review conflates the two and stalls
+  the flow for no safety benefit.
+
+### Resolving the Delivery Mode
+
+Apply three-tier precedence: an explicit invocation argument, then a plan's own
+`## Delivery Mode` field (if the 4-document plan template declares one), then this
+repo-wide default (`worktree-to-pr`). Never silently substitute a different mode when
+one is explicitly requested — treat an invalid or unclear request as a question for the
+user.
+
+---
+
 ## Anti-Patterns
 
 | Anti-Pattern | Why Bad | Correct Practice |
