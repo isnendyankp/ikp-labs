@@ -959,7 +959,7 @@ deny check` for license/source policy, with an example `deny.toml`); Clippy
 1. [x] Recipe steps 1–2: branch `docs/repo-setup-manager-phase-0`, fetch OSE source
        (`.claude/agents/repo/repo-setup-manager.md`). OSE's version relies on `rtk`/
        `hippo` (internal transactional-execution wrapper) and a polyglot `npm run
-   doctor` toolchain-fixer, neither of which exists here
+doctor` toolchain-fixer, neither of which exists here
 2. [x] Adapted: added "Plan Phase 0 Sequence" (kept separate from the existing "Setup
        Sequence" — different moments: first-time bootstrap vs. before-every-plan
        baseline). Four steps: Install Dependencies and Hooks (`npm install`, this repo's
@@ -985,19 +985,36 @@ deny check` for license/source policy, with an example `deny.toml`); Clippy
 - [x] Scope statement covers Phase-0-of-every-plan, not only fresh-clone bootstrap
 - [x] "Document, don't fix, out-of-scope failures" boundary preserved
 
-### Task 8.2 (PR32): `repo-practicing-trunk-based-development` (skill)
+### Task 8.2 (PR32): `repo-practicing-trunk-based-development` (skill) — ✅ Done (PR #297)
 
-1. [ ] Recipe steps 1–2: branch `docs/worktree-to-pr-delivery-mode`, fetch OSE source
-2. [ ] Adapt: formalize a "worktree-to-PR" default delivery mode (disposable worktree →
-       plan-scoped branch → draft PR, with `[AI]`/`[HUMAN]` step tagging), referencing the
-       existing `.claude/hooks/worktree-create.sh` hook
-3. [ ] Recipe steps 5–10: grep, lint,
-       commit (`docs(skills): formalize worktree-to-PR delivery mode`), push, PR, merge,
-       pull
+1. [x] Recipe steps 1–2: branch `docs/worktree-to-pr-delivery-mode`, fetch OSE source.
+       The `.claude/skills/` path is a redirect stub pointing to `.agents/skills/` as
+       authoritative (this repo's cross-vendor harness-parity pattern) — fetched the real
+       content from `.agents/skills/repo-practicing-trunk-based-development/SKILL.md`
+       and its `reference/delivery-modes-default-behaviour.md` and
+       `reference/pr-default-and-direct-push.md`
+2. [x] Adapted: added "Delivery Mode: Worktree-to-PR (Default)" section — standard flow
+       (worktree → branch → commit → push → PR → CI-green merge → cleanup), explicitly
+       cross-referencing the real `.claude/hooks/worktree-create.sh` mechanics (routes to
+       `<repo-root>/worktrees/<name>/` on branch `worktree/<name>`); allowed the
+       lighter-weight no-worktree variant for small changes (branch-then-PR discipline
+       is what matters, not the worktree itself — consistent with how this entire
+       session's PRs 232-297 were actually delivered, none of which provisioned a
+       worktree); `[AI]`/`[HUMAN]` step tagging (push always `[AI]`, merge `[AI]` by
+       default matching this repo's actual `gh pr merge --squash --auto` practice per
+       `CLAUDE.md`, `[HUMAN]` merge gate only on explicit plan opt-in); three-tier
+       Delivery Mode resolution precedence. Deliberately did not touch `CLAUDE.md`
+       itself — out of this PR's scope (a skill file, not the platform-binding shim)
+3. [x] Recipe steps 5–10: grep (zero OSE matches, including `ose-public`/`ose-primer`),
+       lint (0 errors in changed file; 5 pre-existing unrelated errors in
+       `docs/linkedin/History/`), commit
+       (`docs(skills): formalize worktree-to-pr delivery mode` — lowercased `PR`→`pr`
+       matching this session's consistent lowercase-subject pattern), push, PR #297, CI
+       green (7/7), merged with `--delete-branch`, pulled
 
 **Acceptance Criteria**:
 
-- [ ] Worktree-to-PR mode documented with `[AI]`/`[HUMAN]` tagging and a reference to
+- [x] Worktree-to-PR mode documented with `[AI]`/`[HUMAN]` tagging and a reference to
       `worktree-create.sh`
 
 ### Task 8.3 (PR33): `agent-developing-agents` (skill)
