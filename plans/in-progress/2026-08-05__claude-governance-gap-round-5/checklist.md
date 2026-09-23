@@ -1017,20 +1017,38 @@ doctor` toolchain-fixer, neither of which exists here
 - [x] Worktree-to-PR mode documented with `[AI]`/`[HUMAN]` tagging and a reference to
       `worktree-create.sh`
 
-### Task 8.3 (PR33): `agent-developing-agents` (skill)
+### Task 8.3 (PR33): `agent-developing-agents` (skill) — ✅ Done (PR #299)
 
-1. [ ] Recipe steps 1–2: branch `docs/agent-authoring-tools-usage`, fetch OSE source
-2. [ ] Adapt: add "Tools Usage" (list each tool + why) and "When to Use This Agent" (use
-       when / do NOT use for) sections; expand model-selection guidance into a fuller
-       decision matrix with cost trade-offs and common mistakes
-3. [ ] Recipe steps 5–10: grep, lint,
-       commit (`docs(skills): add tools-usage and when-to-use sections to agent-developing-agents`),
-       push, PR, merge, pull
+1. [x] Recipe steps 1–2: branch `docs/agent-authoring-tools-usage`, fetch OSE source.
+       `.claude/skills/` was a redirect stub pointing to `.agents/skills/` as
+       authoritative — fetched the real content from there, plus
+       `reference/tool-usage-documentation.md`, `reference/when-to-use-this-agent-pattern.md`,
+       and (for the model-selection expansion) the governance
+       `development/agents/model-selection/` docs: `tier-comparison-summary.md`,
+       `common-mistakes.md`, `model-selection-decision-tree.md`
+2. [x] Adapted: added "Tools Usage" (when-to-add criteria, placement, worked examples by
+       agent family) and "When to Use This Agent" (when-to-add criteria, placement,
+       worked examples) as new top-level sections; updated the Body Structure template
+       to reference both as optional sections. Expanded "Model Selection" into a
+       decision matrix (reasoning depth, task ambiguity, output originality, error
+       recovery, typical role, relative cost) and a common-mistakes table — **kept this
+       repo's actual 2-tier vocabulary (`sonnet`/`haiku`)** rather than importing OSE's
+       4-grade `fable`/`opus`/`sonnet`/`haiku` + `effort:` system, after verifying across
+       all 53 agent files: 51 declare `sonnet`, 1 (`docs-file-manager.md`) declares
+       `haiku`, none use a grade vocabulary. Used `docs-file-manager.md` as the concrete
+       grounded `haiku` example in the new guide
+3. [x] Recipe steps 5–10: grep (zero new OSE matches — one pre-existing, unrelated "No
+       OSE-specific content" rule line predates this diff), lint (0 errors in changed
+       file; 5 pre-existing unrelated errors in `docs/linkedin/History/`), commit
+       (`docs(skills): add tools-usage sections to agent-developing-agents` — shortened
+       from the plan's suggested subject, which at 81 chars far exceeded commitlint's
+       72-char `header-max-length`), push, PR #299, CI green (7/7), merged with
+       `--delete-branch`, pulled
 
 **Acceptance Criteria**:
 
-- [ ] Both new sections present
-- [ ] Expanded model-selection decision matrix present
+- [x] Both new sections present
+- [x] Expanded model-selection decision matrix present
 
 ### Task 8.4 (PR34): `docs-file-manager.md`
 
