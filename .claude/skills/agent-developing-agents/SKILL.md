@@ -35,18 +35,44 @@ Agent body — instructions to Claude when acting as this agent.
 
 ## Model Selection
 
-| Use | Model |
-|-----|-------|
-| Complex reasoning, multi-step decisions, code generation | `sonnet` |
-| Simple pattern matching, file ops, structured transforms | `haiku` |
-| Omit field | Inherits parent (usually sonnet) |
+### Decision Matrix
 
-Decision guide:
+| Dimension | `sonnet` | `haiku` |
+|---|---|---|
+| Reasoning depth | Multi-step, judgment-based | Minimal, mechanical |
+| Task ambiguity | Handles open-ended / structured-but-nuanced problems | Requires a deterministic, fully-specified flow |
+| Output originality | Generates non-trivial code, makes design decisions | Executes a fixed procedure (rename, move, reformat) |
+| Error recovery | Adapts to unexpected states, re-validates before acting | Fails or reports — doesn't reason about the unexpected |
+| Typical agent role | Checkers, fixers, makers, developers — the large majority | File/permission managers doing pure mechanical transforms |
+| Relative cost | Higher — reserve for tasks that actually need the reasoning | Lower — use freely once a task is confirmed mechanical |
 
-- Does it require judgment calls? → sonnet
-- Is it following a clear checklist? → haiku
-- Does it generate non-trivial code? → sonnet
-- Does it rename/move/format files? → haiku
+Argue past `haiku` first, not down from `sonnet`: default to `sonnet` unless the task is
+verifiably pure pattern-matching/file-ops with no judgment calls anywhere in its
+workflow. Getting this wrong in the expensive direction (`sonnet` for trivial work) just
+costs more; getting it wrong in the cheap direction (`haiku` for judgment-requiring work)
+produces silently wrong output, which is the worse failure mode — when genuinely unsure,
+default to `sonnet`.
+
+**Decision guide** (walk top to bottom, first match wins):
+
+1. Purely mechanical, fully-specified transform (rename, move, reformat, chmod)? →
+   `haiku` — see `docs-file-manager.md` for a concrete example
+2. Otherwise → `sonnet` (the default for the large majority of agents: checkers, fixers,
+   makers, developers — anything requiring judgment, code generation, or re-validation
+   before acting)
+3. Omit the field entirely → inherits the parent session's model (usually `sonnet`) —
+   acceptable, but an explicit declaration is preferred so the choice is visible to
+   future maintainers, not just an accident of what happened to be running
+
+### Common Mistakes
+
+| Mistake | Problem | Correction |
+|---|---|---|
+| Using `haiku` for a checker/fixer | Validation and re-validation require judgment `haiku` can't reliably apply — produces false positives/negatives silently | Use `sonnet` for any agent that assesses, validates, or decides |
+| Using `haiku` for content creation | Lacks the reasoning depth for non-trivial generated content (code, prose, structured docs) | Use `sonnet` for makers and developers |
+| Defaulting to `sonnet` "just in case" for pure file-ops | Unnecessary cost for genuinely mechanical work | If the task is a fully-specified deterministic transform, use `haiku` |
+| Omitting `model` to mean "the default" | An absent field reads as an oversight, not a deliberate choice — harder for a future maintainer to tell whether it was considered | Declare the model explicitly even when it matches the inherited default |
+| Picking a model without writing why | Future maintainers can't assess whether the choice still fits as the agent's scope evolves | State the reasoning in a comment or the agent's own Model Selection note when the choice isn't obvious from the decision guide alone |
 
 ---
 
@@ -117,6 +143,10 @@ Use this order:
 ```markdown
 You are a [role description] for IKP-Labs.
 
+## When to Use This Agent
+
+[Optional — see "When to Use This Agent" section below for when to include it]
+
 ## Project Context
 
 [Tech stack and paths relevant to this agent]
@@ -124,6 +154,10 @@ You are a [role description] for IKP-Labs.
 ## Core Responsibilities
 
 [What this agent does — numbered list]
+
+## Tools Usage
+
+[Optional — see "Tools Usage" section below for when to include it]
 
 ## Workflow
 
@@ -141,6 +175,144 @@ You are a [role description] for IKP-Labs.
 
 **Agent Version:** 1.0
 **Last Updated:** Month Year
+```
+
+---
+
+## Tools Usage
+
+Optional section documenting which tools an agent uses and why — helps users understand
+capabilities and maintainers understand dependencies.
+
+**Add this section when**:
+
+- The agent declares 4+ tools
+- Tool selection isn't obvious from the agent's description
+- The agent has an unusual tool combination
+
+**Skip it when**: the agent has 2-3 obvious tools and follows a standard family pattern
+(see the examples below — most agents in a family look alike, so document once per
+family rather than in every file if the pattern is truly standard).
+
+**Placement**: after Core Responsibilities, before the detailed Workflow section.
+
+**Pattern:**
+
+```markdown
+## Tools Usage
+
+- **Read**: Read files to validate/create/fix
+- **Glob**: Find files by pattern in directories
+- **Grep**: Extract content patterns (code blocks, commands, etc.)
+- **Write**: Create/update files and reports
+- **Bash**: Run shell commands, timestamps, file operations
+- **Edit**: Apply fixes to existing files
+- **WebFetch**: Access official documentation URLs
+- **WebSearch**: Find authoritative sources, verify claims
+```
+
+**Worked example — Checker agents** (`Read, Glob, Grep, Write, Bash`):
+
+```markdown
+## Tools Usage
+
+- **Read**: Read files to validate
+- **Glob**: Find files matching the domain's pattern
+- **Grep**: Extract code blocks, commands, version numbers
+- **Write**: Generate audit reports to `generated-reports/`
+- **Bash**: Run verification commands, generate timestamps
+```
+
+**Worked example — Fixer agents** (`Read, Edit, Bash, Write`):
+
+```markdown
+## Tools Usage
+
+- **Read**: Read audit reports and files to fix
+- **Edit**: Apply targeted fixes to the flagged files
+- **Bash**: Run shell commands, re-validation checks
+- **Write**: Generate fix reports to `generated-reports/`
+```
+
+**Worked example — Maker agents** (`Read, Write, Glob, Grep`):
+
+```markdown
+## Tools Usage
+
+- **Read**: Read existing files for context
+- **Write**: Create the new artifact
+- **Glob**: Find related files for cross-references
+- **Grep**: Extract patterns for consistency with existing content
+```
+
+---
+
+## When to Use This Agent
+
+Optional section clarifying when to reach for this agent versus a related one —
+improves discoverability and prevents misuse.
+
+**Add this section when**:
+
+- The agent's scope overlaps with another agent's (e.g., multiple checkers in the same
+  family)
+- Users might confuse this agent with a related one (maker vs. fixer, checker vs. maker)
+- The agent has a specific prerequisite (e.g., it needs an existing audit report)
+
+**Placement**: early in the file, right after the opening description — before Project
+Context.
+
+**Pattern:**
+
+```markdown
+## When to Use This Agent
+
+**Use when**:
+
+- [Primary use case 1]
+- [Primary use case 2]
+- [Specific scenario that fits]
+
+**Do NOT use for**:
+
+- [Anti-pattern 1] (use `other-agent` instead)
+- [Anti-pattern 2] (use a different tool/approach)
+- [Common misuse scenario]
+```
+
+**Worked example — Checker agents:**
+
+```markdown
+## When to Use This Agent
+
+**Use when**:
+
+- Validating content before merge/release
+- Auditing existing content for standards compliance
+- Reviewing changes for a specific quality dimension
+
+**Do NOT use for**:
+
+- Fixing found issues (use the matching `*-fixer` agent)
+- Creating new content (use the matching `*-maker` agent)
+- Domains outside this checker's declared scope (use the correct domain's checker)
+```
+
+**Worked example — Fixer agents:**
+
+```markdown
+## When to Use This Agent
+
+**Use when**:
+
+- A `*-checker` audit report already exists with findings to act on
+- Findings have been reviewed and confirmed worth fixing
+
+**Do NOT use for**:
+
+- Initial validation (use the matching `*-checker` agent first)
+- Content creation (use the matching `*-maker` agent)
+- Ad-hoc manual fixes with no audit report — use `Edit` directly instead
 ```
 
 ---
