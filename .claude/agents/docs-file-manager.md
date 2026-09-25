@@ -47,7 +47,17 @@ All files and directories in `docs/` must use **lowercase kebab-case**:
 
 ---
 
-## 4-Phase Process
+## 5-Phase Process
+
+### Phase 0: Git Status Pre-Check
+
+Before any batch rename/move (3+ files), run `git status --porcelain docs/` first.
+
+- **Uncommitted changes found in `docs/`** → stop, warn the user, list the affected files, and ask them to commit or stash before proceeding. A batch operation touching files with pending edits risks clobbering uncommitted work or producing a confusing diff that mixes the rename with unrelated changes.
+- **Recently-created, uncommitted files among the targets** → flag explicitly: `git mv`/`git log --follow` only preserve history for content git already knows about. A file created but never committed has no history to preserve — renaming it is a plain `mv`, not a history-preserving move. Tell the user this before renaming so they aren't surprised the file shows up as "added" rather than "renamed" in their next commit.
+- **Clean tree** → proceed to Phase 1 without prompting.
+
+Single-file operations may proceed without this check unless the target file itself is uncommitted (same recently-created handling applies).
 
 ### Phase 1: Discovery & Analysis
 
@@ -160,6 +170,7 @@ Index entry format:
 | Always `git rm`, never `rm` | Preserves git history |
 | Read before Edit | Confirm file content before modifying links |
 | Confirm bulk ops | Prevent accidental mass changes |
+| `git status` pre-check before batch ops | Prevent clobbering uncommitted work; surface files with no history to preserve |
 | Check references before delete | Prevent broken links |
 | Stay in `docs/` | Scope boundary — other dirs have other owners |
 
