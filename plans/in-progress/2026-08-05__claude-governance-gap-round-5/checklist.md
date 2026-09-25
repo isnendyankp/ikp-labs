@@ -1052,20 +1052,30 @@ doctor` toolchain-fixer, neither of which exists here
 
 ### Task 8.4 (PR34): `docs-file-manager.md`
 
-1. [ ] Recipe steps 1–2: branch `docs/docs-file-manager-git-status-precheck`, fetch OSE
+1. [x] Recipe steps 1–2: branch `docs/docs-file-manager-git-status-precheck`, fetch OSE
        source
-2. [ ] Adapt: add a `git status` pre-check before batch rename/move operations (warn the
+2. [x] Adapt: add a `git status` pre-check before batch rename/move operations (warn the
        user first if uncommitted changes exist); add explicit handling for recently
        -created uncommitted files (a rename can't preserve git history that was never
        committed)
-3. [ ] Recipe steps 5–10: grep, lint,
-       commit (`docs(agents): add git status pre-check to docs-file-manager`), push, PR,
-       merge, pull
+3. [x] Recipe steps 5–10: grep, lint,
+       commit (`docs(agents): add git status pre-check to docs-file-manager`), push, PR
+       #301, CI green (7/7), merged with `--delete-branch`, pulled
 
 **Acceptance Criteria**:
 
-- [ ] `git status` pre-check present with an explicit user-warning step
-- [ ] Uncommitted-file handling documented separately from the general pre-check
+- [x] `git status` pre-check present with an explicit user-warning step
+- [x] Uncommitted-file handling documented separately from the general pre-check
+
+**Verification notes**: Added new "Phase 0: Git Status Pre-Check" ahead of the existing
+Phase 1–4 flow (renumbered section header to "5-Phase Process"). Pre-check runs
+`git status --porcelain docs/` before any batch (3+ file) rename/move; uncommitted
+changes in `docs/` stop the operation and warn the user with the affected file list.
+Recently-created uncommitted files among rename targets get a separate explicit callout:
+`git mv` can't preserve history that was never committed, so those files degrade to a
+plain move — flagged before executing so the user isn't surprised by an "added" (not
+"renamed") entry in their next commit. Added a matching Safety Rules table row for
+consistency with the rest of the file.
 
 ### Task 8.5 (PR35): `docs-link-checker.md`
 
