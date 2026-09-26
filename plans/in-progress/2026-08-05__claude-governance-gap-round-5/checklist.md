@@ -952,7 +952,7 @@ deny check` for license/source policy, with an example `deny.toml`); Clippy
 
 ---
 
-## Phase 8: Cluster G — Repo & Process Governance
+## Phase 8: Cluster G — Repo & Process Governance — ✅ Done (PR #295, #297, #299, #301, #303)
 
 ### Task 8.1 (PR31): `repo-setup-manager.md` — ✅ Done (PR #295)
 
@@ -1050,7 +1050,7 @@ doctor` toolchain-fixer, neither of which exists here
 - [x] Both new sections present
 - [x] Expanded model-selection decision matrix present
 
-### Task 8.4 (PR34): `docs-file-manager.md`
+### Task 8.4 (PR34): `docs-file-manager.md` — ✅ Done (PR #301)
 
 1. [x] Recipe steps 1–2: branch `docs/docs-file-manager-git-status-precheck`, fetch OSE
        source
@@ -1077,23 +1077,31 @@ plain move — flagged before executing so the user isn't surprised by an "added
 "renamed") entry in their next commit. Added a matching Safety Rules table row for
 consistency with the rest of the file.
 
-### Task 8.5 (PR35): `docs-link-checker.md`
+### Task 8.5 (PR35): `docs-link-checker.md` — ✅ Done (PR #303)
 
-1. [ ] Recipe steps 1–2: branch `docs/docs-link-checker-cache`, fetch OSE source
-2. [ ] Adapt: add a persistent external-link cache (e.g.,
+1. [x] Recipe steps 1–2: branch `docs/docs-link-checker-cache`, fetch OSE source
+2. [x] Adapt: add a persistent external-link cache (e.g.,
        `docs/metadata/external-links-status.yaml`, 6-month expiry, orphan pruning) so
        repeat runs skip already-verified URLs instead of re-checking everything every run
-3. [ ] Recipe steps 5–10: grep, lint,
-       commit (`docs(agents): add persistent link cache to docs-link-checker`), push, PR,
-       merge, pull
+3. [x] Recipe steps 5–10: grep, lint,
+       commit (`docs(agents): add persistent link cache to docs-link-checker`), push, PR
+       #303, CI green (7/7), merged with `--delete-branch`, pulled
 
 **Acceptance Criteria**:
 
-- [ ] Cache file path, 6-month expiry, and orphan pruning all specified
+- [x] Cache file path, 6-month expiry, and orphan pruning all specified
+
+**Verification notes**: Added "External Link Cache" section documenting
+`docs/metadata/external-links-status.yaml` structure (`status`, `checked_at`, `files` per
+URL), a 6-month expiry (entries older than 6 months are re-checked and overwritten
+regardless of cached status), orphan pruning (cache entries for URLs no longer referenced
+by any scanned file are removed before the cache is written back), and cold-start
+behavior (no cache file yet → treat every URL as a cache miss). Renumbered Workflow steps
+5-9 to insert the cache-check-before-curl step and the prune-and-write-back step.
 
 **Acceptance Criteria — Phase 8 (all 5 PRs)**:
 
-- [ ] All 5 files updated with no cross-file inconsistency introduced
+- [x] All 5 files updated with no cross-file inconsistency introduced
 
 ---
 
