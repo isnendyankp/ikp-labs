@@ -82,16 +82,55 @@ Use `wow-criticality-assessment` skill for severity. Apply these defaults:
 
 ---
 
+## External Link Cache
+
+Re-checking every external URL on every run is wasteful — most links don't change between
+runs. A persistent cache at `docs/metadata/external-links-status.yaml` records the last
+known status of each external URL so repeat runs skip already-verified links.
+
+**Cache structure:**
+
+```yaml
+https://example.com/docs:
+  status: 200
+  checked_at: 2026-09-26T10:00:00Z
+  files:
+    - docs/reference/api.md
+    - README.md
+https://old-link.com:
+  status: 404
+  checked_at: 2026-09-26T10:00:00Z
+  files:
+    - docs/how-to/setup.md
+```
+
+**6-month expiry:** A cache entry is valid for 6 months from `checked_at`. On each run,
+compare `checked_at` against the current date — if older than 6 months, re-check the URL
+via `curl` regardless of the cached status, and overwrite the entry with the fresh result.
+This bounds staleness without re-checking every link on every run.
+
+**Orphan pruning:** After parsing all links in the current scan (Workflow step 3), any
+cache entry whose URL no longer appears in `files` for any scanned file is an orphan —
+remove it from the cache file before writing it back. This keeps the cache from growing
+unboundedly as content is edited, moved, or deleted over time.
+
+**Cache-miss / cold-start:** If `docs/metadata/external-links-status.yaml` does not exist,
+treat every external URL as a cache miss (first-run behavior — check everything, then
+write the file).
+
+---
+
 ## Workflow
 
-1. **Initialize** — record start timestamp, create report file path (`link-audit-YYYY-MM-DD-HHMM.md`)
+1. **Initialize** — record start timestamp, create report file path (`link-audit-YYYY-MM-DD-HHMM.md`); load `docs/metadata/external-links-status.yaml` if present, else start with an empty cache
 2. **Discover** — glob all `.md` files in scope (see Discovery Scope table above)
 3. **Parse links** — for each file, extract all markdown links using regex `\[([^\]]*)\]\(([^)]+)\)`; also extract image links `!\[...\](...)` — both count
 4. **Resolve internal links** — for relative links, resolve path from the containing file's directory; check file exists using Bash `test -f`; if anchor present, read target file and verify heading
-5. **Check external links** — issue `curl -s -o /dev/null -w "%{http_code}" --max-time 10 -L <url>` for each unique external URL; group duplicates (same URL in multiple files counts once for the HTTP check, but report every occurrence)
-6. **Classify findings** — apply severity table above; confirm with `wow-criticality-assessment` for edge cases
-7. **Write report** — write `generated-reports/link-audit-YYYY-MM-DD-HHMM.md` following the Report Template below
-8. **Print summary** — after writing the file, print a one-paragraph summary to the conversation
+5. **Check external links** — for each unique external URL found in step 3: if a cache entry exists and `checked_at` is within 6 months, reuse the cached `status` and skip the HTTP check; otherwise issue `curl -s -o /dev/null -w "%{http_code}" --max-time 10 -L <url>` and write/overwrite the cache entry with the fresh status and `checked_at`; group duplicates (same URL in multiple files counts once for the HTTP check, but report every occurrence)
+6. **Prune cache** — remove any cache entry whose URL was not encountered in step 3's scan (orphan pruning), then write the updated cache back to `docs/metadata/external-links-status.yaml`
+7. **Classify findings** — apply severity table above; confirm with `wow-criticality-assessment` for edge cases
+8. **Write report** — write `generated-reports/link-audit-YYYY-MM-DD-HHMM.md` following the Report Template below
+9. **Print summary** — after writing the file, print a one-paragraph summary to the conversation
 
 ---
 
