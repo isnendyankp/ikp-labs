@@ -30,8 +30,9 @@ generated-reports/ — Audit report source (read latest harness-audit__*.md)
 2. **Parse findings** — extract all findings grouped by severity (CRITICAL → LOW)
 3. **Re-validate each finding** — read the actual file before applying any fix; skip if already resolved
 4. **Apply fixes** — CRITICAL first, then HIGH, MEDIUM, LOW
-5. **Show diff** — output a before/after summary for every change made
-6. **Report** — list applied fixes, skipped false positives, and any findings that could not be auto-fixed
+5. **Verify each fix applied** — immediately after each Edit, `grep -q "<expected-new-value>" <path>` (or read the file back) to confirm the write actually landed before moving to the next finding. If the grep fails, do not report the fix as applied — log it as **FAILED (not applied)** in the fix report and continue to the next finding rather than aborting the run
+6. **Show diff** — output a before/after summary for every change made
+7. **Report** — list applied fixes, skipped false positives, failed-verification fixes, and any findings that could not be auto-fixed
 
 ---
 
@@ -125,6 +126,28 @@ For every fix applied, output:
 **Before:** Directory `.claude/skills/repo-applying-maker-checker-fixer/` did not exist.
 
 **After:** Created `.claude/skills/repo-applying-maker-checker-fixer/SKILL.md` (stub — needs real content).
+```
+
+---
+
+## Fix Verification Format
+
+After every Edit, verify it landed before reporting the fix as applied:
+
+```bash
+grep -q "model: sonnet" .claude/agents/repo-setup-manager.md || echo "WARNING: edit did not match — fix NOT applied to .claude/agents/repo-setup-manager.md"
+```
+
+If the grep fails, report the fix this way instead of as applied:
+
+```markdown
+### Fix FAILED (Not Applied): Missing Frontmatter Key
+
+**Agent:** .claude/agents/repo-setup-manager.md
+**Attempted fix:** Added `model: sonnet` to frontmatter
+
+**Verification:** `grep -q "model: sonnet"` found no match after the Edit — the write did
+not land as expected. Re-inspect the file manually before retrying.
 ```
 
 ---

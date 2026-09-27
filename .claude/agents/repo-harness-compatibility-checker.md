@@ -73,13 +73,29 @@ List all directories under `.claude/skills/`. For each, check whether any agent 
 
 Flag unreferenced skill directories as LOW.
 
+### 6. Live Harness Convention Drift (MEDIUM — periodic, opt-in)
+
+Checks 1-5 validate internal consistency only — they can never catch the case where Claude Code itself changes its own conventions upstream (a new required frontmatter key, a renamed hook trigger, a deprecated config shape) independent of anything in this repo. This check compares this repo's harness assumptions against the *live* Claude Code documentation.
+
+**Not run by default.** Run this check only when explicitly requested ("check for harness drift", "verify against the latest Claude Code docs") or on a periodic cadence (e.g., monthly) — it needs network access and produces judgment calls, unlike the deterministic Checks 1-5.
+
+Steps:
+
+1. **WebSearch** for the current official Claude Code documentation covering subagent/agent frontmatter configuration and hook (`settings.json`) configuration. Documentation URLs move over time — never rely on a hardcoded URL from a prior run.
+2. **WebFetch** the located page(s).
+3. Compare the live-documented schema against what this repo requires:
+   - Agent frontmatter keys from Check 1 (`name`, `description`, `model`, `color`, `permission.skill`)
+   - Hook trigger key names this repo uses (`PreToolUse`, `PostToolUse`, `WorktreeCreate`)
+4. Flag as MEDIUM: any live-documented key/trigger this repo doesn't recognize, or any repo-required key the live docs no longer document. Claude Code is generally backward-compatible, so a mismatch here is an early-warning signal for a human to evaluate — not confirmed breakage, and never auto-fixed.
+5. Record the checked-at timestamp and the source URL(s) fetched in the finding, so the next auditor can see how fresh the comparison is.
+
 ---
 
 ## Workflow
 
 1. **Initialize** — create report file `generated-reports/harness-audit__YYYY-MM-DD-HHMM__audit.md`
 2. **Discover** — read all `.md` files in `.claude/agents/`, all directories in `.claude/skills/`, all `.sh` files in `.claude/hooks/`, and `.claude/settings.json`
-3. **Audit** — apply all five checks
+3. **Audit** — apply Checks 1-5 always; apply Check 6 (Live Harness Convention Drift) only when explicitly requested or on a periodic cadence
 4. **Classify** — assign severity to each finding using `wow-criticality-assessment`
 5. **Finalize** — write summary statistics and prioritized recommendations to report
 
@@ -151,6 +167,9 @@ Severity badge mapping:
 
 ### Check 5: Orphaned Skill Directories
 [findings]
+
+### Check 6: Live Harness Convention Drift (only if run this pass)
+[findings, or "Not run this pass — opt-in check"]
 
 ## Recommendations
 
