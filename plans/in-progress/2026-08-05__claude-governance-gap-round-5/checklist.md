@@ -1111,28 +1111,37 @@ behavior (no cache file yet → treat every URL as a cache miss). Renumbered Wor
 > Bundled by natural affinity: checker/fixer pairing (PR36), shared `repo-` skill prefix
 > (PR37), and remaining standalone items (PR38).
 
-### Task 9.1 (PR36): `repo-harness-compatibility-checker.md` + `repo-harness-compatibility-fixer.md`
+### Task 9.1 (PR36): `repo-harness-compatibility-checker.md` + `repo-harness-compatibility-fixer.md` — ✅ Done (PR #305)
 
-1. [ ] `git checkout -b docs/harness-compat-live-verification`
-2. [ ] Fetch OSE source for both files (two separate `gh api` calls, same PR)
-3. [ ] Adapt `repo-harness-compatibility-checker.md`: add periodic web-verification that
-       harness conventions (frontmatter schema, hook trigger keys) still match live
-       upstream Claude Code docs, not just internal consistency
-4. [ ] Adapt `repo-harness-compatibility-fixer.md`: add grep-based post-edit verification
-       that a fix actually applied (same pattern as Phase 1's PR1) — applied locally in
-       this file's own body, since Phase 1's confirmation (requirements.md Phase 9
-       decision record) established this fixer does not reference
+1. [x] `git checkout -b docs/harness-compat-live-verification`
+2. [x] Fetch OSE source for both files (two separate `gh api` calls, same PR). OSE's
+       version is a multi-vendor Rhino-product drift system (Phase 0 cross-vendor parity +
+       Phase 1 web-research-backed drift across Claude Code/Codex/opencode bindings,
+       `local-tmp/harness-compat/` reports, `rhino harness adapters generate` sync) — none
+       of that applies here (single harness, no multi-vendor catalog)
+3. [x] Adapt `repo-harness-compatibility-checker.md`: added Check 6 "Live Harness
+       Convention Drift" (MEDIUM, opt-in — not run by default) that WebSearches for
+       current official Claude Code docs (never a hardcoded URL), WebFetches them, and
+       diffs live frontmatter keys / hook trigger names against what this repo requires
+       (Check 1's key list, Check 3's trigger names)
+4. [x] Adapt `repo-harness-compatibility-fixer.md`: added Workflow step 5 — grep (or
+       read-back) verification immediately after every Edit; failures log as "FAILED (not
+       applied)" rather than a silent false-positive success. Added a matching "Fix
+       Verification Format" section. Applied locally in this file's own body, since Phase
+       9's decision record established this fixer does not reference
        `repo-applying-maker-checker-fixer` and would not inherit PR1 automatically
-5. [ ] Grep both files for OSE-specific strings — zero matches
-6. [ ] Run `npm run lint:md`
-7. [ ] **COMMIT**: `docs(agents): add live harness verification to repo-harness-compatibility pair`
-8. [ ] Push, PR, CI, `gh pr merge --squash --auto`
-9. [ ] `git checkout main && git pull origin main`
+5. [x] Grep both files for OSE-specific strings — zero real matches (only false-positive
+       substring hits inside "purpose"/"proposed"/"close")
+6. [x] Run `npm run lint:md`
+7. [x] **COMMIT**: `docs(agents): add live verification to harness-compatibility pair`
+       (shortened from the planned message — original was 78 chars, over the 72-char
+       commitlint limit)
+8. [x] Push, PR #305, CI green (7/7), merged with `--delete-branch`, pulled
 
 **Acceptance Criteria**:
 
-- [ ] Checker has live-verification capability against upstream Claude Code docs
-- [ ] Fixer has local grep-based post-edit verification (not inherited from PR1)
+- [x] Checker has live-verification capability against upstream Claude Code docs
+- [x] Fixer has local grep-based post-edit verification (not inherited from PR1)
 
 ### Task 9.2 (PR37): `repo-generating-validation-reports` + `repo-assessing-criticality-confidence` + `repo-understanding-repository-architecture` (skills)
 
