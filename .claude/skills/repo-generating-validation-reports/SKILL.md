@@ -22,6 +22,57 @@ Use `date +%Y-%m-%d-%H%M` to generate the timestamp suffix.
 
 ---
 
+## Collision-Free Execution Tracking
+
+Minute-granularity timestamps collide when two runs of the same report family happen in
+the same minute — e.g. a parent agent spawns a `repo-rules-checker` subagent while another
+`repo-rules-checker` invocation is already in flight (parallel `Agent`/`Workflow` fan-out).
+Both would write to the exact same filename, and the second write silently clobbers the
+first. Append a short UUID chain to the filename to make every run's report path unique
+and traceable to its execution lineage.
+
+**Filename pattern with UUID chain:**
+
+```text
+generated-reports/repo-rules-audit-YYYY-MM-DD-HHMM-{uuid-chain}.md
+```
+
+**Generate the UUID:**
+
+```bash
+MY_UUID=$(uuidgen | tr '[:upper:]' '[:lower:]' | head -c 6)
+# Example: a1b2c3
+```
+
+**Scope-based chaining** — links a child run's report to the parent that spawned it, so a
+checker→fixer pair (or nested subagent fan-out) leaves a traceable lineage instead of
+unrelated one-off IDs:
+
+```bash
+SCOPE="repo-rules"  # the report family — matches this skill's filename prefix
+CHAIN_FILE="generated-reports/.execution-chain-${SCOPE}"
+
+if [ -f "$CHAIN_FILE" ]; then
+  read PARENT_TIME PARENT_CHAIN < "$CHAIN_FILE"
+  TIME_DIFF=$(( $(date +%s) - PARENT_TIME ))
+  if [ "$TIME_DIFF" -lt 300 ]; then
+    UUID_CHAIN="${PARENT_CHAIN}_${MY_UUID}"   # within 5 min of parent — append to chain
+  else
+    UUID_CHAIN="$MY_UUID"                      # parent stale — start a new chain
+  fi
+else
+  UUID_CHAIN="$MY_UUID"                        # first execution — no parent
+fi
+
+echo "$(date +%s) $UUID_CHAIN" > "$CHAIN_FILE"
+```
+
+Chain examples: `a1b2c3` (root run), `a1b2c3_d4e5f6` (child of `a1b2c3`). The tracking
+file lives in `generated-reports/` alongside the reports it chains — both are gitignored,
+so no cleanup step is needed beyond what already applies to the reports themselves.
+
+---
+
 ## Report Structure
 
 ### Required Sections

@@ -93,6 +93,30 @@ Located in `governance/`:
 
 ---
 
+## Where Skills Fit
+
+**Skills are delivery infrastructure, not a governance layer.** The 6 layers above
+(Vision → Principles → Conventions → Workflows → Architecture → Operations) are the
+things agents MUST follow — that's what makes them governance. `.claude/skills/` is not
+a 7th layer alongside them.
+
+A skill's job is to carry knowledge that already lives in a governance layer (a
+convention, a workflow) into an agent's context on demand via `permission.skill`, so the
+agent doesn't need that knowledge hardcoded in its own body. The relationship is one of
+service, not authority:
+
+- **Conventions → Agents**: governs (agents MUST follow `governance/conventions/development.md`)
+- **Skills → Agents**: serves (a skill injects knowledge; an agent can restate the same
+  knowledge inline instead, and nothing breaks — a skill reference is a delivery choice,
+  never a compliance requirement in itself)
+
+Concretely: if `wow-criticality-assessment` skill disappeared, the underlying severity
+rules it documents would still need following — they'd just need restating in every
+consuming agent's own body instead of being loaded on demand. The rules are the
+governance; the skill is just how they got delivered to this conversation.
+
+---
+
 ## Commit Conventions
 
 Enforced by **commitlint** (`commitlint.config.js`):

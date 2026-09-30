@@ -319,6 +319,36 @@ After:  [fixed state]
 
 ---
 
+## Embedding Domain Examples in Fixer Agents
+
+The "IKP-Labs Domain Examples" section above is the canonical reference, but a fixer agent
+re-validating a finding mid-run benefits from having its own domain's examples colocated
+in its own file — it shouldn't need to load this entire skill just to recall what
+FALSE_POSITIVE looks like for its specific domain.
+
+**When creating or updating a `*-fixer` agent**, embed a short "Confidence Examples"
+section directly in that agent's own body, scoped to its domain only:
+
+```markdown
+## Confidence Examples
+
+**HIGH confidence (safe to auto-fix):**
+- [Domain-specific objective, unambiguous case]
+
+**MEDIUM confidence (flag for manual review):**
+- [Domain-specific subjective or context-dependent case]
+
+**FALSE_POSITIVE (checker was wrong):**
+- [Domain-specific case where re-validation disproves the finding]
+```
+
+This is a copy scoped to the agent's own domain, not a replacement for the shared
+"IKP-Labs Domain Examples" table in this skill — keep both in sync when a domain's
+examples change. The shared table remains the cross-domain reference new agents consult
+when writing their own embedded section for the first time.
+
+---
+
 ## Common Mistakes
 
 ### Conflating verification with criticality
