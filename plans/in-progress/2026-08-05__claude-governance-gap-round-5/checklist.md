@@ -1143,26 +1143,42 @@ behavior (no cache file yet → treat every URL as a cache miss). Renumbered Wor
 - [x] Checker has live-verification capability against upstream Claude Code docs
 - [x] Fixer has local grep-based post-edit verification (not inherited from PR1)
 
-### Task 9.2 (PR37): `repo-generating-validation-reports` + `repo-assessing-criticality-confidence` + `repo-understanding-repository-architecture` (skills)
+### Task 9.2 (PR37): `repo-generating-validation-reports` + `repo-assessing-criticality-confidence` + `repo-understanding-repository-architecture` (skills) — ✅ Done (PR #307)
 
-1. [ ] `git checkout -b docs/repo-skills-tracking-examples-clarification`
-2. [ ] Fetch OSE source for all three skills
-3. [ ] Adapt `repo-generating-validation-reports`: add UUID-chain + scope-based execution
-       tracking for collision-free parallel report generation
-4. [ ] Adapt `repo-assessing-criticality-confidence`: add guidance for embedding
-       domain-specific HIGH/MEDIUM/FALSE_POSITIVE examples directly in fixer-agent files
-5. [ ] Adapt `repo-understanding-repository-architecture`: add a "skills are delivery
-       infrastructure, not a governance layer" clarification to sharpen the existing
-       6-layer governance model description
-6. [ ] Grep all three files for OSE-specific strings — zero matches
-7. [ ] Run `npm run lint:md`
-8. [ ] **COMMIT**: `docs(skills): add execution tracking and domain examples to repo governance skills`
-9. [ ] Push, PR, CI, `gh pr merge --squash --auto`
-10. [ ] `git checkout main && git pull origin main`
+1. [x] `git checkout -b docs/repo-skills-tracking-examples-clarification`
+2. [x] Fetch OSE source for all three skills. OSE's UUID mechanic uses a 4-part
+       `{agent-family}__{uuid-chain}__{UTC+7-timestamp}__{type}.md` naming scheme across
+       `local-tmp/` — this repo's reports live in `generated-reports/` with a simpler
+       `{report-family}-audit-YYYY-MM-DD-HHMM.md` pattern already used by every other
+       checker agent, so the UUID chain was appended to the existing pattern rather than
+       replacing it wholesale
+3. [x] Adapted `repo-generating-validation-reports`: added "Collision-Free Execution
+       Tracking" — 6-char hex UUID appended to report filenames
+       (`...-HHMM-{uuid-chain}.md`) plus a scope-based tracking file
+       (`generated-reports/.execution-chain-{family}`, 5-minute chaining window) so
+       parallel/nested runs of the same report family don't clobber each other at
+       minute-granularity
+4. [x] Adapted `repo-assessing-criticality-confidence`: added "Embedding Domain Examples
+       in Fixer Agents" — new/updated `*-fixer` agents should carry a short domain-scoped
+       "Confidence Examples" section in their own body (HIGH/MEDIUM/FALSE_POSITIVE cases
+       for that domain only), colocated with where the fixer re-validates findings mid-run;
+       kept in sync with, not a replacement for, the skill's shared "IKP-Labs Domain
+       Examples" table
+5. [x] Adapted `repo-understanding-repository-architecture`: added "Where Skills Fit" —
+       skills are delivery infrastructure that serve agents (inject governance-layer
+       knowledge on demand via `permission.skill`), not a 7th governance layer; governance
+       test is whether removing the skill would still leave the underlying rule in force
+       (conventions: yes, MUST follow; skills: no, just a delivery choice)
+6. [x] Grep all three files for OSE-specific strings — zero real matches (only
+       false-positive substring hits inside "Purpose")
+7. [x] Run `npm run lint:md`
+8. [x] **COMMIT**: `docs(skills): add execution tracking and domain examples to repo skills`
+       (shortened from the planned message to fit the 72-char commitlint limit)
+9. [x] Push, PR #307, CI green (7/7), merged with `--delete-branch`, pulled
 
 **Acceptance Criteria**:
 
-- [ ] All three skills carry their respective new guidance
+- [x] All three skills carry their respective new guidance
 
 ### Task 9.3 (PR38): `social-linkedin-post-maker.md` + `grill-me` (skill) + `ci-standards` (skill), plus the `repo-defining-workflows` DEFER record
 
