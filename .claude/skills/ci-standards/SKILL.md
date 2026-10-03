@@ -247,6 +247,39 @@ The health endpoint is `GET /api/auth/health` (returns `{"status":"UP",...}`). B
 
 ---
 
+## Gherkin Consumption Mandate
+
+CI test jobs (`frontend-tests`, `backend-tests`, `api-tests`) exist to prove the behaviors
+documented in `specs/` actually hold — not merely to be inspired by them. A test suite
+that covers roughly the same ground as the Gherkin scenarios but drifts from their exact
+preconditions, actions, or expected outcomes gives false confidence: CI goes green while a
+documented behavior silently goes unverified.
+
+**The mandate**: every scenario in `specs/authentication/`, `specs/gallery/`,
+`specs/profile/` MUST have at least one corresponding automated test (Jest unit/component
+test or Playwright E2E/API test per `test-coverage-rules` and `test-playwright-patterns`)
+that exercises the same Given/When/Then as the scenario — not a test that merely touches
+the same feature area. The automated suite is a **superset** of the Gherkin corpus: every
+scenario has proof, and the suite may additionally cover cases the Gherkin corpus doesn't
+document (implementation details, additional edge cases) — but it may never cover *less*
+than what's documented.
+
+**What this means for `ci-checker`**: when auditing CI, treat a merged PR that touches
+`specs/**` without a corresponding test-file change in the same PR as a HIGH finding — the
+spec changed, but nothing proves the application now satisfies it.
+
+**What this means for `ci-fixer`**: this one is never auto-fixable — writing the missing
+test requires understanding what the scenario means, which is `test-maker`'s job, not
+`ci-fixer`'s. Flag it for `test-maker` instead of attempting a fix.
+
+**Invalid reasons to skip this mandate**: a scenario being hard to automate, slow to run,
+flaky in CI, or "basically covered" by a different test that doesn't match its
+Given/When/Then are not valid exemptions. If a scenario genuinely cannot be automated
+(e.g., requires manual visual judgment), that must be stated explicitly as a comment in
+the spec file next to the scenario, not left as a silent gap.
+
+---
+
 ## Criticality Classification
 
 | Severity | Trigger |
