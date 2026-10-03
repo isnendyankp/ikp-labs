@@ -1105,7 +1105,7 @@ behavior (no cache file yet → treat every URL as a cache miss). Renumbered Wor
 
 ---
 
-## Phase 9: P3 Minor Items (Bundled — 3 PRs, not 8)
+## Phase 9: P3 Minor Items (Bundled — 3 PRs, not 8) — ✅ Done (PR #305, #307, #309)
 
 > Per requirements.md FR-9: these findings are individually too small for separate PRs.
 > Bundled by natural affinity: checker/fixer pairing (PR36), shared `repo-` skill prefix
@@ -1180,38 +1180,50 @@ behavior (no cache file yet → treat every URL as a cache miss). Renumbered Wor
 
 - [x] All three skills carry their respective new guidance
 
-### Task 9.3 (PR38): `social-linkedin-post-maker.md` + `grill-me` (skill) + `ci-standards` (skill), plus the `repo-defining-workflows` DEFER record
+### Task 9.3 (PR38): `social-linkedin-post-maker.md` + `grill-me` (skill) + `ci-standards` (skill), plus the `repo-defining-workflows` DEFER record — ✅ Done (PR #309)
 
-1. [ ] `git checkout -b docs/misc-p3-items-and-defer-record`
-2. [ ] Fetch OSE source for all three files
-3. [ ] Adapt `social-linkedin-post-maker.md`: enforce LinkedIn's 3,000-character post-body
-       limit with an explicit measure-and-trim step before finishing a draft
-4. [ ] Adapt `grill-me`: add a standing type-your-own/blank-state answer option and a
-       "let's discuss before deciding" option on every question, plus more nuanced
-       batching rules
-5. [ ] Adapt `ci-standards`: explicitly name a "Gherkin Consumption Mandate" — unit tests
-       must be a superset of Gherkin scenarios, not just inspired by them
-6. [ ] Add a DEFER row for `repo-defining-workflows` to
-       `.claude/skills/repo-syncing-with-ose-primer/SKILL.md` — a new "Deferred — Needs
+1. [x] `git checkout -b docs/misc-p3-items-and-defer-record`
+2. [x] Fetch OSE source for all three files. OSE's `grill-me` and `ci-standards` sources
+       carry a far more elaborate apparatus than needed here (full
+       Grilling-With-Options-Convention cross-reference, exemption-tag Gherkin contract
+       with per-layer boundary-mismatch comments) — scaled down to this repo's actual
+       `specs/` + Jest/Playwright structure rather than ported wholesale
+3. [x] Adapted `social-linkedin-post-maker.md`: added "Character Limit" section — measure
+       with `wc -c`, trim story paragraphs first (never hook/lesson/links/hashtags),
+       re-measure loop, record final count next to Status in the saved post file. Added
+       matching Quality Checklist item
+4. [x] Adapted `grill-me`: added the standing type-your-own (blank-state, via
+       `AskUserQuestion`'s built-in "Other") and "let's discuss this first" options to
+       every question as a hard rule, not just an example; added nuanced batching —
+       tightly-coupled decisions may batch into one multi-question prompt, unrelated
+       decisions must not. Updated the markdown-fallback example to show both standing
+       options
+5. [x] Adapted `ci-standards`: added "Gherkin Consumption Mandate" — the automated suite
+       must be a superset of `specs/**` scenarios (same Given/When/Then proven, not just
+       same feature area touched); a PR editing specs without a matching test-file change
+       is HIGH; routes actual test-writing to `test-maker`, never an auto-fix
+6. [x] Added a DEFER row for `repo-defining-workflows` to
+       `.claude/skills/repo-syncing-with-ose-primer/SKILL.md` — new "Deferred — Needs
        Product Decision" table, distinct from the existing permanent-skip table, recording
        the topic-mismatch reason from requirements.md's Per-Item Decision Record verbatim
-7. [ ] Grep the three adapted files for OSE-specific strings — zero matches
-8. [ ] Run `npm run lint:md`
-9. [ ] **COMMIT**: `docs(agents): add character limit and interview options to misc agents`
-10. [ ] Push, PR, CI, `gh pr merge --squash --auto`
-11. [ ] `git checkout main && git pull origin main`
+7. [x] Grep the three adapted files for OSE-specific strings — zero matches
+       (`repo-syncing-with-ose-primer` intentionally references OSE by design, out of grep
+       scope)
+8. [x] Run `npm run lint:md`
+9. [x] **COMMIT**: `docs(agents): add character limit and interview options to misc agents`
+10. [x] Push, PR #309, CI green (7/7), merged with `--delete-branch`, pulled
 
 **Acceptance Criteria**:
 
-- [ ] Character limit, blank-state/discuss-first options, and Gherkin Consumption Mandate
+- [x] Character limit, blank-state/discuss-first options, and Gherkin Consumption Mandate
       all present in their respective files
-- [ ] `repo-syncing-with-ose-primer/SKILL.md` has a new DEFER row for
+- [x] `repo-syncing-with-ose-primer/SKILL.md` has a new DEFER row for
       `repo-defining-workflows` under a "Deferred" table, not the permanent-skip table
 
 **Acceptance Criteria — Phase 9 (all 3 PRs)**:
 
-- [ ] 8 items adopted across 3 PRs (not 8 PRs)
-- [ ] 1 item (`repo-defining-workflows`) recorded as DEFER, zero content adapted for it
+- [x] 8 items adopted across 3 PRs (not 8 PRs)
+- [x] 1 item (`repo-defining-workflows`) recorded as DEFER, zero content adapted for it
 
 ---
 
