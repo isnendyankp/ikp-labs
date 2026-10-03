@@ -155,6 +155,19 @@ Document permanent skips here to avoid re-evaluation:
 
 ---
 
+## Deferred — Needs Product Decision
+
+Distinct from the permanent-skip table above: a DEFER item is **undecided**, not rejected.
+It stays open for re-evaluation once the blocking product decision is made — do not treat
+it as settled, and do not re-run the full Step 1–4 evaluation on it without new
+information that resolves the blocker.
+
+| OSE item | `.claude/` path | Blocker |
+|---|---|---|
+| `repo-defining-workflows` (skill) | `.claude/skills/repo-defining-workflows/SKILL.md` | Topic mismatch, not a content gap — OSE's version authors reusable multi-agent orchestration documents (phased execution, Gherkin success criteria); IKP-Labs's existing skill of the same name covers git/PR conventions instead, a different capability entirely. Needs a human product decision on whether IKP-Labs wants a "define a checker→fixer→checker chain as a document" capability at all — and if so, whether it should live under this colliding skill name or a new one — before any content is adapted |
+
+---
+
 ## Related Skills
 
 - **repo-applying-maker-checker-fixer** — MCF pattern used when creating new triads from OSE

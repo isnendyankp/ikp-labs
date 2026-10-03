@@ -168,6 +168,24 @@ Increment by 1 for the new post. If the year folder does not exist yet, create i
 
 ---
 
+## Character Limit
+
+LinkedIn truncates post bodies beyond **3,000 characters** behind a "...see more" link —
+a post that gets cut mid-sentence there loses its lesson and links. Before finishing a
+draft:
+
+1. Count the full post body (hook through hashtags, excluding the `docs/linkedin/`
+   file's own template wrapper — only what actually gets pasted into LinkedIn):
+   `echo -n "<post text>" | wc -c`
+2. If over 3,000, trim in this order: shorten the STORY section's longest paragraph
+   first, then tighten TECHNICAL DETAIL bullets — never cut the HOOK, LESSON, links, or
+   hashtags, since those carry the post's point and its only discoverability mechanism
+3. Re-measure after trimming; repeat until under the limit
+4. Record the final character count in the post's `docs/linkedin/History/` entry next to
+   **Status**, so a future edit pass knows how much headroom remains
+
+---
+
 ## Quality Checklist
 
 Before saving the file, verify:
@@ -177,6 +195,7 @@ Before saving the file, verify:
 - [ ] Post has a clear lesson or takeaway
 - [ ] Repo and live links are present
 - [ ] Hashtags include `#LearningInPublic`
+- [ ] Post body is under 3,000 characters (measured, not estimated)
 - [ ] File saved to correct `docs/linkedin/History/YYYY/week-NN.md` path
 - [ ] Navigation links updated (previous week link)
 

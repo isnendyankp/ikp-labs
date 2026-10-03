@@ -38,11 +38,22 @@ Interview the user about every aspect of the plan until shared understanding is 
 
 **Rules (HARD — no exceptions):**
 
-1. Ask questions **one at a time** — never bundle multiple questions in one message
+1. Ask questions **one at a time** by default — never bundle unrelated decisions into one
+   message. Tightly-coupled decisions (where one answer constrains or determines the
+   other) MAY be batched into a single multi-question prompt; decisions that don't
+   constrain each other MUST NOT be bundled just to save a round-trip
 2. **EVERY question MUST present 2–4 concrete options** with trade-off descriptions — open-ended questions without options are FORBIDDEN. If options cannot be enumerated, read the codebase first (Rule 4) and synthesize them before asking
 3. **Mark the recommended option** clearly, e.g. `**(Recommended)**`
 4. **Explore the codebase first** — if a question can be answered by reading existing files (plans, specs, governance docs), read them instead of asking
-5. Continue until all branches are resolved
+5. **Every question carries two standing options beyond its substantive choices**: (a) a
+   free-form **type-your-own** path for an answer not listed, and (b) a **"let's discuss
+   this first"** path that drops the structured choices and talks the decision through in
+   prose before returning to a structured question once the user is ready to decide. These
+   are not optional extras — omitting either is a rule violation, not a style choice. When
+   using `AskUserQuestion`, the tool's built-in "Other" entry already covers (a); add
+   "Let's discuss this first" as an explicit option for (b), keeping substantive options to
+   ≤3 so the total fits the tool's 4-option cap
+6. Continue until all branches are resolved
 
 **Tool preference**: When operating in a Claude Code context, use the `AskUserQuestion` tool for each question. The interactive multi-choice UI shows the user exactly which options are available and lets them select with a single click. Fall back to the markdown format below only when `AskUserQuestion` is unavailable.
 
@@ -57,6 +68,8 @@ When `AskUserQuestion` is not available, structure each question like this:
 > - **Option A**: [description] — [trade-off]
 > - **Option B**: [description] — [trade-off] **(Recommended)**
 > - **Option C**: [description] — [trade-off]
+> - **Something else**: type your own answer
+> - **Let's discuss this first**: talk it through before deciding
 >
 > **Recommendation**: Option B because [specific reason grounded in this context].
 
