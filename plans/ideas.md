@@ -44,11 +44,11 @@ Quick concept snippets and brainstorming notes that haven't been formalized into
   - Phase 8: Cluster G — repo & process governance across `repo-setup-manager`,
     `repo-practicing-trunk-based-development` skill, `agent-developing-agents` skill,
     `docs-file-manager`, `docs-link-checker` (persistent external-link cache)
-  - Phase 9: P3 minor items bundled into 3 PRs instead of 8 — `repo-harness-compatibility-checker`
-    - `repo-harness-compatibility-fixer` (live drift check, post-edit verification),
-      `repo-generating-validation-reports`, `repo-assessing-criticality-confidence`,
-      `repo-understanding-repository-architecture` skills, `social-linkedin-post-maker`, `grill-me`
-      skill, `ci-standards` skill
+  - Phase 9: P3 minor items bundled into 3 PRs instead of 8 — the
+    `repo-harness-compatibility-checker`/`repo-harness-compatibility-fixer` pair (live drift check,
+    post-edit verification), the `repo-generating-validation-reports`,
+    `repo-assessing-criticality-confidence`, and `repo-understanding-repository-architecture`
+    skills, `social-linkedin-post-maker`, the `grill-me` skill, and the `ci-standards` skill
   - Phase 9 (Deferred): `repo-defining-workflows` skill — topic mismatch (OSE's version authors
     multi-agent orchestration documents; IKP-Labs's existing skill of the same name covers git/PR
     conventions) — needs a human product decision before any adaptation, recorded as DEFER in
