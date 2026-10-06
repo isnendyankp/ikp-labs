@@ -24,6 +24,39 @@ Quick concept snippets and brainstorming notes that haven't been formalized into
 
 ### ✅ Implemented
 
+- **Claude Governance Gap Round 5 — ALL DONE** (completed 2026-10-06)
+  - Phase 1: MCF convergence safeguards — `repo-applying-maker-checker-fixer` skill (false-positives
+    skip list, scoped re-validation, post-edit self-verification, escalation guidance, fixer mode
+    parameter)
+  - Phase 2: Cluster A — TDD & accessibility testing hardening across `swe-ui-maker/checker/fixer`,
+    `swe-e2e-dev`, `swe-developing-frontend-ui` skill
+  - Phase 3: Cluster B — language hardening across `swe-typescript-dev`, `swe-java-dev`,
+    `swe-golang-dev`, `swe-rust-dev`
+  - Phase 4: Cluster C — documentation quality & fact-checking across `docs-validator/fixer`,
+    `readme-checker/fixer`, `docs-link-checker`, `docs-validating-factual-accuracy` skill, and 5
+    more docs-family files
+  - Phase 5: Cluster D — plan lifecycle hardening across `plan-maker/checker/fixer`,
+    `plan-execution-checker`, `plan-writing-gherkin-criteria` skill, and 1 more
+  - Phase 6: Cluster E — CI / Nx validation — `ci-checker/fixer` gained Nx conformance checks
+    (mandatory targets, coverage-threshold gating, four-dimension tags, `specs:coverage`)
+  - Phase 7: Cluster F — PDF pipeline hardening across `pdf-to-md-maker/checker/fixer` (chunked
+    extraction, typed Mermaid stubs, content-nesting accuracy, confidence downgrade, skip-list)
+  - Phase 8: Cluster G — repo & process governance across `repo-setup-manager`,
+    `repo-practicing-trunk-based-development` skill, `agent-developing-agents` skill,
+    `docs-file-manager`, `docs-link-checker` (persistent external-link cache)
+  - Phase 9: P3 minor items bundled into 3 PRs instead of 8 — `repo-harness-compatibility-checker/
+fixer` (live drift check, post-edit verification), `repo-generating-validation-reports`/
+    `repo-assessing-criticality-confidence`/`repo-understanding-repository-architecture` skills,
+    `social-linkedin-post-maker`, `grill-me` skill, `ci-standards` skill
+  - Phase 9 (Deferred): `repo-defining-workflows` skill — topic mismatch (OSE's version authors
+    multi-agent orchestration documents; IKP-Labs's existing skill of the same name covers git/PR
+    conventions) — needs a human product decision before any adaptation, recorded as DEFER in
+    `repo-syncing-with-ose-primer/SKILL.md`, not a permanent skip
+  - Phase 10: Sync record finalization — `repo-syncing-with-ose-primer/SKILL.md` inventory refresh
+  - Implemented across PRs #230–#309 (interleaved with their checklist-update follow-up PRs;
+    excludes unrelated session PRs #238 `.claude/settings.json` permission fix, #258 branch-cleanup
+    housekeeping, and #283 JWT secret rotation)
+
 - **Claude Governance Gap Round 4 — ALL DONE** (completed 2026-08-04)
   - Phase 1: `api-exploratory-tester` agent (live API exploratory testing, kameravue-be + taskly-be)
   - Phase 2: web tester triad — `web-exploratory-tester`, `web-usability-tester`, `web-design-tester`
@@ -184,4 +217,4 @@ is currently paused. Revisit if KameraVue development resumes.
 
 ---
 
-**Last Updated**: August 4, 2026 (Claude Governance Gap Round 4 moved to Archive — fully implemented)
+**Last Updated**: October 6, 2026 (Claude Governance Gap Round 5 moved to Archive — fully implemented)
