@@ -134,9 +134,9 @@ Current IKP-Labs harness state (update after each sync round):
 
 | Area | Count | Last synced |
 |------|-------|-------------|
-| Agents | 53 | 2026-07-10 (Round 4) |
-| Skills | 27 | 2026-06-15 (Round 3) |
-| Hooks | 5 | 2026-06-02 (Round 3) |
+| Agents | 53 | 2026-10-06 (Round 5 — content verified across 44 files; count unchanged from Round 4) |
+| Skills | 30 | 2026-10-06 (Round 5 — content verified; count corrected from stale 27 to actual 30) |
+| Hooks | 5 | 2026-10-06 (Round 5 — count verified unchanged from Round 3) |
 
 ---
 
@@ -176,4 +176,4 @@ information that resolves the blocker.
 
 ---
 
-**Last Updated**: 2026-07-10
+**Last Updated**: 2026-10-06
