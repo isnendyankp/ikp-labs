@@ -41,13 +41,14 @@ phase's tasks below reference these steps by number instead of repeating them in
 
 ---
 
-## Phase 0: Plan Setup
+## Phase 0: Plan Setup — ✅ Done (PR #229)
 
-- [ ] Create branch for plan work (this plan itself, not an implementation branch)
-- [ ] Create plan directory `plans/in-progress/2026-08-05__claude-governance-gap-round-5/`
-- [ ] Write README.md, requirements.md, technical-design.md, checklist.md
-- [ ] Commit and merge the plan itself as its own PR before Phase 1 starts, per Round 4
-      precedent (Round 4's plan-setup PR was #204, merged before PR1)
+- [x] Create branch for plan work (this plan itself, not an implementation branch)
+- [x] Create plan directory `plans/in-progress/2026-08-05__claude-governance-gap-round-5/`
+- [x] Write README.md, requirements.md, technical-design.md, checklist.md
+- [x] Commit and merge the plan itself as its own PR before Phase 1 starts, per Round 4
+      precedent (Round 4's plan-setup PR was #204, merged before PR1) — this round's
+      plan-setup PR was #229, merged before PR1 (#230)
 
 ---
 
@@ -1227,52 +1228,59 @@ behavior (no cache file yet → treat every URL as a cache miss). Renumbered Wor
 
 ---
 
-## Phase 10 (PR39): Sync Record Finalization
+## Phase 10 (PR39): Sync Record Finalization — ✅ Done (PR #311)
 
 > **Must run last — confirm PR1 through PR38 are all merged before starting.**
 
-### Task 10.1: Verify pre-conditions and count actual state
+### Task 10.1: Verify pre-conditions and count actual state — ✅ Done
 
-1. [ ] Run a `gh pr view` sweep (or `gh pr list --state merged`) confirming all 38 prior
-       PRs are merged
-2. [ ] Run `ls .claude/agents/*.md | grep -v README.md | wc -l` — confirm the Agents count
+1. [x] Run a `gh pr view` sweep (or `gh pr list --state merged`) confirming all 38 prior
+       PRs are merged — `gh pr list --state open` returned empty; every PR referenced
+       throughout this checklist was individually verified MERGED at merge time
+2. [x] Run `ls .claude/agents/*.md | grep -v README.md | wc -l` — confirm the Agents count
        (expected: unchanged from pre-Round-5, since this round edits existing agent files,
-       creates none)
-3. [ ] Run `ls -d .claude/skills/*/ | wc -l` — confirm the Skills count (expected:
-       unchanged, since this round edits existing skill files, creates none)
-4. [ ] Run `ls .claude/hooks/ | wc -l` — confirm the Hooks count (expected: unchanged, no
-       hook is touched this round)
+       creates none) — confirmed 53, matches existing doc
+3. [x] Run `ls -d .claude/skills/*/ | wc -l` — confirm the Skills count (expected:
+       unchanged, since this round edits existing skill files, creates none) — actual count
+       30, found existing doc stale at 27 (pre-existing drift from before this round, not
+       caused by it) — corrected in Task 10.2
+4. [x] Run `ls .claude/hooks/ | wc -l` — confirm the Hooks count (expected: unchanged, no
+       hook is touched this round) — confirmed 5, matches existing doc
 
-### Task 10.2: Update SKILL.md and ideas.md, ship
+### Task 10.2: Update SKILL.md and ideas.md, ship — ✅ Done (PR #311)
 
-1. [ ] `git checkout -b docs/finalize-round-5-sync-record`
-2. [ ] Update the "Harness Inventory Reference" table in
+1. [x] `git checkout -b docs/finalize-round-5-sync-record`
+2. [x] Updated the "Harness Inventory Reference" table in
        `.claude/skills/repo-syncing-with-ose-primer/SKILL.md` — Agents/Skills/Hooks rows'
        "Last synced" columns updated to reflect Round 5 verified the content of 44 files,
-       even though the counts themselves are unchanged from Round 4
-3. [ ] Update the `**Last Updated**:` footer in that SKILL.md
-4. [ ] Add the Round 5 bullet to `plans/ideas.md` under `### ✅ Implemented`, above the
+       even though the counts themselves are unchanged from Round 4 (Skills count also
+       corrected from stale 27 to actual 30)
+3. [x] Updated the `**Last Updated**:` footer in that SKILL.md
+4. [x] Added the Round 5 bullet to `plans/ideas.md` under `### ✅ Implemented`, above the
        Round 4 entry, styled identically: phase-by-phase summary, the one DEFER item
        (`repo-defining-workflows`) called out explicitly, real PR range
-5. [ ] Update `plans/ideas.md`'s trailing `**Last Updated**:` footer line
-6. [ ] Run `npm run lint:md`
-7. [ ] **COMMIT**: `docs(plan): finalize claude-governance-gap-round-5 sync record`
-8. [ ] Push, PR, CI, `gh pr merge --squash --auto`
-9. [ ] `git checkout main && git pull origin main`
+       (#230–#309, excluding unrelated session PRs #238, #258, #283)
+5. [x] Updated `plans/ideas.md`'s trailing `**Last Updated**:` footer line
+6. [x] Ran `npm run lint:md` (two follow-up fixes needed — lint-staged's own prettier pass
+       broke an inline-code-span line wrap, then re-broke it into a false nested list on
+       the second pass; resolved by rephrasing the sentence to avoid a mid-text dash)
+7. [x] **COMMIT**: `docs(plan): finalize claude-governance-gap-round-5 sync record`
+8. [x] Push, PR #311, CI green (7/7), merged with `--delete-branch`, pulled
+9. [x] `git checkout main && git pull origin main`
 
 **Acceptance Criteria**:
 
-- [ ] SKILL.md counts and "Last synced" dates match actual verified repo state
-- [ ] `plans/ideas.md` has the Round 5 entry with real PR numbers, not placeholders, and
+- [x] SKILL.md counts and "Last synced" dates match actual verified repo state
+- [x] `plans/ideas.md` has the Round 5 entry with real PR numbers, not placeholders, and
       explicitly notes the DEFER item
 
-### Task 10.3: Archive this plan
+### Task 10.3: Archive this plan — ✅ Done
 
-1. [ ] Verify every checklist item in this file is checked
-2. [ ] Update this plan's README.md status to `✅ Completed`, add `**Completed**: <date>`
-3. [ ] `git mv plans/in-progress/2026-08-05__claude-governance-gap-round-5/ plans/done/2026-08-05__claude-governance-gap-round-5/`
-4. [ ] **COMMIT**: `docs(plan): move claude-governance-gap-round-5 to done`
-5. [ ] Push and merge per the same branch → PR → CI → merge cycle
+1. [x] Verify every checklist item in this file is checked
+2. [x] Update this plan's README.md status to `✅ Completed`, add `**Completed**: <date>`
+3. [x] `git mv plans/in-progress/2026-08-05__claude-governance-gap-round-5/ plans/done/2026-08-05__claude-governance-gap-round-5/`
+4. [x] **COMMIT**: `docs(plan): move claude-governance-gap-round-5 to done`
+5. [x] Push and merge per the same branch → PR → CI → merge cycle
 
 ---
 
@@ -1286,17 +1294,17 @@ above (Phase 1 → PR1 through Phase 10 → PR39).
 
 ## Progress Tracking
 
-| Phase                                   | PRs       | Status          |
-| --------------------------------------- | --------- | --------------- |
-| 1 — MCF convergence safeguards          | PR1       | [ ] Not started |
-| 2 — Cluster A (TDD & accessibility)     | PR2–PR6   | [ ] Not started |
-| 3 — Cluster B (language hardening)      | PR7–PR10  | [ ] Not started |
-| 4 — Cluster C (docs quality/fact-check) | PR11–PR19 | [ ] Not started |
-| 5 — Cluster D (plan lifecycle)          | PR20–PR25 | [ ] Not started |
-| 6 — Cluster E (CI / Nx validation)      | PR26–PR27 | [ ] Not started |
-| 7 — Cluster F (PDF pipeline)            | PR28–PR30 | [ ] Not started |
-| 8 — Cluster G (repo/process governance) | PR31–PR35 | [ ] Not started |
-| 9 — P3 minor items (bundled)            | PR36–PR38 | [ ] Not started |
-| 10 — Sync record finalization           | PR39      | [ ] Not started |
+| Phase                                   | PRs       | Status         |
+| --------------------------------------- | --------- | -------------- |
+| 1 — MCF convergence safeguards          | PR1       | [✅] Completed |
+| 2 — Cluster A (TDD & accessibility)     | PR2–PR6   | [✅] Completed |
+| 3 — Cluster B (language hardening)      | PR7–PR10  | [✅] Completed |
+| 4 — Cluster C (docs quality/fact-check) | PR11–PR19 | [✅] Completed |
+| 5 — Cluster D (plan lifecycle)          | PR20–PR25 | [✅] Completed |
+| 6 — Cluster E (CI / Nx validation)      | PR26–PR27 | [✅] Completed |
+| 7 — Cluster F (PDF pipeline)            | PR28–PR30 | [✅] Completed |
+| 8 — Cluster G (repo/process governance) | PR31–PR35 | [✅] Completed |
+| 9 — P3 minor items (bundled)            | PR36–PR38 | [✅] Completed |
+| 10 — Sync record finalization           | PR39      | [✅] Completed |
 
-**Last Updated**: 2026-08-05
+**Last Updated**: 2026-10-06
