@@ -17,28 +17,45 @@
 - [x] Commit plan files: `docs(plan): add plan for fixing claude-agents catalog doc`
 - [x] Open PR 1, merge
 
-## PR 2 — `docs/reference/claude-agents.md` Full Rewrite
+## PR 2 — `docs/reference/claude-agents.md` Full Rewrite — ✅ Done (PR #314)
 
-- [ ] Invoke `docs-maker` to rewrite `docs/reference/claude-agents.md`
+- [x] Invoke `docs-maker` to rewrite `docs/reference/claude-agents.md`
       following the structure in `technical-design.md` Per-File Change
-      Specification #1
-- [ ] Verify all 15 families and 53 agents are present, each sourced from
+      Specification #1 — invoked as `documentation-writer` (the registry's
+      live-resolvable name for this agent; direct evidence of the exact
+      frontmatter-mismatch bug this plan documents)
+- [x] Verify all 15 families and 53 agents are present, each sourced from
       the real frontmatter (cross-check against the Real Agent Roster table
-      in `technical-design.md`)
-- [ ] Verify the 4 flagged (⚠) agents (`docs-maker`, `docs-checker`,
+      in `technical-design.md`) — confirmed, sum 6+4+6+7+3+1+2+3+3+7+2+2+5+1+1=53
+- [x] Verify the 4 flagged (⚠) agents (`docs-maker`, `docs-checker`,
       `specs-maker`, `test-checker`) each carry the frontmatter-mismatch note
-- [ ] Verify the fictional ASCII "Agent Architecture" diagram, old "Quick
-      Reference" table, and fabricated example metrics are fully removed
-- [ ] Verify the new Maker-Checker-Fixer diagram follows
+      — confirmed via `grep -c "Known issue"` = 4
+- [x] Verify the fictional ASCII "Agent Architecture" diagram, old "Quick
+      Reference" table, and fabricated example metrics are fully removed —
+      confirmed (984 → 419 lines)
+- [x] Verify the new Maker-Checker-Fixer diagram follows
       `docs-creating-accessible-diagrams` (text labels, not color-only,
-      accessible palette)
-- [ ] Invoke `docs-checker` to audit the rewritten file
-- [ ] If `docs-checker` reports CRITICAL/HIGH findings, invoke `docs-fixer`
-      and re-run `docs-checker` until clean
-- [ ] Run `docs-link-checker` against the file; fix any broken links
-- [ ] Run `markdownlint` on the file; fix any violations
-- [ ] Commit: `docs: rewrite claude-agents catalog with real 53-agent roster`
-- [ ] Open PR 2, merge
+      accessible palette) — confirmed real Mermaid flowchart, text-labeled
+      branches, palette hex values traced to the skill's table
+- [x] Invoke `docs-checker` to audit the rewritten file — invoked as
+      `docs-validator` (same live-name caveat); 0 CRITICAL, 0 HIGH, 0 MEDIUM,
+      1 LOW informational (no fix warranted) — report at
+      `generated-reports/docs-audit-2026-10-09-1818.md`
+- [x] If `docs-checker` reports CRITICAL/HIGH findings, invoke `docs-fixer`
+      and re-run `docs-checker` until clean — not needed, 0 CRITICAL/HIGH
+- [x] Run `docs-link-checker` against the file; fix any broken links — 93
+      link occurrences checked, 0 broken
+- [x] Run `markdownlint` on the file; fix any violations — 2 errors found
+      (a `+`-prefixed sum line misparsed as a list item) and fixed; 0 errors
+      after
+- [x] Commit: `docs: rewrite claude-agents catalog with real 53-agent roster`
+- [x] Open PR 2, merge — PR #314, CI green (7/7), merged with
+      `--delete-branch`, pulled
+
+**Bonus finding (documented inline, not fixed — separate bug)**: while
+rewriting, `documentation-writer` found `pr-review-maker.md` has a `model:`
+key with no value assigned, unlike every other agent's explicit
+`sonnet`/`haiku`. Footnoted in the new catalog rather than silently guessed.
 
 ## PR 3 — How-To Guides Bundle
 
