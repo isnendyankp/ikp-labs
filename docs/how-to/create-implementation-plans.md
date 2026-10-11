@@ -10,12 +10,12 @@ Implementation plans are structured documents that define what you're building, 
 
 ### Required Documents
 
-| Document | Purpose | Audience |
-|----------|---------|----------|
-| **README.md** | Overview, objectives, deliverables | Stakeholders, team |
-| **requirements.md** | Functional & non-functional requirements | Developers, testers |
-| **technical-design.md** | Architecture, data models, API specs | Developers, architects |
-| **checklist.md** | Atomic tasks with time estimates | Developers implementing |
+| Document                | Purpose                                  | Audience                |
+| ----------------------- | ---------------------------------------- | ----------------------- |
+| **README.md**           | Overview, objectives, deliverables       | Stakeholders, team      |
+| **requirements.md**     | Functional & non-functional requirements | Developers, testers     |
+| **technical-design.md** | Architecture, data models, API specs     | Developers, architects  |
+| **checklist.md**        | Atomic tasks with time estimates         | Developers implementing |
 
 ### Document Relationships
 
@@ -41,12 +41,12 @@ mkdir -p plans/in-progress/feature-name
 cd plans/in-progress/feature-name
 ```
 
-### Step 2: Use plan-writer Agent
+### Step 2: Use plan-maker Agent
 
-Invoke the plan-writer agent to create your plan:
+Invoke the plan-maker agent to create your plan:
 
 ```bash
-@plan-writer
+@plan-maker
 ```
 
 The agent will guide you through creating all 4 documents.
@@ -79,9 +79,11 @@ Once validated, begin implementing tasks from checklist.md.
 # [Feature Name]
 
 ## Overview
+
 [Brief description of what this feature does and why it's needed]
 
 ## Objectives
+
 - [Objective 1]
 - [Objective 2]
 - [Objective 3]
@@ -89,27 +91,33 @@ Once validated, begin implementing tasks from checklist.md.
 ## Scope
 
 ### In-Scope
+
 - [Feature/Component 1]
 - [Feature/Component 2]
 
 ### Out-of-Scope
+
 - [Feature explicitly NOT included]
 - [Feature deferred to future]
 
 ## Key Deliverables
+
 - [Deliverable 1]
 - [Deliverable 2]
 
 ## Timeline/Milestones
+
 - [ ] Phase 1: [Description] - Week 1
 - [ ] Phase 2: [Description] - Week 2
 - [ ] Phase 3: [Description] - Week 3
 
 ## Success Criteria
+
 - [ ] [Measurable success criteria 1]
 - [ ] [Measurable success criteria 2]
 
 ## Related Documentation
+
 - [Link to related specs/docs]
 ```
 
@@ -119,9 +127,11 @@ Once validated, begin implementing tasks from checklist.md.
 # Gallery Sorting
 
 ## Overview
+
 Add ability for users to sort gallery photos by newest, oldest, most liked, or most favorited. This improves user experience by allowing personalized photo organization.
 
 ## Objectives
+
 - Enable multiple sorting options for gallery photos
 - Maintain sorting preference across sessions
 - Provide visual feedback for active sort option
@@ -130,6 +140,7 @@ Add ability for users to sort gallery photos by newest, oldest, most liked, or m
 ## Scope
 
 ### In-Scope
+
 - Sort by newest (upload date descending)
 - Sort by oldest (upload date ascending)
 - Sort by most liked (like count descending)
@@ -137,11 +148,13 @@ Add ability for users to sort gallery photos by newest, oldest, most liked, or m
 - Persist sort preference in localStorage
 
 ### Out-of-Scope
+
 - Custom sort order
 - Sort by multiple criteria
 - Admin-defined sort orders
 
 ## Key Deliverables
+
 - Backend API endpoint: GET /api/photos?sort=field
 - Frontend sort dropdown component
 - Updated gallery to use sorting
@@ -149,11 +162,13 @@ Add ability for users to sort gallery photos by newest, oldest, most liked, or m
 - API documentation
 
 ## Timeline/Milestones
+
 - [ ] Phase 1: Backend sorting implementation - Week 1, Days 1-2
 - [ ] Phase 2: Frontend sort controls - Week 1, Days 3-4
 - [ ] Phase 3: Testing & documentation - Week 1, Day 5
 
 ## Success Criteria
+
 - [ ] Users can sort by all 4 options
 - [ ] Sort preference persists across sessions
 - [ ] API responds in <200ms for sorted queries
@@ -175,47 +190,57 @@ Add ability for users to sort gallery photos by newest, oldest, most liked, or m
 ## Functional Requirements
 
 ### FR-001: [Requirement Title]
+
 **Description:** [Detailed description]
 
 **Acceptance Criteria:**
+
 - [ ] [Specific, testable criterion 1]
 - [ ] [Specific, testable criterion 2]
 
 **Priority:** [Must Have / Should Have / Could Have]
 
 ### FR-002: [Requirement Title]
+
 ...
 
 ## Non-Functional Requirements
 
 ### NFR-001: Performance
+
 - [Performance requirement with metric]
 
 ### NFR-002: Security
+
 - [Security requirement]
 
 ### NFR-003: Scalability
+
 - [Scalability requirement]
 
 ## User Stories
 
 ### US-001: [Actor] wants to [action] so that [benefit]
+
 **As a** [role]
 **I want to** [action]
 **So that** [benefit]
 
 **Acceptance Criteria:**
+
 - [ ] [Criterion 1]
 - [ ] [Criterion 2]
 
 ## Constraints & Assumptions
 
 ### Constraints
+
 - [Technical constraint]
 - [Business constraint]
 - [Time constraint]
 
 ### Assumptions
+
 - [Assumption 1]
 - [Assumption 2]
 ```
@@ -228,9 +253,11 @@ Add ability for users to sort gallery photos by newest, oldest, most liked, or m
 ## Functional Requirements
 
 ### FR-001: Sort by Upload Date
+
 **Description:** Users can sort photos by newest or oldest upload date.
 
 **Acceptance Criteria:**
+
 - [ ] "Newest" option shows photos in descending order by upload date
 - [ ] "Oldest" option shows photos in ascending order by upload date
 - [ ] Selected sort option is visually indicated
@@ -239,9 +266,11 @@ Add ability for users to sort gallery photos by newest, oldest, most liked, or m
 **Priority:** Must Have
 
 ### FR-002: Sort by Engagement
+
 **Description:** Users can sort photos by most liked or most favorited.
 
 **Acceptance Criteria:**
+
 - [ ] "Most Liked" option shows photos by like count descending
 - [ ] "Most Favorited" option shows photos by favorite count descending
 - [ ] Photos with zero counts appear at the end
@@ -250,9 +279,11 @@ Add ability for users to sort gallery photos by newest, oldest, most liked, or m
 **Priority:** Must Have
 
 ### FR-003: Persist Sort Preference
+
 **Description:** User's sort selection persists across browser sessions.
 
 **Acceptance Criteria:**
+
 - [ ] Selected sort option saved to localStorage
 - [ ] On page reload, last selected sort is applied
 - [ ] Default to "newest" if no preference saved
@@ -263,16 +294,19 @@ Add ability for users to sort gallery photos by newest, oldest, most liked, or m
 ## Non-Functional Requirements
 
 ### NFR-001: Performance
+
 - Sorted API queries must respond in <200ms (p95)
 - Frontend sort option change must render in <100ms
 - Database queries must use appropriate indexes
 
 ### NFR-002: Security
+
 - Sort input must be validated against allowed values
 - SQL injection protection for sort parameters
 - No sensitive data exposed in sort queries
 
 ### NFR-003: Compatibility
+
 - Works on Chrome, Firefox, Safari (latest 2 versions)
 - Works on mobile browsers (iOS Safari, Chrome Mobile)
 - Degrades gracefully if JavaScript disabled
@@ -280,21 +314,25 @@ Add ability for users to sort gallery photos by newest, oldest, most liked, or m
 ## User Stories
 
 ### US-001: View Recent Photos
+
 **As a** user
 **I want to** see my most recently uploaded photos first
 **So that** I can quickly find new content
 
 **Acceptance Criteria:**
+
 - [ ] "Newest" is the default sort option
 - [ ] Most recent photos appear first
 - [ ] Upload date is displayed on each photo
 
 ### US-002: View Popular Photos
+
 **As a** user
 **I want to** see photos with most likes/favorites
 **So that** I can discover popular content
 
 **Acceptance Criteria:**
+
 - [ ] Can sort by most liked or most favorited
 - [ ] Like/favorite counts are visible
 - [ ] Sort order updates as counts change
@@ -302,12 +340,14 @@ Add ability for users to sort gallery photos by newest, oldest, most liked, or m
 ## Constraints & Assumptions
 
 ### Constraints
+
 - Must use existing PostgreSQL database
 - Must maintain pagination (12 photos per page)
 - Cannot change existing photo schema without migration
 - Implementation must complete in 1 week
 
 ### Assumptions
+
 - Users have JavaScript enabled
 - Photos have like_count and favorite_count fields
 - Database has indexes on created_at, like_count, favorite_count
@@ -322,18 +362,21 @@ Add ability for users to sort gallery photos by newest, oldest, most liked, or m
 
 **Required Sections:**
 
-```markdown
+````markdown
 # [Feature Name] - Technical Design
 
 ## Architecture Overview
+
 [High-level architecture diagram/description]
 
 ## Data Models
 
 ### Database Schema Changes
+
 ```sql
 -- Schema changes, new tables, migrations
 ```
+````
 
 ### Entity Relationships
 
@@ -349,9 +392,9 @@ Add ability for users to sort gallery photos by newest, oldest, most liked, or m
 
 **Request Parameters:**
 
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| param1 | string | Yes | Description |
+| Parameter | Type   | Required | Description |
+| --------- | ------ | -------- | ----------- |
+| param1    | string | Yes      | Description |
 
 **Response:**
 
@@ -408,7 +451,7 @@ Add ability for users to sort gallery photos by newest, oldest, most liked, or m
 - [Migration requirements]
 - [Rollback plan]
 
-```text
+````text
 
 **Example:**
 
@@ -417,34 +460,34 @@ Add ability for users to sort gallery photos by newest, oldest, most liked, or m
 
 ## Architecture Overview
 
-```
+````
 
-┌─────────────────┐      ┌─────────────────┐
-│   Frontend      │      │    Backend      │
-│   (Next.js)     │      │  (Spring Boot)   │
-├─────────────────┤      ├─────────────────┤
-│                 │      │                 │
-│ SortDropdown    │─────▶│ PhotoController │
-│                 │      │                 │
-│ PhotoGrid       │─────▶│ PhotoService    │
-│                 │      │                 │
-└─────────────────┘      │ PhotoRepository │
-         │               │                 │
-         │               └─────────────────┘
-         │                      │
-         │                      ▼
-         │               ┌─────────────────┐
-         │               │   PostgreSQL    │
-         │               │   (photos table) │
-         │               └─────────────────┘
-         │
-         ▼
+┌─────────────────┐ ┌─────────────────┐
+│ Frontend │ │ Backend │
+│ (Next.js) │ │ (Spring Boot) │
+├─────────────────┤ ├─────────────────┤
+│ │ │ │
+│ SortDropdown │─────▶│ PhotoController │
+│ │ │ │
+│ PhotoGrid │─────▶│ PhotoService │
+│ │ │ │
+└─────────────────┘ │ PhotoRepository │
+│ │ │
+│ └─────────────────┘
+│ │
+│ ▼
+│ ┌─────────────────┐
+│ │ PostgreSQL │
+│ │ (photos table) │
+│ └─────────────────┘
+│
+▼
 ┌─────────────────┐
-│   localStorage  │
-│  (preferences)  │
+│ localStorage │
+│ (preferences) │
 └─────────────────┘
 
-```text
+````text
 
 ## Data Models
 
@@ -470,7 +513,7 @@ CREATE INDEX idx_photos_created_at ON photos(created_at DESC);
 CREATE INDEX idx_photos_like_count ON photos(like_count DESC);
 CREATE INDEX idx_photos_favorite_count ON photos(favorite_count DESC);
 CREATE INDEX idx_photos_user_id ON photos(user_id);
-```
+````
 
 **No schema changes required** - using existing fields.
 
@@ -484,11 +527,11 @@ CREATE INDEX idx_photos_user_id ON photos(user_id);
 
 **Request Parameters:**
 
-| Parameter | Type | Required | Description | Valid Values |
-|-----------|------|----------|-------------|--------------|
-| page | integer | No | Page number (default: 1) | ≥1 |
-| limit | integer | No | Items per page (default: 12) | 1-50 |
-| sort | string | No | Sort field | newest, oldest, mostLiked, mostFavorited |
+| Parameter | Type    | Required | Description                  | Valid Values                             |
+| --------- | ------- | -------- | ---------------------------- | ---------------------------------------- |
+| page      | integer | No       | Page number (default: 1)     | ≥1                                       |
+| limit     | integer | No       | Items per page (default: 12) | 1-50                                     |
+| sort      | string  | No       | Sort field                   | newest, oldest, mostLiked, mostFavorited |
 
 **Example Request:**
 
@@ -730,9 +773,10 @@ try {
 ```typescript
 test('sort photos by most liked', async ({ page }) => {
   await page.goto('/gallery');
-  await page.getByRole('combobox', { name: 'Sort by' }).selectOption('mostLiked');
-  await expect(page.locator('.photo-card').first())
-    .toContainText('Likes: 999');
+  await page
+    .getByRole('combobox', { name: 'Sort by' })
+    .selectOption('mostLiked');
+  await expect(page.locator('.photo-card').first()).toContainText('Likes: 999');
 });
 
 test('sort preference persists', async ({ page }) => {
@@ -769,7 +813,7 @@ test('sort preference persists', async ({ page }) => {
 - Monitor database query performance
 - Log invalid sort parameter attempts
 
-```text
+````text
 
 ---
 
@@ -813,17 +857,17 @@ Each task = 1 atomic commit with descriptive message.
 - [ ] Documentation updated
 - [ ] Code reviewed
 - [ ] Deployed to staging
-```
+````
 
 **Task Size Guidelines:**
 
-| Duration | Task Type | Example | Action |
-|----------|-----------|---------|--------|
-| <10 min | Too Small | "Add import" | ❌ Merge with other tasks |
-| 10-15 min | Setup | "Create directory" | ✅ Good |
-| 20-30 min | Simple | "Add UI component" | ✅ Good |
-| 45-60 min | Medium | "API endpoint + tests" | ✅ Good |
-| >60 min | Too Large | "Build entire feature" | ❌ Break down |
+| Duration  | Task Type | Example                | Action                    |
+| --------- | --------- | ---------------------- | ------------------------- |
+| <10 min   | Too Small | "Add import"           | ❌ Merge with other tasks |
+| 10-15 min | Setup     | "Create directory"     | ✅ Good                   |
+| 20-30 min | Simple    | "Add UI component"     | ✅ Good                   |
+| 45-60 min | Medium    | "API endpoint + tests" | ✅ Good                   |
+| >60 min   | Too Large | "Build entire feature" | ❌ Break down             |
 
 **Example:**
 
@@ -833,16 +877,19 @@ Each task = 1 atomic commit with descriptive message.
 ## Phase 1: Backend Sorting (2 hours)
 
 ### Setup
+
 - [ ] Create feature branch `feature/gallery-sorting` (10 min)
 - [ ] Verify database indexes exist (15 min)
 
 ### API Implementation
+
 - [ ] Add `sort` parameter to PhotoController (30 min)
 - [ ] Implement `createPageable()` with sort logic (45 min)
 - [ ] Add sort parameter validation (15 min)
 - [ ] Add unit tests for sort logic (30 min)
 
 ### API Testing
+
 - [ ] Write integration test: sort by newest (20 min)
 - [ ] Write integration test: sort by mostLiked (20 min)
 - [ ] Write integration test: invalid sort returns 400 (15 min)
@@ -854,6 +901,7 @@ Each task = 1 atomic commit with descriptive message.
 ## Phase 2: Frontend Controls (2 hours)
 
 ### Components
+
 - [ ] Create SortDropdown component (30 min)
 - [ ] Add SortOption type definition (10 min)
 - [ ] Integrate SortDropdown into PhotoGrid (30 min)
@@ -861,6 +909,7 @@ Each task = 1 atomic commit with descriptive message.
 - [ ] Implement sort preference localStorage (20 min)
 
 ### API Integration
+
 - [ ] Update galleryService to accept sort parameter (20 min)
 - [ ] Handle API errors for invalid sort (15 min)
 
@@ -871,17 +920,20 @@ Each task = 1 atomic commit with descriptive message.
 ## Phase 3: Testing & Documentation (2 hours)
 
 ### E2E Tests
+
 - [ ] Test: sort by newest (20 min)
 - [ ] Test: sort by mostLiked (20 min)
 - [ ] Test: sort preference persists (20 min)
 - [ ] Test: invalid sort handled gracefully (15 min)
 
 ### Documentation
+
 - [ ] Update API documentation (20 min)
 - [ ] Add JSDoc to SortDropdown (15 min)
 - [ ] Update README with sort feature (10 min)
 
 ### Code Review
+
 - [ ] Self-review and cleanup (20 min)
 - [ ] Create pull request (10 min)
 
@@ -892,10 +944,12 @@ Each task = 1 atomic commit with descriptive message.
 ## Phase 4: Deployment (1 hour)
 
 ### Staging
+
 - [ ] Deploy to staging environment (20 min)
 - [ ] Manual QA testing on staging (20 min)
 
 ### Production
+
 - [ ] Deploy to production (10 min)
 - [ ] Smoke test on production (10 min)
 
@@ -908,25 +962,20 @@ Each task = 1 atomic commit with descriptive message.
 ## Commit Strategy
 
 **Phase 1 Commits:**
+
 1. `feat(photo): add sort parameter to controller`
 2. `feat(photo): implement sort logic with Pageable`
 3. `test(photo): add sort validation tests`
 4. `test(photo): add integration tests for sorting`
 
-**Phase 2 Commits:**
-5. `feat(gallery): create SortDropdown component`
-6. `feat(gallery): integrate sort controls`
-7. `feat(gallery): add sort preference persistence`
+**Phase 2 Commits:** 5. `feat(gallery): create SortDropdown component` 6. `feat(gallery): integrate sort controls` 7. `feat(gallery): add sort preference persistence`
 
-**Phase 3 Commits:**
-8. `test(e2e): add sorting scenarios`
-9. `docs(api): update API documentation`
-10. `docs(readme): document sort feature`
+**Phase 3 Commits:** 8. `test(e2e): add sorting scenarios` 9. `docs(api): update API documentation` 10. `docs(readme): document sort feature`
 
-**Phase 4 Commits:**
-11. `chore(release): deploy gallery sorting to production`
+**Phase 4 Commits:** 11. `chore(release): deploy gallery sorting to production`
 
 ## Definition of Done
+
 - [ ] All 11 commits pushed to main
 - [ ] All tests pass (unit, integration, E2E)
 - [ ] Code coverage ≥70% frontend, ≥80% backend
@@ -1002,8 +1051,8 @@ Each task = 1 atomic commit with descriptive message.
 mkdir -p plans/in-progress/new-feature
 cd plans/in-progress/new-feature
 
-# 2. Use plan-writer agent
-@plan-writer
+# 2. Use plan-maker agent
+@plan-maker
 
 # 3. Validate plan
 @plan-checker
@@ -1082,12 +1131,12 @@ cd plans/in-progress/my-feature
 # Edit README.md, requirements.md, technical-design.md, checklist.md
 ```
 
-### Using plan-writer Agent
+### Using plan-maker Agent
 
-The plan-writer agent can generate all 4 documents for you:
+The plan-maker agent can generate all 4 documents for you:
 
 ```bash
-@plan-writer create plan for [feature description]
+@plan-maker create plan for [feature description]
 ```
 
 The agent will:
@@ -1101,20 +1150,20 @@ The agent will:
 
 ## Related Documentation
 
-- [Use Claude Validators](./use-claude-validators.md) - How to validate your plans
-- [4-Document System Skill](../../.claude/skills/plan__four-doc-system.md) - Detailed standards
-- [Criticality Assessment](../../.claude/skills/wow__criticality-assessment.md) - Issue classification
+- [Use Claude Checker Agents](./use-claude-validators.md) - How to validate your plans
+- [4-Document System Skill](../../.claude/skills/plan-creating-project-plans/SKILL.md) - Detailed standards
+- [Criticality Assessment](../../.claude/skills/wow-criticality-assessment/SKILL.md) - Issue classification
 
 ---
 
 ## Summary
 
-| Document | Purpose | When to Update |
-|----------|---------|----------------|
-| **README.md** | High-level overview | Scope changes, new objectives |
-| **requirements.md** | Detailed requirements | New features, changed criteria |
+| Document                | Purpose                  | When to Update                      |
+| ----------------------- | ------------------------ | ----------------------------------- |
+| **README.md**           | High-level overview      | Scope changes, new objectives       |
+| **requirements.md**     | Detailed requirements    | New features, changed criteria      |
 | **technical-design.md** | Technical implementation | Architecture decisions, API changes |
-| **checklist.md** | Implementation tasks | Progress tracking, task breakdown |
+| **checklist.md**        | Implementation tasks     | Progress tracking, task breakdown   |
 
 **Key Takeaways:**
 
