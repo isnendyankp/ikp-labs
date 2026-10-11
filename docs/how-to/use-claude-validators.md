@@ -1,38 +1,38 @@
-# Use Claude Validator Agents
+# Use Claude Checker Agents
 
-Learn how to use Claude validator agents to automatically check your tests, documentation, and implementation plans for quality and completeness.
+Learn how to use Claude checker agents to automatically check your tests, documentation, and implementation plans for quality and completeness.
 
-## What are Validator Agents?
+## What are Checker Agents?
 
-Validator agents are specialized Claude agents that automatically review your work and generate audit reports. They check for:
+Checker agents are specialized Claude agents that automatically review your work and generate audit reports. They check for:
 
 - **Missing coverage** (tests, documentation, plan sections)
 - **Quality issues** (best practices violations, non-atomic tasks)
 - **Criticality assessment** (classify issues by severity)
 - **Actionable recommendations** (specific fixes with priority)
 
-### Available Validators
+### Available Checkers
 
-| Validator | Purpose | Report File |
-|-----------|---------|-------------|
-| **test-validator** | Validate E2E test coverage and quality | `test-audit-*.md` |
-| **docs-validator** | Validate documentation completeness and quality | `docs-audit-*.md` |
-| **plan-checker** | Validate implementation plan readiness | `plan-audit-*.md` |
+| Checker          | Purpose                                         | Report File       |
+| ---------------- | ----------------------------------------------- | ----------------- |
+| **test-checker** | Validate E2E test coverage and quality          | `test-audit-*.md` |
+| **docs-checker** | Validate documentation completeness and quality | `docs-audit-*.md` |
+| **plan-checker** | Validate implementation plan readiness          | `plan-audit-*.md` |
 
 ---
 
 ## Quick Start
 
-### Using Validators
+### Using Checkers
 
-Simply tag the validator agent in your conversation:
+Simply tag the checker agent in your conversation:
 
 ```bash
 # Validate E2E tests
-@test-validator
+@test-checker
 
 # Validate documentation
-@docs-validator
+@docs-checker
 
 # Validate implementation plan
 @plan-checker
@@ -57,6 +57,7 @@ The agent will:
 📊 Audit complete!
 
 Summary:
+
 - Total Issues: 8
 - Critical: 1 🔴
 - High: 3 🟠
@@ -68,7 +69,7 @@ Report: generated-reports/test-audit-2026-01-09-1430.md
 
 ---
 
-## test-validator
+## test-checker
 
 ### Purpose
 
@@ -106,12 +107,12 @@ Validate E2E test coverage and quality using Playwright testing best practices.
 ### Example Usage
 
 ```bash
-@test-validator
+@test-checker
 ```
 
 ### Example Findings
 
-```markdown
+````markdown
 ## 🟠 HIGH - Missing Test Scenario
 
 **Spec:** specs/gallery-sorting.feature
@@ -123,35 +124,35 @@ Feature not tested, potential for undetected bugs
 
 **Suggested Fix:**
 Create test in frontend/tests/gallery-sorting.spec.ts:
+
 ```typescript
 test('sort photos by most favorited', async ({ page }) => {
   await page.goto('/gallery');
-  await page.getByRole('combobox', { name: 'Sort by' }).selectOption('mostFavorited');
+  await page
+    .getByRole('combobox', { name: 'Sort by' })
+    .selectOption('mostFavorited');
   await expect(page.locator('.photo-card').first()).toContainText('Likes: 999');
 });
 ```
+````
 
 **Priority:** HIGH - Add within 1-2 days
 
-```text
-
 ### Report Location
 
-```
-
-generated-reports/test-audit-YYYY-MM-DD-HHMM.md
-
 ```text
+generated-reports/test-audit-YYYY-MM-DD-HHMM.md
+```
 
 ### Skills Used
 
-- `test__coverage-rules` - Coverage thresholds and requirements
-- `test__playwright-patterns` - Best practices for Playwright
-- `wow__criticality-assessment` - Issue classification
+- `test-coverage-rules` - Coverage thresholds and requirements
+- `test-playwright-patterns` - Best practices for Playwright
+- `wow-criticality-assessment` - Issue classification
 
 ---
 
-## docs-validator
+## docs-checker
 
 ### Purpose
 
@@ -197,12 +198,12 @@ Validate documentation completeness, quality, and adherence to the Diátaxis fra
 ### Example Usage
 
 ```bash
-@docs-validator
+@docs-checker
 ```
 
 ### Example Findings
 
-```markdown
+`````markdown
 ## 🟠 HIGH - Undocumented API Endpoint
 
 **Component:** Backend API
@@ -217,7 +218,8 @@ Developers don't know how to use this endpoint
 
 **Suggested Fix:**
 Add to docs/reference/api-endpoints.md:
-```markdown
+
+````markdown
 ### Get Photo Favorite Status
 
 Get the favorite status of a specific photo.
@@ -227,17 +229,17 @@ Get the favorite status of a specific photo.
 **Authentication:** Required
 
 **Response:**
+
 ```json
 {
   "id": 123,
   "isFavorited": true
 }
 ```
-
-```text
+````
+`````
 
 **Priority:** HIGH - Add within 1-2 days
-```
 
 ### Report Location
 
@@ -247,9 +249,9 @@ generated-reports/docs-audit-YYYY-MM-DD-HHMM.md
 
 ### Skills Used
 
-- `docs__quality-standards` - Writing style and quality rules
-- `docs__diataxis-framework` - Documentation categorization
-- `wow__criticality-assessment` - Issue classification
+- `docs-applying-content-quality` - Writing style and quality rules
+- `docs-applying-diataxis-framework` - Documentation categorization
+- `wow-criticality-assessment` - Issue classification
 
 ---
 
@@ -317,18 +319,21 @@ Validate implementation plan completeness, task atomicity, and readiness for exe
 **Missing:** technical-design.md
 
 **Evidence:**
+
 - ✅ README.md exists
 - ✅ requirements.md exists
 - ❌ technical-design.md NOT FOUND
 - ✅ checklist.md exists
 
 **Impact:**
+
 - No architecture design documented
 - Developers don't know how to implement
 - Risk of inconsistent implementation
 
 **Suggested Fix:**
 Create technical-design.md with sections:
+
 1. Architecture Overview
 2. Data Models (User, Session, Token tables)
 3. API Specifications (POST /api/auth/login, etc.)
@@ -347,14 +352,14 @@ generated-reports/plan-audit-YYYY-MM-DD-HHMM.md
 
 ### Skills Used
 
-- `plan__four-doc-system` - 4-document structure and standards
-- `wow__criticality-assessment` - Issue classification
+- `plan-creating-project-plans` - 4-document structure and standards
+- `wow-criticality-assessment` - Issue classification
 
 ---
 
 ## Understanding Criticality Levels
 
-All validators use the same criticality assessment system:
+All checkers use the same criticality assessment system:
 
 ### 🔴 CRITICAL
 
@@ -418,7 +423,7 @@ All validators use the same criticality assessment system:
 
 ## Understanding Confidence Levels
 
-Validators also assess confidence in their findings:
+Checkers also assess confidence in their findings:
 
 - **HIGH Confidence** - Clear issue, definite fix needed
 - **MEDIUM Confidence** - Likely issue, needs review
@@ -457,10 +462,10 @@ LOW (🟢)         AUTO-FIX           REVIEW              IGNORE
 
 ```bash
 # 1. Validate test coverage
-@test-validator
+@test-checker
 
 # 2. Validate documentation
-@docs-validator
+@docs-checker
 
 # 3. Fix any CRITICAL/HIGH issues found
 # 4. Create pull request
@@ -473,9 +478,9 @@ LOW (🟢)         AUTO-FIX           REVIEW              IGNORE
 ### Workflow 3: Regular Quality Audits
 
 ```bash
-# Run all validators monthly
-@test-validator
-@docs-validator
+# Run all checkers monthly
+@test-checker
+@docs-checker
 @plan-checker
 ```
 
@@ -486,8 +491,8 @@ LOW (🟢)         AUTO-FIX           REVIEW              IGNORE
 ### Workflow 4: Fixing Issues Found
 
 ```bash
-# 1. Run validator
-@test-validator
+# 1. Run checker
+@test-checker
 
 # 2. Review report
 cat generated-reports/test-audit-2026-01-09-1430.md
@@ -497,8 +502,8 @@ cat generated-reports/test-audit-2026-01-09-1430.md
 # 5. Consider MEDIUM issues
 # 6. Decide on LOW issues
 
-# 7. Re-run validator to verify fixes
-@test-validator
+# 7. Re-run checker to verify fixes
+@test-checker
 ```
 
 **Goal:** Systematic issue resolution
@@ -509,19 +514,19 @@ cat generated-reports/test-audit-2026-01-09-1430.md
 
 ### DO ✅
 
-- **Run validators before major milestones** (releases, reviews)
+- **Run checkers before major milestones** (releases, reviews)
 - **Fix CRITICAL and HIGH issues immediately**
 - **Review MEDIUM issues** during next iteration
-- **Re-run validators after fixes** to verify
+- **Re-run checkers after fixes** to verify
 - **Track metrics over time** (coverage trends)
-- **Use validator reports** in code reviews
+- **Use checker reports** in code reviews
 
 ### DON'T ❌
 
 - **Don't start implementation** with CRITICAL plan issues
 - **Don't merge code** with HIGH priority test issues
 - **Don't release** with undocumented APIs
-- **Don't ignore validators** for extended periods
+- **Don't ignore checkers** for extended periods
 - **Don't fix issues blindly** - review the report first
 
 ---
@@ -530,28 +535,28 @@ cat generated-reports/test-audit-2026-01-09-1430.md
 
 ### Pre-Commit Hook (Optional)
 
-Create a script to run validators before commits:
+Create a script to run checkers before commits:
 
 ```bash
 #!/bin/bash
 # .git/hooks/pre-commit
 
-echo "Running validators..."
+echo "Running checkers..."
 
-# Run relevant validators based on changed files
+# Run relevant checkers based on changed files
 # (This is a simplified example)
 
 if git diff --name-only | grep -q "tests/"; then
-  echo "Running test-validator..."
-  # Trigger test-validator
+  echo "Running test-checker..."
+  # Trigger test-checker
 fi
 
 if git diff --name-only | grep -q "docs/"; then
-  echo "Running docs-validator..."
-  # Trigger docs-validator
+  echo "Running docs-checker..."
+  # Trigger docs-checker
 fi
 
-echo "Validators passed!"
+echo "Checkers passed!"
 ```
 
 ### Pre-Pull Request Checklist
@@ -560,17 +565,20 @@ echo "Validators passed!"
 ## PR Checklist
 
 ### Code Quality
-- [ ] Run `test-validator` and fixed HIGH+ issues
-- [ ] Run `docs-validator` and fixed HIGH+ issues
+
+- [ ] Run `test-checker` and fixed HIGH+ issues
+- [ ] Run `docs-checker` and fixed HIGH+ issues
 - [ ] Tests pass locally
 - [ ] No console errors
 
 ### Documentation
+
 - [ ] API changes documented
 - [ ] JSDoc added for new functions
 - [ ] Diátaxis category correct
 
 ### Testing
+
 - [ ] E2E tests added for new features
 - [ ] Coverage thresholds met
 - [ ] No flaky tests
@@ -580,7 +588,7 @@ echo "Validators passed!"
 
 ## Troubleshooting
 
-### Validator Reports Not Generated
+### Checker Reports Not Generated
 
 **Issue:** No report file created
 
@@ -588,7 +596,7 @@ echo "Validators passed!"
 
 1. `generated-reports/` directory doesn't exist
 2. File permission issues
-3. Validator crashed mid-execution
+3. Checker crashed mid-execution
 
 **Solution:**
 
@@ -599,15 +607,15 @@ mkdir -p generated-reports
 # Check permissions
 ls -la generated-reports/
 
-# Re-run validator
-@test-validator
+# Re-run checker
+@test-checker
 ```
 
 ---
 
 ### Too Many Issues Reported
 
-**Issue:** Validator finds overwhelming number of issues
+**Issue:** Checker finds overwhelming number of issues
 
 **Solution:**
 
@@ -620,7 +628,7 @@ ls -la generated-reports/
 
 ### False Positives
 
-**Issue:** Validator reports something that's actually correct
+**Issue:** Checker reports something that's actually correct
 
 **Solution:**
 
@@ -634,7 +642,7 @@ ls -la generated-reports/
 
 ## Metrics Tracking
 
-Validators provide metrics over time:
+Checkers provide metrics over time:
 
 ### Test Coverage Trends
 
@@ -668,26 +676,26 @@ Avg Task Atomicity: 88%
 ## Related Documentation
 
 - [Diátaxis Framework](../explanation/diataxis-framework.md) - Understanding documentation categories
-- [Test Coverage Rules](.claude/skills/test__coverage-rules.md) - Coverage requirements
-- [Plan System](.claude/skills/plan__four-doc-system.md) - 4-document plan structure
+- [Test Coverage Rules](../../.claude/skills/test-coverage-rules/SKILL.md) - Coverage requirements
+- [Plan System](../../.claude/skills/plan-creating-project-plans/SKILL.md) - 4-document plan structure
 
 ---
 
 ## Summary
 
-| Validator | Use When | Report Format |
-|-----------|----------|---------------|
-| **test-validator** | After implementing features | `test-audit-*.md` |
-| **docs-validator** | After adding docs/APIs | `docs-audit-*.md` |
+| Checker          | Use When                       | Report Format     |
+| ---------------- | ------------------------------ | ----------------- |
+| **test-checker** | After implementing features    | `test-audit-*.md` |
+| **docs-checker** | After adding docs/APIs         | `docs-audit-*.md` |
 | **plan-checker** | Before starting implementation | `plan-audit-*.md` |
 
 **Key Takeaways:**
 
-- ✅ Run validators before major milestones
+- ✅ Run checkers before major milestones
 - ✅ Fix CRITICAL issues immediately
 - ✅ Fix HIGH issues urgently (1-2 days)
 - ✅ Review MEDIUM issues (1 week)
 - ✅ Track metrics over time
 - ✅ Use reports in code reviews
 
-**Validators are your automated quality gatekeepers!** 🚀
+**Checkers are your automated quality gatekeepers!** 🚀
