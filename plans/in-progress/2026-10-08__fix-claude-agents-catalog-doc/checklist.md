@@ -57,23 +57,59 @@ rewriting, `documentation-writer` found `pr-review-maker.md` has a `model:`
 key with no value assigned, unlike every other agent's explicit
 `sonnet`/`haiku`. Footnoted in the new catalog rather than silently guessed.
 
-## PR 3 — How-To Guides Bundle
+## PR 3 — How-To Guides Bundle — ✅ Done (PR #316)
 
-- [ ] Invoke `docs-maker` to rewrite `docs/how-to/use-claude-validators.md`
-      in place per `technical-design.md` Per-File Change Specification #2
-- [ ] Verify "validator" → "checker" terminology change is complete and the
+- [x] Invoke `docs-maker` to rewrite `docs/how-to/use-claude-validators.md`
+      in place per `technical-design.md` Per-File Change Specification #2 —
+      invoked as `documentation-writer` (live registry name; same
+      frontmatter-mismatch bug as PR 2)
+- [x] Verify "validator" → "checker" terminology change is complete and the
       3 agents documented are `test-checker`, `docs-checker`, `plan-checker`
-- [ ] Invoke `docs-maker` to fix the 8 `plan-writer` → `plan-maker`
-      occurrences in `docs/how-to/create-implementation-plans.md`
-- [ ] Verify no other content in either file changed beyond the specified
-      agent-name/terminology fixes
-- [ ] Invoke `docs-checker` to audit both files
-- [ ] If `docs-checker` reports CRITICAL/HIGH findings, invoke `docs-fixer`
-      and re-run `docs-checker` until clean
-- [ ] Run `docs-link-checker` against both files
-- [ ] Run `markdownlint` on both files
-- [ ] Commit: `docs: fix stale agent names in checker how-to guides`
-- [ ] Open PR 3, merge
+      — confirmed via case-insensitive grep returning 0 "validator" matches
+- [x] Invoke `docs-maker` to fix the 8 `plan-writer` → `plan-maker`
+      occurrences in `docs/how-to/create-implementation-plans.md` —
+      confirmed via grep returning 0 `plan-writer` matches
+- [x] Verify no other content in either file changed beyond the specified
+      agent-name/terminology fixes — confirmed via `git diff` review
+- [x] Invoke `docs-checker` to audit both files — invoked as `docs-validator`
+      (same live-name caveat); 0 CRITICAL/HIGH/MEDIUM, both files clean —
+      report at `generated-reports/docs-audit-2026-10-11-1920.md`
+- [x] If `docs-checker` reports CRITICAL/HIGH findings, invoke `docs-fixer`
+      and re-run `docs-checker` until clean — not needed, 0 CRITICAL/HIGH
+- [x] Run `docs-link-checker` against both files — all links touched by this
+      PR resolve; 3 broken links confirmed pre-existing and unrelated (see
+      Bonus findings below)
+- [x] Run `markdownlint` on both files — found and fixed a genuine
+      pre-existing bug: malformed nested code fences in the test-checker and
+      docs-checker "Example Findings" sections left a stray, purposeless
+      4-backtick fence artifact that (once Prettier correctly escalated the
+      legitimately-nested fence to 4 backticks) swallowed the rest of the
+      document into an unlabeled code block. Fixed by removing the stray
+      fence and restructuring the "Report Location" blocks to match the
+      already-correct pattern the plan-checker section used. 0 errors after.
+- [x] Commit: `docs: fix stale agent names in checker how-to guides`
+- [x] Open PR 3, merge — PR #316, CI green (7/7), merged with
+      `--delete-branch`, pulled
+
+**Beyond-scope fixes applied (same root-cause family, cheap, same files
+already touched)**: 9 stale double-underscore skill references
+(`test__coverage-rules` etc.) corrected to real skill directory names in
+`use-claude-validators.md`; 3 "Related Documentation" link issues in
+`create-implementation-plans.md` that were a direct side effect of file 1's
+rewrite (1 link-text sync, 2 stale skill-reference paths).
+
+**Bonus findings (flagged, NOT fixed — confirmed pre-existing, unrelated
+root cause, out of scope for this plan)**:
+
+- `docs/how-to/use-claude-validators.md:670` — broken link to
+  `../explanation/diataxis-framework.md` (file never existed in git history)
+- `docs/how-to/create-implementation-plans.md:1065-1066` — two "Example
+  Plans" links to `plans/done/gallery-sorting/` and
+  `plans/done/user-authentication/`, neither matching the real
+  `YYYY-MM-DD__name` convention used by all 53 real `plans/done/` entries
+- `docs/how-to/create-implementation-plans.md:1078` — a
+  `templates/plan-template` directory reference that doesn't exist anywhere
+  in the repo
 
 ## PR 4 — Root/Index Files Bundle
 
