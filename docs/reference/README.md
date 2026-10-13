@@ -24,7 +24,7 @@ Complete reference for all RTK CLI commands including analytics, debugging tools
 
 [claude-agents.md](claude-agents.md)
 
-Complete reference for all Claude agents in the project, including maker agents (plan-writer, documentation-writer, gherkin-spec-writer) and validator agents (test-validator, docs-validator, plan-checker).
+Complete reference for all 53 Claude agents in the project, grouped by family (Documentation, Planning, Testing & Specs, SWE Language Devs, and 11 more).
 
 ### API Endpoints
 

@@ -480,19 +480,21 @@ This project includes optional Claude-powered validator agents for quality check
 
 ### Available Validators
 
-| Validator         | Description                                                         | Output                              |
-| ----------------- | ------------------------------------------------------------------- | ----------------------------------- |
-| `@test-validator` | E2E test coverage audit, spec synchronization, flaky test detection | `generated-reports/test-audit-*.md` |
-| `@docs-validator` | API documentation completeness, JSDoc coverage, Diátaxis compliance | `generated-reports/docs-audit-*.md` |
-| `@plan-checker`   | Implementation plan validation, 4-doc system check, task atomicity  | `generated-reports/plan-audit-*.md` |
+| Validator       | Description                                                         | Output                              |
+| --------------- | ------------------------------------------------------------------- | ----------------------------------- |
+| `@test-checker` | E2E test coverage audit, spec synchronization, flaky test detection | `generated-reports/test-audit-*.md` |
+| `@docs-checker` | API documentation completeness, JSDoc coverage, Diátaxis compliance | `generated-reports/docs-audit-*.md` |
+| `@plan-checker` | Implementation plan validation, 4-doc system check, task atomicity  | `generated-reports/plan-audit-*.md` |
+
+For the complete agent catalog (53 agents across 15 families), see [`docs/reference/claude-agents.md`](docs/reference/claude-agents.md).
 
 ### Usage
 
 Validators are triggered by asking Claude to run them:
 
 ```text
-"@test-validator - check my test coverage"
-"@docs-validator - audit my API documentation"
+"@test-checker - check my test coverage"
+"@docs-checker - audit my API documentation"
 "@plan-checker - validate my implementation plan"
 ```
 
