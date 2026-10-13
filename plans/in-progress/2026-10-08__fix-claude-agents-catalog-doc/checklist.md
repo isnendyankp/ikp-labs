@@ -111,25 +111,49 @@ root cause, out of scope for this plan)**:
   `templates/plan-template` directory reference that doesn't exist anywhere
   in the repo
 
-## PR 4 — Root/Index Files Bundle
+## PR 4 — Root/Index Files Bundle — ✅ Done (PR #318)
 
-- [ ] Fix `AGENTS.md`'s 3 family tables + Skills Catalog table + Generated
+- [x] Fix `AGENTS.md`'s 3 family tables + Skills Catalog table + Generated
       Reports table per `technical-design.md` Per-File Change
-      Specification #4 (5 name substitutions, no new rows added)
-- [ ] Fix `README.md`'s "Claude Validators" section: correct `@test-checker`
+      Specification #4 (5 name substitutions, no new rows added) — invoked
+      as `documentation-writer` (live registry name; same frontmatter-
+      mismatch bug as PR 2/3)
+- [x] Fix `README.md`'s "Claude Validators" section: correct `@test-checker`
       / `@docs-checker` handles, add pointer line to the full catalog
-- [ ] Fix `generated-reports/README.md`'s 5 stale name occurrences
-- [ ] Fix `docs/reference/README.md`'s "Claude Agents" blurb to describe
+- [x] Fix `generated-reports/README.md`'s 5 stale name occurrences
+- [x] Fix `docs/reference/README.md`'s "Claude Agents" blurb to describe
       the rewritten catalog's actual scope (53 agents, 15 families)
-- [ ] Verify zero remaining matches for the 5 pre-rename names across all 4
+- [x] Verify zero remaining matches for the 5 pre-rename names across all 4
       files: `grep -rE "plan-writer|documentation-writer|gherkin-spec-writer|docs-validator|test-validator" AGENTS.md README.md generated-reports/README.md docs/reference/README.md`
-- [ ] Invoke `docs-checker` to audit all 4 files
-- [ ] If `docs-checker` reports CRITICAL/HIGH findings, invoke `docs-fixer`
-      and re-run `docs-checker` until clean
-- [ ] Run `docs-link-checker` against all 4 files
-- [ ] Run `markdownlint` on all 4 files
-- [ ] Commit: `docs: fix stale agent names in AGENTS.md and root index files`
-- [ ] Open PR 4, merge
+      — confirmed 0 matches
+- [x] Invoke `docs-checker` to audit all 4 files — invoked as
+      `docs-validator` (same live-name caveat); 0 CRITICAL/HIGH/MEDIUM
+      within this PR's own diff — report at
+      `generated-reports/docs-audit-2026-10-13-1924.md`
+- [x] If `docs-checker` reports CRITICAL/HIGH findings, invoke `docs-fixer`
+      and re-run `docs-checker` until clean — not needed, 0 CRITICAL/HIGH
+- [x] Run `docs-link-checker` against all 4 files — all links touched by
+      this PR resolve (including the 4 just-fixed skill-reference links in
+      `generated-reports/README.md`)
+- [x] Run `markdownlint` on all 4 files — 0 errors
+- [x] Commit: `docs: fix stale agent names in agents.md and root index files`
+      (lowercased "AGENTS.md" in the subject — commitlint's `subject-case`
+      rule requires all-lowercase)
+- [x] Open PR 4, merge — PR #318, CI green (7/7), merged with
+      `--delete-branch`, pulled
+
+**Beyond-scope fixes applied (same root-cause family, cheap, same files
+already touched)**: found the identical stale double-underscore skill-name
+pattern already fixed in PR 3 — `AGENTS.md`'s Skills Catalog table and 3
+"Skills used" lines, plus 4 broken skill-reference links in
+`generated-reports/README.md` — corrected to real hyphenated skill
+directory names/paths while these exact files were already open for the
+stated rename fix.
+
+**Bonus finding (flagged, NOT fixed — confirmed pre-existing, unrelated
+root cause, out of scope for this plan)**: `README.md:391` — broken link to
+`docs/reference/project-structure.md`, which has never existed (CRITICAL
+per the project's own severity table for a root README broken link).
 
 ## PR 5 — Final Validation & Close
 
