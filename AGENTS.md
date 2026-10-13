@@ -21,14 +21,14 @@ Instructions and catalog for AI agents working in this repository via Claude Cod
 
 Before making any significant decision, consult governance in this order:
 
-| Priority | Document | Question it answers |
-|----------|----------|---------------------|
-| 1 | `governance/vision/ikp-labs.md` | Does this change serve the project's purpose? |
-| 2 | `governance/principles/general.md` | Does this approach align with project values? |
-| 3 | `governance/conventions/development.md` | Does this follow naming and format standards? |
-| 4 | `governance/development/workflow/implementation.md` | Does this follow the development workflow? |
-| 5 | `plans/README.md` | Does this plan follow the plan structure? |
-| 6 | Active plan `checklist.md` | What is the current task and its acceptance criteria? |
+| Priority | Document                                            | Question it answers                                   |
+| -------- | --------------------------------------------------- | ----------------------------------------------------- |
+| 1        | `governance/vision/ikp-labs.md`                     | Does this change serve the project's purpose?         |
+| 2        | `governance/principles/general.md`                  | Does this approach align with project values?         |
+| 3        | `governance/conventions/development.md`             | Does this follow naming and format standards?         |
+| 4        | `governance/development/workflow/implementation.md` | Does this follow the development workflow?            |
+| 5        | `plans/README.md`                                   | Does this plan follow the plan structure?             |
+| 6        | Active plan `checklist.md`                          | What is the current task and its acceptance criteria? |
 
 See `governance/repository-governance-architecture.md` for the full 6-layer governance model.
 
@@ -56,12 +56,12 @@ Agents are organized into three families, each with a Maker and Checker:
 
 ### 1. Documentation
 
-| Role | Agent | Purpose |
-|------|-------|---------|
-| Maker | `documentation-writer` | Create and update docs following Diátaxis framework |
-| Checker | `docs-validator` | Validate doc completeness, JSDoc coverage, Diátaxis categorization |
+| Role    | Agent          | Purpose                                                            |
+| ------- | -------------- | ------------------------------------------------------------------ |
+| Maker   | `docs-maker`   | Create and update docs following Diátaxis framework                |
+| Checker | `docs-checker` | Validate doc completeness, JSDoc coverage, Diátaxis categorization |
 
-**Skills used**: `docs__quality-standards`, `docs__diataxis-framework`, `wow__criticality-assessment`
+**Skills used**: `docs-applying-content-quality`, `docs-applying-diataxis-framework`, `wow-criticality-assessment`
 
 **Docs structure** (`docs/`):
 
@@ -74,12 +74,12 @@ Agents are organized into three families, each with a Maker and Checker:
 
 ### 2. Planning
 
-| Role | Agent | Purpose |
-|------|-------|---------|
-| Maker | `plan-writer` | Create and update implementation plans (4-document system) |
+| Role    | Agent          | Purpose                                                         |
+| ------- | -------------- | --------------------------------------------------------------- |
+| Maker   | `plan-maker`   | Create and update implementation plans (4-document system)      |
 | Checker | `plan-checker` | Validate plan completeness, task atomicity, acceptance criteria |
 
-**Skills used**: `plan__four-doc-system`, `wow__criticality-assessment`
+**Skills used**: `plan-creating-project-plans`, `wow-criticality-assessment`
 
 **Plan structure** (`plans/`):
 
@@ -93,12 +93,12 @@ Each plan folder contains: `README.md`, `requirements.md`, `technical-design.md`
 
 ### 3. Testing & Specs
 
-| Role | Agent | Purpose |
-|------|-------|---------|
-| Maker | `gherkin-spec-writer` | Create and update Gherkin feature files in `specs/` |
-| Checker | `test-validator` | Validate E2E coverage, specs ↔ Playwright sync, flaky test detection |
+| Role    | Agent          | Purpose                                                              |
+| ------- | -------------- | -------------------------------------------------------------------- |
+| Maker   | `specs-maker`  | Create and update Gherkin feature files in `specs/`                  |
+| Checker | `test-checker` | Validate E2E coverage, specs ↔ Playwright sync, flaky test detection |
 
-**Skills used**: `test__coverage-rules`, `test__playwright-patterns`, `wow__criticality-assessment`
+**Skills used**: `test-coverage-rules`, `test-playwright-patterns`, `wow-criticality-assessment`
 
 **Specs structure** (`specs/`):
 
@@ -114,14 +114,14 @@ Each plan folder contains: `README.md`, `requirements.md`, `technical-design.md`
 
 Skills inject knowledge into agent contexts. All skills live in `.claude/skills/`.
 
-| Skill file | Used by | Purpose |
-|------------|---------|---------|
-| `docs__diataxis-framework.md` | documentation-writer, docs-validator | Diátaxis framework conventions |
-| `docs__quality-standards.md` | documentation-writer, docs-validator | Documentation quality rules |
-| `plan__four-doc-system.md` | plan-writer, plan-checker | 4-document plan system rules |
-| `test__coverage-rules.md` | gherkin-spec-writer, test-validator | Test coverage standards |
-| `test__playwright-patterns.md` | gherkin-spec-writer, test-validator | Playwright E2E patterns |
-| `wow__criticality-assessment.md` | all checkers | CRITICAL/HIGH/MEDIUM/LOW classification |
+| Skill                              | Used by                   | Purpose                                 |
+| ---------------------------------- | ------------------------- | --------------------------------------- |
+| `docs-applying-diataxis-framework` | docs-maker, docs-checker  | Diátaxis framework conventions          |
+| `docs-applying-content-quality`    | docs-maker, docs-checker  | Documentation quality rules             |
+| `plan-creating-project-plans`      | plan-maker, plan-checker  | 4-document plan system rules            |
+| `test-coverage-rules`              | specs-maker, test-checker | Test coverage standards                 |
+| `test-playwright-patterns`         | specs-maker, test-checker | Playwright E2E patterns                 |
+| `wow-criticality-assessment`       | all checkers              | CRITICAL/HIGH/MEDIUM/LOW classification |
 
 ---
 
@@ -129,10 +129,10 @@ Skills inject knowledge into agent contexts. All skills live in `.claude/skills/
 
 Checker agents write audit reports to `generated-reports/`. Reports are gitignored (local and CI artifact only). Only `README.md` and `.gitkeep` are tracked.
 
-| Report pattern | Generated by |
-|----------------|-------------|
-| `test-audit-YYYY-MM-DD-HHMM.md` | `test-validator` |
-| `docs-audit-YYYY-MM-DD-HHMM.md` | `docs-validator` |
+| Report pattern                  | Generated by   |
+| ------------------------------- | -------------- |
+| `test-audit-YYYY-MM-DD-HHMM.md` | `test-checker` |
+| `docs-audit-YYYY-MM-DD-HHMM.md` | `docs-checker` |
 | `plan-audit-YYYY-MM-DD-HHMM.md` | `plan-checker` |
 
 See `generated-reports/README.md` for full report format spec.
