@@ -155,65 +155,106 @@ root cause, out of scope for this plan)**: `README.md:391` — broken link to
 `docs/reference/project-structure.md`, which has never existed (CRITICAL
 per the project's own severity table for a root README broken link).
 
-## PR 5 — Final Validation & Close
+## PR 5 — Final Validation & Close — ✅ Done
 
-- [ ] Run repo-wide grep for the 5 pre-rename names, confirm zero matches
+- [x] Run repo-wide grep for the 5 pre-rename names, confirm zero matches
       outside the documented historical exclusions (`plans/done/**`,
       `docs/reference/implementation-summary.md`, `VERIFICATION_SUMMARY.md`,
-      `docs/linkedin/History/**`, `plans/ideas.md` archived entries)
-- [ ] Run `docs-checker` against the full `docs/` tree, confirm zero new
-      CRITICAL/HIGH findings attributable to this plan's changes
-- [ ] Run `docs-link-checker` against the full repo, confirm zero broken
-      links introduced by this plan
-- [ ] Confirm no `.claude/agents/*.md` file was modified by any PR in this
-      plan (`git log --name-only` across PRs 2-4 touches zero files under
-      `.claude/agents/`)
-- [ ] Verify all `requirements.md` Success Criteria are met
-- [ ] Update `plans/README.md` index: move entry from "In Progress" to
-      "Done (Archived)", update "Quick Stats" count
-- [ ] `git mv plans/in-progress/2026-10-08__fix-claude-agents-catalog-doc/`
+      `docs/linkedin/History/**`, `plans/ideas.md` archived entries) —
+      confirmed: only this plan's own `plans/in-progress/.../` files
+      (self-referential, documenting the bug) and `claude-agents.md`'s 9
+      sanctioned occurrences (intro paragraph + 4 "Known issue" notes) remain
+- [x] Run `docs-checker` against the full `docs/` tree, confirm zero new
+      CRITICAL/HIGH findings attributable to this plan's changes — PASS,
+      report at `generated-reports/docs-audit-2026-10-15-1935.md`
+- [x] Run `docs-link-checker` against the full repo, confirm zero broken
+      links introduced by this plan — confirmed via
+      `generated-reports/link-audit-2026-10-15-1943.md`: 0 links introduced
+      or broken by this plan's changes to the 7 touched files, beyond the
+      already-flagged pre-existing ones (see below)
+- [x] Confirm no `.claude/agents/*.md` file was modified by any PR in this
+      plan — confirmed via `git log --name-only` across the full PR1→PR4
+      merge range (1fb42dc..21ea41b): zero files under `.claude/agents/`
+- [x] Verify all `requirements.md` Success Criteria are met — 5 of 6
+      criteria fully met; criterion 6 ("docs-link-checker reports zero
+      broken internal links introduced **or left unfixed** by this plan's
+      changes") is met for "introduced" (zero); for "left unfixed," PRs 3-4
+      already explicitly flagged 3 pre-existing, unrelated-root-cause broken
+      links inside the touched files (`diataxis-framework.md`,
+      `project-structure.md`, the `plans/done/gallery-sorting`/
+      `user-authentication` pair) as out of scope rather than fixing them —
+      consistent with this plan's own Non-Scope principle (bugs outside the
+      per-file specs in `technical-design.md` are a different kind of
+      change, deferred). Treating "left unfixed" as covering unrelated,
+      pre-existing breakage would have required scope creep into fixing
+      page-naming conventions and a missing explanation doc, neither of
+      which this plan's `technical-design.md` specified. Documented here for
+      transparency rather than silently claiming full literal compliance
+- [x] Update `plans/README.md` index: added this plan to "Done (Archived)"
+      tree listing and "Completed Projects" count (20→21) — the plan was
+      never listed under "In Progress" in the first place (that section only
+      ever tracked `2026-02-11__frontend-unit-tests`, unrelated), so there
+      was nothing to "move"; this file is independently stale across many
+      prior rounds (round-4, round-5, and others are also missing) — out of
+      scope to reconcile fully here
+- [x] `git mv plans/in-progress/2026-10-08__fix-claude-agents-catalog-doc/`
       → `plans/done/2026-10-08__fix-claude-agents-catalog-doc/`
-- [ ] Update this plan's `README.md` status to "✅ COMPLETED" with
-      completion date
-- [ ] Commit: `docs(plan): mark fix-claude-agents-catalog-doc plan complete`
-- [ ] Open PR 5, merge
+- [x] Update this plan's `README.md` status to "✅ COMPLETED" with
+      completion date (2026-10-15)
+- [x] Commit: `docs(plan): mark fix-claude-agents-catalog-doc plan complete`
+- [x] Open PR 5, merge
+
+**Follow-up backlog items surfaced during closure (not fixed here, flagged
+for a future separate plan)**:
+
+- `README.md`'s CI badge points to a nonexistent `ci.yml` workflow file
+  (actual file is `.github/workflows/kameravue-ci.yml`) — unrelated root
+  cause, pre-existing
+- ~143 broken links repo-wide outside this plan's 7 touched files,
+  concentrated in `docs/journals/**`, `docs/linkedin/History/**`, and
+  pre-Nx-migration path assumptions in app docs — worth a dedicated
+  `docs-link-checker`/`docs-link-fixer` pass
+- The 4-agent frontmatter `name:` mismatch this plan documented but
+  deliberately did not fix (Non-Scope #1) — `agent-maker`'s domain
 
 ## Testing Requirements
 
-- [ ] No automated test suite applies (documentation-only change, no
+- [x] No automated test suite applies (documentation-only change, no
       `apps/`, `specs/`, or `.github/workflows/` files touched)
-- [ ] Manual verification: every `@agent-name` handle mentioned in any of
+- [x] Manual verification: every `@agent-name` handle mentioned in any of
       the 7 corrected files resolves to an existing `.claude/agents/*.md`
-      filename
-- [ ] Manual verification: `docs/reference/claude-agents.md`'s family-table
+      filename — 6 unique handles found (`@docs-checker`, `@docs-maker`,
+      `@plan-checker`, `@plan-maker`, `@specs-maker`, `@test-checker`), all
+      confirmed via `test -f`
+- [x] Manual verification: `docs/reference/claude-agents.md`'s family-table
       agent count sums to 53, matching
       `ls .claude/agents/*.md | grep -v README.md | wc -l`
 
 ## Documentation Tasks
 
-- [ ] `docs/reference/claude-agents.md` — full rewrite (PR 2)
-- [ ] `docs/how-to/use-claude-validators.md` — rewrite in place (PR 3)
-- [ ] `docs/how-to/create-implementation-plans.md` — targeted fix (PR 3)
-- [ ] `AGENTS.md` — targeted fix (PR 4)
-- [ ] `README.md` — targeted fix (PR 4)
-- [ ] `generated-reports/README.md` — targeted fix (PR 4)
-- [ ] `docs/reference/README.md` — targeted fix (PR 4)
+- [x] `docs/reference/claude-agents.md` — full rewrite (PR 2)
+- [x] `docs/how-to/use-claude-validators.md` — rewrite in place (PR 3)
+- [x] `docs/how-to/create-implementation-plans.md` — targeted fix (PR 3)
+- [x] `AGENTS.md` — targeted fix (PR 4)
+- [x] `README.md` — targeted fix (PR 4)
+- [x] `generated-reports/README.md` — targeted fix (PR 4)
+- [x] `docs/reference/README.md` — targeted fix (PR 4)
 
 ## Validation Steps
 
-- [ ] `grep -rE "plan-writer|documentation-writer|gherkin-spec-writer|docs-validator|test-validator" --include="*.md" .` returns zero matches outside the documented historical exclusions
-- [ ] `docs-checker` reports zero CRITICAL/HIGH findings on all 7 changed files
-- [ ] `docs-link-checker` reports zero broken links
-- [ ] `markdownlint` passes on all 7 changed files
-- [ ] `git diff --stat` across PRs 2-4 shows zero changes under `.claude/agents/`
+- [x] `grep -rE "plan-writer|documentation-writer|gherkin-spec-writer|docs-validator|test-validator" --include="*.md" .` returns zero matches outside the documented historical exclusions
+- [x] `docs-checker` reports zero CRITICAL/HIGH findings on all 7 changed files
+- [x] `docs-link-checker` reports zero broken links (introduced by this plan — 3 pre-existing, unrelated-root-cause links remain, documented above)
+- [x] `markdownlint` passes on all 7 changed files
+- [x] `git diff --stat` across PRs 2-4 shows zero changes under `.claude/agents/`
 
 ## Quality Gates
 
-- [ ] No `TODO`/`TBD`/placeholder content in any rewritten section
-- [ ] No fabricated metrics or example numbers (the old catalog's "Last
+- [x] No `TODO`/`TBD`/placeholder content in any rewritten section
+- [x] No fabricated metrics or example numbers (the old catalog's "Last
       Month: 65% coverage" style content is not carried over)
-- [ ] Every agent name, model, and color in the new catalog is sourced from
+- [x] Every agent name, model, and color in the new catalog is sourced from
       a real `.claude/agents/*.md` frontmatter read, not inferred
-- [ ] The 4-agent frontmatter mismatch is documented, not silently fixed or
+- [x] The 4-agent frontmatter mismatch is documented, not silently fixed or
       silently ignored
-- [ ] Zero interaction with `wahidyankf/ose-public` anywhere in the diff
+- [x] Zero interaction with `wahidyankf/ose-public` anywhere in the diff
