@@ -1,0 +1,247 @@
+https://api.kameravue.com:
+  status: 000
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - README.md
+https://claude.com/claude-code:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - docs/explanation/unit-test-summary.md
+https://code.claude.com/docs/en/vs-code:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - docs/how-to/setup-claude-code.md
+https://code.claude.com/docs/en/vs-code#claude-code-never-responds:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - docs/how-to/setup-claude-code.md
+https://cucumber.io/docs/bdd/:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - .claude/agents/specs-maker.md
+https://cucumber.io/docs/bdd/better-gherkin/:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - .claude/skills/plan-writing-gherkin-criteria/SKILL.md
+https://cucumber.io/docs/gherkin/reference/:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - .claude/agents/specs-maker.md
+    - .claude/skills/plan-writing-gherkin-criteria/SKILL.md
+https://diataxis.fr/:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - .claude/agents/docs-maker.md
+    - README.md
+    - docs/README.md
+https://docker-curriculum.com/:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - docs/explanation/repository-test-explanation-pemula.md
+https://docs.claude.com/claude-code:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - docs/how-to/setup-claude-code.md
+https://docs.claude.com/claude-code/permissions:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - docs/how-to/setup-claude-code.md
+https://executeautomation.github.io/mcp-playwright/:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - docs/how-to/run-e2e-tests.md
+https://github.com/isnendyankp:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - README.md
+https://github.com/isnendyankp/ikp-labs:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - README.md
+    - ROADMAP.md
+https://github.com/isnendyankp/ikp-labs/actions/workflows/ci.yml/badge.svg:
+  status: 404
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - README.md
+https://github.com/microsoft/playwright-mcp:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - docs/tutorials/mcp-playwright-setup.md
+https://github.com/wahidyankf/open-sharia-enterprise:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - docs/reference/implementation-summary.md
+https://img.shields.io/badge/Coverage-80%25%2B-brightgreen:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - README.md
+https://img.shields.io/badge/Java-21-orange?logo=openjdk:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - README.md
+https://img.shields.io/badge/Monorepo-Nx-9f001-blue:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - README.md
+https://img.shields.io/badge/Next.js-15-black?logo=next.js:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - README.md
+https://img.shields.io/badge/Node.js-20-green?logo=node.js:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - README.md
+https://img.shields.io/badge/PostgreSQL-16-336791?logo=postgresql:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - README.md
+https://img.shields.io/badge/Spring%20Boot-3.3-6db33f?logo=spring:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - README.md
+https://img.shields.io/badge/Tests-512%20total-blue:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - README.md
+https://javadoc.io/doc/org.mockito/mockito-core/latest/org/mockito/Mockito.html:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - docs/explanation/unit-test-java-guide.md
+https://junit.org/junit5/docs/current/user-guide/:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - docs/explanation/repository-test-explanation-pemula.md
+    - docs/explanation/unit-test-java-guide.md
+https://kameravue.com:
+  status: 000
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - README.md
+    - ROADMAP.md
+    - SECURITY.md
+https://modelcontextprotocol.io:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - docs/tutorials/mcp-playwright-setup.md
+https://nextjs.org/docs:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - .claude/agents/docs-maker.md
+https://playwright.dev:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - apps/kameravue-fe-e2e/README.md
+    - docs/how-to/run-e2e-tests.md
+    - docs/tutorials/mcp-playwright-setup.md
+    - docs/tutorials/testing-guide.md
+https://playwright.dev/:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - .claude/agents/docs-maker.md
+https://playwright.dev/docs/api-testing:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - apps/kameravue-be-e2e/README.md
+    - docs/how-to/api-testing.md
+https://playwright.dev/docs/best-practices:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - apps/kameravue-fe-e2e/README.md
+https://playwright.dev/docs/intro:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - docs/reference/testing-commands.md
+https://playwright.dev/docs/screenshots:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - docs/explanation/video-screenshot-guide.md
+https://playwright.dev/docs/test-reporters:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - docs/explanation/video-screenshot-guide.md
+https://playwright.dev/docs/videos:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - docs/explanation/video-screenshot-guide.md
+https://site.mockito.org/:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - docs/explanation/repository-test-explanation-pemula.md
+https://spring.io/guides/gs/testing-web/:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - docs/explanation/repository-test-explanation-pemula.md
+    - docs/explanation/unit-test-java-guide.md
+https://spring.io/projects/spring-boot:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - .claude/agents/docs-maker.md
+https://www.baeldung.com/java-unit-testing-best-practices:
+  status: 403
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - docs/explanation/unit-test-java-guide.md
+https://www.conventionalcommits.org/:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - CONTRIBUTING.md
+https://www.docker.com/products/docker-desktop/:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - docs/explanation/repository-test-explanation-pemula.md
+https://www.rtk-ai.app/:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - docs/explanation/rtk-token-savings.md
+https://www.testcontainers.org/:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - docs/explanation/repository-test-explanation-pemula.md
+https://www.testcontainers.org/modules/databases/postgres/:
+  status: 200
+  checked_at: 2026-10-15T12:43:09Z
+  files:
+    - docs/explanation/repository-test-explanation-pemula.md
