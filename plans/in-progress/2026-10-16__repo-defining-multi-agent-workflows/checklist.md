@@ -109,10 +109,10 @@ adaptation from `technical-design.md`'s mapping table.
 2. [x] `git add .claude/skills/repo-defining-multi-agent-workflows/SKILL.md` (needed `-f`:
        `.claude/` is gitignored at the directory level despite being tracked content)
 3. [x] **COMMIT 1**: `docs(skills): add repo-defining-multi-agent-workflows skill`
-4. [ ] `git push -u origin docs/repo-defining-multi-agent-workflows-skill`
-5. [ ] `gh pr create` — Summary + Test Plan per the PR template
-6. [ ] Run the PR-Review Maker→Fixer cycle (`governance/workflows/pr/pr-review-quality-gate.md`)
-       — 3 cycles, 0 CRITICAL/HIGH outstanding
+4. [x] `git push -u origin docs/repo-defining-multi-agent-workflows-skill`
+5. [x] `gh pr create` — Summary + Test Plan per the PR template — opened as PR #322
+6. [🔄] Run the PR-Review Maker→Fixer cycle (`governance/workflows/pr/pr-review-quality-gate.md`)
+   — 3 cycles, 0 CRITICAL/HIGH outstanding — cycle 1 of 3 actively running as of this commit
 7. [ ] Confirm CI green, then `gh pr merge --squash --auto`
 8. [ ] `git checkout main && git pull origin main`
 
