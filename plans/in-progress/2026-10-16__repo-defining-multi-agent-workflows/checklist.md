@@ -106,8 +106,9 @@ adaptation from `technical-design.md`'s mapping table.
 **Steps**:
 
 1. [x] `git checkout -b docs/repo-defining-multi-agent-workflows-skill`
-2. [ ] `git add .claude/skills/repo-defining-multi-agent-workflows/SKILL.md`
-3. [ ] **COMMIT 1**: `docs(skills): add repo-defining-multi-agent-workflows skill`
+2. [x] `git add .claude/skills/repo-defining-multi-agent-workflows/SKILL.md` (needed `-f`:
+       `.claude/` is gitignored at the directory level despite being tracked content)
+3. [x] **COMMIT 1**: `docs(skills): add repo-defining-multi-agent-workflows skill`
 4. [ ] `git push -u origin docs/repo-defining-multi-agent-workflows-skill`
 5. [ ] `gh pr create` — Summary + Test Plan per the PR template
 6. [ ] Run the PR-Review Maker→Fixer cycle (`governance/workflows/pr/pr-review-quality-gate.md`)
