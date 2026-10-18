@@ -27,7 +27,7 @@ before implementation. Nothing further to confirm before Phase 1 begins:
 
 ---
 
-## Phase 1 (PR1): Create the New Skill — 🔄 In Progress (PR1 open, not yet merged)
+## Phase 1 (PR1): Create the New Skill — ✅ Done (PR #322)
 
 ### Task 1.1: Scaffold the Skill Directory and Header (15 min)
 
@@ -114,13 +114,20 @@ adaptation from `technical-design.md`'s mapping table.
 6. [x] Run the PR-Review Maker→Fixer cycle (`governance/workflows/pr/pr-review-quality-gate.md`)
        — 3 cycles, 0 CRITICAL/HIGH outstanding — all 3 cycles complete as of this commit (this is
        cycle 3, the final cycle)
-7. [ ] Confirm CI green, then `gh pr merge --squash --auto`
-8. [ ] `git checkout main && git pull origin main`
+7. [x] Confirm CI green, then `gh pr merge --squash --auto` — merged 2026-10-18
+8. [x] `git checkout main && git pull origin main`
 
 **Dependencies**:
 
 - Requires: Pre-Flight confirmation
 - Blocks: Phase 2 (PR2's "Example Usage" section quotes this skill's existence)
+
+**Review cycle actuals**: 3 cycles ran (`pr-review-maker`→`pr-review-fixer`), 3 findings
+total (1 MEDIUM cycle 1, 1 HIGH cycle 2, 1 MEDIUM cycle 3), all fixed and resolved — 0
+CRITICAL/HIGH outstanding at merge. One stray non-finding thread (`TEST-PROBE-DELETE-ME`, a
+test artifact from the maker's own API exploration, not a real review item) was identified,
+correctly not acted on by the fixer per untrusted-input handling, and resolved directly by
+the orchestrator.
 
 ---
 
@@ -128,9 +135,9 @@ adaptation from `technical-design.md`'s mapping table.
 
 > All checks below must pass before starting Phase 2.
 
-- [ ] `test -f .claude/skills/repo-defining-multi-agent-workflows/SKILL.md` on `main` after merge
-- [ ] `npm run lint:md` passes on `main`
-- [ ] PR1 merged, branch deleted, CI green on `main`
+- [x] `test -f .claude/skills/repo-defining-multi-agent-workflows/SKILL.md` on `main` after merge
+- [x] `npm run lint:md` passes on `main` (no errors attributable to the new file)
+- [x] PR1 merged, branch deleted, CI green on `main`
 
 Safe to stop here — the new skill exists and is usable ad hoc even if Phase 2/3 are delayed. To
 resume: start Task 2.1.
