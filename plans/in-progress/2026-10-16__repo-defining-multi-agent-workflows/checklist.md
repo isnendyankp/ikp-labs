@@ -27,7 +27,7 @@ before implementation. Nothing further to confirm before Phase 1 begins:
 
 ---
 
-## Phase 1 (PR1): Create the New Skill
+## Phase 1 (PR1): Create the New Skill — 🔄 In Progress (PR1 open, not yet merged)
 
 ### Task 1.1: Scaffold the Skill Directory and Header (15 min)
 
@@ -35,8 +35,8 @@ before implementation. Nothing further to confirm before Phase 1 begins:
 
 **Steps**:
 
-1. [ ] `mkdir -p .claude/skills/repo-defining-multi-agent-workflows`
-2. [ ] Create `.claude/skills/repo-defining-multi-agent-workflows/SKILL.md` with the
+1. [x] `mkdir -p .claude/skills/repo-defining-multi-agent-workflows`
+2. [x] Create `.claude/skills/repo-defining-multi-agent-workflows/SKILL.md` with the
        `# Skill: Defining Multi-Agent Workflows` title, `**Category**`, `**Purpose**`,
        `**Used By**: None yet` line, and the `## Adoption Note` subsection (exact text in
        `technical-design.md`, Component 1)
@@ -55,35 +55,36 @@ adaptation from `technical-design.md`'s mapping table.
 
 **Steps**:
 
-1. [ ] Write `## Overview` / purpose framing referencing IKP-Labs's actual consumer context
-2. [ ] Write `## Document Structure` section specifying the two-key YAML frontmatter
+1. [x] Write `## Overview` / purpose framing referencing IKP-Labs's actual consumer context
+2. [x] Write `## Document Structure` section specifying the two-key YAML frontmatter
        (`description`, `when_to_use`, colon-quoted) plus the seven canonical H2 sections (Goal
        and Termination, Inputs, Outputs, Steps, Termination Criteria, Example Usage, Related
        Workflows) under the H1 — per Adaptation Decision 1 (Fork 1 resolution), matching OSE's
        frontmatter convention verbatim
-3. [ ] Write `## Execution Patterns` — Sequential pattern illustrated with
+3. [x] Write `## Execution Patterns` — Sequential pattern illustrated with
        `pr-review-quality-gate.md`'s actual maker→fixer→CI-gate loop; Parallel/Conditional/Mixed
        described in the abstract and explicitly labeled "no IKP-Labs example yet"
-4. [ ] Write `## Standard Parameters` — cycle/iteration-count pattern (default + hard ceiling,
+4. [x] Write `## Standard Parameters` — cycle/iteration-count pattern (default + hard ceiling,
        grounded in the real example's `N = 3`), with `dry-run`/`verbose` noted as optional,
        not-yet-exercised parameters a workflow MAY document — no `max-concurrency`/N+1 model
-5. [ ] Write `## Common Mistakes` — 5 items per the mapping table (items 1–4 kept verbatim, now
+5. [x] Write `## Common Mistakes` — 5 items per the mapping table (items 1–4 kept verbatim, now
        that frontmatter is in active use per Adaptation Decision 1 — including the YAML
        colon-quoting rule; item 5 replaced with the "missing iteration ceiling" risk, grounded
        in `pr-review-quality-gate.md`'s own hard-ceiling language)
-6. [ ] Write `## Workflow File Naming` — `[workflow-name].md`, plain-named, no numbered prefix
-7. [ ] Write `## Quality Checklist` — adapted bullets per the mapping table, no frontmatter bullet
-8. [ ] Write `## Example Usage` — quotes/summarizes `pr-review-quality-gate.md`'s retrofitted
+6. [x] Write `## Workflow File Naming` — `[workflow-name].md`, plain-named, no numbered prefix
+7. [x] Write `## Quality Checklist` — adapted bullets per the mapping table, no frontmatter bullet
+8. [x] Write `## Example Usage` — quotes/summarizes `pr-review-quality-gate.md`'s retrofitted
        Example Usage section (forward-reference; this section will be finalized once PR2 lands —
-       mark with a one-line note if PR2 hasn't merged yet when PR1 is authored)
-9. [ ] Write `## Related Skills` footer linking `repo-applying-maker-checker-fixer`,
+       mark with a one-line note if PR2 hasn't merged yet when PR1 is authored) — PR2 has not
+       merged yet at PR1 authoring time, so the forward-reference note was kept
+9. [x] Write `## Related Skills` footer linking `repo-applying-maker-checker-fixer`,
        `plan-writing-gherkin-criteria`, and `repo-understanding-repository-architecture`
 
 **Acceptance Criteria**:
 
-- [✅] `grep -iE "rhino|n\+1|repo-governance" .claude/skills/repo-defining-multi-agent-workflows/SKILL.md` returns no matches
-- [✅] `grep -c "pr-review-quality-gate" .claude/skills/repo-defining-multi-agent-workflows/SKILL.md` is ≥ 1 (the only example used)
-- [✅] `grep -iE "workflow tool|pipeline\(\)|parallel\(\)" .claude/skills/repo-defining-multi-agent-workflows/SKILL.md` returns no matches (no fabricated tool)
+- [x] `grep -iE "rhino|n\+1|repo-governance" .claude/skills/repo-defining-multi-agent-workflows/SKILL.md` returns no matches
+- [x] `grep -c "pr-review-quality-gate" .claude/skills/repo-defining-multi-agent-workflows/SKILL.md` is ≥ 1 (the only example used) — actual count: 8
+- [x] `grep -iE "workflow tool|pipeline\(\)|parallel\(\)" .claude/skills/repo-defining-multi-agent-workflows/SKILL.md` returns no matches (no fabricated tool)
 
 ---
 
@@ -91,12 +92,12 @@ adaptation from `technical-design.md`'s mapping table.
 
 **Steps**:
 
-1. [ ] `npm run lint:md` — fix all errors before committing
-2. [ ] Manually re-read the file once end-to-end for internal contradictions
+1. [x] `npm run lint:md` — fix all errors before committing
+2. [x] Manually re-read the file once end-to-end for internal contradictions
 
 **Acceptance Criteria**:
 
-- [✅] `npm run lint:md` exits 0 with no errors attributable to the new file
+- [x] `npm run lint:md` exits 0 with no errors attributable to the new file
 
 ---
 
@@ -104,13 +105,15 @@ adaptation from `technical-design.md`'s mapping table.
 
 **Steps**:
 
-1. [ ] `git checkout -b docs/repo-defining-multi-agent-workflows-skill`
-2. [ ] `git add .claude/skills/repo-defining-multi-agent-workflows/SKILL.md`
-3. [ ] **COMMIT 1**: `docs(skills): add repo-defining-multi-agent-workflows skill`
-4. [ ] `git push -u origin docs/repo-defining-multi-agent-workflows-skill`
-5. [ ] `gh pr create` — Summary + Test Plan per the PR template
-6. [ ] Run the PR-Review Maker→Fixer cycle (`governance/workflows/pr/pr-review-quality-gate.md`)
-       — 3 cycles, 0 CRITICAL/HIGH outstanding
+1. [x] `git checkout -b docs/repo-defining-multi-agent-workflows-skill`
+2. [x] `git add .claude/skills/repo-defining-multi-agent-workflows/SKILL.md` (needed `-f`:
+       `.claude/` is gitignored at the directory level despite being tracked content)
+3. [x] **COMMIT 1**: `docs(skills): add repo-defining-multi-agent-workflows skill`
+4. [x] `git push -u origin docs/repo-defining-multi-agent-workflows-skill`
+5. [x] `gh pr create` — Summary + Test Plan per the PR template — opened as PR #322
+6. [x] Run the PR-Review Maker→Fixer cycle (`governance/workflows/pr/pr-review-quality-gate.md`)
+       — 3 cycles, 0 CRITICAL/HIGH outstanding — all 3 cycles complete as of this commit (this is
+       cycle 3, the final cycle)
 7. [ ] Confirm CI green, then `gh pr merge --squash --auto`
 8. [ ] `git checkout main && git pull origin main`
 
@@ -288,7 +291,7 @@ bookkeeping) is delayed. To resume: start Task 3.1.
 **Steps**:
 
 1. [ ] Re-read `.claude/skills/repo-defining-multi-agent-workflows/SKILL.md`'s `## Example
-   Usage` section written in Task 1.2 step 8
+Usage` section written in Task 1.2 step 8
 2. [ ] If it was left as a forward-reference note, update it now to quote/summarize the
        actually-merged retrofitted section from PR2
 3. [ ] If this requires a file change, fold it into this PR's commit (Task 3.3) rather than
@@ -402,11 +405,13 @@ Safe to stop here — this plan is fully delivered.
 
 ## Progress Tracking
 
-| Phase         | Tasks Completed | Tasks Total | Status          |
-| ------------- | --------------- | ----------- | --------------- |
-| Pre-Flight    | 0               | 2           | [ ] Not Started |
-| Phase 1 (PR1) | 0               | 4           | [ ] Not Started |
-| Phase 2 (PR2) | 0               | 6           | [ ] Not Started |
-| Phase 3 (PR3) | 0               | 3           | [ ] Not Started |
+| Phase         | Tasks Completed | Tasks Total | Status           |
+| ------------- | --------------- | ----------- | ---------------- |
+| Pre-Flight    | 2               | 2           | [✅] Complete    |
+| Phase 1 (PR1) | 3               | 4           | [🔄] In Progress |
+| Phase 2 (PR2) | 0               | 6           | [ ] Not Started  |
+| Phase 3 (PR3) | 0               | 3           | [ ] Not Started  |
 
-**Last Updated**: October 16, 2026 (plan created, no implementation started)
+**Last Updated**: October 18, 2026 (Pre-Flight resolved; PR1 — Tasks 1.1-1.3 complete, Task 1.4
+in progress: PR #322 open, PR-Review Maker→Fixer cycle complete at cycle 3 of 3 with 0
+CRITICAL/HIGH outstanding, awaiting CI-green confirmation and merge per steps 7-8)
