@@ -27,7 +27,7 @@ before implementation. Nothing further to confirm before Phase 1 begins:
 
 ---
 
-## Phase 1 (PR1): Create the New Skill — ✅ Done
+## Phase 1 (PR1): Create the New Skill — 🔄 In Progress (PR1 open, not yet merged)
 
 ### Task 1.1: Scaffold the Skill Directory and Header (15 min)
 
