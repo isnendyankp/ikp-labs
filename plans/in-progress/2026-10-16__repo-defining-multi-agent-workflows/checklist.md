@@ -111,8 +111,9 @@ adaptation from `technical-design.md`'s mapping table.
 3. [x] **COMMIT 1**: `docs(skills): add repo-defining-multi-agent-workflows skill`
 4. [x] `git push -u origin docs/repo-defining-multi-agent-workflows-skill`
 5. [x] `gh pr create` — Summary + Test Plan per the PR template — opened as PR #322
-6. [🔄] Run the PR-Review Maker→Fixer cycle (`governance/workflows/pr/pr-review-quality-gate.md`)
-   — 3 cycles, 0 CRITICAL/HIGH outstanding — cycle 1 of 3 actively running as of this commit
+6. [x] Run the PR-Review Maker→Fixer cycle (`governance/workflows/pr/pr-review-quality-gate.md`)
+       — 3 cycles, 0 CRITICAL/HIGH outstanding — all 3 cycles complete as of this commit (this is
+       cycle 3, the final cycle)
 7. [ ] Confirm CI green, then `gh pr merge --squash --auto`
 8. [ ] `git checkout main && git pull origin main`
 
@@ -404,11 +405,13 @@ Safe to stop here — this plan is fully delivered.
 
 ## Progress Tracking
 
-| Phase         | Tasks Completed | Tasks Total | Status          |
-| ------------- | --------------- | ----------- | --------------- |
-| Pre-Flight    | 0               | 2           | [ ] Not Started |
-| Phase 1 (PR1) | 0               | 4           | [ ] Not Started |
-| Phase 2 (PR2) | 0               | 6           | [ ] Not Started |
-| Phase 3 (PR3) | 0               | 3           | [ ] Not Started |
+| Phase         | Tasks Completed | Tasks Total | Status           |
+| ------------- | --------------- | ----------- | ---------------- |
+| Pre-Flight    | 2               | 2           | [✅] Complete    |
+| Phase 1 (PR1) | 3               | 4           | [🔄] In Progress |
+| Phase 2 (PR2) | 0               | 6           | [ ] Not Started  |
+| Phase 3 (PR3) | 0               | 3           | [ ] Not Started  |
 
-**Last Updated**: October 16, 2026 (plan created, no implementation started)
+**Last Updated**: October 18, 2026 (Pre-Flight resolved; PR1 — Tasks 1.1-1.3 complete, Task 1.4
+in progress: PR #322 open, PR-Review Maker→Fixer cycle complete at cycle 3 of 3 with 0
+CRITICAL/HIGH outstanding, awaiting CI-green confirmation and merge per steps 7-8)
