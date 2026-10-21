@@ -144,7 +144,7 @@ resume: start Task 2.1.
 
 ---
 
-## Phase 2 (PR2): Retrofit `pr-review-quality-gate.md` + Fix `governance/workflows/README.md`
+## Phase 2 (PR2): Retrofit `pr-review-quality-gate.md` + Fix `governance/workflows/README.md` — ✅ Done (PR #324)
 
 ### Task 2.1: Map Old Sections to the Canonical Set (20 min)
 
@@ -255,17 +255,19 @@ resume: start Task 2.1.
 
 **Steps**:
 
-1. [ ] `git checkout -b docs/retrofit-pr-review-quality-gate`
-2. [ ] `git add governance/workflows/pr/pr-review-quality-gate.md governance/workflows/README.md`
-       (and `.claude/agents/pr-review-fixer.md` only if its link needed updating)
-3. [ ] **COMMIT 2**: `docs(governance): retrofit pr-review-quality-gate to multi-agent workflow standard`
-4. [ ] `git push -u origin docs/retrofit-pr-review-quality-gate`
-5. [ ] `gh pr create` — Summary + Test Plan
-6. [ ] Run the PR-Review Maker→Fixer cycle against **this very PR** (the workflow document
-       describing the cycle is itself gated by the cycle it describes) — 3 cycles, 0
-       CRITICAL/HIGH outstanding
-7. [ ] Confirm CI green, then `gh pr merge --squash --auto`
-8. [ ] `git checkout main && git pull origin main`
+1. [x] `git checkout -b docs/retrofit-pr-review-quality-gate`
+2. [x] `git add governance/workflows/pr/pr-review-quality-gate.md governance/workflows/README.md`
+       (`.claude/agents/pr-review-fixer.md` did not need updating — anchor preserved verbatim)
+3. [x] **COMMIT 2**: `docs(governance): retrofit pr-review-quality-gate to workflow standard`
+       (shortened from the planned message — original was 82 chars, over the 72-char
+       commitlint limit)
+4. [x] `git push -u origin docs/retrofit-pr-review-quality-gate`
+5. [x] `gh pr create` — opened as PR #324
+6. [x] Run the PR-Review Maker→Fixer cycle against **this very PR** — 3 cycles ran, 0
+       findings in any cycle (0 CRITICAL/HIGH outstanding — the cleanest possible outcome,
+       since the retrofit itself was reviewed by the exact cycle it documents)
+7. [x] Confirm CI green, then `gh pr merge --squash --auto` — merged 2026-10-21
+8. [x] `git checkout main && git pull origin main`
 
 **Dependencies**:
 
@@ -274,18 +276,23 @@ resume: start Task 2.1.
   Task 1.2 step 8, should be finalized/confirmed against the now-merged retrofit — a small
   follow-up edit to the Phase 1 skill file, included as Task 3.0 below if needed)
 
+**Review cycle actuals**: 3 cycles ran (`pr-review-maker`→`pr-review-fixer`), 0 findings in
+any cycle, 0 review threads ever created — both agents independently re-verified content
+preservation, anchor integrity, YAML validity, and scope on every cycle rather than
+rubber-stamping after cycle 1's clean result.
+
 ---
 
 ### Phase 2 Gate
 
 > All checks below must pass before starting Phase 3.
 
-- [ ] `governance/workflows/pr/pr-review-quality-gate.md` on `main` matches the canonical
+- [x] `governance/workflows/pr/pr-review-quality-gate.md` on `main` matches the canonical
       section set
-- [ ] `governance/workflows/README.md` on `main` no longer contains "Placeholder"
-- [ ] `grep -n "loop-exit-and-escalation-rules" .claude/agents/pr-review-fixer.md` still resolves
+- [x] `governance/workflows/README.md` on `main` no longer contains "Placeholder"
+- [x] `grep -n "loop-exit-and-escalation-rules" .claude/agents/pr-review-fixer.md` still resolves
       to a real heading in the retrofitted file
-- [ ] PR2 merged, branch deleted, CI green on `main`
+- [x] PR2 merged, branch deleted, CI green on `main`
 
 Safe to stop here — the proof-of-concept retrofit is live and correct even if Phase 3 (DEFER
 bookkeeping) is delayed. To resume: start Task 3.1.
