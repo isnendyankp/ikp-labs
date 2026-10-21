@@ -153,16 +153,16 @@ resume: start Task 2.1.
 
 **Steps**:
 
-1. [ ] Read the current full file: `governance/workflows/pr/pr-review-quality-gate.md`
-2. [ ] Draft the new heading skeleton: a two-key YAML frontmatter block (`description`,
+1. [x] Read the current full file: `governance/workflows/pr/pr-review-quality-gate.md`
+2. [x] Draft the new heading skeleton: a two-key YAML frontmatter block (`description`,
        `when_to_use` — colon-quoted), then the H1, then the 7 canonical H2s, then a
        `## Supplementary` group for `GitHub Reviews API Mechanics` / `Applicability` / `Notes`
-3. [ ] Confirm the `### Loop-Exit and Escalation Rules` sub-heading is retained nested under
+3. [x] Confirm the `### Loop-Exit and Escalation Rules` sub-heading is retained nested under
        `## Termination Criteria` (anchor preservation — see Task 2.3)
 
 **Acceptance Criteria**:
 
-- [✅] A heading skeleton exists (even empty) matching the canonical set before any prose is moved
+- [x] A heading skeleton exists (even empty) matching the canonical set before any prose is moved
 
 ---
 
@@ -170,34 +170,36 @@ resume: start Task 2.1.
 
 **Steps**:
 
-1. [ ] Fill the frontmatter: `description` from a compressed one-line version of old
+1. [x] Fill the frontmatter: `description` from a compressed one-line version of old
        `## Purpose`; `when_to_use` from a compressed one-line version of old `## When to Use`
        — quote both values (the description in particular contains a colon, e.g.
        `"PR-Review Maker→Fixer Cycle: sequential review loop"`, and MUST be quoted)
-2. [ ] Fill `## Goal and Termination` from old `## Purpose` + `## Execution Mode`
-3. [ ] Fill `## Inputs` (new) by consolidating every step's `**Args**` line
-4. [ ] Fill `## Outputs` (new) by consolidating every step's `**Output**` line
-5. [ ] Keep `## Steps` as-is (already canonical; verify no content lost in the move)
-6. [ ] Fill `## Termination Criteria` from old `## Done-Definition` +
+2. [x] Fill `## Goal and Termination` from old `## Purpose` + `## Execution Mode`
+3. [x] Fill `## Inputs` (new) by consolidating every step's `**Args**` line — also folded in
+       the old `## Participants` section's two agent descriptions (not explicitly mapped in
+       the technical-design.md table, but real content that needed a home — Inputs fits since
+       participant agents are a fixed input to the loop)
+4. [x] Fill `## Outputs` (new) by consolidating every step's `**Output**` line
+5. [x] Keep `## Steps` as-is (already canonical; verify no content lost in the move)
+6. [x] Fill `## Termination Criteria` from old `## Done-Definition` +
        `## Loop-Exit and Escalation Rules` (kept as a nested `###` sub-heading per Task 2.3)
-7. [ ] Fill `## Example Usage` by promoting the old `## Loop Algorithm` pseudocode + mermaid
+7. [x] Fill `## Example Usage` by promoting the old `## Loop Algorithm` pseudocode + mermaid
        sequence diagram verbatim
-8. [ ] Keep `## Related Workflows` as-is
-9. [ ] Move `## GitHub Reviews API Mechanics`, `## Applicability`, `## Notes` into a trailing
+8. [x] Keep `## Related Workflows` as-is
+9. [x] Move `## GitHub Reviews API Mechanics`, `## Applicability`, `## Notes` into a trailing
        `## Supplementary` group with a one-line note explaining why they're additional
 
 **Acceptance Criteria**:
 
-- [✅] Diff the retrofitted file against the pre-retrofit version for prose content (not
-  headings) — every sentence of normative behavior (cycle default, hard ceiling,
-  `COMMENT`-state limitation, escalation rules, AI-attribution footer requirement) is still
-  present somewhere in the new file
-- [✅] No new normative behavior is introduced that wasn't in the original
-- [✅] The frontmatter block parses as valid YAML (spot-check with a one-line parse, e.g.
-  `python3 -c "import yaml,sys; yaml.safe_load(open('governance/workflows/pr/pr-review-quality-gate.md').read().split('---')[1])"`
-  or equivalent) — `markdownlint` does not itself validate frontmatter YAML syntax, so this
-  is a separate check
-- [✅] Both `description` and `when_to_use` frontmatter values are quoted if they contain a colon
+- [x] Diff the retrofitted file against the pre-retrofit version for prose content (not
+      headings) — every sentence of normative behavior (cycle default, hard ceiling,
+      `COMMENT`-state limitation, escalation rules, AI-attribution footer requirement) is still
+      present somewhere in the new file — spot-checked via grep count comparison on 9 key phrases,
+      all preserved or increased, zero decreased
+- [x] No new normative behavior is introduced that wasn't in the original
+- [x] The frontmatter block parses as valid YAML (spot-checked via Node `js-yaml`, since
+      `pyyaml` was not installed in this environment) — parses cleanly, both keys present
+- [x] Both `description` and `when_to_use` frontmatter values are quoted if they contain a colon
 
 ---
 
@@ -205,20 +207,19 @@ resume: start Task 2.1.
 
 **Steps**:
 
-1. [ ] `grep -n "loop-exit-and-escalation-rules" .claude/agents/pr-review-fixer.md` — confirm
+1. [x] `grep -n "loop-exit-and-escalation-rules" .claude/agents/pr-review-fixer.md` — confirmed
        line 185's link target
-2. [ ] Verify the retrofitted file still has a heading that generates the
+2. [x] Verify the retrofitted file still has a heading that generates the
        `#loop-exit-and-escalation-rules` anchor (i.e., `### Loop-Exit and Escalation Rules`
-       verbatim, nested under `## Termination Criteria`)
-3. [ ] If the heading text had to change for any reason, update
-       `.claude/agents/pr-review-fixer.md:185`'s link target in this same PR instead
+       verbatim, nested under `## Termination Criteria`) — confirmed at line 150, nested under
+       `## Termination Criteria` (line 108), before the next `##` (Example Usage, line 169)
+3. [x] Heading text did not need to change — `pr-review-fixer.md` was not touched
 
 **Acceptance Criteria**:
 
-- [✅] The anchor resolves: open the rendered file (or verify via a markdown anchor-checker) and
-  confirm `#loop-exit-and-escalation-rules` lands on the correct heading
-- [✅] `git diff` shows either zero changes to `pr-review-fixer.md`, or an intentional,
-  documented one-line link-target update
+- [x] The anchor resolves: confirmed `### Loop-Exit and Escalation Rules` lands correctly
+      nested under `## Termination Criteria`
+- [x] `git diff` shows zero changes to `pr-review-fixer.md`
 
 ---
 
@@ -226,14 +227,14 @@ resume: start Task 2.1.
 
 **Steps**:
 
-1. [ ] Replace the `> Placeholder...` line with the target content from `technical-design.md`
+1. [x] Replace the `> Placeholder...` line with the target content from `technical-design.md`
        Component 3 (adds a "Current Workflows" table listing `pr/pr-review-quality-gate.md` and
        references the new skill)
 
 **Acceptance Criteria**:
 
-- [✅] `grep -i placeholder governance/workflows/README.md` returns no matches
-- [✅] File references `repo-defining-multi-agent-workflows`
+- [x] `grep -i placeholder governance/workflows/README.md` returns no matches
+- [x] File references `repo-defining-multi-agent-workflows`
 
 ---
 
@@ -241,12 +242,12 @@ resume: start Task 2.1.
 
 **Steps**:
 
-1. [ ] `npm run lint:md` on both changed files
-2. [ ] Re-read the full retrofitted `pr-review-quality-gate.md` end-to-end for coherence
+1. [x] `npm run lint:md` on both changed files
+2. [x] Re-read the full retrofitted `pr-review-quality-gate.md` end-to-end for coherence
 
 **Acceptance Criteria**:
 
-- [✅] `npm run lint:md` exits 0 for both files
+- [x] `npm run lint:md` exits 0 for both files
 
 ---
 
