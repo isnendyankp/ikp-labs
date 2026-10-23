@@ -305,17 +305,18 @@ bookkeeping) is delayed. To resume: start Task 3.1.
 
 **Steps**:
 
-1. [ ] Re-read `.claude/skills/repo-defining-multi-agent-workflows/SKILL.md`'s `## Example
+1. [x] Re-read `.claude/skills/repo-defining-multi-agent-workflows/SKILL.md`'s `## Example
 Usage` section written in Task 1.2 step 8
-2. [ ] If it was left as a forward-reference note, update it now to quote/summarize the
+2. [x] If it was left as a forward-reference note, update it now to quote/summarize the
        actually-merged retrofitted section from PR2
-3. [ ] If this requires a file change, fold it into this PR's commit (Task 3.3) rather than
-       opening a fourth PR for one paragraph
+3. [x] This required a file change, folded into this PR's commit (Task 3.3) rather than
+       opening a fourth PR for one paragraph — also fixed a stale `Done-Definition` reference
+       in Mistake 4 (the retrofit renamed that section to `Termination Criteria`)
 
 **Acceptance Criteria**:
 
-- [✅] The skill's Example Usage section no longer says "will be finalized once PR2 lands" (or
-  equivalent) — it reflects the real, merged retrofit
+- [x] The skill's Example Usage section no longer says "will be finalized once PR2 lands" (or
+      equivalent) — it reflects the real, merged retrofit
 
 ---
 
@@ -323,14 +324,17 @@ Usage` section written in Task 1.2 step 8
 
 **Steps**:
 
-1. [ ] Open `.claude/skills/repo-syncing-with-ose-primer/SKILL.md`
-2. [ ] Delete the `repo-defining-workflows` row from the "Deferred — Needs Product Decision" table
+1. [x] Open `.claude/skills/repo-syncing-with-ose-primer/SKILL.md`
+2. [x] Delete the `repo-defining-workflows` row from the "Deferred — Needs Product Decision"
+       table — left the header row + an empty-table note ("No items currently deferred"),
+       per Component 4's "if this is the only remaining row" guidance. Deliberately did NOT
+       add a resolution note naming the old item by name here, since that would reintroduce
+       the very string this check requires to be zero
 
 **Acceptance Criteria**:
 
-- [✅] `grep -c "repo-defining-workflows" .claude/skills/repo-syncing-with-ose-primer/SKILL.md`
-  drops to zero (the file no longer references the old DEFER item at all, since the
-  colliding skill name itself is never mentioned elsewhere in this file)
+- [x] `grep -c "repo-defining-workflows" .claude/skills/repo-syncing-with-ose-primer/SKILL.md`
+      drops to zero — confirmed immediately after this task's edit
 
 ---
 
@@ -338,13 +342,20 @@ Usage` section written in Task 1.2 step 8
 
 **Steps**:
 
-1. [ ] Change `| Skills | 30 | ... |` to
-       `| Skills | 31 | 2026-10-16 (added repo-defining-multi-agent-workflows, resolving the Round 5 repo-defining-workflows DEFER item) |`
-2. [ ] Change `**Last Updated**: 2026-10-06` to `**Last Updated**: 2026-10-16`
+1. [x] Change `| Skills | 30 | ... |` to `| Skills | 31 | ... |` — **deviated from the
+       planned exact wording**: the plan's own literal target text
+       (`resolving the Round 5 repo-defining-workflows DEFER item`) reintroduces the string
+       Task 3.1's acceptance criterion and the Phase 3 Gate both require to be zero on `main`
+       — a real contradiction between this task's literal instruction and the Phase 3 Gate.
+       Resolved in the Gate's favor (the authoritative final bar): reworded to
+       "resolving the Round 5 workflow-authoring DEFER item" — same informational content,
+       zero occurrences of the colliding name
+2. [x] Change `**Last Updated**: 2026-10-06` to `**Last Updated**: 2026-10-16`
 
 **Acceptance Criteria**:
 
-- [✅] Both edits present; `Agents` and `Hooks` rows unchanged
+- [x] Both edits present; `Agents` and `Hooks` rows unchanged — confirmed via grep, both
+      still read `53`/`2026-10-06` and `5`/`2026-10-06` respectively
 
 ---
 
@@ -423,10 +434,11 @@ Safe to stop here — this plan is fully delivered.
 | Phase         | Tasks Completed | Tasks Total | Status           |
 | ------------- | --------------- | ----------- | ---------------- |
 | Pre-Flight    | 2               | 2           | [✅] Complete    |
-| Phase 1 (PR1) | 3               | 4           | [🔄] In Progress |
-| Phase 2 (PR2) | 0               | 6           | [ ] Not Started  |
-| Phase 3 (PR3) | 0               | 3           | [ ] Not Started  |
+| Phase 1 (PR1) | 4               | 4           | [✅] Complete    |
+| Phase 2 (PR2) | 6               | 6           | [✅] Complete    |
+| Phase 3 (PR3) | 2               | 3           | [🔄] In Progress |
 
-**Last Updated**: October 18, 2026 (Pre-Flight resolved; PR1 — Tasks 1.1-1.3 complete, Task 1.4
-in progress: PR #322 open, PR-Review Maker→Fixer cycle complete at cycle 3 of 3 with 0
-CRITICAL/HIGH outstanding, awaiting CI-green confirmation and merge per steps 7-8)
+**Last Updated**: October 23, 2026 (Pre-Flight, Phase 1, and Phase 2 complete — PR #322 and
+PR #324 merged; Phase 3 — Tasks 3.0-3.2 complete, Task 3.3 in progress: PR #326 open, PR-Review
+Maker→Fixer cycle complete at cycle 3 of 3 with 0 CRITICAL/HIGH outstanding, awaiting CI-green
+confirmation and merge per steps 7-8)
