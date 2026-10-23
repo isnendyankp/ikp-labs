@@ -434,10 +434,11 @@ Safe to stop here — this plan is fully delivered.
 | Phase         | Tasks Completed | Tasks Total | Status           |
 | ------------- | --------------- | ----------- | ---------------- |
 | Pre-Flight    | 2               | 2           | [✅] Complete    |
-| Phase 1 (PR1) | 3               | 4           | [🔄] In Progress |
-| Phase 2 (PR2) | 0               | 6           | [ ] Not Started  |
-| Phase 3 (PR3) | 0               | 3           | [ ] Not Started  |
+| Phase 1 (PR1) | 4               | 4           | [✅] Complete    |
+| Phase 2 (PR2) | 6               | 6           | [✅] Complete    |
+| Phase 3 (PR3) | 2               | 3           | [🔄] In Progress |
 
-**Last Updated**: October 18, 2026 (Pre-Flight resolved; PR1 — Tasks 1.1-1.3 complete, Task 1.4
-in progress: PR #322 open, PR-Review Maker→Fixer cycle complete at cycle 3 of 3 with 0
-CRITICAL/HIGH outstanding, awaiting CI-green confirmation and merge per steps 7-8)
+**Last Updated**: October 23, 2026 (Pre-Flight, Phase 1, and Phase 2 complete — PR #322 and
+PR #324 merged; Phase 3 — Tasks 3.0-3.2 complete, Task 3.3 in progress: PR #326 open, PR-Review
+Maker→Fixer cycle complete at cycle 3 of 3 with 0 CRITICAL/HIGH outstanding, awaiting CI-green
+confirmation and merge per steps 7-8)
