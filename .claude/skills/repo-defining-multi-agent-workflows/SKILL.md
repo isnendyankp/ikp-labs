@@ -138,8 +138,8 @@ own `Steps` section names a `Depends on` field per step for exactly this reason.
 
 **Wrong**: A workflow document with no way to tell when it's actually done.
 **Right**: A `Termination Criteria` section with enumerated, independently-verifiable conditions
-— see `pr-review-quality-gate.md`'s `Done-Definition` section for the standard this repo holds
-itself to.
+— see `pr-review-quality-gate.md`'s `Termination Criteria` section for the standard this repo
+holds itself to.
 
 ### ❌ Mistake 5: Missing iteration ceiling
 
@@ -178,9 +178,12 @@ Before publishing a workflow document:
 
 ## Example Usage
 
-`governance/workflows/pr/pr-review-quality-gate.md` is this standard's worked example. *This
-section will be finalized with a direct quote/summary of that document's own `Example Usage`
-section once its retrofit (a separate, in-progress PR) merges.*
+`governance/workflows/pr/pr-review-quality-gate.md` is this standard's worked example — its own
+retrofit (PR #324 of the plan that created this skill) has merged, so its `## Example Usage`
+section is live. That section promotes the loop's pseudocode and a mermaid sequence diagram
+showing `pr-review-maker` → GitHub Reviews API → `pr-review-fixer` → CI, repeated for a fixed
+cycle count. Read that document's `## Example Usage` section directly rather than duplicating it
+here — this skill's job is to define the standard, not maintain a second copy of the example.
 
 ---
 
