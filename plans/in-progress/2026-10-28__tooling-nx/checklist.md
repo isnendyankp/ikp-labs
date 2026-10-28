@@ -2,47 +2,54 @@
 
 ---
 
-## Phase 0 — Pre-flight (no PR)
+## Phase 0 — Pre-flight (no PR) — ✅ Done
 
-- [ ] Confirm `.claude/skills/tooling-nx/` does not exist (`ls .claude/skills/ | grep tooling-nx`
+- [x] Confirm `.claude/skills/tooling-nx/` does not exist (`ls .claude/skills/ | grep tooling-nx`
       returns nothing) — re-verify immediately before starting PR1, since time may have passed
-      since this plan was written.
-- [ ] Confirm current real skill-directory count is still 31 via
+      since this plan was written. Confirmed: no match.
+- [x] Confirm current real skill-directory count is still 31 via
       `ls .claude/skills/ | grep -v README | wc -l` — re-verify before PR2's count edits, in case
-      another plan added or removed a skill in the meantime.
+      another plan added or removed a skill in the meantime. Confirmed: 31.
 
 ---
 
-## PR1 — Create `.claude/skills/tooling-nx/SKILL.md`
+## PR1 — Create `.claude/skills/tooling-nx/SKILL.md` — ✅ Done
 
 **Branch**: `docs/tooling-nx-skill`
 
-- [ ] Create `.claude/skills/tooling-nx/SKILL.md` with the exact content drafted in
+- [x] Create `.claude/skills/tooling-nx/SKILL.md` with the exact content drafted in
       `technical-design.md`'s "Full Drafted Skill Content" section.
-- [ ] Verify every internal link in the new file resolves:
-  - [ ] `../../agents/ci-checker.md` (and its `#nx-conformance-checks-projectjson` anchor)
-  - [ ] `../test-coverage-rules/SKILL.md`
-  - [ ] `../repo-understanding-repository-architecture/SKILL.md` (if referenced — confirm path
-        matches actual directory name)
-- [ ] Verify every file path and project name cited in the new skill is real:
-  - [ ] `apps/kameravue-fe/project.json` (`build`'s implicit `dependsOn: ["^build"]` from
-        `nx.json` targetDefaults)
-  - [ ] `apps/kameravue-fe-e2e/project.json` (`implicitDependencies`, `scope:kameravue` tag gap)
-  - [ ] `apps/taskly-be-e2e/project.json` (`implicitDependencies: ["taskly-be"]`)
-  - [ ] `apps/kameravue-be/project.json` (missing `lint` target)
-  - [ ] `apps/taskly-be/project.json` (missing `test` target, confirmed safe-to-add per
-        `ci-fixer.md`)
-  - [ ] `nx.json` (`cacheableOperations`, `targetDefaults.dev/serve.cache: false`,
-        `targetDefaults.test.outputs`, `namedInputs`)
-  - [ ] `.github/workflows/kameravue-ci.yml` and `kameravue-scheduled-e2e.yml` (confirm, at time of
-        writing, still no `nx affected` usage — if this has changed, update the skill's wording
-        before merging)
-- [ ] Confirm the file follows the plain-markdown skill header convention (no YAML frontmatter) —
-      compare against `.claude/skills/ci-standards/SKILL.md`'s structure.
-- [ ] Run `npm run lint:md` and fix all markdown violations.
-- [ ] Commit: `docs(skills): add tooling-nx skill for day-to-day Nx workspace work`.
-- [ ] Push branch, open PR, confirm CI passes, merge `--squash --delete-branch` (or per this
-      repo's actual merge convention), pull `main`.
+- [x] Verify every internal link in the new file resolves:
+  - [x] `../../agents/ci-checker.md` (and its `#nx-conformance-checks-projectjson` anchor) —
+        confirmed heading `## Nx Conformance Checks (project.json)` exists at line 117, GFM
+        anchor matches
+  - [x] `../test-coverage-rules/SKILL.md` — confirmed exists
+  - [x] `../repo-understanding-repository-architecture/SKILL.md` — confirmed directory exists
+- [x] Verify every file path and project name cited in the new skill is real:
+  - [x] `apps/kameravue-fe/project.json` (`build`'s implicit `dependsOn: ["^build"]` from
+        `nx.json` targetDefaults) — confirmed via `python3 -c "import json..."` parse of `nx.json`
+  - [x] `apps/kameravue-fe-e2e/project.json` (`implicitDependencies`, `scope:kameravue` tag gap)
+        — confirmed: `["kameravue-fe", "kameravue-be"]`, tags include `scope:kameravue` not
+        `domain:kameravue`, no `lang:` tag
+  - [x] `apps/taskly-be-e2e/project.json` (`implicitDependencies: ["taskly-be"]`) — confirmed
+  - [x] `apps/kameravue-be/project.json` (missing `lint` target) — confirmed targets are
+        `['build', 'serve', 'test']`, no `lint`
+  - [x] `apps/taskly-be/project.json` (missing `test` target, confirmed safe-to-add per
+        `ci-fixer.md`) — confirmed targets are `['serve', 'build', 'lint']`, no `test`; `ci-fixer.md`
+        contains the exact `go test ./...` fix snippet
+  - [x] `nx.json` (`cacheableOperations`, `targetDefaults.dev/serve.cache: false`,
+        `targetDefaults.test.outputs`, `namedInputs`) — all confirmed via direct JSON parse
+  - [x] `.github/workflows/kameravue-ci.yml` and `kameravue-scheduled-e2e.yml` — confirmed via
+        `grep -n "nx affected" .github/workflows/*.yml` returning zero matches, still accurate at
+        implementation time
+  - [x] Additionally verified (beyond the checklist's own list): `@nx/eslint-plugin` absent from
+        root `package.json`, `kameravue-fe/eslint.config.mjs` only extends Next.js presets — both
+        claims in the "Answer a Boundary Finding" section confirmed accurate
+- [x] Confirm the file follows the plain-markdown skill header convention (no YAML frontmatter) —
+      compare against `.claude/skills/ci-standards/SKILL.md`'s structure. Confirmed match.
+- [x] Run `npm run lint:md` and fix all markdown violations. 0 errors.
+- [ ] Commit: `docs(skills): add tooling-nx skill for day-to-day nx workspace work`.
+- [ ] Push branch, open PR, confirm CI passes, merge `--squash --delete-branch`, pull `main`.
 
 ---
 
