@@ -117,7 +117,12 @@ done/
 │   ├── requirements.md
 │   ├── technical-design.md
 │   └── checklist.md
-└── 2026-10-08__fix-claude-agents-catalog-doc/
+├── 2026-10-08__fix-claude-agents-catalog-doc/
+│   ├── README.md
+│   ├── requirements.md
+│   ├── technical-design.md
+│   └── checklist.md
+└── 2026-10-28__tooling-nx/
     ├── README.md
     ├── requirements.md
     ├── technical-design.md
@@ -256,8 +261,9 @@ For **permanent** documentation, see:
 
 ## 📊 Quick Stats
 
-**Completed Projects**: 21
+**Completed Projects**: 22
 
+- Tooling: Nx Workspace Work (Oct 28, 2026)
 - Fix Claude Agents Catalog Doc (Oct 15, 2026)
 - Unit Testing (Nov 4, 2024)
 - Profile Picture E2E (Nov 4, 2024)
