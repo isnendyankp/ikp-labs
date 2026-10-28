@@ -135,7 +135,7 @@ Current IKP-Labs harness state (update after each sync round):
 | Area | Count | Last synced |
 |------|-------|-------------|
 | Agents | 53 | 2026-10-06 (Round 5 — content verified across 44 files; count unchanged from Round 4) |
-| Skills | 31 | 2026-10-16 (added `repo-defining-multi-agent-workflows`, resolving the Round 5 workflow-authoring DEFER item) |
+| Skills | 32 | 2026-10-28 (added `tooling-nx`, guidance for day-to-day Nx workspace work — no name collision, no DEFER record) |
 | Hooks | 5 | 2026-10-06 (Round 5 — count verified unchanged from Round 3) |
 
 ---
@@ -177,4 +177,4 @@ No items currently deferred.
 
 ---
 
-**Last Updated**: 2026-10-16
+**Last Updated**: 2026-10-28

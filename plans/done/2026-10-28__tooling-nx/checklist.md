@@ -48,8 +48,9 @@
 - [x] Confirm the file follows the plain-markdown skill header convention (no YAML frontmatter) —
       compare against `.claude/skills/ci-standards/SKILL.md`'s structure. Confirmed match.
 - [x] Run `npm run lint:md` and fix all markdown violations. 0 errors.
-- [ ] Commit: `docs(skills): add tooling-nx skill for day-to-day nx workspace work`.
-- [ ] Push branch, open PR, confirm CI passes, merge `--squash --delete-branch`, pull `main`.
+- [x] Commit: `docs(skills): add tooling-nx skill for day-to-day nx workspace work`.
+- [x] Push branch, open PR (#329), confirm CI passes (7/7 green), merge `--squash --delete-branch`,
+      pull `main`. Merged 2026-10-28.
 
 ---
 
@@ -59,36 +60,41 @@
 
 ### `docs/reference/claude-agents.md`
 
-- [ ] Update line 361 (`The 30 skill directories under`) to `The 32 skill directories under`.
-- [ ] Insert the `repo-defining-multi-agent-workflows` row (alphabetically **after**
+- [x] Update line 361 (`The 30 skill directories under`) to `The 32 skill directories under`.
+- [x] Insert the `repo-defining-multi-agent-workflows` row (alphabetically **after**
       `repo-assessing-criticality-confidence` and **before** `repo-defining-workflows` — `m` < `w`
       at the first differing character, so "multi-agent-workflows" sorts ahead of "workflows";
       do not place it after `repo-defining-workflows`) with "not declared by any agent's
       `permission.skill:`" in its Declared By column.
-- [ ] Insert the `tooling-nx` row (alphabetically after `test-playwright-patterns`, before
+- [x] Insert the `tooling-nx` row (alphabetically after `test-playwright-patterns`, before
       `wow-criticality-assessment`) following the `docs-creating-accessible-diagrams` row's style
       for a zero-agents-declared skill.
-- [ ] Re-count the table's rows manually after editing and confirm it equals 32.
+- [x] Re-count the table's rows manually after editing and confirm it equals 32. Confirmed via
+      `sed -n '359,406p' | grep -c "^|.*\[\`"` = 32.
 
 ### `.claude/skills/repo-syncing-with-ose-primer/SKILL.md`
 
-- [ ] Update the Harness Inventory Reference table's Skills row: count `31` → `32`, with the note
+- [x] Update the Harness Inventory Reference table's Skills row: count `31` → `32`, with the note
       `2026-10-28 (added \`tooling-nx\`, guidance for day-to-day Nx workspace work — no name
       collision, no DEFER record)`.
-- [ ] Update the `**Last Updated**:` footer date to match.
+- [x] Update the `**Last Updated**:` footer date to match.
 
 ### Archive
 
-- [ ] Update this plan's `README.md` status from "🚧 In Progress" to "✅ Completed", add a
+- [x] Update this plan's `README.md` status from "🚧 In Progress" to "✅ Completed", add a
       **Completed** date line.
-- [ ] `git mv plans/in-progress/2026-10-28__tooling-nx plans/done/2026-10-28__tooling-nx`.
-- [ ] Update `plans/README.md`'s index if it lists in-progress/done plans individually (verify
-      whether it does before assuming a change is needed).
+- [x] `git mv plans/in-progress/2026-10-28__tooling-nx plans/done/2026-10-28__tooling-nx`.
+- [x] Update `plans/README.md`'s index if it lists in-progress/done plans individually — it does
+      (a "Done (Archived)" tree + "Completed Projects" count); added this plan's entry (count
+      21→22). Did not backfill the prior plan's own missing entry there — same reasoning as the
+      catalog-doc-fix plan's precedent (that file is independently stale across many prior rounds;
+      out of this plan's scope to fully reconcile).
 
 ### Validation
 
-- [ ] Run `npm run lint:md` and fix all markdown violations across all three changed files.
-- [ ] `grep -c "^|.*\[\`" docs/reference/claude-agents.md` (or manual count) confirms 32 skill rows
+- [x] Run `npm run lint:md` and fix all markdown violations across all three changed files. 0
+      errors attributable to any file this plan touched.
+- [x] `grep -c "^|.*\[\`" docs/reference/claude-agents.md` (or manual count) confirms 32 skill rows
       in the Skills Reference table.
 - [ ] Commit: `docs(plan): backfill claude-agents skills catalog and archive tooling-nx plan`.
 - [ ] Push branch, open PR, confirm CI passes, merge `--squash --delete-branch`, pull `main`.
@@ -97,11 +103,12 @@
 
 ## Quality Gates
 
-- [ ] No file under `.claude/agents/` was modified by either PR.
-- [ ] `AGENTS.md` was not modified by either PR.
-- [ ] No file under `apps/` or `nx.json` was modified by either PR.
-- [ ] Both PRs are `docs`-type commits per this repo's commitlint configuration.
-- [ ] `npm run lint:md` passes with zero errors on every file touched across both PRs.
+- [x] No file under `.claude/agents/` was modified by either PR — confirmed via
+      `git diff`/`git log --name-only` across both PRs' changes.
+- [x] `AGENTS.md` was not modified by either PR — confirmed.
+- [x] No file under `apps/` or `nx.json` was modified by either PR — confirmed.
+- [x] Both PRs are `docs`-type commits per this repo's commitlint configuration.
+- [x] `npm run lint:md` passes with zero errors on every file touched across both PRs.
 
 ---
 
