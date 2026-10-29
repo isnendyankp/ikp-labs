@@ -60,25 +60,26 @@ at every occurrence in `docs/reference/claude-agents.md`.
 
 **Steps**:
 
-1. [ ] Create branch `docs/fix-claude-agents-catalog-stale-path`
-2. [ ] Re-confirm current line numbers:
+1. [x] Create branch `docs/fix-claude-agents-catalog-stale-path`
+2. [x] Re-confirm current line numbers:
        `grep -n "plans/in-progress/2026-10-08__fix-claude-agents-catalog-doc" docs/reference/claude-agents.md`
        (expect 5 matches; re-check exact line numbers in case the file
-       shifted since this plan was written)
-3. [ ] Edit each of the 5 matched occurrences, changing only the
+       shifted since this plan was written) — confirmed same 5 lines (62, 86, 94, 129, 137)
+3. [x] Edit each of the 5 matched occurrences, changing only the
        `plans/in-progress/` segment to `plans/done/` — no other text on
        those lines changes
-4. [ ] **COMMIT**: `docs(reference): fix stale plan path in claude-agents.md`
+4. [x] **COMMIT**: `docs(reference): fix stale plan path in claude-agents.md`
 
 **Acceptance Criteria**:
 
-- [✅] `grep -n "plans/in-progress/2026-10-08__fix-claude-agents-catalog-doc" docs/reference/claude-agents.md`
-  returns zero matches
-- [✅] `grep -c "plans/done/2026-10-08__fix-claude-agents-catalog-doc/requirements.md" docs/reference/claude-agents.md`
-  returns exactly `5`
-- [✅] `test -f plans/done/2026-10-08__fix-claude-agents-catalog-doc/requirements.md`
-  succeeds (confirms the corrected path actually resolves)
-- [✅] No other line in the file changed (diff touches only the 5 identified lines)
+- [x] `grep -n "plans/in-progress/2026-10-08__fix-claude-agents-catalog-doc" docs/reference/claude-agents.md`
+      returns zero matches
+- [x] `grep -c "plans/done/2026-10-08__fix-claude-agents-catalog-doc/requirements.md" docs/reference/claude-agents.md`
+      returns exactly `5`
+- [x] `test -f plans/done/2026-10-08__fix-claude-agents-catalog-doc/requirements.md`
+      succeeds (confirms the corrected path actually resolves)
+- [x] No other line in the file changed (diff touches only the 5 identified lines) — confirmed
+      via `git diff`
 
 **Verification**:
 
