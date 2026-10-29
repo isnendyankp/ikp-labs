@@ -50,7 +50,7 @@ changes yet. To resume: re-run the Phase 0 Gate checks above.
 
 ---
 
-## Phase 1: Fix `docs/reference/claude-agents.md` (PR 1)
+## Phase 1: Fix `docs/reference/claude-agents.md` (PR 1) — ✅ Done (PR #332)
 
 ### Task 1.1: Correct all 5 stale path occurrences
 
@@ -102,19 +102,19 @@ workflow.
 
 **Steps**:
 
-1. [ ] Push branch `docs/fix-claude-agents-catalog-stale-path`
-2. [ ] `gh pr create` with a title/body describing the stale-path fix and
-       linking this plan
-3. [ ] Merge via `gh pr merge --squash --auto` once checks pass
-4. [ ] `git checkout main && git pull origin main`
-5. [ ] Mark Task 1.1 and this task `[✅]` in this checklist and commit the
+1. [x] Push branch `docs/fix-claude-agents-catalog-stale-path`
+2. [x] `gh pr create` with a title/body describing the stale-path fix and
+       linking this plan — opened as PR #332
+3. [x] Merge via `gh pr merge --squash --auto` once checks pass — merged 2026-10-29
+4. [x] `git checkout main && git pull origin main`
+5. [x] Mark Task 1.1 and this task `[x]` in this checklist and commit the
        update
 
 **Acceptance Criteria**:
 
-- [✅] PR merged to `main`
-- [✅] `docs/reference/claude-agents.md` on `main` shows zero remaining
-  occurrences of the stale pattern
+- [x] PR merged to `main`
+- [x] `docs/reference/claude-agents.md` on `main` shows zero remaining
+      occurrences of the stale pattern
 
 **Verification**:
 
@@ -131,8 +131,8 @@ grep -n "plans/in-progress/2026-10-08__fix-claude-agents-catalog-doc" docs/refer
 
 > All checks below must pass before starting Phase 2.
 
-- [ ] PR 1 merged to `main`
-- [ ] `grep -n "plans/in-progress/2026-10-08__fix-claude-agents-catalog-doc" docs/reference/claude-agents.md`
+- [x] PR 1 merged to `main`
+- [x] `grep -n "plans/in-progress/2026-10-08__fix-claude-agents-catalog-doc" docs/reference/claude-agents.md`
       (on `main`) returns zero matches
 
 Safe to stop here — File 1 is fully corrected and merged; File 2 is
@@ -358,13 +358,13 @@ the 2 counted PRs, 1 archival commit)
 
 ## Progress Tracking
 
-**Overall Progress**: 0/8 tasks completed (0%)
+**Overall Progress**: 3/8 tasks completed (38%)
 
-| Phase                                  | Tasks Completed | Tasks Total | Status          |
-| -------------------------------------- | --------------- | ----------- | --------------- |
-| Phase 0: Plan Setup                    | 0               | 1           | [ ] Not Started |
-| Phase 1: Fix claude-agents.md          | 0               | 2           | [ ] Not Started |
-| Phase 2: Fix pr-review-quality-gate.md | 0               | 2           | [ ] Not Started |
-| Phase 3: Verification and Archival     | 0               | 3           | [ ] Not Started |
+| Phase                                  | Tasks Completed | Tasks Total | Status             |
+| -------------------------------------- | --------------- | ----------- | ------------------ |
+| Phase 0: Plan Setup                    | 1               | 1           | [x] Done           |
+| Phase 1: Fix claude-agents.md          | 2               | 2           | [x] Done (PR #332) |
+| Phase 2: Fix pr-review-quality-gate.md | 0               | 2           | [ ] Not Started    |
+| Phase 3: Verification and Archival     | 0               | 3           | [ ] Not Started    |
 
-**Last Updated**: 2026-10-29 (plan created, no implementation started)
+**Last Updated**: 2026-10-29 (PR1 merged — Phase 1 done; Phase 2 not started, PR1-only scope today)
