@@ -59,7 +59,7 @@ inline note explaining the specific mismatch. This is a known, tracked
 inconsistency in `.claude/agents/`, not a documentation error — fixing the
 frontmatter itself is out of scope for the plan that produced this catalog
 rewrite (tracked as a follow-up for `agent-maker`'s domain; see
-`plans/in-progress/2026-10-08__fix-claude-agents-catalog-doc/requirements.md`
+`plans/done/2026-10-08__fix-claude-agents-catalog-doc/requirements.md`
 Non-Scope #1).
 
 ## Agent Families
@@ -83,7 +83,7 @@ still reads `documentation-writer` rather than `docs-maker`, a leftover from
 the 2026-05-19 rename. Invocation by `@docs-maker` is the repo convention
 going forward; this mismatch is tracked for a follow-up `agent-maker` fix,
 out of scope for this plan — see
-`plans/in-progress/2026-10-08__fix-claude-agents-catalog-doc/requirements.md`
+`plans/done/2026-10-08__fix-claude-agents-catalog-doc/requirements.md`
 Non-Scope #1.
 
 ⚠ `docs-checker.md`: Known issue — this agent's frontmatter `name:` field
@@ -91,7 +91,7 @@ still reads `docs-validator` rather than `docs-checker`, a leftover from the
 2026-05-19 rename. Invocation by `@docs-checker` is the repo convention going
 forward; this mismatch is tracked for a follow-up `agent-maker` fix, out of
 scope for this plan — see
-`plans/in-progress/2026-10-08__fix-claude-agents-catalog-doc/requirements.md`
+`plans/done/2026-10-08__fix-claude-agents-catalog-doc/requirements.md`
 Non-Scope #1.
 
 ### 2. Planning (4 agents)
@@ -126,7 +126,7 @@ still reads `gherkin-spec-writer` rather than `specs-maker`, a leftover from
 the 2026-05-19 rename. Invocation by `@specs-maker` is the repo convention
 going forward; this mismatch is tracked for a follow-up `agent-maker` fix,
 out of scope for this plan — see
-`plans/in-progress/2026-10-08__fix-claude-agents-catalog-doc/requirements.md`
+`plans/done/2026-10-08__fix-claude-agents-catalog-doc/requirements.md`
 Non-Scope #1.
 
 ⚠ `test-checker.md`: Known issue — this agent's frontmatter `name:` field
@@ -134,7 +134,7 @@ still reads `test-validator` rather than `test-checker`, a leftover from the
 2026-05-19 rename. Invocation by `@test-checker` is the repo convention going
 forward; this mismatch is tracked for a follow-up `agent-maker` fix, out of
 scope for this plan — see
-`plans/in-progress/2026-10-08__fix-claude-agents-catalog-doc/requirements.md`
+`plans/done/2026-10-08__fix-claude-agents-catalog-doc/requirements.md`
 Non-Scope #1.
 
 ### 4. SWE Language Devs (7 agents)
