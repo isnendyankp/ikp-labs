@@ -141,7 +141,7 @@ Phase 2.
 
 ---
 
-## Phase 2: Fix `governance/workflows/pr/pr-review-quality-gate.md` (PR 2)
+## Phase 2: Fix `governance/workflows/pr/pr-review-quality-gate.md` (PR 2) — ✅ Done (PR #334)
 
 ### Task 2.1: Correct the stale path occurrence
 
@@ -151,24 +151,24 @@ with `plans/done/2026-10-16__repo-defining-multi-agent-workflows/` in
 
 **Steps**:
 
-1. [ ] Create branch `docs/fix-pr-review-quality-gate-stale-path`
-2. [ ] Re-confirm current line number:
+1. [x] Create branch `docs/fix-pr-review-quality-gate-stale-path`
+2. [x] Re-confirm current line number:
        `grep -n "plans/in-progress/2026-10-16__repo-defining-multi-agent-workflows" governance/workflows/pr/pr-review-quality-gate.md`
        (expect 1 match; re-check exact line number in case the file shifted
-       since this plan was written)
-3. [ ] Edit that occurrence, changing only the `plans/in-progress/` segment
+       since this plan was written) — confirmed same line (281)
+3. [x] Edit that occurrence, changing only the `plans/in-progress/` segment
        to `plans/done/` — no other text on that line changes
-4. [ ] **COMMIT**: `docs(governance): fix stale plan path in pr-review-quality-gate.md`
+4. [x] **COMMIT**: `docs(governance): fix stale plan path in pr-review-quality-gate`
 
 **Acceptance Criteria**:
 
-- [✅] `grep -n "plans/in-progress/2026-10-16__repo-defining-multi-agent-workflows" governance/workflows/pr/pr-review-quality-gate.md`
-  returns zero matches
-- [✅] `grep -c "plans/done/2026-10-16__repo-defining-multi-agent-workflows" governance/workflows/pr/pr-review-quality-gate.md`
-  returns exactly `1`
-- [✅] `test -d plans/done/2026-10-16__repo-defining-multi-agent-workflows`
-  succeeds (confirms the corrected path actually resolves)
-- [✅] No other line in the file changed (diff touches only the 1 identified line)
+- [x] `grep -n "plans/in-progress/2026-10-16__repo-defining-multi-agent-workflows" governance/workflows/pr/pr-review-quality-gate.md`
+      returns zero matches
+- [x] `grep -c "plans/done/2026-10-16__repo-defining-multi-agent-workflows" governance/workflows/pr/pr-review-quality-gate.md`
+      returns exactly `1`
+- [x] `test -d plans/done/2026-10-16__repo-defining-multi-agent-workflows`
+      succeeds (confirms the corrected path actually resolves)
+- [x] No other line in the file changed (diff touches only the 1 identified line)
 
 **Verification**:
 
@@ -191,19 +191,19 @@ workflow.
 
 **Steps**:
 
-1. [ ] Push branch `docs/fix-pr-review-quality-gate-stale-path`
-2. [ ] `gh pr create` with a title/body describing the stale-path fix and
-       linking this plan
-3. [ ] Merge via `gh pr merge --squash --auto` once checks pass
-4. [ ] `git checkout main && git pull origin main`
-5. [ ] Mark Task 2.1 and this task `[✅]` in this checklist and commit the
+1. [x] Push branch `docs/fix-pr-review-quality-gate-stale-path`
+2. [x] `gh pr create` with a title/body describing the stale-path fix and
+       linking this plan — opened as PR #334
+3. [x] Merge via `gh pr merge --squash` once checks pass — merged 2026-10-30
+4. [x] `git checkout main && git pull origin main`
+5. [x] Mark Task 2.1 and this task `[x]` in this checklist and commit the
        update
 
 **Acceptance Criteria**:
 
-- [✅] PR merged to `main`
-- [✅] `governance/workflows/pr/pr-review-quality-gate.md` on `main` shows
-  zero remaining occurrences of the stale pattern
+- [x] PR merged to `main`
+- [x] `governance/workflows/pr/pr-review-quality-gate.md` on `main` shows
+      zero remaining occurrences of the stale pattern
 
 **Verification**:
 
@@ -220,8 +220,8 @@ grep -n "plans/in-progress/2026-10-16__repo-defining-multi-agent-workflows" gove
 
 > All checks below must pass before starting Phase 3.
 
-- [ ] PR 2 merged to `main`
-- [ ] `grep -n "plans/in-progress/2026-10-16__repo-defining-multi-agent-workflows" governance/workflows/pr/pr-review-quality-gate.md`
+- [x] PR 2 merged to `main`
+- [x] `grep -n "plans/in-progress/2026-10-16__repo-defining-multi-agent-workflows" governance/workflows/pr/pr-review-quality-gate.md`
       (on `main`) returns zero matches
 
 Safe to stop here — both target files are fully corrected and merged. To
@@ -239,16 +239,24 @@ in the repo still references either archived plan's old
 
 **Steps**:
 
-1. [ ] On `main`, run:
+1. [x] On `main`, run:
        `grep -rn "plans/in-progress/2026-10-08__fix-claude-agents-catalog-doc" --include="*.md" . | grep -v "^\./plans/done/" | grep -v "^\./generated-reports/"`
-       — expect zero output
-2. [ ] On `main`, run:
+       — expect zero output. Note: this macOS/BSD `grep -r` does not prefix
+       matches with `./`, so the exclusion pattern needed `^plans/done/`
+       (no leading `./`) to actually filter; re-ran with the corrected
+       pattern (also excluding this plan's own in-progress folder, which
+       legitimately documents the stale string being fixed) and got zero
+       output — confirmed via exit code 1.
+2. [x] On `main`, run:
        `grep -rn "plans/in-progress/2026-10-16__repo-defining-multi-agent-workflows" --include="*.md" . | grep -v "^\./plans/done/" | grep -v "^\./generated-reports/"`
-       — expect zero output
+       — expect zero output. Same BSD-grep prefix caveat applied; corrected
+       pattern confirmed zero output (exit code 1).
 
 **Acceptance Criteria**:
 
-- [✅] Both grep commands above return zero output
+- [x] Both grep commands above return zero output once the exclusion
+      pattern accounts for this environment's `grep -r` not prefixing matches
+      with `./` (BSD/macOS `grep`, not GNU)
 
 **Verification**:
 
@@ -268,19 +276,22 @@ to a permanent home, per this repo's plan-lifecycle Knowledge Capture step.
 
 **Steps**:
 
-1. [ ] Review whether this plan's investigation (the repo-wide stale-path
+1. [x] Review whether this plan's investigation (the repo-wide stale-path
        grep method) is itself a reusable pattern worth documenting
        elsewhere — per the resolved Non-Scope decision (#3), this plan does
        **not** implement or propose a prevention mechanism, so the expected
-       outcome is "no generalizable learning to route"
-2. [ ] Record the outcome in this plan's `README.md` under a
+       outcome is "no generalizable learning to route". Confirmed: the one
+       reusable detail (BSD-grep `./`-prefix caveat) is a one-off
+       command-syntax note, not a repo convention — recorded inline rather
+       than routed.
+2. [x] Record the outcome in this plan's `README.md` under a
        "Knowledge Capture" note: either the routed destination, or
        `No generalizable learnings`
 
 **Acceptance Criteria**:
 
-- [✅] `README.md` has a Knowledge Capture outcome recorded (routed or
-  "No generalizable learnings")
+- [x] `README.md` has a Knowledge Capture outcome recorded (routed or
+      "No generalizable learnings")
 
 **Dependencies**:
 
@@ -293,20 +304,20 @@ plan-completion lifecycle.
 
 **Steps**:
 
-1. [ ] Update `README.md` status to `✅ COMPLETED` with completion date
-2. [ ] `git mv plans/in-progress/2026-10-29__fix-stale-plan-path-references/ plans/done/2026-10-29__fix-stale-plan-path-references/`
-3. [ ] Update `plans/README.md`'s current-plans index: remove from
+1. [x] Update `README.md` status to `✅ COMPLETED` with completion date
+2. [x] `git mv plans/in-progress/2026-10-29__fix-stale-plan-path-references/ plans/done/2026-10-29__fix-stale-plan-path-references/`
+3. [x] Update `plans/README.md`'s current-plans index: remove from
        "In Progress", add to "Done (Archived)"
-4. [ ] **COMMIT**: `docs(plan): mark fix-stale-plan-path-references as completed`
-5. [ ] Push and merge via PR
+4. [x] **COMMIT**: `docs(plan): mark fix-stale-plan-path-references as completed`
+5. [x] Push and merge via PR
 
 **Acceptance Criteria**:
 
-- [✅] `test -d plans/done/2026-10-29__fix-stale-plan-path-references` succeeds
-- [✅] `test -d plans/in-progress/2026-10-29__fix-stale-plan-path-references`
-  fails (no duplicate remains)
-- [✅] `plans/README.md` index updated
-- [✅] Archival commit exists and is merged to `main`
+- [x] `test -d plans/done/2026-10-29__fix-stale-plan-path-references` succeeds
+- [x] `test -d plans/in-progress/2026-10-29__fix-stale-plan-path-references`
+      fails (no duplicate remains)
+- [x] `plans/README.md` index updated
+- [x] Archival commit exists and is merged to `main`
 
 **Verification**:
 
@@ -324,12 +335,12 @@ test -d plans/in-progress/2026-10-29__fix-stale-plan-path-references && echo "ST
 > Final gate — all checks below must pass before this plan is considered
 > fully complete.
 
-- [ ] Both grep checks in Task 3.1 return zero output
-- [ ] Knowledge Capture outcome recorded in `README.md`
-- [ ] Plan folder moved to `plans/done/2026-10-29__fix-stale-plan-path-references/`
+- [x] Both grep checks in Task 3.1 return zero output
+- [x] Knowledge Capture outcome recorded in `README.md`
+- [x] Plan folder moved to `plans/done/2026-10-29__fix-stale-plan-path-references/`
       via `git mv` (verify with `git log --follow`)
-- [ ] `plans/README.md` index updated
-- [ ] Archival commit merged to `main`
+- [x] `plans/README.md` index updated
+- [x] Archival commit merged to `main`
 
 Safe to stop here — plan is fully executed, verified, and archived.
 
@@ -358,13 +369,13 @@ the 2 counted PRs, 1 archival commit)
 
 ## Progress Tracking
 
-**Overall Progress**: 3/8 tasks completed (38%)
+**Overall Progress**: 8/8 tasks completed (100%)
 
 | Phase                                  | Tasks Completed | Tasks Total | Status             |
 | -------------------------------------- | --------------- | ----------- | ------------------ |
 | Phase 0: Plan Setup                    | 1               | 1           | [x] Done           |
 | Phase 1: Fix claude-agents.md          | 2               | 2           | [x] Done (PR #332) |
-| Phase 2: Fix pr-review-quality-gate.md | 0               | 2           | [ ] Not Started    |
-| Phase 3: Verification and Archival     | 0               | 3           | [ ] Not Started    |
+| Phase 2: Fix pr-review-quality-gate.md | 2               | 2           | [x] Done (PR #334) |
+| Phase 3: Verification and Archival     | 3               | 3           | [x] Done           |
 
-**Last Updated**: 2026-10-29 (PR1 merged — Phase 1 done; Phase 2 not started, PR1-only scope today)
+**Last Updated**: 2026-10-30 (all phases complete; plan archived to `plans/done/`)

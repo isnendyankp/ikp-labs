@@ -2,7 +2,7 @@
 
 ## Status
 
-🏗️ **IN PROGRESS** — Created 2026-10-29
+✅ **COMPLETED** — Created 2026-10-29, Completed 2026-10-30
 
 ## Overview
 
@@ -85,5 +85,13 @@ PR — this plan is a pure fix with no process additions.
 
 ## Knowledge Capture
 
-Deferred until all checklist tasks are complete and the plan is archived —
-see `checklist.md`'s final phase.
+No generalizable learnings. Per the resolved Non-Scope decision (#3), this
+plan intentionally did not implement or propose a prevention mechanism (e.g.
+a link-checker rule or CI grep step) for this class of staleness — it was
+scoped as a pure fix. The one reusable detail surfaced during Phase 3
+verification — this environment's `grep -r` (macOS/BSD `grep`) does not
+prefix matches with `./`, so an exclusion pattern written as `^\./plans/done/`
+silently fails to filter and must instead be `^plans/done/` — is recorded
+inline in `checklist.md`'s Task 3.1 notes rather than routed to a separate
+permanent doc, since it is a one-off command-syntax caveat rather than a
+repo convention or policy.
