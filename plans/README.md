@@ -122,7 +122,12 @@ done/
 │   ├── requirements.md
 │   ├── technical-design.md
 │   └── checklist.md
-└── 2026-10-28__tooling-nx/
+├── 2026-10-28__tooling-nx/
+│   ├── README.md
+│   ├── requirements.md
+│   ├── technical-design.md
+│   └── checklist.md
+└── 2026-10-29__fix-stale-plan-path-references/
     ├── README.md
     ├── requirements.md
     ├── technical-design.md
@@ -261,8 +266,9 @@ For **permanent** documentation, see:
 
 ## 📊 Quick Stats
 
-**Completed Projects**: 22
+**Completed Projects**: 23
 
+- Fix Stale Plan Path References (Oct 30, 2026)
 - Tooling: Nx Workspace Work (Oct 28, 2026)
 - Fix Claude Agents Catalog Doc (Oct 15, 2026)
 - Unit Testing (Nov 4, 2024)
