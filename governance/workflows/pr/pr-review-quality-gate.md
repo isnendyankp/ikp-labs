@@ -278,7 +278,7 @@ Strategy).
   fallback, not a permanent design decision.
 - **Agents implemented**: `pr-review-maker` and `pr-review-fixer` are both implemented at
   `.claude/agents/pr-review-maker.md` and `.claude/agents/pr-review-fixer.md` respectively, and
-  have run this exact cycle live (see `plans/in-progress/2026-10-16__repo-defining-multi-agent-workflows/`'s
+  have run this exact cycle live (see `plans/done/2026-10-16__repo-defining-multi-agent-workflows/`'s
   own PR1 for a worked execution).
 - This workflow follows IKP-Labs's Explicit Over Implicit principle
   ([`../../principles/general.md`](../../principles/general.md)) — blocking status is always
