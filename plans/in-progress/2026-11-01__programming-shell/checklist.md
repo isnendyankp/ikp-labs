@@ -4,45 +4,49 @@
 
 ## Phase 0 — Pre-flight (no PR)
 
-- [ ] Confirm `.claude/skills/programming-shell/` does not exist (`ls .claude/skills/ | grep
+- [x] Confirm `.claude/skills/programming-shell/` does not exist (`ls .claude/skills/ | grep
     programming-shell` returns nothing) — re-verify immediately before starting PR1, since time
-      may have passed since this plan was written.
-- [ ] Confirm current real skill-directory count is still 32 via
+      may have passed since this plan was written. Confirmed: no match (checked before PR1).
+- [x] Confirm current real skill-directory count is still 32 via
       `ls .claude/skills/ | grep -v README | wc -l` — re-verify before PR4's count edits, in case
-      another plan added or removed a skill in the meantime.
-- [ ] Confirm the 5 `.claude/hooks/*.sh` files still show the documented inconsistency (`head -5`
-      on each) before starting PR2 — re-verify in case another plan already touched them.
+      another plan added or removed a skill in the meantime. Confirmed: 32 (checked before PR1).
+- [x] Confirm the 5 `.claude/hooks/*.sh` files still show the documented inconsistency (`head -5`
+      on each) before starting PR2 — re-verify in case another plan already touched them. Confirmed
+      via `head -2` on all 5 before PR1 — inconsistency still present; re-verify again immediately
+      before starting PR2 since PR1 has since merged.
 
 ---
 
-## PR1 — Create `.claude/skills/programming-shell/SKILL.md`
+## PR1 — Create `.claude/skills/programming-shell/SKILL.md` — ✅ Done (PR #337)
 
 **Branch**: `docs/programming-shell-skill`
 
-- [ ] Create `.claude/skills/programming-shell/SKILL.md` with the exact content drafted in
+- [x] Create `.claude/skills/programming-shell/SKILL.md` with the exact content drafted in
       `technical-design.md`'s "Full Drafted Skill Content" section.
-- [ ] Verify every internal link in the new file resolves:
-  - [ ] `../ci-standards/SKILL.md` — confirm exists
-  - [ ] `../repo-understanding-repository-architecture/SKILL.md` — confirm exists
-- [ ] Verify every file path and line reference cited in the new skill is real:
-  - [ ] `.claude/hooks/block-env-file-access.sh` (the `tool_name="$(... | jq ...)"` declaration,
+- [x] Verify every internal link in the new file resolves:
+  - [x] `../ci-standards/SKILL.md` — confirm exists
+  - [x] `../repo-understanding-repository-architecture/SKILL.md` — confirm exists
+- [x] Verify every file path and line reference cited in the new skill is real:
+  - [x] `.claude/hooks/block-env-file-access.sh` (the `tool_name="$(... | jq ...)"` declaration,
         and the quoting examples `"$file_path"`/`"$cmd"`) — confirm still accurate
-  - [ ] `.claude/hooks/worktree-create.sh` (the `NAME`/`CWD` fallback handling) — confirm still
+  - [x] `.claude/hooks/worktree-create.sh` (the `NAME`/`CWD` fallback handling) — confirm still
         accurate
-  - [ ] `.claude/hooks/block-env-file-access.test.sh` (84 lines, `assert_deny`/`assert_allow`
+  - [x] `.claude/hooks/block-env-file-access.test.sh` (84 lines, `assert_deny`/`assert_allow`
         functions, real JSON input shape) — confirm still accurate
-  - [ ] No `shellcheck`/`shfmt` reference exists in `package.json` or `.github/workflows/*.yml` —
+  - [x] No `shellcheck`/`shfmt` reference exists in `package.json` or `.github/workflows/*.yml` —
         re-confirm via `which shellcheck shfmt` and grep
-- [ ] **Note on forward-reference**: this skill's text describes the _post-PR2_ state (all 5 hooks
+- [x] **Note on forward-reference**: this skill's text describes the _post-PR2_ state (all 5 hooks
       sharing one interpreter line and strict mode, and `format-lint-markdown.sh`'s `jq` exit-check
       already fixed). If this PR is reviewed and merged before PR2 lands, that is a known,
       deliberate, short-lived gap between the skill's claim and the repository's actual state —
-      acceptable since PR2 is the very next PR in this same plan, not an open-ended gap.
-- [ ] Confirm the file follows the plain-markdown skill header convention (no YAML frontmatter) —
+      acceptable since PR2 is the very next PR in this same plan, not an open-ended gap. PR1 merged
+      before PR2 — this forward-reference gap is currently live; close it promptly via PR2.
+- [x] Confirm the file follows the plain-markdown skill header convention (no YAML frontmatter) —
       compare against `.claude/skills/tooling-nx/SKILL.md`'s structure.
-- [ ] Run `npm run lint:md` and fix all markdown violations.
-- [ ] Commit: `docs(skills): add programming-shell skill for shell script work`.
-- [ ] Push branch, open PR, confirm CI passes, merge `--squash --delete-branch`, pull `main`.
+- [x] Run `npm run lint:md` and fix all markdown violations.
+- [x] Commit: `docs(skills): add programming-shell skill for shell script work`.
+- [x] Push branch, open PR, confirm CI passes, merge `--squash --delete-branch`, pull `main`. Opened
+      as PR #337, merged 2026-11-01.
 
 ---
 
