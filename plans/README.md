@@ -138,7 +138,12 @@ done/
 
 ```text
 in-progress/
-└── 2026-02-11__frontend-unit-tests/
+├── 2026-02-11__frontend-unit-tests/
+│   ├── README.md
+│   ├── requirements.md
+│   ├── technical-design.md
+│   └── checklist.md
+└── 2026-11-01__programming-shell/
     ├── README.md
     ├── requirements.md
     ├── technical-design.md
