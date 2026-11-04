@@ -1,10 +1,14 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # PostToolUse hook — format and lint files after Edit/Write/MultiEdit.
 # Markdown: prettier + markdownlint-cli2 (auto-fix)
 # Other supported types: prettier only
 # Always exits 0 — non-blocking.
 
-file_path=$(jq -r '.tool_input.file_path // empty' 2>/dev/null)
+set -euo pipefail
+
+if ! file_path=$(jq -r '.tool_input.file_path // empty' 2>/dev/null); then
+  exit 0
+fi
 
 if [[ -z "$file_path" ]]; then
   exit 0

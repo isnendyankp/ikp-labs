@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # PreToolUse hook — warm Nx cache before git push.
 # Mirrors .husky/pre-push (typecheck + lint + test) so the actual
 # pre-push hook hits cached results and completes in seconds.
