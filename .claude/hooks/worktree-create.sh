@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # WorktreeCreate hook — routes worktrees to <repo-root>/worktrees/<name>/
 # instead of the default .claude/worktrees/ location.
 #
@@ -7,7 +7,7 @@
 #   Output: absolute path of the created worktree on stdout (last line)
 #   Exit:   0 on success; non-zero fails worktree creation
 
-set -e
+set -euo pipefail
 
 INPUT=$(cat)
 if [[ -z "$INPUT" ]]; then
