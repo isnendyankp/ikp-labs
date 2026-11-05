@@ -5,7 +5,7 @@
 ## Phase 0 — Pre-flight (no PR)
 
 - [x] Confirm `.claude/skills/programming-shell/` does not exist (`ls .claude/skills/ | grep
-  programming-shell` returns nothing) — re-verify immediately before starting PR1, since time
+programming-shell` returns nothing) — re-verify immediately before starting PR1, since time
       may have passed since this plan was written. Confirmed: no match (checked before PR1).
 - [x] Confirm current real skill-directory count is still 32 via
       `ls .claude/skills/ | grep -v README | wc -l` — re-verify before PR4's count edits, in case
@@ -112,26 +112,31 @@
 
 ---
 
-## PR3 — Wire Orphaned Test into CI
+## PR3 — Wire Orphaned Test into CI — ✅ Done (PR #341)
 
 **Branch**: `chore/wire-claude-hooks-tests-into-ci`
 
-- [ ] Insert the `claude-hooks-tests` job into `.github/workflows/kameravue-ci.yml` between
+- [x] Insert the `claude-hooks-tests` job into `.github/workflows/kameravue-ci.yml` between
       `markdown-lint` and `ci-summary`, exactly as drafted in `technical-design.md`.
-- [ ] Update `ci-summary`'s `needs:` list to include `claude-hooks-tests`.
-- [ ] Update `ci-summary`'s status-check script (both the failure branch and the success branch)
+- [x] Update `ci-summary`'s `needs:` list to include `claude-hooks-tests`.
+- [x] Update `ci-summary`'s status-check script (both the failure branch and the success branch)
       to check and echo `claude-hooks-tests`'s result, exactly as drafted.
-- [ ] Confirm no other job definition in `kameravue-ci.yml` was altered.
-- [ ] Push branch, open PR, and **specifically confirm on this PR's own real CI run** that the new
+- [x] Confirm no other job definition in `kameravue-ci.yml` was altered. Confirmed via `git diff`:
+      only the drafted additions present.
+- [x] Push branch, open PR, and **specifically confirm on this PR's own real CI run** that the new
       `claude-hooks-tests` job passes — this is the verification step for the "jq is preinstalled
       on `ubuntu-latest`" assumption documented in `technical-design.md`. If `jq` is not present,
       add an explicit `jq` install step (e.g. `sudo apt-get install -y jq`) before the test step
-      and re-push.
-- [ ] Confirm `ci-summary` correctly reflects a failure if `claude-hooks-tests` is made to fail
+      and re-push. Confirmed: `Claude Hooks Tests` passed on PR #341's own CI run — `jq` was
+      preinstalled as assumed, no extra install step needed.
+- [x] Confirm `ci-summary` correctly reflects a failure if `claude-hooks-tests` is made to fail
       temporarily (optional local verification: intentionally break the test file in a throwaway
       branch, confirm `ci-summary` fails, then revert — do this only if quick to verify; otherwise
-      rely on reading the YAML logic).
-- [ ] Merge `--squash --delete-branch`, pull `main`.
+      rely on reading the YAML logic). Relied on reading the YAML logic: the new
+      `claude-hooks-tests` check is one more term in the same `||`-chained boolean condition as
+      every existing job, so it fails `ci-summary` the same way `markdown-lint` already does — no
+      throwaway-branch test needed.
+- [x] Merge `--squash --delete-branch`, pull `main`. Merged 2026-11-06.
 
 ---
 
