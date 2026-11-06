@@ -140,71 +140,86 @@ programming-shell` returns nothing) — re-verify immediately before starting PR
 
 ---
 
-## PR4 — Catalog Bookkeeping + Archive
+## PR4 — Catalog Bookkeeping + Archive — ✅ Done (PR #343)
 
 **Branch**: `docs/programming-shell-catalog-bookkeeping`
 
 ### `docs/reference/claude-agents.md`
 
-- [ ] Update line 361 (`The 32 skill directories under`) to `The 33 skill directories under`.
-- [ ] Insert the `programming-shell` row (alphabetically after `plan-writing-gherkin-criteria`,
+- [x] Update line 361 (`The 32 skill directories under`) to `The 33 skill directories under`.
+- [x] Insert the `programming-shell` row (alphabetically after `plan-writing-gherkin-criteria`,
       before `readme-writing-readme-files`) following the `tooling-nx` row's style for a
       zero-agents-declared skill.
-- [ ] Re-count the table's rows manually after editing and confirm it equals 33.
+- [x] Re-count the table's rows manually after editing and confirm it equals 33.
 
 ### `.claude/skills/repo-syncing-with-ose-primer/SKILL.md`
 
-- [ ] Update the Harness Inventory Reference table's Skills row: count `32` → `33`, with the note
+- [x] Update the Harness Inventory Reference table's Skills row: count `32` → `33`, with the note
       `2026-11-01 (added \`programming-shell\`, guidance for shell script
       interpreter/strict-mode/exit-on-error/testing judgment — no name collision, no DEFER
       record)`.
-- [ ] Update the `**Last Updated**:` footer date to match.
+- [x] Update the `**Last Updated**:` footer date to match.
 
 ### Archive
 
-- [ ] Update this plan's `README.md` status from "🚧 In Progress" to "✅ Completed", add a
+- [x] Update this plan's `README.md` status from "🚧 In Progress" to "✅ Completed", add a
       **Completed** date line.
-- [ ] `git mv plans/in-progress/2026-11-01__programming-shell plans/done/2026-11-01__programming-shell`.
-- [ ] Update `plans/README.md`'s index: remove the "In Progress" entry added when this plan was
+- [x] `git mv plans/in-progress/2026-11-01__programming-shell plans/done/2026-11-01__programming-shell`.
+- [x] Update `plans/README.md`'s index: remove the "In Progress" entry added when this plan was
       created, add a "Done (Archived)" tree entry, and bump the "Completed Projects" count.
 
 ### Validation (PR4)
 
-- [ ] Run `npm run lint:md` and fix all markdown violations across all changed files.
-- [ ] Confirm the Skills Reference table in `docs/reference/claude-agents.md` has exactly 33 rows.
-- [ ] Commit: `docs(plan): backfill claude-agents skills catalog and archive programming-shell plan`.
-- [ ] Push branch, open PR, confirm CI passes, merge `--squash --delete-branch`, pull `main`.
+- [x] Run `npm run lint:md` and fix all markdown violations across all changed files.
+- [x] Confirm the Skills Reference table in `docs/reference/claude-agents.md` has exactly 33 rows.
+- [x] Commit: `docs(plan): backfill claude-agents skills catalog and archive programming-shell plan`.
+      (Shortened to `docs(plan): backfill claude-agents skills catalog and archive` to satisfy
+      commitlint's `header-max-length`.)
+- [x] Push branch, open PR, confirm CI passes, merge `--squash --delete-branch`, pull `main`.
+      Opened as PR #343, merged 2026-11-07. Note: an initial `git add` attempt hit a `fatal:
+    pathspec` error from listing the already-renamed `plans/in-progress/...` path alongside the
+      other 3 files, which silently aborted staging for all of them — caught via `git show --stat
+    HEAD` showing 0 insertions, fixed with a follow-up `git add -f` + `git commit --amend
+    --no-edit` on the local, unpushed branch before pushing.
 
 ---
 
 ## Quality Gates
 
-- [ ] No file under `.claude/agents/` is modified by any PR.
-- [ ] `AGENTS.md` is not modified by any PR.
-- [ ] No file under `apps/`, `nx.json`, or `.husky/` is modified by any PR.
-- [ ] No new governance document is created by any PR.
-- [ ] Each PR's commit type matches `commitlint.config.js`'s allowed `type-enum`
-      (`feat`, `fix`, `refactor`, `style`, `docs`, `test`, `chore`, `config`).
-- [ ] `npm run lint:md` passes with zero errors on every markdown file touched across all 4 PRs.
-- [ ] Every claim in the shipped skill file is re-verified against the actual post-PR2 repository
-      state before PR1 is considered final (not just at plan-writing time).
+- [x] No file under `.claude/agents/` is modified by any PR. Confirmed via a single `git diff
+    --stat` across the full merge range (PR1 through PR4): zero output for `.claude/agents/`.
+- [x] `AGENTS.md` is not modified by any PR. Confirmed in the same diff — zero output.
+- [x] No file under `apps/`, `nx.json`, or `.husky/` is modified by any PR. Confirmed in the same
+      diff — zero output.
+- [x] No new governance document is created by any PR. Confirmed in the same diff — zero output
+      for `governance/`.
+- [x] Each PR's commit type matches `commitlint.config.js`'s allowed `type-enum`
+      (`feat`, `fix`, `refactor`, `style`, `docs`, `test`, `chore`, `config`). Confirmed:
+      `docs(skills)`, `fix(hooks)`, `chore(ci)`, `docs(plan)` across the 4 PRs.
+- [x] `npm run lint:md` passes with zero errors on every markdown file touched across all 4 PRs.
+      Confirmed individually at each PR.
+- [x] Every claim in the shipped skill file is re-verified against the actual post-PR2 repository
+      state before PR1 is considered final (not just at plan-writing time). Confirmed: PR2's own
+      validation step read all 5 hooks and matched them against the skill's claimed end-state
+      (shared interpreter/strict mode).
 
 ---
 
 ## Post-Write Grill-Me Validation (performed during plan creation, not an implementation task)
 
-- [ ] Decision 1 (4-PR split by risk boundary, hook retrofit + CI wiring in scope) — reflected in
+- [x] Decision 1 (4-PR split by risk boundary, hook retrofit + CI wiring in scope) — reflected in
       `README.md`'s Key Decisions table and the PR Breakdown.
-- [ ] Decision 2 (exact OSE name, no `swe-` prefix) — reflected in every file path reference across
+- [x] Decision 2 (exact OSE name, no `swe-` prefix) — reflected in every file path reference across
       all 4 documents.
-- [ ] Decision 3 (`tooling-nx` header convention, compressed OSE wording) — reflected in the full
+- [x] Decision 3 (`tooling-nx` header convention, compressed OSE wording) — reflected in the full
       drafted skill content in `technical-design.md`.
-- [ ] Decision 4 (generalized coverage line, no TS/Java threshold contrast) — reflected in the
+- [x] Decision 4 (generalized coverage line, no TS/Java threshold contrast) — reflected in the
       skill's "Test the Script as Its Callers Run It" section's closing paragraph.
-- [ ] Decision 5 (fix `format-lint-markdown.sh`'s `jq` gap in PR2) — reflected in
+- [x] Decision 5 (fix `format-lint-markdown.sh`'s `jq` gap in PR2) — reflected in
       `technical-design.md`'s PR2 diffs and `requirements.md` Scope item 3.
-- [ ] Decision 6 (honest "no equivalent" governance statement, plus the recorded-not-actioned
+- [x] Decision 6 (honest "no equivalent" governance statement, plus the recorded-not-actioned
       follow-up note) — reflected in the skill's Overview section, `technical-design.md`'s
       Governance-Equivalent Mapping table, and `README.md`'s "Follow-up note" callout.
-- [ ] Decision 7 (4-PR exact shape, bookkeeping+archive bundled) — reflected in the PR Breakdown
-      table and this checklist's PR1–PR4 structure.
+- [x] Decision 7 (4-PR exact shape, bookkeeping+archive bundled) — reflected in the PR Breakdown
+      table and this checklist's PR1–PR4 structure. All 4 PRs landed exactly as shaped: #337,
+      #339, #341, #343.
