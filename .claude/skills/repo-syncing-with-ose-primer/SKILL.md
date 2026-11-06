@@ -135,7 +135,7 @@ Current IKP-Labs harness state (update after each sync round):
 | Area | Count | Last synced |
 |------|-------|-------------|
 | Agents | 53 | 2026-10-06 (Round 5 — content verified across 44 files; count unchanged from Round 4) |
-| Skills | 32 | 2026-10-28 (added `tooling-nx`, guidance for day-to-day Nx workspace work — no name collision, no DEFER record) |
+| Skills | 33 | 2026-11-01 (added `programming-shell`, guidance for shell script interpreter/strict-mode/exit-on-error/testing judgment — no name collision, no DEFER record) |
 | Hooks | 5 | 2026-10-06 (Round 5 — count verified unchanged from Round 3) |
 
 ---
@@ -177,4 +177,4 @@ No items currently deferred.
 
 ---
 
-**Last Updated**: 2026-10-28
+**Last Updated**: 2026-11-01
