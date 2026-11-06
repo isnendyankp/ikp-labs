@@ -127,7 +127,12 @@ done/
 │   ├── requirements.md
 │   ├── technical-design.md
 │   └── checklist.md
-└── 2026-10-29__fix-stale-plan-path-references/
+├── 2026-10-29__fix-stale-plan-path-references/
+│   ├── README.md
+│   ├── requirements.md
+│   ├── technical-design.md
+│   └── checklist.md
+└── 2026-11-01__programming-shell/
     ├── README.md
     ├── requirements.md
     ├── technical-design.md
@@ -138,12 +143,7 @@ done/
 
 ```text
 in-progress/
-├── 2026-02-11__frontend-unit-tests/
-│   ├── README.md
-│   ├── requirements.md
-│   ├── technical-design.md
-│   └── checklist.md
-└── 2026-11-01__programming-shell/
+└── 2026-02-11__frontend-unit-tests/
     ├── README.md
     ├── requirements.md
     ├── technical-design.md
@@ -271,8 +271,9 @@ For **permanent** documentation, see:
 
 ## 📊 Quick Stats
 
-**Completed Projects**: 23
+**Completed Projects**: 24
 
+- Programming Shell Skill (Nov 7, 2026)
 - Fix Stale Plan Path References (Oct 30, 2026)
 - Tooling: Nx Workspace Work (Oct 28, 2026)
 - Fix Claude Agents Catalog Doc (Oct 15, 2026)
