@@ -143,7 +143,8 @@ done/
 
 ```text
 in-progress/
-└── 2026-02-11__frontend-unit-tests/
+├── README.md
+└── 2026-11-12__fix-plans-readme-stale-index/
     ├── README.md
     ├── requirements.md
     ├── technical-design.md
@@ -158,11 +159,7 @@ in-progress/
 
 ```text
 backlog/
-└── 2026-01-12__cicd-pipeline/
-    ├── README.md
-    ├── requirements.md
-    ├── technical-design.md
-    └── checklist.md
+└── README.md
 ```
 
 ---
@@ -201,12 +198,33 @@ git mv plans/backlog/2024-12-15__new-feature/ \
        plans/in-progress/
 ```
 
+After the `git mv`, also:
+
+1. Remove the plan's entry from `plans/backlog/README.md`'s "Planned
+   Projects" list.
+2. Update this file's "In Progress" and "Backlog" tree listings to match
+   the real new contents of each directory.
+3. Update this file's Quick Stats counts for both sections.
+
 ### Step 4: Move to Done (when completed)
 
 ```bash
 git mv plans/in-progress/2024-12-15__new-feature/ \
        plans/done/
 ```
+
+After the `git mv`, also:
+
+1. Update the moved plan's own `README.md` — its `**Status**` line (and
+   any other internal status line, e.g. a footer) must say it is
+   completed, not in-progress or backlog.
+2. Update this file's "In Progress" and "Done (Archived)" tree listings to
+   match the real new contents of each directory.
+3. Update this file's Quick Stats counts (`In Progress` down by one,
+   `Completed Projects` up by one).
+
+**This step is the one most often forgotten** — the two bugs this plan
+fixed were both caused by a `git mv` landing without this follow-up.
 
 ---
 
@@ -300,11 +318,9 @@ For **permanent** documentation, see:
 
 **In Progress**: 1
 
-- Frontend Unit Tests (Feb 11, 2026)
+- Fix Plans README Stale Index (Nov 12, 2026)
 
-**Backlog**: 1
-
-- CI/CD Pipeline (Jan 12, 2026)
+**Backlog**: 0
 
 ---
 
