@@ -132,7 +132,12 @@ done/
 │   ├── requirements.md
 │   ├── technical-design.md
 │   └── checklist.md
-└── 2026-11-01__programming-shell/
+├── 2026-11-01__programming-shell/
+│   ├── README.md
+│   ├── requirements.md
+│   ├── technical-design.md
+│   └── checklist.md
+└── 2026-11-12__fix-plans-readme-stale-index/
     ├── README.md
     ├── requirements.md
     ├── technical-design.md
@@ -143,12 +148,7 @@ done/
 
 ```text
 in-progress/
-├── README.md
-└── 2026-11-12__fix-plans-readme-stale-index/
-    ├── README.md
-    ├── requirements.md
-    ├── technical-design.md
-    └── checklist.md
+└── README.md
 ```
 
 > Note: `2026-06-02__claude-governance-gap-round-3/` moved to `done/` on 2026-06-20.
@@ -289,8 +289,9 @@ For **permanent** documentation, see:
 
 ## 📊 Quick Stats
 
-**Completed Projects**: 24
+**Completed Projects**: 25
 
+- Fix Plans README Stale Index (Nov 13, 2026)
 - Programming Shell Skill (Nov 7, 2026)
 - Fix Stale Plan Path References (Oct 30, 2026)
 - Tooling: Nx Workspace Work (Oct 28, 2026)
@@ -316,9 +317,7 @@ For **permanent** documentation, see:
 - Taskly Backend Task CRUD (Jul 3, 2026)
 - Taskly Backend E2E Test Suite (Jul 7, 2026)
 
-**In Progress**: 1
-
-- Fix Plans README Stale Index (Nov 12, 2026)
+**In Progress**: 0
 
 **Backlog**: 0
 

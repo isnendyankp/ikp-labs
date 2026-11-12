@@ -340,7 +340,7 @@ Scenario: Step 4 instructions name every file to update on archival
 - [ ] `plans/backlog/README.md` no longer contains "CI/CD Pipeline" or a
       "Completed/Moved Plans" heading.
 - [ ] `plans/done/2026-01-12__cicd-pipeline/README.md` reads `**Status**:
-    ✅ Completed` with `**Completed**: February 23, 2026` in the header,
+  ✅ Completed` with `**Completed**: February 23, 2026` in the header,
       and `**Status**: Completed` in the footer.
 - [ ] `plans/README.md`'s pre-existing "Done (Archived)" tree entries
       (everything already there before this plan started) are
@@ -360,7 +360,7 @@ Scenario: Step 4 instructions name every file to update on archival
       (24 + this plan), with a corresponding new bullet for this plan.
 - [ ] This plan's own folder is moved via `git mv` from
       `plans/in-progress/` to `plans/done/` (verified via `git log
-    --follow` showing the rename, no duplicate left under
+  --follow` showing the rename, no duplicate left under
       `plans/in-progress/`).
 - [ ] Phase 2 changes committed and merged via PR per this repo's branch
       protection on `main`.
