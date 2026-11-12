@@ -18,17 +18,18 @@ work starts.
 
 **Steps**:
 
-1. [ ] Create branch `docs/fix-plans-readme-stale-index-plan`
-2. [ ] `git add plans/in-progress/2026-11-12__fix-plans-readme-stale-index/`
-3. [ ] **COMMIT**: `docs(plan): add fix-plans-readme-stale-index implementation plan`
-4. [ ] Push branch, open PR, merge per this repo's branch-protection workflow
-5. [ ] `git checkout main && git pull origin main`
+1. [x] Create branch `docs/fix-plans-readme-stale-index-plan`
+2. [x] `git add plans/in-progress/2026-11-12__fix-plans-readme-stale-index/`
+3. [x] **COMMIT**: `docs(plan): add fix-plans-readme-stale-index implementation plan`
+4. [x] Push branch, open PR, merge per this repo's branch-protection workflow.
+       Opened and merged as PR #345.
+5. [x] `git checkout main && git pull origin main`
 
 **Acceptance Criteria**:
 
-- [ ] All 4 plan documents exist under
+- [x] All 4 plan documents exist under
       `plans/in-progress/2026-11-12__fix-plans-readme-stale-index/`
-- [ ] PR merged to `main`
+- [x] PR merged to `main`
 
 **Verification**:
 
@@ -40,9 +41,9 @@ git log --oneline -1 -- plans/in-progress/2026-11-12__fix-plans-readme-stale-ind
 
 > All checks below must pass before starting Phase 1.
 
-- [ ] `test -d plans/in-progress/2026-11-12__fix-plans-readme-stale-index`
+- [x] `test -d plans/in-progress/2026-11-12__fix-plans-readme-stale-index`
       succeeds on `main`
-- [ ] All 4 files (`README.md`, `requirements.md`, `technical-design.md`,
+- [x] All 4 files (`README.md`, `requirements.md`, `technical-design.md`,
       `checklist.md`) present in that directory
 
 Safe to stop here — plan is committed and on `main`, no implementation
@@ -50,7 +51,7 @@ changes yet. To resume: re-run the Phase 0 Gate checks above.
 
 ---
 
-## Phase 1: Fix the stale index (the 1 counted PR)
+## Phase 1: Fix the stale index (the 1 counted PR) — ✅ Done (PR #346)
 
 **Note**: while this plan is open, `plans/in-progress/` genuinely contains
 both the new placeholder `README.md` and this plan's own folder — so the
@@ -65,22 +66,25 @@ implementation starting.
 
 **Steps**:
 
-1. [ ] Create branch `docs/fix-plans-readme-stale-index`
-2. [ ] `test -d plans/in-progress` — re-confirm it still contains only
-       this plan's own folder (no other plan landed in the meantime)
-3. [ ] `ls plans/backlog/` — re-confirm it still contains only `README.md`
-4. [ ] `grep -n "" plans/README.md | sed -n '140,170p;295,310p'` —
+1. [x] Create branch `docs/fix-plans-readme-stale-index`
+2. [x] `test -d plans/in-progress` — re-confirm it still contains only
+       this plan's own folder (no other plan landed in the meantime).
+       Confirmed.
+3. [x] `ls plans/backlog/` — re-confirm it still contains only `README.md`.
+       Confirmed.
+4. [x] `grep -n "" plans/README.md | sed -n '140,170p;295,310p'` —
        re-confirm the "In Progress"/"Backlog"/Quick Stats line numbers
-       cited in `technical-design.md` still match
-5. [ ] `grep -n "" plans/backlog/README.md` — re-confirm its line numbers
-6. [ ] `grep -n "" plans/done/2026-01-12__cicd-pipeline/README.md | sed -n '1,6p;228,233p'`
-       — re-confirm its header/footer line numbers
+       cited in `technical-design.md` still match. Confirmed exact match.
+5. [x] `grep -n "" plans/backlog/README.md` — re-confirm its line numbers.
+       Confirmed exact match.
+6. [x] `grep -n "" plans/done/2026-01-12__cicd-pipeline/README.md | sed -n '1,6p;228,233p'`
+       — re-confirm its header/footer line numbers. Confirmed exact match.
 
 **Acceptance Criteria**:
 
-- [ ] All line numbers either match `technical-design.md` exactly, or any
+- [x] All line numbers either match `technical-design.md` exactly, or any
       drift is noted and the edits in Tasks 1.2-1.4 are adjusted to the
-      real current line numbers before proceeding
+      real current line numbers before proceeding. No drift found.
 
 **Dependencies**:
 
@@ -95,14 +99,17 @@ in git with zero _other_ plan subfolders.
 
 **Steps**:
 
-1. [ ] Create `plans/in-progress/README.md` with the exact content
+1. [x] Create `plans/in-progress/README.md` with the exact content
        specified in `technical-design.md` File 1
-2. [ ] **COMMIT**: `docs(plan): add plans/in-progress/README.md placeholder`
+2. [x] **COMMIT**: `docs(plan): add in-progress plans readme placeholder`
+       (reworded from the originally-planned message to satisfy
+       commitlint's `subject-case` rule, which rejects the uppercase
+       `README.md` in the original wording)
 
 **Acceptance Criteria**:
 
-- [ ] `test -f plans/in-progress/README.md` succeeds
-- [ ] File content matches `technical-design.md` File 1 exactly
+- [x] `test -f plans/in-progress/README.md` succeeds
+- [x] File content matches `technical-design.md` File 1 exactly
 
 **Verification**:
 
@@ -125,34 +132,36 @@ cat plans/in-progress/README.md
 
 **Steps**:
 
-1. [ ] Change 2.1: replace the "In Progress" tree listing with the
+1. [x] Change 2.1: replace the "In Progress" tree listing with the
        Phase 1 interim-state block (shows `README.md` plus this plan's own
        folder)
-2. [ ] Change 2.2: replace the "Backlog" tree listing with
+2. [x] Change 2.2: replace the "Backlog" tree listing with
        `backlog/` → `└── README.md`
-3. [ ] Change 2.3: add the "after the `git mv`, also..." numbered steps to
+3. [x] Change 2.3: add the "after the `git mv`, also..." numbered steps to
        both "Step 3: Move to In Progress" and "Step 4: Move to Done"
-4. [ ] Change 2.4: set Quick Stats `**Backlog**: 0` (bullet removed) and
+4. [x] Change 2.4: set Quick Stats `**Backlog**: 0` (bullet removed) and
        `**In Progress**: 1` with its bullet repointed to this plan
        ("Fix Plans README Stale Index (Nov 12, 2026)")
-5. [ ] Confirm `**Completed Projects**: 24` and every "Done (Archived)"
-       tree line are untouched (`git diff` shows no change to those lines)
-6. [ ] **COMMIT**: `docs(plan): fix stale In Progress/Backlog index in plans/README.md`
+5. [x] Confirm `**Completed Projects**: 24` and every "Done (Archived)"
+       tree line are untouched (`git diff` shows no change to those lines).
+       Confirmed via full-file diff review.
+6. [x] **COMMIT**: `docs(plan): fix stale in-progress/backlog index in plans/readme`
+       (reworded to lowercase for commitlint's `subject-case` rule)
 
 **Acceptance Criteria**:
 
-- [ ] `grep -n "2026-02-11__frontend-unit-tests" plans/README.md` returns
+- [x] `grep -n "2026-02-11__frontend-unit-tests" plans/README.md` returns
       zero matches
-- [ ] `grep -n "2026-01-12__cicd-pipeline" plans/README.md` returns zero
+- [x] `grep -n "2026-01-12__cicd-pipeline" plans/README.md` returns zero
       matches
-- [ ] `grep -n "Backlog\*\*: 0" plans/README.md` matches
-- [ ] `grep -n "In Progress\*\*: 1" plans/README.md` matches, with its
+- [x] `grep -n "Backlog\*\*: 0" plans/README.md` matches
+- [x] `grep -n "In Progress\*\*: 1" plans/README.md` matches, with its
       bullet pointing at this plan
-- [ ] `grep -n "Completed Projects\*\*: 24" plans/README.md` still matches
+- [x] `grep -n "Completed Projects\*\*: 24" plans/README.md` still matches
       (unchanged)
-- [ ] `git diff plans/README.md` touches only the 4 changed regions (two
+- [x] `git diff plans/README.md` touches only the 4 changed regions (two
       tree blocks, Step 3/4 instructions, Quick Stats) — no other line
-      changed
+      changed. Confirmed via `git diff` review before commit.
 
 **Verification**:
 
@@ -176,21 +185,23 @@ git diff --stat plans/README.md
 
 **Steps**:
 
-1. [ ] Change 3.1: replace the "Planned Projects" section's CI/CD Pipeline
+1. [x] Change 3.1: replace the "Planned Projects" section's CI/CD Pipeline
        entry and "### Infrastructure" subheading with the one-line
        "no projects currently in the backlog" note
-2. [ ] Change 3.2: delete the "Completed/Moved Plans" section (and its
+2. [x] Change 3.2: delete the "Completed/Moved Plans" section (and its
        preceding `---` separator) entirely
-3. [ ] Confirm "## Instructions" and "## Plan Status Legend" are unchanged
-4. [ ] **COMMIT**: `docs(plan): remove stale backlog entry and duplicate archival tracking`
+3. [x] Confirm "## Instructions" and "## Plan Status Legend" are unchanged.
+       Confirmed.
+4. [x] **COMMIT**: `docs(plan): remove stale backlog entry and duplicate tracking`
+       (shortened to satisfy commitlint's `header-max-length` rule)
 
 **Acceptance Criteria**:
 
-- [ ] `grep -n "CI/CD Pipeline" plans/backlog/README.md` returns zero
+- [x] `grep -n "CI/CD Pipeline" plans/backlog/README.md` returns zero
       matches
-- [ ] `grep -n "Completed/Moved Plans" plans/backlog/README.md` returns
+- [x] `grep -n "Completed/Moved Plans" plans/backlog/README.md` returns
       zero matches
-- [ ] `grep -n "## Instructions\|## Plan Status Legend" plans/backlog/README.md`
+- [x] `grep -n "## Instructions\|## Plan Status Legend" plans/backlog/README.md`
       still matches both
 
 **Verification**:
@@ -213,22 +224,24 @@ cat plans/backlog/README.md
 
 **Steps**:
 
-1. [ ] Change 4.1: header `**Status**: 📋 Backlog` → `**Status**: ✅
-   Completed`; insert `**Completed**: February 23, 2026` after the
+1. [x] Change 4.1: header `**Status**: 📋 Backlog` → `**Status**: ✅
+Completed`; insert `**Completed**: February 23, 2026` after the
        `**Created**` line
-2. [ ] Change 4.2: footer `**Last Updated**: January 12, 2026` →
+2. [x] Change 4.2: footer `**Last Updated**: January 12, 2026` →
        `**Last Updated**: February 23, 2026`; `**Status**: Ready to Start`
        → `**Status**: Completed`
-3. [ ] Confirm no other content in the file changed
-4. [ ] **COMMIT**: `docs(plan): mark cicd-pipeline README status as completed`
+3. [x] Confirm no other content in the file changed. Confirmed via
+       `git diff` — only the 2 intended regions touched.
+4. [x] **COMMIT**: `docs(plan): mark cicd-pipeline readme status as completed`
+       (lowercased for commitlint's `subject-case` rule)
 
 **Acceptance Criteria**:
 
-- [ ] `grep -n "^\*\*Status\*\*" plans/done/2026-01-12__cicd-pipeline/README.md`
+- [x] `grep -n "^\*\*Status\*\*" plans/done/2026-01-12__cicd-pipeline/README.md`
       returns exactly 2 matches, both reading "Completed"
-- [ ] `grep -n "📋 Backlog\|Ready to Start" plans/done/2026-01-12__cicd-pipeline/README.md`
+- [x] `grep -n "📋 Backlog\|Ready to Start" plans/done/2026-01-12__cicd-pipeline/README.md`
       returns zero matches
-- [ ] `grep -n "Completed\*\*: February 23, 2026" plans/done/2026-01-12__cicd-pipeline/README.md`
+- [x] `grep -n "Completed\*\*: February 23, 2026" plans/done/2026-01-12__cicd-pipeline/README.md`
       matches
 
 **Verification**:
@@ -251,19 +264,20 @@ repo's standard PR workflow.
 
 **Steps**:
 
-1. [ ] Push branch `docs/fix-plans-readme-stale-index`
-2. [ ] `gh pr create` with a title/body describing both original bugs and
-       the three adjacent fixes, linking this plan
-3. [ ] Merge via `gh pr merge --squash --auto` once checks pass
-4. [ ] `git checkout main && git pull origin main`
-5. [ ] Re-run the Phase 1 verification block from `technical-design.md`
-       against `main`
-6. [ ] Mark Tasks 1.1-1.6 `[x]` in this checklist and commit the update
+1. [x] Push branch `docs/fix-plans-readme-stale-index`
+2. [x] `gh pr create` with a title/body describing both original bugs and
+       the three adjacent fixes, linking this plan. Opened as PR #346.
+3. [x] Merge via `gh pr merge --squash` once checks pass (all 8 checks
+       passed; merged 2026-11-13)
+4. [x] `git checkout main && git pull origin main`
+5. [x] Re-run the Phase 1 verification block from `technical-design.md`
+       against `main`. All checks pass.
+6. [x] Mark Tasks 1.1-1.6 `[x]` in this checklist and commit the update
 
 **Acceptance Criteria**:
 
-- [ ] PR merged to `main`
-- [ ] All Phase 1 verification commands pass on `main`
+- [x] PR merged to `main`
+- [x] All Phase 1 verification commands pass on `main`
 
 **Dependencies**:
 
@@ -273,11 +287,14 @@ repo's standard PR workflow.
 
 > All checks below must pass before starting Phase 2.
 
-- [ ] PR merged to `main`
-- [ ] All 4 files on `main` match their Phase 1 interim-state content
+- [x] PR merged to `main`
+- [x] All 4 files on `main` match their Phase 1 interim-state content
       exactly (per `technical-design.md`)
-- [ ] `git diff` against the pre-Phase-1 commit touches only the 4 target
-      files — no accidental edit elsewhere
+- [x] `git diff` against the pre-Phase-1 commit touches only the 4 target
+      files — no accidental edit elsewhere. Confirmed via the merge
+      commit's own file list: exactly `plans/README.md`,
+      `plans/backlog/README.md`, `plans/done/2026-01-12__cicd-pipeline/README.md`,
+      `plans/in-progress/README.md` (new).
 
 Safe to stop here — the two originally-reported bugs and the three
 adjacent fixes are all live on `main`; the index briefly still shows this
@@ -410,12 +427,12 @@ archival)
 
 ## Progress Tracking
 
-**Overall Progress**: 0/9 tasks completed (0%)
+**Overall Progress**: 7/9 tasks completed (78%)
 
-| Phase                               | Tasks Completed | Tasks Total | Status          |
-| ----------------------------------- | --------------- | ----------- | --------------- |
-| Phase 0: Plan Setup                 | 0               | 1           | [ ] Not Started |
-| Phase 1: Fix the stale index        | 0               | 6           | [ ] Not Started |
-| Phase 2: Knowledge Capture/Archival | 0               | 2           | [ ] Not Started |
+| Phase                               | Tasks Completed | Tasks Total | Status             |
+| ----------------------------------- | --------------- | ----------- | ------------------ |
+| Phase 0: Plan Setup                 | 1               | 1           | [x] Done           |
+| Phase 1: Fix the stale index        | 6               | 6           | [x] Done (PR #346) |
+| Phase 2: Knowledge Capture/Archival | 0               | 2           | [ ] Not Started    |
 
-**Last Updated**: 2026-11-12 (plan created, no implementation started yet)
+**Last Updated**: 2026-11-13 (Phase 1 merged; Phase 2 archival next)
