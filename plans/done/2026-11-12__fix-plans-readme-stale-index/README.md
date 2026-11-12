@@ -2,7 +2,7 @@
 
 ## Status
 
-🏗️ **IN PROGRESS** — Created 2026-11-12
+✅ **COMPLETED** — Created 2026-11-12, Completed 2026-11-13
 
 ## Overview
 
@@ -108,4 +108,9 @@ boundary.
 
 ## Knowledge Capture
 
-_To be completed before this plan moves to `plans/done/`._
+No generalizable learnings beyond what was already routed to its permanent
+home. The one durable artifact this plan produced — the explicit "after
+the `git mv`, also..." checklist added to `plans/README.md`'s own "Step 3"
+and "Step 4" instructions — was written directly into that file during
+Task 1.3, which is already its correct, permanent location. There is no
+separate pattern, convention, or gotcha to additionally write up elsewhere.
