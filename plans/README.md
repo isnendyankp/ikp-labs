@@ -137,7 +137,12 @@ done/
 │   ├── requirements.md
 │   ├── technical-design.md
 │   └── checklist.md
-└── 2026-11-12__fix-plans-readme-stale-index/
+├── 2026-11-12__fix-plans-readme-stale-index/
+│   ├── README.md
+│   ├── requirements.md
+│   ├── technical-design.md
+│   └── checklist.md
+└── 2026-11-19__fix-three-confirmed-bugs/
     ├── README.md
     ├── requirements.md
     ├── technical-design.md
@@ -289,8 +294,9 @@ For **permanent** documentation, see:
 
 ## 📊 Quick Stats
 
-**Completed Projects**: 25
+**Completed Projects**: 26
 
+- Fix Three Confirmed Small Bugs (Nov 19, 2026)
 - Fix Plans README Stale Index (Nov 13, 2026)
 - Programming Shell Skill (Nov 7, 2026)
 - Fix Stale Plan Path References (Oct 30, 2026)
