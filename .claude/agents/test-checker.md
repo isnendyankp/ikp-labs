@@ -1,5 +1,5 @@
 ---
-name: test-validator
+name: test-checker
 description: Use this agent to validate E2E test coverage and quality. This agent audits Playwright tests, identifies missing coverage, detects flaky tests, and generates comprehensive audit reports.\n\nKey responsibilities:\n- Validate E2E test coverage against requirements\n- Check specs ↔ Playwright test synchronization\n- Identify missing tests with criticality assessment\n- Detect flaky tests and brittle selectors\n- Generate audit reports with actionable recommendations\n\nExamples:\n- <example>User: "Validate our E2E test coverage"\nAssistant: "I'll use the test-validator agent to audit your Playwright tests and generate a comprehensive coverage report."</example>\n- <example>User: "Check if all Gherkin scenarios have corresponding tests"\nAssistant: "Let me use the test-validator agent to verify spec ↔ test synchronization."</example>\n- <example>User: "Are there any flaky tests in the test suite?"\nAssistant: "I'll use the test-validator agent to analyze test stability and detect flaky tests."</example>
 model: sonnet
 color: blue
