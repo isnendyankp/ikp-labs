@@ -46,22 +46,6 @@ under `permission.skill:` in its frontmatter. Where an agent's frontmatter
 has no `permission.skill:` field, the table says so explicitly rather than
 guessing.
 
-**Known frontmatter/filename mismatch (4 agents).** A 2026-05-19 rename
-changed 5 agent filenames (`plan-writer` → `plan-maker`,
-`documentation-writer` → `docs-maker`, `docs-validator` → `docs-checker`,
-`gherkin-spec-writer` → `specs-maker`, `test-validator` → `test-checker`) but
-only updated the frontmatter `name:` field for `plan-maker`. The other 4 —
-`docs-maker.md`, `docs-checker.md`, `specs-maker.md`, and `test-checker.md`
-— still carry their pre-rename name inside the frontmatter `name:` field,
-even though the filename (and every invocation in this catalog) uses the
-current name. Each is flagged with ⚠ in its family table below, with an
-inline note explaining the specific mismatch. This is a known, tracked
-inconsistency in `.claude/agents/`, not a documentation error — fixing the
-frontmatter itself is out of scope for the plan that produced this catalog
-rewrite (tracked as a follow-up for `agent-maker`'s domain; see
-`plans/done/2026-10-08__fix-claude-agents-catalog-doc/requirements.md`
-Non-Scope #1).
-
 ## Agent Families
 
 ### 1. Documentation (6 agents)
@@ -71,28 +55,12 @@ following the Diátaxis framework.
 
 | Filename                                                            | Role    | Purpose                                                                                                                                  | Model  | Color  | Skills                                                                                                                        |
 | ------------------------------------------------------------------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------- | ------ | ------ | ----------------------------------------------------------------------------------------------------------------------------- |
-| [`docs-maker.md`](../../.claude/agents/docs-maker.md) ⚠             | Maker   | Creates and updates documentation following the Diátaxis framework (tutorials, how-to, reference, explanation)                           | sonnet | purple | docs-applying-content-quality, docs-applying-diataxis-framework, wow-criticality-assessment                                   |
-| [`docs-checker.md`](../../.claude/agents/docs-checker.md) ⚠         | Checker | Audits API doc completeness, JSDoc coverage, and Diátaxis categorization; writes `docs-audit-*.md` reports                               | sonnet | blue   | docs-applying-content-quality, docs-applying-diataxis-framework, docs-validating-factual-accuracy, wow-criticality-assessment |
+| [`docs-maker.md`](../../.claude/agents/docs-maker.md)               | Maker   | Creates and updates documentation following the Diátaxis framework (tutorials, how-to, reference, explanation)                           | sonnet | purple | docs-applying-content-quality, docs-applying-diataxis-framework, wow-criticality-assessment                                   |
+| [`docs-checker.md`](../../.claude/agents/docs-checker.md)           | Checker | Audits API doc completeness, JSDoc coverage, and Diátaxis categorization; writes `docs-audit-*.md` reports                               | sonnet | blue   | docs-applying-content-quality, docs-applying-diataxis-framework, docs-validating-factual-accuracy, wow-criticality-assessment |
 | [`docs-fixer.md`](../../.claude/agents/docs-fixer.md)               | Fixer   | Applies targeted corrections from `docs-checker` findings: categorization fixes, broken links, content gaps                              | sonnet | orange | docs-applying-content-quality, docs-applying-diataxis-framework, wow-criticality-assessment                                   |
 | [`docs-file-manager.md`](../../.claude/agents/docs-file-manager.md) | Manager | Renames, moves, and deletes files inside `docs/`; preserves git history via `git mv`/`git rm`; updates internal links and README indices | haiku  | yellow | none declared                                                                                                                 |
 | [`docs-link-checker.md`](../../.claude/agents/docs-link-checker.md) | Checker | Scans every Markdown file in the project for broken internal, external, and same-file anchor links; writes `link-audit-*.md` reports     | sonnet | blue   | docs-validating-links, wow-criticality-assessment                                                                             |
 | [`docs-link-fixer.md`](../../.claude/agents/docs-link-fixer.md)     | Fixer   | Repairs broken links found by `docs-link-checker`, fuzzy-matching renamed/moved files via git history                                    | sonnet | orange | docs-validating-links, wow-criticality-assessment                                                                             |
-
-⚠ `docs-maker.md`: Known issue — this agent's frontmatter `name:` field
-still reads `documentation-writer` rather than `docs-maker`, a leftover from
-the 2026-05-19 rename. Invocation by `@docs-maker` is the repo convention
-going forward; this mismatch is tracked for a follow-up `agent-maker` fix,
-out of scope for this plan — see
-`plans/done/2026-10-08__fix-claude-agents-catalog-doc/requirements.md`
-Non-Scope #1.
-
-⚠ `docs-checker.md`: Known issue — this agent's frontmatter `name:` field
-still reads `docs-validator` rather than `docs-checker`, a leftover from the
-2026-05-19 rename. Invocation by `@docs-checker` is the repo convention going
-forward; this mismatch is tracked for a follow-up `agent-maker` fix, out of
-scope for this plan — see
-`plans/done/2026-10-08__fix-claude-agents-catalog-doc/requirements.md`
-Non-Scope #1.
 
 ### 2. Planning (4 agents)
 
@@ -114,28 +82,12 @@ E2E/API/unit tests, keeping specs and tests in sync.
 
 | Filename                                                    | Role    | Purpose                                                                                                                                | Model  | Color  | Skills                                                                    |
 | ----------------------------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------------------------------------- | ------ | ------ | ------------------------------------------------------------------------- |
-| [`specs-maker.md`](../../.claude/agents/specs-maker.md) ⚠   | Maker   | Creates and updates Gherkin feature files in `specs/`, following the 1-1-1 rule (1 Given, 1 When, 1 Then per scenario)                 | sonnet | purple | test-coverage-rules, test-playwright-patterns, wow-criticality-assessment |
+| [`specs-maker.md`](../../.claude/agents/specs-maker.md)     | Maker   | Creates and updates Gherkin feature files in `specs/`, following the 1-1-1 rule (1 Given, 1 When, 1 Then per scenario)                 | sonnet | purple | test-coverage-rules, test-playwright-patterns, wow-criticality-assessment |
 | [`specs-checker.md`](../../.claude/agents/specs-checker.md) | Checker | Validates 1-1-1 rule compliance and specs ↔ Playwright test synchronization; writes `test-audit-*.md`-style reports                    | sonnet | blue   | test-coverage-rules, test-playwright-patterns, wow-criticality-assessment |
 | [`specs-fixer.md`](../../.claude/agents/specs-fixer.md)     | Fixer   | Fixes 1-1-1 violations, adds missing edge-case scenarios, renames duplicate scenario names                                             | sonnet | orange | test-coverage-rules, test-playwright-patterns, wow-criticality-assessment |
 | [`test-maker.md`](../../.claude/agents/test-maker.md)       | Maker   | Creates new Playwright E2E tests, Playwright API tests, and Jest unit tests from Gherkin specs or requirements                         | sonnet | purple | test-coverage-rules, test-playwright-patterns, wow-criticality-assessment |
-| [`test-checker.md`](../../.claude/agents/test-checker.md) ⚠ | Checker | Validates E2E test coverage, specs ↔ test synchronization, and detects flaky tests/brittle selectors; writes `test-audit-*.md` reports | sonnet | blue   | test-coverage-rules, test-playwright-patterns, wow-criticality-assessment |
+| [`test-checker.md`](../../.claude/agents/test-checker.md)   | Checker | Validates E2E test coverage, specs ↔ test synchronization, and detects flaky tests/brittle selectors; writes `test-audit-*.md` reports | sonnet | blue   | test-coverage-rules, test-playwright-patterns, wow-criticality-assessment |
 | [`test-fixer.md`](../../.claude/agents/test-fixer.md)       | Fixer   | Fixes failing, flaky, or brittle Playwright tests found by `test-checker`; replaces fragile selectors with `data-testid`               | sonnet | orange | test-coverage-rules, test-playwright-patterns, wow-criticality-assessment |
-
-⚠ `specs-maker.md`: Known issue — this agent's frontmatter `name:` field
-still reads `gherkin-spec-writer` rather than `specs-maker`, a leftover from
-the 2026-05-19 rename. Invocation by `@specs-maker` is the repo convention
-going forward; this mismatch is tracked for a follow-up `agent-maker` fix,
-out of scope for this plan — see
-`plans/done/2026-10-08__fix-claude-agents-catalog-doc/requirements.md`
-Non-Scope #1.
-
-⚠ `test-checker.md`: Known issue — this agent's frontmatter `name:` field
-still reads `test-validator` rather than `test-checker`, a leftover from the
-2026-05-19 rename. Invocation by `@test-checker` is the repo convention going
-forward; this mismatch is tracked for a follow-up `agent-maker` fix, out of
-scope for this plan — see
-`plans/done/2026-10-08__fix-claude-agents-catalog-doc/requirements.md`
-Non-Scope #1.
 
 ### 4. SWE Language Devs (7 agents)
 
@@ -239,14 +191,10 @@ list in frontmatter; both reference skills by path in their body text
 instead (`repo-assessing-criticality-confidence`,
 `repo-applying-maker-checker-fixer`).
 
-| Filename                                                        | Role             | Purpose                                                                                                                                                                                                       | Model                   | Color  |
-| --------------------------------------------------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- | ------ |
-| [`pr-review-maker.md`](../../.claude/agents/pr-review-maker.md) | Maker (reviewer) | Reads a PR's full diff plus its originating plan/issue, then posts line-anchored, evidence-cited findings (confidence ≥ 80, CRITICAL/HIGH/MEDIUM/LOW) via the GitHub Reviews API — never edits files directly | not set in frontmatter¹ | blue   |
-| [`pr-review-fixer.md`](../../.claude/agents/pr-review-fixer.md) | Fixer            | Enumerates every unresolved GitHub PR review thread, applies a 4-way triage (fix / reject / defer / clarify), pushes fixes, replies to every thread, and resolves only what it actually addressed             | sonnet                  | yellow |
-
-¹ `pr-review-maker.md`'s frontmatter has a `model:` key present but with no
-value assigned — it is the only one of the 53 agent files where `model:` is
-left blank rather than set to `sonnet` or `haiku`.
+| Filename                                                        | Role             | Purpose                                                                                                                                                                                                       | Model  | Color  |
+| --------------------------------------------------------------- | ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------ | ------ |
+| [`pr-review-maker.md`](../../.claude/agents/pr-review-maker.md) | Maker (reviewer) | Reads a PR's full diff plus its originating plan/issue, then posts line-anchored, evidence-cited findings (confidence ≥ 80, CRITICAL/HIGH/MEDIUM/LOW) via the GitHub Reviews API — never edits files directly | sonnet | blue   |
+| [`pr-review-fixer.md`](../../.claude/agents/pr-review-fixer.md) | Fixer            | Enumerates every unresolved GitHub PR review thread, applies a 4-way triage (fix / reject / defer / clarify), pushes fixes, replies to every thread, and resolves only what it actually addressed             | sonnet | yellow |
 
 ### 13. Web & API Testing/Research (5 agents)
 
