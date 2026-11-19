@@ -1,6 +1,6 @@
 # IKP Labs
 
-[![CI](https://github.com/isnendyankp/ikp-labs/actions/workflows/ci.yml/badge.svg)](https://github.com/isnendyankp/ikp-labs/actions/workflows/ci.yml)
+[![CI](https://github.com/isnendyankp/ikp-labs/actions/workflows/kameravue-ci.yml/badge.svg)](https://github.com/isnendyankp/ikp-labs/actions/workflows/kameravue-ci.yml)
 [![Tests](https://img.shields.io/badge/Tests-512%20total-blue)](docs/tutorials/testing-guide.md)
 [![Coverage](https://img.shields.io/badge/Coverage-80%25%2B-brightgreen)](docs/tutorials/testing-guide.md)
 
