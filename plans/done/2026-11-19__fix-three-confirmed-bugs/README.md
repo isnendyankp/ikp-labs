@@ -2,7 +2,7 @@
 
 ## Status
 
-🚧 **IN PROGRESS** — Created 2026-11-19
+✅ **COMPLETED** — Created 2026-11-19, Completed 2026-11-19
 
 ## Overview
 
@@ -114,4 +114,20 @@ PR-count-maximization, matching the precedent set by
 
 ## Knowledge Capture
 
-To be completed at plan archival.
+No generalizable learnings beyond existing precedent. This plan followed
+the bundling and Phase 0/1/2 structure already established by
+`plans/done/2026-11-12__fix-plans-readme-stale-index/` rather than
+discovering a new pattern.
+
+One implementation-time finding is worth noting for future similar plans,
+though it doesn't rise to a new skill or governance change: when a doc
+documents a "known bug" via more than one textual mechanism (here, Bug 2
+used a dedicated paragraph + `⚠` markers + inline notes, while Bug 3's
+same doc separately used a table cell value + footnote with no shared
+keyword between the two), a single `grep` for an expected keyword (e.g.
+"mismatch" or "⚠") will not surface every place the bug is documented.
+Task 1.4 found the second mechanism only by reading the full file, not by
+keyword search. This is already implicit in `docs-validating-factual-accuracy`
+and standard code-review practice (read the whole file, don't just grep for
+the obvious marker), so no new skill content is needed — recorded here only
+as a concrete example for this plan's own record.
