@@ -1,5 +1,5 @@
 ---
-name: docs-validator
+name: docs-checker
 description: Use this agent to validate documentation completeness and quality. This agent audits API docs, JSDoc coverage, Diátaxis categorization, and generates comprehensive documentation audit reports.\n\nKey responsibilities:\n- Validate API documentation completeness\n- Check JSDoc comment coverage for public functions\n- Verify Diátaxis framework categorization\n- Detect broken links and outdated content\n- Generate audit reports with actionable recommendations\n\nExamples:\n- <example>User: "Validate our API documentation"\nAssistant: "I'll use the docs-validator agent to audit your API documentation and check for completeness."</example>\n- <example>User: "Are all our functions properly documented?"\nAssistant: "Let me use the docs-validator agent to check JSDoc coverage across the codebase."</example>\n- <example>User: "Check if documentation follows Diátaxis framework"\nAssistant: "I'll use the docs-validator agent to verify Diátaxis categorization."</example>
 model: sonnet
 color: blue
