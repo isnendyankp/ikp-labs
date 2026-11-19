@@ -227,6 +227,37 @@ Non-Scope #1.
 ### 4. SWE Language Devs (7 agents)
 ```
 
+### Change 3.6 — Remove the PR Review family's "not set in frontmatter" note (discovered during implementation)
+
+**Found while implementing Task 1.4**: `docs/reference/claude-agents.md`'s
+PR Review family table (section 12) and its footnote also document Bug 3's
+broken state, independently of the paragraph/marker/note structure used for
+Bug 2. This was not caught by the original research because it doesn't use
+the word "mismatch" or the `⚠` character. Fixing it is required for the
+same reason as Change 3.1-3.5: leaving it would ship a now-false claim in
+the same PR that fixes the thing it describes.
+
+**Before:**
+
+```markdown
+| [`pr-review-maker.md`](../../.claude/agents/pr-review-maker.md) | Maker (reviewer) | Reads a PR's full diff plus its originating plan/issue, then posts line-anchored, evidence-cited findings (confidence ≥ 80, CRITICAL/HIGH/MEDIUM/LOW) via the GitHub Reviews API — never edits files directly | not set in frontmatter¹ | blue |
+| [`pr-review-fixer.md`](../../.claude/agents/pr-review-fixer.md) | Fixer | Enumerates every unresolved GitHub PR review thread, applies a 4-way triage (fix / reject / defer / clarify), pushes fixes, replies to every thread, and resolves only what it actually addressed | sonnet | yellow |
+
+¹ `pr-review-maker.md`'s frontmatter has a `model:` key present but with no
+value assigned — it is the only one of the 53 agent files where `model:` is
+left blank rather than set to `sonnet` or `haiku`.
+```
+
+**After:**
+
+```markdown
+| [`pr-review-maker.md`](../../.claude/agents/pr-review-maker.md) | Maker (reviewer) | Reads a PR's full diff plus its originating plan/issue, then posts line-anchored, evidence-cited findings (confidence ≥ 80, CRITICAL/HIGH/MEDIUM/LOW) via the GitHub Reviews API — never edits files directly | sonnet | blue |
+| [`pr-review-fixer.md`](../../.claude/agents/pr-review-fixer.md) | Fixer | Enumerates every unresolved GitHub PR review thread, applies a 4-way triage (fix / reject / defer / clarify), pushes fixes, replies to every thread, and resolves only what it actually addressed | sonnet | yellow |
+```
+
+The footnote marker `¹` and its footnote text are deleted along with the
+stale cell value.
+
 ## Change 4 — `.claude/agents/pr-review-maker.md` line 5 (Bug 3)
 
 **Before:**
@@ -262,6 +293,6 @@ grep -c "workflows/kameravue-ci\.yml" README.md # expect 2
 grep -n "^name:" .claude/agents/docs-maker.md .claude/agents/docs-checker.md \
   .claude/agents/specs-maker.md .claude/agents/test-checker.md
 # expect: docs-maker, docs-checker, specs-maker, test-checker respectively
-grep -n "mismatch\|⚠" docs/reference/claude-agents.md  # expect 0 matches
+grep -n "mismatch\|⚠\|not set in frontmatter" docs/reference/claude-agents.md  # expect 0 matches
 grep -n "^model:" .claude/agents/pr-review-maker.md     # expect "model: sonnet"
 ```

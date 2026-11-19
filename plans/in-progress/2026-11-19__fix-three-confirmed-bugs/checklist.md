@@ -59,22 +59,23 @@ implementation starting.
 
 **Steps**:
 
-1. [ ] Create branch `fix/three-confirmed-bugs`
-2. [ ] `sed -n '3p' README.md` — re-confirm line 3 still contains two
-       `workflows/ci.yml` occurrences
-3. [ ] `grep -n "^name:" .claude/agents/docs-maker.md
-   .claude/agents/docs-checker.md .claude/agents/specs-maker.md
-   .claude/agents/test-checker.md` — re-confirm all 4 still carry the
-       pre-rename values documented in `technical-design.md` Change 2
-4. [ ] `grep -n "mismatch\|⚠" docs/reference/claude-agents.md` — re-confirm
+1. [x] Create branch `fix/three-confirmed-bugs`
+2. [x] `sed -n '3p' README.md` — re-confirm line 3 still contains two
+       `workflows/ci.yml` occurrences. Confirmed.
+3. [x] `grep -n "^name:" .claude/agents/docs-maker.md
+.claude/agents/docs-checker.md .claude/agents/specs-maker.md
+.claude/agents/test-checker.md` — re-confirm all 4 still carry the
+       pre-rename values documented in `technical-design.md` Change 2.
+       Confirmed.
+4. [x] `grep -c "mismatch\|⚠" docs/reference/claude-agents.md` — re-confirm
        the paragraph, markers, and notes documented in `technical-design.md`
-       Change 3 are all still present and unchanged
-5. [ ] `grep -n "^model:" .claude/agents/pr-review-maker.md` — re-confirm
-       line 5 is still empty `model:`
+       Change 3 are all still present and unchanged. Confirmed (15 matches).
+5. [x] `grep -n "^model:" .claude/agents/pr-review-maker.md` — re-confirm
+       line 5 is still empty `model:`. Confirmed.
 
 **Acceptance Criteria**:
 
-- [ ] All before-text either matches `technical-design.md` exactly, or any
+- [x] All before-text either matches `technical-design.md` exactly, or any
       drift is noted and the edits below are adjusted to the real current
       text before proceeding. No drift found.
 
@@ -90,15 +91,15 @@ implementation starting.
 
 **Steps**:
 
-1. [ ] Replace both `workflows/ci.yml` occurrences on line 3 with
+1. [x] Replace both `workflows/ci.yml` occurrences on line 3 with
        `workflows/kameravue-ci.yml`
-2. [ ] **COMMIT**: `fix(docs): point ci badge link at kameravue-ci.yml`
+2. [x] **COMMIT**: `fix(docs): point ci badge link at kameravue-ci.yml`
 
 **Acceptance Criteria**:
 
-- [ ] `grep -c "workflows/ci\.yml" README.md` returns `0`
-- [ ] `grep -c "workflows/kameravue-ci\.yml" README.md` returns `2`
-- [ ] `git diff README.md` touches only line 3
+- [x] `grep -c "workflows/ci\.yml" README.md` returns `0`
+- [x] `grep -c "workflows/kameravue-ci\.yml" README.md` returns `2`
+- [x] `git diff README.md` touches only line 3
 
 **Verification**:
 
@@ -120,27 +121,27 @@ git diff --stat README.md
 
 **Steps**:
 
-1. [ ] `.claude/agents/docs-maker.md` line 2: `documentation-writer` →
+1. [x] `.claude/agents/docs-maker.md` line 2: `documentation-writer` →
        `docs-maker`
-2. [ ] `.claude/agents/docs-checker.md` line 2: `docs-validator` →
+2. [x] `.claude/agents/docs-checker.md` line 2: `docs-validator` →
        `docs-checker`
-3. [ ] `.claude/agents/specs-maker.md` line 2: `gherkin-spec-writer` →
+3. [x] `.claude/agents/specs-maker.md` line 2: `gherkin-spec-writer` →
        `specs-maker`
-4. [ ] `.claude/agents/test-checker.md` line 2: `test-validator` →
+4. [x] `.claude/agents/test-checker.md` line 2: `test-validator` →
        `test-checker`
-5. [ ] **COMMIT**: `fix(agents): correct frontmatter name field for 4 renamed agents`
+5. [x] **COMMIT**: `fix(agents): correct frontmatter name field for 4 renamed agents`
 
 **Acceptance Criteria**:
 
-- [ ] `grep -n "^name:" .claude/agents/docs-maker.md` returns
+- [x] `grep -n "^name:" .claude/agents/docs-maker.md` returns
       `name: docs-maker`
-- [ ] `grep -n "^name:" .claude/agents/docs-checker.md` returns
+- [x] `grep -n "^name:" .claude/agents/docs-checker.md` returns
       `name: docs-checker`
-- [ ] `grep -n "^name:" .claude/agents/specs-maker.md` returns
+- [x] `grep -n "^name:" .claude/agents/specs-maker.md` returns
       `name: specs-maker`
-- [ ] `grep -n "^name:" .claude/agents/test-checker.md` returns
+- [x] `grep -n "^name:" .claude/agents/test-checker.md` returns
       `name: test-checker`
-- [ ] `git diff` on each of the 4 files touches only line 2 — no other
+- [x] `git diff` on each of the 4 files touches only line 2 — no other
       frontmatter field changed
 
 **Verification**:
@@ -161,38 +162,44 @@ git diff --stat .claude/agents/docs-maker.md .claude/agents/docs-checker.md \
 
 ### Task 1.4: Fix Bug 2, part B — clean up `docs/reference/claude-agents.md`
 
-**Goal**: Apply Changes 3.1-3.5 from `technical-design.md` so the catalog
+**Goal**: Apply Changes 3.1-3.6 from `technical-design.md` so the catalog
 no longer documents a bug that was just fixed in Task 1.3.
 
 **Steps**:
 
-1. [ ] Change 3.1: remove the "Known frontmatter/filename mismatch (4
+1. [x] Change 3.1: remove the "Known frontmatter/filename mismatch (4
        agents)" paragraph
-2. [ ] Change 3.2: remove `⚠` from the `docs-maker.md` and `docs-checker.md`
+2. [x] Change 3.2: remove `⚠` from the `docs-maker.md` and `docs-checker.md`
        rows in the Documentation family table
-3. [ ] Change 3.3: remove the 2 inline "Known issue" notes after the
+3. [x] Change 3.3: remove the 2 inline "Known issue" notes after the
        Documentation family table
-4. [ ] Change 3.4: remove `⚠` from the `specs-maker.md` and `test-checker.md`
+4. [x] Change 3.4: remove `⚠` from the `specs-maker.md` and `test-checker.md`
        rows in the Testing & Specs family table
-5. [ ] Change 3.5: remove the 2 inline "Known issue" notes after the
+5. [x] Change 3.5: remove the 2 inline "Known issue" notes after the
        Testing & Specs family table
-6. [ ] Confirm no other content in the file changed (agent counts, other
-       family tables, other sections)
-7. [ ] **COMMIT**: `docs(agents): remove resolved frontmatter mismatch notes from catalog`
+6. [x] Change 3.6 (discovered during implementation): remove the PR Review
+       family table's "not set in frontmatter¹" Model cell and its footnote
+       for `pr-review-maker.md`, replacing the cell with `sonnet`
+7. [x] Confirm no other content in the file changed (agent counts, other
+       family tables, other sections) — confirmed via `git diff --stat`
+       (62 lines touched: 5 insertions, 57 deletions, all within the 6
+       documented regions)
+8. [x] **COMMIT**: `docs(agents): remove resolved frontmatter mismatch notes from catalog`
 
 **Acceptance Criteria**:
 
-- [ ] `grep -n "mismatch\|⚠" docs/reference/claude-agents.md` returns zero
-      matches
-- [ ] `grep -c "^### " docs/reference/claude-agents.md` is unchanged from
-      before this task (no heading accidentally deleted)
-- [ ] `git diff docs/reference/claude-agents.md` touches only the 5
+- [x] `grep -n "mismatch\|⚠\|not set in frontmatter" docs/reference/claude-agents.md`
+      returns zero matches
+- [x] `grep -c "^### " docs/reference/claude-agents.md` is unchanged from
+      before this task (15 before, 15 after — no heading accidentally
+      deleted)
+- [x] `git diff docs/reference/claude-agents.md` touches only the 6
       documented regions
 
 **Verification**:
 
 ```bash
-grep -n "mismatch\|⚠" docs/reference/claude-agents.md
+grep -n "mismatch\|⚠\|not set in frontmatter" docs/reference/claude-agents.md
 git diff --stat docs/reference/claude-agents.md
 ```
 
@@ -209,14 +216,14 @@ git diff --stat docs/reference/claude-agents.md
 
 **Steps**:
 
-1. [ ] `.claude/agents/pr-review-maker.md` line 5: `model:` → `model: sonnet`
-2. [ ] **COMMIT**: `fix(agents): set model to sonnet on pr-review-maker`
+1. [x] `.claude/agents/pr-review-maker.md` line 5: `model:` → `model: sonnet`
+2. [x] **COMMIT**: `fix(agents): set model to sonnet on pr-review-maker`
 
 **Acceptance Criteria**:
 
-- [ ] `grep -n "^model:" .claude/agents/pr-review-maker.md` returns
+- [x] `grep -n "^model:" .claude/agents/pr-review-maker.md` returns
       `model: sonnet`
-- [ ] `git diff .claude/agents/pr-review-maker.md` touches only line 5
+- [x] `git diff .claude/agents/pr-review-maker.md` touches only line 5
 
 **Verification**:
 

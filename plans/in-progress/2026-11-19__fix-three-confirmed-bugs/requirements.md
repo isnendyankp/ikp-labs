@@ -35,6 +35,13 @@
 
 - Set `.claude/agents/pr-review-maker.md` line 5 from `model:` (empty) to
   `model: sonnet`.
+- Remove the now-false `pr-review-maker.md` Model cell value ("not set in
+  frontmatter¹") and its footnote from `docs/reference/claude-agents.md`'s
+  PR Review family table (section 12), replacing the cell with `sonnet`.
+  Discovered during implementation (Task 1.4): this doc independently
+  documents Bug 3's broken state, separately from the Bug 2
+  paragraph/marker/note structure, for the same "don't ship a doc
+  describing a bug that was just fixed" reason.
 
 ## Non-Scope
 
@@ -165,8 +172,8 @@ Scenario: pr-review-maker has an explicit, correct model value
 - `grep -n "^name:" .claude/agents/docs-maker.md` returns `name: docs-maker`;
   same pattern confirmed for `docs-checker.md`, `specs-maker.md`,
   `test-checker.md` against their respective correct names.
-- `grep -n "mismatch\|⚠" docs/reference/claude-agents.md` returns zero
-  matches.
+- `grep -n "mismatch\|⚠\|not set in frontmatter" docs/reference/claude-agents.md`
+  returns zero matches.
 - `grep -n "^model:" .claude/agents/pr-review-maker.md` returns
   `model: sonnet`.
 - All changes land on `main` via a single merged PR.
