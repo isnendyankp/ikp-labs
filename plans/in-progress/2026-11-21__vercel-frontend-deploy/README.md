@@ -4,6 +4,12 @@
 
 🚧 **IN PROGRESS** — Created 2026-11-21
 
+**Progress**: Phase 0 (plan setup, PR #353), Phase 1a (Next.js CVE patch,
+PR #354), and Phase 1b (stale lockfile removal, PR #355) are merged to
+`main`. Execution is **paused at Phase 2**, pending the user's own
+interactive Vercel dashboard setup — see `checklist.md` for the exact
+walkthrough.
+
 ## Overview
 
 `kameravue.com`'s registrar/hosting account (Hostinger) flagged the site as
