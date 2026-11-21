@@ -10,34 +10,47 @@ SSH session) — not resolvable by `git diff`, written as a confirmation step.
 - [x] Create `plans/in-progress/2026-11-21__vercel-frontend-deploy/requirements.md`
 - [x] Create `plans/in-progress/2026-11-21__vercel-frontend-deploy/technical-design.md`
 - [x] Create `plans/in-progress/2026-11-21__vercel-frontend-deploy/checklist.md` (this file)
-- [ ] Run the post-write grill-me validation pass against all 4 documents
-- [ ] Commit all 4 documents and open the Phase 0 PR
-- [ ] Merge the Phase 0 PR to `main`
+- [x] Run the post-write grill-me validation pass against all 4 documents
+- [x] Commit all 4 documents and open the Phase 0 PR (PR #353)
+- [x] Merge the Phase 0 PR to `main`
 
-## Phase 1a — Patch the Next.js CVE `[PR]`
+## Phase 1a — Patch the Next.js CVE `[PR]` — ✅ Merged (PR #354)
 
-- [ ] Create branch `fix/deps-nextjs-cve-2026-96889` from `main`
-- [ ] Edit `apps/kameravue-fe/package.json`: `"next": "15.5.0"` → `"next": "15.5.29"`
-- [ ] Edit `apps/kameravue-fe/package.json`: `"eslint-config-next": "15.5.0"` → `"eslint-config-next": "15.5.29"`
-- [ ] From the repo root, run `npm install` to regenerate `package-lock.json` against the bumped versions
-- [ ] Verify: `node -e "console.log(require('./package-lock.json').packages['node_modules/next'].version)"` prints `15.5.29`
-- [ ] Run `nx lint kameravue-fe` — no new lint errors introduced by the bump
-- [ ] Run `nx test kameravue-fe` — existing unit tests still pass
-- [ ] Run `nx build kameravue-fe` — production build still succeeds on `15.5.29`
-- [ ] Commit with message `fix(deps): patch next.js critical rce (cve-2026-96889)`
-- [ ] Push branch, open PR 1a, verify `kameravue-ci.yml` passes
-- [ ] Merge PR 1a to `main`
+- [x] Create branch `fix/deps-nextjs-cve-2026-96889` from `main`
+- [x] Edit `apps/kameravue-fe/package.json`: `"next": "15.5.0"` → `"next": "15.5.29"`
+- [x] Edit `apps/kameravue-fe/package.json`: `"eslint-config-next": "15.5.0"` → `"eslint-config-next": "15.5.29"`
+- [x] From the repo root, run `npm install` to regenerate `package-lock.json` against the bumped versions
+- [x] Verify the patched version resolved — the lockfile actually keys workspace-specific
+      resolutions under `apps/kameravue-fe/node_modules/next`, not the top-level
+      `node_modules/next` this item originally assumed: `node -e "console.log(require('./package-lock.json').packages['apps/kameravue-fe/node_modules/next'].version)"` printed `15.5.29`
+- [x] Run `nx lint kameravue-fe` — no new lint errors introduced by the bump
+- [x] Run `nx test kameravue-fe` — existing unit tests still pass (394/394)
+- [x] Run `nx build kameravue-fe` — production build still succeeds on `15.5.29`
+- [x] Commit with message `fix(deps): patch next.js critical rce (cve-2026-96889)`
+- [x] Push branch, open PR 1a, verify `kameravue-ci.yml` passes
+- [x] Merge PR 1a to `main`
 
-## Phase 1b — Delete the Stale Nested Lockfile `[PR]`
+## Phase 1b — Delete the Stale Nested Lockfile `[PR]` — ✅ Merged (PR #355)
 
-- [ ] Create branch `chore/remove-stale-fe-lockfile` from `main` (after Phase 1a is merged)
-- [ ] `git rm apps/kameravue-fe/package-lock.json`
-- [ ] Verify: `find . -name "package-lock.json" -not -path "*/node_modules/*"` returns only the repo-root `package-lock.json`
-- [ ] Run `npm ci` from the repo root — confirm it still succeeds with only the root lockfile present
-- [ ] Run `nx run-many -t lint test build` — confirm nothing in CI depended on the nested lockfile
-- [ ] Commit with message `chore(fe): remove stale duplicate package-lock.json`
-- [ ] Push branch, open PR 1b, verify `kameravue-ci.yml` passes
-- [ ] Merge PR 1b to `main`
+- [x] Create branch `chore/remove-stale-fe-lockfile` from `main` (after Phase 1a is merged)
+- [x] `git rm apps/kameravue-fe/package-lock.json`
+- [x] Verify: `find . -name "package-lock.json" -not -path "*/node_modules/*"` returns only the repo-root `package-lock.json`
+- [x] Run `npm ci` from the repo root — confirm it still succeeds with only the root lockfile present.
+      This also surfaced a previously-missing set of optional platform packages
+      (`@next/swc-*` for darwin/linux) that npm backfilled into the root lockfile —
+      confirming the nested lockfile had been quietly interfering with root lockfile
+      resolution, not just sitting unused
+- [x] Run `nx lint kameravue-fe`, `nx test kameravue-fe`, `nx build kameravue-fe` individually
+      (the `nx run-many -t lint test build` form originally planned here failed to parse
+      its `-t` argument in this environment; running each target separately worked and
+      confirmed nothing in CI depended on the nested lockfile)
+- [x] Commit with message `chore(fe): remove stale duplicate package-lock.json`
+- [x] Push branch, open PR 1b, verify `kameravue-ci.yml` passes
+- [x] Merge PR 1b to `main`
+
+**Phase 1 complete. Execution pauses here — Phase 2 requires the user's own
+interactive action in the Vercel dashboard and cannot be performed via any
+available tool.**
 
 ## Phase 2 — Vercel Project Setup `[MANUAL]` — interactive, not a PR
 
