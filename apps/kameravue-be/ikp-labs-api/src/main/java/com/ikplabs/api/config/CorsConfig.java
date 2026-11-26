@@ -66,8 +66,9 @@ public class CorsConfig {
             "http://localhost:3004",     // Auto-assigned port by Next.js
             "http://localhost:3005",     // Auto-assigned port by Next.js
             // Production origins
-            "https://kameravue.com",     // Production frontend
-            "https://www.kameravue.com"  // Production frontend (www subdomain)
+            "https://kameravue.com",     // Production frontend (domain currently unreachable, kept for when restored)
+            "https://www.kameravue.com", // Production frontend (www subdomain, same status)
+            "https://kameravue.vercel.app" // Production frontend, deployed on Vercel
         ));
 
         // === ALLOWED METHODS ===
