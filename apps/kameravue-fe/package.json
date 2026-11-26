@@ -16,7 +16,8 @@
     "test:cucumber": "TS_NODE_PROJECT=../tests/gherkin/tsconfig.json cucumber-js ../tests/gherkin/features --require-module ts-node/register --require ../tests/gherkin/steps/**/*.ts",
     "test:all": "npm run test && cd .. && npx playwright test",
     "prepare": "husky",
-    "setup:linux": "npm install lightningcss-linux-x64-gnu@1.31.1 @tailwindcss/oxide-linux-x64-gnu@4.1.12 && cp node_modules/lightningcss-linux-x64-gnu/lightningcss.linux-x64-gnu.node node_modules/lightningcss/node/ && cp node_modules/@tailwindcss/oxide-linux-x64-gnu/tailwindcss-oxide.linux-x64-gnu.node node_modules/@tailwindcss/oxide/"
+    "postinstall": "node scripts/postinstall-linux-natives.js",
+    "setup:linux": "npm install lightningcss-linux-x64-gnu@1.30.1 @tailwindcss/oxide-linux-x64-gnu@4.1.12 && cp node_modules/lightningcss-linux-x64-gnu/lightningcss.linux-x64-gnu.node node_modules/lightningcss/node/ && cp node_modules/@tailwindcss/oxide-linux-x64-gnu/tailwindcss-oxide.linux-x64-gnu.node node_modules/@tailwindcss/oxide/"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",
@@ -25,6 +26,10 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "zod": "^4.1.3"
+  },
+  "optionalDependencies": {
+    "@tailwindcss/oxide-linux-x64-gnu": "4.1.12",
+    "lightningcss-linux-x64-gnu": "1.30.1"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [

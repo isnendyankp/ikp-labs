@@ -1,7 +1,7 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
-/node_modules
+node_modules
 /.pnp
 .pnp.*
 .yarn/*
@@ -151,5 +151,5 @@ deployment/
 
 # Deployment Scripts - Local & VPS automation
 # Scripts tidak perlu di repository, hanya ada di lokal dan VPS
-scripts/
+/scripts/
 
